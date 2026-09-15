@@ -252,7 +252,7 @@ essentials:
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
 
       -
-        if: no_sandoxes
+        if: no_sandboxes
         title: Drafting a new article in a sandbox
         kind: 1
         content: |

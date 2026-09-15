@@ -42,7 +42,7 @@ class WizardTimelineManager
   def handle_extra_settings
     # For courses that have 'no_sandboxes' set
     # and haven't selected 'yes_sandboxes' via the wizard,
-    # ensure that they get the no_sandoxes handling.
+    # ensure that they get the no_sandboxes handling.
     return unless @course.no_sandboxes?
     return if @logic.include? 'yes_sandboxes'
     @logic << 'no_sandboxes'
