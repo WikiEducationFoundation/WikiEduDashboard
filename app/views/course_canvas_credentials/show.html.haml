@@ -52,26 +52,23 @@
     -# we can show again.
     .module
       %h2 Your Canvas credentials
-      .lti-setup__error
+      .canvas-credentials__warning
         %p
           %strong Copy the shared secret now.
           It will not be shown again. If you lose it, come back to this page and generate a new one.
-      %dl.lti-status-list
-        .lti-status-list__row
-          %dt Consumer key
-          %dd
-            %code.credential-value= @key.key
-            %button.button.border.credential-copy{ type: 'button', data: { value: @key.key } } Copy
-        .lti-status-list__row
-          %dt Shared secret
-          %dd
-            %code.credential-value= @secret
-            %button.button.border.credential-copy{ type: 'button', data: { value: @secret } } Copy
-        .lti-status-list__row
-          %dt Configuration URL
-          %dd
-            %code.credential-value= @config_url
-            %button.button.border.credential-copy{ type: 'button', data: { value: @config_url } } Copy
+      %dl.canvas-credentials__list
+        %dt Consumer key
+        %dd
+          %code.canvas-credentials__value= @key.key
+          %button.button.border.canvas-credentials__copy{ type: 'button', data: { value: @key.key } } Copy
+        %dt Shared secret
+        %dd
+          %code.canvas-credentials__value= @secret
+          %button.button.border.canvas-credentials__copy{ type: 'button', data: { value: @secret } } Copy
+        %dt Configuration URL
+        %dd
+          %code.canvas-credentials__value= @config_url
+          %button.button.border.canvas-credentials__copy{ type: 'button', data: { value: @config_url } } Copy
 
     .module
       %h2 Next: add the app in Canvas
@@ -96,20 +93,18 @@
   - else
     .module
       %h2 This course is connected to Canvas
-      %dl.lti-status-list
-        .lti-status-list__row
-          %dt Connected
-          %dd= @key.activated_at.to_fs(:long)
+      %dl.canvas-credentials__list
+        %dt Connected
+        %dd= @key.activated_at.to_fs(:long)
         - if @key.last_launch_at
-          .lti-status-list__row
-            %dt Last opened from Canvas
-            %dd= "#{time_ago_in_words(@key.last_launch_at)} ago"
+          %dt Last opened from Canvas
+          %dd= "#{time_ago_in_words(@key.last_launch_at)} ago"
       %p Students who open the wikiedu.org link in your Canvas course are enrolled in this course automatically. Nothing further is needed here.
       %p Remember that grades are not sent to your Canvas gradebook. Your students' training and article work is on the Dashboard.
     = render 'course_canvas_credentials/regenerate', course: @course
 
   :javascript
-    document.querySelectorAll('.credential-copy').forEach(function (button) {
+    document.querySelectorAll('.canvas-credentials__copy').forEach(function (button) {
       button.addEventListener('click', function () {
         navigator.clipboard.writeText(button.dataset.value).then(function () {
           var previous = button.textContent;
