@@ -50,6 +50,7 @@ class LtiLaunchController < ApplicationController
   include LtiAnonymousLaunch
   include LtiGradeSyncTrigger
   include LtiLaunchSession
+  include LtiLegacyLaunches
 
   # Every launch-flow view is a minimal, chrome-less page rather than the full
   # dashboard React shell. The setup / setup_pending / enrollment_* views were

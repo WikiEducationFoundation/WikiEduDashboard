@@ -173,6 +173,12 @@
   active_record_encryption_deterministic_key: 'example_deterministic_key'
   active_record_encryption_key_derivation_salt: 'example_key_derivation_salt'
 
+# Signs the launch tokens issued for LTI 1.1 launches we terminate ourselves
+# (LtiLegacyLaunchToken), the way LTIAAS's ltik is signed by LTIAAS. At least
+# 32 random bytes, and not shared with any other secret. Outside production a
+# fixed non-secret value is used when this is absent, so the suite runs.
+  lti_legacy_launch_token_secret: 'example_launch_token_secret'
+
 # Default timeslice duration (in seconds) used for processing course updates
   TIMESLICE_DURATION: '86400'
 

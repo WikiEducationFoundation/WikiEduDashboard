@@ -122,6 +122,21 @@ class LtiCourseBinding < ApplicationRecord
     lti_version != LTI_1_3
   end
 
+  # Adopt the Dashboard course a self-hosted LTI 1.1 consumer key was issued
+  # for, which is what spares that key's instructor the setup picker on their
+  # first launch. Assigns without saving; the caller is mid-save.
+  #
+  # Only ever fills an empty slot. A binding that already has a course keeps
+  # it, and a course already bound elsewhere is skipped rather than allowed to
+  # collide with the unique index on course_id. Idempotent, so if staff clear a
+  # wrong binding the next launch puts the right one back.
+  def claim_course(claimed_course_id)
+    return if claimed_course_id.blank? || course_id.present?
+    return if self.class.where.not(id:).exists?(course_id: claimed_course_id)
+
+    self.course_id = claimed_course_id
+  end
+
   # Learner memberships that have linked a Wikipedia account — the set that sync
   # status counts and assignment rosters list. Learners specifically, not
   # "everyone who isn't staff": a Canvas observer belongs in neither group.

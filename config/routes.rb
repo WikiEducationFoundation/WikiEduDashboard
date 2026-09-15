@@ -487,6 +487,10 @@ Rails.application.routes.draw do
   # LTI 1.1 tool configuration XML for Canvas's "By URL" install (public; gated
   # on the legacy-launch flags inside the controller). See LtiConfigController.
   get 'lti/legacy/config' => 'lti_config#legacy', defaults: { format: :xml }
+  # Where Canvas posts an LTI 1.1 launch. We terminate these ourselves rather
+  # than through LTIAAS, so the consumer keys are ours to issue and revoke.
+  # See LtiLegacyLaunchesController.
+  post 'lti/legacy/launch' => 'lti_legacy_launches#create'
   get 'lti' => 'lti_launch#launch'
   get 'lti/connect_course' => 'lti_launch#connect_course'
   get 'lti/assignment_view' => 'lti_launch#assignment_view'
