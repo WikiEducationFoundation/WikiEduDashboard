@@ -78,8 +78,10 @@ their next steps, articles, trainings, and exercises.
 ## If something doesn't work
 
 - **There is no + App button, or the Apps tab is missing.** Your institution
-  has turned off adding apps at the course level. Ask your Canvas administrator
-  to install it — send them the [installation guide](/lti/guide).
+  has turned off adding apps at the course level, so this route is closed to
+  you. Ask your Canvas administrator about the institution-wide LTI 1.3 version
+  instead — send them the [installation guide](/lti/guide) — or email
+  sage at wikiedu.org.
 - **Canvas won't save the app, or says it already exists.** A tool with the
   same address is already installed higher up in your Canvas — probably by an
   administrator — so it should already be in your course navigation. If it

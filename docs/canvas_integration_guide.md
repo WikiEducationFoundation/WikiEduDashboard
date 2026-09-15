@@ -14,13 +14,15 @@ run Wikipedia writing assignments. It covers evaluating, installing, and enablin
 the Dashboard's Canvas integration.
 
 The integration is an **LTI 1.3** tool, fronted by [LTIAAS](https://ltiaas.com), a
-third-party LTI service. (The LTI 1.1 version described below does not use
-LTIAAS; the Dashboard handles those launches itself.) Installing it follows the standard Canvas path for any LTI
-1.3 tool. For institutions that cannot install LTI 1.3 tools there is also an
-**LTI 1.1** version with a smaller feature set — see
-[Choosing between LTI 1.3 and LTI 1.1](#choosing-between-lti-13-and-lti-11). The
-steps below use Canvas's own labels so you can follow along one-to-one in the
-admin interface.
+third-party LTI service. Installing it follows the standard Canvas path for any
+LTI 1.3 tool, and the steps below use Canvas's own labels so you can follow along
+one-to-one in the admin interface.
+
+There is also a reduced **LTI 1.1** version, for instructors whose institution
+cannot install the 1.3 tool. It is not an institution-wide install: an instructor
+adds it inside their own course, and there is nothing for an administrator to
+install, approve, or configure. See
+[Choosing between LTI 1.3 and LTI 1.1](#choosing-between-lti-13-and-lti-11).
 
 ## What the integration does
 
@@ -47,39 +49,61 @@ gradebook passback, and no assignment import.
 
 ## Choosing between LTI 1.3 and LTI 1.1
 
-Install the **LTI 1.3** tool if you can. It is the full integration, it is the
-current LTI standard, and it is the version Wiki Education develops against.
+The two versions are installed by different people, in different places.
 
-The **LTI 1.1** tool is in limited beta, offered on request to institutions
-whose review process does not yet admit LTI 1.3 applications. It is a deliberately reduced, launch-only
-integration: students and instructors reach the Dashboard from Canvas and
-students are enrolled automatically, but nothing flows back to Canvas.
-Instructors grade from the Dashboard, the way courses that don't use Canvas
-already do. Two things to weigh:
+**LTI 1.3 is the institutional install**, and the one to use if you can. A Canvas
+administrator installs it once on the root account and it becomes available to
+every course. It is the full integration, it is the current LTI standard, and it
+is the version Wiki Education develops against. The rest of this guide covers it.
+
+**LTI 1.1 is a single-course install**, done by the instructor, in limited beta
+and offered on request. There is no institution-wide version of it. The
+instructor adds the tool inside their own course's Settings, using a consumer key
+and shared secret issued for that one course; nothing is installed on your
+account. The steps, with screenshots, are on the
+[instructor install page](/lti/guide/instructors).
+
+The 1.1 tool is a deliberately reduced, launch-only integration: students and
+instructors reach the Dashboard from Canvas and students are enrolled
+automatically, but nothing flows back to Canvas. Instructors grade from the
+Dashboard, the way courses that don't use Canvas already do. Three things to
+weigh:
 
 - LTI 1.1 is the deprecated protocol. 1EdTech ended support for it in June 2022
   and formally deprecated its security model, which rests on a shared secret
-  rather than the per-institution signed registration LTI 1.3 uses.
+  rather than the per-institution signed registration LTI 1.3 uses. Each of the
+  Dashboard's 1.1 secrets covers one course rather than an institution, and stops
+  working anywhere except the Canvas that first uses it.
 - Under LTI 1.1 the Dashboard receives *less* data than under 1.3 (see
   [What data is shared](#before-you-install-review-and-approvals)) — there is no
   roster service — so if data sharing is the concern, 1.1 does not add to it.
+- No third-party service sits in the 1.1 launch path. LTI 1.3 launches are
+  fronted by [LTIAAS](https://ltiaas.com); the Dashboard verifies 1.1 launches
+  itself.
 
 | | LTI 1.3 | LTI 1.1 |
 |---|---|---|
+| Who installs it | A Canvas administrator | The course's instructor |
+| Where it's installed | The root account, for every course | One course, in its own Settings |
 | Course-navigation link, account connection, automatic enrollment | Yes | Yes |
 | In-Canvas course overview for students and instructors | Yes | Yes |
 | Roster sync (NRPS) | Yes | No |
 | Assignment import (Deep Linking) | Yes | No |
 | Gradebook passback (AGS) | Yes | No |
-| Canvas requirements | Dynamic Registration (a paid add-on) | None beyond admin access |
-| Credentials | None to manage — Canvas and the Dashboard exchange them | A consumer key and shared secret from Wiki Education |
+| Canvas requirements | Dynamic Registration (a paid add-on) | The course-level "LTI - add" permission, on by default |
+| Third-party service in the launch path | LTIAAS | None |
+| Credentials | None to manage — Canvas and the Dashboard exchange them | A key and secret the instructor generates, good for one course |
 
 You can move from 1.1 to 1.3 later. Install the 1.3 tool following its steps
-below, then [tell us](#getting-help) before removing the 1.1 tool: courses already
-linked through the 1.1 tool have to be moved to the new install by Wiki Education,
-because a Dashboard course can be linked to only one Canvas tool at a time.
+below, then [tell us](#getting-help) before any instructor removes the 1.1 tool
+from their course: courses already linked through the 1.1 tool have to be moved to
+the new install by Wiki Education, because a Dashboard course can be linked to
+only one Canvas tool at a time.
 
 ## Who installs it, and where
+
+This is about the **LTI 1.3** tool. The 1.1 tool is added by an instructor inside
+a single course and is never installed on an account.
 
 Install the integration on your Canvas instance's **root (institution) account**,
 as a Canvas administrator — the same place you manage other institution-wide LTI
@@ -125,27 +149,18 @@ For the **LTI 1.3** tool:
 
 - Canvas **root-account administrator** access.
 - Canvas's **Dynamic Registration** feature (a paid Canvas add-on). If your
-  Canvas doesn't have it, contact Wiki Education (see Getting help), or use the
-  LTI 1.1 tool.
+  Canvas doesn't have it, contact Wiki Education (see Getting help); your
+  instructors can use the LTI 1.1 tool in their own courses in the meantime.
 - Wiki Education's registration URL:
   `https://wikiedu.ltiaas.com/lti/register?privacyLevel=anonymous`.
 - About 15 minutes.
 
-For the **LTI 1.1** tool:
-
-- Canvas **root-account administrator** access.
-- A **consumer key and shared secret**, which the instructor of the Dashboard
-  course generates themselves from a page Wiki Education sends them. Each pair
-  is issued for one course and stops working anywhere except the Canvas that
-  first uses it, so it is not a shared institutional secret. Email
-  sage at wikiedu.org to be sent the link.
-- Wiki Education's configuration URL:
-  `https://dashboard.wikiedu.org/lti/legacy/config.xml`.
-- About 10 minutes.
+The **LTI 1.1** tool needs nothing from an administrator.
 
 ## Installation
 
-Follow one of the two sections below, not both.
+These steps install the **LTI 1.3** tool on your account. For the 1.1 tool, see
+the [instructor install page](/lti/guide/instructors) instead.
 
 ### Installing the LTI 1.3 tool
 
@@ -197,48 +212,25 @@ appears:
 | Modules index menu | The **⋮** menu on a course's Modules page | Importing the Wikipedia assignments from the Dashboard Timeline |
 | Assignment view | Inside each imported Wikipedia assignment | Details of each Dashboard assignment |
 
-### Installing the LTI 1.1 tool
+### The LTI 1.1 tool
 
-The LTI 1.1 tool is installed the way Canvas installs any legacy external app:
-from an XML configuration URL plus a consumer key and shared secret. Use the
-**By URL** configuration type, not **Manual Entry** — a manually entered tool
-has no course-navigation placement, so nobody would be able to find it.
+There is no account-level install for the LTI 1.1 tool, and nothing in it for an
+administrator to do. The instructor adds it inside their own course, under
+**Settings → Apps → + App**, with the **By URL** configuration type and a consumer
+key and shared secret issued for that one course. The steps, with screenshots,
+are on the [instructor install page](/lti/guide/instructors) — send that link to
+any instructor who asks.
 
-The same form exists inside each course's own Settings, where an instructor
-can install the tool for that one course without an administrator (unless the
-institution has turned off the "LTI - add" course permission). Those steps,
-with screenshots, are on the [instructor install page](/lti/guide/instructors).
-The account-level install below makes the tool available in every course.
+Two things an administrator may need to know:
 
-1. **Get the credentials.** Email sage at wikiedu.org for the LTI 1.1 consumer
-   key and shared secret, naming your institution.
-2. **Open the account's apps.** In Canvas, go to
-   **Admin → (your root account) → Settings → Apps**, then click
-   **View App Configurations** and **+ App**.
-3. **Configure it.** In the dialog:
-   - **Configuration Type:** By URL
-   - **Name:** wikiedu.org
-   - **Consumer Key** and **Shared Secret:** the values from step 1
-   - **Config URL:** `https://dashboard.wikiedu.org/lti/legacy/config.xml`
-
-   Click **Submit**. Canvas fetches the configuration, which sets the launch URL,
-   the Anonymous privacy level, and the course-navigation placement. (If your
-   Canvas cannot fetch external URLs, choose **Paste XML** instead, open the
-   configuration URL in a browser, and paste its contents.)
-4. **Check a course.** Open any course in the account: a **wikiedu.org** item
-   appears in its left-hand navigation. It is enabled by default in every
-   course; an instructor who doesn't want it can hide it under
-   **Settings → Navigation**.
-5. **Tell Wiki Education** you've installed it (sage at wikiedu.org), so they
-   can confirm launches are arriving from your Canvas.
-
-To limit the tool to one division, do the same on a **sub-account** instead of
-the root account.
-
-#### What the LTI 1.1 tool adds to Canvas
-
-One placement: the **wikiedu.org** course-navigation item. There is no Modules
-import and no assignment view, because the 1.1 tool creates no assignments.
+- **The course-level "LTI - add" permission** governs whether instructors can add
+  apps to their own courses. It is on by default for teachers, TAs, and
+  designers. Where an institution has turned it off, instructors cannot install
+  the 1.1 tool at all, and the LTI 1.3 tool above is the way to give them the
+  integration.
+- **It adds one placement** — the **wikiedu.org** course-navigation item — in that
+  one course. There is no Modules import and no assignment view, because the 1.1
+  tool creates no assignments.
 
 ## Enabling it for a course (the instructor)
 
@@ -259,6 +251,9 @@ From then on, their students launch the Dashboard from Canvas, and their progres
 flows back to the gradebook.
 
 ### With the LTI 1.1 tool
+
+Installing and enabling are one job here, and the instructor does both. The
+[instructor install page](/lti/guide/instructors) covers it. In short:
 
 1. The instructor clicks the **wikiedu.org** navigation link, connects their
    Wikipedia account in the new tab that opens, and links the Canvas course to
@@ -288,19 +283,13 @@ Dashboard; nothing is written to the Canvas gradebook.
 - **Launching shows an error right after install.** The tool may not be active
   yet — confirm Wiki Education has activated your registration.
 
-For the LTI 1.1 tool:
+For the LTI 1.1 tool, the troubleshooting an instructor needs is on the
+[instructor install page](/lti/guide/instructors). One item is an
+administrator's to answer:
 
-- **No wikiedu.org item appears in courses.** The tool was probably added with
-  **Manual Entry**, which has no course-navigation placement. Delete it from
-  **Settings → Apps** and add it again with **By URL** and the configuration URL
-  (see [Installing the LTI 1.1 tool](#installing-the-lti-11-tool)).
-- **Clicking the item shows an error page from ltiaas.com** (for example
-  "Failed OAuth signature verification"). The consumer key or shared secret was
-  entered incorrectly. Open the app's settings (the gear icon next to it under
-  **Settings → Apps**) and re-enter both, or delete and reinstall it.
-- **The item shows only "Unavailable".** It was opened from an assignment or
-  module import dialog. The 1.1 tool has no assignment import; use the
-  course-navigation item.
+- **An instructor reports no + App button, or no Apps tab, in their course.**
+  The course-level "LTI - add" permission is off for their role. Turn it on, or
+  install the LTI 1.3 tool for the account instead.
 
 For anything else, contact Wiki Education (below).
 
