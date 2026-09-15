@@ -13,13 +13,9 @@ instructors use the [Wiki Education Dashboard](https://dashboard.wikiedu.org) to
 run Wikipedia writing assignments. It covers evaluating, installing, and enabling
 the Dashboard's Canvas integration.
 
-> **Instructors:** you may not need an administrator at all. Canvas lets a
-> teacher add an LTI 1.1 app to their own course, and the Dashboard's LTI 1.1
-> version installs that way in a few minutes — see the short, illustrated
-> [instructor install page](/lti/guide/instructors).
-
 The integration is an **LTI 1.3** tool, fronted by [LTIAAS](https://ltiaas.com), a
-third-party LTI service. Installing it follows the standard Canvas path for any LTI
+third-party LTI service. (The LTI 1.1 version described below does not use
+LTIAAS; the Dashboard handles those launches itself.) Installing it follows the standard Canvas path for any LTI
 1.3 tool. For institutions that cannot install LTI 1.3 tools there is also an
 **LTI 1.1** version with a smaller feature set — see
 [Choosing between LTI 1.3 and LTI 1.1](#choosing-between-lti-13-and-lti-11). The
@@ -54,8 +50,8 @@ gradebook passback, and no assignment import.
 Install the **LTI 1.3** tool if you can. It is the full integration, it is the
 current LTI standard, and it is the version Wiki Education develops against.
 
-The **LTI 1.1** tool exists for institutions whose review process does not yet
-admit LTI 1.3 applications. It is a deliberately reduced, launch-only
+The **LTI 1.1** tool is in limited beta, offered on request to institutions
+whose review process does not yet admit LTI 1.3 applications. It is a deliberately reduced, launch-only
 integration: students and instructors reach the Dashboard from Canvas and
 students are enrolled automatically, but nothing flows back to Canvas.
 Instructors grade from the Dashboard, the way courses that don't use Canvas
@@ -138,10 +134,11 @@ For the **LTI 1.3** tool:
 For the **LTI 1.1** tool:
 
 - Canvas **root-account administrator** access.
-- A **consumer key and shared secret** from Wiki Education — email
-  sage at wikiedu.org and say which institution the install is for. The same
-  key and secret are shared by every institution using the 1.1 tool, so treat
-  them as you would any other tool secret.
+- A **consumer key and shared secret**, which the instructor of the Dashboard
+  course generates themselves from a page Wiki Education sends them. Each pair
+  is issued for one course and stops working anywhere except the Canvas that
+  first uses it, so it is not a shared institutional secret. Email
+  sage at wikiedu.org to be sent the link.
 - Wiki Education's configuration URL:
   `https://dashboard.wikiedu.org/lti/legacy/config.xml`.
 - About 10 minutes.

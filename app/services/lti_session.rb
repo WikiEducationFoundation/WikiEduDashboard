@@ -4,10 +4,10 @@
 # Active for the duration of one HTTP request that began with a Canvas click;
 # uses launch-bound LTIK auth.
 #
-# Normally an LTI 1.3 launch. A legacy LTI 1.1 launch (LTIAAS reports it as
-# `ltiVersion` "1.2.0", arriving with a `legacy-ltik` rather than an `ltik`)
-# reads through the same class — LTIAAS normalizes the claims it carries into
-# the same idtoken shape — and is distinguished by #legacy?. What a legacy
+# Normally an LTI 1.3 launch, fetched from LTIAAS. An LTI 1.1 launch arrives
+# with a token we minted ourselves, carrying an idtoken we normalized into the
+# same shape (see NormalizeLtiLegacyLaunch), and reads through this same class;
+# `ltiVersion` is "1.2.0" for those, which is what #legacy? tests. What a legacy
 # launch can do is much less: launch, identity linking and enrollment only; no
 # roster service, no line items, no grade passback. Callers of the 1.3-only
 # surfaces check #legacy? and refuse.

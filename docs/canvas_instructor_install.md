@@ -22,8 +22,11 @@ Dashboard, as usual.
 
 - Your course on the [Wiki Education Dashboard](https://dashboard.wikiedu.org),
   created and approved.
-- The **consumer key** and **shared secret** — email sage at wikiedu.org, naming
-  your institution and course. Keep them private, like a password.
+- The **consumer key** and **shared secret** for your course. Wiki Education
+  sends you a link to a page under your own course where you generate them
+  yourself, and the secret is shown once. Keep them private, like a password.
+  They work only for this course, and only from the first Canvas that uses
+  them, so a pair that leaks is of no use anywhere else.
 - This configuration URL, to paste in step 3:
   `https://dashboard.wikiedu.org/lti/legacy/config.xml`
 
@@ -81,10 +84,11 @@ their next steps, articles, trainings, and exercises.
   same address is already installed higher up in your Canvas — probably by an
   administrator — so it should already be in your course navigation. If it
   isn't, check **Settings → Navigation**.
-- **Clicking wikiedu.org shows an error page from ltiaas.com** (for example
-  "Failed OAuth signature verification"). The key or secret was mistyped. In
-  **Settings → Apps**, click the gear next to **wikiedu.org**, choose **Edit**,
-  and re-enter both.
+- **Clicking wikiedu.org shows an error instead of the Dashboard.** The key or
+  secret was most likely mistyped. In **Settings → Apps**, click the gear next
+  to **wikiedu.org**, choose **Edit**, and re-enter both. If you no longer have
+  the secret, generate a new pair from the page you got them from and enter
+  those.
 - **The link says the course is not linked yet, for students.** Do step 5 first
   — students can't link the course themselves.
 

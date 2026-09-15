@@ -70,8 +70,8 @@ describe 'LTI 1.1 legacy launch (companion mode)', :staging do
       canvas_api.install_external_tool(
         course_id: canvas_course['id'],
         tool_config: { name: 'wikiedu.org',
-                       consumer_key: ENV.fetch('LTIAAS_LEGACY_CONSUMER_KEY'),
-                       shared_secret: ENV.fetch('LTIAAS_LEGACY_SHARED_SECRET'),
+                       consumer_key: ENV.fetch('LTI11_CONSUMER_KEY'),
+                       shared_secret: ENV.fetch('LTI11_SHARED_SECRET'),
                        config_type: 'by_url', config_url: ENV['LTI11_COURSE_INSTALL'] }
       )
     end

@@ -469,175 +469,146 @@ canvas_integration_enabled: 'true'
 
 in `config/application.yml`. Default is `'false'` so production stays inert until LTIAAS is registered against a live Canvas instance and the flag is flipped explicitly.
 
-## LTI 1.1 legacy launches ("companion mode")
+## LTI 1.1 launches ("companion mode"), terminated by the Dashboard
 
-The integration also accepts legacy LTI 1.1 launches, as a deliberately reduced
-**launch-only** mode for institutions that cannot install LTI 1.3 tools (the
-pilot case: a FERPA review process with no path for 1.3 applications; see issue
+The integration also accepts LTI 1.1 launches, as a deliberately reduced
+**launch-only** mode for institutions that cannot install LTI 1.3 tools (issue
 #7026). What survives is launch, identity linking, enrollment and the in-frame
-views; there is **no roster sync, no assignment import, and no grade passback**,
-because Canvas offers no LTI 1.1 equivalent of NRPS or the Modules bulk
-deep-linking placement, and Basic Outcomes can only post a score for a
-(student, assignment) pair after that student has launched the assignment —
-a second grading architecture that issue #7026 declines to build.
+views; there is **no roster sync, no assignment import, and no grade
+passback**, because Canvas offers no LTI 1.1 equivalent of NRPS or the Modules
+bulk deep-linking placement, and Basic Outcomes can only post a score after
+that student has launched the assignment.
 
-### How a legacy launch arrives
+**LTIAAS is not involved in LTI 1.1.** We verify these launches ourselves, so
+the consumer keys are ours to issue, scope and revoke — LTIAAS offers only one
+global key and secret for every institution, with no rotation, which does not
+survive contact with a path where instructors self-install. LTIAAS still
+fronts every LTI 1.3 launch.
 
-- **LTIAAS side.** Legacy support is unadvertised and enabled manually per
-  LTIAAS account (send them the account IDs). Registration is **one global
-  consumer key + shared secret for every 1.1 LMS** (LTIAAS portal → API
-  Settings → *Display OAuth Secrets*); there is no per-platform registration,
-  so the LMS-side config is just key, secret and the tool URL
-  `https://<subdomain>.ltiaas.com/lti/legacy/launch`.
-- **Token.** LTIAAS forwards the launch to our launch URL with `?legacy-ltik=`
-  instead of `?ltik=`. `LtiLaunchController#normalize_legacy_ltik` folds it into
-  `params[:ltik]` at the boundary; the idtoken API and the `LTIK-AUTH-V2` header
-  accept either kind, and our views re-emit it under the ordinary name.
-- **idtoken.** Same normalized shape, with `ltiVersion: "1.2.0"` (LTIAAS's label
-  for 1.1/1.2). `LtiSession#legacy?` means "`ltiVersion` is not 1.3.0"; a
-  missing version reads as 1.3. What a real Canvas course-navigation launch
-  carried (captured 2026-09-15 from canvas.wikiedu.org through the testing
-  tenant; `GET /api/idtoken` with the legacy ltik):
-  - `platform`: **no `id`, no `url`** — only `consumerKey` (the one global
-    key), `guid` (Canvas's `tool_consumer_instance_guid`, per root account),
-    `name`, `productFamilyCode: "canvas"`, `version: "cloud"`. `LtiSession#lms_id`
-    therefore falls back to the guid, and `platform_url` to the origin of
-    `launch.presentation.returnUrl`.
-  - `user`: `id` is Canvas's 40-hex `lti_user_id` (the same value NRPS reports
-    as `lti11LegacyUserId` under 1.3 — so the sunset backfill is a plain
-    match), `roles` exactly as Canvas's `roles` parameter, unnormalized:
-    `["Instructor", "urn:lti:sysrole:ims/lis/SysAdmin"]` for an admin-teacher.
-    Canvas's `ext_roles` (institution roles) are not forwarded.
-  - `launch.context.id` and `launch.resourceLink.id` are both the course's
-    40-hex `lti_context_id`; `custom` carries only `canvas_enrollment_state`.
-  - `services`: every service `available: false`, no `serviceKey`, and no
-    `legacyServiceKey` either (that one accompanies an outcomes service, which a
-    course-navigation launch doesn't offer).
-  - The `legacy-ltik` is a JWT with `type: "legacyLtik"` and a 24h `exp`;
-    `?raw=true` returns the OAuth 1.0a form (`lti_version: "LTI-1p0"`,
-    `tool_consumer_instance_guid`, `ext_roles`, …).
+### How a 1.1 launch arrives
 
-### What the code does with it
+1. An instructor generates a consumer key and shared secret for their course
+   from the unlisted page at `/courses/<slug>/canvas`
+   (`CourseCanvasCredentialsController`), and pastes them into Canvas along
+   with the configuration URL `/lti/legacy/config.xml`.
+2. Canvas posts the OAuth 1.0a-signed launch to `/lti/legacy/launch`
+   (`LtiLegacyLaunchesController`).
+3. `VerifyLtiLegacyLaunch` checks, in order: that it is a basic LTI launch,
+   that the consumer key is one we issued and still usable, that the signature
+   verifies, that the timestamp is within five minutes, that the nonce is
+   unseen, and last that the key may launch from this Canvas. The pin check is
+   last because it is authorization, and the instance guid it reads means
+   nothing until the signature has proved the launch's origin.
+4. `NormalizeLtiLegacyLaunch` turns the raw parameters into the same
+   idtoken-shaped hash LTIAAS produces for a 1.3 launch, and
+   `LtiLegacyLaunchToken` signs it into a 24-hour JWT.
+5. The browser is redirected to `/lti?ltik=<that token>`, and from there the
+   flow is the ordinary one: `LtiSession.for_ltik` decodes our token instead
+   of fetching an idtoken, and nothing downstream can tell the difference.
 
-- **Gates.** `Features.lti_legacy_launches?` (`lti_legacy_launches_enabled:
-  'true'`, alongside `canvas_integration_enabled`) — off, a legacy launch is
-  refused with a bare 403 and reported to Sentry
-  (`LtiSession::LegacyLaunchesDisabledError`). `SUPPORTED_LMS_FAMILY` still
-  applies, and under the global 1.1 registration it is the *only* thing keeping
-  1.1 Canvas-only.
-- **Version on the binding.** `lti_course_bindings.lti_version` (default
-  `1.3.0`) is refreshed from every launch. `LtiCourseBinding#legacy?` and the
-  `lti_1_3` scope are what the 1.3-only surfaces check: the periodic grade and
-  daily roster dispatchers select `lti_1_3` by version (not merely by stored
-  credentials), the three sync services return early, and
-  `LtiServiceSession.new` raises `NoLtiServicesError` for a legacy binding.
-  A legacy launch persists nothing into `ltiaas_service_credentials`.
-- **Roles.** `LtiSession::LEGACY_INSTRUCTOR_ROLES` / `LEGACY_LEARNER_ROLES`
-  accept the 1.1 forms (bare `Instructor` / `Learner`, the
-  `urn:lti:role:ims/lis/…` context URNs, and the TA URN, which is all Canvas
-  sends for a 1.1 TaEnrollment) by exact match; institution-level
-  (`urn:lti:instrole:…`) and system-level roles, Mentor/Observer and
-  ContentDeveloper stay unsupported. The 1.3 suffix table still applies in case
-  LTIAAS normalizes.
-- **Dispatch.** Every legacy launch is the course-navigation launch
-  (`assignment_launch?` is false): a student gets the enrollment flow and
-  `student_status`; an instructor gets `instructor_status_legacy` (link
-  confirmation + connected-accounts count, no roster/sync/import rows, no
-  roster sync enqueued). Deep linking renders `deep_link_legacy` (403),
-  `sync_grades` refuses, binding a course enqueues no syncs, and the first-link
-  grade push is skipped. The course-page sidebar payload carries `legacy: true`
-  and drops the sync rows.
-- **Copy.** None of its own. The legacy status view carries no guidance text
-  (once linked, a 1.1 course has no further setup step), and the deep-link
-  refusal shows the existing one-word `lti.deep_link.unavailable_header`.
+### Things that will bite you
 
-### What the first real legacy launch settled (2026-09-15)
+- **The signed URL must be reconstructed from configuration.** The signature
+  covers the URL Canvas posted to, so reading it off a request that has been
+  through a proxy gets a different base string and every launch fails.
+  `VerifyLtiLegacyLaunch.launch_url` is the one definition, and
+  `LtiConfigController` serves the same value in the config XML, so the URL
+  Canvas signs and the URL we verify cannot drift.
+- **ActiveRecord encryption must be configured with
+  `ActiveRecord::Encryption.configure`** in an initializer. Setting
+  `config.active_record.encryption.*` there is too late: the framework has
+  already consumed it, the keys silently never take effect, and every write to
+  an encrypted attribute raises.
+- **`OAuth::RequestProxy::MockRequest` takes string keys** (`"method"`,
+  `"uri"`, `"parameters"`). Symbol keys raise an unhelpful `NoMethodError`
+  from inside the gem. That proxy is how the specs sign their fixtures.
+- **Refusals must be indistinguishable.** Telling an unknown consumer key
+  apart from a bad signature would let someone enumerate which keys exist, so
+  every refusal renders the same page with the same status. The reason goes to
+  the log, and a mistyped secret is logged rather than reported to Sentry —
+  the install guide troubleshoots exactly that, and an instructor's typo is
+  not an incident.
 
-The verification checklist this section used to carry, with answers from the
-captured idtoken above. `LTI_LAUNCH_DEBUG=1` on staging logs a `[LTI launch]`
-line with `version`, `roles` and `platform` for any later launch — in
-**`/var/log/apache2/error.log`**, where Passenger captures the web processes'
-Rails output (`App <pid> output: …`); `shared/log/staging.log` carries only
-Sidekiq and console output, so request-time lines never appear there.
-`staging_specs/lti11_legacy_launch_spec.rb` runs the whole flow live and
-prints the binding, both contexts, and those lines.
+### Keys
 
-1. **Roles: raw 1.1 forms.** LTIAAS does not normalize; the exact-match
-   `LEGACY_*_ROLES` tables are the ones that apply. Still unexercised on a real
-   launch: a Canvas TA (TA URN only) and a Canvas observer
-   (`urn:lti:instrole:ims/lis/Observer` + `urn:lti:role:ims/lis/Mentor` → must be
-   `unsupported_role`).
-2. **`platform.productFamilyCode` is `canvas`** on a 1.1 launch, so the platform
-   gate works as-is. A non-Canvas 1.1 launch still refuses.
-3. **Identity scoping: resolved by the guid.** There is no `platform.id` under
-   1.1 (the first launch failed the binding's `lms_id` validation with a 422
-   until this was found); `platform.guid` is Canvas's per-root-account
-   `tool_consumer_instance_guid`, so bindings and contexts are scoped per
-   institution even though every 1.1 LMS shares one key. A launch with neither
-   `id` nor `guid` is refused at the gate.
-4. **`legacy-ltik` TTL: 24h**, same as `ltik`, and re-presentable.
-5. **The sunset path holds.** `user.id` is Canvas's `lti_user_id`, the value
-   NRPS reports as `lti11LegacyUserId`, so re-linking a course after its
-   institution moves to 1.3 is a backfill by that field.
-6. **The launch point in Canvas: settled by a hosted XML config.** A manually
-   configured 1.1 tool (key, secret, launch URL) gets no course-navigation
-   placement; Canvas takes placements only from an XML tool configuration or
-   the external_tools API, and LTIAAS's quick-start provides no XML. The
-   Dashboard now serves one at `/lti/legacy/config.xml` (`LtiConfigController`,
-   gated on the same flags as legacy launches): launch URL for this
-   deployment's LTIAAS tenant, `privacy_level` anonymous, and a
-   default-enabled `course_navigation` placement. Institutions install "By
-   URL" with that address plus the key/secret — the guide's LTI 1.1 steps.
-   Validated against the test Canvas with `bin/canvas-lti11-tool
-   install-by-xml` (the rendered XML, before it was deployed) and
-   `install-by-url` (the deployed URL).
+`LtiConsumerKey` holds one install's credentials, issued for a course by its
+instructor. Two properties matter:
+
+- **Pinned at first launch** to that Canvas's `tool_consumer_instance_guid`,
+  after which the key is useless from any other Canvas.
+- **Expires unused** after `UNACTIVATED_LIFETIME`, closing the window on a
+  secret that leaked before its owner pasted it in.
+
+The first launch also **binds the course**, because the key already knows
+which Dashboard course it was issued for, so the instructor never sees the
+setup picker. It does not link their Wikipedia account: that stays their own
+approval, which keeps the write-once account-to-identity map out of reach of
+anyone holding the secret first.
+
+Issue one by hand on staging with
+`LtiConsumerKey.generate_for(course:, user:)`; the secret is readable from the
+returned record. There is no staff list yet — `LtiConsumerKey.all` in a console
+is the record.
+
+### What a real Canvas 1.1 launch carries
+
+Captured 2026-09-15 from canvas.wikiedu.org, and now the specification
+`NormalizeLtiLegacyLaunch` reproduces:
+
+- **No `platform.id`.** The identity is `tool_consumer_instance_guid`, which is
+  per Canvas root account, so bindings and contexts are scoped per institution
+  even though the tool is installed per course.
+- **No `platform.url`.** The Canvas base URL is recoverable only from the
+  origin of `launch_presentation_return_url`, which is what
+  `LtiSession#platform_url` falls back to.
+- **Roles are raw**, comma-separated, unnormalized: an admin teaching a course
+  arrives as `Instructor,urn:lti:sysrole:ims/lis/SysAdmin`. The exact-match
+  `LEGACY_INSTRUCTOR_ROLES` / `LEGACY_LEARNER_ROLES` tables are what classify
+  them; the 1.3 suffix table still applies alongside.
+- **`user_id` is Canvas's 40-hex `lti_user_id`**, the same value NRPS reports
+  as `lti11LegacyUserId` under 1.3 — so a course whose institution later moves
+  to 1.3 can be re-linked by a backfill rather than a re-enrollment.
+- **`tool_consumer_info_product_family_code` is `canvas`**, so the platform
+  allowlist works unchanged. It is the only thing keeping 1.1 Canvas-only.
+- Every service is absent: no roster, no line items, no scores.
+
+Still unexercised on a real launch: a Canvas TA, whose 1.1 launch sends only
+the TA role, and a Canvas observer, which must land in `unsupported_role`.
 
 ### Testing against canvas.wikiedu.org
 
-Staging (`dashboard-testing.wikiedu.org`) points at the `wikiedu-testing`
-LTIAAS tenant and has `lti_legacy_launches_enabled: 'true'` and
-`LTI_LAUNCH_DEBUG: '1'` set. To put the 1.1 tool in front of it:
+Staging (`dashboard-testing.wikiedu.org`) has `lti_legacy_launches_enabled:
+'true'` and `LTI_LAUNCH_DEBUG: '1'` set.
 
-1. Have LTIAAS enable legacy support on the testing account (they need the
-   account ID). Once done, the portal's API Settings page shows a *Display
-   OAuth Secrets* button with the tenant's global consumer key and shared secret.
-2. Put them in `.env.staging-tests` as `LTIAAS_LEGACY_CONSUMER_KEY` /
-   `LTIAAS_LEGACY_SHARED_SECRET`.
-3. `bin/canvas-lti11-tool install-by-url
-   https://dashboard-testing.wikiedu.org/lti/legacy/config.xml` — creates (or
-   updates) an account-level external tool on `CANVAS_TEST_ACCOUNT_ID` exactly
-   the way an institution's admin does, from the Dashboard-hosted XML: launch
-   URL `https://wikiedu-testing.ltiaas.com/lti/legacy/launch`, privacy level
-   anonymous, and a default-enabled course-navigation tab labelled
-   "wikiedu.org" (from the XML; the tool's name defaults to the same, and the
-   1.3 tool on this account is "wikiedu.org testing", so the tabs stay
-   distinct). `install` does the same through API placement params (no XML);
-   `install-by-xml <file>` takes a local XML for validating a config that isn't
-   deployed yet; `list` shows what is installed (1.1 and 1.3 tools alike);
-   `remove` deletes it.
-4. Open any test course's new tab as the test instructor, then as the test
-   student, and read the `[LTI launch]` lines in staging's log against the
-   checklist above.
+1. Issue a key on staging for the test course (console, as above) and put it
+   in `.env.staging-tests` as `LTI11_CONSUMER_KEY` / `LTI11_SHARED_SECRET`.
+2. `bin/canvas-lti11-tool install-by-url
+   https://dashboard-testing.wikiedu.org/lti/legacy/config.xml` — installs an
+   account-level tool the way an admin would, from the Dashboard-hosted XML:
+   our own launch URL, privacy level anonymous, and a default-enabled
+   course-navigation tab labelled "wikiedu.org". `list` shows what is
+   installed; `remove` deletes it. `install` uses API placement parameters
+   instead of the XML, and `install-by-xml <file>` takes a local config for
+   validating one that is not deployed yet.
+3. Run `staging_specs/lti11_legacy_launch_spec.rb` (with
+   `LTI11_COURSE_INSTALL=<config url>` for the course-level install path) and
+   `lti11_instructor_install_screenshots_spec.rb`, **in the foreground** —
+   headless Chrome plus the spec trips the background-task memory watchdog.
+4. Read the `[LTI launch]` lines in **`/var/log/apache2/error.log`**, where
+   Passenger captures the web processes' Rails output;
+   `shared/log/staging.log` carries only Sidekiq and console output, so
+   request-time lines never appear there.
 
-The **instructor self-install path** (a teacher adding the tool to one course
-from Course → Settings → Apps → + App → By URL, no admin) is documented for
-instructors at `/lti/guide/instructors` (`docs/canvas_instructor_install.md`,
-screenshots under `app/assets/images/canvas_guide/`). Two staging specs cover
-it: `staging_specs/lti11_legacy_launch_spec.rb` with
-`LTI11_COURSE_INSTALL=<config url>` installs at course level through the API
-and runs the full launch flow; `staging_specs/lti11_instructor_install_screenshots_spec.rb`
-drives Canvas's real Add App dialog as the test instructor and regenerates the
-page's screenshots (run with `CANVAS_TOOL_LABEL=wikiedu.org`, in the foreground —
-headless Chrome plus the spec trips the background-task memory watchdog). Two
-quirks of the test Canvas build are worked around there and worth knowing: its
-"Apps (New)" component crashes and remounts the settings route soon after any
-form change (so the dialog's fields are set in one DOM write), and the dialog's
-Submit is refused (400) under automation while Canvas's API accepts the same
-install even with the dialog's uniqueness check — most likely the React form
-never registers values written from outside, so the spec falls back to the
-API's identical request for the remaining captures. The config XML declares no
-`domain` so a 1.1 install can never collide with a 1.3 one on the same LTIAAS
-domain.
+The instructor self-install path (a teacher adding the tool to one course from
+Course → Settings → Apps → + App → By URL, no admin) is documented for
+instructors at `/lti/guide/instructors`
+(`docs/canvas_instructor_install.md`, screenshots under
+`app/assets/images/canvas_guide/`). Two quirks of the test Canvas build are
+worked around in the screenshot spec: its "Apps (New)" component crashes and
+remounts the settings route soon after any form change, so the dialog's fields
+are set in one DOM write; and the dialog's Submit is refused under automation
+while Canvas's API accepts the identical install, so the spec falls back to
+the API for the captures after that point.
 
 ## Institutional review: VPAT, HECVAT, and data flow
 

@@ -18,13 +18,14 @@ describe 'LTI 1.1 instructor install screenshots', :staging do
   let(:required_env) do
     %w[CANVAS_ADMIN_TOKEN CANVAS_TEST_ACCOUNT_ID CANVAS_TEST_INSTRUCTOR_USER_ID
        CANVAS_TEST_INSTRUCTOR_LOGIN CANVAS_TEST_INSTRUCTOR_PASSWORD
-       LTIAAS_LEGACY_CONSUMER_KEY LTIAAS_LEGACY_SHARED_SECRET]
+       LTI11_CONSUMER_KEY LTI11_SHARED_SECRET]
   end
   let(:run_id)     { Time.now.strftime('%Y%m%d%H%M%S') }
   let(:canvas_api) { CanvasApiClient.new }
   let(:shots)      { canvas_shots_dir('instructor_install') }
   let(:provisioned) { @provisioned ||= {} }
-  let(:launch_url) { 'https://wikiedu-testing.ltiaas.com/lti/legacy/launch' }
+  let(:dashboard_base) { ENV.fetch('DASHBOARD_BASE_URL', 'https://dashboard-testing.wikiedu.org') }
+  let(:launch_url) { "#{dashboard_base}/lti/legacy/launch" }
   let(:config_url_shown) { 'https://dashboard.wikiedu.org/lti/legacy/config.xml' }
   let(:config_url_real) { 'https://dashboard-testing.wikiedu.org/lti/legacy/config.xml' }
 
@@ -51,8 +52,8 @@ describe 'LTI 1.1 instructor install screenshots', :staging do
     end
     if provisioned[:restore_account_tool]
       canvas_api.save_account_external_tool(
-        { name: 'wikiedu.org', consumer_key: ENV.fetch('LTIAAS_LEGACY_CONSUMER_KEY'),
-          shared_secret: ENV.fetch('LTIAAS_LEGACY_SHARED_SECRET'),
+        { name: 'wikiedu.org', consumer_key: ENV.fetch('LTI11_CONSUMER_KEY'),
+          shared_secret: ENV.fetch('LTI11_SHARED_SECRET'),
           config_type: 'by_url', config_url: config_url_real }
       )
     end
@@ -130,8 +131,8 @@ wait: 3)
       choose_configuration_type('By URL')
       expect(page).to have_field('Config URL', wait: 15)
       js_fill('Name' => 'wikiedu.org',
-              'Consumer Key' => ENV.fetch('LTIAAS_LEGACY_CONSUMER_KEY'),
-              'Shared Secret' => ENV.fetch('LTIAAS_LEGACY_SHARED_SECRET'),
+              'Consumer Key' => ENV.fetch('LTI11_CONSUMER_KEY'),
+              'Shared Secret' => ENV.fetch('LTI11_SHARED_SECRET'),
               'Config URL' => config_url_real)
       within(dialog_selector) { click_button 'Submit' }
       expect(page).to have_no_css(dialog_selector, wait: 30)
@@ -144,8 +145,8 @@ wait: 3)
         warn '  [course tools] the dialog did not install it; installing through the API'
         canvas_api.install_external_tool(
           course_id:,
-          tool_config: { name: 'wikiedu.org', consumer_key: ENV.fetch('LTIAAS_LEGACY_CONSUMER_KEY'),
-                         shared_secret: ENV.fetch('LTIAAS_LEGACY_SHARED_SECRET'),
+          tool_config: { name: 'wikiedu.org', consumer_key: ENV.fetch('LTI11_CONSUMER_KEY'),
+                         shared_secret: ENV.fetch('LTI11_SHARED_SECRET'),
                          config_type: 'by_url', config_url: config_url_real,
                          verify_uniqueness: true }
         )

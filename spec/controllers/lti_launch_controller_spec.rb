@@ -2371,17 +2371,19 @@ describe LtiLaunchController, type: :request do
     end
   end
 
-  # Legacy LTI 1.1 launches: LTIAAS delivers the token as `legacy-ltik`, reports
-  # `ltiVersion` "1.2.0", carries the 1.1 role forms, and offers no NRPS or AGS —
-  # only a per-user outcomes key the integration deliberately never uses. The
-  # launch is a "companion mode": setup, identity approval, enrollment and the
-  # student overview carry over; the roster/grade machinery and deep linking
-  # refuse.
+  # Legacy LTI 1.1 launches. These arrive at /lti carrying a token we signed
+  # ourselves, minted by LtiLegacyLaunchesController from a launch Canvas
+  # posted to us directly; LTIAAS is not involved in LTI 1.1 at all. The
+  # idtoken it carries reports `ltiVersion` "1.2.0", uses the raw 1.1 role
+  # forms, and offers no NRPS or AGS. The launch is a "companion mode": setup,
+  # identity approval, enrollment and the student overview carry over; the
+  # roster/grade machinery and deep linking refuse.
   describe 'legacy (LTI 1.1) launches' do
-    # The shape a real Canvas 1.1 launch has through LTIAAS: no platform.id,
+    # The shape a real Canvas 1.1 launch has once normalized: no platform.id,
     # the LMS instance guid instead (kept equal to the fixtures' platform-x so
     # the shared binding helpers resolve the same row), no platform.url, and
-    # no services.
+    # no services. NormalizeLtiLegacyLaunch has its own spec for producing it;
+    # here it is the input.
     def legacy_idtoken_for(role)
       {
         'ltiVersion' => '1.2.0',
@@ -2398,7 +2400,9 @@ describe LtiLaunchController, type: :request do
 
     let(:role) { 'Instructor' }
     let(:idtoken) { legacy_idtoken_for(role) }
-    let(:legacy_params) { { 'legacy-ltik' => 'legacy-ltik-abc' } }
+    # The launch token our own endpoint redirects with, in place of an ltik.
+    let(:legacy_token) { LtiLegacyLaunchToken.encode(idtoken) }
+    let(:legacy_params) { { ltik: legacy_token } }
 
     before { allow(Features).to receive(:lti_legacy_launches?).and_return(true) }
 
@@ -2420,29 +2424,53 @@ describe LtiLaunchController, type: :request do
                          roles: [role], linked_at: Time.current)
     end
 
-    describe 'the legacy-ltik parameter' do
-      it 'is accepted in place of ltik on the launch' do
+    describe 'our own launch token' do
+      it 'is read without asking LTIAAS anything' do
         sign_in
         get '/lti', params: legacy_params
         expect(response).to have_http_status(:ok)
         expect(response).to render_template('lti_launch/connect_identity')
+        expect(WebMock).not_to have_requested(:get, idtoken_url)
       end
 
-      it 'is sent to LTIAAS as the launch token' do
+      # It threads through the flow under the ordinary name, so every view and
+      # form that carries an ltik carries this too, unchanged.
+      it 'is re-emitted in the links the launch views build' do
+        get '/lti', params: legacy_params
+        expect(response.body).to include("/lti/connect_course?ltik=#{CGI.escape(legacy_token)}")
+      end
+
+      it 'renders the in-frame error once it has expired' do
         sign_in
-        get '/lti', params: legacy_params
-        expect(WebMock).to have_requested(:get, idtoken_url)
-          .with(headers: { 'Authorization' => 'LTIK-AUTH-V2 k:legacy-ltik-abc' })
+        token = legacy_token
+        travel_to((LtiLegacyLaunchToken::LIFETIME + 1.minute).from_now) do
+          get '/lti', params: { ltik: token }, headers: { 'Sec-Fetch-Dest' => 'iframe' }
+        end
+        expect(response).to have_http_status(:unauthorized)
+        expect(response).to render_template('lti_launch/launch_error')
       end
 
-      # Our own links and forms re-emit the token under the ordinary name, so the
-      # rest of the flow (and every later request) sees one param.
-      it 'is threaded through the flow under the ordinary ltik name' do
-        get '/lti', params: legacy_params
-        expect(response.body).to include('/lti/connect_course?ltik=legacy-ltik-abc')
+      it 'reports a token that does not verify' do
+        sign_in
+        allow(Sentry).to receive(:capture_exception)
+        get '/lti', params: { ltik: "#{legacy_token}tampered" }
+        expect(response).to have_http_status(:unauthorized)
+        expect(Sentry).to have_received(:capture_exception)
       end
 
-      it 'still treats a launch with neither token as missing' do
+      # Signed out, a dead token degrades to the landing rather than an error,
+      # exactly as an expired LTIAAS ltik does: the landing's own re-launch
+      # link is the remedy, and a fresh Canvas launch mints a new token.
+      it 'degrades to the landing for a signed-out launch' do
+        token = legacy_token
+        travel_to((LtiLegacyLaunchToken::LIFETIME + 1.minute).from_now) do
+          get '/lti', params: { ltik: token }
+        end
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('Open the Wiki Education Dashboard')
+      end
+
+      it 'still treats a launch with no token as missing' do
         get '/lti', headers: { 'Sec-Fetch-Dest' => 'iframe' }
         expect(response).to have_http_status(422)
         expect(response).to render_template('lti_launch/launch_error')
@@ -2605,7 +2633,7 @@ describe LtiLaunchController, type: :request do
 
         it 'offers the in-iframe refresh link under the ordinary ltik name' do
           get '/lti', params: legacy_params
-          expect(response.body).to include('href="/lti?ltik=legacy-ltik-abc"')
+          expect(response.body).to include("href=\"/lti?ltik=#{CGI.escape(legacy_token)}\"")
         end
 
         # The roles LTIAAS hands through for a 1.1 launch may be the raw 1.1

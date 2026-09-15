@@ -4,8 +4,9 @@
 #
 # Flow:
 #   1. /lti?ltik=... — primary launch endpoint, runs inside the LMS iframe.
-#      (A legacy LTI 1.1 launch arrives as /lti?legacy-ltik=... and is folded
-#      into the same param first thing — see normalize_legacy_ltik.)
+#      An LTI 1.1 launch arrives here too, redirected by
+#      LtiLegacyLaunchesController with a token we signed rather than one
+#      LTIAAS minted; from this point the two are indistinguishable.
 #   2. If no current_user (the normal state in the iframe — cookies there
 #      are partitioned away from the top-level dashboard session), the ltik
 #      still authenticates the launch, so read-only views render in place:
@@ -61,7 +62,6 @@ class LtiLaunchController < ApplicationController
   layout 'lti_iframe'
 
   before_action :require_canvas_integration_enabled
-  before_action :normalize_legacy_ltik
   # THE one registration of allow_iframe for this controller, listing every
   # action whose response renders inside a Canvas iframe: the launch views, the
   # setup POST, the deep-linking picker and its form (Canvas's "Find" dialog),
@@ -168,21 +168,6 @@ class LtiLaunchController < ApplicationController
   end
 
   private
-
-  # LTIAAS hands a legacy (LTI 1.1) launch its token as `legacy-ltik` rather
-  # than `ltik`. The value works the same everywhere downstream — the idtoken
-  # API accepts either kind in the LTIK-AUTH-V2 header, and our own views
-  # re-emit it in their links and forms — so it is folded into `params[:ltik]`
-  # here, at the boundary, and nothing else in the flow has to know two names.
-  # From then on the idtoken's `ltiVersion` (LtiSession#legacy?), not the param
-  # name, is what says a launch is legacy.
-  LEGACY_LTIK_PARAM = 'legacy-ltik'
-
-  def normalize_legacy_ltik
-    return if params[:ltik].present? || params[LEGACY_LTIK_PARAM].blank?
-
-    params[:ltik] = params[LEGACY_LTIK_PARAM]
-  end
 
   # An assignment-context launch is identifiable three ways: the deep-link
   # `resource` marker we stamp on every deep-link-created assignment (echoed back

@@ -46,6 +46,33 @@ Branch state, so a fresh session doesn't have to reconstruct it:
 
 ## LTI 1.1 companion mode (2026-09-15)
 
+**Update, later the same day: LTI 1.1 no longer goes through LTIAAS.** The
+Dashboard verifies those launches itself, so the consumer keys are ours to
+issue per install rather than LTIAAS's single global pair. Instructors
+generate their own from an unlisted page under their course
+(`/courses/<slug>/canvas`), whose URL Wiki Education shares by email with beta
+institutions; the first launch pins the key to that Canvas and binds the
+course. LTIAAS is 1.3-only. Design and rationale:
+`.claude/canvas_integration/lti_11_self_hosted_plan-2026-09-15.md`; developer
+notes in `docs/canvas_dev_setup.md`. Outstanding for this work:
+
+- **Operator copy** for the credentials page. Every string is an AI-drafted
+  first pass carrying a `[PLACEHOLDER` marker at the top of
+  `app/views/course_canvas_credentials/show.html.haml`.
+- **Secrets on staging and production**: the three ActiveRecord encryption
+  keys and `lti_legacy_launch_token_secret` in `application.yml`. Outside
+  production the app falls back to fixed non-secret values, so the suite runs
+  without them; production leaves encryption unconfigured when they are
+  absent, which fails at this feature rather than at boot.
+- **Staff view of issued keys.** A console query is the record for now.
+- **Rate limiting** on the issuing endpoint. Regenerating replaces rather than
+  accumulates, so the surface is one row per course, but nothing throttles the
+  posts themselves.
+- **A live run** against canvas.wikiedu.org with a Dashboard-issued key, and
+  the TA and observer role checks that have still never been exercised on a
+  real 1.1 launch.
+
+
 Implemented on branch `lti-11-companion-mode` per issue #7026 (launch-only:
 no roster sync, no assignment import, no grade passback). Developer notes and
 the first-launch verification checklist are in `docs/canvas_dev_setup.md`

@@ -2,10 +2,12 @@
 
 require 'rails_helper'
 
-# A legacy (LTI 1.1) launch in the browser: LTIAAS hands the token over as
-# `legacy-ltik` and reports the launch as ltiVersion "1.2.0". Inside the Canvas
-# iframe there is no Dashboard session, so both views here render from the
-# launch identity alone, as they would in Canvas.
+# An LTI 1.1 launch in the browser. Canvas posts these to our own endpoint,
+# which redirects to /lti with a token we signed; this spec starts from that
+# token rather than re-posting a signed launch, which
+# LtiLegacyLaunchesController's request spec covers. Inside the Canvas iframe
+# there is no Dashboard session, so both views here render from the launch
+# identity alone, as they would in Canvas.
 describe 'LTI 1.1 legacy launch', type: :feature, js: true do
   let(:instructor) { create(:user, username: 'Inst') }
   let(:student) { create(:user, username: 'Stu') }
@@ -20,26 +22,27 @@ describe 'LTI 1.1 legacy launch', type: :feature, js: true do
   end
   let(:role) { 'Instructor' }
 
-  def idtoken_body
+  def idtoken
     {
-      ltiVersion: '1.2.0',
-      user: { id: 'legacy-user-1', roles: [role] },
-      platform: { guid: 'platform-x', productFamilyCode: 'canvas' },
-      launch: { context: { id: 'canvas-77', title: 'Demo Canvas Course' },
-                resourceLink: { id: 'rl-legacy' },
-                presentation: { returnUrl: 'https://canvas.example.edu/courses/77/return' } },
-      services: { outcomes: { available: false } }
-    }.to_json
+      'ltiVersion' => '1.2.0',
+      'user' => { 'id' => 'legacy-user-1', 'roles' => [role] },
+      'platform' => { 'guid' => 'platform-x', 'productFamilyCode' => 'canvas' },
+      'launch' => { 'context' => { 'id' => 'canvas-77', 'title' => 'Demo Canvas Course' },
+                    'resourceLink' => { 'id' => 'rl-legacy' },
+                    'presentation' => {
+                      'returnUrl' => 'https://canvas.example.edu/courses/77/return'
+                    } },
+      'services' => { 'outcomes' => { 'available' => false } }
+    }
+  end
+
+  def launch_path
+    "/lti?ltik=#{CGI.escape(LtiLegacyLaunchToken.encode(idtoken))}"
   end
 
   before do
     allow(Features).to receive_messages(canvas_integration?: true, wiki_ed?: true,
                                         lti_legacy_launches?: true)
-    stub_request(:get, %r{wikiedu-test.ltiaas.com/api/idtoken})
-      .to_return(status: 200, body: idtoken_body,
-                 headers: { 'Content-Type' => 'application/json' })
-    ENV['LTIAAS_DOMAIN'] = 'wikiedu-test.ltiaas.com'
-    ENV['LTIAAS_API_KEY'] = 'api-key'
     allow(LtiRosterSyncWorker).to receive(:perform_async)
   end
 
@@ -54,7 +57,7 @@ describe 'LTI 1.1 legacy launch', type: :feature, js: true do
     end
 
     it 'sees the launch-only status view: the link, the connected count, no sync machinery' do
-      visit '/lti?legacy-ltik=ltik-abc'
+      visit launch_path
 
       expect(page).to have_link('Legacy Course', href: "/courses/#{course.slug}")
       expect(page).to have_css('dt', text: I18n.t('lms_integration.connected_accounts'))
@@ -78,7 +81,7 @@ describe 'LTI 1.1 legacy launch', type: :feature, js: true do
     end
 
     it 'sees their progress overview in place, acting as their connected account' do
-      visit '/lti?legacy-ltik=ltik-abc'
+      visit launch_path
 
       expect(page).to have_link('Legacy Course', href: "/courses/#{course.slug}")
       expect(page).to have_content(I18n.t('lti.identity.signed_in_as', username: 'Stu'))

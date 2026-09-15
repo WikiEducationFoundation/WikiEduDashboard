@@ -4,18 +4,18 @@ require 'rails_helper'
 
 describe LtiConfigController, type: :request do
   before do
-    ENV['LTIAAS_DOMAIN'] = 'tenant.ltiaas.com'
+    ENV['dashboard_url'] = 'dashboard.wikiedu.org'
     allow(Features).to receive_messages(canvas_integration?: true, lti_legacy_launches?: true)
   end
 
   describe 'GET /lti/legacy/config.xml' do
-    it 'serves the LTI 1.1 cartridge pointing at the tenant legacy launch URL' do
+    it 'serves the LTI 1.1 cartridge pointing at our own legacy launch URL' do
       get '/lti/legacy/config.xml'
       expect(response).to have_http_status(:ok)
       expect(response.media_type).to eq('application/xml')
       expect(response.body).to include('<cartridge_basiclti_link')
       expect(response.body)
-        .to include('<blti:launch_url>https://tenant.ltiaas.com/lti/legacy/launch</blti:launch_url>')
+        .to include('<blti:launch_url>https://dashboard.wikiedu.org/lti/legacy/launch</blti:launch_url>')
     end
 
     # The anonymous posture and the one placement a 1.1 install gets: Canvas
