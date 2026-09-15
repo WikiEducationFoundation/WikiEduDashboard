@@ -91,7 +91,7 @@ class CourseStatistics
   def find_new_article_ids
     new_article_ids = []
     @courses.each do |course|
-      new_article_ids += course.tracked_article_course_timeslices
+      new_article_ids += course.tracked_article_timeslices
                                .where(new_article: true)
                                .pluck(:article_id)
                                .uniq
@@ -105,7 +105,7 @@ class CourseStatistics
   def find_edited_article_ids
     @all_article_ids = []
     @courses.each do |course|
-      @all_article_ids += course.tracked_article_course_timeslices
+      @all_article_ids += course.tracked_article_timeslices
                                 .pluck(:article_id)
                                 .uniq
     end
