@@ -735,6 +735,9 @@ en:
         Please include enough detail to give other Wikipedia editors a sense of
         context for the contributions your students will be making.
       course_private: Private program (viewable only by admins and facilitators)
+      confidential_url_note: "[PLACEHOLDER - short note shown where the course URL preview
+        normally appears, for a privacy-mode course; should say the URL is anonymized and
+        assigned when the course is created]"
       course_confidential: "[PLACEHOLDER - label for the privacy-mode checkbox in the course
         creator; should say the course page stays public but the title, institution and
         instructor name/email are visible to admins only]"

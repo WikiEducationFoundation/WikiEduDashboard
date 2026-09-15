@@ -292,7 +292,11 @@ const CourseForm = (props) => {
         <div className="backButtonContainer">
           {backOrCancelButton}
           <p className="tempEduCourseIdText">
-            {props.tempCourseId || '\xa0'}
+            {/* A privacy-mode course's URL is built server-side from obfuscated
+                values, so the School/Title preview would be wrong here. */}
+            {props.course.confidential
+              ? I18n.t('courses.creator.confidential_url_note')
+              : (props.tempCourseId || '\xa0')}
           </p>
         </div>
 
