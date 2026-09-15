@@ -166,8 +166,10 @@ describe 'LTI 1.1 legacy launch (companion mode)', :staging do
     # The key is pinned to this Canvas now, and was never used before.
     key = consumer_key_snapshot(slug)
     warn "  [lti11] consumer key: #{key.inspect}"
-    expect(key['activated_at']).to be_present
-    expect(key['lms_instance_guid']).to be_present
+    # Plain truthiness, not `be_present`: this harness does not load Rails, so
+    # ActiveSupport's Object#present? is not available here.
+    expect(key['activated_at']).not_to be_nil
+    expect(key['lms_instance_guid']).not_to be_nil
   end
 
   # The instructor's whole setup under the self-hosted path: open the tab,

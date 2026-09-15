@@ -12,13 +12,22 @@ require_relative 'spec_helper'
 # CANVAS_SHOTS_DIR). The dialog is photographed with placeholder text in the
 # credential fields, then filled with the real key/secret (never captured) to
 # actually install and show the resulting tab. Provisions and tears down its
-# own Canvas course; removes the account-level 1.1 tool for the run and puts it
-# back afterwards.
+# own Canvas course, its own Dashboard course, and its own consumer key, and
+# tears all three down afterwards.
 describe 'LTI 1.1 instructor install screenshots', :staging do
+  let(:canvas_course_name) { 'Introduction to Environmental Policy' }
+
+  # The name this walkthrough types into the Add App dialog, which is also what
+  # Canvas puts in the course nav. Overrides LaunchHelpers#tool_label, whose
+  # default names the account-wide 1.3 tool rather than this course's install.
+  def tool_label
+    'wikiedu.org'
+  end
+
   let(:required_env) do
     %w[CANVAS_ADMIN_TOKEN CANVAS_TEST_ACCOUNT_ID CANVAS_TEST_INSTRUCTOR_USER_ID
        CANVAS_TEST_INSTRUCTOR_LOGIN CANVAS_TEST_INSTRUCTOR_PASSWORD
-       LTI11_CONSUMER_KEY LTI11_SHARED_SECRET]
+       WIKIPEDIA_TEST_INSTRUCTOR_USERNAME DASHBOARD_TEST_CAMPAIGN_SLUG]
   end
   let(:run_id)     { Time.now.strftime('%Y%m%d%H%M%S') }
   let(:canvas_api) { CanvasApiClient.new }
@@ -33,30 +42,37 @@ describe 'LTI 1.1 instructor install screenshots', :staging do
     missing = required_env.select { |k| ENV[k].to_s.empty? }
     skip("missing env vars: #{missing.join(', ')}") if missing.any?
 
-    account_tool = canvas_api.list_external_tools.find { |t| t['url'] == launch_url }
-    if account_tool
-      canvas_api.delete_external_tool(account_tool['id'])
-      provisioned[:restore_account_tool] = true
-    end
-    course = canvas_api.create_course(name: 'Introduction to Environmental Policy',
+    course = canvas_api.create_course(name: canvas_course_name,
                                       course_code: "ENVS-350-#{run_id}")
     provisioned[:canvas_course_id] = course['id']
     canvas_api.enroll_user(course_id: course['id'],
                            user_id: ENV.fetch('CANVAS_TEST_INSTRUCTOR_USER_ID'),
                            role: 'TeacherEnrollment')
+
+    # Credentials are per course and issued by the Dashboard now, so the
+    # walkthrough provisions a Dashboard course and issues a key for it, the
+    # way an instructor would from their own credentials page.
+    dashboard_course = DashboardAdminClient.create_course(
+      title: "Screenshot Install #{run_id}", school: 'StagingTest', term: run_id,
+      instructor_username: ENV.fetch('WIKIPEDIA_TEST_INSTRUCTOR_USERNAME')
+    )
+    provisioned[:dashboard_course_slug] = dashboard_course['slug']
+    DashboardAdminClient.approve_course(slug: dashboard_course['slug'],
+                                        campaign_slug: ENV.fetch('DASHBOARD_TEST_CAMPAIGN_SLUG'))
+    @credentials = DashboardAdminClient.issue_lti_consumer_key(
+      course_slug: dashboard_course['slug'],
+      instructor_username: ENV.fetch('WIKIPEDIA_TEST_INSTRUCTOR_USERNAME')
+    )
   end
 
   after do
     if provisioned[:canvas_course_id]
       canvas_api.delete_course(course_id: provisioned[:canvas_course_id])
     end
-    if provisioned[:restore_account_tool]
-      canvas_api.save_account_external_tool(
-        { name: 'wikiedu.org', consumer_key: ENV.fetch('LTI11_CONSUMER_KEY'),
-          shared_secret: ENV.fetch('LTI11_SHARED_SECRET'),
-          config_type: 'by_url', config_url: config_url_real }
-      )
-    end
+    return unless provisioned[:dashboard_course_slug]
+
+    DashboardAdminClient.delete_bindings_for(context_title: canvas_course_name)
+    DashboardAdminClient.delete_course(slug: provisioned[:dashboard_course_slug])
   end
 
   def shoot(name, selector: nil)
@@ -107,7 +123,7 @@ wait: 3)
       open_add_app_dialog
       choose_configuration_type('By URL')
       expect(page).to have_field('Config URL', wait: 15)
-      js_fill('Name' => 'wikiedu.org',
+      js_fill('Name' => tool_label,
               'Consumer Key' => 'the key from Wiki Education',
               'Shared Secret' => 'the secret from Wiki Education',
               'Config URL' => config_url_shown)
@@ -121,18 +137,19 @@ wait: 3)
       # capture. Confirmed through the API rather than the table, which can
       # keep its pre-submit contents after Canvas's settings page remounts.
       #
-      # Fallback: the same request through the API, with the dialog's own
-      # uniqueness check, which Canvas accepts — so the dialog's 400 is not a
-      # collision with the installed 1.3 tool. Its cause is unresolved; the
-      # likeliest is that the React form never registers values written from
-      # outside, so the dialog submits an empty form. A human typing is not
-      # affected, and the captures after this point look the same either way.
+      # The dialog's own Submit used to 400 here. The cause was a `domain` in
+      # our config XML colliding with the already-installed 1.3 tool; with
+      # `domain` dropped, Canvas accepts the dialog's request and the tool is
+      # installed by the dialog, exactly as it is for an instructor. The API
+      # fallback below stays as a guard: a Canvas-side change that breaks the
+      # dialog should not cost the remaining captures, and the warn line says
+      # which path was taken.
       open_add_app_dialog
       choose_configuration_type('By URL')
       expect(page).to have_field('Config URL', wait: 15)
-      js_fill('Name' => 'wikiedu.org',
-              'Consumer Key' => ENV.fetch('LTI11_CONSUMER_KEY'),
-              'Shared Secret' => ENV.fetch('LTI11_SHARED_SECRET'),
+      js_fill('Name' => tool_label,
+              'Consumer Key' => @credentials['key'],
+              'Shared Secret' => @credentials['secret'],
               'Config URL' => config_url_real)
       within(dialog_selector) { click_button 'Submit' }
       expect(page).to have_no_css(dialog_selector, wait: 30)
@@ -145,8 +162,8 @@ wait: 3)
         warn '  [course tools] the dialog did not install it; installing through the API'
         canvas_api.install_external_tool(
           course_id:,
-          tool_config: { name: 'wikiedu.org', consumer_key: ENV.fetch('LTI11_CONSUMER_KEY'),
-                         shared_secret: ENV.fetch('LTI11_SHARED_SECRET'),
+          tool_config: { name: tool_label, consumer_key: @credentials['key'],
+                         shared_secret: @credentials['secret'],
                          config_type: 'by_url', config_url: config_url_real,
                          verify_uniqueness: true }
         )
@@ -159,11 +176,11 @@ wait: 3)
       # the configurations URL opens the settings page on its first tab).
       visit "/courses/#{course_id}/settings"
       find('[role="tab"]', text: 'Apps', exact_text: true, wait: 20).click
-      expect(page).to have_css('#external-tools-table tr', text: 'wikiedu.org', wait: 30)
+      expect(page).to have_css('#external-tools-table tr', text: tool_label, wait: 30)
       shoot('04_app_added')
 
       visit "/courses/#{course_id}"
-      expect(page).to have_link('wikiedu.org', wait: 20)
+      expect(page).to have_link(tool_label, wait: 20)
       shoot('05_course_nav_tab', selector: '#section-tabs, nav#section-tabs')
 
       click_wiki_education_tab
