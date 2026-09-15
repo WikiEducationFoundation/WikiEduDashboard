@@ -46,8 +46,11 @@ describe 'LTI 1.1 legacy launch (companion mode)', :staging do
     skip("missing env vars: #{missing.join(', ')}") if missing.any?
 
     # Every tab/menu lookup in the helpers goes through `tool_label`; point it
-    # at the 1.1 tool for this run (the 1.3 tool keeps its own label).
-    ENV['CANVAS_TOOL_LABEL'] = 'wikiedu.org (LTI 1.1)'
+    # at the 1.1 tool's tab for this run. The tab text comes from the config
+    # XML's course_navigation `text` ("wikiedu.org"); the 1.3 tool's tab is
+    # "wikiedu.org testing", and Capybara's smart matching prefers the exact
+    # match, so the two don't collide.
+    ENV['CANVAS_TOOL_LABEL'] = 'wikiedu.org'
 
     canvas_course = canvas_api.create_course(name: canvas_course_name,
                                              course_code: "LTI11-#{run_id}")

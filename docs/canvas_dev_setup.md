@@ -608,10 +608,10 @@ LTIAAS tenant and has `lti_legacy_launches_enabled: 'true'` and
    updates) an account-level external tool on `CANVAS_TEST_ACCOUNT_ID` exactly
    the way an institution's admin does, from the Dashboard-hosted XML: launch
    URL `https://wikiedu-testing.ltiaas.com/lti/legacy/launch`, privacy level
-   anonymous, and a default-enabled course-navigation tab. The tab is labelled
-   from the XML ("wikiedu.org"); `CANVAS_LTI11_TOOL_LABEL` only affects the
-   tool's *name*, which the staging spec also uses to find the tab — keep the
-   two in step. `install` does the same through API placement params (no XML);
+   anonymous, and a default-enabled course-navigation tab labelled
+   "wikiedu.org" (from the XML; the tool's name defaults to the same, and the
+   1.3 tool on this account is "wikiedu.org testing", so the tabs stay
+   distinct). `install` does the same through API placement params (no XML);
    `install-by-xml <file>` takes a local XML for validating a config that isn't
    deployed yet; `list` shows what is installed (1.1 and 1.3 tools alike);
    `remove` deletes it.

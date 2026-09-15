@@ -29,8 +29,9 @@
 # quick-start provides no XML config to paste. The external_tools API takes the
 # placement directly. The tool is installed with `course_navigation` default
 # *enabled*, so every course in the test account gets the tab — the same
-# posture the 1.3 registration has on this Canvas — under its own label, so
-# the 1.3 harness (which finds its tab by label) is unaffected.
+# posture the 1.3 registration has on this Canvas — under its own label
+# ("wikiedu.org", vs the 1.3 tool's "wikiedu.org testing"), so the 1.3 harness
+# (which finds its tab by label) is unaffected.
 
 require 'json'
 require_relative '../staging_specs/support/canvas_api_client'
@@ -48,7 +49,12 @@ end
 
 LAUNCH_URL = ENV.fetch('LTIAAS_LEGACY_LAUNCH_URL',
                        'https://wikiedu-testing.ltiaas.com/lti/legacy/launch')
-TOOL_NAME = ENV.fetch('CANVAS_LTI11_TOOL_LABEL', 'wikiedu.org (LTI 1.1)')
+# The tool's name in Settings → Apps. Kept equal to the course-navigation
+# text the config XML sets ("wikiedu.org", what the guide tells admins to
+# enter), so the tab reads the same whichever install path created the tool;
+# the 1.3 tool on the test account is "wikiedu.org testing", so the two stay
+# distinguishable.
+TOOL_NAME = ENV.fetch('CANVAS_LTI11_TOOL_LABEL', 'wikiedu.org')
 
 client = CanvasApiClient.new
 command = ARGV[0] || 'list'
