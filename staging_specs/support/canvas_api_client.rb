@@ -227,13 +227,17 @@ class CanvasApiClient
   # `tool_config` is the flat form Canvas expects, e.g.
   #   { name:, consumer_key:, shared_secret:, url:, privacy_level: 'anonymous',
   #     'course_navigation[enabled]' => true, ... }
-  # See bin/canvas-lti11-tool for the one this repo installs.
-  def create_account_external_tool(tool_config)
-    post("/api/v1/accounts/#{@account_id}/external_tools", tool_config)
+  # See bin/canvas-lti11-tool for the one this repo installs. Creates the
+  # tool, or updates an existing one when `tool_id` is given.
+  def save_account_external_tool(tool_config, tool_id: nil)
+    path = "/api/v1/accounts/#{@account_id}/external_tools"
+    tool_id ? put("#{path}/#{tool_id}", tool_config) : post(path, tool_config)
   end
 
-  def update_account_external_tool(tool_id, tool_config)
-    put("/api/v1/accounts/#{@account_id}/external_tools/#{tool_id}", tool_config)
+  # The tools installed in one course itself (not inherited from the account) —
+  # what a teacher's own Settings → Apps install creates.
+  def course_external_tools(course_id:)
+    get("/api/v1/courses/#{course_id}/external_tools", per_page: 50)
   end
 
   def delete_deployment(registration_id, deployment_id)

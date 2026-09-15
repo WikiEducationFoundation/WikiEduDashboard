@@ -619,6 +619,22 @@ LTIAAS tenant and has `lti_legacy_launches_enabled: 'true'` and
    student, and read the `[LTI launch]` lines in staging's log against the
    checklist above.
 
+The **instructor self-install path** (a teacher adding the tool to one course
+from Course → Settings → Apps → + App → By URL, no admin) is documented for
+instructors at `/lti/guide/instructors` (`docs/canvas_instructor_install.md`,
+screenshots under `app/assets/images/canvas_guide/`). Two staging specs cover
+it: `staging_specs/lti11_legacy_launch_spec.rb` with
+`LTI11_COURSE_INSTALL=<config url>` installs at course level through the API
+and runs the full launch flow; `staging_specs/lti11_instructor_install_screenshots_spec.rb`
+drives Canvas's real Add App dialog as the test instructor and regenerates the
+page's screenshots (run with `CANVAS_TOOL_LABEL=wikiedu.org`, in the foreground —
+headless Chrome plus the spec trips the background-task memory watchdog). Two
+quirks of the test Canvas build are worked around there and worth knowing: its
+"Apps (New)" component crashes and remounts the settings route soon after any
+form change (so the dialog's fields are set in one DOM write), and its Add App
+dialog rejects a new tool whose `domain` matches an installed one, which is why
+the config XML declares no `domain`.
+
 ## Institutional review: VPAT, HECVAT, and data flow
 
 Every install — the test Canvas included — goes through the same self-service

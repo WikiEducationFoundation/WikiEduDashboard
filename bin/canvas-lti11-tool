@@ -98,11 +98,7 @@ when 'install', 'install-by-url', 'install-by-xml'
       'course_navigation[visibility]' => 'members'
     )
   end
-  tool = if existing
-           client.update_account_external_tool(existing['id'], config)
-         else
-           client.create_account_external_tool(config)
-         end
+  tool = client.save_account_external_tool(config, tool_id: existing&.dig('id'))
   puts "#{existing ? 'updated' : 'created'} (#{command}): #{describe(tool)}"
 when 'remove'
   abort "no tool with url #{LAUNCH_URL} on the account" unless existing

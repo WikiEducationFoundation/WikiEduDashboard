@@ -13,6 +13,11 @@ instructors use the [Wiki Education Dashboard](https://dashboard.wikiedu.org) to
 run Wikipedia writing assignments. It covers evaluating, installing, and enabling
 the Dashboard's Canvas integration.
 
+> **Instructors:** you may not need an administrator at all. Canvas lets a
+> teacher add an LTI 1.1 app to their own course, and the Dashboard's LTI 1.1
+> version installs that way in a few minutes — see the short, illustrated
+> [instructor install page](/lti/guide/instructors).
+
 The integration is an **LTI 1.3** tool, fronted by [LTIAAS](https://ltiaas.com), a
 third-party LTI service. Installing it follows the standard Canvas path for any LTI
 1.3 tool. For institutions that cannot install LTI 1.3 tools there is also an
@@ -201,6 +206,12 @@ The LTI 1.1 tool is installed the way Canvas installs any legacy external app:
 from an XML configuration URL plus a consumer key and shared secret. Use the
 **By URL** configuration type, not **Manual Entry** — a manually entered tool
 has no course-navigation placement, so nobody would be able to find it.
+
+The same form exists inside each course's own Settings, where an instructor
+can install the tool for that one course without an administrator (unless the
+institution has turned off the "LTI - add" course permission). Those steps,
+with screenshots, are on the [instructor install page](/lti/guide/instructors).
+The account-level install below makes the tool available in every course.
 
 1. **Get the credentials.** Email sage at wikiedu.org for the LTI 1.1 consumer
    key and shared secret, naming your institution.
