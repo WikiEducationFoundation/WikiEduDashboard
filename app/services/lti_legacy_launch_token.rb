@@ -1,30 +1,30 @@
 # frozen_string_literal: true
 
-require 'jwt'
-
 # Our replacement for LTIAAS's `ltik`: the token a verified LTI 1.1 launch is
 # redirected with, and which every follow-up request inside the partitioned
 # Canvas iframe re-presents.
 #
-# A signed JWT carrying the normalized idtoken, so no table and no cleanup job
-# are needed and the token is re-presentable for its lifetime exactly as the
-# LTIAAS one is. What that gives up is revocation inside the window, which is
-# acceptable when the token's whole authority is showing one course's own data
-# in an iframe.
+# An unguessable reference to an LtiLegacyLaunch row, not a self-contained
+# token. It began as a JWT carrying the normalized idtoken, which passed every
+# test and then failed against real Canvas: `LtiLaunchController#connect_course`
+# stashes the token in the Rails session so the Wikipedia OAuth callback can
+# return to the launch, and a token that size overflowed the 4 KB session
+# cookie. LTIAAS's ltik is short for exactly this reason.
 #
-# The prefix is what lets LtiSession tell our token from an LTIAAS one without
-# trying to decode it first.
+# Being server-side state, it is also revocable, which a signed token would not
+# have been.
+#
+# The prefix lets LtiSession tell our token from an LTIAAS one without a lookup.
 class LtiLegacyLaunchToken
   PREFIX = 'lti11.'
   LIFETIME = 24.hours
-  ALGORITHM = 'HS256'
 
-  # A token that is past its 24 hours. Routine: a Canvas tab left open
-  # overnight produces one, and the remedy is to reload the Canvas page.
+  # A token whose launch is past its 24 hours, or has been swept. Routine: a
+  # Canvas tab left open overnight produces one, and the remedy is to reload
+  # the Canvas page.
   class Expired < StandardError; end
 
-  # A token that does not verify: truncated, tampered with, or signed with a
-  # different secret. Not routine.
+  # A token that names no launch at all: truncated, mistyped, or invented.
   class Invalid < StandardError; end
 
   def self.ours?(token)
@@ -32,29 +32,18 @@ class LtiLegacyLaunchToken
   end
 
   def self.encode(idtoken)
-    payload = { 'idt' => idtoken, 'iat' => Time.now.to_i,
-                'exp' => LIFETIME.from_now.to_i, 'jti' => SecureRandom.uuid }
-    PREFIX + JWT.encode(payload, secret, ALGORITHM)
+    LtiLegacyLaunch.sweep
+    token = SecureRandom.urlsafe_base64(32)
+    LtiLegacyLaunch.create!(token:, idtoken: idtoken.to_json,
+                            expires_at: LIFETIME.from_now)
+    "#{PREFIX}#{token}"
   end
 
   def self.decode(token)
-    payload, = JWT.decode(token.to_s.delete_prefix(PREFIX), secret, true, algorithm: ALGORITHM)
-    payload.fetch('idt')
-  rescue JWT::ExpiredSignature
-    raise Expired
-  rescue JWT::DecodeError, KeyError
-    raise Invalid
-  end
+    launch = LtiLegacyLaunch.find_by(token: token.to_s.delete_prefix(PREFIX))
+    raise Invalid, 'no such launch' if launch.nil?
+    raise Expired, 'launch token has expired' if launch.expired?
 
-  # Outside production, fall back to a fixed non-secret value so the suite and
-  # a developer whose application.yml predates this feature both work. In
-  # production a missing secret is fatal for this path rather than silently
-  # signing tokens anyone could forge.
-  def self.secret
-    configured = ENV.fetch('lti_legacy_launch_token_secret', nil)
-    return configured if configured.present?
-    raise Invalid, 'lti_legacy_launch_token_secret is not configured' if Rails.env.production?
-
-    'development_only_launch_token_secret_not_a_secret'
+    launch.claims
   end
 end

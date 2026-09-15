@@ -31,20 +31,32 @@ describe LtiLegacyLaunchToken do
     end
   end
 
-  it 'refuses a tampered token' do
+  it 'refuses a token that names no launch' do
+    expect { described_class.decode("#{described_class::PREFIX}made-up") }
+      .to raise_error(described_class::Invalid)
+    expect { described_class.decode(nil) }.to raise_error(described_class::Invalid)
+  end
+
+  # Server-side state, so a launch can be revoked — which a self-contained
+  # token could not be.
+  it 'refuses a token whose launch has been swept away' do
     token = described_class.encode(idtoken)
-    expect { described_class.decode("#{token}x") }.to raise_error(described_class::Invalid)
+    LtiLegacyLaunch.delete_all
+    expect { described_class.decode(token) }.to raise_error(described_class::Invalid)
   end
 
-  it 'refuses a token signed with a different secret' do
-    other = JWT.encode({ 'idt' => idtoken, 'exp' => 1.hour.from_now.to_i }, 'other', 'HS256')
-    expect { described_class.decode("#{described_class::PREFIX}#{other}") }
-      .to raise_error(described_class::Invalid)
+  # The token has to fit in a session cookie: LtiLaunchController#connect_course
+  # stashes it there for the Wikipedia OAuth break-out, and a token carrying the
+  # whole idtoken overflowed the 4 KB limit against real Canvas.
+  it 'is short enough to stash in a session cookie' do
+    expect(described_class.encode(idtoken).length).to be < 100
   end
 
-  it 'refuses a well-signed token that carries no idtoken' do
-    payload = JWT.encode({ 'exp' => 1.hour.from_now.to_i }, described_class.secret, 'HS256')
-    expect { described_class.decode("#{described_class::PREFIX}#{payload}") }
-      .to raise_error(described_class::Invalid)
+  it 'sweeps launches that are past their lifetime' do
+    described_class.encode(idtoken)
+    travel_to((described_class::LIFETIME + 1.minute).from_now) do
+      described_class.encode(idtoken)
+    end
+    expect(LtiLegacyLaunch.count).to eq(1)
   end
 end

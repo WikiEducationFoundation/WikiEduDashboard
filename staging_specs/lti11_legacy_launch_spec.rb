@@ -40,6 +40,9 @@ describe 'LTI 1.1 legacy launch (companion mode)', :staging do
   let(:canvas_api)         { CanvasApiClient.new }
   let(:provisioned)        { @provisioned ||= {} }
   let(:shots)              { canvas_shots_dir('lti11') }
+  let(:dashboard_base)     { ENV.fetch('DASHBOARD_BASE_URL', 'https://dashboard-testing.wikiedu.org') }
+  let(:config_url)         { "#{dashboard_base}/lti/legacy/config.xml" }
+  let(:launch_url)         { "#{dashboard_base}/lti/legacy/launch" }
 
   before do
     missing = required_env.select { |k| ENV[k].to_s.empty? }
@@ -61,20 +64,6 @@ describe 'LTI 1.1 legacy launch (companion mode)', :staging do
     canvas_api.enroll_user(course_id: canvas_course['id'],
                            user_id: ENV.fetch('CANVAS_TEST_STUDENT_USER_ID'),
                            role: 'StudentEnrollment')
-    # The instructor self-install path: with LTI11_COURSE_INSTALL set to the
-    # Dashboard's config URL, the tool is installed in this one course, "By
-    # URL", exactly as a teacher does from Course → Settings → Apps — instead
-    # of relying on an account-level install. Run it with the account tool
-    # removed, or the course shows two identical tabs.
-    if ENV['LTI11_COURSE_INSTALL'].to_s.start_with?('http')
-      canvas_api.install_external_tool(
-        course_id: canvas_course['id'],
-        tool_config: { name: 'wikiedu.org',
-                       consumer_key: ENV.fetch('LTI11_CONSUMER_KEY'),
-                       shared_secret: ENV.fetch('LTI11_SHARED_SECRET'),
-                       config_type: 'by_url', config_url: ENV['LTI11_COURSE_INSTALL'] }
-      )
-    end
     dashboard_course = DashboardAdminClient.create_course(
       title: dashboard_title, school: dashboard_school, term: run_id,
       instructor_username: ENV.fetch('WIKIPEDIA_TEST_INSTRUCTOR_USERNAME')
@@ -82,6 +71,22 @@ describe 'LTI 1.1 legacy launch (companion mode)', :staging do
     provisioned[:dashboard_course_slug] = dashboard_course['slug']
     DashboardAdminClient.approve_course(slug: dashboard_course['slug'],
                                         campaign_slug: ENV.fetch('DASHBOARD_TEST_CAMPAIGN_SLUG'))
+
+    # The whole self-hosted path in two steps, exactly as an instructor walks
+    # it: issue a key for this course from the Dashboard, then install the tool
+    # in this Canvas course with it. No account-level tool and no shared
+    # secret is involved; the key is scoped to this course and pins itself to
+    # this Canvas on the first launch.
+    credentials = DashboardAdminClient.issue_lti_consumer_key(
+      course_slug: dashboard_course['slug'],
+      instructor_username: ENV.fetch('WIKIPEDIA_TEST_INSTRUCTOR_USERNAME')
+    )
+    canvas_api.install_external_tool(
+      course_id: provisioned[:canvas_course_id],
+      tool_config: { name: 'wikiedu.org', consumer_key: credentials['key'],
+                     shared_secret: credentials['secret'],
+                     config_type: 'by_url', config_url: config_url }
+    )
     @log_mark = staging_log_length
   end
 
@@ -95,12 +100,16 @@ describe 'LTI 1.1 legacy launch (companion mode)', :staging do
     end
   end
 
-  it 'launches, links and enrolls both personas, and records what LTIAAS sent' do
+  it 'launches, links and enrolls both personas, and records what the launch carried' do
     slug = provisioned[:dashboard_course_slug]
     course_id = provisioned[:canvas_course_id]
 
-    # --- Instructor: first launch through setup ------------------------------
-    bind_course_as_instructor(canvas_course_id: course_id, course_slug: slug)
+    # --- Instructor: first launch, with no setup step ------------------------
+    # The key was issued for this course, so the launch binds it: the
+    # instructor connects their Wikipedia account and is done. Reaching the
+    # setup picker here would mean the claim did not travel.
+    connect_as_instructor(canvas_course_id: course_id)
+    expect(page).to have_no_content('Set up the Wiki Education Dashboard')
     binding = binding_snapshot(slug)
     warn "  [lti11] binding: #{binding.inspect}"
     expect(binding['lti_version']).to eq('1.2.0')
@@ -153,6 +162,27 @@ describe 'LTI 1.1 legacy launch (companion mode)', :staging do
     lines.each { |l| warn "  [lti11] #{l}" }
     expect(lines).not_to be_empty
     expect(lines).to all(include('version="1.2.0"'))
+
+    # The key is pinned to this Canvas now, and was never used before.
+    key = consumer_key_snapshot(slug)
+    warn "  [lti11] consumer key: #{key.inspect}"
+    expect(key['activated_at']).to be_present
+    expect(key['lms_instance_guid']).to be_present
+  end
+
+  # The instructor's whole setup under the self-hosted path: open the tab,
+  # break out to the new tab, approve the account connection. No course picker,
+  # because the consumer key already knew which Dashboard course it was for.
+  def connect_as_instructor(canvas_course_id:)
+    enable_course_nav_tab(canvas_course_id)
+    in_canvas do
+      ensure_canvas_logged_in_as_instructor
+      visit_canvas_course(canvas_course_id)
+      click_wiki_education_tab
+      break_out_of_canvas_iframe(role: :instructor)
+    end
+    dismiss_consent_banner
+    approve_identity_connection
   end
 
   # What the launch wrote on the binding: version, platform identity, and that
@@ -188,6 +218,17 @@ describe 'LTI 1.1 legacy launch (companion mode)', :staging do
   # `shared/log/staging.log` carries only the Sidekiq and console processes, so
   # a request-time line is never there — the first run of this spec looked in
   # the wrong file and found nothing.
+  # What the launch did to the key it authenticated with.
+  def consumer_key_snapshot(course_slug)
+    DashboardConsole.run_json(<<~RUBY)
+      require 'json'
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      key = LtiConsumerKey.active.find_by!(course:)
+      puts key.attributes.slice('id', 'lms_instance_guid', 'activated_at',
+                                'last_launch_at', 'active').to_json
+    RUBY
+  end
+
   STAGING_WEB_LOG = '/var/log/apache2/error.log'
 
   def staging_log_length

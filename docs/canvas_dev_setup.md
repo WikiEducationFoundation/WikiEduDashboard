@@ -500,8 +500,9 @@ fronts every LTI 1.3 launch.
    last because it is authorization, and the instance guid it reads means
    nothing until the signature has proved the launch's origin.
 4. `NormalizeLtiLegacyLaunch` turns the raw parameters into the same
-   idtoken-shaped hash LTIAAS produces for a 1.3 launch, and
-   `LtiLegacyLaunchToken` signs it into a 24-hour JWT.
+   idtoken-shaped hash LTIAAS produces for a 1.3 launch, which is stored as an
+   `LtiLegacyLaunch` row; `LtiLegacyLaunchToken` hands back a short
+   unguessable reference to it, good for 24 hours.
 5. The browser is redirected to `/lti?ltik=<that token>`, and from there the
    flow is the ordinary one: `LtiSession.for_ltik` decodes our token instead
    of fetching an idtoken, and nothing downstream can tell the difference.
@@ -519,6 +520,13 @@ fronts every LTI 1.3 launch.
   `config.active_record.encryption.*` there is too late: the framework has
   already consumed it, the keys silently never take effect, and every write to
   an encrypted attribute raises.
+- **The launch token must stay short.** `LtiLaunchController#connect_course`
+  stashes it in the Rails session so the Wikipedia OAuth callback can return to
+  the launch, and the session is a 4 KB cookie. A token carrying the whole
+  idtoken passed every unit and request spec and then overflowed at 5879 bytes
+  against real Canvas, leaving the instructor stuck mid-OAuth. That is why the
+  token references an `LtiLegacyLaunch` row instead of containing the claims,
+  and it is why LTIAAS's own ltik is short. It also makes a launch revocable.
 - **`OAuth::RequestProxy::MockRequest` takes string keys** (`"method"`,
   `"uri"`, `"parameters"`). Symbol keys raise an unhelpful `NoMethodError`
   from inside the gem. That proxy is how the specs sign their fixtures.

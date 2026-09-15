@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_15_210000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_15_220000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -502,6 +502,15 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_15_210000) do
     t.datetime "created_at", null: false
     t.index ["created_at"], name: "index_lti_launch_nonces_on_created_at"
     t.index ["lti_consumer_key_id", "nonce"], name: "index_lti_launch_nonces_on_key_and_nonce", unique: true
+  end
+
+  create_table "lti_legacy_launches", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "token", null: false
+    t.text "idtoken", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.index ["expires_at"], name: "index_lti_legacy_launches_on_expires_at"
+    t.index ["token"], name: "index_lti_legacy_launches_on_token", unique: true
   end
 
   create_table "lti_line_items", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
