@@ -129,6 +129,12 @@ const CourseCreator = createReactClass({
         CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
         true
       );
+      // A privacy-mode course's slug is built server-side from obfuscated
+      // values, so the School/Title slug this form can predict is not the one
+      // the course will get. Checking it would test the wrong slug.
+      if (this.props.course.confidential) {
+        return this.props.setValid('exists');
+      }
       return this.props.checkCourseSlug(CourseUtils.generateTempId(this.props.course));
     }
   },

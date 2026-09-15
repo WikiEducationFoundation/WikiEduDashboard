@@ -165,6 +165,21 @@ const CourseForm = (props) => {
   let home_wiki;
   let multi_wiki;
 
+  // Privacy mode: the course page stays public, but the title, institution and
+  // instructor identity become admin-only. The server replaces the submitted
+  // title and school with obfuscated stand-ins, so the slug this form previews
+  // is not the slug the course ends up with. Unlike the `private` checkbox
+  // below, this applies to ClassroomProgramCourse, which is what Wiki Ed uses.
+  const confidentialCheckbox = (
+    <CourseCheckbox
+      checkboxFor="confidential"
+      value={true}
+      updateCourseProps={props.updateCourseProps}
+      checked={!!props.course.confidential}
+      text={I18n.t('courses.creator.course_confidential')}
+    />
+  );
+
   if (props.defaultCourse !== 'ClassroomProgramCourse') {
     home_wiki = (
       <div className="form-group home-wiki">
@@ -306,6 +321,7 @@ const CourseForm = (props) => {
         {roleDescription}
         {taSupportCheckbox}
         {privacyCheckbox}
+        {confidentialCheckbox}
         <button
           onClick={props.next}
           id="next"

@@ -51,6 +51,7 @@ class CourseCloneManager
   def sanitize_clone_info
     @clone.term = "CLONED FROM #{@course.term}"
     @clone.cloned_status = Course::ClonedStatus::PENDING
+    @clone.title = confidential_identity.course_params[:title] if @course.confidential?
     @clone.slug = course_slug(@clone)
     @clone.passcode = GeneratePasscode.call
     @clone.submitted = false
@@ -59,6 +60,7 @@ class CourseCloneManager
     @clone.type = 'ClassroomProgramCourse' if @clone.legacy?
     @clone.save!
     @clone = Course.find(@clone.id) # Re-load the course to ensure correct course type
+    clone_confidential_detail
     @clone.update_cache_from_timeslices # Reset the stats to 0
   end
 
@@ -179,5 +181,19 @@ class CourseCloneManager
 
   def course_slug(course)
     "#{course.school}/#{course.title}_(#{course.term})".tr(' ', '_')
+  end
+
+  # A clone of a privacy-mode course inherits the obfuscated title through
+  # #dup, which would give two courses the same privacy-mode number. Re-roll it
+  # so the clone gets its own, and carry the real values over.
+  def confidential_identity
+    detail = @course.confidential_course_detail
+    @confidential_identity ||= ObfuscateCourseIdentity.new({ title: detail.real_title,
+                                                             school: detail.real_school })
+  end
+
+  def clone_confidential_detail
+    return unless @course.confidential?
+    ConfidentialCourseDetail.create!(course: @clone, **confidential_identity.detail_attributes)
   end
 end

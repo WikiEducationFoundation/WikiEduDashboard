@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 show_email_and_real_name = user_signed_in? && current_user.can_see_real_names?(course)
-show_instructor_identity = user_signed_in? && current_user.nonvisitor?(course)
+# In a privacy-mode course the instructor's identity is admin-only, so course
+# participants do not get the instructor real_name fallback below.
+show_instructor_identity = user_signed_in? && current_user.nonvisitor?(course) &&
+                           !course.confidential?
 
 json.users course.courses_users.eager_load(:user, :course) do |cu|
   json.call(cu, :character_sum_ms, :character_sum_us, :character_sum_draft, :references_count,

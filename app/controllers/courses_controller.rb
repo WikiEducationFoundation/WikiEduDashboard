@@ -32,7 +32,8 @@ class CoursesController < ApplicationController
                                                         params[:course][:scoping_methods],
                                                         initial_campaign_params,
                                                         instructor_role_description, current_user,
-                                                        params[:course][:ta_support])
+                                                        params[:course][:ta_support],
+                                                        confidential: confidential_param?)
     unless course_creation_manager.valid?
       render json: { message: course_creation_manager.invalid_reason },
              status: :not_found
@@ -46,6 +47,7 @@ class CoursesController < ApplicationController
 
   def update
     validate
+    reject_rename_of_confidential_course { return }
     slug_from_params if should_set_slug?
     reject_rename_of_event_synced_course { return }
     handle_course_announcement(@course.instructors.first)
@@ -307,7 +309,27 @@ class CoursesController < ApplicationController
   end
 
   def should_set_slug?
+    return false if @course&.confidential?
     %i[title school].all? { |key| params[:course].key?(key) }
+  end
+
+  def confidential_param?
+    ActiveRecord::Type::Boolean.new.cast(params[:course][:confidential]).present?
+  end
+
+  # The obfuscated title and school of a privacy-mode course are what keep it
+  # anonymous, so editing them would deanonymize the course — and the slug,
+  # which is already published on-wiki, cannot follow along anyway. Admins
+  # change the real values through ConfidentialCourseDetailsController instead.
+  def reject_rename_of_confidential_course
+    return unless @course.confidential?
+    return unless renaming?(:title) || renaming?(:school)
+    render json: { message: I18n.t('courses.error.confidential_rename') }, status: :conflict
+    yield
+  end
+
+  def renaming?(key)
+    params[:course].key?(key) && params[:course][key] != @course.send(key)
   end
 
   def slug_from_params(course = params[:course])

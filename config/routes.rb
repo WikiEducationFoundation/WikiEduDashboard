@@ -271,6 +271,12 @@ Rails.application.routes.draw do
     get 'find_course_note', on: :member
   end
 
+  # The real title and institution of a privacy-mode course. Admin-only.
+  get 'confidential_course_details/:course_id' => 'confidential_course_details#show',
+      constraints: { course_id: /\d+/ }
+  put 'confidential_course_details/:course_id' => 'confidential_course_details#update',
+      constraints: { course_id: /\d+/ }
+
   # Categories
   post 'categories' => 'categories#add_categories'
   delete 'categories' => 'categories#remove_category'

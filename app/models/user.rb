@@ -210,6 +210,9 @@ class User < ApplicationRecord
                      CoursesUsers::Roles::WIKI_ED_STAFF_ROLE].freeze
   def can_see_real_names?(course)
     return true if admin?
+    # In a privacy-mode course, the instructor's name and email are admin-only,
+    # so no course role grants them.
+    return false if course&.confidential?
     course_roles(course).any? { |role| REAL_NAME_ROLES.include?(role) }
   end
 

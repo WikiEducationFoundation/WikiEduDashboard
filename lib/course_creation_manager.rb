@@ -7,9 +7,13 @@ require_dependency "#{Rails.root}/lib/article_utils"
 class CourseCreationManager
   attr_reader :wiki, :invalid_reason
 
+  # How many times to re-roll the privacy-mode sequence when another course
+  # creation takes the one we picked.
+  MAX_OBFUSCATION_ATTEMPTS = 5
+
   # rubocop:disable Metrics/ParameterLists
   def initialize(course_params, wiki_params, scoping_methods, initial_campaign_params,
-                 instructor_role_description, current_user, ta_support)
+                 instructor_role_description, current_user, ta_support, confidential: false)
     @scoping_methods = scoping_methods
     @ta_support = ta_support
     @course_params = course_params
@@ -17,8 +21,10 @@ class CourseCreationManager
     @initial_campaign_params = initial_campaign_params
     @role_description = instructor_role_description
     @instructor = current_user
+    @confidential = confidential
     @overrides = {}
     set_wiki
+    obfuscate_identity if @confidential
     set_slug
     set_scoping_methods
   end
@@ -44,8 +50,8 @@ class CourseCreationManager
     set_passcode
     set_course_type
     set_initial_campaign
-    @course = Course.new(@course_params.merge(@overrides))
-    if @course.save
+    @course = save_course
+    if @course.persisted?
       add_instructor_to_course
       add_tags_to_course
       # process_experiments
@@ -72,6 +78,39 @@ class CourseCreationManager
     slug += "_(#{@course_params[:term].strip})" if @course_params[:term].present?
     @slug = slug.tr(' ', '_')
     @overrides[:slug] = @slug
+  end
+
+  # Replaces the submitted title and school with obfuscated stand-ins, keeping
+  # the real values for the admin-only record. Must run before #set_slug.
+  def obfuscate_identity
+    @identity = ObfuscateCourseIdentity.new(@identity&.original_params || @course_params)
+    @course_params = @identity.course_params
+  end
+
+  # The course and its ConfidentialCourseDetail have to land together: a course
+  # left with an obfuscated title and no detail record would read as
+  # non-confidential, dropping the guards and losing the real values. Both
+  # unique indexes (the detail sequence and the course slug) mean the same
+  # collision, so either one re-rolls the sequence and retries.
+  def save_course
+    attempts = 0
+    begin
+      build_course_and_detail
+    rescue ActiveRecord::RecordNotUnique
+      raise unless @confidential && (attempts += 1) < MAX_OBFUSCATION_ATTEMPTS
+      obfuscate_identity
+      set_slug
+      retry
+    end
+  end
+
+  def build_course_and_detail
+    course = Course.new(@course_params.merge(@overrides))
+    Course.transaction do
+      next unless course.save
+      ConfidentialCourseDetail.create!(course:, **@identity.detail_attributes) if @confidential
+    end
+    course
   end
 
   def invalid_wiki?

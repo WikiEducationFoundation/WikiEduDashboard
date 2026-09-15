@@ -207,4 +207,36 @@ describe CourseCloneManager do
       expect(clone.assignments.where(article_title: 'Claimed_one')).to be_empty
     end
   end
+
+  context 'when the source course is in privacy mode' do
+    let(:source) { Course.find(1) }
+    let(:clone) do
+      described_class.new(course: source, user: User.find(1), clone_assignments: false).clone!
+    end
+
+    before do
+      create(:confidential_course_detail, course: source, sequence: 7,
+                                          real_title: 'Introduction to Biology',
+                                          real_school: 'State University')
+    end
+
+    it 'gives the clone its own privacy-mode sequence' do
+      expect(clone.confidential_course_detail.sequence).not_to eq(7)
+    end
+
+    it 'carries the real values over to the clone' do
+      expect(clone.confidential_course_detail.real_title).to eq('Introduction to Biology')
+      expect(clone.confidential_course_detail.real_school).to eq('State University')
+    end
+
+    it 'gives the clone a slug that is neither the source slug nor identifying' do
+      expect(clone.slug).not_to eq(source.slug)
+      expect(clone.slug).not_to include('Biology')
+      expect(clone.slug).not_to include('State')
+    end
+
+    it 'leaves the clone in privacy mode' do
+      expect(clone).to be_confidential
+    end
+  end
 end
