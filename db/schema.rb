@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_15_200000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_15_210000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -494,6 +494,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_15_200000) do
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_lti_course_bindings_on_course_id_unique", unique: true
     t.index ["lms_id", "lms_context_id"], name: "index_lti_course_bindings_on_lms_context", unique: true
+  end
+
+  create_table "lti_launch_nonces", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "lti_consumer_key_id", null: false
+    t.string "nonce", null: false
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_lti_launch_nonces_on_created_at"
+    t.index ["lti_consumer_key_id", "nonce"], name: "index_lti_launch_nonces_on_key_and_nonce", unique: true
   end
 
   create_table "lti_line_items", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
