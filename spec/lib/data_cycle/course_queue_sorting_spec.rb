@@ -51,8 +51,8 @@ describe CourseQueueSorting do
                         flags: { use_acuwt: true })
       end
 
-      it 'queues in acuwt_update' do
-        expect(subject.queue_for(course)).to eq 'acuwt_update'
+      it 'queues according to the normal rules' do
+        expect(subject.queue_for(course)).to eq 'medium_update'
       end
     end
 
@@ -62,8 +62,8 @@ describe CourseQueueSorting do
                         flags: { use_acuwt: true, very_long_update: true })
       end
 
-      it 'prefers acuwt_update over very_long_update' do
-        expect(subject.queue_for(course)).to eq 'acuwt_update'
+      it 'queues in very_long_update' do
+        expect(subject.queue_for(course)).to eq 'very_long_update'
       end
     end
 
