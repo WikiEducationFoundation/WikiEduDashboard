@@ -166,17 +166,22 @@ describe 'LTI 1.1 legacy launch (companion mode)', :staging do
     RUBY
   end
 
-  STAGING_LOG = '/var/www/dashboard/shared/log/staging.log'
+  # Where the web app's Rails log actually lands on staging: Passenger captures
+  # the app processes' stdout into Apache's error log (`App <pid> output: …`).
+  # `shared/log/staging.log` carries only the Sidekiq and console processes, so
+  # a request-time line is never there — the first run of this spec looked in
+  # the wrong file and found nothing.
+  STAGING_WEB_LOG = '/var/log/apache2/error.log'
 
   def staging_log_length
-    ssh("wc -l < #{STAGING_LOG}").strip.to_i
+    ssh("wc -l < #{STAGING_WEB_LOG}").strip.to_i
   end
 
   # The `[LTI launch]` diagnostic lines written since the run began (only
   # emitted with LTI_LAUNCH_DEBUG set on staging). Truncated to the claims that
   # matter; they carry no PII by construction (see log_launch_claims).
   def launch_log_lines_since(mark)
-    ssh("tail -n +#{mark + 1} #{STAGING_LOG} | grep -F '[LTI launch]' | cut -c1-900")
+    ssh("tail -n +#{mark + 1} #{STAGING_WEB_LOG} | grep -F '[LTI launch]' | cut -c1-900")
       .lines.map(&:strip).reject(&:empty?)
   end
 

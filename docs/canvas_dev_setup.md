@@ -555,7 +555,12 @@ a second grading architecture that issue #7026 declines to build.
 
 The verification checklist this section used to carry, with answers from the
 captured idtoken above. `LTI_LAUNCH_DEBUG=1` on staging logs a `[LTI launch]`
-line with `version`, `roles` and `platform` for any later launch.
+line with `version`, `roles` and `platform` for any later launch — in
+**`/var/log/apache2/error.log`**, where Passenger captures the web processes'
+Rails output (`App <pid> output: …`); `shared/log/staging.log` carries only
+Sidekiq and console output, so request-time lines never appear there.
+`staging_specs/lti11_legacy_launch_spec.rb` runs the whole flow live and
+prints the binding, both contexts, and those lines.
 
 1. **Roles: raw 1.1 forms.** LTIAAS does not normalize; the exact-match
    `LEGACY_*_ROLES` tables are the ones that apply. Still unexercised on a real
