@@ -56,10 +56,11 @@ the first-launch verification checklist are in `docs/canvas_dev_setup.md`
   guidance text and the deep-link refusal reuses "Unavailable"). Expand or
   reword once the install method is settled.
 - **Canvas launch point under 1.1.** A manual key/secret install has no
-  course-navigation placement; that needs an XML tool config we don't host yet.
-  Options: serve a static cartridge XML from the Dashboard, or document module
-  items / external-tool assignments as the launch point (see the dev-setup
-  checklist, item 6).
+  course-navigation placement. For the test Canvas, `bin/canvas-lti11-tool`
+  installs the tool through the external_tools API with the placement. For an
+  institution's own install: serve a static cartridge XML from the Dashboard,
+  or document module items / external-tool assignments as the launch point
+  (see the dev-setup checklist, item 6).
 - **A real legacy launch** from a Canvas test instance, once LTIAAS has enabled
   legacy support on the account: settles the roles normalization, the
   `productFamilyCode` gate, identity scoping under the one global 1.1

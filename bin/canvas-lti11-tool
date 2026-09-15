@@ -1,0 +1,95 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Installs, inspects or removes the Dashboard's **LTI 1.1** tool on the test
+# Canvas (canvas.wikiedu.org), for exercising the launch-only "companion mode"
+# (issue #7026) against staging.
+#
+#   bin/canvas-lti11-tool list      # account-level external tools, LTI 1.1 or 1.3
+#   bin/canvas-lti11-tool install   # create (or update) the LTI 1.1 tool
+#   bin/canvas-lti11-tool remove    # delete it
+#
+# Credentials come from `.env.staging-tests` (gitignored; see the .example):
+#   CANVAS_ADMIN_TOKEN, CANVAS_TEST_ACCOUNT_ID   — as for the staging specs
+#   LTIAAS_LEGACY_CONSUMER_KEY, LTIAAS_LEGACY_SHARED_SECRET
+#     — the tenant's global LTI 1.1 key/secret, from the LTIAAS portal
+#       (API Settings → "Display OAuth Secrets"; only shown once legacy
+#       support is enabled on the account). Never printed by this script.
+#   LTIAAS_LEGACY_LAUNCH_URL (optional) — defaults to the testing tenant,
+#     https://wikiedu-testing.ltiaas.com/lti/legacy/launch, which is what
+#     dashboard-testing's LTIAAS_DOMAIN points at.
+#
+# Why the API and not Canvas's admin UI: a manually entered 1.1 tool (key,
+# secret, launch URL) gets no course-navigation placement, and LTIAAS's
+# quick-start provides no XML config to paste. The external_tools API takes the
+# placement directly. The tool is installed with `course_navigation` default
+# *enabled*, so every course in the test account gets the tab — the same
+# posture the 1.3 registration has on this Canvas — under its own label, so
+# the 1.3 harness (which finds its tab by label) is unaffected.
+
+require 'json'
+require_relative '../staging_specs/support/canvas_api_client'
+
+env_path = File.expand_path('../.env.staging-tests', __dir__)
+if File.exist?(env_path)
+  File.foreach(env_path) do |line|
+    line = line.strip
+    next if line.empty? || line.start_with?('#')
+    next unless (match = line.match(/\A(\w+)=(.*)\z/))
+
+    ENV[match[1]] ||= match[2]
+  end
+end
+
+LAUNCH_URL = ENV.fetch('LTIAAS_LEGACY_LAUNCH_URL',
+                       'https://wikiedu-testing.ltiaas.com/lti/legacy/launch')
+TOOL_NAME = ENV.fetch('CANVAS_LTI11_TOOL_LABEL', 'wikiedu.org (LTI 1.1)')
+
+client = CanvasApiClient.new
+command = ARGV[0] || 'list'
+
+def describe(tool)
+  nav = tool['course_navigation'] || {}
+  kind = tool['developer_key_id'] ? "1.3 (dev key #{tool['developer_key_id']})" : '1.1'
+  format('%6s  %-28s  %-4s  privacy=%-10s  nav=%s/%s  %s',
+         tool['id'], tool['name'], kind, tool['privacy_level'],
+         nav['enabled'].inspect, nav['default'] || '-', tool['url'])
+end
+
+existing = client.list_external_tools.find { |t| t['url'] == LAUNCH_URL }
+
+case command
+when 'list'
+  client.list_external_tools.each { |tool| puts describe(tool) }
+when 'install'
+  key = ENV.fetch('LTIAAS_LEGACY_CONSUMER_KEY', '')
+  secret = ENV.fetch('LTIAAS_LEGACY_SHARED_SECRET', '')
+  if key.empty? || secret.empty?
+    abort 'LTIAAS_LEGACY_CONSUMER_KEY and LTIAAS_LEGACY_SHARED_SECRET are not set ' \
+          '(put them in .env.staging-tests; they come from the LTIAAS portal).'
+  end
+
+  config = {
+    name: TOOL_NAME,
+    consumer_key: key,
+    shared_secret: secret,
+    url: LAUNCH_URL,
+    privacy_level: 'anonymous',
+    'course_navigation[enabled]' => true,
+    'course_navigation[default]' => 'enabled',
+    'course_navigation[text]' => TOOL_NAME,
+    'course_navigation[visibility]' => 'members'
+  }
+  tool = if existing
+           client.update_account_external_tool(existing['id'], config)
+         else
+           client.create_account_external_tool(config)
+         end
+  puts "#{existing ? 'updated' : 'created'}: #{describe(tool)}"
+when 'remove'
+  abort "no tool with url #{LAUNCH_URL} on the account" unless existing
+  client.delete_external_tool(existing['id'])
+  puts "removed: #{describe(existing)}"
+else
+  abort "unknown command #{command.inspect}; use list, install or remove"
+end

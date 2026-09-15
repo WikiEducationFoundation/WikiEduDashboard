@@ -219,6 +219,23 @@ class CanvasApiClient
     post("/api/v1/accounts/#{@account_id}/lti_registrations/#{registration_id}/deployments")
   end
 
+  # --- Account-level external tools (the LTI 1.1 install path) ---------------
+  # An LTI 1.1 tool is a plain ContextExternalTool with a consumer key and
+  # shared secret — no developer key, no registration. Creating it through the
+  # API is also how it gets a course-navigation placement: Canvas's "Manual
+  # Entry" dialog has no placement fields, and LTIAAS provides no XML config.
+  # `tool_config` is the flat form Canvas expects, e.g.
+  #   { name:, consumer_key:, shared_secret:, url:, privacy_level: 'anonymous',
+  #     'course_navigation[enabled]' => true, ... }
+  # See bin/canvas-lti11-tool for the one this repo installs.
+  def create_account_external_tool(tool_config)
+    post("/api/v1/accounts/#{@account_id}/external_tools", tool_config)
+  end
+
+  def update_account_external_tool(tool_id, tool_config)
+    put("/api/v1/accounts/#{@account_id}/external_tools/#{tool_id}", tool_config)
+  end
+
   def delete_deployment(registration_id, deployment_id)
     delete("/api/v1/accounts/#{@account_id}/lti_registrations/" \
            "#{registration_id}/deployments/#{deployment_id}")

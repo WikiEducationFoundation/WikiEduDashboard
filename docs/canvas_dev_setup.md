@@ -555,12 +555,34 @@ Set `LTI_LAUNCH_DEBUG=1` and read the `[LTI launch]` log line, which now include
    contexts by backfill rather than re-enrollment.
 6. **The launch point in Canvas.** A manually configured 1.1 tool (key, secret,
    launch URL) gets no course-navigation placement on its own; in Canvas that
-   needs an XML tool configuration with a `course_navigation` extension, which
-   LTIAAS's quick-start doesn't provide. Until one is hosted (the Dashboard
-   could serve a small static one pointing at the LTIAAS legacy launch URL),
-   the launch point is a module item or an external-tool assignment pointing at
-   the tool — both arrive as ordinary launches and are handled as the
-   course-navigation one. Decide which before writing install steps.
+   needs either an XML tool configuration with a `course_navigation` extension
+   (which LTIAAS's quick-start doesn't provide) or the external_tools API,
+   which takes the placement directly. For the test Canvas,
+   `bin/canvas-lti11-tool install` does the latter (see "Testing against
+   canvas.wikiedu.org" below). For an institution's own install, decide between
+   hosting a small static XML config on the Dashboard and documenting module
+   items / external-tool assignments as the launch point.
+
+### Testing against canvas.wikiedu.org
+
+Staging (`dashboard-testing.wikiedu.org`) points at the `wikiedu-testing`
+LTIAAS tenant and has `lti_legacy_launches_enabled: 'true'` and
+`LTI_LAUNCH_DEBUG: '1'` set. To put the 1.1 tool in front of it:
+
+1. Have LTIAAS enable legacy support on the testing account (they need the
+   account ID). Once done, the portal's API Settings page shows a *Display
+   OAuth Secrets* button with the tenant's global consumer key and shared secret.
+2. Put them in `.env.staging-tests` as `LTIAAS_LEGACY_CONSUMER_KEY` /
+   `LTIAAS_LEGACY_SHARED_SECRET`.
+3. `bin/canvas-lti11-tool install` — creates (or updates) an account-level
+   external tool on `CANVAS_TEST_ACCOUNT_ID` with launch URL
+   `https://wikiedu-testing.ltiaas.com/lti/legacy/launch`, privacy level
+   anonymous, and a course-navigation tab labelled "wikiedu.org (LTI 1.1)",
+   default-enabled in every course of that account. `list` shows what is
+   installed (1.1 and 1.3 tools alike); `remove` deletes it.
+4. Open any test course's new tab as the test instructor, then as the test
+   student, and read the `[LTI launch]` lines in staging's log against the
+   checklist above.
 
 ## Institutional review: VPAT, HECVAT, and data flow
 
