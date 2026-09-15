@@ -5,9 +5,14 @@
 # Canvas (canvas.wikiedu.org), for exercising the launch-only "companion mode"
 # (issue #7026) against staging.
 #
-#   bin/canvas-lti11-tool list      # account-level external tools, LTI 1.1 or 1.3
-#   bin/canvas-lti11-tool install   # create (or update) the LTI 1.1 tool
-#   bin/canvas-lti11-tool remove    # delete it
+#   bin/canvas-lti11-tool list                    # account-level external tools, 1.1 or 1.3
+#   bin/canvas-lti11-tool install                 # create/update the 1.1 tool via API params
+#   bin/canvas-lti11-tool install-by-url <url>    # create/update it from a config XML URL —
+#                                                 #   what an institution's admin does (the
+#                                                 #   Dashboard serves it at /lti/legacy/config.xml)
+#   bin/canvas-lti11-tool install-by-xml <file>   # same, from a local XML file (validates a
+#                                                 #   not-yet-deployed config against real Canvas)
+#   bin/canvas-lti11-tool remove                  # delete it
 #
 # Credentials come from `.env.staging-tests` (gitignored; see the .example):
 #   CANVAS_ADMIN_TOKEN, CANVAS_TEST_ACCOUNT_ID   — as for the staging specs
@@ -61,7 +66,7 @@ existing = client.list_external_tools.find { |t| t['url'] == LAUNCH_URL }
 case command
 when 'list'
   client.list_external_tools.each { |tool| puts describe(tool) }
-when 'install'
+when 'install', 'install-by-url', 'install-by-xml'
   key = ENV.fetch('LTIAAS_LEGACY_CONSUMER_KEY', '')
   secret = ENV.fetch('LTIAAS_LEGACY_SHARED_SECRET', '')
   if key.empty? || secret.empty?
@@ -69,23 +74,30 @@ when 'install'
           '(put them in .env.staging-tests; they come from the LTIAAS portal).'
   end
 
-  config = {
-    name: TOOL_NAME,
-    consumer_key: key,
-    shared_secret: secret,
-    url: LAUNCH_URL,
-    privacy_level: 'anonymous',
-    'course_navigation[enabled]' => true,
-    'course_navigation[default]' => 'enabled',
-    'course_navigation[text]' => TOOL_NAME,
-    'course_navigation[visibility]' => 'members'
-  }
+  config = { name: TOOL_NAME, consumer_key: key, shared_secret: secret }
+  case command
+  when 'install-by-url'
+    config_url = ARGV[1] or abort 'usage: install-by-url <config xml url>'
+    config.merge!(config_type: 'by_url', config_url:)
+  when 'install-by-xml'
+    path = ARGV[1] or abort 'usage: install-by-xml <path to config xml>'
+    config.merge!(config_type: 'by_xml', config_xml: File.read(path))
+  else
+    config.merge!(
+      url: LAUNCH_URL,
+      privacy_level: 'anonymous',
+      'course_navigation[enabled]' => true,
+      'course_navigation[default]' => 'enabled',
+      'course_navigation[text]' => TOOL_NAME,
+      'course_navigation[visibility]' => 'members'
+    )
+  end
   tool = if existing
            client.update_account_external_tool(existing['id'], config)
          else
            client.create_account_external_tool(config)
          end
-  puts "#{existing ? 'updated' : 'created'}: #{describe(tool)}"
+  puts "#{existing ? 'updated' : 'created'} (#{command}): #{describe(tool)}"
 when 'remove'
   abort "no tool with url #{LAUNCH_URL} on the account" unless existing
   client.delete_external_tool(existing['id'])

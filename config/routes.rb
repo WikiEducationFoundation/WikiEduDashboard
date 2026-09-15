@@ -473,6 +473,9 @@ Rails.application.routes.draw do
   # Public installation guide (a rendered docs/ Markdown page, not part of the
   # launch flow and not behind the canvas_integration feature gate).
   get 'lti/guide' => 'about_this_site#canvas_integration_guide'
+  # LTI 1.1 tool configuration XML for Canvas's "By URL" install (public; gated
+  # on the legacy-launch flags inside the controller). See LtiConfigController.
+  get 'lti/legacy/config' => 'lti_config#legacy', defaults: { format: :xml }
   get 'lti' => 'lti_launch#launch'
   get 'lti/connect_course' => 'lti_launch#connect_course'
   get 'lti/assignment_view' => 'lti_launch#assignment_view'

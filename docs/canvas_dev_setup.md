@@ -579,15 +579,18 @@ prints the binding, both contexts, and those lines.
 5. **The sunset path holds.** `user.id` is Canvas's `lti_user_id`, the value
    NRPS reports as `lti11LegacyUserId`, so re-linking a course after its
    institution moves to 1.3 is a backfill by that field.
-6. **The launch point in Canvas.** A manually configured 1.1 tool (key, secret,
-   launch URL) gets no course-navigation placement on its own; in Canvas that
-   needs either an XML tool configuration with a `course_navigation` extension
-   (which LTIAAS's quick-start doesn't provide) or the external_tools API,
-   which takes the placement directly. For the test Canvas,
-   `bin/canvas-lti11-tool install` does the latter (see "Testing against
-   canvas.wikiedu.org" below). For an institution's own install, decide between
-   hosting a small static XML config on the Dashboard and documenting module
-   items / external-tool assignments as the launch point.
+6. **The launch point in Canvas: settled by a hosted XML config.** A manually
+   configured 1.1 tool (key, secret, launch URL) gets no course-navigation
+   placement; Canvas takes placements only from an XML tool configuration or
+   the external_tools API, and LTIAAS's quick-start provides no XML. The
+   Dashboard now serves one at `/lti/legacy/config.xml` (`LtiConfigController`,
+   gated on the same flags as legacy launches): launch URL for this
+   deployment's LTIAAS tenant, `privacy_level` anonymous, and a
+   default-enabled `course_navigation` placement. Institutions install "By
+   URL" with that address plus the key/secret — the guide's LTI 1.1 steps.
+   Validated against the test Canvas with `bin/canvas-lti11-tool
+   install-by-xml` (the rendered XML, before it was deployed) and
+   `install-by-url` (the deployed URL).
 
 ### Testing against canvas.wikiedu.org
 
@@ -600,12 +603,18 @@ LTIAAS tenant and has `lti_legacy_launches_enabled: 'true'` and
    OAuth Secrets* button with the tenant's global consumer key and shared secret.
 2. Put them in `.env.staging-tests` as `LTIAAS_LEGACY_CONSUMER_KEY` /
    `LTIAAS_LEGACY_SHARED_SECRET`.
-3. `bin/canvas-lti11-tool install` — creates (or updates) an account-level
-   external tool on `CANVAS_TEST_ACCOUNT_ID` with launch URL
-   `https://wikiedu-testing.ltiaas.com/lti/legacy/launch`, privacy level
-   anonymous, and a course-navigation tab labelled "wikiedu.org (LTI 1.1)",
-   default-enabled in every course of that account. `list` shows what is
-   installed (1.1 and 1.3 tools alike); `remove` deletes it.
+3. `bin/canvas-lti11-tool install-by-url
+   https://dashboard-testing.wikiedu.org/lti/legacy/config.xml` — creates (or
+   updates) an account-level external tool on `CANVAS_TEST_ACCOUNT_ID` exactly
+   the way an institution's admin does, from the Dashboard-hosted XML: launch
+   URL `https://wikiedu-testing.ltiaas.com/lti/legacy/launch`, privacy level
+   anonymous, and a default-enabled course-navigation tab. The tab is labelled
+   from the XML ("wikiedu.org"); `CANVAS_LTI11_TOOL_LABEL` only affects the
+   tool's *name*, which the staging spec also uses to find the tab — keep the
+   two in step. `install` does the same through API placement params (no XML);
+   `install-by-xml <file>` takes a local XML for validating a config that isn't
+   deployed yet; `list` shows what is installed (1.1 and 1.3 tools alike);
+   `remove` deletes it.
 4. Open any test course's new tab as the test instructor, then as the test
    student, and read the `[LTI launch]` lines in staging's log against the
    checklist above.

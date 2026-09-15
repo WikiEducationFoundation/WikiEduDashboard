@@ -55,12 +55,16 @@ the first-launch verification checklist are in `docs/canvas_dev_setup.md`
   no `[PLACEHOLDER]` markers remain anywhere (the legacy status view carries no
   guidance text and the deep-link refusal reuses "Unavailable"). Expand or
   reword once the install method is settled.
-- **Canvas launch point under 1.1.** A manual key/secret install has no
-  course-navigation placement. For the test Canvas, `bin/canvas-lti11-tool`
-  installs the tool through the external_tools API with the placement. For an
-  institution's own install: serve a static cartridge XML from the Dashboard,
-  or document module items / external-tool assignments as the launch point
-  (see the dev-setup checklist, item 6).
+- ~~Canvas launch point under 1.1~~ — settled: the Dashboard serves an LTI 1.1
+  cartridge XML at `/lti/legacy/config.xml` with the course-navigation
+  placement, and the guide's 1.1 install steps use Canvas's "By URL" with it.
+- **Guide copy is now full prose** (Sage authorized AI-drafted copy for the
+  guide, 2026-09-15): both install paths, a "choosing" section, 1.1
+  troubleshooting. Review for tone against a real 1.1 admin walkthrough.
+- **1.1 → 1.3 migration for a linked course** needs staff: a Dashboard course
+  binds to one LMS tool, so the 1.1 binding must be removed/re-pointed before
+  the instructor links again from the 1.3 tab. The guide tells admins to
+  contact us first; no tooling for it yet.
 - ~~A real legacy launch~~ — done 2026-09-15 (see the dev-setup doc's "What
   the first real legacy launch settled"). Roles arrive raw, productFamilyCode
   is set, `platform.id` is absent so the guid keys the binding, TTL is 24h.
