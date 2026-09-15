@@ -1,0 +1,120 @@
+-# [PLACEHOLDER - every user-facing string on this page is an AI-drafted first
+-#  pass, written by Claude Code at Sage's request on 2026-09-15 and pending
+-#  operator review. Edit or replace the wording in place; it is deliberately
+-#  inline rather than in config/locales, so this file is the only thing to
+-#  change. Greppable as [PLACEHOLDER until that review happens.]
+-#
+-# The unlisted credentials page for the LTI 1.1 ("companion mode") path,
+-# reached only at courses/*id/canvas by instructors Wiki Education has sent the
+-# URL to. Copy only: the route, controller and model land in phase 1 of
+-# .claude/canvas_integration/lti_11_self_hosted_plan-2026-09-15.md. Expects
+-# @course, @key (nil until generated), @secret (only on the render right
+-# after generating), @bound_elsewhere, and @config_url.
+.container.narrow
+  .section-header
+    %h1 Connect this course to Canvas
+  %hr
+
+  - if @bound_elsewhere
+    -# Already bound through the standard LTI 1.3 install: there is nothing for
+    -# an instructor to do here, and generating a second credential would only
+    -# create two ways for one course to be connected.
+    .module
+      %p This course is already connected to Canvas through the standard integration. There is nothing to set up on this page.
+      %p= link_to 'Open the course', "/courses/#{@course.slug}"
+
+  - elsif @key.nil?
+    .module
+      %p
+        This page connects
+        %strong= @course.title
+        to Canvas using LTI 1.1, the older of the two ways Canvas connects to outside tools. Wiki Education sends this link to instructors whose Canvas cannot install the newer version.
+      %p You can do the whole setup yourself, without a Canvas administrator, as long as your Canvas allows instructors to add apps to their own courses.
+
+    .module
+      %h2 What you get
+      %p Once it is connected, you and your students open the Dashboard from a wikiedu.org link in your Canvas course navigation. Students connect their Wikipedia accounts there and are enrolled in this course automatically, with no enrollment code to pass around.
+      %p
+        %strong What it does not do.
+        Nothing is written to your Canvas gradebook, no assignments are created in Canvas, and your Canvas roster is not copied to the Dashboard. You grade from the Dashboard, the same way instructors who don't use Canvas do.
+
+    .module
+      %h2 Generate your credentials
+      %p Generating gives you a consumer key and a shared secret to paste into Canvas, along with a configuration URL. Treat the key and secret like a password: they are for this course only.
+      %p
+        %strong The shared secret is shown once, on the next screen, and will not be shown again.
+        If you lose it, come back here and generate a new one.
+      = button_to 'Generate credentials', "/courses/#{@course.slug}/canvas",
+                  method: :post, class: 'button dark'
+
+  - elsif @secret
+    -# The one render where the secret exists in memory. Never stored in a form
+    -# we can show again.
+    .module
+      %h2 Your Canvas credentials
+      .lti-setup__error
+        %p
+          %strong Copy the shared secret now.
+          It will not be shown again. If you lose it, come back to this page and generate a new one.
+      %dl.lti-status-list
+        .lti-status-list__row
+          %dt Consumer key
+          %dd
+            %code.credential-value= @key.key
+            %button.button.border.credential-copy{ type: 'button', data: { value: @key.key } } Copy
+        .lti-status-list__row
+          %dt Shared secret
+          %dd
+            %code.credential-value= @secret
+            %button.button.border.credential-copy{ type: 'button', data: { value: @secret } } Copy
+        .lti-status-list__row
+          %dt Configuration URL
+          %dd
+            %code.credential-value= @config_url
+            %button.button.border.credential-copy{ type: 'button', data: { value: @config_url } } Copy
+
+    .module
+      %h2 Next: add the app in Canvas
+      %p In your Canvas course, open Settings, then the Apps tab, and add an app with the configuration type "By URL", using the three values above.
+      %p= link_to 'Full steps, with screenshots', '/lti/guide/instructors'
+      %p The first time you open the wikiedu.org link in your Canvas course, this Dashboard course is connected automatically. You will be asked to connect your Wikipedia account once, in a new tab.
+
+  - elsif !@key.activated?
+    .module
+      %h2 Waiting for your first launch from Canvas
+      %p
+        Your credentials were created
+        = time_ago_in_words(@key.created_at)
+        ago. This course connects as soon as you open the wikiedu.org link in your Canvas course for the first time.
+      %p= link_to 'Installation steps, with screenshots', '/lti/guide/instructors'
+      %p
+        %strong The shared secret is not shown again.
+        If you no longer have it, generate a new one below.
+      %p Credentials that are never used stop working after seven days.
+    = render 'course_canvas_credentials/regenerate', course: @course
+
+  - else
+    .module
+      %h2 This course is connected to Canvas
+      %dl.lti-status-list
+        .lti-status-list__row
+          %dt Connected
+          %dd= @key.activated_at.to_fs(:long)
+        - if @key.last_launch_at
+          .lti-status-list__row
+            %dt Last opened from Canvas
+            %dd= "#{time_ago_in_words(@key.last_launch_at)} ago"
+      %p Students who open the wikiedu.org link in your Canvas course are enrolled in this course automatically. Nothing further is needed here.
+      %p Remember that grades are not sent to your Canvas gradebook. Your students' training and article work is on the Dashboard.
+    = render 'course_canvas_credentials/regenerate', course: @course
+
+  :javascript
+    document.querySelectorAll('.credential-copy').forEach(function (button) {
+      button.addEventListener('click', function () {
+        navigator.clipboard.writeText(button.dataset.value).then(function () {
+          var previous = button.textContent;
+          button.textContent = 'Copied';
+          setTimeout(function () { button.textContent = previous; }, 2000);
+        });
+      });
+    });

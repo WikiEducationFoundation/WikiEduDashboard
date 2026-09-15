@@ -224,6 +224,14 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/lms_integration_status.json' => 'lms_integration_status#show',
         constraints: { slug: /.*/ }
+    # The unlisted LTI 1.1 credentials page, declared before the courses#show
+    # catch-all so it wins. Nothing in the interface links to it; Wiki
+    # Education shares the URL with beta instructors who need the 1.1 path.
+    # See CourseCanvasCredentialsController.
+    get 'courses/:slug/canvas' => 'course_canvas_credentials#show',
+        constraints: { slug: /.*/ }
+    post 'courses/:slug/canvas' => 'course_canvas_credentials#create',
+         constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {

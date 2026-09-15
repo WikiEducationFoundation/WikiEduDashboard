@@ -163,6 +163,16 @@
 # the Dashboard-side opt-in; leave it false unless an institution needs 1.1.
   lti_legacy_launches_enabled: 'false'
 
+# ActiveRecord encryption, used for the LTI 1.1 shared secrets the Dashboard
+# issues (LtiConsumerKey). Generate a set with `bin/rails db:encryption:init`
+# and paste the three values here. Outside production the app falls back to
+# fixed non-secret values so the suite runs without them; production leaves
+# encryption unconfigured when they are absent, which fails where it is used
+# rather than booting the whole app with a known key.
+  active_record_encryption_primary_key: 'example_primary_key'
+  active_record_encryption_deterministic_key: 'example_deterministic_key'
+  active_record_encryption_key_derivation_salt: 'example_key_derivation_salt'
+
 # Default timeslice duration (in seconds) used for processing course updates
   TIMESLICE_DURATION: '86400'
 

@@ -1,0 +1,13 @@
+-# [PLACEHOLDER - AI-drafted copy, pending operator review. See show.html.haml.]
+-#
+-# Shared by the waiting and connected states. The warning is the load-bearing
+-# part: regenerating is not additive, it breaks the install that exists.
+.module
+  %h2 Generate new credentials
+  %p Use this if you lost the shared secret, if you are reinstalling the app in Canvas, or if you think someone else has seen it.
+  %p
+    %strong Generating new credentials immediately stops the current Canvas app from working.
+    You will need to paste the new key and secret into Canvas before the wikiedu.org link works again for you or your students.
+  = button_to 'Generate new credentials', "/courses/#{course.slug}/canvas",
+              method: :post, class: 'button danger',
+              data: { confirm: 'This stops your current Canvas app from working until you paste the new key and secret into Canvas. Continue?' }
