@@ -61,10 +61,10 @@ the first-launch verification checklist are in `docs/canvas_dev_setup.md`
   institution's own install: serve a static cartridge XML from the Dashboard,
   or document module items / external-tool assignments as the launch point
   (see the dev-setup checklist, item 6).
-- **A real legacy launch** from a Canvas test instance, once LTIAAS has enabled
-  legacy support on the account: settles the roles normalization, the
-  `productFamilyCode` gate, identity scoping under the one global 1.1
-  registration, and the `legacy-ltik` TTL (checklist in the dev-setup doc).
+- ~~A real legacy launch~~ — done 2026-09-15 (see the dev-setup doc's "What
+  the first real legacy launch settled"). Roles arrive raw, productFamilyCode
+  is set, `platform.id` is absent so the guid keys the binding, TTL is 24h.
+  Still to exercise on real launches: a Canvas TA and a Canvas observer.
 - **Migration / schema on staging.** `lti_course_bindings.lti_version`
   (`VARCHAR(255) NOT NULL DEFAULT '1.3.0'`) — deploys don't run this work's
   migrations on staging; apply by hand as with the earlier columns.

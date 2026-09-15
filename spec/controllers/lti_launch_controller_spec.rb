@@ -2378,17 +2378,21 @@ describe LtiLaunchController, type: :request do
   # student overview carry over; the roster/grade machinery and deep linking
   # refuse.
   describe 'legacy (LTI 1.1) launches' do
+    # The shape a real Canvas 1.1 launch has through LTIAAS: no platform.id,
+    # the LMS instance guid instead (kept equal to the fixtures' platform-x so
+    # the shared binding helpers resolve the same row), no platform.url, and
+    # no services.
     def legacy_idtoken_for(role)
       {
         'ltiVersion' => '1.2.0',
         'user' => { 'id' => 'legacy-user-1', 'roles' => [role] },
-        'platform' => { 'id' => 'platform-x', 'productFamilyCode' => 'canvas' },
+        'platform' => { 'guid' => 'platform-x', 'productFamilyCode' => 'canvas' },
         'launch' => {
           'context' => { 'id' => 'canvas-77', 'title' => 'WRIT 2010' },
-          'resourceLink' => { 'id' => 'rl-legacy' }
+          'resourceLink' => { 'id' => 'rl-legacy' },
+          'presentation' => { 'returnUrl' => 'https://canvas.example.edu/courses/77/return' }
         },
-        'services' => { 'outcomes' => { 'available' => true },
-                        'legacyServiceKey' => 'per-user-outcomes-key' }
+        'services' => { 'outcomes' => { 'available' => false } }
       }
     end
 
@@ -2445,7 +2449,9 @@ describe LtiLaunchController, type: :request do
       end
     end
 
-    # The launch records what it is, and nothing for the services it lacks.
+    # The launch records what it is, and nothing for the services it lacks. The
+    # binding's platform identity is the LMS guid (no platform.id under 1.1),
+    # and the platform URL comes from the launch's return URL.
     it 'records the 1.1 version on the binding and stores no service credentials' do
       sign_in
       get '/lti', params: legacy_params
@@ -2453,6 +2459,23 @@ describe LtiLaunchController, type: :request do
       expect(binding.lti_version).to eq('1.2.0')
       expect(binding).to be_legacy
       expect(binding.ltiaas_service_credentials).to be_nil
+      expect(binding.lms_platform_url).to eq('https://canvas.example.edu')
+    end
+
+    # What actually happened on the first real launch: the binding's validation
+    # refused a nil lms_id and the instructor got the Dashboard's generic 422.
+    context 'when the launch names no platform at all' do
+      let(:idtoken) { legacy_idtoken_for(role).tap { |t| t['platform'].delete('guid') } }
+
+      before { allow(Sentry).to receive(:capture_exception) }
+
+      it 'refuses at the gate instead of failing the binding' do
+        sign_in
+        expect { get '/lti', params: legacy_params }.not_to change(LtiCourseBinding, :count)
+        expect(response).to have_http_status(:forbidden)
+        expect(Sentry).to have_received(:capture_exception)
+          .with(an_instance_of(LtiSession::UnsupportedLmsError))
+      end
     end
 
     # Off by default, on top of the Canvas integration flag. Same fail-closed

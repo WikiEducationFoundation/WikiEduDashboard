@@ -52,7 +52,7 @@ module LtiLaunchSession
 
     raise LtiSession::UnsupportedLmsError,
           "launch from unsupported LMS family #{session.lms_family.inspect} " \
-          "(LTI #{session.lti_version})"
+          "(LTI #{session.lti_version}, platform id #{session.lms_id.inspect})"
   end
 
   # False means the launch authenticated fine but its LMS identity can't be

@@ -24,10 +24,11 @@ describe 'LTI 1.1 legacy launch', type: :feature, js: true do
     {
       ltiVersion: '1.2.0',
       user: { id: 'legacy-user-1', roles: [role] },
-      platform: { id: 'platform-x', productFamilyCode: 'canvas' },
+      platform: { guid: 'platform-x', productFamilyCode: 'canvas' },
       launch: { context: { id: 'canvas-77', title: 'Demo Canvas Course' },
-                resourceLink: { id: 'rl-legacy' } },
-      services: { outcomes: { available: true }, legacyServiceKey: 'per-user-key' }
+                resourceLink: { id: 'rl-legacy' },
+                presentation: { returnUrl: 'https://canvas.example.edu/courses/77/return' } },
+      services: { outcomes: { available: false } }
     }.to_json
   end
 

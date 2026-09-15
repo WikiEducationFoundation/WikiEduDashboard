@@ -301,6 +301,14 @@ describe LtiSession do
       expect(session).not_to be_student
     end
 
+    # The exact pair a real Canvas 1.1 launch carried (2026-09-15): LTIAAS hands
+    # the `roles` parameter through unnormalized, and a Canvas admin teaching a
+    # course gets the bare short name plus a system role.
+    it 'classifies a real Canvas launch: bare Instructor plus a SysAdmin system role' do
+      session = session_with(['Instructor', 'urn:lti:sysrole:ims/lis/SysAdmin'])
+      expect(session).to be_instructor
+    end
+
     it 'classifies a 1.3 role the same way on a legacy launch (LTIAAS may normalize)' do
       session = session_with(['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'])
       expect(session).to be_student
@@ -353,12 +361,20 @@ describe LtiSession do
       expect(lti_session.find_or_create_binding!.lti_version).to eq('1.3.0')
     end
 
-    # The 1.1 idtoken shape LTIAAS documents: ltiVersion "1.2.0", a per-user
-    # `legacyServiceKey` for Basic Outcomes, and no NRPS/AGS URLs.
+    # The 1.1 idtoken shape as a real Canvas launch through LTIAAS carried it
+    # (captured 2026-09-15): ltiVersion "1.2.0"; a `platform` with the LMS's
+    # consumer-instance guid and productFamilyCode but NO `id` or `url`; the
+    # LMS's return URL under launch.presentation; and every service
+    # unavailable. (LTIAAS's docs add a per-user `legacyServiceKey` on launches
+    # that carry an outcomes service; a course-navigation launch has none.)
     context 'for a legacy (LTI 1.1) launch' do
       before do
         idtoken['ltiVersion'] = '1.2.0'
-        idtoken['services'] = { 'outcomes' => { 'available' => true },
+        idtoken['platform'] = { 'guid' => 'Uo7bOjy7KUKkxZthLY1dxpzh4sKpmAvsBnvmSgGQ:canvas-lms',
+                                'productFamilyCode' => 'canvas', 'version' => 'cloud' }
+        idtoken['launch']['presentation'] =
+          { 'returnUrl' => 'https://canvas.example.edu/courses/327/external_content/success' }
+        idtoken['services'] = { 'outcomes' => { 'available' => false },
                                 'legacyServiceKey' => 'legacy-key-for-this-user',
                                 'serviceKey' => 'svc-key-if-any' }
         stub_request(:get, idtoken_url)
@@ -370,6 +386,34 @@ describe LtiSession do
         binding = lti_session.find_or_create_binding!
         expect(binding.lti_version).to eq('1.2.0')
         expect(binding).to be_legacy
+      end
+
+      # No LTIAAS platform registration under 1.1, so no platform.id: the LMS's
+      # own instance guid is the identity — and the per-institution scope the
+      # one shared 1.1 key would otherwise lose.
+      it 'keys the binding on the consumer-instance guid' do
+        expect(lti_session.lms_id).to eq('Uo7bOjy7KUKkxZthLY1dxpzh4sKpmAvsBnvmSgGQ:canvas-lms')
+        expect(lti_session).to be_supported_lms
+        binding = lti_session.find_or_create_binding!
+        expect(binding.lms_id).to eq('Uo7bOjy7KUKkxZthLY1dxpzh4sKpmAvsBnvmSgGQ:canvas-lms')
+      end
+
+      it 'takes the platform URL from the return URL origin' do
+        expect(lti_session.platform_url).to eq('https://canvas.example.edu')
+        expect(lti_session.find_or_create_binding!.lms_platform_url)
+          .to eq('https://canvas.example.edu')
+      end
+
+      # Fail closed, not a 422 from the binding's validation: a launch that
+      # identifies no platform at all is refused at the gate.
+      it 'is not a supported launch without either a platform id or a guid' do
+        idtoken['platform'].delete('guid')
+        stub_request(:get, idtoken_url)
+          .to_return(status: 200, body: idtoken.to_json,
+                     headers: { 'Content-Type' => 'application/json' })
+        session = described_class.new(domain, api_key, ltik)
+        expect(session.lms_id).to be_nil
+        expect(session).not_to be_supported_lms
       end
 
       # Nothing in `ltiaas_service_credentials` for a binding with no services:

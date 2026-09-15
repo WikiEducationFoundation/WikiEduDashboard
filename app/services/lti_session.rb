@@ -151,8 +151,17 @@ class LtiSession
   # Backwards-compatible alias for callers still on the old name.
   alias user_is_teacher? instructor?
 
+  # The platform's identity, and the first half of a binding's key. On a 1.3
+  # launch it is LTIAAS's per-registration platform id. A legacy launch has no
+  # registration behind it (one global 1.1 key/secret for every LMS), so LTIAAS
+  # sends no `platform.id`; what it does forward is the LMS's own
+  # `tool_consumer_instance_guid`, as `platform.guid` — per Canvas root account,
+  # which is exactly the per-institution scope the shared key would otherwise
+  # lose (two institutions' course ids can't collide across it). Verified on a
+  # real legacy launch, 2026-09-15. A launch that names neither is refused by
+  # supported_lms? rather than failing the binding's validation with a 422.
   def lms_id
-    @idtoken['platform']['id']
+    @idtoken.dig('platform', 'id').presence || @idtoken.dig('platform', 'guid').presence
   end
 
   def lms_family
@@ -175,8 +184,10 @@ class LtiSession
   # is unverified — a legacy launch that fails here is the signal to find out.
   SUPPORTED_LMS_FAMILY = 'canvas'
 
+  # A supported LMS is also an identified one: without a platform identity
+  # there is nothing to key a binding or a context on (see #lms_id).
   def supported_lms?
-    lms_family.to_s.casecmp(SUPPORTED_LMS_FAMILY).zero?
+    lms_family.to_s.casecmp(SUPPORTED_LMS_FAMILY).zero? && lms_id.present?
   end
 
   def lms_context_id
@@ -197,12 +208,21 @@ class LtiSession
   end
 
   # LTI 1.3 / LTIAAS surfaces the platform's public base URL on the
-  # `platform` claim. Defensive `dig` because LTIAAS payload shape is
-  # documented but not formally verified against staging yet; a missing
-  # value just means the status component renders without a clickable
-  # link.
+  # `platform` claim. A legacy launch carries none, but it does carry the
+  # LMS's own return URL, whose origin is the same base URL — so the
+  # course-page sidebar can still link back into Canvas for a 1.1 course.
+  # A missing value just means the status component renders without a link.
   def platform_url
-    @idtoken.dig('platform', 'url')
+    @idtoken.dig('platform', 'url').presence || legacy_platform_url
+  end
+
+  def legacy_platform_url
+    return unless legacy?
+
+    uri = URI.parse(@idtoken.dig('launch', 'presentation', 'returnUrl').to_s)
+    "#{uri.scheme}://#{uri.host}" if uri.scheme && uri.host
+  rescue URI::InvalidURIError
+    nil
   end
 
   def nrps_url

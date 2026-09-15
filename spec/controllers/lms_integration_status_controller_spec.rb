@@ -112,6 +112,17 @@ describe LmsIntegrationStatusController, type: :request do
         expect(JSON.parse(response.body)['legacy']).to be true
       end
 
+      # Canvas's `retrieve` finds the installed tool by launch URL, and the 1.1
+      # tool is installed against LTIAAS's legacy endpoint.
+      it 'points a legacy binding\'s course link at the legacy launch URL' do
+        binding.update!(lti_version: '1.2.0')
+        get request_path
+        legacy_launch_url = CGI.escape('https://tenant.ltiaas.com/lti/legacy/launch')
+        expect(JSON.parse(response.body)['course_url'])
+          .to eq('https://canvas.example.com/courses/lti_context_id:canvas-77' \
+                 "/external_tools/retrieve?url=#{legacy_launch_url}")
+      end
+
       # The recorded error is exception class + message — diagnostic data the
       # staff sidebar displays verbatim, not user copy.
       it 'carries the recorded grade-sync failure so staff can see what went wrong' do

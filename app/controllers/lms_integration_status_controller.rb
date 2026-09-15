@@ -81,10 +81,13 @@ class LmsIntegrationStatusController < ApplicationController
     "#{course_url}/external_tools/retrieve?url=#{CGI.escape(tool_launch_url)}"
   end
 
-  # The tool's target_link_uri, as registered with the platform — the same URL
-  # BuildLtiDeepLinkForm puts on deep-linked content items.
+  # The tool's launch URL as installed in the LMS — the same URL
+  # BuildLtiDeepLinkForm puts on deep-linked content items. Canvas's
+  # `retrieve` matches the installed tool by this URL, and a legacy (LTI 1.1)
+  # install is registered against LTIAAS's legacy launch endpoint instead.
   def tool_launch_url
-    "https://#{ENV.fetch('LTIAAS_DOMAIN', nil)}/lti/launch"
+    path = binding.legacy? ? '/lti/legacy/launch' : '/lti/launch'
+    "https://#{ENV.fetch('LTIAAS_DOMAIN', nil)}#{path}"
   end
 
   # The error values are the recorded exception class + message (diagnostic

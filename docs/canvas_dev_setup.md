@@ -494,9 +494,28 @@ a second grading architecture that issue #7026 declines to build.
   `params[:ltik]` at the boundary; the idtoken API and the `LTIK-AUTH-V2` header
   accept either kind, and our views re-emit it under the ordinary name.
 - **idtoken.** Same normalized shape, with `ltiVersion: "1.2.0"` (LTIAAS's label
-  for 1.1/1.2), `services.outcomes.available: true`, and a per-user
-  `services.legacyServiceKey` for Basic Outcomes. `LtiSession#legacy?` means
-  "`ltiVersion` is not 1.3.0"; a missing version reads as 1.3.
+  for 1.1/1.2). `LtiSession#legacy?` means "`ltiVersion` is not 1.3.0"; a
+  missing version reads as 1.3. What a real Canvas course-navigation launch
+  carried (captured 2026-09-15 from canvas.wikiedu.org through the testing
+  tenant; `GET /api/idtoken` with the legacy ltik):
+  - `platform`: **no `id`, no `url`** — only `consumerKey` (the one global
+    key), `guid` (Canvas's `tool_consumer_instance_guid`, per root account),
+    `name`, `productFamilyCode: "canvas"`, `version: "cloud"`. `LtiSession#lms_id`
+    therefore falls back to the guid, and `platform_url` to the origin of
+    `launch.presentation.returnUrl`.
+  - `user`: `id` is Canvas's 40-hex `lti_user_id` (the same value NRPS reports
+    as `lti11LegacyUserId` under 1.3 — so the sunset backfill is a plain
+    match), `roles` exactly as Canvas's `roles` parameter, unnormalized:
+    `["Instructor", "urn:lti:sysrole:ims/lis/SysAdmin"]` for an admin-teacher.
+    Canvas's `ext_roles` (institution roles) are not forwarded.
+  - `launch.context.id` and `launch.resourceLink.id` are both the course's
+    40-hex `lti_context_id`; `custom` carries only `canvas_enrollment_state`.
+  - `services`: every service `available: false`, no `serviceKey`, and no
+    `legacyServiceKey` either (that one accompanies an outcomes service, which a
+    course-navigation launch doesn't offer).
+  - The `legacy-ltik` is a JWT with `type: "legacyLtik"` and a 24h `exp`;
+    `?raw=true` returns the OAuth 1.0a form (`lti_version: "LTI-1p0"`,
+    `tool_consumer_instance_guid`, `ext_roles`, …).
 
 ### What the code does with it
 
@@ -532,27 +551,29 @@ a second grading architecture that issue #7026 declines to build.
   (once linked, a 1.1 course has no further setup step), and the deep-link
   refusal shows the existing one-word `lti.deep_link.unavailable_header`.
 
-### To verify on the first real legacy launch
+### What the first real legacy launch settled (2026-09-15)
 
-Set `LTI_LAUNCH_DEBUG=1` and read the `[LTI launch]` log line, which now includes
-`version`, `roles` and `platform`:
+The verification checklist this section used to carry, with answers from the
+captured idtoken above. `LTI_LAUNCH_DEBUG=1` on staging logs a `[LTI launch]`
+line with `version`, `roles` and `platform` for any later launch.
 
-1. **Roles.** Does LTIAAS hand through the raw 1.1 forms or normalize them to
-   1.3 URIs? Both are handled, but check a Canvas TA (TA URN only) and a Canvas
-   observer (`urn:lti:instrole:ims/lis/Observer` + `urn:lti:role:ims/lis/Mentor`
-   → must be `unsupported_role`).
-2. **`platform.productFamilyCode`.** If it isn't `canvas` on a 1.1 launch, the
-   platform gate refuses every legacy launch (`UnsupportedLmsError` in Sentry
-   with the family value) and needs a decision, not a silent widening.
-3. **Identity scoping.** What are `platform.id` and `user.id` on a 1.1 launch?
-   With one global registration, if every 1.1 consumer shares a `platform.id`
-   and ids are the raw per-consumer values, two institutions' courses or users
-   could collide in `(lms_id, lms_context_id)` / `(user_lti_id, binding)`.
-   Extra pinning (e.g. the consumer-instance GUID) is warranted if so.
-4. **`legacy-ltik` TTL / re-presentability** — assumed to match the 24h `ltik`.
-5. **The sunset path.** Canvas's NRPS returns `lti11LegacyUserId`; if a 1.1
-   launch's `user.id` is that same raw id, a course moving to 1.3 re-links its
-   contexts by backfill rather than re-enrollment.
+1. **Roles: raw 1.1 forms.** LTIAAS does not normalize; the exact-match
+   `LEGACY_*_ROLES` tables are the ones that apply. Still unexercised on a real
+   launch: a Canvas TA (TA URN only) and a Canvas observer
+   (`urn:lti:instrole:ims/lis/Observer` + `urn:lti:role:ims/lis/Mentor` → must be
+   `unsupported_role`).
+2. **`platform.productFamilyCode` is `canvas`** on a 1.1 launch, so the platform
+   gate works as-is. A non-Canvas 1.1 launch still refuses.
+3. **Identity scoping: resolved by the guid.** There is no `platform.id` under
+   1.1 (the first launch failed the binding's `lms_id` validation with a 422
+   until this was found); `platform.guid` is Canvas's per-root-account
+   `tool_consumer_instance_guid`, so bindings and contexts are scoped per
+   institution even though every 1.1 LMS shares one key. A launch with neither
+   `id` nor `guid` is refused at the gate.
+4. **`legacy-ltik` TTL: 24h**, same as `ltik`, and re-presentable.
+5. **The sunset path holds.** `user.id` is Canvas's `lti_user_id`, the value
+   NRPS reports as `lti11LegacyUserId`, so re-linking a course after its
+   institution moves to 1.3 is a backfill by that field.
 6. **The launch point in Canvas.** A manually configured 1.1 tool (key, secret,
    launch URL) gets no course-navigation placement on its own; in Canvas that
    needs either an XML tool configuration with a `course_navigation` extension
