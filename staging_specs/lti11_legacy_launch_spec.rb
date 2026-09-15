@@ -61,6 +61,20 @@ describe 'LTI 1.1 legacy launch (companion mode)', :staging do
     canvas_api.enroll_user(course_id: canvas_course['id'],
                            user_id: ENV.fetch('CANVAS_TEST_STUDENT_USER_ID'),
                            role: 'StudentEnrollment')
+    # The instructor self-install path: with LTI11_COURSE_INSTALL set to the
+    # Dashboard's config URL, the tool is installed in this one course, "By
+    # URL", exactly as a teacher does from Course → Settings → Apps — instead
+    # of relying on an account-level install. Run it with the account tool
+    # removed, or the course shows two identical tabs.
+    if ENV['LTI11_COURSE_INSTALL'].to_s.start_with?('http')
+      canvas_api.install_external_tool(
+        course_id: canvas_course['id'],
+        tool_config: { name: 'wikiedu.org',
+                       consumer_key: ENV.fetch('LTIAAS_LEGACY_CONSUMER_KEY'),
+                       shared_secret: ENV.fetch('LTIAAS_LEGACY_SHARED_SECRET'),
+                       config_type: 'by_url', config_url: ENV['LTI11_COURSE_INSTALL'] }
+      )
+    end
     dashboard_course = DashboardAdminClient.create_course(
       title: dashboard_title, school: dashboard_school, term: run_id,
       instructor_username: ENV.fetch('WIKIPEDIA_TEST_INSTRUCTOR_USERNAME')
