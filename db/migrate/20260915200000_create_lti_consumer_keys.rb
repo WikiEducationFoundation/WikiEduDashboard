@@ -26,5 +26,9 @@ class CreateLtiConsumerKeys < ActiveRecord::Migration[8.1]
       t.index :key, unique: true
       t.index :course_id
     end
+    # Deleting the course takes its keys with it, as it does the course's
+    # binding. A key that survived would still verify a launch, whose course
+    # claim then points at a row that no longer exists.
+    add_foreign_key :lti_consumer_keys, :courses, on_delete: :cascade
   end
 end

@@ -30,8 +30,9 @@ module LtiLaunchSession
   #
   # The legacy gate comes first: a launch kind the deployment hasn't opted into
   # is refused whatever platform it names. Under 1.1 the platform gate then
-  # matters more, not less — LTIAAS's one global 1.1 registration accepts any
-  # LMS, so SUPPORTED_LMS_FAMILY is the only thing keeping this Canvas-only.
+  # matters more, not less — a consumer key works from whatever LMS its holder
+  # pastes it into, so SUPPORTED_LMS_FAMILY is the only thing keeping this
+  # Canvas-only.
   def build_lti_session(ltik)
     session = LtiSession.for_ltik(ltik)
     if session.legacy? && !Features.lti_legacy_launches?

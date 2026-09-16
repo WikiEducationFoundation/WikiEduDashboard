@@ -104,9 +104,10 @@ module LtiDeepLinking
   # Deep linking is LTI 1.3-only. Canvas offers the bulk Modules import to 1.3
   # tools alone, and the 1.1 Content-Item flow (one assignment at a time, no
   # points, no due date, no tag for discovery) has no gradebook to feed under the
-  # launch-only 1.1 mode anyway. Whether a 1.1 selection placement ever reaches
-  # this route depends on how LTIAAS forwards it; if it does, say so in-frame
-  # rather than reaching the picker, which would offer imports that can't work.
+  # launch-only 1.1 mode anyway. Our config XML declares no selection placement,
+  # so a 1.1 launch should never reach this route; if one does (an install
+  # configured by hand with extra placements), say so in-frame rather than
+  # reaching the picker, which would offer imports that can't work.
   def render_deep_link_legacy
     render 'lti_launch/deep_link_legacy', layout: 'lti_iframe', status: :forbidden
   end

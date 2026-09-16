@@ -23,10 +23,11 @@ module LtiLegacyLaunches
 
   private
 
-  # Reported rather than merely logged: once LTI 1.1 is available at all, an
-  # institution can install the tool and start launching without anyone here
-  # knowing, and this is how the operator finds out. Same bare 403 as the
-  # platform gate, framing deliberately left blocked.
+  # Reported rather than merely logged. With the flag off, the launch endpoint
+  # mints no tokens, so this fires only for a token minted while it was on —
+  # launches still arriving after an operator turned 1.1 off, which the
+  # operator should hear about. Same bare 403 as the platform gate, framing
+  # deliberately left blocked.
   def render_legacy_launches_disabled(error)
     Sentry.capture_exception(error)
     head :forbidden

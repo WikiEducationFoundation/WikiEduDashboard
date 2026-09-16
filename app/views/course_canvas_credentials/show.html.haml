@@ -5,9 +5,8 @@
 -#  change. Greppable as [PLACEHOLDER until that review happens.]
 -#
 -# The unlisted credentials page for the LTI 1.1 ("companion mode") path,
--# reached only at courses/*id/canvas by instructors Wiki Education has sent the
--# URL to. Copy only: the route, controller and model land in phase 1 of
--# .claude/canvas_integration/lti_11_self_hosted_plan-2026-09-15.md. Expects
+-# reached only at courses/<slug>/canvas by instructors Wiki Education has sent
+-# the URL to. See CourseCanvasCredentialsController and LtiConsumerKey. Expects
 -# @course, @key (nil until generated), @secret (only on the render right
 -# after generating), @bound_elsewhere, and @config_url.
 .container.narrow

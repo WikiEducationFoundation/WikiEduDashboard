@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Represents a single LTI launch from an LMS (currently Canvas, via LTIAAS).
+# Represents a single LTI launch from an LMS (currently Canvas).
 # Active for the duration of one HTTP request that began with a Canvas click;
 # uses launch-bound LTIK auth.
 #
@@ -38,11 +38,11 @@ class LtiSession
   # don't recognize must not become an enrollment by default.
   LEARNER_ROLES = ['membership#Learner'].freeze
 
-  # The LTI 1.1 forms of the same classification, for legacy launches whose
-  # roles LTIAAS hands through unnormalized: the spec's `urn:lti:role:ims/lis/…`
-  # context-role URNs and the bare short names it allows for them. Matched
-  # exactly rather than by suffix, so the institution-level
-  # `urn:lti:instrole:ims/lis/Instructor` and the system-level
+  # The LTI 1.1 forms of the same classification, for legacy launches, whose
+  # raw comma-separated `roles` NormalizeLtiLegacyLaunch passes through unmapped:
+  # the spec's `urn:lti:role:ims/lis/…` context-role URNs and the bare short
+  # names it allows for them. Matched exactly rather than by suffix, so the
+  # institution-level `urn:lti:instrole:ims/lis/Instructor` and the system-level
   # `urn:lti:sysrole:…` forms don't classify as course staff — mirroring the
   # 1.3 table, where `institution/person#Instructor` isn't accepted either.
   #
@@ -55,9 +55,10 @@ class LtiSession
   # `…/Instructor/PrimaryInstructor` are not listed; Canvas doesn't send them, and
   # an unlisted role lands in `unsupported_role?` rather than becoming staff.
   #
-  # Written from the LTI 1.1 spec and Canvas's published role table, not yet
-  # checked against a captured legacy launch — verify how LTIAAS actually
-  # normalizes these before trusting the mapping in production.
+  # Written from the LTI 1.1 spec and Canvas's published role table, and checked
+  # against a real Canvas 1.1 launch on 2026-09-15: an admin teaching a course
+  # arrived as `Instructor,urn:lti:sysrole:ims/lis/SysAdmin`. A Canvas TA and a
+  # Canvas observer have not yet been exercised on a real 1.1 launch.
   LEGACY_INSTRUCTOR_ROLES = %w[
     Instructor
     Administrator
@@ -147,17 +148,19 @@ class LtiSession
     Array(roles).any? { |role| names.include?(role.to_s) }
   end
 
-  # The `ltiVersion` LTIAAS reports for this launch. Absent from the
-  # (pre-legacy) fixtures and from any older payload, so a missing value reads
-  # as 1.3 — the only kind of launch that reached the Dashboard before legacy
-  # support existed, and the kind whose absence must not start refusing
-  # production launches. A real legacy launch always carries "1.2.0".
+  # The launch's `ltiVersion`: what LTIAAS reports for a 1.3 launch, and what
+  # NormalizeLtiLegacyLaunch stamps on a 1.1 one. Absent from the (pre-legacy)
+  # fixtures and from any older payload, so a missing value reads as 1.3 — the
+  # only kind of launch that reached the Dashboard before legacy support
+  # existed, and the kind whose absence must not start refusing production
+  # launches. A real legacy launch always carries "1.2.0".
   def lti_version
     @idtoken['ltiVersion'].presence || LtiCourseBinding::LTI_1_3
   end
 
   # A legacy LTI 1.1 launch: launch-only companion mode. "Not 1.3" rather than
-  # a "1.1" string match, because LTIAAS labels these "1.2.0".
+  # a "1.1" string match, because the label is "1.2.0" (LTIAAS's, which
+  # NormalizeLtiLegacyLaunch keeps).
   def legacy?
     lti_version != LtiCourseBinding::LTI_1_3
   end
@@ -167,12 +170,11 @@ class LtiSession
 
   # The platform's identity, and the first half of a binding's key. On a 1.3
   # launch it is LTIAAS's per-registration platform id. A legacy launch has no
-  # registration behind it (one global 1.1 key/secret for every LMS), so LTIAAS
-  # sends no `platform.id`; what it does forward is the LMS's own
-  # `tool_consumer_instance_guid`, as `platform.guid` — per Canvas root account,
-  # which is exactly the per-institution scope the shared key would otherwise
-  # lose (two institutions' course ids can't collide across it). Verified on a
-  # real legacy launch, 2026-09-15. A launch that names neither is refused by
+  # registration behind it and so no `platform.id`; NormalizeLtiLegacyLaunch
+  # puts the LMS's own `tool_consumer_instance_guid` under `platform.guid` —
+  # per Canvas root account, so two institutions' course ids can't collide even
+  # though consumer keys are issued per course. Verified on a real legacy
+  # launch, 2026-09-15. A launch that names neither is refused by
   # supported_lms? rather than failing the binding's validation with a 422.
   def lms_id
     @idtoken.dig('platform', 'id').presence || @idtoken.dig('platform', 'guid').presence
@@ -190,12 +192,12 @@ class LtiSession
   # with a platform nobody has exercised. Widening this is a deliberate change,
   # not an accident of whatever a platform reports.
   #
-  # Under LTI 1.1 this gate does more work: LTIAAS registers one global
-  # consumer key/secret for every legacy LMS (their own example is Moodle), so
-  # nothing on the LTIAAS side limits which platform can launch, and this
-  # allowlist is the effective platform filter. Whether LTIAAS fills
-  # `productFamilyCode` from a 1.1 launch's `tool_consumer_info_product_family_code`
-  # is unverified — a legacy launch that fails here is the signal to find out.
+  # Under LTI 1.1 this gate does more work: a consumer key works from whatever
+  # LMS its holder pastes it into, so nothing upstream limits which platform
+  # can launch, and this allowlist is the effective platform filter.
+  # NormalizeLtiLegacyLaunch fills `productFamilyCode` from the launch's
+  # `tool_consumer_info_product_family_code`, which Canvas sends as "canvas"
+  # (verified on a real legacy launch, 2026-09-15).
   SUPPORTED_LMS_FAMILY = 'canvas'
 
   # A supported LMS is also an identified one: without a platform identity

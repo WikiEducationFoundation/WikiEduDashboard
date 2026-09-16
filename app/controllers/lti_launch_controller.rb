@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
-# Entry point for LTI launches from an LMS, mediated by LTIAAS.
+# Entry point for LTI launches from an LMS: LTI 1.3 launches mediated by
+# LTIAAS, and LTI 1.1 launches the Dashboard terminates itself.
 #
 # Flow:
 #   1. /lti?ltik=... — primary launch endpoint, runs inside the LMS iframe.

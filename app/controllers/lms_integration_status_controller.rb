@@ -69,25 +69,30 @@ class LmsIntegrationStatusController < ApplicationController
   # Verified against staging Canvas that `retrieve` accepts the prefixed id too,
   # so no numeric course id is needed.
   #
-  # Falls back to the course home page when LTIAAS_DOMAIN isn't configured,
-  # since without it there is no launch URL for Canvas to match against.
+  # Falls back to the course home page when there is no launch URL for Canvas
+  # to match against (a 1.3 binding with LTIAAS_DOMAIN unconfigured).
   def lms_course_url
     return nil if binding.lms_platform_url.blank?
 
     course_url = "#{binding.lms_platform_url.chomp('/')}" \
                  "/courses/lti_context_id:#{binding.lms_context_id}"
-    return course_url if ENV['LTIAAS_DOMAIN'].blank?
+    launch_url = tool_launch_url
+    return course_url if launch_url.blank?
 
-    "#{course_url}/external_tools/retrieve?url=#{CGI.escape(tool_launch_url)}"
+    "#{course_url}/external_tools/retrieve?url=#{CGI.escape(launch_url)}"
   end
 
-  # The tool's launch URL as installed in the LMS — the same URL
-  # BuildLtiDeepLinkForm puts on deep-linked content items. Canvas's
-  # `retrieve` matches the installed tool by this URL, and a legacy (LTI 1.1)
-  # install is registered against LTIAAS's legacy launch endpoint instead.
+  # The tool's launch URL as installed in the LMS, which Canvas's `retrieve`
+  # matches the installed tool by. A 1.3 install launches through LTIAAS (the
+  # same URL BuildLtiDeepLinkForm puts on deep-linked content items). A legacy
+  # (LTI 1.1) install was configured from our own config XML and posts to our
+  # own endpoint, so it is the verifier's URL — the one definition the XML is
+  # served from, so the installed URL and this link cannot drift apart.
   def tool_launch_url
-    path = binding.legacy? ? '/lti/legacy/launch' : '/lti/launch'
-    "https://#{ENV.fetch('LTIAAS_DOMAIN', nil)}#{path}"
+    return VerifyLtiLegacyLaunch.launch_url if binding.legacy?
+    return nil if ENV['LTIAAS_DOMAIN'].blank?
+
+    "https://#{ENV.fetch('LTIAAS_DOMAIN')}/lti/launch"
   end
 
   # The error values are the recorded exception class + message (diagnostic

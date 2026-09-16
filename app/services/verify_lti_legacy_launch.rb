@@ -63,7 +63,11 @@ class VerifyLtiLegacyLaunch
 
     # Last, because it is authorization rather than authenticity: the guid is
     # only meaningful once the signature proves the launch is really from the
-    # holder of this key.
+    # holder of this key. A launch that names no Canvas instance is refused
+    # outright — accepting it would activate the key without pinning it, and
+    # an activated, unpinned key would then work from anywhere for good.
+    return @error = :no_instance_guid if instance_guid.blank?
+
     @error = :wrong_canvas unless @consumer_key.usable_for?(instance_guid)
   end
 

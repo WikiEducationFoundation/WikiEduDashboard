@@ -2,9 +2,11 @@
 
 # Records which LTI version the binding's launches speak. Existing rows all
 # came from LTI 1.3 launches (the only kind the integration accepted before
-# legacy support), hence the default. Legacy (LTI 1.1) launches record the
-# `ltiVersion` LTIAAS reports for them — "1.2.0" — and are refreshed on every
-# launch like the other snapshot fields.
+# legacy support), hence the default. Legacy (LTI 1.1) launches, which the
+# Dashboard terminates itself, record "1.2.0" — LTIAAS's label for a 1.1
+# launch, kept so the version means the same thing whichever terminator
+# produced it — and are refreshed on every launch like the other snapshot
+# fields.
 #
 # The column is what excludes a legacy binding from the NRPS/AGS workers by
 # version rather than by the accident of never having stored service

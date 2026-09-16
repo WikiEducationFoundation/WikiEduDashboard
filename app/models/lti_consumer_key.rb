@@ -64,8 +64,11 @@ class LtiConsumerKey < ApplicationRecord
 
   # Whether this key may authenticate a launch from the given Canvas instance.
   # An unpinned key accepts its first launch from anywhere, which is what pins
-  # it; after that only that Canvas.
+  # it; after that only that Canvas. Never from nowhere: a launch that names no
+  # instance would activate the key without pinning it, leaving it usable from
+  # anywhere for good.
   def usable_for?(guid)
+    return false if guid.blank?
     return false unless active? && !expired?
     return true if lms_instance_guid.nil?
 

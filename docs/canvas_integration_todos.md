@@ -46,65 +46,54 @@ Branch state, so a fresh session doesn't have to reconstruct it:
 
 ## LTI 1.1 companion mode (2026-09-15)
 
-**Update, later the same day: LTI 1.1 no longer goes through LTIAAS.** The
-Dashboard verifies those launches itself, so the consumer keys are ours to
-issue per install rather than LTIAAS's single global pair. Instructors
-generate their own from an unlisted page under their course
-(`/courses/<slug>/canvas`), whose URL Wiki Education shares by email with beta
-institutions; the first launch pins the key to that Canvas and binds the
-course. LTIAAS is 1.3-only. Design and rationale:
-`.claude/canvas_integration/lti_11_self_hosted_plan-2026-09-15.md`; developer
-notes in `docs/canvas_dev_setup.md`. Outstanding for this work:
+Implemented on branch `lti-11-companion-mode` per issue #7026 (launch-only:
+no roster sync, no assignment import, no grade passback). **LTI 1.1 does not
+go through LTIAAS**: the Dashboard verifies those launches itself, so the
+consumer keys are ours to issue per install. Instructors generate their own
+from an unlisted page under their course (`/courses/<slug>/canvas`), whose URL
+Wiki Education shares by email with beta institutions; the first launch pins
+the key to that Canvas and binds the course. LTIAAS is 1.3-only. Developer
+notes, the launch walkthrough and the staging checklist are in
+`docs/canvas_dev_setup.md` ("LTI 1.1 launches"). Still open:
 
 - **Operator copy** for the credentials page. Every string is an AI-drafted
   first pass carrying a `[PLACEHOLDER` marker at the top of
   `app/views/course_canvas_credentials/show.html.haml`.
 - **Secrets on staging and production**: the three ActiveRecord encryption
-  keys and `lti_legacy_launch_token_secret` in `application.yml`. Outside
-  production the app falls back to fixed non-secret values, so the suite runs
-  without them; production leaves encryption unconfigured when they are
-  absent, which fails at this feature rather than at boot.
+  keys in `application.yml`. Outside production the app falls back to fixed
+  non-secret values, so the suite runs without them; production leaves
+  encryption unconfigured when they are absent, which fails at this feature
+  rather than at boot.
+- **Migration / schema on staging.** Deploys don't run this work's migrations
+  on staging; apply by hand as with the earlier columns:
+  `lti_course_bindings.lti_version` (`VARCHAR(255) NOT NULL DEFAULT '1.3.0'`)
+  and the `lti_consumer_keys`, `lti_launch_nonces` and `lti_legacy_launches`
+  tables. If `lti_consumer_keys` was created before the foreign key was added
+  to its migration, add `course_id → courses(id) ON DELETE CASCADE` by hand.
 - **Staff view of issued keys.** A console query is the record for now.
-- **Rate limiting** on the issuing endpoint. Regenerating replaces rather than
-  accumulates, so the surface is one row per course, but nothing throttles the
-  posts themselves.
-- **A live run** against canvas.wikiedu.org with a Dashboard-issued key, and
-  the TA and observer role checks that have still never been exercised on a
-  real 1.1 launch.
-
-
-Implemented on branch `lti-11-companion-mode` per issue #7026 (launch-only:
-no roster sync, no assignment import, no grade passback). Developer notes and
-the first-launch verification checklist are in `docs/canvas_dev_setup.md`
-("LTI 1.1 legacy launches"). Still open:
-
-- **Guide copy.** The guide's LTI 1.1 section is two tables and one line;
-  no `[PLACEHOLDER]` markers remain anywhere (the legacy status view carries no
-  guidance text and the deep-link refusal reuses "Unavailable"). Expand or
-  reword once the install method is settled.
-- ~~Canvas launch point under 1.1~~ — settled: the Dashboard serves an LTI 1.1
-  cartridge XML at `/lti/legacy/config.xml` with the course-navigation
-  placement, and the guide's 1.1 install steps use Canvas's "By URL" with it.
-- **Guide copy is now full prose** (Sage authorized AI-drafted copy for the
-  guide, 2026-09-15): both install paths, a "choosing" section, 1.1
-  troubleshooting. Review for tone against a real 1.1 admin walkthrough.
+- **Rate limiting** on the launch endpoint and the issuing action. Regenerating
+  replaces rather than accumulates, so the surface is one row per course, but
+  nothing throttles the posts themselves.
+- **Guide copy** (Sage authorized AI-drafted copy for the guide, 2026-09-15):
+  both install paths, a "choosing" section, 1.1 troubleshooting, and the
+  illustrated instructor page. Review for tone against a real 1.1 walkthrough.
 - **1.1 → 1.3 migration for a linked course** needs staff: a Dashboard course
   binds to one LMS tool, so the 1.1 binding must be removed/re-pointed before
   the instructor links again from the 1.3 tab. The guide tells admins to
   contact us first; no tooling for it yet.
-- ~~A real legacy launch~~ — done 2026-09-15 (see the dev-setup doc's "What
-  the first real legacy launch settled"). Roles arrive raw, productFamilyCode
-  is set, `platform.id` is absent so the guid keys the binding, TTL is 24h.
-  Still to exercise on real launches: a Canvas TA and a Canvas observer.
-- **Migration / schema on staging.** `lti_course_bindings.lti_version`
-  (`VARCHAR(255) NOT NULL DEFAULT '1.3.0'`) — deploys don't run this work's
-  migrations on staging; apply by hand as with the earlier columns.
-- **Shared-secret risk.** One consumer key/secret covers every 1.1 institution;
-  a leak anywhere lets any holder forge launches for any 1.1 platform/user.
-  Decide on rotation practice, and on per-binding pinning if the identity
-  scoping check above shows collisions are possible.
-- **Enablement.** Which LTIAAS account IDs to enable (staging first, or both),
-  and the pricing delta LTIAAS didn't mention.
+- ~~A real legacy launch~~ — done 2026-09-15, end to end with a
+  Dashboard-issued key: instructor install, signed launch to our endpoint,
+  auto-bind, identity link, student enrollment. Roles arrive raw,
+  productFamilyCode is set, `platform.id` is absent so the guid keys the
+  binding, TTL is 24h. Still to exercise on real launches: a Canvas TA and a
+  Canvas observer.
+- ~~Canvas launch point under 1.1~~ — settled: the Dashboard serves an LTI 1.1
+  cartridge XML at `/lti/legacy/config.xml` with the course-navigation
+  placement, and the install steps use Canvas's "By URL" with it.
+- ~~Shared-secret risk~~ — resolved by issuing keys ourselves: one key per
+  course, pinned to the first Canvas that uses it, revocable by regenerating,
+  and expiring unused after seven days.
+- ~~LTIAAS enablement~~ — moot; LTIAAS is not in the 1.1 path.
 
 ### Which open items a real user can actually hit
 

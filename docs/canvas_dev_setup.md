@@ -496,9 +496,12 @@ fronts every LTI 1.3 launch.
 3. `VerifyLtiLegacyLaunch` checks, in order: that it is a basic LTI launch,
    that the consumer key is one we issued and still usable, that the signature
    verifies, that the timestamp is within five minutes, that the nonce is
-   unseen, and last that the key may launch from this Canvas. The pin check is
-   last because it is authorization, and the instance guid it reads means
-   nothing until the signature has proved the launch's origin.
+   unseen, that the launch names a Canvas instance at all, and last that the
+   key may launch from this Canvas. The pin check is last because it is
+   authorization, and the instance guid it reads means nothing until the
+   signature has proved the launch's origin. A launch with no instance guid is
+   refused rather than accepted unpinned: accepting it would activate the key
+   without a pin, leaving it usable from anywhere for good.
 4. `NormalizeLtiLegacyLaunch` turns the raw parameters into the same
    idtoken-shaped hash LTIAAS produces for a 1.3 launch, which is stored as an
    `LtiLegacyLaunch` row; `LtiLegacyLaunchToken` hands back a short
@@ -546,6 +549,9 @@ instructor. Two properties matter:
   after which the key is useless from any other Canvas.
 - **Expires unused** after `UNACTIVATED_LIFETIME`, closing the window on a
   secret that leaked before its owner pasted it in.
+- **Deleted with its course** (a foreign key with `ON DELETE CASCADE`, as for
+  `lti_course_bindings`), so a key never outlives the course it was issued
+  for; a launch with it is then refused as an unknown key.
 
 The first launch also **binds the course**, because the key already knows
 which Dashboard course it was issued for, so the instructor never sees the

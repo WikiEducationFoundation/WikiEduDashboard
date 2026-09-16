@@ -42,9 +42,9 @@ class NormalizeLtiLegacyLaunch
     }
   end
 
-  # Canvas sends a comma-separated list, unnormalized: LTIAAS passes the raw
-  # `roles` parameter through rather than mapping it to the 1.3 vocabulary, so
-  # the role tables accept both forms and this does no mapping either.
+  # Canvas sends a comma-separated list, unnormalized. Passed through as-is
+  # rather than mapped to the 1.3 vocabulary (which is also what LTIAAS did),
+  # so the role tables accept both forms.
   def roles
     @params['roles'].to_s.split(',').map(&:strip).reject(&:empty?)
   end

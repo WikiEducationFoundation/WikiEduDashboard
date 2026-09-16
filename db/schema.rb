@@ -937,6 +937,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_15_220000) do
   add_foreign_key "course_stats", "courses"
   add_foreign_key "course_wiki_namespaces", "courses_wikis", column: "courses_wikis_id", on_delete: :cascade
   add_foreign_key "facilitator_stats", "users"
+  add_foreign_key "lti_consumer_keys", "courses", on_delete: :cascade
   add_foreign_key "lti_contexts", "lti_course_bindings", on_delete: :cascade
   add_foreign_key "lti_contexts", "users", on_delete: :cascade
   add_foreign_key "lti_course_bindings", "courses", on_delete: :cascade

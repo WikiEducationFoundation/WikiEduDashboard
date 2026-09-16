@@ -42,6 +42,17 @@ describe LtiConsumerKey do
     end
   end
 
+  # A key that outlived its course would still verify a launch, whose course
+  # claim then names a row that no longer exists; the foreign key takes the key
+  # down with the course instead.
+  describe 'when the course is deleted' do
+    it 'goes with it' do
+      key = described_class.generate_for(course:, user: instructor)
+      course.destroy
+      expect(described_class.exists?(key.id)).to be false
+    end
+  end
+
   describe 'the first launch' do
     let(:key) { described_class.generate_for(course:, user: instructor) }
 
@@ -71,6 +82,13 @@ describe LtiConsumerKey do
 
     it 'accepts the first launch from any Canvas, which is what pins it' do
       expect(key).to be_usable_for('any-guid')
+    end
+
+    # The pin only protects if it is always set: a first launch with no guid
+    # would otherwise activate the key unpinned, usable from anywhere for good.
+    it 'refuses a launch that names no Canvas instance' do
+      expect(key).not_to be_usable_for(nil)
+      expect(key).not_to be_usable_for('')
     end
 
     # The property LTIAAS's one global key cannot have: a leaked secret is

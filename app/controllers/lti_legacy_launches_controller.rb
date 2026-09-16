@@ -51,7 +51,8 @@ class LtiLegacyLaunchesController < ApplicationController
   # troubleshoots it. The same goes for a stale timestamp and a key that has
   # been regenerated or expired. What does get reported is a launch that
   # cannot be explained that way: a consumer key we never issued, a replayed
-  # signature, or a key used from a Canvas it is not pinned to.
+  # signature, a key used from a Canvas it is not pinned to, or a correctly
+  # signed launch that names no Canvas instance at all.
   ROUTINE_REFUSALS = %i[not_a_launch bad_signature stale_timestamp unusable_key].freeze
 
   def report_refusal(verification)

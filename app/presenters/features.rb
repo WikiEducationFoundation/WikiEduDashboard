@@ -73,11 +73,12 @@ class Features
     ENV['canvas_integration_enabled'] == 'true'
   end
 
-  # Gates legacy (LTI 1.1) launches, on top of canvas_integration?. Under 1.1
-  # LTIAAS registers one global consumer key/secret for every LMS, so nothing on
-  # the LTIAAS side limits which institution can launch; this is the
-  # Dashboard-side opt-in, per deployment. Off by default: a legacy launch is
-  # refused until an operator turns it on (see LtiLaunchSession#build_lti_session).
+  # Gates legacy (LTI 1.1) launches, on top of canvas_integration?. The
+  # Dashboard terminates 1.1 launches itself and issues the consumer keys, so
+  # this is the whole opt-in, per deployment: with it off, the launch endpoint
+  # and the credentials page 404 and the config XML is not served. Off by
+  # default: a legacy launch is refused until an operator turns it on (see
+  # LtiLegacyLaunchesController and LtiLaunchSession#build_lti_session).
   def self.lti_legacy_launches?
     ENV['lti_legacy_launches_enabled'] == 'true'
   end

@@ -88,6 +88,39 @@ describe LtiCourseBinding do
     end
   end
 
+  describe '#claim_course' do
+    let(:course) { create(:course) }
+    let(:binding) { described_class.create!(base_attrs) }
+
+    it 'adopts the claimed course when the binding has none' do
+      binding.claim_course(course.id)
+      expect(binding.course_id).to eq(course.id)
+    end
+
+    it 'keeps the course a binding already has' do
+      other = create(:course, slug: 'School/Other_(2026)')
+      binding.update!(course: other)
+      binding.claim_course(course.id)
+      expect(binding.course_id).to eq(other.id)
+    end
+
+    it 'skips a course already bound to another LMS course' do
+      described_class.create!(base_attrs.merge(lms_context_id: 'elsewhere', course:))
+      binding.claim_course(course.id)
+      expect(binding.course_id).to be_nil
+    end
+
+    # The claim rides in a launch token that outlives the launch by 24 hours,
+    # so it can name a course deleted since. Saving that id would fail the
+    # foreign key and 500 inside the Canvas iframe.
+    it 'skips a course that no longer exists' do
+      deleted_id = course.id
+      course.destroy
+      binding.claim_course(deleted_id)
+      expect(binding.course_id).to be_nil
+    end
+  end
+
   describe '#lms_display_name' do
     it 'returns the configured label for known LMS families' do
       binding = described_class.new(base_attrs.merge(lms_family: 'canvas'))

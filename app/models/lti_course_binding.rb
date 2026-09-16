@@ -130,9 +130,15 @@ class LtiCourseBinding < ApplicationRecord
   # it, and a course already bound elsewhere is skipped rather than allowed to
   # collide with the unique index on course_id. Idempotent, so if staff clear a
   # wrong binding the next launch puts the right one back.
+  #
+  # The claim rides in a launch token that outlives the launch by 24 hours, so
+  # the course may have been deleted since: its key went with it, but a token
+  # already minted still names it, and saving a dead course id would fail the
+  # foreign key and 500 inside the iframe. Such a claim is skipped too.
   def claim_course(claimed_course_id)
     return if claimed_course_id.blank? || course_id.present?
     return if self.class.where.not(id:).exists?(course_id: claimed_course_id)
+    return unless Course.exists?(claimed_course_id)
 
     self.course_id = claimed_course_id
   end

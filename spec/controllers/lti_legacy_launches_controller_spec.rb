@@ -140,6 +140,25 @@ describe LtiLegacyLaunchesController, type: :request do
         .not_to change(LtiCourseBinding, :count)
     end
 
+    # A correctly signed launch with no instance guid must not consume the
+    # first-launch pin: accepted, it would activate the key unpinned, and the
+    # key would then work from any Canvas for good.
+    it 'refuses a launch that names no Canvas instance and leaves the key unactivated' do
+      launch(sign(launch_params.except('tool_consumer_instance_guid')))
+      expect(response).to have_http_status(:unauthorized)
+      expect(consumer_key.reload).not_to be_activated
+    end
+
+    # The key is deleted with its course, so the launch is refused as an
+    # unknown key rather than binding a course that no longer exists (which
+    # failed the foreign key and 500ed inside the Canvas iframe).
+    it 'refuses a launch once the key\'s course has been deleted' do
+      course.destroy
+      launch
+      expect(response).to have_http_status(:unauthorized)
+      expect(response).to render_template('lti_launch/launch_error')
+    end
+
     # An instructor mistyping the secret is not an incident; a key we never
     # issued is.
     it 'reports the unexplainable refusals and stays quiet about the typo' do

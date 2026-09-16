@@ -149,6 +149,13 @@ describe VerifyLtiLegacyLaunch do
       expect(verify(sign(launch_params))).to be_valid
     end
 
+    # Accepting one would activate the key without pinning it, and an
+    # activated, unpinned key would work from anywhere for good.
+    it 'refuses a launch that names no Canvas instance, even before the key is pinned' do
+      signed = sign(launch_params.except('tool_consumer_instance_guid'))
+      expect(verify(signed).error).to eq(:no_instance_guid)
+    end
+
     it 'refuses a launch from a different Canvas once the key is pinned' do
       consumer_key.record_launch!('the-real-canvas')
       expect(verify(sign(launch_params)).error).to eq(:wrong_canvas)
