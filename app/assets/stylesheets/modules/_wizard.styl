@@ -91,6 +91,11 @@ wizard-width = 860px
         position absolute;
         bottom 25px;
         right 21px;
+      // The Next button sits over the bottom-right corner of the form, where
+      // the checkbox rows end. Keep their labels clear of it so a long label
+      // wraps instead of running underneath the button.
+      .course-checkbox > label
+        padding-right 100px
       p
         text-align left
       textarea

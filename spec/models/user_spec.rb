@@ -270,6 +270,24 @@ describe User do
       permission = user.can_see_real_names?(course)
       expect(permission).to be false
     end
+
+    it 'returns false for an instructor when the course is in privacy mode' do
+      course = create(:course)
+      create(:confidential_course_detail, course:)
+      user = create(:user)
+      create(:courses_user,
+             course_id: course.id,
+             user_id: user.id,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      expect(user.can_see_real_names?(course.reload)).to be false
+    end
+
+    it 'returns true for an admin when the course is in privacy mode' do
+      course = create(:course)
+      create(:confidential_course_detail, course:)
+      admin = create(:admin)
+      expect(admin.can_see_real_names?(course.reload)).to be true
+    end
   end
 
   describe 'email validation' do
