@@ -36,10 +36,13 @@ class CourseCanvasCredentialsController < ApplicationController
 
   def prepare_view
     @key = LtiConsumerKey.active.find_by(course: @course)
-    # A binding that no key of ours created is the LTI 1.3 install. Read from
-    # the binding table rather than the course's denormalized flag, which is a
-    # cache the model keeps best-effort.
-    @bound_elsewhere = @key.nil? && LtiCourseBinding.exists?(course_id: @course.id)
+    # A 1.3 binding is the standard install, and it wins whatever key this page
+    # has issued: a course with a live 1.1 key that later gets a 1.3 install
+    # must not show the waiting state and offer to regenerate. Read from the
+    # binding table rather than the course's denormalized flag, which is a
+    # cache the model keeps best-effort. A legacy binding is this page's own
+    # doing and does not count.
+    @bound_elsewhere = LtiCourseBinding.lti_1_3.exists?(course_id: @course.id)
     @config_url = "https://#{ENV.fetch('dashboard_url')}/lti/legacy/config.xml"
   end
 

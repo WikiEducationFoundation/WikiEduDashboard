@@ -153,5 +153,40 @@ describe CourseCanvasCredentialsController, type: :request do
     it 'refuses to issue a key' do
       expect { post path }.not_to change(LtiConsumerKey, :count)
     end
+
+    # The check is for a 1.3 binding specifically, not for "any binding and no
+    # key": a course with a live 1.1 key that then gets the standard install
+    # must not fall back to the waiting state and offer to regenerate.
+    context 'when the course also has a 1.1 key from before' do
+      before { LtiConsumerKey.generate_for(course:, user: instructor) }
+
+      it 'still says so, rather than showing the waiting state' do
+        get path
+        expect(response.body)
+          .to include('already connected to Canvas through the standard integration')
+        expect(response.body).not_to include('Waiting for your first launch')
+      end
+
+      it 'still refuses to regenerate' do
+        expect { post path }.not_to change(LtiConsumerKey, :count)
+      end
+    end
+  end
+
+  # A legacy binding is this page's own doing, so it is not "bound elsewhere".
+  describe 'when the course is bound through its own LTI 1.1 launch' do
+    before do
+      post path
+      LtiConsumerKey.last.record_launch!('canvas-instance-guid')
+      LtiCourseBinding.create!(course:, lms_id: 'canvas-instance-guid', lms_family: 'canvas',
+                               lms_context_id: 'ctx-11', lms_resource_link_id: 'rl-11',
+                               lti_version: '1.2.0')
+    end
+
+    it 'reports the connection, not a conflict' do
+      get path
+      expect(response.body).to include('This course is connected to Canvas')
+      expect(response.body).not_to include('standard integration')
+    end
   end
 end

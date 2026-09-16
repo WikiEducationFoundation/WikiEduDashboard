@@ -40,6 +40,19 @@ describe LtiConsumerKey do
       described_class.generate_for(course:, user: instructor)
       expect(other.reload).to be_active
     end
+
+    # Two simultaneous regenerations must not leave two active keys. A real
+    # race cannot run inside a transactional example, so this pins the
+    # mechanism instead: the course row is locked for the transaction, which
+    # makes the second request wait behind the first and then replace its key.
+    it 'locks the course row while replacing the key' do
+      statements = []
+      callback = ->(event) { statements << event.payload[:sql] }
+      ActiveSupport::Notifications.subscribed(callback, 'sql.active_record') do
+        described_class.generate_for(course:, user: instructor)
+      end
+      expect(statements).to include(a_string_matching(/FROM `courses`.*FOR UPDATE/m))
+    end
   end
 
   # A key that outlived its course would still verify a launch, whose course

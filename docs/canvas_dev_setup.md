@@ -538,7 +538,11 @@ fronts every LTI 1.3 launch.
   every refusal renders the same page with the same status. The reason goes to
   the log, and a mistyped secret is logged rather than reported to Sentry —
   the install guide troubleshoots exactly that, and an instructor's typo is
-  not an incident.
+  not an incident. An unknown consumer key is reported, but once per address
+  per hour (`UNKNOWN_KEY_REPORT_INTERVAL`, counted in the cache store): it is
+  the one refusal reachable with no knowledge of any key, so an unauthenticated
+  POST loop could otherwise raise a Sentry event per request. If the cache is
+  down the throttle fails open and every refusal is reported.
 
 ### Keys
 
@@ -552,6 +556,10 @@ instructor. Two properties matter:
 - **Deleted with its course** (a foreign key with `ON DELETE CASCADE`, as for
   `lti_course_bindings`), so a key never outlives the course it was issued
   for; a launch with it is then refused as an unknown key.
+- **One active key per course.** Regenerating deactivates the previous key in
+  the same transaction, which takes a row lock on the course so two
+  simultaneous regenerations cannot both read the old key and both insert.
+  MySQL has no partial unique index to enforce this at the schema level.
 
 The first launch also **binds the course**, because the key already knows
 which Dashboard course it was issued for, so the instructor never sees the

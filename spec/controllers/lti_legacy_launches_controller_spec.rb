@@ -167,6 +167,42 @@ describe LtiLegacyLaunchesController, type: :request do
       launch(sign(launch_params('oauth_consumer_key' => 'never-issued')))
       expect(Sentry).to have_received(:capture_message)
     end
+
+    # An unknown key is the one refusal reachable with no knowledge of any key,
+    # so it is the one an unauthenticated loop could use to flood Sentry. The
+    # test cache store is a null store, which the throttle treats as "cache
+    # down, report everything", so these examples give it a real one.
+    context 'when unknown keys keep arriving' do
+      before { allow(Rails).to receive(:cache).and_return(ActiveSupport::Cache::MemoryStore.new) }
+
+      def probe(env = {})
+        params = sign(launch_params('oauth_consumer_key' => 'never-issued'))
+        post '/lti/legacy/launch', params:, env:
+      end
+
+      it 'reports the first from an address and throttles the rest for an hour' do
+        3.times { probe }
+        expect(Sentry).to have_received(:capture_message).once
+        travel_to((LtiLegacyLaunchesController::UNKNOWN_KEY_REPORT_INTERVAL + 1.minute).from_now) do
+          probe
+        end
+        expect(Sentry).to have_received(:capture_message).twice
+      end
+
+      it 'throttles per address, so a probe from elsewhere is still reported' do
+        probe
+        probe('REMOTE_ADDR' => '203.0.113.7')
+        expect(Sentry).to have_received(:capture_message).twice
+      end
+
+      # Only an unknown key is throttled: the other reported refusals need a
+      # captured signature or a real secret, so they cannot be produced cheaply.
+      it 'still reports every replay' do
+        signed = sign(launch_params)
+        3.times { launch(signed) }
+        expect(Sentry).to have_received(:capture_message).twice
+      end
+    end
   end
 
   describe 'the feature gate' do

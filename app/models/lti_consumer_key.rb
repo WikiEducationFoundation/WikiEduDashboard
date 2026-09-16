@@ -45,6 +45,11 @@ class LtiConsumerKey < ApplicationRecord
 
   def self.generate_for(course:, user:)
     transaction do
+      # Serializes regenerations for one course. Two simultaneous requests
+      # would otherwise both read the same old key, both deactivate it and both
+      # insert, leaving two active keys; the second now waits on the course row
+      # until the first commits, then sees and replaces the key it made.
+      Course.lock.find(course.id)
       # Regenerating replaces: an install can only have one working secret, and
       # leaving the old one usable would defeat the point of regenerating.
       active.where(course:).find_each { |key| key.update!(active: false) }
