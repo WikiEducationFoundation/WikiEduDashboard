@@ -90,7 +90,12 @@ describe 'standard wizard blocks in the timeline', type: :feature, js: true do
         within("[data-catalog-id='moving_to_mainspace_individually']") { click_button 'Add' }
       end
       # The rich text editor parses the block's markup, so the iframes must
-      # survive being loaded into it as well as being saved.
+      # survive being loaded into it as well as being saved. Wait for the
+      # block's prose first: the editor is a lazily-loaded chunk, so asserting
+      # straight on the iframes races its arrival. (The title is not usable for
+      # this — an inserted block opens in edit mode, where the title is an
+      # input value rather than page text.)
+      expect(page).to have_content 'Demo: moving work from a sandbox'
       expect(page).to have_selector('.wysiwyg-editor__content iframe')
 
       within('.block__block-actions') { click_button 'Save' }

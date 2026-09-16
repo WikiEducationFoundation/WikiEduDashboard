@@ -128,6 +128,8 @@ describe SwitchCourseSandboxMode do
   describe 'when individual-vs-group work cannot be recovered' do
     subject(:service) { described_class.new(course, no_sandboxes: true) }
 
+    # build_sandbox_timeline creates its blocks without training modules, so
+    # TimelineGroupMode has nothing to go on either.
     before do
       Tag.find_by(course_id: course.id, key: 'working_in_groups').destroy
       build_sandbox_timeline
@@ -154,6 +156,41 @@ describe SwitchCourseSandboxMode do
       service
       expect(course.reload.no_sandboxes?).to be true
       expect(Tag.find_by(course_id: course.id, key: 'sandboxes').tag).to eq('no_sandboxes')
+    end
+  end
+
+  describe 'when the tag is missing but the timeline shows the answer' do
+    subject(:service) { described_class.new(course, no_sandboxes: true) }
+
+    # Same situation as above, except the blocks still carry the training
+    # modules the wizard gave them, which say which variant this course got.
+    before do
+      Tag.find_by(course_id: course.id, key: 'working_in_groups').destroy
+      create(:block, week: weeks[2], title: 'Keeping track of your work', order: 1)
+      create(:block, week: weeks[4], title: 'Start drafting your contributions',
+                     training_module_ids: [31, 15], order: 1)
+      create(:block, week: weeks[7], title: 'Begin moving your work to Wikipedia',
+                     training_module_ids: [33], order: 1)
+    end
+
+    it 'infers group work from the timeline' do
+      expect(service.inferred_group_mode).to eq('working_in_groups')
+    end
+
+    it 'resolves the group-dependent blocks instead of reporting them' do
+      expect(service.unresolved).to be_empty
+    end
+
+    it 'removes the group variants it inferred' do
+      service
+      expect(titles).not_to include('Start drafting your contributions',
+                                    'Begin moving your work to Wikipedia')
+    end
+
+    it 'prefers a recorded tag over the timeline when both are present' do
+      Tag.create(course_id: course.id, key: 'working_in_groups', tag: 'working_individually')
+      expect(service.inferred_group_mode).to be_nil
+      expect(service.unresolved).to be_empty
     end
   end
 

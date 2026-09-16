@@ -3,6 +3,7 @@
 require_dependency "#{Rails.root}/lib/wizard_block_catalog"
 require_dependency "#{Rails.root}/lib/wizard_logic_state"
 require_dependency "#{Rails.root}/lib/wizard_tag_writer"
+require_dependency "#{Rails.root}/lib/timeline_group_mode"
 require_dependency "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
 
 # Switches a course between drafting in sandboxes and editing live articles.
@@ -23,7 +24,8 @@ class SwitchCourseSandboxMode
   WIZARD_ID = 'researchwrite'
   LOGIC_KEY = 'no_sandboxes'
 
-  attr_reader :added_blocks, :removed_blocks, :unmatched, :unresolved
+  attr_reader :added_blocks, :removed_blocks, :unmatched, :unresolved,
+              :inferred_group_mode
 
   def initialize(course, no_sandboxes:)
     @course = course
@@ -42,6 +44,7 @@ class SwitchCourseSandboxMode
 
   def perform
     @logic = WizardLogicState.new(@course, WIZARD_ID)
+    @group_logic = infer_group_mode
     classify
     ActiveRecord::Base.transaction do
       update_flag
@@ -51,20 +54,31 @@ class SwitchCourseSandboxMode
     CheckTimelineAlertManager.new(@course)
   end
 
+  # Four of the sandbox-dependent blocks also branch on individual vs group
+  # work, and that answer is often not recorded as a tag. Rather than report
+  # those as unresolved, fall back to what the existing timeline shows. Only
+  # consulted when nothing was recorded; a recorded answer always wins.
+  def infer_group_mode
+    return {} if @logic.known.key?('working_in_groups')
+    @inferred_group_mode = TimelineGroupMode.new(@course, WIZARD_ID).logic_key
+    return {} unless @inferred_group_mode
+    TimelineGroupMode::LOGIC_KEYS.index_with { |key| key == @inferred_group_mode }
+  end
+
   # Compare each sandbox-dependent block's verdict now against its verdict once
   # the flag has flipped. Anything that stops qualifying comes out; anything
   # that starts qualifying goes in.
   def classify
     catalog.conditional_on(LOGIC_KEY).each do |entry|
-      before = @logic.verdict_for(entry[:conditions])
-      after = @logic.verdict_for(entry[:conditions], override)
+      before = @logic.verdict_for(entry[:conditions], @group_logic)
+      after = @logic.verdict_for(entry[:conditions], @group_logic.merge(sandbox_override))
       next @unresolved << summary(entry) if [before, after].include?(:unknown)
       @to_remove << entry if before == :yes && after == :no
       @to_add << entry if before == :no && after == :yes && entry[:insertable]
     end
   end
 
-  def override
+  def sandbox_override
     { LOGIC_KEY => @no_sandboxes, 'yes_sandboxes' => !@no_sandboxes }
   end
 
