@@ -11,11 +11,7 @@ class CourseCloneManager
   end
 
   def clone!
-    @clone = @course.dup
-
-    set_courses_wikis
-    set_placeholder_start_and_end_dates
-    sanitize_clone_info
+    build_and_save_clone
     update_title_and_slug
     duplicate_timeline
     set_instructor
@@ -48,6 +44,27 @@ class CourseCloneManager
     @clone.timeline_end = today
   end
 
+  # Everything up to and including the first save is rebuilt from a fresh #dup
+  # on each attempt, so a rolled-back attempt leaves no stale in-memory state
+  # (built join records, the inverse has_one) behind. Losing the race for the
+  # privacy-mode sequence re-rolls it and retries, as
+  # CourseCreationManager#save_course does; any other collision is left to
+  # #clone!, which treats it as an incomplete clone of the same course.
+  def build_and_save_clone
+    attempts = 0
+    begin
+      @clone = @course.dup
+      set_courses_wikis
+      set_placeholder_start_and_end_dates
+      sanitize_clone_info
+    rescue ActiveRecord::RecordNotUnique
+      raise unless @course.confidential?
+      raise unless (attempts += 1) < ObfuscateCourseIdentity::MAX_ATTEMPTS
+      @confidential_identity = nil
+      retry
+    end
+  end
+
   def sanitize_clone_info
     @clone.term = "CLONED FROM #{@course.term}"
     @clone.cloned_status = Course::ClonedStatus::PENDING
@@ -58,10 +75,19 @@ class CourseCloneManager
     @clone.flags = {}
     # If a legacy course is cloned, switch the type to ClassroomProgramCourse.
     @clone.type = 'ClassroomProgramCourse' if @clone.legacy?
-    @clone.save!
+    save_clone_with_confidential_detail
     @clone = Course.find(@clone.id) # Re-load the course to ensure correct course type
-    clone_confidential_detail
     @clone.update_cache_from_timeslices # Reset the stats to 0
+  end
+
+  # The clone and its ConfidentialCourseDetail have to land together: a clone
+  # left with an obfuscated title and no detail record would read as
+  # non-confidential, dropping the guards and losing the real values.
+  def save_clone_with_confidential_detail
+    Course.transaction do
+      @clone.save!
+      clone_confidential_detail
+    end
   end
 
   def update_title_and_slug

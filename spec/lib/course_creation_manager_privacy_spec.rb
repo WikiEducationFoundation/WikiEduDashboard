@@ -88,6 +88,18 @@ describe CourseCreationManager do
         expect(course.slug).not_to eq('Confidential/Course_1_(Fall_2026)')
       end
 
+      it 'retries when another course takes the sequence but not the slug' do
+        # A privacy-mode course in another term already holds sequence 1. The
+        # slugs differ, so the collision is on the sequence index itself.
+        other = create(:course, slug: 'Confidential/Course_1_(Spring_2026)', title: 'Course 1',
+                                school: 'Confidential', term: 'Spring 2026')
+        create(:confidential_course_detail, course: other, sequence: 1)
+        allow(ConfidentialCourseDetail).to receive(:next_sequence).and_return(1, 2)
+        course = manager.create
+        expect(course).to be_persisted
+        expect(course.confidential_course_detail.sequence).to eq(2)
+      end
+
       it 'does not persist a course without its detail record' do
         allow(ConfidentialCourseDetail).to receive(:create!)
           .and_raise(ActiveRecord::RecordInvalid)

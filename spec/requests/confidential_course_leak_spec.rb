@@ -40,11 +40,13 @@ describe 'Privacy-mode course confidentiality', type: :request do
      "/courses/#{course.slug}/alerts.json",
      "/courses/#{course.slug}/tags.json",
      '/explore',
+     '/dashboard',
      "/courses/search.json?search=#{real_school}",
      "/courses/search.json?search=#{real_title}"]
   end
 
   before do
+    stub_oauth_edit
     create(:confidential_course_detail, course:, real_title:, real_school:)
     create(:courses_user, course:, user: instructor,
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE,
@@ -55,6 +57,9 @@ describe 'Privacy-mode course confidentiality', type: :request do
   def expect_no_sentinels_from(endpoints)
     endpoints.each do |path|
       get path
+      # A redirect (/dashboard when logged out) has nothing to check, but a
+      # server error must not pass as "no leak".
+      expect(response).not_to be_server_error, "#{path} returned #{response.status}"
       next unless response.successful?
       sentinels.each do |sentinel|
         expect(response.body).not_to include(sentinel), "#{sentinel} leaked from #{path}"

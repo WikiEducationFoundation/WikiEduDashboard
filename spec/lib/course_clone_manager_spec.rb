@@ -238,5 +238,22 @@ describe CourseCloneManager do
     it 'leaves the clone in privacy mode' do
       expect(clone).to be_confidential
     end
+
+    it 'does not persist a clone without its detail record' do
+      allow(ConfidentialCourseDetail).to receive(:create!)
+        .and_raise(ActiveRecord::RecordInvalid)
+      expect { clone }.to raise_error(ActiveRecord::RecordInvalid)
+      expect(Course.where.not(id: 1)).to be_empty
+    end
+
+    it 'retries with a fresh sequence when another course takes the one it picked' do
+      # Another privacy-mode course already holds sequence 8, so the first
+      # attempt collides on the unique index and the second gets 9.
+      other = create(:course, title: 'Other', school: 'Elsewhere', slug: 'Elsewhere/Other')
+      create(:confidential_course_detail, course: other, sequence: 8)
+      allow(ConfidentialCourseDetail).to receive(:next_sequence).and_return(8, 9)
+      expect(clone.confidential_course_detail.sequence).to eq(9)
+      expect(Course.where.not(id: [1, other.id]).count).to eq(1)
+    end
   end
 end

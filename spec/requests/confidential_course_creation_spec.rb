@@ -50,4 +50,12 @@ describe 'Creating a privacy-mode course', type: :request do
     post '/courses.json', params: { course: course_params.merge(confidential: false) }
     expect(Course.last).not_to be_confidential
   end
+
+  it 'ignores the checkbox on the Programs & Events Dashboard' do
+    allow(Features).to receive(:wiki_ed?).and_return(false)
+    post '/courses.json', params: { course: course_params.merge(confidential: true) }
+    course = Course.last
+    expect(course).not_to be_confidential
+    expect(course.title).to eq('Introduction to Biology')
+  end
 end

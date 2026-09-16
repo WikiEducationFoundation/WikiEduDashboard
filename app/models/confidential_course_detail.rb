@@ -23,7 +23,11 @@ class ConfidentialCourseDetail < ApplicationRecord
   belongs_to :course
 
   validates :course_id, presence: true, uniqueness: true
-  validates :sequence, presence: true, uniqueness: true
+  # No uniqueness validation on `sequence`: the unique index enforces it, and a
+  # collision has to surface as RecordNotUnique so that CourseCreationManager
+  # and CourseCloneManager can re-roll the sequence and retry. A validation
+  # would raise RecordInvalid first and defeat the retry.
+  validates :sequence, presence: true
 
   # The next unused sequence. Racy on its own; the unique index on `sequence`
   # and on `courses.slug` are what actually enforce uniqueness, and

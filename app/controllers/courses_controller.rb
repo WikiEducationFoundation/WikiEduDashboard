@@ -313,7 +313,10 @@ class CoursesController < ApplicationController
     %i[title school].all? { |key| params[:course].key?(key) }
   end
 
+  # Privacy mode is a Wiki Ed feature: the P&E Dashboard has no admin workflow
+  # for the real values, and the obfuscated stand-ins are English.
   def confidential_param?
+    return false unless Features.wiki_ed?
     ActiveRecord::Type::Boolean.new.cast(params[:course][:confidential]).present?
   end
 

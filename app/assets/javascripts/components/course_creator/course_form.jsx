@@ -168,17 +168,20 @@ const CourseForm = (props) => {
   // Privacy mode: the course page stays public, but the title, institution and
   // instructor identity become admin-only. The server replaces the submitted
   // title and school with obfuscated stand-ins, so the slug this form previews
-  // is not the slug the course ends up with. Unlike the `private` checkbox
-  // below, this applies to ClassroomProgramCourse, which is what Wiki Ed uses.
-  const confidentialCheckbox = (
-    <CourseCheckbox
-      checkboxFor="confidential"
-      value={true}
-      updateCourseProps={props.updateCourseProps}
-      checked={!!props.course.confidential}
-      text={I18n.t('courses.creator.course_confidential')}
-    />
-  );
+  // is not the slug the course ends up with. Wiki Ed only: the P&E Dashboard
+  // has no admin workflow for the real values, and the stand-ins are English.
+  let confidentialCheckbox;
+  if (Features.wikiEd) {
+    confidentialCheckbox = (
+      <CourseCheckbox
+        checkboxFor="confidential"
+        value={true}
+        updateCourseProps={props.updateCourseProps}
+        checked={!!props.course.confidential}
+        text={I18n.t('courses.creator.course_confidential')}
+      />
+    );
+  }
 
   if (props.defaultCourse !== 'ClassroomProgramCourse') {
     home_wiki = (

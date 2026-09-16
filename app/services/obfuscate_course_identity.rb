@@ -17,6 +17,10 @@ class ObfuscateCourseIdentity
   # privacy-mode number, which is what makes the slug unique.]
   TITLE_FORMAT = 'Course %<sequence>d'
 
+  # How many times a caller should re-roll the sequence when another course
+  # takes the one it picked before it can save.
+  MAX_ATTEMPTS = 5
+
   attr_reader :course_params, :original_params, :sequence
 
   def initialize(course_params, sequence: nil)

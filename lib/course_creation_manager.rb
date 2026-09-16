@@ -7,10 +7,6 @@ require_dependency "#{Rails.root}/lib/article_utils"
 class CourseCreationManager
   attr_reader :wiki, :invalid_reason
 
-  # How many times to re-roll the privacy-mode sequence when another course
-  # creation takes the one we picked.
-  MAX_OBFUSCATION_ATTEMPTS = 5
-
   # rubocop:disable Metrics/ParameterLists
   def initialize(course_params, wiki_params, scoping_methods, initial_campaign_params,
                  instructor_role_description, current_user, ta_support, confidential: false)
@@ -97,7 +93,7 @@ class CourseCreationManager
     begin
       build_course_and_detail
     rescue ActiveRecord::RecordNotUnique
-      raise unless @confidential && (attempts += 1) < MAX_OBFUSCATION_ATTEMPTS
+      raise unless @confidential && (attempts += 1) < ObfuscateCourseIdentity::MAX_ATTEMPTS
       obfuscate_identity
       set_slug
       retry
