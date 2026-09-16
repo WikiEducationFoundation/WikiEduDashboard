@@ -8,8 +8,8 @@
 # this. Sandbox page names come off Assignment; whether each page exists comes
 # from the statuses CheckAssignmentStatus maintains in `assignment.flags`
 # (AssignmentPipeline reads them back); live-article contributions come from
-# article_course_timeslices, which carry per-(course, article) totals plus the
-# user_ids behind them.
+# article_course_user_wiki_timeslices, which carry per-(course, article, user)
+# totals.
 #
 # `editing` assignments only: a `reviewing` assignment is the peer-review stage,
 # whose own column reports it (see LtiPeerReviewProgress).
@@ -94,30 +94,27 @@ class AssignedArticleWork
     status != AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST
   end
 
-  # This student's share of the live article: the timeslices for that article
-  # whose user_ids include them. Zeroes (rather than nil) for an article nobody
-  # has edited yet, so the view has nothing to special-case.
+  # How much of the live article this student wrote: the timeslices for the assignment
+  # article and user, summed. Zeroes rather than nil when they have none, so the
+  # view needs no nil check.
   def stats_for(assignment)
-    slices = timeslices_for(assignment.article_id).select do |slice|
-      slice.user_ids.include?(assignment.user_id)
-    end
+    slices = timeslices_for(assignment.article_id, assignment.user_id)
     Stats.new(characters: slices.sum { |s| s.character_sum.to_i },
               references: slices.sum { |s| s.references_count.to_i },
               revisions: slices.sum { |s| s.revision_count.to_i })
   end
 
-  def timeslices_for(article_id)
+  def timeslices_for(article_id, user_id)
     return [] if article_id.nil?
 
-    timeslices[article_id] || []
+    timeslices[[article_id, user_id]] || []
   end
 
-  # One query for every assigned article in the course. `non_empty` skips the
-  # slices with no contributors, which are the bulk of them.
+  # One query for every assigned article in the course.
   def timeslices
-    @timeslices ||= ArticleCourseTimeslice
+    @timeslices ||= ArticleCourseUserWikiTimeslice
                     .where(course_id: @course.id, article_id: assignments.map(&:article_id).compact)
-                    .non_empty
-                    .group_by(&:article_id)
+                    .where(user_id: @user_ids)
+                    .group_by { |a| [a.article_id, a.user_id] }
   end
 end
