@@ -9,12 +9,8 @@
 # Run this before CourseCreationManager#set_slug: the slug builder reads
 # @course_params[:school] and [:title], and by then they are already obfuscated.
 class ObfuscateCourseIdentity
-  # [PLACEHOLDER - obfuscated institution name, shown in place of the real
-  # school. It appears in every course URL and on-wiki course page title.]
-  SCHOOL = 'Confidential'
+  SCHOOL = 'Student Program'
 
-  # [PLACEHOLDER - obfuscated course title. %<sequence>d is the course's
-  # privacy-mode number, which is what makes the slug unique.]
   TITLE_FORMAT = 'Course %<sequence>d'
 
   # How many times a caller should re-roll the sequence when another course

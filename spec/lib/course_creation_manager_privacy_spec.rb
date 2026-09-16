@@ -81,18 +81,19 @@ describe CourseCreationManager do
         # it is allocated and the time the course is saved.
         allow(ConfidentialCourseDetail).to receive(:next_sequence).and_return(1, 1, 2)
         manager # allocates sequence 1
-        create(:course, slug: 'Confidential/Course_1_(Fall_2026)', title: 'Course 1',
-                        school: 'Confidential', term: 'Fall 2026')
+        taken_slug = obfuscated_slug('Fall 2026')
+        create(:course, slug: taken_slug, title: obfuscated_title,
+                        school: obfuscated_school, term: 'Fall 2026')
         course = manager.create
         expect(course).to be_persisted
-        expect(course.slug).not_to eq('Confidential/Course_1_(Fall_2026)')
+        expect(course.slug).not_to eq(taken_slug)
       end
 
       it 'retries when another course takes the sequence but not the slug' do
         # A privacy-mode course in another term already holds sequence 1. The
         # slugs differ, so the collision is on the sequence index itself.
-        other = create(:course, slug: 'Confidential/Course_1_(Spring_2026)', title: 'Course 1',
-                                school: 'Confidential', term: 'Spring 2026')
+        other = create(:course, slug: obfuscated_slug('Spring 2026'), title: obfuscated_title,
+                                school: obfuscated_school, term: 'Spring 2026')
         create(:confidential_course_detail, course: other, sequence: 1)
         allow(ConfidentialCourseDetail).to receive(:next_sequence).and_return(1, 2)
         course = manager.create

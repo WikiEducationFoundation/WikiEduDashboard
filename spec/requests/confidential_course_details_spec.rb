@@ -6,8 +6,8 @@ require 'rails_helper'
 # privacy-mode course.
 describe 'Confidential course details', type: :request do
   let(:course) do
-    create(:course, title: 'Course 1', school: 'Confidential', term: 'Fall 2026',
-                    slug: 'Confidential/Course_1_(Fall_2026)')
+    create(:course, title: obfuscated_title, school: obfuscated_school, term: 'Fall 2026',
+                    slug: obfuscated_slug('Fall 2026'))
   end
   let(:instructor) { create(:user, username: 'Instructor') }
   let(:admin) { create(:admin, username: 'Admin') }

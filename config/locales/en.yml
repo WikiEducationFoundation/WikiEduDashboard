@@ -735,12 +735,8 @@ en:
         Please include enough detail to give other Wikipedia editors a sense of
         context for the contributions your students will be making.
       course_private: Private program (viewable only by admins and facilitators)
-      confidential_url_note: "[PLACEHOLDER - short note shown where the course URL preview
-        normally appears, for a privacy-mode course; should say the URL is anonymized and
-        assigned when the course is created]"
-      course_confidential: "[PLACEHOLDER - label for the privacy-mode checkbox in the course
-        creator; should say the course page stays public but the title, institution and
-        instructor name/email are visible to admins only]"
+      confidential_url_note: "A URL that does not include the institution and title will be generated upon course creation."
+      course_confidential: "Make institution, title and instructor confidential"
       course_ta_support: Course will have additional instructors or TAs
       course_school: Course school
       course_subject: Course subject
@@ -864,9 +860,7 @@ en:
       duplicate_slug: "Another program called %{slug} already exists."
       event_sync_delete: This page is linked to Wikimedia Event Registration and cannot be deleted.
       event_sync_rename: This page is linked to Wikimedia Event Registration and cannot be renamed.
-      confidential_rename: "[PLACEHOLDER - error shown when someone tries to edit the title or
-        school of a privacy-mode course; should say the values cannot be changed and that an
-        admin can update the real ones]"
+      confidential_rename: "Only an admin can rename this course."
     expected_students: Expected Students
     features_feedback: "Automated Suggestions:"
     feedback: Feedback

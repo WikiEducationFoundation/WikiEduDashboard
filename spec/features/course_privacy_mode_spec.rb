@@ -52,12 +52,12 @@ describe 'Course privacy mode', type: :feature, js: true do
       click_button 'Create my Course!'
 
       expect(page).to have_current_path(
-        %r{/courses/Confidential/Course_1_\(Fall_2026\)/timeline/wizard}, wait: 10
+        %r{/courses/#{Regexp.escape(obfuscated_slug('Fall 2026'))}/timeline/wizard}, wait: 10
       )
       course = Course.last
       expect(course).to be_confidential
-      expect(course.title).to eq('Course 1')
-      expect(course.school).to eq('Confidential')
+      expect(course.title).to eq(obfuscated_title)
+      expect(course.school).to eq(obfuscated_school)
       expect(course.confidential_course_detail.real_title).to eq('Introduction to Biology')
       expect(course.confidential_course_detail.real_school).to eq('State University')
     end

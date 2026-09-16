@@ -20,8 +20,8 @@ describe 'Privacy-mode course confidentiality', type: :request do
   end
   let(:student) { create(:user, username: 'Student') }
   let(:course) do
-    create(:course, home_wiki: wiki, title: 'Course 1', school: 'Confidential',
-                    term: 'Fall 2026', slug: 'Confidential/Course_1_(Fall_2026)',
+    create(:course, home_wiki: wiki, title: obfuscated_title, school: obfuscated_school,
+                    term: 'Fall 2026', slug: obfuscated_slug('Fall 2026'),
                     start: 1.month.ago, end: 1.month.from_now)
   end
 

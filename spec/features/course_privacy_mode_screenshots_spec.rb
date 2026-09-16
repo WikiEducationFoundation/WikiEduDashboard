@@ -40,8 +40,8 @@ describe 'Course privacy mode screenshots', type: :feature, js: true,
   end
 
   it 'captures a privacy-mode course page as its instructor' do
-    course = create(:course, title: 'Course 1', school: 'Confidential',
-                             term: 'Fall 2026', slug: 'Confidential/Course_1_(Fall_2026)',
+    course = create(:course, title: obfuscated_title, school: obfuscated_school,
+                             term: 'Fall 2026', slug: obfuscated_slug('Fall 2026'),
                              start: 1.month.ago, end: 1.month.from_now)
     create(:confidential_course_detail, course:, real_title: 'Introduction to Biology',
                                         real_school: 'State University')
@@ -49,7 +49,7 @@ describe 'Course privacy mode screenshots', type: :feature, js: true,
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE,
                           real_name: 'Jane Q. Instructor')
     visit "/courses/#{course.slug}"
-    expect(page).to have_content 'Course 1'
+    expect(page).to have_content obfuscated_title
     shoot('03_privacy_mode_course_page')
   end
 end

@@ -5,8 +5,8 @@ require 'rails_helper'
 describe CoursesPresenter do
   describe '#search_courses with a privacy-mode course' do
     let(:course) do
-      create(:course, title: 'Course 1', school: 'Confidential', term: 'Fall 2026',
-                      slug: 'Confidential/Course_1_(Fall_2026)')
+      create(:course, title: obfuscated_title, school: obfuscated_school, term: 'Fall 2026',
+                      slug: obfuscated_slug('Fall 2026'))
     end
     let(:instructor) { create(:user, username: 'Instructor') }
     let(:presenter) { described_class.new(current_user:, courses_list: Course.all) }
@@ -30,7 +30,7 @@ describe CoursesPresenter do
       end
 
       it 'still matches the obfuscated values' do
-        expect(presenter.search_courses('Confidential')).to include(course)
+        expect(presenter.search_courses(obfuscated_school)).to include(course)
       end
     end
 

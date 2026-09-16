@@ -6,8 +6,8 @@ require 'rails_helper'
 # and its slug is already published on-wiki, so neither can be edited.
 describe 'Renaming a privacy-mode course', type: :request do
   let(:course) do
-    create(:course, title: 'Course 1', school: 'Confidential', term: 'Fall 2026',
-                    slug: 'Confidential/Course_1_(Fall_2026)')
+    create(:course, title: obfuscated_title, school: obfuscated_school, term: 'Fall 2026',
+                    slug: obfuscated_slug('Fall 2026'))
   end
   let(:admin) { create(:admin, username: 'Admin') }
 
@@ -20,21 +20,21 @@ describe 'Renaming a privacy-mode course', type: :request do
     put "/courses/#{course.slug}.json",
         params: { id: course.slug, course: { title: 'Introduction to Biology' } }
     expect(response).to have_http_status(:conflict)
-    expect(course.reload.title).to eq('Course 1')
+    expect(course.reload.title).to eq(obfuscated_title)
   end
 
   it 'refuses a change to the school' do
     put "/courses/#{course.slug}.json",
         params: { id: course.slug, course: { school: 'State University' } }
     expect(response).to have_http_status(:conflict)
-    expect(course.reload.school).to eq('Confidential')
+    expect(course.reload.school).to eq(obfuscated_school)
   end
 
   it 'leaves the slug alone' do
     put "/courses/#{course.slug}.json",
         params: { id: course.slug, course: { title: 'Introduction to Biology',
                                              school: 'State University' } }
-    expect(course.reload.slug).to eq('Confidential/Course_1_(Fall_2026)')
+    expect(course.reload.slug).to eq(obfuscated_slug('Fall 2026'))
   end
 
   it 'still allows edits to fields that are not confidential' do
