@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/wizard_tag_writer"
+
 # Routines for building and saving a course timeline after submission of wizard data
 class WizardTimelineManager
   class InvalidWizardError < StandardError; end
@@ -145,7 +147,7 @@ class WizardTimelineManager
   end
 
   def save_block(block)
-    attr_keys_to_skip = %w[if unless graded]
+    attr_keys_to_skip = %w[id if unless graded]
     block_params = block.except(*attr_keys_to_skip)
     block_params['points'] ||= Block::DEFAULT_POINTS if block['graded']
     block_record = Block.create(block_params)
@@ -191,25 +193,8 @@ class WizardTimelineManager
     LINK
   end
 
-  NONEXCLUSIVE_KEYS = ['topics'].freeze
   def add_tags
-    @tags.each do |tag|
-      # Only one tag for each tag key is allowed. Overwrite the previous tag if
-      # one with the same key already exists, so that if a given choice is made
-      # a second time, the tag gets updated to reflect the new choice.
-
-      # NONEXCLUSIVE_KEYS are allowed to have multiple tags for one wizard key.
-      # We make this work by using the wizard key and value together as the record key.
-      wizard_key = tag[:key]
-      tag_value = tag[:tag]
-      tag_key = NONEXCLUSIVE_KEYS.include?(wizard_key) ? "#{wizard_key}-#{tag_value}" : wizard_key
-
-      if Tag.exists?(course_id: @course.id, key: tag_key)
-        Tag.find_by(course_id: @course.id, key: tag_key).update(tag: tag_value)
-      else
-        Tag.create(course_id: @course.id, tag: tag_value, key: tag_key)
-      end
-    end
+    WizardTagWriter.new(@course).write(@tags)
   end
 
   FLAG_LOGIC = {

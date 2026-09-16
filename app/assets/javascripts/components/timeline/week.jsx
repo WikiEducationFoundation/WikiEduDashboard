@@ -5,6 +5,7 @@ import Block from './block.jsx';
 import DateCalculator from '../../utils/date_calculator.js';
 import SpringBlock from './SpringBlock';
 import BlockList from './BlockList';
+import AddWizardBlock from './AddWizardBlock/AddWizardBlock.jsx';
 
 const Week = createReactClass({
   displayName: 'Week',
@@ -15,6 +16,7 @@ const Week = createReactClass({
     timeline_end: PropTypes.string,
     meetings: PropTypes.array,
     noMeetingDays: PropTypes.bool,
+    course: PropTypes.object,
     blocks: PropTypes.array,
     edit_permissions: PropTypes.bool,
     editableBlockIds: PropTypes.array,
@@ -147,6 +149,15 @@ const Week = createReactClass({
       <button type="button" className="pull-right week__add-block" href="" onClick={this.addBlock}>{I18n.t('timeline.add_block')}<span className="icon-plus-blue" /></button>
     ) : undefined;
 
+    // Inserting a block from the assignment wizard's catalog is an admin
+    // repair tool, and only the research-write wizard has a catalog worth
+    // offering, so it is limited to the course type that uses it.
+    const isAdmin = Boolean(this.props.current_user && this.props.current_user.isAdmin);
+    const addWizardBlock = !this.props.reorderable && isAdmin
+      && this.props.course && this.props.course.type === 'ClassroomProgramCourse' ? (
+        <AddWizardBlock course={this.props.course} weekId={this.props.week.id} />
+      ) : undefined;
+
     const deleteWeek = !this.props.reorderable && !this.props.week.is_new ? (
       <button type="button" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="pull-right week__delete-week" href="" onClick={this.props.deleteWeek}>{I18n.t('timeline.delete_week')} <span className={`${this.state.isHover ? 'icon-trash_can-hover' : 'icon-trash_can'}`}/></button>
     ) : undefined;
@@ -154,6 +165,7 @@ const Week = createReactClass({
     const weekAddDelete = this.props.edit_permissions ? (
       <div className="week__week-add-delete pull-right">
         {addBlock}
+        {addWizardBlock}
         {deleteWeek}
       </div>
     ) : undefined;

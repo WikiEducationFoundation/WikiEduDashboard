@@ -412,7 +412,10 @@ Rails.application.routes.draw do
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
   get 'wizards/:wizard_id' => 'wizard#wizard'
+  get 'wizards/:wizard_id/blocks' => 'wizard#wizard_blocks'
   post 'courses/:course_id/wizard/:wizard_id' => 'wizard#submit_wizard',
+       constraints: { course_id: /.*/ }
+  post 'courses/:course_id/sandbox_mode' => 'sandbox_mode#update',
        constraints: { course_id: /.*/ }
 
   # Training

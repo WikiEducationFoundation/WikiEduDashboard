@@ -14,3 +14,10 @@ export const RESTORE_TIMELINE = 'RESTORE_TIMELINE';
 export const DELETE_ALL_WEEKS = 'DELETE_ALL_WEEKS';
 
 export const BLOCK_KIND_RESOURCES = 5;
+
+// Inserting a standard block from the assignment wizard's catalog (admin only).
+export const ADD_WIZARD_BLOCK = 'ADD_WIZARD_BLOCK';
+export const RECEIVE_WIZARD_BLOCK_CATALOG = 'RECEIVE_WIZARD_BLOCK_CATALOG';
+export const REQUEST_WIZARD_BLOCK_CATALOG = 'REQUEST_WIZARD_BLOCK_CATALOG';
+export const SANDBOX_MODE_SWITCHED = 'SANDBOX_MODE_SWITCHED';
+export const SWITCHING_SANDBOX_MODE = 'SWITCHING_SANDBOX_MODE';

@@ -1,0 +1,92 @@
+// Styling for the admin-only standard-block picker
+// (components/timeline/AddWizardBlock/) and the sandbox mode switcher
+// (components/timeline/SandboxModeSwitcher.jsx). The picker reuses the shared
+// `.wizard` overlay from the Modal component and adds a centered, scrollable
+// panel, following the pattern in _experiment_opt_in.styl.
+.week__add-wizard-block
+  background none
+  border none
+  color $brand_primary
+  cursor pointer
+  font-size .8em
+  margin-left 15px
+  padding 0
+
+.wizard.add-wizard-block
+  .add-wizard-block__panel
+    background-color white
+    box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
+    display inline-block
+    margin 0 auto 40px
+    max-width 760px
+    padding 30px
+    text-align left
+    width 92%
+    h2
+      font-size 1.563em
+      font-weight 300
+      margin-bottom 15px
+    h3
+      font-size 1em
+      font-weight 600
+      margin 20px 0 8px
+  .add-wizard-block__filter
+    margin-bottom 10px
+    width 100%
+  .add-wizard-block__week
+    border-top 1px solid border_lt
+  .add-wizard-block__actions
+    margin-top 20px
+    text-align right
+
+.wizard-block-row
+  align-items flex-start
+  border-bottom 1px solid border_lt
+  display flex
+  gap 15px
+  justify-content space-between
+  padding 10px 0
+  &:last-child
+    border-bottom none
+  .wizard-block-row__main
+    flex 1
+  .wizard-block-row__title
+    font-size 1em
+    font-weight 600
+    margin 0
+  .wizard-block-row__meta
+    font-size .85em
+    margin 3px 0 0
+    > span
+      margin-right 10px
+  // The raw logic keys a block is gated on. They are shown verbatim because
+  // they are what an admin greps for in the wizard config.
+  .wizard-block-row__conditions
+    color $text
+    font-family monospace
+    font-size .8em
+    margin 3px 0 0
+  .wizard-block-row__match--yes
+    color sprout-dark
+  .wizard-block-row__match--no
+    color $text
+  .wizard-block-row__match--unknown
+    color warning
+  .wizard-block-row__badge
+    color warning
+  .wizard-block-row__add
+    flex-shrink 0
+
+.sandbox-mode
+  // Matches the weight of the h5 headings the other sidebar sections use when
+  // they are in their active state, without adding a heading to the document.
+  .sandbox-mode__label
+    font-weight 600
+    margin-bottom 5px
+  .sandbox-mode__report
+    font-size .85em
+    margin-top 10px
+    p
+      margin-bottom 5px
+  .sandbox-mode__warning
+    color warning
