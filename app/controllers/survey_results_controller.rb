@@ -8,6 +8,7 @@ class SurveyResultsController < SurveysController
 
   def results
     protect_confidentiality { return }
+    @survey_stats = SurveyDurationStats.new(@survey)
     respond_to do |format|
       format.html
       format.csv do
