@@ -289,6 +289,7 @@ module RequestHelpers
       'en.wikivoyage.org',
       'wikisource.org',
       'es.wikisource.org',
+      'pa.wikisource.org',
       'www.wikidata.org',
       'en.wikinews.org',
       'pl.wikiquote.org',
