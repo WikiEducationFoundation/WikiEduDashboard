@@ -89,6 +89,14 @@ describe CourseCanvasCredentialsController, type: :request do
       expect(response).to have_http_status(:ok)
       expect(response.body).to include('Generate credentials')
     end
+
+    # Unlisted page, reached from an email: it has to say which course it is
+    # about and give a way back to it.
+    it 'names the course and links back to its page' do
+      get path
+      expect(response.body).to include(course.title)
+      expect(response.body).to include("href=\"/courses/#{course.slug}\"")
+    end
   end
 
   describe 'POST' do

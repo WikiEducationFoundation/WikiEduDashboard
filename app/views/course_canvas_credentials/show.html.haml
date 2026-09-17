@@ -6,6 +6,7 @@
 .container.narrow
   .section-header
     %h1 Connect this course to Canvas
+    %p.canvas-credentials__course= link_to @course.title, "/courses/#{@course.slug}"
   %hr
 
   - if @bound_elsewhere
