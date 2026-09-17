@@ -56,6 +56,20 @@ describe 'LTI 1.1 legacy launch', type: :feature, js: true do
                          roles: ['Learner'], linked_at: 1.hour.ago)
     end
 
+    # The roster is the page: every enrolled student, and a click opens that
+    # student's whole state of work with the way out to their details page.
+    it "lists the enrolled students and discloses one student's work on click" do
+      CoursesUsers.create!(course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+      visit launch_path
+      details = I18n.t('lti.assignment_view.submission.details')
+      expect(page).to have_content('Stu')
+      expect(page).not_to have_link(details)
+      click_button I18n.t('lti.assignment_view.show')
+      expect(page).to have_link(details, href: %r{/students/articles/Stu$})
+      click_button I18n.t('lti.assignment_view.hide')
+      expect(page).not_to have_link(details)
+    end
+
     it 'sees the launch-only status view: the link, the connected count, no sync machinery' do
       visit launch_path
 

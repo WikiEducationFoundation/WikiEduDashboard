@@ -238,10 +238,12 @@ class LtiLaunchController < ApplicationController
 
   # The launch-only (LTI 1.1) variant: nothing to sync, so no roster sync is
   # kicked off and the view carries none of the sync rows, the grade-sync
-  # trigger or the import/publish steps. The connected-accounts count is the
-  # one live number a 1.1 course has.
+  # trigger or the import/publish steps. What it has instead is the whole
+  # enrollment, one disclosure row per student, since this is the only page an
+  # instructor gets inside Canvas under 1.1.
   def render_legacy_instructor_status
     @sync_status = LtiSyncStatus.new(@binding)
+    @roster = InstructorRosterContext.new(binding: @binding)
     render 'lti_launch/instructor_status_legacy'
   end
 

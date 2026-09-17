@@ -2426,6 +2426,9 @@ en:
     not_yet_linked: "Your account hasn't been linked to Canvas for this course."
 
   lti:
+    beta_feedback:
+      message: "We welcome feedback about this beta version of our Canvas integration."
+      link: "Send feedback"
     iframe_landing:
       explanation: "Open dashboard.wikiedu.org in a new tab"
       button: "Open the Wiki Education Dashboard"
@@ -2475,6 +2478,8 @@ en:
       unavailable_header: Unavailable
       unavailable_explanation: "These items are no longer available to import."
     status:
+      roster:
+        peer_reviews: "Peer reviews"
       header: "Wiki Education Dashboard"
       linked: "Linked"
       refresh: "Refresh"

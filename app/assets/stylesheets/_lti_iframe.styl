@@ -654,3 +654,45 @@ inline-external-icon()
 
   &__link
     font-size 0.9em
+
+// Beta notice at the top of every integration page: one quiet line with the
+// way to the feedback form, kept out of the way of the view below it.
+.lti-beta-banner
+  margin 0 0 14px
+  padding 8px 12px
+  background #fff8e1
+  border 1px solid #f0d98a
+  border-radius 4px
+  color #5a4a1a
+  font-size 13px
+
+  a
+    margin-left 6px
+    font-weight 600
+
+// The LTI 1.1 instructor roster: a "Connected" mark beside a student who has
+// launched from Canvas, and a disclosure row per student holding the same
+// sections as the student's own overview.
+// Short column headers stay on one line; the table scrolls sideways if it must.
+.lti-roster th
+  white-space nowrap
+
+.lti-roster__connected
+  margin-left 8px
+  font-size 12px
+
+.lti-roster__detail > td
+  padding 12px 16px
+  background #fbfcfe
+
+.lti-roster__stats
+  display flex
+  flex-wrap wrap
+  align-items center
+  gap 16px
+  margin 0 0 12px
+  font-size 13px
+  color #5a6b7b
+
+  span
+    white-space nowrap
