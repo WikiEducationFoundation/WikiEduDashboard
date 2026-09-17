@@ -146,7 +146,7 @@ describe CourseCanvasCredentialsController, type: :request do
     it 'says so and offers nothing' do
       get path
       expect(response.body)
-        .to include('already connected to Canvas through the standard integration')
+        .to include('already connected via the LTI 1.3 integration')
       expect(response.body).not_to include('Generate credentials')
     end
 
@@ -163,7 +163,7 @@ describe CourseCanvasCredentialsController, type: :request do
       it 'still says so, rather than showing the waiting state' do
         get path
         expect(response.body)
-          .to include('already connected to Canvas through the standard integration')
+          .to include('already connected via the LTI 1.3 integration')
         expect(response.body).not_to include('Waiting for your first launch')
       end
 
@@ -186,7 +186,7 @@ describe CourseCanvasCredentialsController, type: :request do
     it 'reports the connection, not a conflict' do
       get path
       expect(response.body).to include('This course is connected to Canvas')
-      expect(response.body).not_to include('standard integration')
+      expect(response.body).not_to include('LTI 1.3 integration')
     end
   end
 end

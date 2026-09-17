@@ -56,9 +56,9 @@ the key to that Canvas and binds the course. LTIAAS is 1.3-only. Developer
 notes, the launch walkthrough and the staging checklist are in
 `docs/canvas_dev_setup.md` ("LTI 1.1 launches"). Still open:
 
-- **Operator copy** for the credentials page. Every string is an AI-drafted
-  first pass carrying a `[PLACEHOLDER` marker at the top of
-  `app/views/course_canvas_credentials/show.html.haml`.
+- ~~Operator copy for the credentials page~~ — done 2026-09-17: the operator
+  rewrote both views in `app/views/course_canvas_credentials/` and the
+  `[PLACEHOLDER` markers are gone.
 - **Secrets on staging and production**: the three ActiveRecord encryption
   keys in `application.yml`. Outside production the app falls back to fixed
   non-secret values, so the suite runs without them; production leaves

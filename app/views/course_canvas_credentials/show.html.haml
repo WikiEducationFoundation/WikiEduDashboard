@@ -1,9 +1,3 @@
--# [PLACEHOLDER - every user-facing string on this page is an AI-drafted first
--#  pass, written by Claude Code at Sage's request on 2026-09-15 and pending
--#  operator review. Edit or replace the wording in place; it is deliberately
--#  inline rather than in config/locales, so this file is the only thing to
--#  change. Greppable as [PLACEHOLDER until that review happens.]
--#
 -# The unlisted credentials page for the LTI 1.1 ("companion mode") path,
 -# reached only at courses/<slug>/canvas by instructors Wiki Education has sent
 -# the URL to. See CourseCanvasCredentialsController and LtiConsumerKey. Expects
@@ -19,27 +13,18 @@
     -# an instructor to do here, and generating a second credential would only
     -# create two ways for one course to be connected.
     .module
-      %p This course is already connected to Canvas through the standard integration. There is nothing to set up on this page.
+      %p This course is already connected via the LTI 1.3 integration.
       %p= link_to 'Open the course', "/courses/#{@course.slug}"
 
   - elsif @key.nil?
     .module
-      %p
-        This page connects
-        %strong= @course.title
-        to Canvas using LTI 1.1, the older of the two ways Canvas connects to outside tools. Wiki Education sends this link to instructors whose Canvas cannot install the newer version.
-      %p You can do the whole setup yourself, without a Canvas administrator, as long as your Canvas allows instructors to add apps to their own courses.
-
-    .module
-      %h2 What you get
-      %p Once it is connected, you and your students open the Dashboard from a wikiedu.org link in your Canvas course navigation. Students connect their Wikipedia accounts there and are enrolled in this course automatically, with no enrollment code to pass around.
-      %p
-        %strong What it does not do.
-        Nothing is written to your Canvas gradebook, no assignments are created in Canvas, and your Canvas roster is not copied to the Dashboard. You grade from the Dashboard, the same way instructors who don't use Canvas do.
+      %h2 Self-service Canvas integration (LTI 1.1)
+      %p This version of the Wiki Education Canvas integration provides an in-Canvas iframe for students and instructors.
+      %p (A more featureful version uses the LTI 1.3 standard and requires installation by a Canvas administrator.)
 
     .module
       %h2 Generate your credentials
-      %p Generating gives you a consumer key and a shared secret to paste into Canvas, along with a configuration URL. Treat the key and secret like a password: they are for this course only.
+      %p You'll use these to install the app for your course. Treat the key and secret like a password: they are for this course only.
       %p
         %strong The shared secret is shown once, on the next screen, and will not be shown again.
         If you lose it, come back here and generate a new one.
@@ -54,7 +39,7 @@
       .canvas-credentials__warning
         %p
           %strong Copy the shared secret now.
-          It will not be shown again. If you lose it, come back to this page and generate a new one.
+          (If you lose it, you can return here and generate a new one.)
       %dl.canvas-credentials__list
         %dt Consumer key
         %dd
@@ -73,7 +58,7 @@
       %h2 Next: add the app in Canvas
       %p In your Canvas course, open Settings, then the Apps tab, and add an app with the configuration type "By URL", using the three values above.
       %p= link_to 'Full steps, with screenshots', '/lti/guide/instructors'
-      %p The first time you open the wikiedu.org link in your Canvas course, this Dashboard course is connected automatically. You will be asked to connect your Wikipedia account once, in a new tab.
+      %p The first time you open the dashboard.wikiedu.org link in your Canvas course, this Dashboard course is connected automatically.
 
   - elsif !@key.activated?
     .module
@@ -98,8 +83,7 @@
         - if @key.last_launch_at
           %dt Last opened from Canvas
           %dd= "#{time_ago_in_words(@key.last_launch_at)} ago"
-      %p Students who open the wikiedu.org link in your Canvas course are enrolled in this course automatically. Nothing further is needed here.
-      %p Remember that grades are not sent to your Canvas gradebook. Your students' training and article work is on the Dashboard.
+      %p Students who open the wikiedu.org link in your Canvas course are enrolled in this course automatically.
     = render 'course_canvas_credentials/regenerate', course: @course
 
   :javascript
