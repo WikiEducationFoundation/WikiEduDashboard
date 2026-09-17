@@ -25,6 +25,7 @@ class SystemCsvBuilder
   VALID_COURSE_TYPES = SystemCsvFilterValidator::VALID_COURSE_TYPES
   VALID_STATUSES = SystemCsvFilterValidator::VALID_STATUSES
   BATCH_SIZE = 500
+  CSV_HEADERS = (CourseCsvBuilder::CSV_HEADERS + ['retained_new_editors']).freeze
 
   def initialize(filters: {})
     @filters = filters
@@ -32,7 +33,7 @@ class SystemCsvBuilder
 
   def generate_csv
     CSV.generate do |csv|
-      csv << CourseCsvBuilder::CSV_HEADERS
+      csv << CSV_HEADERS
       course_scope.find_in_batches(batch_size: BATCH_SIZE) do |batch|
         build_batch_rows(batch).each { |row| csv << row }
       end
@@ -51,21 +52,24 @@ class SystemCsvBuilder
     tags = fetch_tags(batch_course_ids)
     revisions = fetch_revision_counts(batch_course_ids)
     new_editors = fetch_new_editor_counts(batch_course_ids)
+    retained_editors = fetch_retained_editor_counts(batch_course_ids)
     wikis = fetch_wikis(batch)
 
     batch.map do |course|
-      build_course_csv_row(course, tags, revisions, new_editors, wikis)
+      build_course_csv_row(course, tags, revisions, new_editors, retained_editors, wikis)
     end
   end
 
-  def build_course_csv_row(course, tags, revisions, new_editors, wikis)
-    CourseCsvBuilder.new(
+  def build_course_csv_row(course, tags, revisions, new_editors, retained_editors, wikis)
+    row = CourseCsvBuilder.new(
       course,
       tag: tags[course.id]&.first&.tag || 'unknown',
       revision: revisions,
       new_editors: new_editors[course.id] || 0,
       home_wiki: wikis[course.home_wiki_id]&.first&.domain || ''
     ).row
+    row << (retained_editors[course.id] || 0)
+    row
   end
 
   def course_scope
@@ -180,7 +184,20 @@ class SystemCsvBuilder
     User
       .joins(courses_users: :course)
       .where(courses_users: { course_id: course_ids, role: CoursesUsers::Roles::STUDENT_ROLE })
-      .where('users.registered_at >= courses.start AND users.registered_at <= courses.end')
+      .where(NewEditorDateConditions::DURING_PROGRAM)
+      .group('courses_users.course_id')
+      .count
+  end
+
+  def fetch_retained_editor_counts(course_ids)
+    return {} if course_ids.empty?
+
+    CoursesUsers
+      .joins(:course, :user)
+      .where(courses_users: { course_id: course_ids,
+                              role: CoursesUsers::Roles::STUDENT_ROLE,
+                              retained_after_course: true })
+      .where(NewEditorDateConditions::DURING_PROGRAM)
       .group('courses_users.course_id')
       .count
   end

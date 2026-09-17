@@ -74,7 +74,13 @@ describe SystemStatsController, type: :request do
       end
 
       it 'returns JSON with expected structure' do
-        create(:system_stat, snapshot_date: Time.zone.today)
+        wiki_stats = {
+          'en.wikipedia.org' => {
+            'edits' => 10, 'programs' => 1, 'articles_created' => 2,
+            'new_editors_with_preregistration' => 3, 'retained_editors' => 1
+          }
+        }
+        create(:system_stat, snapshot_date: Time.zone.today, wiki_stats: wiki_stats)
 
         get '/system_stats/wiki_trends.json'
         expect(response.status).to eq(200)
@@ -84,6 +90,8 @@ describe SystemStatsController, type: :request do
         expect(json).to have_key('months')
         expect(json).to have_key('wiki_trends')
         expect(json).to have_key('wiki_stats')
+        expect(json['wiki_trends']['en.wikipedia.org']).to have_key('retained_editors')
+        expect(json['wiki_stats'].first).to have_key('retained_editors')
       end
     end
   end
@@ -131,6 +139,7 @@ describe SystemStatsController, type: :request do
         expect(first_facilitator['activeCourses']).to eq(1)
         expect(first_facilitator['students']).to eq(45)
         expect(first_facilitator['newEditors']).to eq(25)
+        expect(first_facilitator['retainedNewEditors']).to eq(0)
         expect(first_facilitator['activeInYear']).to eq(true)
       end
 

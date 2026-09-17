@@ -51,6 +51,7 @@ class FacilitatorStatUpdateWorker
       student_counts: compute_student_counts,
       new_editor_counts: compute_new_editor_counts,
       new_editor_counts_with_preregistration: compute_new_editor_counts_with_preregistration,
+      retained_editor_counts: compute_retained_editor_counts,
       active_in_year: compute_active_in_last_year
     }
   end
@@ -65,6 +66,7 @@ class FacilitatorStatUpdateWorker
       new_editors_count: metrics[:new_editor_counts][user_id] || 0,
       new_editors_count_with_preregistration:
         metrics[:new_editor_counts_with_preregistration][user_id] || 0,
+      retained_new_editors_count: metrics[:retained_editor_counts][user_id] || 0,
       total_students_count: metrics[:student_counts][user_id] || 0,
       total_characters_added: metrics[:character_sums][user_id] || 0,
       active_in_last_year: metrics[:active_in_year].include?(user_id)
@@ -122,6 +124,15 @@ class FacilitatorStatUpdateWorker
   def compute_new_editor_counts_with_preregistration
     student_instructor_join
       .where(NewEditorDateConditions::WITH_PREREGISTRATION)
+      .group('instructor_cu.user_id')
+      .count(Arel.sql('DISTINCT users.id'))
+  end
+
+  # Retained new editors per facilitator (registered during program and retained)
+  def compute_retained_editor_counts
+    student_instructor_join
+      .where(courses_users: { retained_after_course: true })
+      .where(NewEditorDateConditions::DURING_PROGRAM)
       .group('instructor_cu.user_id')
       .count(Arel.sql('DISTINCT users.id'))
   end
