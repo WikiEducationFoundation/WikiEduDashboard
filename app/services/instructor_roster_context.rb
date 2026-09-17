@@ -33,9 +33,16 @@ class InstructorRosterContext
   private
 
   def courses_users
-    CoursesUsers.where(course: @course, role: CoursesUsers::Roles::STUDENT_ROLE)
-                .includes(:user)
-                .sort_by { |courses_user| courses_user.user.username.downcase }
+    @courses_users ||= CoursesUsers.where(course: @course, role: CoursesUsers::Roles::STUDENT_ROLE)
+                                   .includes(:user)
+                                   .sort_by { |courses_user| courses_user.user.username.downcase }
+  end
+
+  # Everything the per-student services read, fetched once for the whole class
+  # rather than once per student, so an instructor launch costs a handful of
+  # queries however large the enrollment (see LtiProgressPreload).
+  def preload
+    @preload ||= LtiProgressPreload.new(course: @course, user_ids: courses_users.map(&:user_id))
   end
 
   # Students with a linked launch context on this binding: the ones who have
@@ -46,27 +53,15 @@ class InstructorRosterContext
 
   def row_for(courses_user)
     user = courses_user.user
-    progress = LtiPeerReviewProgress.new(@course, user)
+    progress = LtiPeerReviewProgress.new(@course, user,
+                                         assignments: preload.assignments_for(user.id))
     StudentRow.new(username: user.username, connected: connected_user_ids.include?(user.id),
                    revision_count: courses_user.revision_count,
                    character_sum_ms: courses_user.character_sum_ms,
                    references_count: courses_user.references_count,
-                   status: StudentStatusContext.new(course: @course, user:),
-                   peer_review_progress: progress, peer_reviews: review_rows_for(progress),
+                   status: StudentStatusContext.new(course: @course, user:, preload:),
+                   peer_review_progress: progress, peer_reviews: progress.review_rows,
                    details_url: details_url_for(user))
-  end
-
-  # The same rows the peer-review assignment view renders, so the shared
-  # partial reads them identically.
-  def review_rows_for(progress)
-    progress.review_statuses.map do |assignment, completed|
-      PeerReviewAssignmentViewContext::ReviewRow.new(
-        article_title: assignment.article_title.tr('_', ' '),
-        article_url: assignment.article_url,
-        review_url: "#{assignment.wiki.base_url}/wiki/#{assignment.peer_review_pagename}",
-        completed:
-      )
-    end
   end
 
   # The student's details page on the Dashboard: everything the iframe cannot hold.

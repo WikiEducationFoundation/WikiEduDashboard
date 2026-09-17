@@ -79,4 +79,18 @@ describe StudentStatusContext do
       expect(row.role).to eq('editing')
     end
   end
+
+  # The instructor roster builds one preload for the whole class and hands it to
+  # every student's context; the result has to be what the student sees alone.
+  it 'reads the same overview through a shared preload' do
+    mark_complete(exercise_a)
+    classmate = create(:user, username: 'Classmate')
+    preload = LtiProgressPreload.new(course:, user_ids: [user.id, classmate.id])
+    shared = described_class.new(course:, user:, preload:)
+
+    expect(shared.exercise_items.map(&:to_a)).to eq(context.exercise_items.map(&:to_a))
+    expect(shared.training_items.map(&:to_a)).to eq(context.training_items.map(&:to_a))
+    expect(shared.next_step).to eq(context.next_step)
+    expect(shared.articles).to eq(context.articles)
+  end
 end

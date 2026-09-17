@@ -6,12 +6,12 @@ module LtiLaunchHelper
   # lti_iframe layout renders on every page.
   #
   # NOT simply `current_user`. Inside the Canvas iframe the session cookie is
-  # partitioned away, so `current_user` is nil there â while the views are
+  # partitioned away, so `current_user` is nil there — while the views are
   # perfectly happy showing that person's roster, progress and sandboxes, having
   # resolved them from the launch's LMS identity instead
   # (LtiAssignmentViews#launch_viewer, LtiAnonymousLaunch). Reading `current_user`
   # alone therefore made every framed page claim nobody was signed in while
-  # displaying the signed-in user's own data â the contradiction this line exists
+  # displaying the signed-in user's own data — the contradiction this line exists
   # to prevent.
   #
   # Order: the session when there is one (a top-level tab), then whatever the

@@ -62,4 +62,56 @@ describe InstructorRosterContext do
     CoursesUsers.where(role: CoursesUsers::Roles::STUDENT_ROLE).delete_all
     expect(roster).to be_empty
   end
+
+  # One instructor launch reads every student's state. Fetching per student made
+  # the page's cost grow with the class; the roster now loads the course
+  # structure and every student's completions and assignments up front.
+  describe 'query cost' do
+    let(:week) { create(:week, course:, order: 0) }
+    let(:training) { create(:training_module, slug: 'tr-a', name: 'Training', kind: 0) }
+    let(:exercise) do
+      create(:training_module, slug: 'ex-a', name: 'Exercise', kind: 1,
+                               settings: { 'sandbox_location' => 'A' })
+    end
+
+    before do
+      create(:block, week:, order: 0, title: 'Trainings', training_module_ids: [training.id])
+      create(:block, week:, order: 1, title: 'Exercise', training_module_ids: [exercise.id])
+      enroll_with_work(launched)
+    end
+
+    def enroll_with_work(user)
+      TrainingModulesUsers.create!(user:, training_module: training, completed_at: 1.day.ago)
+      Assignment.create!(course:, user:, wiki: course.home_wiki,
+                         role: Assignment::Roles::ASSIGNED_ROLE, article_title: 'Ada_Lovelace')
+      Assignment.create!(course:, user:, wiki: course.home_wiki,
+                         role: Assignment::Roles::REVIEWING_ROLE, article_title: 'Grace_Hopper')
+    end
+
+    def queries_to_read_the_roster
+      count = 0
+      subscriber = ActiveSupport::Notifications.subscribe('sql.active_record') do |*, payload|
+        count += 1 unless %w[SCHEMA TRANSACTION].include?(payload[:name])
+      end
+      described_class.new(binding:).rows.each do |row|
+        status = row.status
+        [status.trainings_completed, status.exercises_completed, status.next_step,
+         status.articles.map(&:sandbox_url), row.peer_review_progress.completed_count,
+         row.peer_reviews.map(&:review_url)]
+      end
+      count
+    ensure
+      ActiveSupport::Notifications.unsubscribe(subscriber)
+    end
+
+    it 'does not grow with the number of students' do
+      with_two = queries_to_read_the_roster
+      4.times do |i|
+        student = create(:user, username: "Student #{i}")
+        CoursesUsers.create!(course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+        enroll_with_work(student)
+      end
+      expect(queries_to_read_the_roster).to eq(with_two)
+    end
+  end
 end

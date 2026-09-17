@@ -1,10 +1,10 @@
 - # One student's whole state of work, for a disclosure row of the LTI 1.1
 - # instructor roster: edit statistics and the way out to their Dashboard details
 - # page, then the same sections the student sees on their own launch
-- # (StudentStatusContext), plus their peer reviews. Every link opens in a new
-- # tab, since the full Dashboard cannot render inside the Canvas iframe.
+- # (_student_overview_sections, over their StudentStatusContext), plus their
+- # peer reviews. Every link opens in a new tab, since the full Dashboard cannot
+- # render inside the Canvas iframe.
 - # Locals: row (InstructorRosterContext::StudentRow).
-- status = row.status
 .lti-roster__student
   .lti-roster__stats
     %span
@@ -17,50 +17,9 @@
       = t('lti.assignment_view.submission.details')
       %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }
 
-  - if status.empty?
-    %p.lti-iframe__empty= t('lti.student_overview.empty')
-
-  - step = status.next_step
-  - if step
-    .lti-iframe__next-step
-      %h2= t('lti.student_overview.next_step')
-      %p
-        - if step.url
-          = link_to step.label, step.url, target: '_blank', rel: 'noopener'
-        - else
-          = step.label
-
-  - if status.articles.any?
-    %section.lti-overview-section
-      %h2= t('courses.assignment_headings.assigned_articles')
-      %ul.lti-overview-list
-        - status.articles.each do |article|
-          %li.lti-overview-item
-            .lti-overview-item__main
-              - if article.url
-                = link_to article.title, article.url, target: '_blank', rel: 'noopener'
-              - else
-                = article.title
-              %span.lti-overview-role= t("lti.student_overview.role.#{article.role}")
-              - if article.status_label.present?
-                %span.lti-muted= article.status_label
-            - if article.sandbox_url
-              = link_to t('lti.assignment_view.roster.sandbox'), article.sandbox_url,
-                        target: '_blank', rel: 'noopener', class: 'lti-overview-link'
-
-  - if status.training_items.any?
-    %section.lti-overview-section
-      %h2
-        = t('lti.student_overview.trainings')
-        %span.lti-overview-count= "#{status.trainings_completed} / #{status.training_items.size}"
-      = render 'lti_launch/overview_items', items: status.training_items
-
-  - if status.exercise_items.any?
-    %section.lti-overview-section
-      %h2
-        = t('lti.student_overview.exercises')
-        %span.lti-overview-count= "#{status.exercises_completed} / #{status.exercise_items.size}"
-      = render 'lti_launch/overview_items', items: status.exercise_items
+  = render 'lti_launch/student_overview_sections', status: row.status,
+                                                    articles_heading: t('courses.assignment_headings.assigned_articles'),
+                                                    sandbox_label: t('lti.assignment_view.roster.sandbox')
 
   - if row.peer_review_progress.total_count.positive?
     %section.lti-overview-section

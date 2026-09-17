@@ -1,5 +1,5 @@
 import '../../testHelper';
-import { canUserCreateAccount } from '../../../app/assets/javascripts/components/util/helpers';
+import { canUserCreateAccount, selectUserByUsernameParam } from '../../../app/assets/javascripts/components/util/helpers';
 
 describe('canUserCreateAccount', () => {
   afterEach(() => {
@@ -39,5 +39,35 @@ describe('canUserCreateAccount', () => {
     });
 
     await expect(canUserCreateAccount()).resolves.toBe(true);
+  });
+});
+
+describe('selectUserByUsernameParam', () => {
+  const users = [
+    { username: 'Grace Hopper' },
+    { username: 'Mary Ann Smith' },
+    { username: 'Solo' }
+  ];
+
+  test('matches a username given with spaces', () => {
+    expect(selectUserByUsernameParam(users, 'Grace Hopper')).toBe(users[0]);
+  });
+
+  test('matches a one-space username given with an underscore', () => {
+    expect(selectUserByUsernameParam(users, 'Grace_Hopper')).toBe(users[0]);
+  });
+
+  // Server-rendered links (mailers, the LTI roster) use the MediaWiki convention
+  // of one underscore per space, so every underscore has to map back.
+  test('matches a multi-word username given with several underscores', () => {
+    expect(selectUserByUsernameParam(users, 'Mary_Ann_Smith')).toBe(users[1]);
+  });
+
+  test('returns undefined for a username nobody has', () => {
+    expect(selectUserByUsernameParam(users, 'Nobody_Here')).toBeUndefined();
+  });
+
+  test('returns null when no param is given', () => {
+    expect(selectUserByUsernameParam(users, undefined)).toBeNull();
   });
 });
