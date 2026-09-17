@@ -202,3 +202,13 @@ commits. It handles staging, message format, and session accounting.
 While working, note anything that would otherwise be lost by commit time:
 pre-existing code the user brought in, abandoned approaches, or any context
 about the session character that isn't visible in the tool call history.
+
+## Git pushes
+
+Push only as part of opening or updating a PR: a plain push of the PR's
+feature branch, and `bin/open-pr`'s force-push of its `pr-screenshots/<branch>`
+orphan branch. Say what was pushed.
+
+Never push to a permanent branch (`master`, `production`, `wmflabs`,
+`staging`); merging a PR or fast-forwarding a deploy branch counts. Force-push
+a feature branch or delete a remote branch only when the current message asks.
