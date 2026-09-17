@@ -67,6 +67,55 @@ describe 'standard wizard blocks in the timeline', type: :feature, js: true do
       end
     end
 
+    it 'moves focus into the picker, and back to its button on cancel' do
+      visit "/courses/#{course.slug}/timeline"
+      within('.week-1') { click_button 'Add Standard Block' }
+      expect(page).to have_selector("[data-catalog-id='evaluate_wikipedia']")
+      # Focus has to land inside the dialog for a screen reader to announce it.
+      expect(page.evaluate_script('document.activeElement.className'))
+        .to include('add-wizard-block__filter')
+
+      within('.add-wizard-block__panel') { click_button 'Cancel' }
+      expect(page).to have_no_selector('.add-wizard-block__panel')
+      expect(page.evaluate_script('document.activeElement.className'))
+        .to include('week__add-wizard-block')
+    end
+
+    it 'closes on Escape' do
+      visit "/courses/#{course.slug}/timeline"
+      within('.week-1') { click_button 'Add Standard Block' }
+      expect(page).to have_selector("[data-catalog-id='evaluate_wikipedia']")
+      find('.add-wizard-block__filter').send_keys(:escape)
+      expect(page).to have_no_selector('.add-wizard-block__panel')
+    end
+
+    it 'moves focus to the title of an inserted block' do
+      visit "/courses/#{course.slug}/timeline"
+      within('.week-1') { click_button 'Add Standard Block' }
+      within("[data-catalog-id='evaluate_wikipedia']") { click_button 'Add' }
+      expect(page).to have_selector('.block.editable')
+      focused_in_block = "document.activeElement.closest('.block.editable') !== null"
+      expect(page.evaluate_script(focused_in_block)).to be true
+    end
+
+    it 'names each Add button after its block, for screen reader button lists' do
+      visit "/courses/#{course.slug}/timeline"
+      within('.week-1') { click_button 'Add Standard Block' }
+      within("[data-catalog-id='evaluate_wikipedia']") do
+        button = find_button('Add')
+        expect(button['aria-labelledby'].split).to include('wizard-block-evaluate_wikipedia-title')
+        expect(find('#wizard-block-evaluate_wikipedia-title').text).to eq('Evaluate Wikipedia')
+      end
+    end
+
+    it 'says so when the filter matches nothing' do
+      visit "/courses/#{course.slug}/timeline"
+      within('.week-1') { click_button 'Add Standard Block' }
+      expect(page).to have_selector("[data-catalog-id='evaluate_wikipedia']")
+      fill_in 'Filter blocks', with: 'zzzz'
+      expect(page).to have_content I18n.t('application.no_results', query: 'zzzz')
+    end
+
     it 'does not offer handouts blocks, whose content is generated' do
       visit "/courses/#{course.slug}/timeline"
       within('.week-1') { click_button 'Add Standard Block' }
@@ -138,7 +187,11 @@ describe 'standard wizard blocks in the timeline', type: :feature, js: true do
       expect(page).to be_axe_clean
 
       click_button I18n.t('timeline.sandbox_mode_switch_to_live')
-      within('.confirm-modal') { click_button I18n.t('application.confirm') }
+      within('.confirm-modal') do
+        # The dialog is named by the action it confirms, not by a generic question.
+        expect(page).to have_content I18n.t('timeline.sandbox_mode_switch_to_live')
+        click_button I18n.t('application.confirm')
+      end
 
       # Scoped to the weeks: the switcher's own report also names the block it
       # removed, so a page-wide assertion would match that instead.
@@ -146,6 +199,13 @@ describe 'standard wizard blocks in the timeline', type: :feature, js: true do
         expect(page).to have_content 'Start editing your article'
         expect(page).to have_no_content 'Start drafting your contributions'
       end
+      # The report is a live region, so a screen reader hears the outcome, and
+      # focus comes back to the button that started the switch.
+      within('.sandbox-mode [role="status"]') do
+        expect(page).to have_content I18n.t('timeline.sandbox_mode_removed')
+      end
+      focused_in_switcher = "document.activeElement.closest('.sandbox-mode') !== null"
+      expect(page.evaluate_script(focused_in_switcher)).to be true
       expect(course.reload.no_sandboxes?).to be true
       expect(Tag.find_by(course_id: course.id, key: 'sandboxes').tag).to eq('no_sandboxes')
     end

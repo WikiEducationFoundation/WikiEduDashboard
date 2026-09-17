@@ -84,7 +84,7 @@ class SwitchCourseSandboxMode
 
   def update_flag
     @course.flags.merge!(WizardTimelineManager::FLAG_LOGIC.fetch(flag_logic_key))
-    @course.save
+    @course.save!
   end
 
   def flag_logic_key
@@ -116,7 +116,7 @@ class SwitchCourseSandboxMode
 
   def add_block(entry)
     week = week_for(entry)
-    block = Block.create(week_id: week.id, title: entry[:title], kind: entry[:kind],
+    block = Block.create!(week_id: week.id, title: entry[:title], kind: entry[:kind],
                          content: entry[:content], points: entry[:points],
                          training_module_ids: entry[:training_module_ids],
                          order: (week.blocks.maximum(:order) || 0) + 1)

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -15,29 +15,29 @@ import { initiateConfirm } from '../../actions/confirm_actions';
 // configured for.
 const titlesOf = entries => entries.map(entry => entry.title).join(', ');
 
-const Report = ({ report }) => {
-  if (!report) return null;
-  return (
-    <div className="sandbox-mode__report">
-      {report.removed.length > 0 && (
-        <p>{I18n.t('timeline.sandbox_mode_removed')}: {titlesOf(report.removed)}</p>
-      )}
-      {report.added.length > 0 && (
-        <p>{I18n.t('timeline.sandbox_mode_added')}: {titlesOf(report.added)}</p>
-      )}
-      {report.unmatched.length > 0 && (
-        <p className="sandbox-mode__warning">
-          {I18n.t('timeline.sandbox_mode_unmatched')}: {titlesOf(report.unmatched)}
-        </p>
-      )}
-      {report.unresolved.length > 0 && (
-        <p className="sandbox-mode__warning">
-          {I18n.t('timeline.sandbox_mode_unresolved')}: {titlesOf(report.unresolved)}
-        </p>
-      )}
-    </div>
-  );
-};
+// Always rendered, as a live region: assistive technology only announces
+// changes inside a live region that already existed, so the container has to
+// be in the DOM before the report arrives, not created along with it.
+const Report = ({ report }) => (
+  <div className="sandbox-mode__report" role="status">
+    {report && report.removed.length > 0 && (
+      <p>{I18n.t('timeline.sandbox_mode_removed')}: {titlesOf(report.removed)}</p>
+    )}
+    {report && report.added.length > 0 && (
+      <p>{I18n.t('timeline.sandbox_mode_added')}: {titlesOf(report.added)}</p>
+    )}
+    {report && report.unmatched.length > 0 && (
+      <p className="sandbox-mode__warning">
+        {I18n.t('timeline.sandbox_mode_unmatched')}: {titlesOf(report.unmatched)}
+      </p>
+    )}
+    {report && report.unresolved.length > 0 && (
+      <p className="sandbox-mode__warning">
+        {I18n.t('timeline.sandbox_mode_unresolved')}: {titlesOf(report.unresolved)}
+      </p>
+    )}
+  </div>
+);
 
 Report.propTypes = { report: PropTypes.object };
 
@@ -45,9 +45,30 @@ const SandboxModeSwitcher = ({ course }) => {
   const dispatch = useDispatch();
   const { switching, lastSwitch } = useSelector(state => state.wizardBlocks);
   const noSandboxes = Boolean(course.no_sandboxes);
+  const buttonRef = useRef(null);
+  const wasSwitching = useRef(false);
 
+  // The confirm dialog drops focus on <body> when it closes. Once the switch
+  // has finished, or failed, put focus back on the button that started it, so
+  // that a keyboard or screen reader user is back where they were, next to the
+  // report.
+  useEffect(() => {
+    if (wasSwitching.current && !switching) buttonRef.current?.focus();
+    wasSwitching.current = switching;
+  }, [switching]);
+
+  // Only this course's report: the store outlives navigation between courses.
+  const report = lastSwitch && lastSwitch.courseSlug === course.slug ? lastSwitch : null;
+
+  const switchLabel = noSandboxes
+    ? I18n.t('timeline.sandbox_mode_switch_to_sandboxes')
+    : I18n.t('timeline.sandbox_mode_switch_to_live');
+
+  // The confirm dialog takes its accessible name from confirmMessage, so that
+  // is the action being confirmed; the generic question sits above it.
   const confirmSwitch = () => dispatch(initiateConfirm({
-    confirmMessage: I18n.t('application.confirm_generic'),
+    confirmMessage: switchLabel,
+    explanation: I18n.t('application.confirm_generic'),
     onConfirm: () => dispatch(switchSandboxMode(course.slug, !noSandboxes))
   }));
 
@@ -66,12 +87,11 @@ const SandboxModeSwitcher = ({ course }) => {
         className="button border button--block"
         disabled={switching}
         onClick={confirmSwitch}
+        ref={buttonRef}
       >
-        {noSandboxes
-          ? I18n.t('timeline.sandbox_mode_switch_to_sandboxes')
-          : I18n.t('timeline.sandbox_mode_switch_to_live')}
+        {switchLabel}
       </button>
-      <Report report={lastSwitch} />
+      <Report report={report} />
     </div>
   );
 };

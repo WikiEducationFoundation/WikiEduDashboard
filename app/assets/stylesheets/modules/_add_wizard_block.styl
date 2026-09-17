@@ -33,6 +33,9 @@
   .add-wizard-block__filter
     margin-bottom 10px
     width 100%
+  .add-wizard-block__count
+    font-size .85em
+    margin 0 0 5px
   .add-wizard-block__week
     border-top 1px solid border_lt
   .add-wizard-block__actions
@@ -83,9 +86,12 @@
   .sandbox-mode__label
     font-weight 600
     margin-bottom 5px
+  // Always in the DOM as a live region, so only take up space once it has
+  // something to say.
   .sandbox-mode__report
     font-size .85em
-    margin-top 10px
+    &:not(:empty)
+      margin-top 10px
     p
       margin-bottom 5px
   .sandbox-mode__warning
