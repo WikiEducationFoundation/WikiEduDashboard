@@ -15,21 +15,26 @@ class CourseCanvasCredentialsController < ApplicationController
 
   def show
     prepare_view
+    reveal_secret_from_flash
   end
 
-  # Issues a key, or replaces the course's existing one. The secret is put in
-  # `@secret` for this render alone: ActiveRecord encryption would happily
-  # decrypt it again on a later request, so showing it once is a deliberate
-  # policy rather than a technical limit — a long-lived secret sitting on a
-  # page someone left open is exactly what we don't want.
+  # Issues a key, or replaces the course's existing one, then redirects back to
+  # the page. The secret rides in the flash, so the GET that follows is the one
+  # render that shows it, and a refresh after that is a plain GET showing the
+  # waiting state. Rendering from the POST instead would make a refresh re-post
+  # and silently replace the key the instructor had just been shown.
+  #
+  # ActiveRecord encryption would happily decrypt the secret again on a later
+  # request, so showing it once is a deliberate policy rather than a technical
+  # limit — a long-lived secret sitting on a page someone left open is exactly
+  # what we don't want.
   def create
     prepare_view
-    return render :show if @bound_elsewhere
-
-    key = LtiConsumerKey.generate_for(course: @course, user: current_user)
-    @key = key
-    @secret = key.secret
-    render :show
+    unless @bound_elsewhere
+      key = LtiConsumerKey.generate_for(course: @course, user: current_user)
+      flash[:lti_consumer_secret] = { 'key_id' => key.id, 'secret' => key.secret }
+    end
+    redirect_to "/courses/#{@course.slug}/canvas", status: :see_other
   end
 
   private
@@ -44,6 +49,16 @@ class CourseCanvasCredentialsController < ApplicationController
     # doing and does not count.
     @bound_elsewhere = LtiCourseBinding.lti_1_3.exists?(course_id: @course.id)
     @config_url = "https://#{ENV.fetch('dashboard_url')}/lti/legacy/config.xml"
+  end
+
+  # The secret is shown only on the request right after it was issued, and
+  # only if it belongs to the key the page is about to display, so a stale
+  # flash cannot pair one key with another's secret.
+  def reveal_secret_from_flash
+    revealed = flash[:lti_consumer_secret]
+    return unless revealed && @key && revealed['key_id'] == @key.id
+
+    @secret = revealed['secret']
   end
 
   def require_legacy_lti_enabled

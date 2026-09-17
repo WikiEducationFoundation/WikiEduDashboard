@@ -92,11 +92,19 @@ describe CourseCanvasCredentialsController, type: :request do
   end
 
   describe 'POST' do
-    it 'issues a key for the course and shows the secret once' do
+    it 'issues a key for the course and redirects back to the page' do
       expect { post path }.to change(LtiConsumerKey, :count).by(1)
       key = LtiConsumerKey.last
       expect(key.course).to eq(course)
       expect(key.user).to eq(instructor)
+      expect(response).to have_http_status(:see_other)
+      expect(response).to redirect_to(path)
+    end
+
+    it 'shows the secret once, on the page the redirect lands on' do
+      post path
+      key = LtiConsumerKey.last
+      follow_redirect!
       expect(response.body).to include(key.key)
       expect(response.body).to include(key.secret)
       expect(response.body).to include('/lti/legacy/config.xml')
@@ -107,9 +115,21 @@ describe CourseCanvasCredentialsController, type: :request do
     it 'does not show the secret on a later visit' do
       post path
       secret = LtiConsumerKey.last.secret
+      follow_redirect!
       get path
       expect(response.body).not_to include(secret)
       expect(response.body).to include('Waiting for your first launch')
+    end
+
+    # The reason for the redirect: rendering the secret from the POST itself
+    # would make a browser refresh of that page re-post, and silently replace
+    # the key the instructor had just copied into Canvas.
+    it 'survives a refresh of the secret page without issuing another key' do
+      post path
+      follow_redirect!
+      issued = LtiConsumerKey.last
+      expect { get path }.not_to change(LtiConsumerKey, :count)
+      expect(issued.reload).to be_active
     end
 
     it 'replaces the previous key rather than adding a second live one' do
@@ -124,6 +144,7 @@ describe CourseCanvasCredentialsController, type: :request do
   describe 'once the first launch has arrived' do
     before do
       post path
+      follow_redirect!
       LtiConsumerKey.last.record_launch!('canvas-instance-guid')
     end
 
@@ -177,6 +198,7 @@ describe CourseCanvasCredentialsController, type: :request do
   describe 'when the course is bound through its own LTI 1.1 launch' do
     before do
       post path
+      follow_redirect!
       LtiConsumerKey.last.record_launch!('canvas-instance-guid')
       LtiCourseBinding.create!(course:, lms_id: 'canvas-instance-guid', lms_family: 'canvas',
                                lms_context_id: 'ctx-11', lms_resource_link_id: 'rl-11',
