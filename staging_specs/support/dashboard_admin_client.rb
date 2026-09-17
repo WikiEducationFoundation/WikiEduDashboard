@@ -143,6 +143,18 @@ module DashboardAdminClient
     DashboardConsole.run_json(script)
   end
 
+  # Activation state of the course's active LTI 1.1 key, for asserting what a
+  # refused launch did not do to it.
+  def consumer_key_state(course_slug:)
+    script = <<~RUBY
+      require 'json'
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      key = LtiConsumerKey.active.find_by!(course:)
+      puts(key.attributes.slice('activated_at', 'lms_instance_guid', 'last_launch_at').to_json)
+    RUBY
+    DashboardConsole.run_json(script)
+  end
+
   def find_binding(course_slug:)
     script = <<~RUBY
       require 'json'

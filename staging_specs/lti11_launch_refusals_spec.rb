@@ -15,7 +15,8 @@ require 'oauth/request_proxy/mock_request'
 # `lti11_legacy_launch_spec.rb` proves a real Canvas launch works. This one
 # proves the things that must *not* work, which a real Canvas cannot be made to
 # do on demand: a replayed signature, a mistyped secret, a stale clock, a key
-# we never issued, and a signature computed over somebody else's URL.
+# we never issued, a signature computed over somebody else's URL, and a launch
+# that names no Canvas instance at all.
 #
 # It also checks the property the endpoint's comments promise: an unknown
 # consumer key and a bad signature are indistinguishable in the response, so
@@ -105,6 +106,16 @@ describe 'LTI 1.1 launch refusals', :staging do
   end
 
   it 'accepts a well-formed launch and refuses every malformed one identically' do
+    # First, a signed launch that names no Canvas instance, posted while the
+    # key is still unpinned. Accepting it would activate the key without a pin
+    # and leave it usable from anywhere, so it is refused and the key is left
+    # untouched; the well-formed launch below is then the one that pins it.
+    unidentified = refusal(sign(launch_params.except('tool_consumer_instance_guid')))
+    warn "  [refusals] launch with no instance guid: #{unidentified[:code]}"
+    expect(unidentified[:code]).to eq('401')
+    untouched = DashboardAdminClient.consumer_key_state(course_slug: provisioned[:slug])
+    expect(untouched.values_at('activated_at', 'lms_instance_guid')).to all(be_nil)
+
     # A launch the endpoint should accept, first, so the rest are refusals of
     # something that would otherwise have worked. This one also pins the key to
     # this Canvas, which the wrong-Canvas case below then trips over.
