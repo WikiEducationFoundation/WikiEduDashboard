@@ -224,6 +224,14 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/lms_integration_status.json' => 'lms_integration_status#show',
         constraints: { slug: /.*/ }
+    # The unlisted LTI 1.1 credentials page, declared before the courses#show
+    # catch-all so it wins. Nothing in the interface links to it; Wiki
+    # Education shares the URL with beta instructors who need the 1.1 path.
+    # See CourseCanvasCredentialsController.
+    get 'courses/:slug/canvas' => 'course_canvas_credentials#show',
+        constraints: { slug: /.*/ }
+    post 'courses/:slug/canvas' => 'course_canvas_credentials#create',
+         constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {
@@ -473,6 +481,16 @@ Rails.application.routes.draw do
   # Public installation guide (a rendered docs/ Markdown page, not part of the
   # launch flow and not behind the canvas_integration feature gate).
   get 'lti/guide' => 'about_this_site#canvas_integration_guide'
+  # The short, illustrated instructor page: installing the LTI 1.1 tool in one
+  # course without an admin. Same gate and rendering as the main guide.
+  get 'lti/guide/instructors' => 'about_this_site#canvas_instructor_guide'
+  # LTI 1.1 tool configuration XML for Canvas's "By URL" install (public; gated
+  # on the legacy-launch flags inside the controller). See LtiConfigController.
+  get 'lti/legacy/config' => 'lti_config#legacy', defaults: { format: :xml }
+  # Where Canvas posts an LTI 1.1 launch. We terminate these ourselves rather
+  # than through LTIAAS, so the consumer keys are ours to issue and revoke.
+  # See LtiLegacyLaunchesController.
+  post 'lti/legacy/launch' => 'lti_legacy_launches#create'
   get 'lti' => 'lti_launch#launch'
   get 'lti/connect_course' => 'lti_launch#connect_course'
   get 'lti/assignment_view' => 'lti_launch#assignment_view'

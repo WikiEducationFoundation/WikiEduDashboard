@@ -1,0 +1,26 @@
+- # The launch-only (LTI 1.1 "companion mode") variant of the instructor status
+- # view. Under 1.1 there is no roster service, no line-item service and no grade
+- # passback, so the roster row, the sync rows, the grade-sync trigger and the
+- # import/publish next steps of instructor_status have nothing behind them and
+- # are left out rather than rendered as permanently "not yet synced". What is
+- # left is what a 1.1 course can show: the link confirmation and how many
+- # students have connected a Wikipedia account — under 1.1 a student launching
+- # and connecting is the only way in, and there is no roster to count them
+- # against, which is why the roster-sounding count is gone too. No next-step
+- # guidance either: once linked, a 1.1 course has no further setup step, and
+- # what the mode does and doesn't do is install-time knowledge (the guide),
+- # not something to repeat on every launch.
+.lti-iframe__drilldown
+  = render 'lti_launch/drilldown_header',
+           title: t('lti.status.header'), course: @binding.course, linked_check: true
+  %dl.lti-status-list
+    .lti-status-list__row
+      %dt= t('lms_integration.connected_accounts')
+      %dd
+        = @sync_status.connected_accounts_count
+        - # Re-requests the launch URL inside the iframe only (an in-iframe
+        - # anchor never navigates the Canvas page); the count is the one number
+        - # here that changes as students connect.
+        = link_to t('lti.status.refresh'),
+                  "/lti?ltik=#{CGI.escape(params[:ltik].to_s)}",
+                  class: 'lti-status-list__refresh'

@@ -175,6 +175,146 @@ describe LtiSession do
     end
   end
 
+  # LTIAAS reports a legacy LTI 1.1 launch as ltiVersion "1.2.0", so legacy is
+  # "not 1.3" rather than a string match on "1.1". A missing version reads as
+  # 1.3: it is absent from every pre-legacy fixture and payload, and treating
+  # its absence as legacy would start refusing production launches.
+  describe '#lti_version / #legacy?' do
+    def session_with_version(version)
+      version.nil? ? idtoken.delete('ltiVersion') : idtoken['ltiVersion'] = version
+      stub_request(:get, idtoken_url)
+        .to_return(status: 200, body: idtoken.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
+      described_class.new(domain, api_key, ltik)
+    end
+
+    it 'is a 1.3 launch when the idtoken says so' do
+      session = session_with_version('1.3.0')
+      expect(session.lti_version).to eq('1.3.0')
+      expect(session).not_to be_legacy
+    end
+
+    it 'reads a missing version as 1.3' do
+      session = session_with_version(nil)
+      expect(session.lti_version).to eq('1.3.0')
+      expect(session).not_to be_legacy
+    end
+
+    it 'is legacy for the "1.2.0" LTIAAS reports on an LTI 1.1 launch' do
+      session = session_with_version('1.2.0')
+      expect(session.lti_version).to eq('1.2.0')
+      expect(session).to be_legacy
+    end
+
+    it 'is legacy for any other non-1.3 version' do
+      expect(session_with_version('1.1.0')).to be_legacy
+    end
+  end
+
+  # The LTI 1.1 role vocabulary, as Canvas sends it for a legacy launch (per its
+  # published role table) and as LTIAAS may hand it through unnormalized. Exact
+  # matches: the institution- and system-level URNs must not classify like the
+  # context roles, mirroring the 1.3 table's treatment of `institution/person#…`.
+  describe 'LTI 1.1 role classification' do
+    def session_with(roles)
+      idtoken['ltiVersion'] = '1.2.0'
+      idtoken['user']['roles'] = roles
+      stub_request(:get, idtoken_url)
+        .to_return(status: 200, body: idtoken.to_json,
+                   headers: { 'Content-Type' => 'application/json' })
+      described_class.new(domain, api_key, ltik)
+    end
+
+    it 'treats the bare Instructor short name as staff' do
+      session = session_with(['Instructor'])
+      expect(session).to be_instructor
+      expect(session).not_to be_student
+    end
+
+    it 'treats the Instructor context-role URN as staff' do
+      expect(session_with(['urn:lti:role:ims/lis/Instructor'])).to be_instructor
+    end
+
+    it 'treats the bare Learner short name as a learner' do
+      session = session_with(['Learner'])
+      expect(session).to be_student
+      expect(session).not_to be_instructor
+      expect(session).not_to be_unsupported_role
+    end
+
+    it 'treats the Learner context-role URN as a learner' do
+      expect(session_with(['urn:lti:role:ims/lis/Learner'])).to be_student
+    end
+
+    # Canvas's 1.1 TaEnrollment sends only the TA role, where 1.3 sends the base
+    # Instructor role alongside it; a TA has to classify as staff under both.
+    it 'treats a TaEnrollment (TeachingAssistant URN alone) as staff' do
+      session = session_with(['urn:lti:role:ims/lis/TeachingAssistant'])
+      expect(session).to be_instructor
+      expect(session).not_to be_unsupported_role
+    end
+
+    it 'treats the Administrator context role as staff' do
+      expect(session_with(['urn:lti:role:ims/lis/Administrator'])).to be_instructor
+    end
+
+    # The 1.1 shape of the observer escalation the 1.3 allowlist exists to stop:
+    # Canvas's ObserverEnrollment sends Mentor plus the institution Observer role.
+    it 'treats an ObserverEnrollment (Mentor + Observer) as neither staff nor learner' do
+      session = session_with(['urn:lti:instrole:ims/lis/Observer',
+                              'urn:lti:role:ims/lis/Mentor'])
+      expect(session).not_to be_instructor
+      expect(session).not_to be_student
+      expect(session).to be_unsupported_role
+    end
+
+    it 'treats the bare Mentor short name as neither' do
+      expect(session_with(['Mentor'])).to be_unsupported_role
+    end
+
+    it 'treats a DesignerEnrollment (ContentDeveloper) as neither' do
+      expect(session_with(['ContentDeveloper'])).to be_unsupported_role
+    end
+
+    # Institution- and system-level roles are not course roles. The 1.3 table
+    # doesn't accept `institution/person#Instructor`; the 1.1 table doesn't
+    # accept its `instrole` counterpart, and suffix-matching on "Instructor"
+    # would have.
+    it 'does not treat institution-level Instructor or Administrator as staff' do
+      expect(session_with(['urn:lti:instrole:ims/lis/Instructor'])).to be_unsupported_role
+      expect(session_with(['urn:lti:instrole:ims/lis/Administrator'])).to be_unsupported_role
+    end
+
+    it 'does not treat a system administrator as staff' do
+      expect(session_with(['urn:lti:sysrole:ims/lis/SysAdmin'])).to be_unsupported_role
+    end
+
+    # Fail closed on the sub-role forms nobody has seen Canvas send.
+    it 'treats an unlisted sub-role as neither' do
+      expect(session_with(['urn:lti:role:ims/lis/Instructor/PrimaryInstructor']))
+        .to be_unsupported_role
+    end
+
+    it 'lets staff win when a launch carries both 1.1 roles' do
+      session = session_with(%w[Learner Instructor])
+      expect(session).to be_instructor
+      expect(session).not_to be_student
+    end
+
+    # The exact pair a real Canvas 1.1 launch carried (2026-09-15): LTIAAS hands
+    # the `roles` parameter through unnormalized, and a Canvas admin teaching a
+    # course gets the bare short name plus a system role.
+    it 'classifies a real Canvas launch: bare Instructor plus a SysAdmin system role' do
+      session = session_with(['Instructor', 'urn:lti:sysrole:ims/lis/SysAdmin'])
+      expect(session).to be_instructor
+    end
+
+    it 'classifies a 1.3 role the same way on a legacy launch (LTIAAS may normalize)' do
+      session = session_with(['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'])
+      expect(session).to be_student
+    end
+  end
+
   describe '#find_or_create_binding!' do
     it 'creates a binding the first time' do
       expect { lti_session.find_or_create_binding! }
@@ -215,6 +355,88 @@ describe LtiSession do
 
       binding = described_class.new(domain, api_key, ltik).find_or_create_binding!
       expect(binding.ltiaas_service_credentials).to eq('svc-key-rotated')
+    end
+
+    it 'records the launch LTI version, 1.3 by default' do
+      expect(lti_session.find_or_create_binding!.lti_version).to eq('1.3.0')
+    end
+
+    # The 1.1 idtoken shape as a real Canvas launch through LTIAAS carried it
+    # (captured 2026-09-15): ltiVersion "1.2.0"; a `platform` with the LMS's
+    # consumer-instance guid and productFamilyCode but NO `id` or `url`; the
+    # LMS's return URL under launch.presentation; and every service
+    # unavailable. (LTIAAS's docs add a per-user `legacyServiceKey` on launches
+    # that carry an outcomes service; a course-navigation launch has none.)
+    context 'for a legacy (LTI 1.1) launch' do
+      before do
+        idtoken['ltiVersion'] = '1.2.0'
+        idtoken['platform'] = { 'guid' => 'Uo7bOjy7KUKkxZthLY1dxpzh4sKpmAvsBnvmSgGQ:canvas-lms',
+                                'productFamilyCode' => 'canvas', 'version' => 'cloud' }
+        idtoken['launch']['presentation'] =
+          { 'returnUrl' => 'https://canvas.example.edu/courses/327/external_content/success' }
+        idtoken['services'] = { 'outcomes' => { 'available' => false },
+                                'legacyServiceKey' => 'legacy-key-for-this-user',
+                                'serviceKey' => 'svc-key-if-any' }
+        stub_request(:get, idtoken_url)
+          .to_return(status: 200, body: idtoken.to_json,
+                     headers: { 'Content-Type' => 'application/json' })
+      end
+
+      it 'records "1.2.0" on the binding' do
+        binding = lti_session.find_or_create_binding!
+        expect(binding.lti_version).to eq('1.2.0')
+        expect(binding).to be_legacy
+      end
+
+      # No LTIAAS platform registration under 1.1, so no platform.id: the LMS's
+      # own instance guid is the identity — and the per-institution scope the
+      # one shared 1.1 key would otherwise lose.
+      it 'keys the binding on the consumer-instance guid' do
+        expect(lti_session.lms_id).to eq('Uo7bOjy7KUKkxZthLY1dxpzh4sKpmAvsBnvmSgGQ:canvas-lms')
+        expect(lti_session).to be_supported_lms
+        binding = lti_session.find_or_create_binding!
+        expect(binding.lms_id).to eq('Uo7bOjy7KUKkxZthLY1dxpzh4sKpmAvsBnvmSgGQ:canvas-lms')
+      end
+
+      it 'takes the platform URL from the return URL origin' do
+        expect(lti_session.platform_url).to eq('https://canvas.example.edu')
+        expect(lti_session.find_or_create_binding!.lms_platform_url)
+          .to eq('https://canvas.example.edu')
+      end
+
+      # Fail closed, not a 422 from the binding's validation: a launch that
+      # identifies no platform at all is refused at the gate.
+      it 'is not a supported launch without either a platform id or a guid' do
+        idtoken['platform'].delete('guid')
+        stub_request(:get, idtoken_url)
+          .to_return(status: 200, body: idtoken.to_json,
+                     headers: { 'Content-Type' => 'application/json' })
+        session = described_class.new(domain, api_key, ltik)
+        expect(session.lms_id).to be_nil
+        expect(session).not_to be_supported_lms
+      end
+
+      # Nothing in `ltiaas_service_credentials` for a binding with no services:
+      # the legacy key is per-user and outcomes-only, and a 1.3 service key on a
+      # 1.1 launch has nothing to authenticate.
+      it 'persists no service credentials' do
+        binding = lti_session.find_or_create_binding!
+        expect(binding.ltiaas_service_credentials).to be_nil
+        expect(binding.nrps_url).to be_nil
+        expect(binding.ags_lineitems_url).to be_nil
+      end
+
+      # A course that moves from a 1.1 install to a 1.3 one refreshes its row on
+      # the next 1.3 launch, like every other snapshot field.
+      it 'refreshes the version when a later launch is 1.3' do
+        lti_session.find_or_create_binding!
+        idtoken['ltiVersion'] = '1.3.0'
+        stub_request(:get, idtoken_url)
+          .to_return(status: 200, body: idtoken.to_json,
+                     headers: { 'Content-Type' => 'application/json' })
+        binding = described_class.new(domain, api_key, ltik).find_or_create_binding!
+        expect(binding.lti_version).to eq('1.3.0')
+      end
     end
 
     # find-then-create is not atomic. Two first launches from one Canvas course

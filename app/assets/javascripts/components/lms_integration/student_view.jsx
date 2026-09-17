@@ -10,7 +10,9 @@ import { toDate } from '../../utils/date_utils';
 //     from inside the LMS yet, so no LtiContext row exists for them.
 //     Shows an explanation of how to enable grade sync.
 //   - my_linked: true — show the student's most recent grade-push
-//     timestamp across all their line items.
+//     timestamp across all their line items. Not for a legacy (LTI 1.1)
+//     binding, where no grade is ever pushed and the row would only ever
+//     read "no synced progress yet".
 const StudentView = ({ status }) => {
   const courseTitle = status.course_url
     ? <a href={status.course_url} target="_blank" rel="noopener noreferrer">{status.course_title}</a>
@@ -32,7 +34,7 @@ const StudentView = ({ status }) => {
           : <span className="lms-integration-status__not-linked">{I18n.t('lms_integration.not_linked')}</span>}
       </p>
       {status.my_linked
-        ? <LinkedSyncRow lastSyncAt={status.my_last_sync_at} />
+        ? (!status.legacy && <LinkedSyncRow lastSyncAt={status.my_last_sync_at} />)
         : <NotYetLinkedHint />}
     </div>
   );
@@ -58,6 +60,7 @@ const NotYetLinkedHint = () => (
 
 StudentView.propTypes = {
   status: PropTypes.shape({
+    legacy: PropTypes.bool,
     lms_name: PropTypes.string,
     course_title: PropTypes.string,
     course_url: PropTypes.string,

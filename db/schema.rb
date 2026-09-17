@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_11_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_15_220000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -441,6 +441,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_11_120000) do
     t.datetime "created_at", precision: nil
   end
 
+  create_table "lti_consumer_keys", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "key", null: false
+    t.text "secret", null: false
+    t.integer "course_id", null: false
+    t.integer "user_id", null: false
+    t.string "lms_instance_guid"
+    t.datetime "activated_at"
+    t.datetime "last_launch_at"
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_lti_consumer_keys_on_course_id"
+    t.index ["key"], name: "index_lti_consumer_keys_on_key", unique: true
+  end
+
   create_table "lti_contexts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "user_lti_id", null: false
     t.string "context_id"
@@ -474,10 +489,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_11_120000) do
     t.datetime "last_grade_sync_at"
     t.text "last_grade_sync_error"
     t.datetime "last_grade_sync_attempt_at"
+    t.string "lti_version", default: "1.3.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_lti_course_bindings_on_course_id_unique", unique: true
     t.index ["lms_id", "lms_context_id"], name: "index_lti_course_bindings_on_lms_context", unique: true
+  end
+
+  create_table "lti_launch_nonces", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "lti_consumer_key_id", null: false
+    t.string "nonce", null: false
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_lti_launch_nonces_on_created_at"
+    t.index ["lti_consumer_key_id", "nonce"], name: "index_lti_launch_nonces_on_key_and_nonce", unique: true
+  end
+
+  create_table "lti_legacy_launches", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "token", null: false
+    t.text "idtoken", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.index ["expires_at"], name: "index_lti_legacy_launches_on_expires_at"
+    t.index ["token"], name: "index_lti_legacy_launches_on_token", unique: true
   end
 
   create_table "lti_line_items", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -904,6 +937,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_11_120000) do
   add_foreign_key "course_stats", "courses"
   add_foreign_key "course_wiki_namespaces", "courses_wikis", column: "courses_wikis_id", on_delete: :cascade
   add_foreign_key "facilitator_stats", "users"
+  add_foreign_key "lti_consumer_keys", "courses", on_delete: :cascade
   add_foreign_key "lti_contexts", "lti_course_bindings", on_delete: :cascade
   add_foreign_key "lti_contexts", "users", on_delete: :cascade
   add_foreign_key "lti_course_bindings", "courses", on_delete: :cascade

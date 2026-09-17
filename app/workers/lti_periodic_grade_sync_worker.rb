@@ -33,8 +33,13 @@ class LtiPeriodicGradeSyncWorker
   # sync, so ordering on it let a binding that always fails in the aborting tier
   # keep its stale timestamp and sort first every cycle — enough of those under
   # the per-cycle cap and healthy bindings were never graded at all.
+  #
+  # 1.3 bindings only, selected by version and not just by stored credentials:
+  # a legacy (LTI 1.1) binding has no AGS, and must stay out even if something
+  # someday persists its legacy service key.
   def eligible_bindings
     LtiCourseBinding
+      .lti_1_3
       .joins(:course)
       .where('courses.end >= ?', Date.current - GRACE_PERIOD)
       .where.not(ltiaas_service_credentials: nil)

@@ -2469,6 +2469,9 @@ en:
       # dialog left open past the reservation window, the same items already
       # imported from another tab, or a replayed submission. The instructor's
       # next step is to close and reopen the import dialog.
+      # `unavailable_header` alone is also what a legacy (LTI 1.1) launch sees
+      # if it reaches a deep-linking placement (deep_link_legacy): import is
+      # 1.3-only, and that defensive path carries no copy of its own.
       unavailable_header: Unavailable
       unavailable_explanation: "These items are no longer available to import."
     status:

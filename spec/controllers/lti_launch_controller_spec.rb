@@ -2371,6 +2371,413 @@ describe LtiLaunchController, type: :request do
     end
   end
 
+  # Legacy LTI 1.1 launches. These arrive at /lti carrying a token we signed
+  # ourselves, minted by LtiLegacyLaunchesController from a launch Canvas
+  # posted to us directly; LTIAAS is not involved in LTI 1.1 at all. The
+  # idtoken it carries reports `ltiVersion` "1.2.0", uses the raw 1.1 role
+  # forms, and offers no NRPS or AGS. The launch is a "companion mode": setup,
+  # identity approval, enrollment and the student overview carry over; the
+  # roster/grade machinery and deep linking refuse.
+  describe 'legacy (LTI 1.1) launches' do
+    # The shape a real Canvas 1.1 launch has once normalized: no platform.id,
+    # the LMS instance guid instead (kept equal to the fixtures' platform-x so
+    # the shared binding helpers resolve the same row), no platform.url, and
+    # no services. NormalizeLtiLegacyLaunch has its own spec for producing it;
+    # here it is the input.
+    def legacy_idtoken_for(role)
+      {
+        'ltiVersion' => '1.2.0',
+        'user' => { 'id' => 'legacy-user-1', 'roles' => [role] },
+        'platform' => { 'guid' => 'platform-x', 'productFamilyCode' => 'canvas' },
+        'launch' => {
+          'context' => { 'id' => 'canvas-77', 'title' => 'WRIT 2010' },
+          'resourceLink' => { 'id' => 'rl-legacy' },
+          'presentation' => { 'returnUrl' => 'https://canvas.example.edu/courses/77/return' }
+        },
+        'services' => { 'outcomes' => { 'available' => false } }
+      }
+    end
+
+    let(:role) { 'Instructor' }
+    let(:idtoken) { legacy_idtoken_for(role) }
+    # The launch token our own endpoint redirects with, in place of an ltik.
+    let(:legacy_token) { LtiLegacyLaunchToken.encode(idtoken) }
+    let(:legacy_params) { { ltik: legacy_token } }
+
+    before { allow(Features).to receive(:lti_legacy_launches?).and_return(true) }
+
+    def sign_in(dashboard_user = user)
+      allow_any_instance_of(ApplicationController).to receive(:current_user)
+        .and_return(dashboard_user)
+    end
+
+    # The 1.1 counterpart of approve_identity_link: same binding (found, never
+    # re-bound), the launch's 1.1 identity, 1.1 role forms.
+    def approve_legacy_identity_link(dashboard_user = user)
+      binding = LtiCourseBinding.find_or_create_by!(lms_id: 'platform-x',
+                                                    lms_context_id: 'canvas-77') do |b|
+        b.lms_family = 'canvas'
+        b.lms_resource_link_id = 'rl-legacy'
+      end
+      LtiContext.create!(user: dashboard_user, lti_course_binding: binding,
+                         user_lti_id: 'legacy-user-1', lms_id: 'platform-x',
+                         roles: [role], linked_at: Time.current)
+    end
+
+    describe 'our own launch token' do
+      it 'is read without asking LTIAAS anything' do
+        sign_in
+        get '/lti', params: legacy_params
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template('lti_launch/connect_identity')
+        expect(WebMock).not_to have_requested(:get, idtoken_url)
+      end
+
+      # It threads through the flow under the ordinary name, so every view and
+      # form that carries an ltik carries this too, unchanged.
+      it 'is re-emitted in the links the launch views build' do
+        get '/lti', params: legacy_params
+        expect(response.body).to include("/lti/connect_course?ltik=#{CGI.escape(legacy_token)}")
+      end
+
+      it 'renders the in-frame error once it has expired' do
+        sign_in
+        token = legacy_token
+        travel_to((LtiLegacyLaunchToken::LIFETIME + 1.minute).from_now) do
+          get '/lti', params: { ltik: token }, headers: { 'Sec-Fetch-Dest' => 'iframe' }
+        end
+        expect(response).to have_http_status(:unauthorized)
+        expect(response).to render_template('lti_launch/launch_error')
+      end
+
+      it 'reports a token that does not verify' do
+        sign_in
+        allow(Sentry).to receive(:capture_exception)
+        get '/lti', params: { ltik: "#{legacy_token}tampered" }
+        expect(response).to have_http_status(:unauthorized)
+        expect(Sentry).to have_received(:capture_exception)
+      end
+
+      # Signed out, a dead token degrades to the landing rather than an error,
+      # exactly as an expired LTIAAS ltik does: the landing's own re-launch
+      # link is the remedy, and a fresh Canvas launch mints a new token.
+      it 'degrades to the landing for a signed-out launch' do
+        token = legacy_token
+        travel_to((LtiLegacyLaunchToken::LIFETIME + 1.minute).from_now) do
+          get '/lti', params: { ltik: token }
+        end
+        expect(response).to have_http_status(:ok)
+        expect(response.body).to include('Open the Wiki Education Dashboard')
+      end
+
+      it 'still treats a launch with no token as missing' do
+        get '/lti', headers: { 'Sec-Fetch-Dest' => 'iframe' }
+        expect(response).to have_http_status(422)
+        expect(response).to render_template('lti_launch/launch_error')
+      end
+    end
+
+    # The launch records what it is, and nothing for the services it lacks. The
+    # binding's platform identity is the LMS guid (no platform.id under 1.1),
+    # and the platform URL comes from the launch's return URL.
+    it 'records the 1.1 version on the binding and stores no service credentials' do
+      sign_in
+      get '/lti', params: legacy_params
+      binding = LtiCourseBinding.find_by(lms_id: 'platform-x', lms_context_id: 'canvas-77')
+      expect(binding.lti_version).to eq('1.2.0')
+      expect(binding).to be_legacy
+      expect(binding.ltiaas_service_credentials).to be_nil
+      expect(binding.lms_platform_url).to eq('https://canvas.example.edu')
+    end
+
+    # What actually happened on the first real launch: the binding's validation
+    # refused a nil lms_id and the instructor got the Dashboard's generic 422.
+    context 'when the launch names no platform at all' do
+      let(:idtoken) { legacy_idtoken_for(role).tap { |t| t['platform'].delete('guid') } }
+
+      before { allow(Sentry).to receive(:capture_exception) }
+
+      it 'refuses at the gate instead of failing the binding' do
+        sign_in
+        expect { get '/lti', params: legacy_params }.not_to change(LtiCourseBinding, :count)
+        expect(response).to have_http_status(:forbidden)
+        expect(Sentry).to have_received(:capture_exception)
+          .with(an_instance_of(LtiSession::UnsupportedLmsError))
+      end
+    end
+
+    # Off by default, on top of the Canvas integration flag. Same fail-closed
+    # 403 as the platform gate, and reported, because an institution can start
+    # launching against the account without anyone here flipping the flag.
+    context 'when legacy launches are not enabled for this deployment' do
+      before do
+        allow(Features).to receive(:lti_legacy_launches?).and_return(false)
+        allow(Sentry).to receive(:capture_exception)
+      end
+
+      it 'refuses the launch and reports it' do
+        sign_in
+        get '/lti', params: legacy_params
+        expect(response).to have_http_status(:forbidden)
+        expect(Sentry).to have_received(:capture_exception)
+          .with(an_instance_of(LtiSession::LegacyLaunchesDisabledError))
+      end
+
+      it 'creates no binding for it' do
+        sign_in
+        expect { get '/lti', params: legacy_params }
+          .not_to change(LtiCourseBinding, :count)
+      end
+
+      # The anonymous path normally degrades to the landing page on any error.
+      it 'refuses the signed-out launch too rather than showing the landing' do
+        get '/lti', params: legacy_params
+        expect(response).to have_http_status(:forbidden)
+        expect(response.body).not_to include('Open the Wiki Education Dashboard')
+      end
+
+      it 'refuses the deep-link and grade-sync entry points too' do
+        get '/lti/deep_link', params: legacy_params
+        expect(response).to have_http_status(:forbidden)
+        post '/lti/sync_grades', params: legacy_params
+        expect(response).to have_http_status(:forbidden)
+      end
+
+      it 'leaves 1.3 launches unaffected' do
+        stub_request(:get, idtoken_url)
+          .to_return(status: 200, body: idtoken_for('Instructor').to_json,
+                     headers: { 'Content-Type' => 'application/json' })
+        get '/lti', params: { ltik: 'ltik-abc' }
+        expect(response).to have_http_status(:ok)
+      end
+    end
+
+    # The platform allowlist is the only thing keeping the one global 1.1
+    # registration Canvas-only.
+    context 'when the legacy launch comes from a non-Canvas platform' do
+      let(:idtoken) do
+        legacy_idtoken_for(role).tap { |t| t['platform']['productFamilyCode'] = 'moodle' }
+      end
+
+      before { allow(Sentry).to receive(:capture_exception) }
+
+      it 'refuses the launch' do
+        sign_in
+        get '/lti', params: legacy_params
+        expect(response).to have_http_status(:forbidden)
+        expect(Sentry).to have_received(:capture_exception)
+          .with(an_instance_of(LtiSession::UnsupportedLmsError))
+      end
+    end
+
+    describe 'an instructor launch' do
+      before { sign_in }
+
+      context 'with no bound course yet' do
+        before { approve_legacy_identity_link }
+
+        it 'renders the setup view, as a 1.3 launch would' do
+          get '/lti', params: legacy_params
+          expect(response).to have_http_status(:ok)
+          expect(response).to render_template('lti_launch/setup')
+        end
+      end
+
+      context 'with a bound course' do
+        let!(:course) { create(:course) }
+        let!(:binding) { lti_binding_for(course).tap { |b| b.update!(lti_version: '1.2.0') } }
+
+        before { approve_legacy_identity_link }
+
+        it 'renders the launch-only status view' do
+          get '/lti', params: legacy_params
+          expect(response).to have_http_status(:ok)
+          expect(response).to render_template('lti_launch/instructor_status_legacy')
+          expect(response).not_to render_template('lti_launch/instructor_status')
+          expect(response.body).to include(course.title)
+          expect(response.body).to include("/courses/#{course.slug}")
+        end
+
+        # Nothing behind them under 1.1: no roster, no line items, no passback.
+        it 'omits the roster row, the sync rows, the grade-sync trigger and the import steps' do
+          get '/lti', params: legacy_params
+          expect(response.body).not_to include(I18n.t('lms_integration.roster_students'))
+          expect(response.body).not_to include(I18n.t('lti.status.roster_sync_label'))
+          expect(response.body).not_to include(I18n.t('lti.status.grade_sync_label'))
+          expect(response.body).not_to include('action="/lti/sync_grades"')
+          expect(response.body).not_to include(I18n.t('lti.status.import_next_step.header'))
+          expect(response.body).not_to include(I18n.t('lti.status.publish_next_step.header'))
+        end
+
+        it 'shows the connected-accounts count' do
+          student = create(:user, username: 'Stu')
+          LtiContext.create!(user: student, lti_course_binding: binding,
+                             user_lti_id: 'legacy-stu', lms_id: 'platform-x',
+                             roles: ['Learner'], linked_at: 2.hours.ago)
+          get '/lti', params: legacy_params
+          expect(response.body).to include(I18n.t('lms_integration.connected_accounts'))
+          expect(response.body).to match(%r{<dd>\s*1\s*<a})
+        end
+
+        it 'does not enqueue a roster sync' do
+          get '/lti', params: legacy_params
+          expect(LtiRosterSyncWorker).not_to have_received(:perform_async)
+        end
+
+        it 'renders the status view for the signed-out in-iframe launch too' do
+          allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
+          get '/lti', params: legacy_params
+          expect(response).to render_template('lti_launch/instructor_status_legacy')
+          expect(LtiRosterSyncWorker).not_to have_received(:perform_async)
+        end
+
+        it 'offers the in-iframe refresh link under the ordinary ltik name' do
+          get '/lti', params: legacy_params
+          expect(response.body).to include("href=\"/lti?ltik=#{CGI.escape(legacy_token)}\"")
+        end
+
+        # The roles LTIAAS hands through for a 1.1 launch may be the raw 1.1
+        # forms; a Canvas TA carries only the TA URN.
+        context 'when the launch carries the 1.1 role URN forms' do
+          let(:role) { 'urn:lti:role:ims/lis/TeachingAssistant' }
+
+          it 'still classifies as staff' do
+            get '/lti', params: legacy_params
+            expect(response).to render_template('lti_launch/instructor_status_legacy')
+          end
+        end
+
+        # A launch the markers would otherwise route to an assignment drill-down:
+        # nothing to resolve under 1.1, so it is the course-navigation launch.
+        it 'treats a launch carrying assignment markers as the course-navigation launch' do
+          get '/lti', params: legacy_params.merge(resource: 'Block:1', submission: 'legacy-stu')
+          expect(response).to render_template('lti_launch/instructor_status_legacy')
+        end
+
+        describe 'POST /lti/sync_grades' do
+          before { allow(LtiGradeSyncWorker).to receive(:perform_async) }
+
+          it 'refuses and enqueues nothing' do
+            post '/lti/sync_grades', params: legacy_params
+            expect(response).to have_http_status(:forbidden)
+            expect(LtiGradeSyncWorker).not_to have_received(:perform_async)
+          end
+        end
+      end
+
+      describe 'POST /lti/setup' do
+        let(:campaign) { create(:campaign) }
+        let!(:course) do
+          create(:course, slug: 'School/Legacy_Course_(2026)', title: 'Legacy Course',
+                          start: 1.week.ago, end: 2.months.from_now)
+        end
+
+        before do
+          approve_legacy_identity_link
+          CampaignsCourses.create!(course:, campaign:)
+          CoursesUsers.create!(user:, course:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        end
+
+        it 'links the course without enqueuing the roster or line-item syncs' do
+          post '/lti/setup', params: legacy_params.merge(course_slug: course.slug)
+          expect(response).to redirect_to("/courses/#{course.slug}")
+          expect(LtiCourseBinding.find_by(course_id: course.id)).to be_legacy
+          expect(LtiRosterSyncWorker).not_to have_received(:perform_async)
+          expect(LtiLineItemSyncWorker).not_to have_received(:perform_async)
+        end
+      end
+    end
+
+    describe 'a student launch' do
+      let(:role) { 'Learner' }
+      let!(:course) { create(:course).tap { |c| c.campaigns << Campaign.first } }
+      let!(:binding) { lti_binding_for(course).tap { |b| b.update!(lti_version: '1.2.0') } }
+
+      before do
+        sign_in
+        allow(LtiGradeSyncWorker).to receive(:perform_async)
+      end
+
+      it 'asks before connecting, then connects and enrolls on approval' do
+        get '/lti', params: legacy_params
+        expect(response).to render_template('lti_launch/connect_identity')
+
+        expect { post '/lti/connect_identity', params: legacy_params }
+          .to change(LtiContext, :count).by(1)
+          .and change(CoursesUsers, :count).by(1)
+        expect(LtiContext.last.user_lti_id).to eq('legacy-user-1')
+        expect(response).to redirect_to("/courses/#{course.slug}")
+      end
+
+      # The first-link grade push has no gradebook to reach under 1.1.
+      it 'does not enqueue a grade push when the account connects' do
+        post '/lti/connect_identity', params: legacy_params
+        expect(LtiGradeSyncWorker).not_to have_received(:perform_async)
+      end
+
+      it 'renders the in-iframe progress overview for a framed launch once enrolled' do
+        approve_legacy_identity_link
+        enroll_student
+        get '/lti', params: legacy_params, headers: { 'Sec-Fetch-Dest' => 'iframe' }
+        expect(response).to have_http_status(:ok)
+        expect(response).to render_template('lti_launch/student_status')
+      end
+
+      it 'renders the overview for the signed-out in-iframe launch of an enrolled student' do
+        approve_legacy_identity_link
+        enroll_student
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(nil)
+        get '/lti', params: legacy_params
+        expect(response).to render_template('lti_launch/student_status')
+      end
+
+      # Canvas's 1.1 observer roles: neither staff nor learner, as under 1.3.
+      context 'when the launch is a Canvas observer' do
+        let(:idtoken) do
+          legacy_idtoken_for(role).tap do |t|
+            t['user']['roles'] = ['urn:lti:instrole:ims/lis/Observer',
+                                  'urn:lti:role:ims/lis/Mentor']
+          end
+        end
+
+        before { approve_legacy_identity_link }
+
+        it 'is refused, not enrolled' do
+          expect { get '/lti', params: legacy_params }.not_to change(CoursesUsers, :count)
+          expect(response).to have_http_status(:forbidden)
+          expect(response).to render_template('lti_launch/enrollment_error')
+        end
+      end
+    end
+
+    # Deep linking is 1.3-only; a 1.1 launch that reaches the picker placement
+    # gets an in-frame explanation, whatever its role.
+    describe 'the deep-link picker' do
+      let!(:course) { create(:course) }
+
+      before do
+        lti_binding_for(course).update!(lti_version: '1.2.0')
+        allow(LtiLineItemSyncWorker).to receive(:perform_in)
+      end
+
+      it 'refuses GET /lti/deep_link in-frame' do
+        get '/lti/deep_link', params: legacy_params
+        expect(response).to have_http_status(:forbidden)
+        expect(response).to render_template('lti_launch/deep_link_legacy')
+        expect(response).not_to render_template('lti_launch/deep_link_picker')
+        expect(response.headers).not_to have_key('X-Frame-Options')
+      end
+
+      it 'refuses POST /lti/deep_link/select without reserving anything' do
+        expect do
+          post '/lti/deep_link/select', params: legacy_params.merge(resource: 'Block:1')
+        end.not_to change(LtiLineItem, :count)
+        expect(response).to have_http_status(:forbidden)
+        expect(response).to render_template('lti_launch/deep_link_legacy')
+      end
+    end
+  end
+
   describe 'feature flag gating' do
     before do
       allow(Features).to receive(:canvas_integration?).and_return(false)

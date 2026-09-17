@@ -804,6 +804,7 @@ DEPENDENCIES
   memory_profiler
   mysql2
   nokogiri
+  oauth
   observer
   oj
   omniauth-mediawiki!

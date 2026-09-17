@@ -1,0 +1,98 @@
+-# The unlisted credentials page for the LTI 1.1 ("companion mode") path,
+-# reached only at courses/<slug>/canvas by instructors Wiki Education has sent
+-# the URL to. See CourseCanvasCredentialsController and LtiConsumerKey. Expects
+-# @course, @key (nil until generated), @secret (only on the render right
+-# after generating), @bound_elsewhere, and @config_url.
+.container.narrow
+  .section-header
+    %h1 Connect this course to Canvas
+  %hr
+
+  - if @bound_elsewhere
+    -# Already bound through the standard LTI 1.3 install: there is nothing for
+    -# an instructor to do here, and generating a second credential would only
+    -# create two ways for one course to be connected.
+    .module
+      %p This course is already connected via the LTI 1.3 integration.
+      %p= link_to 'Open the course', "/courses/#{@course.slug}"
+
+  - elsif @key.nil?
+    .module
+      %h2 Self-service Canvas integration (LTI 1.1)
+      %p This version of the Wiki Education Canvas integration provides an in-Canvas iframe for students and instructors.
+      %p (A more featureful version uses the LTI 1.3 standard and requires installation by a Canvas administrator.)
+
+    .module
+      %h2 Generate your credentials
+      %p You'll use these to install the app for your course. Treat the key and secret like a password: they are for this course only.
+      %p
+        %strong The shared secret is shown once, on the next screen, and will not be shown again.
+        If you lose it, come back here and generate a new one.
+      = button_to 'Generate credentials', "/courses/#{@course.slug}/canvas",
+                  method: :post, class: 'button dark'
+
+  - elsif @secret
+    -# The one render where the secret exists in memory. Never stored in a form
+    -# we can show again.
+    .module
+      %h2 Your Canvas credentials
+      .canvas-credentials__warning
+        %p
+          %strong Copy the shared secret now.
+          (If you lose it, you can return here and generate a new one.)
+      %dl.canvas-credentials__list
+        %dt Consumer key
+        %dd
+          %code.canvas-credentials__value= @key.key
+          %button.button.border.canvas-credentials__copy{ type: 'button', data: { value: @key.key } } Copy
+        %dt Shared secret
+        %dd
+          %code.canvas-credentials__value= @secret
+          %button.button.border.canvas-credentials__copy{ type: 'button', data: { value: @secret } } Copy
+        %dt Configuration URL
+        %dd
+          %code.canvas-credentials__value= @config_url
+          %button.button.border.canvas-credentials__copy{ type: 'button', data: { value: @config_url } } Copy
+
+    .module
+      %h2 Next: add the app in Canvas
+      %p In your Canvas course, open Settings, then the Apps tab, and add an app with the configuration type "By URL", using the three values above.
+      %p= link_to 'Full steps, with screenshots', '/lti/guide/instructors'
+      %p The first time you open the dashboard.wikiedu.org link in your Canvas course, this Dashboard course is connected automatically.
+
+  - elsif !@key.activated?
+    .module
+      %h2 Waiting for your first launch from Canvas
+      %p
+        Your credentials were created
+        = time_ago_in_words(@key.created_at)
+        ago. This course connects as soon as you open the wikiedu.org link in your Canvas course for the first time.
+      %p= link_to 'Installation steps, with screenshots', '/lti/guide/instructors'
+      %p
+        %strong The shared secret is not shown again.
+        If you no longer have it, generate a new one below.
+      %p Credentials that are never used stop working after seven days.
+    = render 'course_canvas_credentials/regenerate', course: @course
+
+  - else
+    .module
+      %h2 This course is connected to Canvas
+      %dl.canvas-credentials__list
+        %dt Connected
+        %dd= @key.activated_at.to_fs(:long)
+        - if @key.last_launch_at
+          %dt Last opened from Canvas
+          %dd= "#{time_ago_in_words(@key.last_launch_at)} ago"
+      %p Students who open the wikiedu.org link in your Canvas course are enrolled in this course automatically.
+    = render 'course_canvas_credentials/regenerate', course: @course
+
+  :javascript
+    document.querySelectorAll('.canvas-credentials__copy').forEach(function (button) {
+      button.addEventListener('click', function () {
+        navigator.clipboard.writeText(button.dataset.value).then(function () {
+          var previous = button.textContent;
+          button.textContent = 'Copied';
+          setTimeout(function () { button.textContent = previous; }, 2000);
+        });
+      });
+    });

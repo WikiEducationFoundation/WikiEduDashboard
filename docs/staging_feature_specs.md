@@ -247,6 +247,9 @@ staging_specs/
 ├── g9_exercise_sandbox_spec.rb   # exercise completion → 1.0 + sandbox URL (T3)
 ├── instructor_setup_screenshots_spec.rb # instructor UX screenshots
 ├── student_screenshots_spec.rb   # student UX screenshots (landing/panel/pending states)
+├── lti11_legacy_launch_spec.rb   # self-hosted LTI 1.1: launch → auto-bind → enroll
+├── lti11_launch_refusals_spec.rb # self-hosted LTI 1.1: what the endpoint refuses
+├── lti11_instructor_install_screenshots_spec.rb # the Canvas course-level install
 └── support/
     ├── sessions.rb           # in_canvas / in_dashboard / in_student_browser helpers
     ├── failure_screenshot.rb # capture screenshots + DOM on spec failure
