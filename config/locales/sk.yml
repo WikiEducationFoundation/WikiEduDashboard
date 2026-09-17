@@ -1634,11 +1634,6 @@ sk:
   status:
     active_jobs: Aktívne úlohy
     active_jobs_doc: Počet práve spracovávaných úloh.
-    acuwt_update: Aktualizácia ACUWT
-    acuwt_update_description: Aktualizácie ACUWT spracúvajú kurzy programov vymedzených
-      článkami s tisíckami článkov.
-    acuwt_update_doc: Spracúva aktualizácie pre veľké kurzy programov vymedzených
-      článkami.
     all_queues_operational: Všetky fronty funkčné
     all_queues_not_operational: Všetky fronty funkčné okrem
     constant_update: Neustála aktualizácia

@@ -136,11 +136,6 @@ sw:
     sense_claims: Madai ya maana
     sense_references: Marejeleo ya maana
     sense_qualifiers: Vibainishi vya maana
-  status:
-    acuwt_update: Sasisho la ACUWT
-    acuwt_update_description: ACUWT husasisha makala za mchakato zilizo na kozi za
-      programu maalumu zenye maelfu ya makala.
-    acuwt_update_doc: Shughulikia masasisho ya makala kubwa kwa kozi za program husika
   timeline:
     week_number: Wiki ya %{number}
   training:
