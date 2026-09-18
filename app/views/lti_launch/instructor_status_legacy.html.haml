@@ -25,6 +25,9 @@
   - if @roster.empty?
     %p.lti-iframe__empty= t('courses.students_none')
   - else
+    - # The peer-review column and each disclosure's reviews section appear only
+    - # when the course asks for reviews (InstructorRosterContext#peer_reviews_expected?).
+    - peer_reviews = @roster.peer_reviews_expected?
     .lti-table-scroll
       %table.lti-assignment-roster.lti-roster
         %thead
@@ -32,7 +35,8 @@
             %th= t('lti.assignment_view.roster.student')
             %th= t('lti.student_overview.trainings')
             %th= t('lti.student_overview.exercises')
-            %th= t('lti.status.roster.peer_reviews')
+            - if peer_reviews
+              %th= t('lti.status.roster.peer_reviews')
             %th= t('lti.assignment_view.article_work.revisions')
             %th
         %tbody
@@ -45,7 +49,8 @@
                   %span.lti-status.lti-status--done.lti-roster__connected= t('lms_integration.connected_accounts')
               %td= "#{status.trainings_completed} / #{status.training_items.size}"
               %td= "#{status.exercises_completed} / #{status.exercise_items.size}"
-              %td= "#{row.peer_review_progress.completed_count} / #{row.peer_review_progress.total_count}"
+              - if peer_reviews
+                %td= "#{row.peer_review_progress.completed_count} / #{row.peer_review_progress.total_count}"
               %td= number_with_delimiter(row.revision_count)
               %td
                 - # Same toggle as the assignment roster's sandbox rows, and the
@@ -53,8 +58,8 @@
                 %button.lti-sandbox__toggle{ type: 'button', 'aria-controls': "student-#{i}", 'aria-expanded': 'false', 'data-label-show': t('lti.assignment_view.show'), 'data-label-hide': t('lti.assignment_view.hide') }
                   = t('lti.assignment_view.show')
             %tr.lti-roster__detail{ id: "student-#{i}", hidden: true }
-              %td{ colspan: 6 }
-                = render 'lti_launch/roster_student_detail', row: row
+              %td{ colspan: peer_reviews ? 6 : 5 }
+                = render 'lti_launch/roster_student_detail', row: row, peer_reviews_expected: peer_reviews
 
 :javascript
   document.querySelectorAll('.lti-roster .lti-sandbox__toggle').forEach(function (btn) {

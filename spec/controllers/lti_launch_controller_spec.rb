@@ -2643,6 +2643,28 @@ describe LtiLaunchController, type: :request do
           expect(response.body).to include(I18n.t('courses.students_none'))
         end
 
+        # The wizard's "0 peer reviews" choice leaves the flag unset, and the
+        # progress service would otherwise report one owed review per student.
+        it 'leaves peer reviews off the roster when the course expects none' do
+          student = create(:user, username: 'Roster_Stu')
+          CoursesUsers.create!(course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+          get '/lti', params: legacy_params
+          expect(response.body).not_to include(I18n.t('lti.status.roster.peer_reviews'))
+          expect(response.body).not_to include(I18n.t('lti.assignment_view.peer_review.reviews'))
+          expect(response.body).to include("colspan='5'")
+        end
+
+        it 'shows the peer-review fraction when the course expects reviews' do
+          course.update!(flags: { peer_review_count: 2 })
+          student = create(:user, username: 'Roster_Stu')
+          CoursesUsers.create!(course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+          get '/lti', params: legacy_params
+          expect(response.body).to include(I18n.t('lti.status.roster.peer_reviews'))
+          expect(response.body).to include('0 / 2')
+          expect(response.body).to include(I18n.t('lti.assignment_view.peer_review.reviews'))
+          expect(response.body).to include("colspan='6'")
+        end
+
         it 'carries the beta feedback banner, addressed to this page' do
           get '/lti', params: legacy_params
           expect(response.body).to include(I18n.t('lti.beta_feedback.message'))

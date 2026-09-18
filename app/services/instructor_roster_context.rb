@@ -30,6 +30,17 @@ class InstructorRosterContext
     rows.empty?
   end
 
+  # Whether the course asks its students for peer reviews at all: the test
+  # DeepLinkableGradables applies before offering the 1.3 peer-review column.
+  # The wizard's "0 peer reviews" choice sets no flag, so an unset count means
+  # none as much as an explicit zero does. LtiPeerReviewProgress assumes one
+  # review when the flag is unset (the grade sync's fallback for a column that
+  # was imported), which on a roster would tell an instructor who chose none
+  # that every student owes one; the view leaves the column out instead.
+  def peer_reviews_expected?
+    @course.peer_review_count.to_i.positive?
+  end
+
   private
 
   def courses_users

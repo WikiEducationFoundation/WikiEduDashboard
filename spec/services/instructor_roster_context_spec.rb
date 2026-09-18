@@ -63,6 +63,27 @@ describe InstructorRosterContext do
     expect(roster).to be_empty
   end
 
+  # The wizard's "0 peer reviews" choice sets no flag, the same as a course that
+  # never reached that question; only a positive count means the stage exists.
+  # LtiPeerReviewProgress falls back to one review when the flag is unset, so
+  # without this gate the roster would read "0 / 1" for a course with none.
+  describe '#peer_reviews_expected?' do
+    it 'is false when the course never set a peer-review count' do
+      expect(course.peer_review_count).to be_nil
+      expect(roster).not_to be_peer_reviews_expected
+    end
+
+    it 'is false when the course expects zero reviews' do
+      course.update!(flags: { peer_review_count: 0 })
+      expect(roster).not_to be_peer_reviews_expected
+    end
+
+    it 'is true when the wizard set a reviewer count' do
+      course.update!(flags: { peer_review_count: 2 })
+      expect(roster).to be_peer_reviews_expected
+    end
+  end
+
   # One instructor launch reads every student's state. Fetching per student made
   # the page's cost grow with the class; the roster now loads the course
   # structure and every student's completions and assignments up front.

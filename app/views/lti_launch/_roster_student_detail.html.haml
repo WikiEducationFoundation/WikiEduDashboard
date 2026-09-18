@@ -4,7 +4,10 @@
 - # (_student_overview_sections, over their StudentStatusContext), plus their
 - # peer reviews. Every link opens in a new tab, since the full Dashboard cannot
 - # render inside the Canvas iframe.
-- # Locals: row (InstructorRosterContext::StudentRow).
+- # Locals: row (InstructorRosterContext::StudentRow); peer_reviews_expected,
+- # whether the course asks for peer reviews at all, since the progress object
+- # assumes one review when the course never said (see
+- # InstructorRosterContext#peer_reviews_expected?).
 .lti-roster__student
   .lti-roster__stats
     %span
@@ -21,7 +24,7 @@
                                                     articles_heading: t('courses.assignment_headings.assigned_articles'),
                                                     sandbox_label: t('lti.assignment_view.roster.sandbox')
 
-  - if row.peer_review_progress.total_count.positive?
+  - if peer_reviews_expected
     %section.lti-overview-section
       %h2
         = t('lti.assignment_view.peer_review.reviews')
