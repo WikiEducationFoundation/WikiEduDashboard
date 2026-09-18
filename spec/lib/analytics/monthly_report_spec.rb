@@ -4,6 +4,8 @@ require 'rails_helper'
 require "#{Rails.root}/lib/analytics/monthly_report"
 
 describe MonthlyReport do
+  let(:wiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
+
   before do
     travel_to Date.new(2025, 5, 6)
 
@@ -16,12 +18,12 @@ describe MonthlyReport do
       article = create(:article, title: "Article_#{i}", namespace: Article::Namespaces::MAINSPACE)
       @first_course ||= course
       @first_article ||= article
-      create(:article_course_timeslice, course:, article:, revision_count:,
-             start: 1.month.ago, end: 1.month.ago + 1.day)
-      create(:article_course_timeslice, course:, article:, revision_count:,
-             start: 1.month.ago + 1.day, end: 1.month.ago + 2.days)
-      create(:article_course_timeslice, course:, article:, revision_count:,
-             start: 2.months.ago, end: 2.months.ago + 1.day)
+      create(:article_course_user_wiki_timeslice, course:, article:, revision_count:,
+             start: 1.month.ago, end: 1.month.ago + 1.day, user:, wiki:)
+      create(:article_course_user_wiki_timeslice, course:, article:, revision_count:,
+             start: 1.month.ago + 1.day, end: 1.month.ago + 2.days, user:, wiki:)
+      create(:article_course_user_wiki_timeslice, course:, article:, revision_count:,
+             start: 2.months.ago, end: 2.months.ago + 1.day, user:, wiki:)
       create(:commons_upload, user:, uploaded_at: 1.month.ago, usage_count: 1)
 
       # Create old data for 4 of 6 courses
@@ -29,8 +31,8 @@ describe MonthlyReport do
       second_user = create(:user, username: "second_user_monthly_#{i}")
       create(:courses_user, user: second_user, course:, role: 0)
       old_article = create(:article, title: "Article_old_#{i}")
-      create(:article_course_timeslice, course:, article: old_article, revision_count:,
-             start: 13.months.ago, end: 13.months.ago + 1.day)
+      create(:article_course_user_wiki_timeslice, course:, article: old_article, revision_count:,
+             start: 13.months.ago, end: 13.months.ago + 1.day, user:, wiki:)
       create(:commons_upload, user: second_user, uploaded_at: 13.months.ago, usage_count: 1)
       create(:commons_upload, user: second_user, uploaded_at: 13.months.ago, usage_count: 1)
     end
@@ -57,7 +59,7 @@ describe MonthlyReport do
       end
 
       it 'counts only tracked articles' do
-        ArticleCourseTimeslice.where(course: @first_course, article: @first_article)
+        ArticleCourseUserWikiTimeslice.where(course: @first_course, article: @first_article)
                               .update_all(tracked: false) # rubocop:disable Rails/SkipsModelValidations
         expect(subject[:'2025-4']).to(eq({ articles_edited: 5, uploads: 6 }))
         expect(subject[:'2024-4']).to(eq({ articles_edited: 4, uploads: 8 }))

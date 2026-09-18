@@ -90,7 +90,7 @@ class CourseUserWikiTimeslice < ApplicationRecord
     excluded_article_ids = course.articles_courses.not_tracked.pluck(:article_id)
     tracked_records = records.reject { |r| excluded_article_ids.include?(r.article_id) }
     by_ns = records_by_namespace(tracked_records)
-    update_character_sum_from_acuwt(by_ns)
+    update_character_sum_from_acuwt(by_ns, mainspace_records_in_tracked_namespaces(by_ns))
     self.revision_count = filtered_live_acuwt_records(tracked_records).sum(&:revision_count)
     save
   end
@@ -182,8 +182,17 @@ class CourseUserWikiTimeslice < ApplicationRecord
     records.group_by { |r| articles_by_id[r.article_id]&.namespace }
   end
 
-  def update_character_sum_from_acuwt(by_ns)
+  # Mainspace records for articles that have an articles_courses record, mirroring
+  # legacy #live_revisions_in_tracked_namespaces (AC records only exist for the
+  # course's tracked namespaces).
+  def mainspace_records_in_tracked_namespaces(by_ns)
     ms_records = by_ns[Article::Namespaces::MAINSPACE] || []
+    return ms_records if ms_records.empty?
+    tracked_article_ids = course.article_ids
+    ms_records.select { |r| tracked_article_ids.include?(r.article_id) }
+  end
+
+  def update_character_sum_from_acuwt(by_ns, ms_records)
     us_records = by_ns[Article::Namespaces::USER] || []
     draft_records = by_ns[Article::Namespaces::DRAFT] || []
     self.character_sum_ms = ms_records.sum(&:character_sum)
