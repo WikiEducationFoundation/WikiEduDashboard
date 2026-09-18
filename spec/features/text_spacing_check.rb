@@ -208,7 +208,7 @@ describe 'text spacing override check', type: :feature, js: true, text_spacing: 
                      training_module_ids: [3])
 
       ArticlesCourses.update_from_course_revisions(course, revisions)
-      ArticlesCourses.update_all_caches_from_timeslices(course.articles_courses)
+      ArticlesCourses.update_all_caches_from_timeslices(course, course.articles_courses)
       CoursesUsers.update_all_caches_from_timeslices(course.courses_users)
       course.update_cache_from_timeslices
 
