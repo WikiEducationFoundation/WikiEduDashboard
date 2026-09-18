@@ -53,6 +53,16 @@ describe WizardLogicState do
       Tag.create(course_id: course.id, key: 'topics-chemistry', tag: 'chemistry')
       expect(state.known).to include('chemistry_handout' => true, 'history_handout' => false)
     end
+
+    # Most tags in production carry no key: `submitted`, `cloned`, `ta_support`
+    # and everything an admin adds by hand are all written with key: nil. They
+    # say nothing about the wizard, and must not break the panels that do.
+    it 'ignores tags that carry no wizard key' do
+      Tag.create(course_id: course.id, tag: 'submitted', key: nil)
+      Tag.create(course_id: course.id, key: 'working_in_groups', tag: 'working_in_groups')
+      expect(state.known).to include('working_in_groups' => true,
+                                     'working_individually' => false)
+    end
   end
 
   describe '#verdict_for' do

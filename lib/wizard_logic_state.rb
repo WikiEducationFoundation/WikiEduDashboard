@@ -62,8 +62,13 @@ class WizardLogicState
   # key but no tag of their own. When no tag for the panel is present we learn
   # nothing — an untagged option may have been chosen, or the course may simply
   # predate the panel — so the whole panel stays unknown.
+  #
+  # Only the wizard writes tags with a key. `submitted`, `cloned`, `ta_support`
+  # and everything an admin adds by hand are written with a nil key, and most
+  # courses carry at least one. They record nothing about the wizard, so they
+  # are dropped before indexing rather than guarded against further down.
   def derive_from_tags
-    tags_by_key = @course.tags.index_by(&:key)
+    tags_by_key = @course.tags.where.not(key: nil).index_by(&:key)
     panels.each do |panel|
       chosen = chosen_tags(panel, tags_by_key)
       next if chosen.nil?
