@@ -15,6 +15,7 @@ describe UpdateWikiNamespaceStatsTimeslice do
   let(:enwiki_course_wiki) { course.courses_wikis.find_by(wiki: enwiki) }
 
   before do
+    course.add_flag(key: :use_acuwt)
     stub_wiki_validation
     course.campaigns << Campaign.first
 
