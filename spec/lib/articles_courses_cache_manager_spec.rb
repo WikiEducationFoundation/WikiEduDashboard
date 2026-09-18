@@ -25,7 +25,7 @@ describe ArticlesCoursesCacheManager do
              start: '2024-06-25', end: '2024-06-26',
              character_sum: 0, references_count: 0, user_ids: nil, first_revision: nil)
 
-      described_class.new(ArticlesCourses.where(course:)).update_caches_from_timeslices
+      described_class.new(course, ArticlesCourses.where(course:)).update_caches_from_timeslices
     end
 
     it 'sums the character sum of every timeslice' do
@@ -61,7 +61,7 @@ describe ArticlesCoursesCacheManager do
 
     before do
       articles_course
-      described_class.new(ArticlesCourses.where(course:)).update_caches_from_timeslices
+      described_class.new(course, ArticlesCourses.where(course:)).update_caches_from_timeslices
     end
 
     it 'resets the cached values' do
@@ -84,7 +84,9 @@ describe ArticlesCoursesCacheManager do
       create(:article_course_timeslice, article:, course: other_course,
              start: '2024-07-11', end: '2024-07-12', character_sum: 900)
 
-      described_class.new(ArticlesCourses.all).update_caches_from_timeslices
+      described_class.new(course, ArticlesCourses.where(course:)).update_caches_from_timeslices
+      described_class.new(other_course, ArticlesCourses.where(course: other_course))
+                     .update_caches_from_timeslices
     end
 
     it 'gives the course the totals of its own timeslices' do
@@ -108,7 +110,7 @@ describe ArticlesCoursesCacheManager do
                start: '2024-07-11', end: '2024-07-12', character_sum: (index + 1) * 100)
       end
 
-      described_class.new(ArticlesCourses.where(course:)).update_caches_from_timeslices
+      described_class.new(course, ArticlesCourses.where(course:)).update_caches_from_timeslices
     end
 
     it 'updates the records of every batch' do

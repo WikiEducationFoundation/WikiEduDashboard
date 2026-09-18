@@ -50,7 +50,7 @@ describe ArticlesCourses, type: :model do
 
     it 'updates data for article-course relationships' do
       # Run a cache update without any timeslices.
-      described_class.update_all_caches_from_timeslices(described_class.all)
+      described_class.update_all_caches_from_timeslices(course, described_class.all)
 
       # Add two timeslices.
       create(:article_course_timeslice,
@@ -86,7 +86,7 @@ describe ArticlesCourses, type: :model do
              first_revision: nil)
 
       # Run the cache update again with an existing revision.
-      described_class.update_all_caches_from_timeslices(described_class.all)
+      described_class.update_all_caches_from_timeslices(course, described_class.all)
 
       # Fetch the updated ArticlesCourses entry
       article_course = described_class.first
