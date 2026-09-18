@@ -34,12 +34,27 @@ class ArticlesCoursesCacheManager
     ArticlesCourses.upsert_all(rows, update_only: UPDATED_FIELDS)
   end
 
-  # Returns { article_id => cache values }. The query fixes course_id so that the
-  # article_course_timeslices unique index applies.
+  # Returns { article_id => cache values }.
   def timeslice_stats(article_ids)
+    return legacy_stats(article_ids) unless @course.use_acuwt?
+    acuwt_stats(article_ids)
+  end
+
+  # The query fixes course_id so that the article_course_timeslices unique index applies.
+  def legacy_stats(article_ids)
     timeslices = ArticleCourseTimeslice.where(course_id: @course.id, article_id: article_ids)
     stats = aggregated_stats(timeslices)
-    user_ids_by_article(timeslices).each { |id, user_ids| stats[id][:user_ids] = user_ids }
+    legacy_user_ids_by_article(timeslices).each { |id, ids| stats[id][:user_ids] = ids }
+    stats
+  end
+
+  # The same values ArticleCourseTimeslice would hold, read straight from the
+  # per-user rows it is reaggregated from.
+  def acuwt_stats(article_ids)
+    timeslices = ArticleCourseUserWikiTimeslice.where(course_id: @course.id,
+                                                      article_id: article_ids)
+    stats = aggregated_stats(timeslices)
+    acuwt_user_ids_by_article(timeslices).each { |id, ids| stats[id][:user_ids] = ids }
     stats
   end
 
@@ -57,9 +72,18 @@ class ArticlesCoursesCacheManager
   end
 
   # user_ids is a serialized array, so it cannot be aggregated in SQL.
-  def user_ids_by_article(timeslices)
+  def legacy_user_ids_by_article(timeslices)
     timeslices.pluck(:article_id, :user_ids)
               .group_by(&:first)
               .transform_values { |pairs| pairs.flat_map(&:last).uniq }
+  end
+
+  # ACUWT has a row per user, and only users who actually edited are cached.
+  def acuwt_user_ids_by_article(timeslices)
+    timeslices.where('revision_count > 0')
+              .distinct
+              .pluck(:article_id, :user_id)
+              .group_by(&:first)
+              .transform_values { |pairs| pairs.map(&:last) }
   end
 end

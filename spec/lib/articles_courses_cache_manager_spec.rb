@@ -53,6 +53,55 @@ describe ArticlesCoursesCacheManager do
     end
   end
 
+  describe '#update_caches_from_timeslices for a course that uses ACUWT' do
+    let(:course) do
+      create(:course, start: '2024-06-16', end: '2024-08-16', flags: { use_acuwt: true })
+    end
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:articles_course) { create(:articles_course, article:, course:) }
+
+    before do
+      articles_course
+      create(:article_course_user_wiki_timeslice, article:, course:, wiki:, user_id: 2,
+             start: '2024-07-06', end: '2024-07-07', revision_count: 1,
+             character_sum: 9000, references_count: 4,
+             first_revision: '2024-07-06 03:45:04')
+      create(:article_course_user_wiki_timeslice, article:, course:, wiki:, user_id: 3,
+             start: '2024-07-07', end: '2024-07-08', revision_count: 1,
+             character_sum: 12, references_count: 5, new_article: true,
+             first_revision: '2024-07-07 20:10:24')
+      # A user with no revisions of their own, who should not be cached.
+      create(:article_course_user_wiki_timeslice, article:, course:, wiki:, user_id: 4,
+             start: '2024-06-25', end: '2024-06-26', revision_count: 0)
+
+      described_class.new(course, ArticlesCourses.where(course:)).update_caches_from_timeslices
+    end
+
+    it 'sums the character sum of every timeslice' do
+      expect(articles_course.reload.character_sum).to eq(9012)
+    end
+
+    it 'sums the references count of every timeslice' do
+      expect(articles_course.reload.references_count).to eq(9)
+    end
+
+    it 'collects the ids of the users who edited' do
+      expect(articles_course.reload.user_ids).to match_array([2, 3])
+    end
+
+    it 'does not collect users whose timeslices have no revisions' do
+      expect(articles_course.reload.user_ids).not_to include(4)
+    end
+
+    it 'marks the article as new when any timeslice is new' do
+      expect(articles_course.reload.new_article).to be true
+    end
+
+    it 'takes the earliest first revision' do
+      expect(articles_course.reload.first_revision).to eq('2024-07-06 03:45:04')
+    end
+  end
+
   describe '#update_caches_from_timeslices with no timeslices' do
     let(:articles_course) do
       create(:articles_course, article:, course:, character_sum: 999, references_count: 5,
