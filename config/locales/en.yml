@@ -88,6 +88,7 @@ en:
     change: Change
     details: Details
     confirm: OK
+    confirm_generic: Are you sure you want to do this?
     opt_in: "Yes"
     opt_out: "No"
     opt_yes: "yes"
@@ -1725,6 +1726,23 @@ en:
     week_number: "Week %{number}"
     add_block: Add Block
     delete_week: Delete Week
+    add_standard_block: Add Standard Block
+    standard_blocks: Standard Blocks
+    standard_block_add: Add
+    standard_block_filter: Filter blocks
+    standard_block_matches: Matches
+    standard_block_does_not_match: Does not match
+    standard_block_match_unknown: Unknown
+    standard_block_already_added: Already in timeline
+    sandbox_mode: Sandbox Mode
+    sandbox_mode_current_sandboxes: Drafting in sandboxes
+    sandbox_mode_current_live: Editing live articles
+    sandbox_mode_switch_to_live: Switch to live editing
+    sandbox_mode_switch_to_sandboxes: Switch to sandboxes
+    sandbox_mode_added: Blocks added
+    sandbox_mode_removed: Blocks removed
+    sandbox_mode_unmatched: "Expected block(s) not found. Title(s) may have been edited."
+    sandbox_mode_unresolved: "These blocks also depend on an unknown wizard answer, and have not been changed."
 
 
   training:
