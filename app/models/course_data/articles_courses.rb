@@ -76,12 +76,12 @@ class ArticlesCourses < ApplicationRecord
 
   def self.update_required_caches_from_timeslices(course)
     update_all_caches_from_timeslices(
-      where(course:, article_id: articles_courses_to_update(course))
+      course, where(course:, article_id: articles_courses_to_update(course))
     )
   end
 
-  def self.update_all_caches_from_timeslices(articles_courses)
-    ArticlesCoursesCacheManager.new(articles_courses).update_caches_from_timeslices
+  def self.update_all_caches_from_timeslices(course, articles_courses)
+    ArticlesCoursesCacheManager.new(course, articles_courses).update_caches_from_timeslices
   end
 
   # Creates missing ArticlesCourses records for the given course revisions whose
