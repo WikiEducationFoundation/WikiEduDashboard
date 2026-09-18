@@ -2619,6 +2619,59 @@ describe LtiLaunchController, type: :request do
           expect(response.body).to match(%r{<dd>\s*1\s*<a})
         end
 
+        # The one page an instructor has inside Canvas under 1.1: every enrolled
+        # student, whether they came through Canvas or the passcode, each with a
+        # disclosure of their work and a link out to their details page.
+        it 'lists every enrolled student with a disclosure of their work' do
+          launched = create(:user, username: 'Launched_Stu')
+          passcode = create(:user, username: 'Passcode_Stu')
+          [launched, passcode].each do |student|
+            CoursesUsers.create!(course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+          end
+          LtiContext.create!(user: launched, lti_course_binding: binding,
+                             user_lti_id: 'legacy-launched', lms_id: 'platform-x',
+                             roles: ['Learner'], linked_at: 1.hour.ago)
+          get '/lti', params: legacy_params
+          expect(response.body).to include('Launched_Stu').and include('Passcode_Stu')
+          expect(response.body).to include("/courses/#{course.slug}/students/articles/Passcode_Stu")
+          expect(response.body).to include("aria-controls='student-0'")
+          expect(response.body).to include(I18n.t('lti.assignment_view.submission.details'))
+        end
+
+        it 'says so when the course has no students yet' do
+          get '/lti', params: legacy_params
+          expect(response.body).to include(I18n.t('courses.students_none'))
+        end
+
+        # The wizard's "0 peer reviews" choice leaves the flag unset, and the
+        # progress service would otherwise report one owed review per student.
+        it 'leaves peer reviews off the roster when the course expects none' do
+          student = create(:user, username: 'Roster_Stu')
+          CoursesUsers.create!(course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+          get '/lti', params: legacy_params
+          expect(response.body).not_to include(I18n.t('lti.status.roster.peer_reviews'))
+          expect(response.body).not_to include(I18n.t('lti.assignment_view.peer_review.reviews'))
+          expect(response.body).to include("colspan='5'")
+        end
+
+        it 'shows the peer-review fraction when the course expects reviews' do
+          course.update!(flags: { peer_review_count: 2 })
+          student = create(:user, username: 'Roster_Stu')
+          CoursesUsers.create!(course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+          get '/lti', params: legacy_params
+          expect(response.body).to include(I18n.t('lti.status.roster.peer_reviews'))
+          expect(response.body).to include('0 / 2')
+          expect(response.body).to include(I18n.t('lti.assignment_view.peer_review.reviews'))
+          expect(response.body).to include("colspan='6'")
+        end
+
+        it 'carries the beta feedback banner, addressed to this page' do
+          get '/lti', params: legacy_params
+          expect(response.body).to include(I18n.t('lti.beta_feedback.message'))
+          expect(response.body).to include('href="/feedback?')
+          expect(response.body).to include(CGI.escape('LTI 1.2.0'))
+        end
+
         it 'does not enqueue a roster sync' do
           get '/lti', params: legacy_params
           expect(LtiRosterSyncWorker).not_to have_received(:perform_async)

@@ -1,15 +1,13 @@
 - # The launch-only (LTI 1.1 "companion mode") variant of the instructor status
-- # view. Under 1.1 there is no roster service, no line-item service and no grade
-- # passback, so the roster row, the sync rows, the grade-sync trigger and the
-- # import/publish next steps of instructor_status have nothing behind them and
-- # are left out rather than rendered as permanently "not yet synced". What is
-- # left is what a 1.1 course can show: the link confirmation and how many
-- # students have connected a Wikipedia account — under 1.1 a student launching
-- # and connecting is the only way in, and there is no roster to count them
-- # against, which is why the roster-sounding count is gone too. No next-step
-- # guidance either: once linked, a 1.1 course has no further setup step, and
-- # what the mode does and doesn't do is install-time knowledge (the guide),
-- # not something to repeat on every launch.
+- # view, and the one page an instructor has inside Canvas under 1.1. There is
+- # no roster service, no line-item service and no grade passback, so the sync
+- # rows, the grade-sync trigger and the import/publish steps of
+- # instructor_status have nothing behind them and are left out. In their place:
+- # every enrolled student, with a disclosure row holding the whole state of
+- # their work and a link out to their Dashboard details page. The roster comes
+- # from the Dashboard's enrollment, not from launches, so a student who joined
+- # with the passcode is listed alongside one who came through Canvas; the
+- # "Connected" mark says which did.
 .lti-iframe__drilldown
   = render 'lti_launch/drilldown_header',
            title: t('lti.status.header'), course: @binding.course, linked_check: true
@@ -19,8 +17,58 @@
       %dd
         = @sync_status.connected_accounts_count
         - # Re-requests the launch URL inside the iframe only (an in-iframe
-        - # anchor never navigates the Canvas page); the count is the one number
-        - # here that changes as students connect.
+        - # anchor never navigates the Canvas page).
         = link_to t('lti.status.refresh'),
                   "/lti?ltik=#{CGI.escape(params[:ltik].to_s)}",
                   class: 'lti-status-list__refresh'
+
+  - if @roster.empty?
+    %p.lti-iframe__empty= t('courses.students_none')
+  - else
+    - # The peer-review column and each disclosure's reviews section appear only
+    - # when the course asks for reviews (InstructorRosterContext#peer_reviews_expected?).
+    - peer_reviews = @roster.peer_reviews_expected?
+    .lti-table-scroll
+      %table.lti-assignment-roster.lti-roster
+        %thead
+          %tr
+            %th= t('lti.assignment_view.roster.student')
+            %th= t('lti.student_overview.trainings')
+            %th= t('lti.student_overview.exercises')
+            - if peer_reviews
+              %th= t('lti.status.roster.peer_reviews')
+            %th= t('lti.assignment_view.article_work.revisions')
+            %th
+        %tbody
+          - @roster.rows.each_with_index do |row, i|
+            - status = row.status
+            %tr
+              %td
+                = row.username
+                - if row.connected
+                  %span.lti-status.lti-status--done.lti-roster__connected= t('lms_integration.connected_accounts')
+              %td= "#{status.trainings_completed} / #{status.training_items.size}"
+              %td= "#{status.exercises_completed} / #{status.exercise_items.size}"
+              - if peer_reviews
+                %td= "#{row.peer_review_progress.completed_count} / #{row.peer_review_progress.total_count}"
+              %td= number_with_delimiter(row.revision_count)
+              %td
+                - # Same toggle as the assignment roster's sandbox rows, and the
+                - # same filled-button styling inside .lti-assignment-roster.
+                %button.lti-sandbox__toggle{ type: 'button', 'aria-controls': "student-#{i}", 'aria-expanded': 'false', 'data-label-show': t('lti.assignment_view.show'), 'data-label-hide': t('lti.assignment_view.hide') }
+                  = t('lti.assignment_view.show')
+            %tr.lti-roster__detail{ id: "student-#{i}", hidden: true }
+              %td{ colspan: peer_reviews ? 6 : 5 }
+                = render 'lti_launch/roster_student_detail', row: row, peer_reviews_expected: peer_reviews
+
+:javascript
+  document.querySelectorAll('.lti-roster .lti-sandbox__toggle').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var panel = document.getElementById(btn.getAttribute('aria-controls'));
+      if (!panel) { return; }
+      var open = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', String(!open));
+      panel.hidden = open;
+      btn.textContent = open ? btn.dataset.labelShow : btn.dataset.labelHide;
+    });
+  });
