@@ -127,6 +127,26 @@ describe ArticlesCourses, type: :model do
     end
   end
 
+  describe '.update_required_caches_from_timeslices for a course that uses ACUWT' do
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+
+    before do
+      course.add_flag(key: :use_acuwt)
+      create(:articles_course, article:, course:)
+      course.flags['update_logs'] = { 1 => { 'end_time' => '2024-07-10'.to_datetime } }
+      course.save
+      # There is no article_course_timeslice, so only the ACUWT records can select
+      # this article for a cache update.
+      create(:article_course_user_wiki_timeslice, article:, course:, wiki:, user_id: 2,
+             start: '2024-07-11', end: '2024-07-12', revision_count: 1, character_sum: 500)
+    end
+
+    it 'picks the articles to update from the ACUWT timeslices' do
+      described_class.update_required_caches_from_timeslices(course)
+      expect(described_class.find_by(course:).character_sum).to eq(500)
+    end
+  end
+
   describe '.update_from_course_revisions' do
     let(:article2) { create(:article, title: 'Second Article', namespace: 0, wiki_id: 2) }
     let(:article3) { create(:article, title: 'Third Article', namespace: 0) }

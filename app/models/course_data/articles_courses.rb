@@ -69,9 +69,18 @@ class ArticlesCourses < ApplicationRecord
       return course.articles_courses.pluck(:article_id)
     end
     Rails.logger.info "Updating partial ArticlesCourses caches for #{course.title}"
-    course.article_course_timeslices.where('updated_at >= ?', last_update)
-          .distinct
-          .pluck(:article_id)
+    articles_with_updated_timeslices(course, last_update)
+  end
+
+  # Reads the same table the caches are computed from, so that the articles selected
+  # here and the stats written for them cannot disagree.
+  def self.articles_with_updated_timeslices(course, last_update)
+    timeslices = if course.use_acuwt?
+                   ArticleCourseUserWikiTimeslice.where(course_id: course.id)
+                 else
+                   course.article_course_timeslices
+                 end
+    timeslices.where('updated_at >= ?', last_update).distinct.pluck(:article_id)
   end
 
   def self.update_required_caches_from_timeslices(course)

@@ -54,13 +54,11 @@ describe ArticlesCoursesCacheManager do
   end
 
   describe '#update_caches_from_timeslices for a course that uses ACUWT' do
-    let(:course) do
-      create(:course, start: '2024-06-16', end: '2024-08-16', flags: { use_acuwt: true })
-    end
     let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
     let(:articles_course) { create(:articles_course, article:, course:) }
 
     before do
+      course.add_flag(key: :use_acuwt)
       articles_course
       create(:article_course_user_wiki_timeslice, article:, course:, wiki:, user_id: 2,
              start: '2024-07-06', end: '2024-07-07', revision_count: 1,
