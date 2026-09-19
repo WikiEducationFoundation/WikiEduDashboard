@@ -26,21 +26,21 @@ const TrainingHamburger = () => {
         <div
           role="button"
           tabIndex={0}
-          className="pull-right training__slide__nav"
+          className="training__slide__nav"
           onClick={toggleMenuOpen_FC}
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
-              toggleMenuOpen_FC();
+              toggleMenuOpen_FC(e);
             }
           }}
         >
-          <div className="pull-right hamburger">
+          <div className="hamburger">
             <span className="hamburger__bar" />
             <span className="hamburger__bar" />
             <span className="hamburger__bar" />
           </div>
-          <span className="pull-right training__slide__page-label">
+          <span className="training__slide__page-label">
             {I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}
           </span>
         </div>

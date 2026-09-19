@@ -107,7 +107,7 @@ class User < ApplicationRecord
   ####################
   # Instance methods #
   ####################
-  def get_recent_course
+  def recent_course
     courses_users.order(id: :desc).first&.course
   end
   def roles(course)

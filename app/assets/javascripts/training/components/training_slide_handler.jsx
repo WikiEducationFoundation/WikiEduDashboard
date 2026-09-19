@@ -64,7 +64,6 @@ const keys = { rightKey: 39, leftKey: 37 };
 
 const TrainingSlideHandler = () => {
   const training = useSelector(state => state.training);
-  //console.log(training)
   const routeParams = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -239,7 +238,7 @@ const TrainingSlideHandler = () => {
    sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">{I18n.t('training.wiki_source')}</a></span>;
  }
   return (
-    <div>
+    <div className="training_content">
       <TrainingNav/>
       <div className="container training">
         <Notifications />

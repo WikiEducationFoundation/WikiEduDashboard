@@ -5,5 +5,4 @@
     "data-return-to" => session[:training_return_to],
     "data-module-name" => @training_module_name,
     "data-current_user" => user_signed_in? && @course.present? ? current_user.roles(@course).to_json : '{ "admin": false, "id": null }', 
-    "data-usersignedin" => user_signed_in?.to_s
     }

@@ -3,10 +3,8 @@
   text-align left
   display inline-block
   position relative
-
   .pop
     background white
-    font-size 15px
     border 1px solid mischka
     border-radius 3px
     box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
@@ -46,7 +44,6 @@
     &.open:before
       left auto
       right 5px
-
     &.right:before
       right auto
       left 5px
@@ -74,54 +71,22 @@
       &.admin-note-create {
        text-align: center
       }
-
   .button + &
     margin-left 10px
-
 .selectPosition
   margin-bottom 7px
   width 275px
-
 .pop__padded-content
   padding 20px
   min-width 330px
-
   form
     margin-bottom 16px
-
   input, form, textarea
     width 100%
     position relative
-
   .icon-search
     position absolute
     right 12px
     top 9px
-
   textarea
     height 180px
-    
-+below(desktop)
-  .pop__container
-    display flex !important
-    justify-content center !important
-    width 100% !important
-
-    .pop
-      left 50% !important
-      right auto !important
-      transform translateX(-50%) scale(.7, .7) !important
-      -webkit-transform translateX(-50%) scale(.7, .7) !important
-      width 90vw !important
-      max-width 360px !important
-
-      &.open
-        transform translateX(-50%) scale(1, 1) !important
-        -webkit-transform translateX(-50%) scale(1, 1) !important
-
-      &:before,
-      &.open:before,
-      &.right:before
-        left 50% !important
-        right auto !important
-        margin-left -6px !important

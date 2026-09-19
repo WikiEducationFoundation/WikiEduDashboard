@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe TrainingController, type: :request do
+describe 'TrainingController', type: :request do
   let(:user) { create(:user) }
   let(:library_id) { 'students' }
   let(:module_id)  { TrainingModule.all.first.slug }
@@ -191,6 +191,93 @@ describe TrainingController, type: :request do
       it 'raises a module not found error' do
         subject
         expect(response.status).to eq(404)
+      end
+    end
+  end
+
+  describe '#slide_view' do
+    subject { get "/training/#{library_id}/#{module_id}/#{any}" }
+
+    before  do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    end
+
+    let(:any) { 'five-pillars' }
+    let (:training_module) { TrainingModule.find_by(slug: module_id) }
+
+    context 'module is legit' do
+      it 'sets TrainingModulesUsers' do
+        subject
+        expect(assigns(:tmu)).to be_an_instance_of(TrainingModulesUsers)
+      end
+
+      it 'sets training_module_name' do
+        subject
+        expect(assigns(:training_module_name)).to eq(training_module.translated_name)
+      end
+    end
+    context 'not a real module' do
+      let(:module_id) { 'lolnotarealmodule' }
+
+      it 'raises a module not found error' do
+        subject
+        expect(response.status).to eq(404)
+      end
+    end
+  end
+
+  describe '#find_recent_course' do
+    subject { get "/training/#{library_id}/#{module_id}/#{any}" }
+    let(:any) { 'five-pillars' }
+
+    before  do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+    context 'when session has a return_to course URL' do
+      let!(:course) { create(:course, slug:'School/Course_(2026)') }
+      before do
+        get "/training/#{library_id}/#{module_id}",params: { return_to: '/courses/School/Course_(2026)' }
+      end
+
+      it 'sets course_slug from the session' do
+        subject
+        expect(assigns(:course_slug)).to eq('School/Course_(2026)')
+      end
+
+      it 'sets course from the session slug' do
+        subject
+        expect(assigns(:course)).to eq(course)
+      end
+    end
+
+    context 'when there is no session but the user has a recent course' do
+      let(:old_course) { create(:course) }
+      let(:new_course) { create(:course, slug: 'School/New_Course') }
+
+      before do
+        create(:courses_user,course_id: course.id, user_id: user.id)
+      end
+
+      it 'sets course slug from recent_course ' do
+        subject
+        expect(assigns(:course_slug)).to eq('School/New_Course' )
+      end
+
+      it 'sets course as recent_course' do
+        subject
+        expect(assigns(:course)).to eq(new_course)
+      end
+    end
+
+    context 'when there is no session and no recent course' do
+      it 'sets course slug as nil' do
+        subject
+        expect(assigns(:course_slug)).to be_nil
+      end
+      it 'sets course as nil' do
+        subject
+        expect(assigns(:course)).to be_nil
       end
     end
   end

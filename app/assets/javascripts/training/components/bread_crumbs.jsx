@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 const BreadCrumbs = () => {
     const params = useParams();
     const moduleName = document.getElementById('react_root').getAttribute('data-module-name');
-    console.log(params)
     return (
         <>
             <ol className='breadcrumbs'>

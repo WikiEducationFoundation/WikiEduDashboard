@@ -22,25 +22,26 @@ const TrainingNav = (props)=>{
        return courseSlug;
     }
   };
-  const usersignedin = document.getElementById("react_root").getAttribute("data-usersignedin")  === "true";
  return (
-    <header className="training__slide-header">
+     <header className="training__slide-header">
       <div className="training__nav-container">
         <div className="training__breadcrumbs nav__item">
-          <BreadCrumbs/>
+          <BreadCrumbs />
         </div>
         <div className="training__actions nav__item">
-          {usersignedin && (
-
-                      <div className="nav__button" id="get-help-button">
-
-                        <GetHelpButton course={props.course} currentUser={props.currentUser} key="get_help"/></div>)}
-          <div className="hamburger-wrapper ">
-            <TrainingHamburger/>
-          </div>
+          {Features.enableGetHelpButton && (
+            <div className="nav__button" id="get-help-button">
+              <GetHelpButton
+                course={props.course}
+                currentUser={props.currentUser}
+                key="get_help"
+              />
+            </div>
+          )}
+          <TrainingHamburger />
         </div>
       </div>
-  </header>
+    </header>
 )
 };
 

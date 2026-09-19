@@ -41,17 +41,15 @@ class TrainingController < ApplicationController
 
   def slide_view
     training_module = TrainingModule.find_by(slug: params[:module_id])
-    @training_module_name = training_module.name
     raise ActionController::RoutingError, 'not found' if training_module.nil?
     if current_user
       @tmu = TrainingModulesUsers.find_or_create_by(
         user_id: current_user.id,
         training_module_id: training_module.id
       )
+      @training_module_name = training_module.translated_name
       find_recent_course
     end
-    add_training_root_breadcrumb
-    add_module_breadcrumb(training_module)
   end
 
   def reload
@@ -85,20 +83,20 @@ class TrainingController < ApplicationController
   end
 
   def find_recent_course
-    recent_course_object = current_user.get_recent_course
-    if recent_course_object.present?
-        @course_slug = recent_course_object.slug
-        @course = find_course_by_slug(@course_slug)
-      elsif session[:training_return_to].present? && 
-            session[:training_return_to].include?("/courses/")
-        url = URI.parse(session[:training_return_to])
-        _, _, course_school, course_title, = url.path.split('/')
-        @course_slug = "#{course_school}/#{course_title}"
-        @course = find_course_by_slug(@course_slug)
-      else
-        @course_slug = nil
-        @course = nil
-      end
+    recent_course_object = current_user.recent_course
+    if session[:training_return_to].present? &&
+      session[:training_return_to].include?("/courses/")#
+      url = URI.parse(session[:training_return_to])
+      _, _, course_school, course_title, = url.path.split('/')
+      @course_slug = "#{course_school}/#{course_title}"
+      @course = Course.find_by(slug: @course_slug)
+    elsif recent_course_object.present?
+      @course_slug = recent_course_object.slug
+      @course = Course.find_by(slug: @course_slug)
+    else
+      @course_slug = nil
+      @course = nil
+    end
   end
   
   def add_library_breadcrumb
