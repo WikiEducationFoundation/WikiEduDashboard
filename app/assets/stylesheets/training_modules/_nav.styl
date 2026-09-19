@@ -19,9 +19,12 @@ body.training nav.top-nav
       content " > "
 
 .training__slide-header
-  padding 12px 0 16px 0
+  position relative
   height auto
+  padding 0
   background $training_primary
+  +below(desktop - 1)
+    margin-top 50px
   ol.breadcrumbs
     width 85%
     @extends .breadcrumbs
@@ -42,9 +45,101 @@ body.training nav.top-nav
         color $breadcrumb_light_text
         font-weight 400
         letter-spacing 0
-  +below(tablet)
-    padding 62px 0 16px 0
+  .pop
+    font-size 15px
+  .training__nav-container
+    display flex
+    align-items center
+    justify-content space-between
+    padding 0 40px
+    gap 30px
+    .training-btn
+      background-color #e5e7eb
+      color #1f2937
+    .training__breadcrumbs
+      flex 1
+      min-width 0
+      ol, ul, .breadcrumbs
+        margin 0
+        padding 0
+    .training__actions
+      display flex
+      align-items center
+      gap 1rem
+      .training__slide__nav
+        position static
+        float none
+        left auto
+        right auto
+        margin 0
+      .nav__button
+        position static
+        float none
+        left auto
+        right auto
+        margin 0
 
+  +below(desktop)
+    padding 8px 0
+    .training__nav-container
+      flex-direction column
+      align-items stretch
+      gap 8px
+      padding 0 16px
+    .training__actions
+      flex-direction column
+      align-items center
+      justify-content center
+      gap 8px
+      width 100%
+      .nav__button
+        display flex
+        justify-content center
+        align-items center
+        width 100%
+        margin 0
+      .training__slide__nav
+        justify-content center
+        gap 6px
+        position static
+        float none
+        left auto
+        right auto
+        top auto
+        width auto
+        height auto
+        padding 8px 12px
+        margin 0
+    .training__breadcrumbs
+      text-align center
+    .pop__container
+      display flex
+      justify-content center
+      width 100%
+      .pop
+        left 50%
+        right auto
+        transform translateX(-50%) scale(.7, .7)
+        -webkit-transform translateX(-50%) scale(.7, .7)
+        width 90vw
+        max-width 360px
+        &.open
+          transform translateX(-50%) scale(1, 1)
+          -webkit-transform translateX(-50%) scale(1, 1)
+        &:before,
+        &.open:before,
+        &.right:before
+          left 50%
+          right auto
+          margin-left -6px
+    .slide__menu__nav__dropdown
+      top 100%
+      left 50%
+      right auto
+      transform translateX(-50%)
+      width 90vw
+      max-width 360px
+      z-index 1000
 .training__show
   ol.breadcrumbs
     width 66%
@@ -62,8 +157,6 @@ body.training nav.top-nav
       margin 70px 52px 0px 10px
       width 100%
 
-
-
 a.slide-nav
   max-width 45%
   display block
@@ -74,10 +167,13 @@ a.slide-nav
 
 .training__slide__nav
   cursor pointer
-  display inline-block
+  display flex
+  flex-direction row-reverse
+  align-items center
+  gap 6px
   position absolute
-  right 0px
-  top -90px
+  right 70px
+  top 0px
   color #fff
   height 55px
   width 192px
@@ -108,7 +204,7 @@ a.slide-nav
 .slide__menu__nav__dropdown
   float left
   position absolute
-  top -90px
+  top 40px
   right 10px
   background $light_bg
   padding 5px 0
