@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { parse } from 'query-string';
+import { parse } from '~/app/assets/javascripts/utils/query_string';
 import { Route, Routes } from 'react-router-dom';
 import withRouter from '../util/withRouter';
 import OverviewHandler from '../overview/overview_handler.jsx';

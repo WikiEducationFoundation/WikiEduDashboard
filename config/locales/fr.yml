@@ -1701,11 +1701,6 @@ fr:
   status:
     active_jobs: Tâches en cours
     active_jobs_doc: Le nombre de tâches en cours de traitement.
-    acuwt_update: Mise à jour d’ACUWT
-    acuwt_update_description: ACUWT met à jour les programmes de cours basés sur des
-      articles comportant des milliers d’articles.
-    acuwt_update_doc: Gérer les mises à jour des cours du programme portant sur des
-      articles de grande envergure.
     all_queues_operational: Toutes les files d’attente sont opérationnelles
     all_queues_not_operational: Toutes les files d’attente sont opérationnelles sauf
     constant_update: Mise à jour constante

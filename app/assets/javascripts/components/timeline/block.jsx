@@ -186,7 +186,7 @@ const updateBlock = (valueKey, value) => {
     }
 
     return (
-      <li className={className}>
+      <li className={className} id={`block-${block.id}`}>
         {blockActions}
         {editButton}
         <div className="block__edit-container">

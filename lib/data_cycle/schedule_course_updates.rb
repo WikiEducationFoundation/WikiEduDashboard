@@ -50,11 +50,11 @@ class ScheduleCourseUpdates
       log_message "Set course #{course.slug} to queue #{queue}"
       CourseDataUpdateWorker.update_course(course_id: course.id, queue:)
 
-      # if course isn't updated before, add first update flags
+      # if course isn't updated before, add first update flags.
+      # This course object was loaded at the start of the pass, so write the
+      # flag through add_flag rather than saving the stale copy wholesale.
       next if course.flags[:first_update] || course.flags['update_logs']
-      first_update = first_update_flags(course)
-      course.flags[:first_update] = first_update
-      course.save
+      course.add_flag(key: :first_update, value: first_update_flags(course))
     end
   end
 

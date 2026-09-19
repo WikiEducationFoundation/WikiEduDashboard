@@ -1,9 +1,13 @@
 # frozen_string_literal: true
 
-# Entry point for LTI 1.3 launches from an LMS, mediated by LTIAAS.
+# Entry point for LTI launches from an LMS: LTI 1.3 launches mediated by
+# LTIAAS, and LTI 1.1 launches the Dashboard terminates itself.
 #
 # Flow:
 #   1. /lti?ltik=... — primary launch endpoint, runs inside the LMS iframe.
+#      An LTI 1.1 launch arrives here too, redirected by
+#      LtiLegacyLaunchesController with a token we signed rather than one
+#      LTIAAS minted; from this point the two are indistinguishable.
 #   2. If no current_user (the normal state in the iframe — cookies there
 #      are partitioned away from the top-level dashboard session), the ltik
 #      still authenticates the launch, so read-only views render in place:
@@ -33,6 +37,14 @@
 # Nothing in that dispatch is specific to the course-navigation placement:
 # an institution can leave the nav tab off and drive the whole integration
 # from the deep-link / assignment launches instead.
+#
+# A legacy (LTI 1.1) launch takes the same dispatch in "companion mode": the
+# setup flow, identity approval, enrollment and the student overview all carry
+# over, and every launch is treated as the course-navigation one (there are no
+# assignments to drill into). What differs is what the instructor is shown
+# (a status view without the roster/grade-sync machinery) and that the
+# deep-link, grade-sync and sync-worker surfaces refuse — see
+# LtiCourseBinding#legacy?.
 class LtiLaunchController < ApplicationController
   include LtiDeepLinking
   include LtiAssignmentViews
@@ -40,6 +52,7 @@ class LtiLaunchController < ApplicationController
   include LtiAnonymousLaunch
   include LtiGradeSyncTrigger
   include LtiLaunchSession
+  include LtiLegacyLaunches
 
   # Every launch-flow view is a minimal, chrome-less page rather than the full
   # dashboard React shell. The setup / setup_pending / enrollment_* views were
@@ -177,7 +190,15 @@ class LtiLaunchController < ApplicationController
   # `submission` both arriving. Trust our own markers as well as the claims. They
   # are not authorization: the marker is validated against the bound course's own
   # gradables, and who may see what still comes from the launch identity.
+  #
+  # Never for a legacy launch. Under LTI 1.1 the Dashboard creates no
+  # assignments and binds no line items, so there is nothing for a drill-down to
+  # resolve — a launch from a 1.1 assignment an instructor hand-made would only
+  # reach the orphan view. Every 1.1 launch is the course-navigation launch: the
+  # student overview, or the instructor status view.
   def assignment_launch?
+    return false if @lti_session.legacy?
+
     params[:submission].present? || params[:resource].present? ||
       @lti_session.deep_link_resource.present? ||
       @lti_session.canvas_assignment_id.present? ||
@@ -208,9 +229,22 @@ class LtiLaunchController < ApplicationController
   # also kicks off a fresh roster sync, so the numbers shown may lag it by
   # a few moments.
   def render_instructor_status(sync_roster: true)
+    return render_legacy_instructor_status if @binding.legacy?
+
     LtiRosterSyncWorker.perform_async(@binding.id) if sync_roster
     @sync_status = LtiSyncStatus.new(@binding)
     render 'lti_launch/instructor_status'
+  end
+
+  # The launch-only (LTI 1.1) variant: nothing to sync, so no roster sync is
+  # kicked off and the view carries none of the sync rows, the grade-sync
+  # trigger or the import/publish steps. What it has instead is the whole
+  # enrollment, one disclosure row per student, since this is the only page an
+  # instructor gets inside Canvas under 1.1.
+  def render_legacy_instructor_status
+    @sync_status = LtiSyncStatus.new(@binding)
+    @roster = InstructorRosterContext.new(binding: @binding)
+    render 'lti_launch/instructor_status_legacy'
   end
 
   # Assigns for the setup view. An instructor with no Dashboard courses at
@@ -289,10 +323,15 @@ class LtiLaunchController < ApplicationController
   # Returning false means a concurrent bind of the same Dashboard course won the
   # race — the unique index on course_id is the authority — which the caller
   # reports the same way as the pre-checked case.
+  #
+  # A legacy (LTI 1.1) binding has no roster or line-item service to sync, so it
+  # is bound and nothing is enqueued.
   def bind_course_and_sync
     @binding.update!(course: course_from_params)
-    LtiRosterSyncWorker.perform_async(@binding.id)
-    LtiLineItemSyncWorker.perform_async(@binding.id)
+    unless @binding.legacy?
+      LtiRosterSyncWorker.perform_async(@binding.id)
+      LtiLineItemSyncWorker.perform_async(@binding.id)
+    end
     true
   rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
     false

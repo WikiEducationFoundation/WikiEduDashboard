@@ -209,6 +209,7 @@ skr-arab:
     timeline_link: ٹائم لائن
     timeline_nav: ٹائم لائن تے ون٘ڄو
     title: عنوان
+    unsubmitted_show_all: سب ݙکھاؤ
     view: کورس ݙیکھو
     view_page: کورس ورقہ ݙیکھو
     view_wiki: وکی پیڈیا تے ݙیکھو
@@ -255,6 +256,11 @@ skr-arab:
     revisions: حالیہ تبدیلیاں
     tags: ٹیگ
     view: ݙکھالے
+  report_cards:
+    campaign: مہم
+    pending: وچار ہیٹھ
+    not_applicable: —
+    total: مجموعہ
   recent_activity:
     article_title: مضمون دا عنوان
     datetime: تریخ/ویلا

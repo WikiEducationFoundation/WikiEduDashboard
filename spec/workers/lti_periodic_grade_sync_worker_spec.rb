@@ -41,6 +41,25 @@ describe LtiPeriodicGradeSyncWorker do
     expect(LtiCourseBinding.find(enqueued.first).course).to eq(active_course)
   end
 
+  # Excluded by version, not by the absence of credentials: a legacy (LTI 1.1)
+  # binding has no AGS, and must stay out even if a key were ever stored on it.
+  it 'leaves a legacy (LTI 1.1) binding out even when it has credentials' do
+    legacy_course = create(:course, slug: 'school/legacy_(term)',
+                                    start: 30.days.ago, end: 30.days.from_now)
+    legacy = LtiCourseBinding.create!(
+      course: legacy_course, lms_id: 'p-legacy', lms_family: 'canvas',
+      lms_context_id: 'c-legacy', lms_resource_link_id: 'r-legacy',
+      ltiaas_service_credentials: 'legacy-key', lti_version: '1.2.0'
+    )
+    enqueued = []
+    allow(LtiGradeSyncWorker).to receive(:perform_async) { |id| enqueued << id }
+
+    described_class.new.perform
+
+    expect(enqueued).not_to include(legacy.id)
+    expect(legacy.reload.last_grade_sync_attempt_at).to be_nil
+  end
+
   it 'caps enqueues per cycle at PER_CYCLE_LIMIT' do
     stub_const('LtiPeriodicGradeSyncWorker::PER_CYCLE_LIMIT', 0)
     expect(LtiGradeSyncWorker).not_to receive(:perform_async)

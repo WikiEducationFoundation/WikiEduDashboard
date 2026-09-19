@@ -31,6 +31,11 @@ gem 'fuzzily_reloaded' # fuzzy search for ActiveRecord tables
 
 ### Login, authentication, browser support
 gem 'devise' # user session management
+# OAuth 1.0a, for verifying the signature on an inbound LTI 1.1 launch
+# (VerifyLtiLegacyLaunch). Already present transitively via omniauth-oauth;
+# declared here because our own code depends on it directly.
+gem 'oauth'
+
 # Login via MediaWiki OAuth. This fork adds features to support account creation flow.
 gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.git'
 # Parses user agent strings to determine which browser is in use.
@@ -129,6 +134,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'bundler-audit', require: false
   gem 'pry-rails'
   gem 'byebug'
   gem 'rspec-rails', '6.1.0'

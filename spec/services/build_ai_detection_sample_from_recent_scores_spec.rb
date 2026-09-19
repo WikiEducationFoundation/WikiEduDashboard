@@ -9,10 +9,13 @@ describe BuildAiDetectionSampleFromRecentScores do
   let(:campaign) { create(:campaign, slug: 'fall_2026') }
   let(:article) { create(:article, namespace: 2, wiki_id: enwiki.id) }
 
+  # The builder samples whichever detector production alerting uses, so these
+  # rows follow that constant rather than naming a model that may be cut over.
   def production_score(rev_id, max, created_at: 1.day.ago, origin: 'course_update')
     RevisionAiScore.create!(revision_id: rev_id, wiki_id: enwiki.id, article_id: article.id,
                             course_id: course.id, max_ai_likelihood: max, avg_ai_likelihood: max,
-                            check_type: 'Pangram 3', check_origin: origin, created_at:)
+                            check_type: CheckRevisionWithPangram::DETECTOR_KEY,
+                            check_origin: origin, created_at:)
   end
 
   before do
@@ -37,8 +40,10 @@ describe BuildAiDetectionSampleFromRecentScores do
     expect(unit).to have_attributes(article_id: article.id, course_id: course.id,
                                     campaign_slug: 'fall_2026', namespace: 2, diff_mode: true,
                                     url: 'https://en.wikipedia.org/w/index.php?diff=103')
-    expect(unit.metadata).to include('band' => 'high', 'source_max_ai_likelihood' => 0.95,
-                                     'source_check_type' => 'Pangram 3')
+    expect(unit.metadata).to include(
+      'band' => 'high', 'source_max_ai_likelihood' => 0.95,
+      'source_check_type' => CheckRevisionWithPangram::DETECTOR_KEY
+    )
   end
 
   it 'limits each band to per_band units' do

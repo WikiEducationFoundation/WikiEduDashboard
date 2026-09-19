@@ -14,7 +14,9 @@
 #   step instructions      <step id>_instructions      (optional)
 #   choice question        <question id>_question
 #   choice option          <question id>_options.<value>
+#   option description     <question id>_option_descriptions.<value>  (optional)
 #   text question          <question id>_label
+#   prompt                 <question id>_prompt
 #
 # Step numbering is derived, not written into the copy, so reordering steps
 # renumbers them on its own. Steps 1 and 2 (select an article, select a claim)
@@ -31,6 +33,17 @@ first_step_number: 3
 #
 # `required: true` blocks submission until the question is answered. Only choice
 # questions are ever required; the free-text ones are always optional.
+#
+# A `type: prompt` item is not a question: it is a sentence shown in the flow
+# of questions, gated like any of them, with an optional `action` button — see
+# ACTIONS in app/assets/javascripts/components/claim_verification_exercise/
+# VerificationForm.jsx for the actions available. It takes no answer.
+#
+# `illustration` names a client-side component shown between a step's
+# instructions and its questions — see ILLUSTRATIONS in
+# app/assets/javascripts/components/claim_verification_exercise/VerificationForm.jsx
+# for the names available. Its copy lives under `<illustration name>` in the
+# same locale namespace.
 #
 # `retired_options` lists a choice question's answers that are no longer offered
 # but are still on record: a response recorded with one keeps it, shows its label
@@ -60,6 +73,13 @@ steps:
         type: choice
         required: true
         options: [accessed, nonexistent, inaccessible]
+      # A student who couldn't get the source shouldn't end the exercise here:
+      # point them back to the picker to take a different claim.
+      - id: choose_another_claim
+        type: prompt
+        action: choose_different_claim
+        visible_when:
+          source_access: [nonexistent, inaccessible]
       # Only asked of students who couldn't get the source.
       - id: source_access_notes
         type: text
@@ -72,6 +92,9 @@ steps:
   - id: verify
     visible_when:
       source_access: [accessed]
+    # A worked example — screenshots of a claim that verifies and one that
+    # doesn't — between the tips and the verdict question.
+    illustration: verification_example
     questions:
       - id: verdict
         type: choice

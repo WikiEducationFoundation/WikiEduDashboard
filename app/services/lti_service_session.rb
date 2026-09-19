@@ -10,10 +10,25 @@
 # CreateLtiCourseBindings migration for why, and
 # docs/canvas_integration_todos.md for the pre-production dependency that
 # tracks it.
+#
+# 1.3 bindings only. A legacy (LTI 1.1) binding has none of these services
+# behind it — no NRPS, no line items, no AGS scores; LTIAAS refuses 1.3 service
+# calls made with legacy credentials — so construction fails closed rather than
+# letting a future caller discover that one request at a time.
 class LtiServiceSession
   attr_reader :binding
 
+  # Raised when a legacy binding reaches a 1.3 service session. The sync
+  # services skip legacy bindings before getting here; this is the guard for
+  # any caller that doesn't.
+  class NoLtiServicesError < StandardError; end
+
   def initialize(binding)
+    if binding.legacy?
+      raise NoLtiServicesError,
+            "binding #{binding.id} is LTI #{binding.lti_version}; no NRPS/AGS behind it"
+    end
+
     @binding = binding
     @client = LtiaasClient.with_service_auth(
       ENV['LTIAAS_DOMAIN'],

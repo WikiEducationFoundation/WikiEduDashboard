@@ -42,11 +42,11 @@ start C:\xampp\mysql\bin\mysqld
 echo [+] XAMPP install complete!
 
 echo [*] Creating databases...
-echo CREATE DATABASE IF NOT EXISTS dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; CREATE DATABASE IF NOT EXISTS dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci; exit| C:\xampp\mysql\bin\mysql -u root
+echo CREATE DATABASE IF NOT EXISTS dashboard DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci; CREATE DATABASE IF NOT EXISTS dashboard_testing DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci; exit| C:\xampp\mysql\bin\mysql -u root
 echo [+] Databases created!
 
 echo [*] Creating User for Mysql...
-echo CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';GRANT ALL PRIVILEGES ON dashboard . * TO 'wiki'@'localhost';GRANT ALL PRIVILEGES ON dashboard_testing . * TO 'wiki'@'localhost';exit| C:\xampp\mysql\bin\mysql -u root
+echo CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';GRANT ALL PRIVILEGES ON `dashboard%%`.* TO 'wiki'@'localhost';exit| C:\xampp\mysql\bin\mysql -u root
 echo [+] Database user created!
 
 

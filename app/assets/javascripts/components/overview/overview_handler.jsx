@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import createReactClass from 'create-react-class';
 import PropTypes from 'prop-types';
-import { parse } from 'query-string';
+import { parse } from '~/app/assets/javascripts/utils/query_string';
 import withRouter from '../util/withRouter';
 import OverviewStats from './overview_stats.jsx';
 import AvailableActions from './available_actions.jsx';

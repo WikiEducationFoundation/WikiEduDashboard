@@ -41,10 +41,10 @@ class Fall2026ResearchExperiment < OptInExperiment
     # Shown above the step-by-step instruction, to say what this step is for
     # before the student is handed a line of JavaScript to paste.
     install_explanation: <<~EXPLANATION,
-      Thank you for opting in to our research project! To enable the features we're studying, you'll need to install the `wickie.js` script for your Wikipedia account. (This is the only extra step you'll need to take.)
+      Thank you for opting in to our research project! To enable the features we're studying, you'll need to install the `wickie.js` script for your Wikipedia account. (This is the only extra step you'll need to take. Nothing will be downloaded to your device.)
     EXPLANATION
     install_message: <<~INSTALL,
-      To enable the experiment, copy the line below, click 'Install script', paste it to your common.js page, then "Publish changes".
+      To enable the experiment, copy the line below, click 'Install script', paste it to your common.js page, then "Publish changes". (If you see an error message, make sure you're logged on en.wikipedia.org.)
     INSTALL
     install_button: 'Install script',
     install_copy_button: 'Copy',

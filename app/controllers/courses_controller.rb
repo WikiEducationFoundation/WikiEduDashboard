@@ -46,8 +46,9 @@ class CoursesController < ApplicationController
 
   def update
     validate
-    handle_course_announcement(@course.instructors.first)
     slug_from_params if should_set_slug?
+    reject_rename_of_event_synced_course { return }
+    handle_course_announcement(@course.instructors.first)
     @course.update update_params
     update_courses_wikis
     update_course_wiki_namespaces
@@ -63,6 +64,7 @@ class CoursesController < ApplicationController
 
   def destroy
     validate
+    reject_deletion_of_event_synced_course { return }
     DeleteCourseWorker.schedule_deletion(course: @course, current_user:)
     render json: { success: true }
   end
@@ -315,6 +317,24 @@ class CoursesController < ApplicationController
     course[:slug] = slug.tr(' ', '_')
   end
 
+  # Courses linked to a Wikimedia Event Registration event are looked up by slug
+  # by the CampaignEvents extension, which has no way to learn that the course
+  # went away. Deleting or renaming one silently breaks registration for that
+  # event (see https://phabricator.wikimedia.org/T437639), so refuse until the
+  # organizer unlinks the event first.
+  def reject_deletion_of_event_synced_course
+    return unless @course.controlled_by_event_center?
+    render json: { message: I18n.t('courses.error.event_sync_delete') }, status: :conflict
+    yield
+  end
+
+  def reject_rename_of_event_synced_course
+    return unless @course.controlled_by_event_center?
+    return unless params[:course][:slug].present? && params[:course][:slug] != @course.slug
+    render json: { message: I18n.t('courses.error.event_sync_rename') }, status: :conflict
+    yield
+  end
+
   def ensure_passcode_set
     return unless course_params[:passcode].nil?
     @course.update(passcode: GeneratePasscode.call)
@@ -377,6 +397,7 @@ class CoursesController < ApplicationController
     update_course_format
     update_last_reviewed
     update_assignment_settings
+    @course.save
   end
 
   UPDATABLE_FLAGS = [
@@ -398,7 +419,6 @@ class CoursesController < ApplicationController
         @course.flags[flag] = false
       end
     end
-    @course.save
   end
 
   EDIT_SETTING_KEYS = %w[
@@ -410,23 +430,24 @@ class CoursesController < ApplicationController
       update_flags[key] = params.dig(:course, key)
     end
     @course.flags['edit_settings'] = update_flags
-    @course.save
   end
 
   def update_academic_system
     @course.flags['academic_system'] = params.dig(:course, 'academic_system')
-    @course.save
   end
 
   def update_course_format
     @course.flags['format'] = params.dig(:course, 'format')
-    @course.save
   end
 
   def update_timeslice_duration
     # Set the default timeslice_duration to the default value
     @course.flags[:timeslice_duration] = { default: TimesliceManager::TIMESLICE_DURATION }
-    @course.save
+  end
+
+  # New courses use the ACUWT update path; existing courses are migrated separately.
+  def update_use_acuwt
+    @course.flags[:use_acuwt] = true
   end
 
   def update_last_reviewed
@@ -437,15 +458,12 @@ class CoursesController < ApplicationController
       'username' => username,
       'timestamp' => timestamp
     }
-    @course.save
   end
 
   def update_assignment_settings
     max_group_size = params.dig(:course, :flags, :max_group_size)
 
     @course.flags[:max_group_size] = max_group_size.to_i if max_group_size.present?
-
-    @course.save
   end
 
   def handle_post_course_creation_updates
@@ -454,6 +472,8 @@ class CoursesController < ApplicationController
     update_academic_system
     update_course_format
     update_timeslice_duration
+    update_use_acuwt
+    @course.save
   end
 
   def course_params

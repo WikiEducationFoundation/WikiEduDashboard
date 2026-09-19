@@ -24,32 +24,36 @@ pl:
   number:
     human:
       decimal_units:
-        format: '%n%u'
+        format: '%n %u'
         units:
-          thousand: K
-          million: M
-          billion: B
-          trillion: T
-          quadrillion: Q
+          thousand: tys.
+          million: mln
+          billion: mld
+          trillion: bln
+          quadrillion: bld
   accessibility:
-    number_field: To jest pole numeryczne. Przyciski renderowane przez większość przeglądarek
-      zwiększają i zmniejszają wprowadzoną wartość.
+    number_field: To jest pole liczbowe. Przyciski wyświetlane przez większość przeglądarek
+      umożliwiają zwiększanie i zmniejszanie wprowadzonej wartości.
   application:
+    back: Wstecz
     cancel: Anuluj
+    next: Dalej
+    skip_to_main_content: Przejdź do głównej treści
     cookie_consent: Ta strona używa ciasteczek, aby utrzymać Twoją sesję logowania,
       i przechowuje informacje związane z Twoim kontem w Wikipedii.
     cookie_consent_acknowledge: Rozumiem
     cookie_consent_see_more: Zobacz więcej.
-    create_accounts: Stwórz konta Wikipedia
-    dashboard: Centrum programów i wydarzeń
+    create_accounts: Utwórz konta w Wikipedii
+    dashboard: Pulpit nawigacyjny Wiki Ed
     documentation: Dokumentacja
     error: 'Wystąpił błąd:'
-    explore: Odkryj
-    field_required: Wypełnienie tego pola jest obowiązkowe
+    explore: Odkrywaj
+    field_required: To pole jest wymagane
     field_invalid_characters: To pole zawiera niedozwolone znaki
-    field_invalid_date: To pole wymaga daty w formacie RRRR-MM-DD
-    field_invalid_date_time: Koniec musi nastąpić później niż początek. (dopuszczalne
-      godziny od 0 do 23)
+    field_invalid_term: Termin musi zawierać rok (np. „Wiosna 2026”)
+    field_invalid_date: To pole wymaga podania daty w formacie RRRR-MM-DD
+    field_invalid_date_time: Koniec musi następować po początku (godziny liczone są
+      od 0 do 23).
     greeting2: Witaj!
     greeting_extended: Witaj w Wikipedii
     greeting: Witaj!
@@ -57,62 +61,154 @@ pl:
     home: Strona główna
     log_in_extended: Zaloguj się za pomocą Wikipedii
     log_in: Zaloguj się
-    log_out: Wyloguj
-    my_dashboard: Moje Centrum
+    log_out: Wyloguj się
+    my_dashboard: Mój pulpit
+    okay: Okej
     recent_activity: Ostatnia aktywność
     report_problem: Zgłoś problem
-    request_account: Złóż wniosek o założenie konta
+    request_account: Złóż wniosek o konto
     request_account_create: Utwórz konto
     search: zadaj pytanie
-    search_results: 'Wyniki dla zapytania: ''%{search_terms}'''
-    no_results: Nie znaleziono wyników dla '%{query}'
-    sign_up_extended: Zarejestruj się w Wikipedii
-    sign_up_wikipedia: Lub zarejestruj się z użyciem konta Wikipedia
-    sign_up_log_in_extended: z Wikipedią
+    search_results:
+      other: '%{count} wynik dla zapytania: „%{search_terms}”'
+    no_results: Nie znaleziono wyników dla zapytania „%{query}”
+    show_current_revision: Pokaż aktualną wersję
+    show_last_revision: Pokaż ostatnio edytowaną wersję
+    font_label: Czcionka
+    font_sans: Bezszeryfowa
+    font_serif: Szeryfowa
+    sign_up_extended: Zarejestruj się za pomocą Wikipedii
+    sign_up_wikipedia: Lub zarejestruj się w Wikipedii
+    sign_up_log_in_extended: za pomocą Wikipedii
     sign_up: Zarejestruj się
     submit: Wyślij
-    training: Szkolenie
+    training: Szkolenia
     change: Zmień
     details: Szczegóły
-    confirm: Ok
+    confirm: Okej
     opt_in: Tak
     opt_out: Nie
-    opt_yes: Tak
-    opt_no: Nie
+    opt_yes: tak
+    opt_no: nie
+    print: Drukuj
+    sort: Sortuj
+  article_statuses:
+    not_yet_started: Pierwsze kroki
+    in_progress: Praca w brudnopisie
+    ready_for_review: Rozbudowa szkicu
+    ready_for_mainspace: Przeniesienie do przestrzeni głównej
+    assignment_completed: Zadanie oznaczone jako zakończone
+    reading_the_article: Przeczytanie artykułu
+    providing_feedback: Przekazanie opinii
+    post_to_talk: Publikacja na stronie dyskusji
+    peer_review_completed: Recenzja zakończona
   dashboard:
-    create_note: Kliknij w Stwórz kurs by utworzyć swój pierwszy kurs.
-    create_preparation_note: Zanim zaczniesz, miej pod ręką swój kalendarz roku akademickiego.
-      Narzędzie do tworzenia zadań wykorzysta godziny twoich spotkań z uczniami -
-      w tym także wszystkie terminy przypadające na święta czy inne dni wolne. Pamiętaj,
-      że zawsze możesz później dostosować harmonogram do swoich potrzeb.
+    create_note: Kliknij „Utwórz kurs”, aby utworzyć swój pierwszy kurs.
+    create_preparation_note: Zanim zaczniesz, miej pod ręką swój kalendarz akademicki.
+      Narzędzie do tworzenia zadań wykorzysta terminy zajęć — w tym wszelkie przerwy
+      semestralne i dni wolne od zajęć — aby dopasować harmonogram do wybranego przez
+      Ciebie zakresu dat. Pamiętaj, że zawsze możesz później edytować swój harmonogram,
+      dostosowując go do własnych potrzeb.
     explore_course_pages: Odkryj strony kursów
     explore_examples: Odkryj przykłady
-    join_note: Gdy już otrzymasz hasło od prowadzącego, kliknij w przycisk Znajdź
-      program by się do niego dopisać.
-    no_courses_instructor: Wygląda na to, że nie jesteś zapisany/a na żaden kurs.
-    no_courses_student: Wygląda na to, że nie zapisałeś/zapisałaś się jeszcze na żaden
-      kurs.
-    opt_out: Poproś o wypisanie z listy
-    orientation_notice: Zanim stworzysz kurs, poświęć około pół godziny na przejście
-      szkolenia.
+    join_note: Gdy otrzymasz kod dostępu od swojej osoby prowadzącej, kliknij opcję
+      „Znajdź swój kurs”, aby go znaleźć i do niego dołączyć.
+    no_courses_instructor: Wygląda na to, że nie masz żadnych kursów.
+    no_courses_student: Wygląda na to, że nie uczestniczysz jeszcze w żadnym kursie.
+    opt_out: Poproś o wypisanie ze szkolenia
+    orientation_notice: Zanim stworzysz kurs, zapoznaj się z materiałami wprowadzającymi,
+      które pomogą Ci rozpocząć pracę (zajmuje to około 30 minut).
     review_orientation: Wróć do szkolenia
     start_orientation: Zacznij szkolenie
-    blog_headline: Najświeższe wiadomości od Wiki Education
-    about_programs: Niniejsza strona śledzi postępy grup użytkowników w ramach Programów,
-      czyli wydarzeń takich, jak maratony edycyjne czy projekty szkolne i akademickie.
-      Każdy program można przypisać do jednej lub więcej kampanii, dzięki czemu można
-      podsumować wspólny efekt wielu programów.
-    about_creating_programs: Jeśli nadzorujesz pojedyncze, niepowiązane z innymi wydarzenie,
-      stwórz nowy Program. Jeśli jednak Twój projekt jest częścią czegoś większego,
-      znajdź lub utwórz dla niego Kampanię. W jej ramach możesz utworzyć strony dla
-      wielu powiązanych Programów.
+    blog_headline: Aktualności z Wiki Education
+    about_programs: Ta strona śledzi aktywność na wiki za pośrednictwem programów
+      — poszczególnych wydarzeń, takich jak maratony edycyjne czy kursy szkolne i
+      akademickie. Każdy program jest częścią jednej lub kilku kampanii, które dostarczają
+      zbiorcze statystyki obejmujące wszystkie programy.
+    about_creating_programs: Jeśli organizujesz pojedyncze, niezależne wydarzenie,
+      możesz już teraz utworzyć program. Jeśli Twoje wydarzenie jest częścią większej
+      inicjatywy, znajdź lub utwórz odpowiednią kampanię. Następnie możesz utworzyć
+      nowy program na stronie kampanii.
+    tooltip:
+      alt: Więcej informacji
   home:
     explore: Odkrywaj
     log_in: Zaloguj się za pomocą Wikipedii
-    sign_up: Zarejestruj się w Wikipedii
-    sign_up_help: Żeby skorzystać z centrum programów i wydarzeń musisz się zalogować
-      swoim kontem Wikipedii i wyrazić zgodę na jego użycie. Możesz wykorzystać istniejące
-      konto użytkownika lub stworzyć nowe.
+    sign_up: Zarejestruj się za pomocą Wikipedii
+    registration_advice:
+      username_rules:
+        heading: Zasady dotyczące nazw użytkowników
+        avoid_offensive_usernames: Nie wybieraj nazwy użytkownika, która może być
+          obraźliwa, wprowadzająca w błąd, zakłócająca porządek lub mająca charakter
+          promocyjny.
+        represent_individual: Nazwy użytkownika muszą odnosić się do konkretnej osoby.
+          Nie używaj nazwy szkoły ani organizacji.
+      additional_advice:
+        heading: Wskazówka
+        anonymous_username_recommendation: Wiki Education zaleca wybór anonimowej
+          nazwy użytkownika, a nie takiej, która zawiera Twoje prawdziwe imię i nazwisko
+          lub inne dane umożliwiające identyfikację Ciebie.
+    sign_up_help: Aby korzystać z pulpitu nawigacyjnego, musisz zalogować się za pośrednictwem
+      Wikipedii i udzielić dostępu do swojego konta. Możesz zalogować się przy użyciu
+      istniejącego konta w Wikipedii lub utworzyć nowe. Jeśli nie możesz utworzyć
+      konta, skontaktuj się z nami pod adresem dashboard@wikiedu.org.
+  alerts:
+    alert_label: Powiadomienia
+    no_data: Nie znaleziono danych.
+    ai_stats:
+      timestamp: Sygnatura czasowa
+      title: Statystyki powiadomień o edycjach generowanych przez SI w kampanii %{campaign_name}
+      total_alerts: Łączna liczba powiadomień o edycjach generowanych przez SI
+      with_followup: Powiadomienia o edycjach wygenerowanych przez SI z działaniami
+        następczymi
+      multiple_alerts_students: Uczniowie z wieloma powiadomieniami
+      multiple_alerts_pages: Strony z wieloma powiadomieniami
+      pangram_url: Adres URL Pangramu
+      go_to_pangram: Przejdź do Pangramu
+      revision_diff: Porównanie wersji
+      single_alert_view: Powiadomienie
+      alerts_in_mainspace: Powiadomienia w przestrzeni głównej
+      users_involved: Użytkownicy, których to dotyczy
+      total: Łącznie
+      last_week: Z zeszłego tygodnia
+      sections:
+        contents: Zawartość strony
+        general_stats: Statystyki ogólne
+        name: Nazwa
+        description: Opis
+        courses_with_ai_alerts: Kursy z wieloma powiadomieniami o SI
+        recent_followup: Powiadomienia z ostatnimi działaniami następczymi
+        multiple_alerts_students: Ostatnie powiadomienia dla uczniów z wieloma powiadomieniami
+        in_mainspace: Ostatnie powiadomienia w przestrzeni głównej
+        alerts_trend_over_time: Trendy w powiadomieniach o SI w czasie
+        descriptions:
+          courses_with_ai_alerts: Kursy z co najmniej trzema powiadomieniami o SI
+            w całym okresie trwania kursu (niekoniecznie z ostatniego czasu).
+  system_stats:
+    filters:
+      campaign: Kampania
+      home_wiki: Domowa wiki
+      start_date: Data rozpoczęcia
+      end_date: Data zakończenia
+      all_campaigns: Wszystkie kampanie
+      all_wikis: Wszystkie wiki
+      export_csv: Eksportuj plik CSV
+      export_daily_csv: Eksportuj dzienne statystyki w pliku CSV
+      generating: Generowanie eksportu…
+      course_type: Typ kursu
+      status: Status
+      all_types: Wszystkie typy
+      all_statuses: Wszystkie statusy
+      active: Aktywne
+      archived: Zarchiwizowane
+    kpis:
+      total_edits: Łączna liczba edycji
+      article_views: Liczba odsłon
+      articles_created: Liczba utworzonych artykułów
+      articles_improved: Liczba ulepszonych artykułów
+      characters_added: Liczba dodanych znaków
+      new_editors: Liczba nowych edytujących
+      active_programs: Liczba aktywnych programów
   activity:
     all: Aktywność
     edited_by: Zmienił(a)
@@ -356,7 +452,7 @@ pl:
       create_label: Stwórz nowy kurs
       create_new: Stwórz nowy kurs
       copy_courses_with_assignments: Sklonuj listę dostępnych artykułów
-      create_short: Stwórz kurs
+      create_short: Utwórz kurs
       end_date: Data zakończenia
       end_date_placeholder: Data zakończenia (RRRR-MM-DD)
       expected_number: Oczekiwana liczba uczestników

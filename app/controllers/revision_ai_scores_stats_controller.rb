@@ -29,12 +29,14 @@ class RevisionAiScoresStatsController < ApplicationController
     @scores_with_likelihood = @scores.where.not(avg_ai_likelihood: nil)
   end
 
+  # A failed check is stored as a row with nil likelihoods, so the distributions
+  # read the scored rows rather than every row.
   def set_avg_likelihoods
-    @avg_likelihoods = @scores.map { |s| { value: s.avg_ai_likelihood } }
+    @avg_likelihoods = @scores_with_likelihood.map { |s| { value: s.avg_ai_likelihood } }
   end
 
   def set_max_likelihoods
-    @max_likelihoods = @scores.map { |s| { value: s.max_ai_likelihood } }
+    @max_likelihoods = @scores_with_likelihood.map { |s| { value: s.max_ai_likelihood } }
   end
 
   # Sets an array of hashes with date, namespace, and count for historical scores.
@@ -86,6 +88,10 @@ class RevisionAiScoresStatsController < ApplicationController
   # Given arrays of possible namespaces and bins, and a partial array of hashes, returns a complete
   # array of hashes that includes all dates, namespaces and bins based on the partial one.
   def complete_hash(namespaces, bins, partial_stats)
+    # No rows means no date range to fill in. Reachable when every production row
+    # is a failed check, which carries no likelihood to bin.
+    return [] if partial_stats.empty?
+
     start_date = partial_stats.keys.map(&:first).min
     end_date   = partial_stats.keys.map(&:first).max
 

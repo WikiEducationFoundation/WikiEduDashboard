@@ -580,6 +580,16 @@ lb:
     author: Auteur
     cookbook: Kachbuch
     index: Index
+  report_cards:
+    campaign: Campagne
+    courses: Coursen
+    download_csv: Als CSV eroflueden
+    groups:
+      general: Allgemeng
+      after: Nom Cours
+    columns:
+      title: Cours
+      participants: Participanten
   recent_activity:
     article_title: Titel
     datetime: Datum/Zäit
@@ -696,6 +706,8 @@ lb:
     no_articles: Keng Artikelen disponibel
     step_heading: 'Schrëtt %{number}: %{name}'
     form:
+      verification_example:
+        lead: 'Hei ass e Beispill:'
       edit_response: Äntwert änneren
       submit_failed: Feeler! Är Äntwert gouf net gespäichert.
     admin:

@@ -588,6 +588,10 @@ it:
         titolo, la scuola o il semestre.
       invalid_slug: Nome scuola/titolo del corso
       duplicate_slug: Un altro programma chiamato %{slug} esiste già.
+      event_sync_delete: Questa pagina è collegata alla registrazione per gli eventi
+        di Wikimedia e non può essere cancellata.
+      event_sync_rename: Questa pagina è collegata alla registrazione per gli eventi
+        di Wikimedia e non può essere rinominata.
     expected_students: Studenti previsti
     features_feedback: 'Suggerimenti automatizzati:'
     feedback: Feedback
@@ -684,6 +688,8 @@ it:
     training_overdue: Il modulo di formazione "%{title}" è stato assegnato per questo
       corso, ed era previsto per il %{date}.
     unsubmitted: Corsi non presentati
+    unsubmitted_show_all: Mostra tutto
+    unsubmitted_show_recent: Mostra recenti
     untrained: Inesperto
     update_stats: Aggiorna le statistiche
     uploads_none: Questa classe non ha contribuito con alcuna immagine o altri file

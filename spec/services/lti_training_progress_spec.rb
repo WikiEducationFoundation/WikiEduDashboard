@@ -58,4 +58,21 @@ describe LtiTrainingProgress do
 
     expect(described_class.new(course2, user).gradable?).to be(false)
   end
+
+  # A roster hands every student the course's modules and their own completions
+  # from one preload, so the roll-up must not go back to the database for them.
+  it 'reads preloaded modules and completions without querying for them' do
+    tmu = TrainingModulesUsers.create!(user: user, training_module: training_a,
+                                       completed_at: 2.days.ago)
+    allow(TrainingModulesUsers).to receive(:find_by).and_call_original
+    allow(TrainingModule).to receive(:where).and_call_original
+
+    progress = described_class.new(course, user, training_modules: [training_a, training_b],
+                                                 completions: { training_a.id => tmu })
+
+    expect(progress.score_given).to be_within(0.0001).of(0.5)
+    expect(progress.module_statuses).to eq([[training_a, true], [training_b, false]])
+    expect(TrainingModulesUsers).not_to have_received(:find_by)
+    expect(TrainingModule).not_to have_received(:where)
+  end
 end

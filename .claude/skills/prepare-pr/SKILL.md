@@ -197,6 +197,11 @@ End the entire description with this exact line as its final line, after the
 Run `code tmp/pr_description.md` to open the file in VS Code and tell the user to press
 Ctrl+Shift+V to preview it with screenshots rendered locally.
 
+Make sure the feature branch is on origin first, with a plain push
+(`git push -u origin <branch>`); that push and the screenshot-branch push below
+are the ones the "Git pushes" section of `.claude/CLAUDE.md` allows without
+asking, so do them and report them.
+
 When ready to publish, run `bin/open-pr "<PR title>"` once, passing the title
 explicitly: the commit subject for a single-commit branch, otherwise a title you
 draft from the "What this PR does" section. (Without an argument the script
@@ -213,6 +218,10 @@ no terminal to prompt — agents never have one.) It will:
 
 The result: a draft PR with screenshots rendered inline, in a single pass,
 with no manual drag-and-drop.
+
+The force-push in step 2 goes only to the `pr-screenshots/<branch>` orphan
+branch, never to the feature branch or a permanent branch; it is the one
+force-push agents may perform unprompted.
 
 **Authentication** is tried in this order:
 1. `GITHUB_TOKEN` env var

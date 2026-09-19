@@ -9,7 +9,8 @@
 # Runs `SyncLtiLineItems` first as a precondition so the line-item set
 # always reflects the current timeline before scores are posted at it.
 #
-# A binding without a stored serviceKey or a bound course is a no-op.
+# A binding without a stored serviceKey or a bound course is a no-op, as is a
+# legacy (LTI 1.1) binding — no AGS under 1.1, and no passback by design.
 #
 # Failure semantics, in three tiers:
 #
@@ -48,7 +49,7 @@ class SyncLtiGrades
   private
 
   def perform
-    return if @binding.course.nil?
+    return if @binding.course.nil? || @binding.legacy?
     return if @binding.ltiaas_service_credentials.blank?
 
     SyncLtiLineItems.new(@binding) # bring line-item set up to date first

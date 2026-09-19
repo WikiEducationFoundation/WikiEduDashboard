@@ -26,6 +26,7 @@ class WikimediaEventCenterController < ApplicationController
   #   already_in_use - The course already has participants, so it can't be linked to the event
   #   sync_already_enabled - The course is already linked to an event
   #   missing_event_id - No Event Center ID ("event_id") was provided.
+  #   course_not_saved - The link could not be saved, so the course is not linked to the event.
   def confirm_event_sync
     verify_secret { return }
     set_course { return }
@@ -47,11 +48,12 @@ class WikimediaEventCenterController < ApplicationController
   #   invalid_secret - The shared secret doesn't match
   #   course_not_found - A Course with the provided slug doesn't exist
   #   sync_not_enabled - This Course isn't linked to the Event Center event (based on event_id)
+  #   course_not_saved - The unlink could not be saved, so the course is still linked to the event.
   def unsync_event
     verify_secret { return }
     set_course { return }
     verify_event_sync { return }
-    disable_event_sync
+    disable_event_sync { return }
     render json: { success: true }
   end
 
@@ -95,6 +97,7 @@ class WikimediaEventCenterController < ApplicationController
   def set_course
     @course = Course.find_by!(slug: params[:course_slug])
   rescue ActiveRecord::RecordNotFound => e
+    report_sync_failure('course_not_found')
     render json: { error: e.message, error_code: 'course_not_found' }, status: :not_found
     yield
   end
@@ -122,25 +125,55 @@ class WikimediaEventCenterController < ApplicationController
     return if params[:dry_run]
     raise MissingEventIdError unless params[:event_id].present?
 
-    @course.flags[:event_sync] = params[:event_id]
-    @course.save
+    # The extension keeps the link only if we report success, so a save that
+    # does not persist must be an error here, not a silent no-op. add_flag
+    # also takes a row lock, so a concurrent flags write elsewhere cannot
+    # drop the link before it is ever read.
+    raise CourseNotSavedError unless @course.add_flag(key: :event_sync, value: params[:event_id])
   rescue AlreadyInUseError, SyncAlreadyEnabledError, MissingEventIdError => e
     render json: { error: e.message, error_code: e.code }, status: :conflict
     yield
+  rescue CourseNotSavedError => e
+    render_failed_save(e)
+    yield
+  end
+
+  def render_failed_save(error)
+    report_sync_failure(error.code, level: 'error')
+    render json: { error: error.message, error_code: error.code }, status: :internal_server_error
   end
 
   def disable_event_sync
     return if params[:dry_run]
 
-    @course.flags.delete(:event_sync)
-    @course.save
+    # Same reasoning as enable_event_sync: the extension drops its side of the
+    # link on success, so reporting success while the flag stays behind would
+    # leave the course permanently unlinkable.
+    raise CourseNotSavedError unless @course.remove_flag(:event_sync)
+  rescue CourseNotSavedError => e
+    render_failed_save(e)
+    yield
   end
 
   def verify_event_sync
     raise SyncNotEnabledError unless @course.flags[:event_sync] == params[:event_id]
   rescue SyncNotEnabledError => e
+    report_sync_failure(e.code)
     render json: { error: e.message, error_code: e.code }, status: :conflict
     yield
+  end
+
+  # These responses are rendered rather than raised, so without this the
+  # participant sees the extension's message and the Dashboard records nothing
+  # at all. Usernames are deliberately left out: the course may be private.
+  def report_sync_failure(error_code, level: 'info')
+    Sentry.capture_message("Event Center sync failed: #{error_code}",
+                           level:,
+                           extra: { action: action_name,
+                                    course_slug: params[:course_slug],
+                                    event_id: params[:event_id],
+                                    stored_event_id: @course&.flags&.dig(:event_sync),
+                                    dry_run: params[:dry_run] })
   end
 
   def add_or_remove_participants
@@ -238,6 +271,16 @@ class WikimediaEventCenterController < ApplicationController
 
     def message
       'An Event Center event ID is requred.'
+    end
+  end
+
+  class CourseNotSavedError < StandardError
+    def code
+      'course_not_saved'
+    end
+
+    def message
+      'The event link could not be saved.'
     end
   end
 end

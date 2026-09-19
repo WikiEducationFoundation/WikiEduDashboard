@@ -128,6 +128,33 @@ module DashboardAdminClient
     DashboardConsole.run(script).strip == 'ok'
   end
 
+  # Issue an LTI 1.1 consumer key for a course, the way its instructor would
+  # from the credentials page. Returns the key and the secret in the clear —
+  # the only moment either is readable, and the spec pastes them into Canvas
+  # exactly as an instructor pastes them from the page.
+  def issue_lti_consumer_key(course_slug:, instructor_username:)
+    script = <<~RUBY
+      require 'json'
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      user = User.find_by!(username: #{instructor_username.inspect})
+      key = LtiConsumerKey.generate_for(course:, user:)
+      puts({ key: key.key, secret: key.secret }.to_json)
+    RUBY
+    DashboardConsole.run_json(script)
+  end
+
+  # Activation state of the course's active LTI 1.1 key, for asserting what a
+  # refused launch did not do to it.
+  def consumer_key_state(course_slug:)
+    script = <<~RUBY
+      require 'json'
+      course = Course.find_by!(slug: #{course_slug.inspect})
+      key = LtiConsumerKey.active.find_by!(course:)
+      puts(key.attributes.slice('activated_at', 'lms_instance_guid', 'last_launch_at').to_json)
+    RUBY
+    DashboardConsole.run_json(script)
+  end
+
   def find_binding(course_slug:)
     script = <<~RUBY
       require 'json'

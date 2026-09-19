@@ -23,7 +23,7 @@ class JoinCourse
 
   def process_join_request
     validate_request { return }
-    create_courses_user
+    create_courses_user { return }
     update_course_user_count
     # This needs to use string keys because it is used in Sidekiq arguments.
     @result = { 'success' => 'User added to course.' }
@@ -91,6 +91,12 @@ class JoinCourse
       real_name: @real_name,
       role_description: @role_description
     )
+  rescue ActiveRecord::RecordNotUnique
+    # A concurrent request enrolled this user in the same role between the
+    # user_already_enrolled? check and the insert. This happens when Wikimedia
+    # Event Registration sends two overlapping participant syncs for one course.
+    @result = { 'failure' => 'cannot_join_twice' }
+    yield
   end
 
   def update_course_user_count

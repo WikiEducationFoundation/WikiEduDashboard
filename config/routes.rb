@@ -224,6 +224,14 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/lms_integration_status.json' => 'lms_integration_status#show',
         constraints: { slug: /.*/ }
+    # The unlisted LTI 1.1 credentials page, declared before the courses#show
+    # catch-all so it wins. Nothing in the interface links to it; Wiki
+    # Education shares the URL with beta instructors who need the 1.1 path.
+    # See CourseCanvasCredentialsController.
+    get 'courses/:slug/canvas' => 'course_canvas_credentials#show',
+        constraints: { slug: /.*/ }
+    post 'courses/:slug/canvas' => 'course_canvas_credentials#create',
+         constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {
@@ -330,6 +338,9 @@ Rails.application.routes.draw do
   get 'system_stats' => 'system_stats#index'
   get 'system_stats/wiki_trends' => 'system_stats#wiki_trends'
   get 'system_stats/facilitators' => 'system_stats#facilitators'
+  # Scholars & Scientists report cards (admin-only, Wiki Education Dashboard only)
+  get 'report_cards' => 'report_cards#index'
+  get 'report_cards/:campaign_slug' => 'report_cards#show'
 
   # Reports generated in background
   # Course reports
@@ -409,7 +420,10 @@ Rails.application.routes.draw do
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
   get 'wizards/:wizard_id' => 'wizard#wizard'
+  get 'wizards/:wizard_id/blocks' => 'wizard#wizard_blocks'
   post 'courses/:course_id/wizard/:wizard_id' => 'wizard#submit_wizard',
+       constraints: { course_id: /.*/ }
+  post 'courses/:course_id/sandbox_mode' => 'sandbox_mode#update',
        constraints: { course_id: /.*/ }
 
   # Training
@@ -470,6 +484,16 @@ Rails.application.routes.draw do
   # Public installation guide (a rendered docs/ Markdown page, not part of the
   # launch flow and not behind the canvas_integration feature gate).
   get 'lti/guide' => 'about_this_site#canvas_integration_guide'
+  # The short, illustrated instructor page: installing the LTI 1.1 tool in one
+  # course without an admin. Same gate and rendering as the main guide.
+  get 'lti/guide/instructors' => 'about_this_site#canvas_instructor_guide'
+  # LTI 1.1 tool configuration XML for Canvas's "By URL" install (public; gated
+  # on the legacy-launch flags inside the controller). See LtiConfigController.
+  get 'lti/legacy/config' => 'lti_config#legacy', defaults: { format: :xml }
+  # Where Canvas posts an LTI 1.1 launch. We terminate these ourselves rather
+  # than through LTIAAS, so the consumer keys are ours to issue and revoke.
+  # See LtiLegacyLaunchesController.
+  post 'lti/legacy/launch' => 'lti_legacy_launches#create'
   get 'lti' => 'lti_launch#launch'
   get 'lti/connect_course' => 'lti_launch#connect_course'
   get 'lti/assignment_view' => 'lti_launch#assignment_view'
