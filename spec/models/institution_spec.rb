@@ -1,5 +1,18 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe Institution, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+describe Institution, type: :model do
+  it 'is valid with a name' do
+    expect(build(:institution)).to be_valid
+  end
+
+  it 'is invalid without a name' do
+    expect(build(:institution, name: nil)).not_to be_valid
+  end
+
+  it 'is invalid when another institution already has the same name' do
+    create(:institution, name: 'Test University')
+    expect(build(:institution, name: 'Test University')).not_to be_valid
+  end
 end
