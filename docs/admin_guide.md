@@ -45,6 +45,8 @@ Below is a breakdown of the key servers and their roles within the infrastructur
    - **`peony-sidekiq-medium.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-medium` for typical course updates, as well as `sidekiq-report-csv` for generating and deleting user-requested CSV reports.
    - **`peony-sidekiq-short.globaleducation.eqiad1.wikimedia.cloud`**: Hosts `sidekiq-short` for short-running course updates.
 
+   These three servers are **not** deployed by Capistrano, which covers only `peony-web`. After each deploy, update them by hand with `git pull` and `bundle install` and restart their Sidekiq services, so every process is running the same code as the web server.
+
 3. **Database Server**  
    - **`peony-database.globaleducation.eqiad1.wikimedia.cloud`**: Stores program, user, and revision data. It supports the dashboard’s data queries and updates.
 

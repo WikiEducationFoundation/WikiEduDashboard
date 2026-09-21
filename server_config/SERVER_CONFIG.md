@@ -16,6 +16,20 @@ Inbound traffic to the production and staging Linodes is filtered by an Akamai (
 Cloud Firewall. The rule set, the rollout runbook, and the change procedure are in
 [`firewall.md`](./firewall.md). Change the file first, then the live firewall.
 
+## Database servers
+
+| | Wiki Ed Dashboard | Programs & Events Dashboard |
+|---|---|---|
+| Host | same host as the web server | `peony-database` (WMCloud) |
+| MariaDB | 10.11.18 (Debian 12) | 10.11.18 (Debian 12) |
+| Data directory | default | `/srv` (Cinder volume) |
+
+Versions confirmed 2026-09-21 with `SELECT VERSION()`. Both are well past 10.3,
+so `add_column` — including with a default — is metadata-only
+(`ALGORITHM=INSTANT`), and adding a column to a large table is not by itself a
+reason to schedule a migration window. Re-confirm before relying on that for
+anything costlier than `add_column`.
+
 ## Database backup
 
 We've designed a system to perform automatic database backups periodically
