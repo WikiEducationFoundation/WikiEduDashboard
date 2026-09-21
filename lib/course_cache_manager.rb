@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/revision_stat_timeslice"
 require_dependency "#{Rails.root}/lib/course_training_progress_manager"
+require_dependency "#{Rails.root}/lib/word_count"
 
 #= Service for updating the counts that are cached on Course objects
 class CourseCacheManager
@@ -12,7 +13,7 @@ class CourseCacheManager
   # Expects a CourseWikiTimeslice::ActiveRecord_Associations_CollectionProxy to
   # calculate course caches
   def update_cache_from_timeslices(course_wiki_timeslices)
-    @course.character_sum = course_wiki_timeslices.sum(&:character_sum)
+    update_character_sum_from_timeslices(course_wiki_timeslices)
     @course.references_count = course_wiki_timeslices.sum(&:references_count)
     @course.revision_count = course_wiki_timeslices.sum(&:revision_count)
     update_view_sum_based_on_first_revision
@@ -37,6 +38,17 @@ class CourseCacheManager
   ##################
   # Cache updaters #
   ##################
+
+  # Character sums represent prose added to wikitext wikis, so timeslices for
+  # excluded wikis do not count towards them. See WordCount::EXCLUDED_PROJECTS.
+  # Reference and revision counts still include every wiki the course tracks.
+  def update_character_sum_from_timeslices(course_wiki_timeslices)
+    excluded_wiki_ids = WordCount.excluded_wiki_ids
+    counted = course_wiki_timeslices.reject do |timeslice|
+      excluded_wiki_ids.include?(timeslice.wiki_id)
+    end
+    @course.character_sum = counted.sum(&:character_sum)
+  end
 
   def update_view_sum_based_on_first_revision
     # This query calculates the views for the entire course based on the first revision for

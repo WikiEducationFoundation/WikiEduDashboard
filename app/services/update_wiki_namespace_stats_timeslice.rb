@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/word_count"
+
 class UpdateWikiNamespaceStatsTimeslice
   def self.clear_untracked_namespace_data(course)
     tracked_keys = stat_keys(course.course_wiki_namespaces)
@@ -30,6 +32,7 @@ class UpdateWikiNamespaceStatsTimeslice
   end
 
   def update_stats
+    # compact drops word_count on wikis where byte counts are not prose.
     stats = {
       edited_count: edited_articles_count,
       new_count: new_articles_count,
@@ -38,7 +41,7 @@ class UpdateWikiNamespaceStatsTimeslice
       word_count:,
       reference_count:,
       view_count:
-    }
+    }.compact
     course_stats = CourseStat.find_or_create_by(course_id: @course.id)
     course_stats.stats_hash[UpdateWikiNamespaceStatsTimeslice.stat_key(@wiki, @namespace)] = stats
     course_stats.save
@@ -78,7 +81,11 @@ class UpdateWikiNamespaceStatsTimeslice
     articles_filtered_by_wiki_namespace.sum([], &:user_ids).uniq.count
   end
 
+  # Byte counts on excluded wikis are not prose, so no word count is reported for
+  # their namespaces at all; extrapolating one from a Wikidata entity diff would
+  # be misleading. See WordCount::EXCLUDED_PROJECTS.
   def word_count
+    return if WordCount::EXCLUDED_PROJECTS.include?(@wiki.project)
     character_sum = articles_filtered_by_wiki_namespace.sum(:character_sum)
     WordCount.from_characters(character_sum)
   end
