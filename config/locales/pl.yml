@@ -499,7 +499,7 @@ pl:
     features_feedback: 'Więcej propozycji :'
     feedback: Informacje zwrotne
     feedback_loading: Proszę czekać, sugestię są ładowane...
-    gradeables_none: Kurs nie posiada punktowanych zadań/prac.
+    gradeables_none: Kurs nie ma punktowanych zadań/prac.
     instructor:
       one: Instruktor
       other: Instruktorzy
@@ -520,7 +520,7 @@ pl:
     leave_confirmation: Czy na pewno chcesz opuścić ten kurs?
     leave_course: Opuść kurs
     loading: Wczytywanie...
-    milestones_none: Ten kurs obecnie nie posiada ustalonych kamieni milowych.
+    milestones_none: Ten kurs obecnie nie ma ustalonych kamieni milowych.
     my_articles: Moje artykuły
     needs_update: Zaplanuj aktualizację danych
     new_week: Dodaj nowy tydzień
@@ -669,10 +669,10 @@ pl:
     expected_students: Oczekiwani edytorzy
     instructors: Prowadzący
     join_course: Dołącz do programu
-    join_details: By dołączyć do tego programu musisz posiadać hasło lub link zawierający
-      hasło od prowadzącego lub współpracownika.
+    join_details: Aby dołączyć do tego programu, musisz uzyskać od prowadzącego hasło
+      lub link zawierający hasło.
     leave_course: Opuść program
-    milestones_none: Ten projekt aktualnie nie posiada ustalonych kamieni milowych.
+    milestones_none: Ten projekt aktualnie nie ma ustalonych kamieni milowych.
     not_permitted: Nie masz uprawnień do edytowania tego programu.
     published: 'Projekt został opublikowany. Uczestnicy mogą dopisać się za pomocą
       następującego adresu URL:'
@@ -691,8 +691,8 @@ pl:
     term: Kiedy
     unsubmitted: Niezgłoszone programy
     uploads_none: Uczestnicy nie dodali żadnych multimediów do Wikimedia Commons.
-    user_uploads_none: Wybrani użytkownicy nie posiadają wkładu pod postacią zdjęć
-      lub innych plików multimedialnych w tym projekcie.
+    user_uploads_none: Wybrani użytkownicy nie mają wkładu pod postacią zdjęć lub
+      innych plików multimedialnych w tym projekcie.
     view_other: Zobacz inne kampanie
     view_page: Zobacz stronę programu
     word_count_doc: Przybliżona liczba słów dodanych do przestrzeni głównej (artykułów)
@@ -855,7 +855,7 @@ pl:
     move_block_down: Przesuń blok w dół
     move_block_up: Przesuń blok w górę
     no_class_holidays: Nie mam wakacji
-    no_timeline: Ten kurs nie posiada harmonogramu.
+    no_timeline: Ten kurs nie ma harmonogramu.
     no_activity_this_week: Brak zaplanowanych spotkań w tym tygodniu
     nothing_this_week: W harmonogramie nie ma nic na ten tydzień.
     save_all_changes: Zapisz wszystko
@@ -866,6 +866,7 @@ pl:
       na nowe.
     view_full_timeline: Zobacz pełen harmonogram
     week_number: Tydzień %{number}
+    standard_block_add: Dodaj
   training:
     continue: Kontynuuj (ukończono %{progress})
     start: Start
@@ -874,7 +875,7 @@ pl:
     page: Strona
     table_of_contents: Spis treści
     training_library: Biblioteka Treningowa
-    logged_out: Nie jesteś zalogowany. Nie otrzymasz punktów za ukończenie tego modułu,
+    logged_out: Nie zalogowano się. Nie otrzymasz punktów za ukończenie tego modułu,
       chyba że się zalogujesz.
     done: Gotowe!
     view_module_source: zobacz źródło modułu
