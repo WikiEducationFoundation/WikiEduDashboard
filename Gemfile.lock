@@ -183,6 +183,8 @@ GEM
       debug_inspector (>= 0.0.1)
     bootsnap (1.24.1)
       msgpack (~> 1.2)
+    brakeman (8.0.6)
+      racc
     breadcrumbs_on_rails (4.1.0)
       railties (>= 5.0)
     browser (5.3.1)
@@ -765,6 +767,7 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootsnap
+  brakeman
   breadcrumbs_on_rails
   browser
   bundler-audit
