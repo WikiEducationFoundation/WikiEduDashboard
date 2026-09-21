@@ -54,6 +54,30 @@ describe('CourseUtils.courseSlugRegex', () => {
     expect(courseSlugRegex.test('')).toBe(false);
     expect(courseSlugRegex.test('Washington University in St. Louis')).toBe(true);
   });
+
+  test('accepts non-Latin scripts that previously failed due to Unicode gaps', () => {
+    const courseSlugRegex = courseUtils.courseSlugRegex();
+    // Russian with em-dash (U+2014) — was rejected by old hardcoded ranges
+    expect(courseSlugRegex.test('Кнопка — Меню')).toBe(true);
+    // Persian with ZWNJ (U+200C) — required for correct ligature rendering
+    expect(courseSlugRegex.test('می\u200Cخواهم')).toBe(true);
+    // Hindi with ZWJ (U+200D) — required for conjunct consonant rendering
+    expect(courseSlugRegex.test('हिन्\u200Dदी')).toBe(true);
+    // Arabic with Arabic-Indic digits (\p{N})
+    expect(courseSlugRegex.test('مرحلة ٢٠٢٥')).toBe(true);
+    // En-dash in title
+    expect(courseSlugRegex.test('Projet Wikipédia – Médecine')).toBe(true);
+  });
+
+  test('still rejects invalid input', () => {
+    const courseSlugRegex = courseUtils.courseSlugRegex();
+    // Only spaces — no letter/number
+    expect(courseSlugRegex.test('   ')).toBe(false);
+    // Empty string
+    expect(courseSlugRegex.test('')).toBe(false);
+    // Only punctuation — no letter/number in the middle group
+    expect(courseSlugRegex.test('---')).toBe(false);
+  });
 });
 
 describe('courseUtils.cleanupCourseSlugComponents', () => {

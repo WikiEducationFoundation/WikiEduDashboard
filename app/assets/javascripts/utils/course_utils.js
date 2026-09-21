@@ -26,12 +26,16 @@ export default class CourseUtils {
 
   // Regex of allowed characters for a course slug.
   static courseSlugRegex() {
-    // This regex is intended to match ascii word characters, dash,
-    // whitespace, comma, apostrophe, period, and any unicode "letter".
-    // It requires blank spaces (if any) in the beginning to be followed by at least one non-blank letter character
-    // from the allowed characters, to be followed by zero or more of all allowed characters (including blank characters).
-    // Adapted from http://stackoverflow.com/questions/150033/regular-expression-to-match-non-english-characters#comment19644791_150078
-    return /^[\w\-\s,'\u00BF-\u1FFF\u2C00-\uD7FF]*[\w\u00BF-\u1FFF\u2C00-\uD7FF][\w\-\s,'.\u00BF-\u1FFF\u2C00-\uD7FF]*$/;
+    // Matches any Unicode letter (\p{L}), combining mark (\p{M}), Unicode
+    // number (\p{N}), ASCII word character (\w), Unicode dash (\p{Pd},
+    // covers hyphen, en-dash, em-dash, etc.), whitespace, comma, apostrophe,
+    // and period. ZWNJ (U+200C) and ZWJ (U+200D) are included explicitly
+    // because they are required for correct text rendering in Arabic, Persian,
+    // Hindi, and other complex scripts. The middle group ensures at least one
+    // letter or number is present (prevents blank or punctuation-only input).
+    // The 'u' flag enables full Unicode property escape support.
+    // eslint-disable-next-line no-misleading-character-class
+    return /^[\p{L}\p{M}\p{N}\w\p{Pd}\s,'\u200C\u200D.]*[\p{L}\p{N}\w][\p{L}\p{M}\p{N}\w\p{Pd}\s,'\u200C\u200D.]*$/u;
   }
 
   // Given a course object with title, school and term properties,
