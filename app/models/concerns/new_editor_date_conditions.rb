@@ -7,7 +7,7 @@
 # Used by SystemStatUpdateWorker and FacilitatorStatUpdateWorker to keep
 # the date-window logic in one place and reduce drift risk.
 module NewEditorDateConditions
-  # Pre-registration window in days (WMF definition).
+  # 60-day pre-registration window per WMF staff (no public doc).
   PREREGISTRATION_DAYS = 60
 
   # Registered during the program (start to end).

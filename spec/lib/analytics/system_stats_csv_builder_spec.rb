@@ -7,19 +7,22 @@ describe SystemStatsCsvBuilder do
   let!(:stat_1) do
     create(:system_stat, snapshot_date: 10.days.ago.to_date,
                          total_edits: 500,
-                         total_article_views: 10_000)
+                         total_article_views: 10_000,
+                         retained_new_editors_count: 25)
   end
 
   let!(:stat_2) do
     create(:system_stat, snapshot_date: 2.days.ago.to_date,
                          total_edits: 1200,
-                         total_article_views: 25_000)
+                         total_article_views: 25_000,
+                         retained_new_editors_count: 30)
   end
 
   let!(:stat_old) do
     create(:system_stat, snapshot_date: 60.days.ago.to_date,
                          total_edits: 100,
-                         total_article_views: 1000)
+                         total_article_views: 1000,
+                         retained_new_editors_count: 5)
   end
 
   describe '#generate_csv' do
@@ -29,6 +32,7 @@ describe SystemStatsCsvBuilder do
       csv = builder.generate_csv
       expect(csv).to include('snapshot_date')
       expect(csv).to include('new_editors_count_with_preregistration')
+      expect(csv).to include('retained_new_editors_count')
       expect(csv).to include(stat_1.snapshot_date.to_s)
       expect(csv).to include(stat_2.snapshot_date.to_s)
       expect(csv).not_to include(stat_old.snapshot_date.to_s)

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
-const WIKI_METRIC_KEYS = ['edits', 'programs', 'articles_created', 'new_editors'];
+const WIKI_METRIC_KEYS = ['edits', 'programs', 'articles_created', 'new_editors', 'retained_editors'];
 
 const WIKI_METRIC_I18N_MAP = {
   edits: 'system_stats.tables.edits',
   programs: 'system_stats.tables.programs',
   articles_created: 'system_stats.tables.articles_created',
-  new_editors: 'system_stats.tables.new_editors'
+  new_editors: 'system_stats.tables.new_editors',
+  retained_editors: 'system_stats.tables.retained_new_editors'
 };
 
 // Chart.js colors are kept in JS since they're passed as config to the Chart API
