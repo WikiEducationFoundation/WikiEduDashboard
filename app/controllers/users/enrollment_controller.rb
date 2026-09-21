@@ -22,6 +22,7 @@ class Users::EnrollmentController < ApplicationController
   #################
   def add
     set_course_and_user
+    ensure_instructor_role_is_authorized { return }
     ensure_user_exists { return }
     set_real_name
     @result = JoinCourse.new(course: @course,
@@ -105,6 +106,7 @@ class Users::EnrollmentController < ApplicationController
     set_course_and_user
     return if @user.nil?
 
+    ensure_instructor_role_is_authorized { return }
     ensure_role_is_authorized { return }
     ensure_course_user_exists { return }
 
@@ -115,6 +117,19 @@ class Users::EnrollmentController < ApplicationController
 
     render 'users', formats: :json
     update_course_page_and_assignment_talk_templates
+  end
+
+  # Adding an instructor is how a course gets a TA or co-instructor, so
+  # instructors may do it. Students may not: the instructor role carries
+  # course-management rights, and a student granting it to any account would
+  # be a privilege escalation. Admins are allowed through as elsewhere.
+  def ensure_instructor_role_is_authorized
+    return unless instructor_role?
+    return if current_user.admin? || current_user.instructor?(@course)
+
+    render json: { message: I18n.t('courses.error.instructor_role_not_authorized') },
+           status: :unauthorized
+    yield
   end
 
   # For events controlled by Event Center, only non-student roles

@@ -855,6 +855,7 @@ en:
       exists: That course already exists! Please try again with a different title, school, or term.
       user_exists: "Sorry, %{username} is not an existing user."
       user_exists_on_wiki: "Sorry, %{username} is not an existing user on %{domain}."
+      instructor_role_not_authorized: "[PLACEHOLDER - message shown when someone who is not an instructor in the course (and not an admin) tries to enroll a user as an instructor]"
       invalid_language_or_project: Invalid language/project
       invalid_wiki: "Cannot connect to %{domain}. It may not be a valid wiki."
       duplicate_course_slug: "The URL %{slug} is already taken. Please change the title, school, or term."
