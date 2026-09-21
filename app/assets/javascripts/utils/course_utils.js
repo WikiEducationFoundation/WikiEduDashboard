@@ -26,16 +26,30 @@ export default class CourseUtils {
 
   // Regex of allowed characters for a course slug.
   static courseSlugRegex() {
-    // Matches any Unicode letter (\p{L}), combining mark (\p{M}), Unicode
-    // number (\p{N}), ASCII word character (\w), Unicode dash (\p{Pd},
-    // covers hyphen, en-dash, em-dash, etc.), whitespace, comma, apostrophe,
-    // and period. ZWNJ (U+200C) and ZWJ (U+200D) are included explicitly
-    // because they are required for correct text rendering in Arabic, Persian,
-    // Hindi, and other complex scripts. The middle group ensures at least one
-    // letter or number is present (prevents blank or punctuation-only input).
-    // The 'u' flag enables full Unicode property escape support.
+    // Matches:
+    // - Unicode letters (\p{L}), combining marks (\p{M}), numbers (\p{N}),
+    //   ASCII word characters (\w), and Unicode dashes (\p{Pd})
+    // - Whitespace (\s)
+    // - Zero-width non-joiner (\u200C) and zero-width joiner (\u200D) for complex scripts
+    // - Script commas: ASCII comma, Arabic comma (\u060C), Arabic date separator (\u066C),
+    //   Armenian comma (\u055D), NKo comma (\u07F8), Myanmar comma (\u104A), Ethiopic comma (\u1363),
+    //   Mongolian commas (\u1802, \u1808), ideographic comma (\u3001), fullwidth comma (\uFF0C),
+    //   and Lisu / Vai / Saurashtra commas (\uA4FE, \uA60D, \uA6F5)
+    // - Script apostrophes / single quotes: ASCII apostrophe, single quotes (\u2018, \u2019),
+    //   Hebrew geresh and gershayim (\u05F3, \u05F4), Armenian apostrophe and modifier letter (\u055A, \u055F)
+    // - Script word/syllable separators: middle dots (\u00B7, \u30FB, \u2E31), Tibetan tsheg (\u0F0B, \u0F0C),
+    //   Ethiopic wordspace (\u1361), and Mongolian separators (\u1807, \u180A)
+    // The middle group [\p{L}\p{N}\w] ensures at least one letter or number is present.
+    // The trailing group also permits periods and script full stops (preventing leading periods):
+    // - ASCII period, Arabic full stop (\u06D4), Arabic decimal separator (\u066B),
+    //   Armenian full stop (\u0589), Devanagari danda and double danda (\u0964, \u0965),
+    //   Devanagari abbreviation signs (\u0970, \u09FD), Gurmukhi / Gujarati / Sinhala / Tibetan
+    //   sentence marks (\u0A76, \u0AF0, \u0DF4, \u0F0D), Myanmar period (\u104B),
+    //   Ethiopic full stop (\u1362), Canadian syllabics full stop (\u166E), Khmer sign khan (\u17D4),
+    //   Mongolian full stops (\u1803, \u1809), ideographic full stop (\u3002), fullwidth full stop (\uFF0E),
+    //   and Lisu / Vai / Saurashtra / Kayah Li full stops (\uA4FF, \uA60E, \uA6F3, \uA8CE, \uA8CF, \uAA5D)
     // eslint-disable-next-line no-misleading-character-class
-    return /^[\p{L}\p{M}\p{N}\w\p{Pd}\s,'\u200C\u200D.]*[\p{L}\p{N}\w][\p{L}\p{M}\p{N}\w\p{Pd}\s,'\u200C\u200D.]*$/u;
+    return /^[\p{L}\p{M}\p{N}\w\p{Pd}\s\u200C\u200D,\u060C\u066C\u055D\u07F8\u104A\u1363\u1802\u1808\u3001\uFF0C\uA4FE\uA60D\uA6F5'\u2018\u2019\u05F3\u05F4\u055A\u055F\u00B7\u30FB\u0F0B\u0F0C\u1361\u1807\u180A\u2E31]*[\p{L}\p{N}\w][\p{L}\p{M}\p{N}\w\p{Pd}\s\u200C\u200D,\u060C\u066C\u055D\u07F8\u104A\u1363\u1802\u1808\u3001\uFF0C\uA4FE\uA60D\uA6F5'\u2018\u2019\u05F3\u05F4\u055A\u055F\u00B7\u30FB\u0F0B\u0F0C\u1361\u1807\u180A\u2E31.\u06D4\u066B\u0589\u0964\u0965\u0970\u09FD\u0A76\u0AF0\u0DF4\u0F0D\u104B\u1362\u166E\u17D4\u1803\u1809\u3002\uFF0E\uA4FF\uA60E\uA6F3\uA8CE\uA8CF\uAA5D]*$/u;
   }
 
   // Given a course object with title, school and term properties,

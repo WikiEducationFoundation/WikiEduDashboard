@@ -69,7 +69,29 @@ describe('CourseUtils.courseSlugRegex', () => {
     expect(courseSlugRegex.test('Projet Wikipédia – Médecine')).toBe(true);
   });
 
-  test('still rejects invalid input', () => {
+  test('accepts living-script commas, periods, apostrophes, and word separators', () => {
+    const courseSlugRegex = courseUtils.courseSlugRegex();
+    // Arabic comma (U+060C)
+    expect(courseSlugRegex.test('تاريخ، جغرافيا')).toBe(true);
+    // Ideographic comma (U+3001) and ideographic full stop (U+3002)
+    expect(courseSlugRegex.test('歷史、地理')).toBe(true);
+    expect(courseSlugRegex.test('歷史。')).toBe(true);
+    // Katakana middle dot (U+30FB)
+    expect(courseSlugRegex.test('ウィキペディア・プロジェクト')).toBe(true);
+    // Devanagari danda (U+0964)
+    expect(courseSlugRegex.test('हिन्दी।')).toBe(true);
+    // Hebrew gershayim (U+05F4) and geresh (U+05F3)
+    expect(courseSlugRegex.test('תנ״ך')).toBe(true);
+    expect(courseSlugRegex.test('ג׳ורג׳')).toBe(true);
+    // Armenian full stop (U+0589)
+    expect(courseSlugRegex.test('Հայաստան։')).toBe(true);
+    // Ethiopic wordspace (U+1361)
+    expect(courseSlugRegex.test('ኢትዮጵያ፡ታሪክ')).toBe(true);
+    // Tibetan tsheg (U+0F0B)
+    expect(courseSlugRegex.test('བོད་ཡིག')).toBe(true);
+  });
+
+  test('still rejects invalid punctuation, symbols, and leading full stops across scripts', () => {
     const courseSlugRegex = courseUtils.courseSlugRegex();
     // Only spaces — no letter/number
     expect(courseSlugRegex.test('   ')).toBe(false);
@@ -77,6 +99,19 @@ describe('CourseUtils.courseSlugRegex', () => {
     expect(courseSlugRegex.test('')).toBe(false);
     // Only punctuation — no letter/number in the middle group
     expect(courseSlugRegex.test('---')).toBe(false);
+    // Leading period / script full stop rejected
+    expect(courseSlugRegex.test('.hidden')).toBe(false);
+    expect(courseSlugRegex.test('。hidden')).toBe(false);
+    expect(courseSlugRegex.test('։hidden')).toBe(false);
+    // Question marks (Latin and script equivalents like Arabic question mark)
+    expect(courseSlugRegex.test('Question?')).toBe(false);
+    expect(courseSlugRegex.test('تاريخ؟')).toBe(false);
+    // Brackets (Latin and CJK corner brackets)
+    expect(courseSlugRegex.test('Course [2026]')).toBe(false);
+    expect(courseSlugRegex.test('「Course」')).toBe(false);
+    // Symbols (&, multiplication sign ×)
+    expect(courseSlugRegex.test('Art & Feminism')).toBe(false);
+    expect(courseSlugRegex.test('Event × Project')).toBe(false);
   });
 });
 
