@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
-import selectStyles from '../../styles/select';
+import selectStyles, { compactIndicatorStyles } from '../../styles/select';
 
 import { updateTicketOwner } from '../../actions/tickets_actions';
 
-export const TicketOwnerHandler = ({ updateOwner, ticket, admins, arialabelledby }) => {
+export const TicketOwnerHandler = ({ updateOwner, ticket, admins, arialabelledby, compact }) => {
   const options = admins.map(([username, id]) => ({ label: username, value: id }));
   options.push({ label: '— none — ', value: null });
 
@@ -13,7 +13,11 @@ export const TicketOwnerHandler = ({ updateOwner, ticket, admins, arialabelledby
     <Select
       onChange={({ value: ownerId }) => updateOwner(ticket.id, ownerId)}
       options={options}
-      styles={{ ...selectStyles, singleValue: null }}
+      styles={{
+        ...selectStyles,
+        singleValue: base => ({ ...base, whiteSpace: 'normal' }),
+        ...(compact ? compactIndicatorStyles : {})
+      }}
       value={{ label: (ticket.owner && ticket.owner.username) || '— none — ', value: ticket.owner && ticket.owner.id }}
       aria-label="Ticket owner"
       aria-labelledby={arialabelledby}
