@@ -1,4 +1,5 @@
 import markdownIt from 'markdown-it';
+import DOMPurify from 'dompurify';
 import { assign } from 'lodash-es';
 import footnotes from 'markdown-it-footnote';
 
@@ -25,6 +26,26 @@ export default function (opts) {
       return defaultRender(tokens, idx, options, env, self);
     };
   }
+
+  // `html: true` above lets raw HTML in the source pass straight through into
+  // the rendered output, and callers hand that output to
+  // dangerouslySetInnerHTML or `raw`. Not all of the markdown we render is
+  // written by trusted people: on the Programs & Events Dashboard, training
+  // modules, slides and quizzes are loaded from Meta wiki pages that are
+  // intentionally left open for anyone to edit, and the training data cycle
+  // re-imports them without review. Sanitizing here rather than at each call
+  // site means every consumer of this helper is covered, including ones added
+  // later. DOMPurify's default allow-list keeps the formatting, links, images
+  // and tables that training content relies on, and drops script elements,
+  // event-handler attributes and javascript: URLs.
+  // `target` is not in DOMPurify's default allow-list, and dropping it would
+  // silently undo the openLinksExternally rule above.
+  const sanitizeOptions = { ADD_ATTR: ['target'] };
+
+  ['render', 'renderInline'].forEach((method) => {
+    const renderUnsafe = md[method].bind(md);
+    md[method] = (...args) => DOMPurify.sanitize(renderUnsafe(...args), sanitizeOptions);
+  });
 
   return md;
 }
