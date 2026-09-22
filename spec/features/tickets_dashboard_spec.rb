@@ -239,6 +239,32 @@ describe 'ticket dashboard', type: :feature, js: true do
       end
     end
 
+    it 'sorts tickets by creation date' do
+      # Make the newest and oldest tickets unambiguous.
+      TicketDispenser::Ticket.find_by(id: create_ticket.id)
+                             .update_column(:created_at, 1.day.from_now)
+      TicketDispenser::Ticket.find_by(id: create_a_fourth_ticket.id)
+                             .update_column(:created_at, 1.year.ago)
+      visit '/tickets/dashboard'
+      expect(page).to have_content 'A first subject'
+
+      find('th.created_at').click
+      expect(first('tbody tr')).to have_content 'A first subject'
+
+      find('th.created_at').click
+      expect(first('tbody tr')).to have_content 'I will not come back'
+    end
+
+    it 'shows the creation date in search results' do
+      fill_in 'tickets_search_subject', with: 'first subject'
+      click_button 'search_tickets'
+
+      created = TicketDispenser::Ticket.find_by(id: create_ticket.id).created_at
+      within('tr', text: 'A first subject') do
+        expect(page).to have_content created.strftime('%Y-%m-%d')
+      end
+    end
+
     it 'lists tickets after returning from a ticket page that was loaded directly' do
       ticket = TicketDispenser::Ticket.first
       # A full page load, so the ticket page is the first thing the React
