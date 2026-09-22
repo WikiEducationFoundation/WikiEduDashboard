@@ -21,6 +21,8 @@
 #  references_count       :integer          default(0)
 #
 
+require_dependency "#{Rails.root}/lib/word_count"
+
 #= Course + User join model
 class CoursesUsers < ApplicationRecord
   belongs_to :course
@@ -98,9 +100,16 @@ class CoursesUsers < ApplicationRecord
   end
 
   def update_values_from_timeslices
-    self.character_sum_ms = course_user_wiki_timeslices.sum(&:character_sum_ms)
-    self.character_sum_us = course_user_wiki_timeslices.sum(&:character_sum_us)
-    self.character_sum_draft = course_user_wiki_timeslices.sum(&:character_sum_draft)
+    # Character sums represent prose added to wikitext wikis, so timeslices for
+    # excluded wikis do not count towards them. See WordCount::EXCLUDED_PROJECTS.
+    # Reference and revision counts still include every wiki the course tracks.
+    excluded_wiki_ids = WordCount.excluded_wiki_ids
+    counted = course_user_wiki_timeslices.reject do |timeslice|
+      excluded_wiki_ids.include?(timeslice.wiki_id)
+    end
+    self.character_sum_ms = counted.sum(&:character_sum_ms)
+    self.character_sum_us = counted.sum(&:character_sum_us)
+    self.character_sum_draft = counted.sum(&:character_sum_draft)
     self.references_count = course_user_wiki_timeslices.sum(&:references_count)
     self.revision_count = course_user_wiki_timeslices.sum(&:revision_count)
   end
