@@ -26,23 +26,8 @@ class ReportCsvWorker
 
   def perform(id, filename, type, include_course, filters_json = '{}')
     parsed_filters = JSON.parse(filters_json).symbolize_keys
-    data =
-      if type == 'campaign_all'
-        to_campaign_zip(id)
-      elsif type == 'all_courses_and_instructors'
-        all_courses_and_instructors_csv
-      elsif type == 'system_csv'
-        to_system_csv(parsed_filters)
-      elsif type == 'system_daily_stats_csv'
-        to_system_daily_stats_csv(parsed_filters)
-      elsif course_report?(type)
-        to_course_csv(type, id)
-      else
-        to_campaign_csv(type, id, include_course)
-      end
-
+    data = report_data(type, id, include_course, parsed_filters)
     write_csv(filename, data)
-
     CsvCleanupWorker.perform_at(1.week.from_now, filename)
   end
 
@@ -119,6 +104,22 @@ class ReportCsvWorker
   end
 
   private
+
+  def report_data(type, id, include_course, filters)
+    if type == 'campaign_all'
+      to_campaign_zip(id)
+    elsif type == 'all_courses_and_instructors'
+      all_courses_and_instructors_csv
+    elsif type == 'system_csv'
+      to_system_csv(filters)
+    elsif type == 'system_daily_stats_csv'
+      to_system_daily_stats_csv(filters)
+    elsif course_report?(type)
+      to_course_csv(type, id)
+    else
+      to_campaign_csv(type, id, include_course)
+    end
+  end
 
   def write_csv(filename, data)
     ReportCsvStore.write(filename, data)
