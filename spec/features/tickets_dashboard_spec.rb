@@ -256,12 +256,15 @@ describe 'ticket dashboard', type: :feature, js: true do
     end
 
     it 'shows the creation date in search results' do
+      # The browser formats the date in its local time zone, so use midday UTC
+      # to get the same calendar date wherever the spec runs.
+      TicketDispenser::Ticket.find_by(id: create_ticket.id)
+                             .update_column(:created_at, Time.utc(2026, 3, 15, 12))
       fill_in 'tickets_search_subject', with: 'first subject'
       click_button 'search_tickets'
 
-      created = TicketDispenser::Ticket.find_by(id: create_ticket.id).created_at
       within('tr', text: 'A first subject') do
-        expect(page).to have_content created.strftime('%Y-%m-%d')
+        expect(page).to have_content '2026-03-15'
       end
     end
 
