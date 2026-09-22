@@ -3,7 +3,6 @@ import { Route, Routes } from 'react-router-dom';
 import Campaign from '../campaign/campaign.jsx';
 import CampaignList from '../campaign/campaign_list.jsx';
 import CampaignRow from './campaign_row';
-import Notifications from '../common/notifications.jsx';
 
 const CampaignsHandler = () => {
   const keys = {
@@ -58,13 +57,10 @@ const CampaignsHandler = () => {
   };
 
   return (
-    <>
-      <Notifications />
-      <Routes>
-        <Route index element={<CampaignList showSearch={true} showStatistics={true} RowElement={CampaignRow} keys={keys}/>}/>
-        <Route path=":campaign_slug/*" element={<Campaign />} />
-      </Routes>
-    </>
+    <Routes>
+      <Route index element={<CampaignList showSearch={true} showStatistics={true} RowElement={CampaignRow} keys={keys}/>}/>
+      <Route path=":campaign_slug/*" element={<Campaign />} />
+    </Routes>
   );
 };
 
