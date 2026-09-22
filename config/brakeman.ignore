@@ -1,4 +1,5 @@
 {
+  "brakeman_version": "8.0.6",
   "ignored_warnings": [
     {
       "fingerprint": "7664828bafaba1d242c4d71a11b11b0e700c31e04a388f85012dd1d7f92541c0",
@@ -78,7 +79,7 @@
     },
     {
       "fingerprint": "6f4564c6038e6ebc8438fb0029c85bef24e53deafb128ee2dfa000dcebc827ea",
-      "note": "Permitting :role is intentional, and authority over it is now enforced: ensure_instructor_role_is_authorized requires the requester to be an instructor in the course, or an admin, before the INSTRUCTOR role can be granted or removed. Covered by spec/controllers/users/enrollment_role_authorization_spec.rb."
+      "note": "Permitting :role is intentional, and authority over it is now enforced: ensure_management_role_is_authorized requires the requester to be an instructor in the course, or an admin, before either role in User::EDITING_ROLES (instructor, Wiki Ed staff) can be granted or removed. Those are the roles that make can_edit? true. Covered by spec/controllers/users/enrollment_role_authorization_spec.rb."
     },
     {
       "fingerprint": "770cceeb08815eb2a11f0ca132a462daa4d8885428c84b301a9bc353e5e756e1",
@@ -140,6 +141,5 @@
       "fingerprint": "79e9987271e78777a8945bf1747d90680a2a3d03d6bea5d9ed357d0440bf37ed",
       "note": "`ignore` is a fixed pattern returned by a private method with no arguments; the user-supplied search term is passed as a bind parameter."
     }
-  ],
-  "brakeman_version": "8.0.6"
+  ]
 }

@@ -57,6 +57,30 @@ describe Users::EnrollmentController, type: :request do
       expect(response.status).to eq(200)
     end
 
+    # WIKI_ED_STAFF_ROLE is the other role in User::EDITING_ROLES, so granting
+    # it confers the same can_edit? rights as the instructor role.
+    it 'refuses to enroll another user in the staff role' do
+      enroll(CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+      expect(response.status).to eq(401)
+    end
+
+    it 'creates no staff record' do
+      enroll(CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+      expect(CoursesUsers.exists?(course:, user: target,
+                                  role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)).to be false
+    end
+
+    it 'refuses to remove a staff-role user from the course' do
+      create(:courses_user, course:, user: target,
+                            role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+      delete "/courses/#{course.slug}/user",
+             params: { id: course.slug,
+                       user: { user_id: target.id,
+                               role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE } }
+      expect(CoursesUsers.exists?(course:, user: target,
+                                  role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)).to be true
+    end
+
     it 'refuses to remove an instructor from the course' do
       delete "/courses/#{course.slug}/user",
              params: { id: course.slug,
@@ -79,6 +103,15 @@ describe Users::EnrollmentController, type: :request do
     it 'creates the instructor record' do
       enroll(CoursesUsers::Roles::INSTRUCTOR_ROLE)
       expect(instructor_record).not_to be_nil
+    end
+  end
+
+  context 'when the requesting user is an instructor and the role is staff' do
+    before { act_as(instructor) }
+
+    it 'enrolls another user in the staff role' do
+      enroll(CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+      expect(response.status).to eq(200)
     end
   end
 
