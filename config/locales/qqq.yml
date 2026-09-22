@@ -272,6 +272,9 @@ qqq:
     active_campaigns: Heading for the list of active campaigns
     add_organizer: Button to add an organizer
     all_campaigns: Button to view the list of all campaigns
+    all_data: |-
+      Button label in the campaign export modal to export all campaign data as a ZIP archive
+      {{Identical|All}}
     already_exists: Error shown when a new campaign has the same name or slug of another
       campaign.
     campaign: |-
@@ -282,6 +285,12 @@ qqq:
       {{Identical|Campaign}}
     campaign_deleted: Message indicating a campaign was successfully deleted. 'title'
       is the title of the campaign.
+    data_download_generating: Notification message informing the user that their requested
+      export file is currently being generated and they will be notified when it is ready
+      to download.
+    export: |-
+      Button label to open the campaign data export modal
+      {{Identical|Export}}
     campaign_not_updated: Message indicating a campaign could not be updated.
     campaign_updated: Message indicating a campaign was successfully updated
     confirm_campaign_deletion: Confirmation dialog for deleting a campaign
@@ -984,4 +993,27 @@ qqq:
     advanced_search: Label for advanced search toggle
     clear: Label for clear search button
     program_date: Label for program date
+  downloads:
+    title: |-
+      Header for the downloads notification panel
+      {{Identical|Downloads}}
+    none: Message shown when the user has no active or recent downloads
+    generating: Status label indicating a download file is currently being generated
+    ready: |-
+      Status label indicating a download file is ready
+      {{Identical|Ready}}
+    error: |-
+      Status label indicating that file generation failed
+      {{Identical|Failed}}
+    download: |-
+      Action button to download the generated file
+      {{Identical|Download}}
+    dismiss: |-
+      Action button to dismiss a download notification from the list
+      {{Identical|Dismiss}}
+    new_downloads: Accessibility label indicating new downloads are available
+    no_downloads: Accessibility label indicating no new downloads are available
+    aria_label: |-
+      Accessibility label for the downloads icon in the navigation bar
+      {{Identical|Downloads}}
 ...
