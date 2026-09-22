@@ -63,7 +63,7 @@
     },
     {
       "fingerprint": "e90f641d7bbade70aa4bce5d919ce6ee5f1d652a69aa020125a02d075c1b0068",
-      "note": "params[:wizard_id] reaches a file path, but only through the wizards/:wizard_id route segment, which Rails constrains to exclude / and . - traversal payloads are rejected at routing with a 404 (verified by request spec). The filename is fixed as wizard.yml and the content is parsed with YAML.safe_load. Revisit if this id ever arrives from a query parameter or a globbed route."
+      "note": "params[:wizard_id] reaches a file path, and the route segment does not stop traversal. wizards/:wizard_id excludes a literal / and ., but the segment is percent-decoded after routing, so GET /wizards/%2e%2e%2fwizard%2fresearchwrite.json returns 200 and serves the traversed file. (An earlier version of this note claimed such payloads are rejected at routing with a 404; that is true only for unencoded ones, and was corrected during review of #7085.) Baselined because the filename is pinned to wizard.yml, so the reachable set is files named exactly wizard.yml -- on a deployed host, only this repo's five config/wizard/*/wizard.yml, which this unauthenticated endpoint already serves in full. Content is parsed with YAML.safe_load and rendered as JSON. A traversal to a directory with no wizard.yml returns 500 rather than disclosing anything. Revisit if the filename ever becomes dynamic, if the id arrives from a query parameter or a globbed route, or if anything not already public is ever named wizard.yml."
     },
     {
       "fingerprint": "aa5a2b411ef7e82ff5efb110835fd92044784037fd878563b5b14ea4f859d1ad",
