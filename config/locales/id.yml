@@ -67,7 +67,7 @@ id:
     my_dashboard: Papan instrumen saya
     recent_activity: Aktivitas Terkini
     report_problem: Laporkan masalah
-    request_account_create: Buat akun baru
+    request_account_create: Buat akun
     search: Ajukan pertanyaan
     show_current_revision: Tampilkan versi terkini
     show_last_revision: Tampilkan versi yang terakhir disunting
@@ -149,7 +149,7 @@ id:
     confirm_campaign_deletion: Apakah Anda yakin ingin menghapus kampanye berjudul
       "%{title}"? Jika demikian, ketik judul kampanye untuk melanjutkan.
     data_articles: Halaman yang disunting
-    description: Keterangan
+    description: Deskripsi
     none: Tak satupun
     organizers: Penyelenggara
   categories:

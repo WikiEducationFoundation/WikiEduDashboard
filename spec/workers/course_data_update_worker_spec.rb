@@ -17,10 +17,4 @@ describe CourseDataUpdateWorker do
     expect(UpdateCourseStats).not_to receive(:new)
     described_class.new.perform(course.id)
   end
-
-  it 'updates use_acuwt courses even when flagged very_long_update' do
-    course.update(flags: { use_acuwt: true, very_long_update: true })
-    expect(UpdateCourseStats).to receive(:new)
-    described_class.new.perform(course.id)
-  end
 end

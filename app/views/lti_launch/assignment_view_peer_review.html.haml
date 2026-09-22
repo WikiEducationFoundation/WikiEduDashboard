@@ -1,0 +1,50 @@
+- # In-Canvas drill-down for the peer-review column. Instructors get one row per
+- # student: how many reviews they've finished, and which articles they were
+- # assigned to review — the assignment itself, not just a count, matching how the
+- # article columns show each student's assigned article. A student sees their own
+- # reviews, each linking to the article and to the page the review belongs on.
+- #
+- # Peer review has no exercise module, so before this column existed the stage
+- # couldn't reach Canvas at all. What it does have is a course setting for how
+- # many reviews are expected and a dated timeline block, which is what the
+- # column is built on.
+.lti-iframe__drilldown
+  = render 'lti_launch/drilldown_header', title: @context.title, course: @context.course
+  - if @context.instructor?
+    - roster = @context.roster
+    - if roster.empty?
+      %p.lti-iframe__empty= t('lti.assignment_view.roster.empty')
+    - else
+      .lti-table-scroll
+        %table.lti-assignment-roster
+          %thead
+            %tr
+              %th= t('lti.assignment_view.roster.student')
+              %th= t('lti.assignment_view.roster.status')
+              %th= t('lti.assignment_view.peer_review.reviews')
+          %tbody
+            - roster.each do |row|
+              %tr
+                %td= row.name
+                %td
+                  %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
+                    = t('lti.assignment_view.peer_review.progress',
+                        completed: row.completed_count, total: row.total_count)
+                %td= render 'lti_launch/peer_reviews', reviews: row.reviews
+    = render 'lti_launch/grade_sync',
+             binding: @context.line_item.lti_course_binding, ltik: params[:ltik]
+  - else
+    - row = @context.student_panel
+    .lti-iframe__panel
+      %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
+        = t('lti.assignment_view.peer_review.progress',
+            completed: row.completed_count, total: row.total_count)
+      - reviews = @context.viewer_review_rows
+      - if reviews.empty?
+        - # The course expects reviews but none have been assigned to this student
+        - # yet, which is the instructor's step, not theirs.
+        %p.lti-iframe__empty= t('lti.assignment_view.peer_review.none_assigned')
+      - else
+        .lti-iframe__assigned-article
+          %h2= t('lti.assignment_view.peer_review.your_reviews')
+          = render 'lti_launch/peer_reviews', reviews: reviews

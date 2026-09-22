@@ -1,0 +1,110 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Installs, inspects or removes the Dashboard's **LTI 1.1** tool on the test
+# Canvas (canvas.wikiedu.org), for exercising the launch-only "companion mode"
+# (issue #7026) against staging.
+#
+#   bin/canvas-lti11-tool list                    # account-level external tools, 1.1 or 1.3
+#   bin/canvas-lti11-tool install                 # create/update the 1.1 tool via API params
+#   bin/canvas-lti11-tool install-by-url <url>    # create/update it from a config XML URL —
+#                                                 #   what an institution's admin does (the
+#                                                 #   Dashboard serves it at /lti/legacy/config.xml)
+#   bin/canvas-lti11-tool install-by-xml <file>   # same, from a local XML file (validates a
+#                                                 #   not-yet-deployed config against real Canvas)
+#   bin/canvas-lti11-tool remove                  # delete it
+#
+# Credentials come from `.env.staging-tests` (gitignored; see the .example):
+#   CANVAS_ADMIN_TOKEN, CANVAS_TEST_ACCOUNT_ID   — as for the staging specs
+#   LTI11_CONSUMER_KEY, LTI11_SHARED_SECRET
+#     — an LTI 1.1 key and secret the Dashboard issued. Generate one from a
+#       course's credentials page (`/courses/<slug>/canvas`) or, on staging,
+#       from the console: `LtiConsumerKey.generate_for(course:, user:)`.
+#       Never printed by this script.
+#   DASHBOARD_BASE_URL (optional) — defaults to https://dashboard-testing.wikiedu.org;
+#     the launch and config URLs are derived from it.
+#
+# Why the API and not Canvas's admin UI: a manually entered 1.1 tool (key,
+# secret, launch URL) gets no course-navigation placement. The external_tools
+# API takes the placement directly, and `install-by-url` uses the Dashboard's
+# own config XML, which is the path an instructor follows by hand. The tool is
+# installed with `course_navigation` default
+# *enabled*, so every course in the test account gets the tab — the same
+# posture the 1.3 registration has on this Canvas — under its own label
+# ("wikiedu.org", vs the 1.3 tool's "wikiedu.org testing"), so the 1.3 harness
+# (which finds its tab by label) is unaffected.
+
+require 'json'
+require_relative '../staging_specs/support/canvas_api_client'
+
+env_path = File.expand_path('../.env.staging-tests', __dir__)
+if File.exist?(env_path)
+  File.foreach(env_path) do |line|
+    line = line.strip
+    next if line.empty? || line.start_with?('#')
+    next unless (match = line.match(/\A(\w+)=(.*)\z/))
+
+    ENV[match[1]] ||= match[2]
+  end
+end
+
+DASHBOARD_BASE_URL = ENV.fetch('DASHBOARD_BASE_URL', 'https://dashboard-testing.wikiedu.org')
+LAUNCH_URL = "#{DASHBOARD_BASE_URL}/lti/legacy/launch"
+# The tool's name in Settings → Apps. Kept equal to the course-navigation
+# text the config XML sets ("wikiedu.org", what the guide tells admins to
+# enter), so the tab reads the same whichever install path created the tool;
+# the 1.3 tool on the test account is "wikiedu.org testing", so the two stay
+# distinguishable.
+TOOL_NAME = ENV.fetch('CANVAS_LTI11_TOOL_LABEL', 'wikiedu.org')
+
+client = CanvasApiClient.new
+command = ARGV[0] || 'list'
+
+def describe(tool)
+  nav = tool['course_navigation'] || {}
+  kind = tool['developer_key_id'] ? "1.3 (dev key #{tool['developer_key_id']})" : '1.1'
+  format('%6s  %-28s  %-4s  privacy=%-10s  nav=%s/%s  %s',
+         tool['id'], tool['name'], kind, tool['privacy_level'],
+         nav['enabled'].inspect, nav['default'] || '-', tool['url'])
+end
+
+existing = client.list_external_tools.find { |t| t['url'] == LAUNCH_URL }
+
+case command
+when 'list'
+  client.list_external_tools.each { |tool| puts describe(tool) }
+when 'install', 'install-by-url', 'install-by-xml'
+  key = ENV.fetch('LTI11_CONSUMER_KEY', '')
+  secret = ENV.fetch('LTI11_SHARED_SECRET', '')
+  if key.empty? || secret.empty?
+    abort 'LTI11_CONSUMER_KEY and LTI11_SHARED_SECRET are not set (put them in ' \
+          '.env.staging-tests; generate them from a course credentials page).'
+  end
+
+  config = { name: TOOL_NAME, consumer_key: key, shared_secret: secret }
+  case command
+  when 'install-by-url'
+    config_url = ARGV[1] or abort 'usage: install-by-url <config xml url>'
+    config.merge!(config_type: 'by_url', config_url:)
+  when 'install-by-xml'
+    path = ARGV[1] or abort 'usage: install-by-xml <path to config xml>'
+    config.merge!(config_type: 'by_xml', config_xml: File.read(path))
+  else
+    config.merge!(
+      url: LAUNCH_URL,
+      privacy_level: 'anonymous',
+      'course_navigation[enabled]' => true,
+      'course_navigation[default]' => 'enabled',
+      'course_navigation[text]' => TOOL_NAME,
+      'course_navigation[visibility]' => 'members'
+    )
+  end
+  tool = client.save_account_external_tool(config, tool_id: existing&.dig('id'))
+  puts "#{existing ? 'updated' : 'created'} (#{command}): #{describe(tool)}"
+when 'remove'
+  abort "no tool with url #{LAUNCH_URL} on the account" unless existing
+  client.delete_external_tool(existing['id'])
+  puts "removed: #{describe(existing)}"
+else
+  abort "unknown command #{command.inspect}; use list, install or remove"
+end

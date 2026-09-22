@@ -7,15 +7,15 @@
 ---
 nah:
   application:
-    dashboard: Huiqui Ed Īhuapal
+    dashboard: Huiqui Ed Ihuapal
   blocks:
     milestones:
-      title: Tepāmmachiyōtl
+      title: Tepammachiyotl
   metrics:
     view: Tlachiyaliztli
   namespace:
-    main: Huēyitlacāuhtli
-    user: Tequihuihcātlacāuhtli
+    main: Hueyitlacauhtli
+    user: Tequihuihcatlacauhtli
   recent_activity:
     file_name: Tlahcuiloltocaitl
   revisions:
@@ -25,7 +25,7 @@ nah:
   users:
     name: Tocaitl
   wizard:
-    summary: Tlacecempōhualōni
+    summary: Tlacecempohualoni
   error_404:
-    header: Ahmō mahcic tlaīxtli. :-(
+    header: Ahmo mahcic tlahcuilolamatl. :-(
 ...

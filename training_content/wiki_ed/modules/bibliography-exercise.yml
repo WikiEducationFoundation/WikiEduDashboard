@@ -9,3 +9,5 @@ slides:
   - slug: expand-bibliography #3802
   - slug: bibliography-and-ai #3804
   - slug: next-up-outline #7201
+settings:
+  assignment_sandbox_location: 'Bibliography'

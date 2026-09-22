@@ -6,24 +6,31 @@ require_dependency "#{Rails.root}/lib/analytics/course_students_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/retention_predictors_csv_builder"
-require_dependency "#{Rails.root}/app/controllers/reports_controller"
+require_dependency "#{Rails.root}/lib/analytics/report_csv_store"
 require_dependency "#{Rails.root}/app/workers/csv_cleanup_worker"
 require_dependency "#{Rails.root}/lib/analytics/all_courses_and_instructors_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/system_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/system_stats_csv_builder"
 
 class ReportCsvWorker
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed
+  sidekiq_options queue: 'report_csv', lock: :until_executed
 
   # Generate the csv for the given source (course or campaign)
   # if type is global, then can access source as nil
-  def self.generate_csv(source:, filename:, type:, include_course:)
-    perform_async(source&.id, filename, type, include_course)
+  def self.generate_csv(source:, filename:, type:, include_course:, filters: {})
+    perform_async(source&.id, filename, type, include_course, filters.to_json)
   end
 
-  def perform(id, filename, type, include_course)
+  def perform(id, filename, type, include_course, filters_json = '{}')
+    parsed_filters = JSON.parse(filters_json).symbolize_keys
     data =
       if type == 'all_courses_and_instructors'
         all_courses_and_instructors_csv
+      elsif type == 'system_csv'
+        to_system_csv(parsed_filters)
+      elsif type == 'system_daily_stats_csv'
+        to_system_daily_stats_csv(parsed_filters)
       elsif course_report?(type)
         to_course_csv(type, id)
       else
@@ -74,11 +81,23 @@ class ReportCsvWorker
     AllCoursesAndInstructorsCsvBuilder.new.generate_csv
   end
 
+  # System-wide CSV with dynamic filters applied.
+  # Delegates to the standalone SystemCsvBuilder.
+  def to_system_csv(filters)
+    SystemCsvBuilder.new(filters:).generate_csv
+  end
+
+  def to_system_daily_stats_csv(filters)
+    SystemStatsCsvBuilder.new(
+      start_date: filters[:start_date],
+      end_date: filters[:end_date]
+    ).generate_csv
+  end
+
   private
 
   def write_csv(filename, data)
-    FileUtils.mkdir_p "public#{ReportsController::CSV_PATH}"
-    File.write "public#{ReportsController::CSV_PATH}/#{filename}", data
+    ReportCsvStore.write(filename, data)
   end
 
   def course_report?(type)

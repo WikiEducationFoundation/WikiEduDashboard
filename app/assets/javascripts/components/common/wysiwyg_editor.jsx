@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
+import YoutubeIframe from './youtube_iframe';
 
 // A lightweight TipTap-based rich text editor. It replaces the previous TinyMCE
 // editor used by TextAreaInput's `wysiwyg` mode. The external contract is the
@@ -45,6 +46,7 @@ const WysiwygEditor = ({ value, onChange, onFocus, onBlur, invalid }) => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({ link: { openOnClick: false } }),
+      YoutubeIframe,
     ],
     content: value || '',
     immediatelyRender: true,

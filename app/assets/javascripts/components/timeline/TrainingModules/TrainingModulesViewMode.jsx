@@ -43,6 +43,7 @@ const TrainingModulesViewMode = (props) => {
         key="assignment-modules"
         trainingLibrarySlug={props.trainingLibrarySlug}
         isStudent={props.isStudent}
+        isStaff={props.isStaff}
       />);
     }
 
@@ -68,6 +69,9 @@ TrainingModulesViewMode.propTypes = {
     all_training_modules: PropTypes.array,
     trainingLibrarySlug: PropTypes.string.isRequired,
     editable: PropTypes.bool,
-    isStudent: PropTypes.bool
+    isStudent: PropTypes.bool,
+    // Instructor/staff/admin viewer: shows the student-submissions link on
+    // in-app exercises.
+    isStaff: PropTypes.bool
   };
 export default TrainingModulesViewMode;

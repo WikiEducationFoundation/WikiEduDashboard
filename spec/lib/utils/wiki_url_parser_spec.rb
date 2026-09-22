@@ -91,4 +91,49 @@ describe WikiUrlParser do
     expect(parser.oldid).to be_nil
     expect(parser.diff).to be_nil
   end
+
+  describe '#revision_target' do
+    it 'targets the text added between the two revisions of a diff range' do
+      url = 'https://en.wikipedia.org/w/index.php?diff=1178859026&oldid=711811679'
+      target = described_class.new(url).revision_target
+      expect(target).to eq(rev_id: 1178859026, from_rev: 711811679, diff_mode: true)
+    end
+
+    it 'targets a single edit against its parent when only diff is given' do
+      url = 'https://en.wikipedia.org/w/index.php?diff=1315039613'
+      target = described_class.new(url).revision_target
+      expect(target).to eq(rev_id: 1315039613, from_rev: nil, diff_mode: true)
+    end
+
+    it 'targets the whole revision when only oldid is given' do
+      url = 'https://en.wikipedia.org/w/index.php?oldid=1009773007'
+      target = described_class.new(url).revision_target
+      expect(target).to eq(rev_id: 1009773007, from_rev: nil, diff_mode: false)
+    end
+
+    it 'targets the edit against its parent for diff=prev, not the whole article' do
+      url = 'https://en.wikipedia.org/w/index.php?title=Richard_G._F._Uniacke&diff=prev&oldid=936368512'
+      target = described_class.new(url).revision_target
+      expect(target).to eq(rev_id: 936368512, from_rev: nil, diff_mode: true)
+    end
+
+    it 'is nil for diff=next, which cannot be resolved without the API' do
+      url = 'https://en.wikipedia.org/w/index.php?title=Some_Title&diff=next&oldid=936368512'
+      expect(described_class.new(url).revision_target).to be_nil
+    end
+
+    it 'distinguishes an unresolvable revision selector from a plain page URL' do
+      with_next = 'https://en.wikipedia.org/w/index.php?title=T&diff=next&oldid=5'
+      page_only = 'https://en.wikipedia.org/wiki/Some_Title'
+      oldid_only = 'https://en.wikipedia.org/w/index.php?oldid=5'
+      expect(described_class.new(with_next).revision_selector?).to be true
+      expect(described_class.new(page_only).revision_selector?).to be false
+      expect(described_class.new(oldid_only).revision_selector?).to be true
+    end
+
+    it 'is nil for a page title URL' do
+      parser = described_class.new('https://en.wikipedia.org/wiki/Some_Title')
+      expect(parser.revision_target).to be_nil
+    end
+  end
 end

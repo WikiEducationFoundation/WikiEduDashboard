@@ -54,6 +54,7 @@ require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 require_dependency "#{Rails.root}/lib/trained_students_manager"
 require_dependency "#{Rails.root}/lib/word_count"
 require_dependency "#{Rails.root}/lib/course_meetings_manager"
+require_dependency "#{Rails.root}/lib/experiments/opt_in_experiment"
 
 #= Course model
 class Course < ApplicationRecord
@@ -81,6 +82,7 @@ class Course < ApplicationRecord
            foreign_key: 'project_id',
            dependent: :destroy
   has_one :course_stat, class_name: 'CourseStat', dependent: :destroy
+  has_many :retention_stats, dependent: :destroy
 
   #########################
   # Activity by the users #
@@ -198,11 +200,11 @@ class Course < ApplicationRecord
   UPDATE_LENGTH = ENV['update_length'].to_i.days.seconds.to_i
 
   scope :current_and_future, lambda {
-    where('end > ?', Time.zone.now - UPDATE_LENGTH)
+    where('courses.end > ?', Time.zone.now - UPDATE_LENGTH)
   }
 
   scope :archived, lambda {
-    where('end <= ?', Time.zone.now - UPDATE_LENGTH)
+    where('courses.end <= ?', Time.zone.now - UPDATE_LENGTH)
   }
 
   scope :needs_partial_update, lambda {
@@ -382,8 +384,12 @@ class Course < ApplicationRecord
     article_course_timeslices.where(article_id: scoped_article_ids)
   end
 
+  # A Set rather than a uniq'd Array because scoped_article? looks a title up once per
+  # article of every fetched timeslice; the pricier build only pays off thanks to the memo.
   def scoped_article_titles(wiki)
-    (assigned_article_titles(wiki) + category_article_titles(wiki)).uniq
+    @scoped_article_titles ||= {}
+    @scoped_article_titles[wiki] ||= (assigned_article_titles(wiki) + category_article_titles(wiki))
+                                     .to_set
   end
 
   def assigned_article_titles(wiki)
@@ -415,10 +421,23 @@ class Course < ApplicationRecord
     categories.inject([]) { |ids, cat| ids + cat.article_ids }
   end
 
+  # Retrieve articles based on the existing article course user wiki timeslices.
+  # This includes both tracked and untracked articles, such as those that
+  # don't belong to a tracked namespace.
+  # For non-ACUWT courses, it falls back to the legacy ACT-based query.
+  def articles_from_timeslices(wiki_id)
+    return articles_from_timeslices_legacy(wiki_id) unless use_acuwt?
+    Article.joins(:article_course_user_wiki_timeslices)
+           .where(article_course_user_wiki_timeslices: { course_id: id, wiki_id: })
+           .distinct
+  end
+
   # Retrieve articles based on the existing article course timeslices.
   # This includes both tracked and untracked articles, such as those that
   # don't belong to a tracked namespace.
-  def articles_from_timeslices(wiki_id)
+  # Used by cleaners that operate on article course timeslices regardless of
+  # the use_acuwt flag.
+  def articles_from_timeslices_legacy(wiki_id)
     Article.joins(:article_course_timeslices)
            .where(article_course_timeslices: { course_id: id })
            .where(wiki_id:)
@@ -476,9 +495,25 @@ class Course < ApplicationRecord
     word_count / user_count
   end
 
+  # Flags live in one serialized column, so every save rewrites the whole hash.
+  # A stale Course object that sets one flag and saves silently drops any flag
+  # another process wrote in the meantime; that is how an Event Center link can
+  # vanish minutes after it was confirmed (T437639). These two methods reload
+  # under a row lock before writing, so a single-flag change never clobbers the
+  # rest. They return the result of `save`, and raise if the receiver has
+  # unsaved changes, because `with_lock` refuses to reload over them.
   def add_flag(key:, value: true)
-    flags[key] = value
-    save
+    with_lock do
+      flags[key] = value
+      save
+    end
+  end
+
+  def remove_flag(key)
+    with_lock do
+      flags.delete(key)
+      save
+    end
   end
 
   # Overridden for some course types
@@ -601,6 +636,21 @@ class Course < ApplicationRecord
     flags['update_logs'].present?
   end
 
+  # Start time of the most recent update log entry, as a DateTime (nil if the
+  # course was never updated). Copied courses store this via JSON, so the flag
+  # comes back as a String; we coerce it here to guarantee callers get a
+  # DateTime, matching how the value is stored during a normal update.1
+  def last_update_start_time
+    time_from_last_update_log('start_time')
+  end
+
+  # End time of the most recent update log entry, as a DateTime (nil if the
+  # course was never updated or the last update didn't finish). See
+  # last_update_start_time for why coercion is needed.
+  def last_update_end_time
+    time_from_last_update_log('end_time')
+  end
+
   # Determines if at least one timeslice update ran for the course based on the
   # 'processed' field into update_logs flag.
   def timeslice_update_ran?
@@ -621,6 +671,32 @@ class Course < ApplicationRecord
 
   def returning_instructor?
     tag?('returning_instructor')
+  end
+
+  # Mirrors the client-side inferDefaultCampaign.js term inference: derives a
+  # term slug (e.g. 'fall_2026') from the course start date.
+  def inferred_term
+    return unless start
+    year = start.year
+    case start.month
+    when 12 then "spring_#{year + 1}"
+    when 1..4 then "spring_#{year}"
+    when 5..7 then "summer_#{year}"
+    when 8..11 then "fall_#{year}"
+    end
+  end
+
+  # Drives the `only_if` gate on the wizard's research-study opt-in panel, which
+  # stays available even while the student-facing side is held back.
+  def eligible_for_active_research_experiment?
+    OptInExperiment.for_course(self).present?
+  end
+
+  # Whether enrolled students should be shown anything about an active research
+  # experiment. Serialized into the course JSON so the client can skip the
+  # invitation lookup entirely while the student side is not live.
+  def research_experiment_open_to_students?
+    OptInExperiment.for_course(self)&.student_invitations_open? || false
   end
 
   # Overridden for some course types
@@ -691,6 +767,22 @@ class Course < ApplicationRecord
   end
 
   private
+
+  # Returns the given time field ('start_time' or 'end_time') from the most
+  # recent update log entry, coerced to a DateTime. Returns nil when the course
+  # has no update logs or the field is blank (e.g. an update that never
+  # finished has no end_time). The value comes back as a String for courses
+  # copied via JSON and as a DateTime during a normal update, so we coerce in
+  # both cases to give callers a consistent type.
+  def time_from_last_update_log(field)
+    update_logs = flags['update_logs']
+    return if update_logs.blank?
+
+    value = update_logs.values.last[field]
+    return if value.blank?
+
+    value.to_datetime
+  end
 
   def trained_students_manager
     TrainedStudentsManager.new(self)

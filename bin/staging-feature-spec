@@ -1,0 +1,48 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Run a feature spec against the deployed staging environment
+# (`dashboard-testing.wikiedu.org` ↔ `canvas.wikiedu.org`) with a real
+# Chrome browser and a persistent profile that carries Wikipedia OAuth +
+# Canvas + dashboard session state across runs.
+#
+# Usage:
+#   bin/staging-feature-spec staging_specs/<file>_spec.rb [rspec_args...]
+#   HEADLESS=1 bin/staging-feature-spec ...   # run without a visible browser
+#
+# Defaults to HEADED (visible browser) because the whole point of this
+# harness is visual iteration on the integration's UX.
+#
+# See `docs/staging_feature_specs.md` for the one-time bootstrap.
+
+spec_file = ARGV[0] or abort 'Usage: bin/staging-feature-spec <spec_file> [rspec_args...]'
+
+extra = ARGV[1..]
+
+# Load local credentials + overrides from `.env.staging-tests` (gitignored).
+# Quiet no-op if the file doesn't exist; specs that need specific vars will
+# fail with a clear message of their own. Existing ENV always wins, so
+# command-line `CANVAS_ADMIN_TOKEN=... bin/staging-feature-spec ...` works.
+env_path = File.expand_path('../.env.staging-tests', __dir__)
+if File.exist?(env_path)
+  File.foreach(env_path) do |line|
+    line = line.strip
+    next if line.empty? || line.start_with?('#')
+    next unless (match = line.match(/\A(\w+)=(.*)\z/))
+
+    key, value = match[1], match[2]
+    ENV[key] ||= value
+  end
+end
+
+# `--tag staging` is load-bearing, not belt and suspenders: staging_specs/spec_helper.rb
+# excludes :staging by default (so a plain `rspec staging_specs` can't fire live
+# Canvas + SSH work by accident), and this flag is what opts back in. It also
+# keeps this runner from picking up a regular feature spec.
+cmd = ['bundle', 'exec', 'rspec', spec_file,
+       '--tag', 'staging',
+       '--format', 'documentation',
+       *extra]
+
+system(*cmd)
+exit($?.exitstatus)

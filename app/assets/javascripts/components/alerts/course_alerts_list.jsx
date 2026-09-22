@@ -17,7 +17,7 @@ const CourseAlertsList = (props) => {
   return (
     <AlertsHandler
       alertLabel={I18n.t('alerts.alert_label')}
-      noAlertsLabel={I18n.t('alerts.no_alerts')}
+      noAlertsLabel={I18n.t('alerts.no_data')}
     />
   );
 };

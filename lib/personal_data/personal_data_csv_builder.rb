@@ -14,6 +14,7 @@ module PersonalData
         add_user_profile_info(csv)
         add_course_info(csv)
         add_campaign_info(csv)
+        add_lti_context_info(csv)
       end
     end
 
@@ -75,6 +76,22 @@ module PersonalData
       @user.campaigns_users.includes(:campaign).each do |campaign_user|
         csv << ['Campaign', 'Joined At']
         csv << [campaign_user.campaign.slug, campaign_user.created_at]
+      end
+    end
+
+    def add_lti_context_info(csv)
+      contexts = LtiContext.where(user_id: @user.id)
+      return if contexts.empty?
+
+      # No name or email columns: the anonymized posture means the Dashboard
+      # never receives LMS-supplied names or emails, and the columns that once
+      # held them are gone from lti_contexts.
+      contexts.each do |context|
+        csv << ['LMS', 'LMS User ID', 'Roles (from LMS)', 'Membership Status (from LMS)',
+                'Linked At']
+        csv << [context.lms_family, context.user_lti_id,
+                Array(context.roles).join(', '), context.lms_membership_status,
+                context.linked_at]
       end
     end
   end

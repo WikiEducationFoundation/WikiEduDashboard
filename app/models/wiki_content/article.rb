@@ -28,6 +28,7 @@ require_dependency "#{Rails.root}/lib/assignment_updater"
 class Article < ApplicationRecord
   has_many :articles_courses, class_name: 'ArticlesCourses'
   has_many :article_course_timeslices
+  has_many :article_course_user_wiki_timeslices
   has_many :courses, -> { distinct }, through: :articles_courses
   has_many :assignments
   belongs_to :wiki

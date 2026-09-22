@@ -132,5 +132,20 @@ describe RevisionScoreImporter do
       revisions = described_class.new.get_revision_scores(array_revisions)
       expect(revisions[0].error).to eq(true)
     end
+
+    context 'when the wiki has no scoring API (wikidata)' do
+      before { stub_wiki_validation }
+
+      let(:wikidata) { create(:wiki, project: 'wikidata', language: nil) }
+
+      it 'returns the revisions untouched without fetching parent revision ids' do
+        expect(WikiApi::ArticleContent).not_to receive(:new)
+
+        revisions = described_class.new(wiki: wikidata).get_revision_scores(array_revisions)
+
+        expect(revisions).to eq(array_revisions)
+        expect(revisions.map(&:error)).to all(be_falsey)
+      end
+    end
   end
 end

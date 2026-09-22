@@ -80,8 +80,12 @@ const Form = (props) => {
   }, [state]);
 
   useEffect(() => {
-    // Hide the 'are you an instructor' question if user is returning to an enrollment URL.
-    // That means they are trying to join a course as a student, so assume that they are one.
+    // Hide the 'are you an instructor' question only for an enrollment URL: a
+    // passcode enroll link really is a student joining a course. A Canvas LTI
+    // return_to is NOT — instructors and students launch through the same
+    // /lti?ltik route, so hiding it there gave a first-time instructor a
+    // student account, and their setup page then had no courses to link
+    // (linkable_courses reads instructed_courses) with no way back.
     setInstructorFormClass(
       isEnrollUrl(props.returnToParam) ? 'form-group hidden' : 'form-group'
     );

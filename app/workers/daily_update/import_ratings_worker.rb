@@ -7,6 +7,6 @@ class ImportRatingsWorker
   sidekiq_options lock: :until_executed
 
   def perform
-    RatingImporter.update_all_ratings
+    RatingImporter.update_outdated_ratings
   end
 end

@@ -2,8 +2,10 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import '../testHelper';
-import { REVOKING_ADMIN, SET_ADMIN_USERS } from '../../app/assets/javascripts/constants';
-import { downgradeAdmin, fetchAdminUsers, upgradeAdmin } from '../../app/assets/javascripts/actions/settings_actions';
+import { REVOKING_ADMIN, REVOKING_SPECIAL_USER, SET_ADMIN_USERS, SET_SPECIAL_USERS } from '../../app/assets/javascripts/constants';
+import {
+  downgradeAdmin, downgradeSpecialUser, fetchAdminUsers, upgradeAdmin, upgradeSpecialUser
+} from '../../app/assets/javascripts/actions/settings_actions';
 import * as requestModule from '../../app/assets/javascripts/utils/request';
 
 
@@ -142,6 +144,104 @@ describe('downgradeAdmin', () => {
     ];
     const store = mockStore({});
     return store.dispatch(downgradeAdmin(username)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+});
+
+describe('upgradeSpecialUser', () => {
+  let cannedResponse;
+  beforeEach(() => {
+    cannedResponse = { spam: 'eggs' };
+    sinon.stub(requestModule, 'default')
+      .onCall(0).resolves(
+        { status: 200, ok: true, json: sinon.fake.returns({}) }
+        )
+      .onCall(1).resolves(
+        { status: 200, ok: true, json: sinon.fake.returns({ spam: 'eggs' }) }
+        );
+  });
+
+  afterEach(() => {
+    requestModule.default.restore();
+  });
+
+  test('dispatches SET_SPECIAL_USERS from the follow-up refresh before resolving', () => {
+    const username = 'someuser';
+    const position = 'wiki_expert';
+    const expectedActions = [
+      {
+        type: 'SUBMITTING_NEW_SPECIAL_USER',
+        data: { submitting: true },
+      },
+      {
+        type: 'SUBMITTING_NEW_SPECIAL_USER',
+        data: { submitting: false },
+      },
+      {
+        type: 'ADD_NOTIFICATION',
+        notification: {
+          type: 'success',
+          message: `${username} was upgraded to ${position}.`,
+          closable: true
+        },
+      },
+      {
+        type: SET_SPECIAL_USERS,
+        data: cannedResponse,
+      }
+    ];
+    const store = mockStore({});
+    return store.dispatch(upgradeSpecialUser(username, position)).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
+});
+
+describe('downgradeSpecialUser', () => {
+  let cannedResponse;
+  beforeEach(() => {
+    cannedResponse = { spam: 'eggs' };
+    sinon.stub(requestModule, 'default')
+      .onCall(0).resolves(
+        { status: 200, ok: true, json: sinon.fake.returns({}) }
+        )
+      .onCall(1).resolves(
+        { status: 200, ok: true, json: sinon.fake.returns({ spam: 'eggs' }) }
+        );
+  });
+
+  afterEach(() => {
+    requestModule.default.restore();
+  });
+
+  test('dispatches SET_SPECIAL_USERS and REVOKING_SPECIAL_USER from the follow-up refresh before resolving', () => {
+    const username = 'someuser';
+    const position = 'wiki_expert';
+    const expectedActions = [
+      {
+        type: 'REVOKING_SPECIAL_USER',
+        data: { revoking: { status: true, username } },
+      },
+      {
+        type: 'ADD_NOTIFICATION',
+        notification: {
+          type: 'success',
+          message: `${username} was removed as ${position}.`,
+          closable: true
+        },
+      },
+      {
+        type: SET_SPECIAL_USERS,
+        data: cannedResponse,
+      },
+      {
+        type: REVOKING_SPECIAL_USER,
+        data: { revoking: { status: false, username } },
+      }
+    ];
+    const store = mockStore({});
+    return store.dispatch(downgradeSpecialUser(username, position)).then(() => {
       expect(store.getActions()).toEqual(expectedActions);
     });
   });

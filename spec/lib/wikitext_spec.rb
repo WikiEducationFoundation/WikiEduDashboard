@@ -44,6 +44,26 @@ describe Wikitext do
     end
   end
 
+  describe '.mediawiki_to_markdown' do
+    it 'resolves interwiki wikilinks into working links instead of leaving raw wiki targets' do
+      # Regression test for https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/6963
+      # Source: https://meta.wikimedia.org/wiki/Training_modules/dashboard/slides/12218-identifying-content-gaps-for-editathons
+      input = 'Meet the [[wikipedia:Wikipedia:Notability#General_notability_guideline' \
+              '|General Notabilty Guidelines]].'
+      output = subject.mediawiki_to_markdown(input)
+      expect(output).to include(
+        '[General Notabilty Guidelines]' \
+        '(https://en.wikipedia.org/wiki/Wikipedia:Notability#General_notability_guideline)'
+      )
+    end
+
+    it 'still converts plain external links correctly' do
+      input = 'See the [https://meta.wikimedia.org/wiki/Gender_gap gender gap] article.'
+      output = subject.mediawiki_to_markdown(input)
+      expect(output).to include('[gender gap](https://meta.wikimedia.org/wiki/Gender_gap)')
+    end
+  end
+
   describe '.replace_code_with_nowiki' do
     it 'converts code formatting syntax from html to wikitext' do
       code_snippet = '<code></code>'

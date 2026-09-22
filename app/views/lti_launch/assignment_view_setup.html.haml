@@ -1,0 +1,55 @@
+- # In-Canvas drill-down for the "Wikipedia account" setup column: which
+- # Canvas students have connected a Wikipedia account via the Dashboard.
+- # The table lists the connected students; the not-yet-connected are a count
+- # plus a pointer to this column in the Canvas gradebook, where the same
+- # students show up by name with no score (we hold only an opaque LMS id for
+- # them, which would identify nobody here). A student reaching this view has,
+- # by definition, already connected (the launch itself links them), so the
+- # student branch is a simple confirmation.
+.lti-iframe__drilldown
+  = render 'lti_launch/drilldown_header', title: @context.title, course: @context.course
+  - if @context.instructor?
+    - # Course-wide counts, so they stay out of a single-student submission view.
+    - if @focus_user.nil?
+      %p.lti-iframe__lead
+        = t('lti.assignment_view.setup.summary',
+            connected: @context.connected_count, total: @context.total_count)
+    - if @context.total_count.zero?
+      %p.lti-iframe__empty= t('lti.assignment_view.setup.empty')
+    - else
+      - if @context.rows.any?
+        .lti-table-scroll
+          %table.lti-assignment-roster
+            %thead
+              %tr
+                %th= t('lti.assignment_view.roster.student')
+                %th= t('lti.assignment_view.roster.username')
+                %th= t('lti.assignment_view.roster.status')
+            %tbody
+              - @context.rows.each do |row|
+                %tr
+                  %td= row.name.presence || content_tag(:span, '—', class: 'lti-muted')
+                  %td= row.username.presence || content_tag(:span, '—', class: 'lti-muted')
+                  %td
+                    %span.lti-status.lti-status--done= t('lti.assignment_view.status.connected')
+                    - # Stored NRPS status says Canvas removed or suspended this
+                    - # student since they connected. Flag only — reconciling
+                    - # (or not) is the instructor's call.
+                    - if row.removed_in_lms
+                      %span.lti-status.lti-status--removed= t('lti.assignment_view.status.removed_in_lms')
+      - if @context.pending_count.positive? && @focus_user.nil?
+        .lti-iframe__next-step
+          %p= t('lti.assignment_view.setup.pending', count: @context.pending_count)
+    = render 'lti_launch/grade_sync',
+             binding: @context.line_item.lti_course_binding, ltik: params[:ltik]
+  - else
+    - # The iframe itself is the confirmation: the pill plus the student's
+    - # own username, linking to their details view on the Dashboard.
+    .lti-iframe__panel
+      %p.lti-setup-connected
+        %span.lti-status.lti-status--done= t('lti.assignment_view.status.connected')
+        - if @context.student_details_path
+          = link_to @context.student_details_path, target: '_blank', rel: 'noopener',
+                    class: 'lti-setup-connected__user' do
+            = @context.user.username
+            %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }

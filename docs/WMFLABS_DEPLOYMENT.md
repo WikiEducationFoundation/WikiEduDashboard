@@ -79,16 +79,6 @@ LoadModule passenger_module /home/ragesoss/.rvm/gems/ruby-2.7.1/gems/passenger-6
 ```
   PassengerInstanceRegistryDir /var/www/dashboard/shared/tmp/pids
 ```
-  - At the end of the apache.conf, add the following:
-```
-# Add header to incoming requests, timestamping them with time since the epoch in microseconds
-# This is required for New Relic's request queueing calculation
-RequestHeader set X-Request-Start "%t"
-```
-
-- Enable mod_headers:
-  - $ `sudo a2enmod headers`
-
 - Create a VirtualHost for the app
   - $ `sudo nano /etc/apache2/sites-available/dashboard.conf`
   - Add something like this:
@@ -129,7 +119,7 @@ ON YOUR MACHINE
 - Update or create the corresponding deployment file (eg, '/config/deploy/programs-and-events.rb') to point to your new wmflabs instance, commit the changes and push to github
 - Start the Capistrano deployment (on production). Enter the app's directory, then:
   - $ `cap production deploy`
-  - This is expected to fail because configuration files are not yet in place — in particular, application.yml, database.yml, secrets.yml, and newrelic.yml
+  - This is expected to fail because configuration files are not yet in place — in particular, application.yml, database.yml, and secrets.yml
    - If it fails but you don't get a message about one of those files, try it again.
 
 
@@ -144,8 +134,6 @@ ON THE SERVER
   - Paste and edit the example file, then save.
   - $ `nano /var/www/dashboard/shared/config/secrets.yml`
   - Paste the standard file, then save.
-  - $ `touch /var/www/dashboard/shared/config/newrelic.yml`
-  - (No file content is necessary unless you're using New Relic monitoring.)
 - Create the tmp directory for pid files
   - $ `mkdir /var/www/dashboard/shared/tmp/pids`
   - (Sidekiq will create a pid file in this directory upon deployment. If it is unable to do so, background jobs will not be performed.)
@@ -233,7 +221,7 @@ CONFIGURING A SEPARATE SIDEKIQ NODE
 - Get the Dashboard code: `git clone https://github.com/WikiEducationFoundation/WikiEduDashboard.git`
 - In the Dashboard directory:
   - `bundle install`
-  - Copy `application.yml`, `database.yml`, `secrets.yml`, `newrelic.yml` from the web node into the `config` directory
+  - Copy `application.yml`, `database.yml`, `secrets.yml` from the web node into the `config` directory
 
 - Add the systemd service files for the sidekiq processes you want to run on this server.
   - Add the Redis URL to the `[Service]` block, something like: `Environment=REDIS_URL=redis://p-and-e-dashboard-web`

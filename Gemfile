@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '3.4.8'
 
 ### Basic Framework
-gem 'rails', '8.1.3'
+gem 'rails', '8.1.3.1'
 gem 'jbuilder' # DSL for building JSON view templates
 gem 'haml-rails' # HTML template language, used instead of ERB
 gem 'bootsnap', require: false # Makes rails boot faster via caching
@@ -10,6 +10,7 @@ gem 'faker', require: false # Generates random data for example records
 gem 'figaro' # easy access to ENV variables. Deprecated.
 gem 'puma'
 gem 'csv' # CSV library (required for Ruby 3.4+ as it's no longer a default gem)
+gem 'aws-sdk-s3' # Client for S3-compatible object storage, used to store report CSVs
 gem 'observer' # Observer library (required for Ruby 3.1+ as it's no longer in standard library)
 
 ### Database and caching
@@ -30,6 +31,11 @@ gem 'fuzzily_reloaded' # fuzzy search for ActiveRecord tables
 
 ### Login, authentication, browser support
 gem 'devise' # user session management
+# OAuth 1.0a, for verifying the signature on an inbound LTI 1.1 launch
+# (VerifyLtiLegacyLaunch). Already present transitively via omniauth-oauth;
+# declared here because our own code depends on it directly.
+gem 'oauth'
+
 # Login via MediaWiki OAuth. This fork adds features to support account creation flow.
 gem 'omniauth-mediawiki', git: 'https://github.com/ragesoss/omniauth-mediawiki.git'
 # Parses user agent strings to determine which browser is in use.
@@ -39,9 +45,11 @@ gem 'browser'
 ### Email
 gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
-# Pinned for GHSA (improper cert validation / MITM CSS injection); stays on the
-# 1.x line since premailer is not yet vetted against css_parser 2.x/3.x.
-gem 'css_parser', '~> 1.22' # transitive of premailer; held at patched 1.x
+# css_parser is a transitive dependency of premailer. Pinned to 3.x, the first
+# line with the fix for GHSA-9pmc-p236-855h (SSRF + local file disclosure in
+# read_remote_file). 3.0.0 is default-secure for premailer pipelines and needs
+# no code changes per the advisory's upgrade notes.
+gem 'css_parser', '~> 3.0' # transitive of premailer; pinned to patched 3.x
 gem 'nokogiri' # expected by premailer-rails but not required
 gem 'rubyzip', require: 'zip' # used by ExportTrainingModuleDraft
 gem 'mailgun-ruby' # email sending service
@@ -78,7 +86,6 @@ gem 'i18n-js'
 gem 'sentry-ruby' # error reporting for both server-side Ruby and client-side JS
 gem 'sentry-rails' # Sentry extension for Rails
 gem 'sentry-sidekiq' # Sentry extension for Sidekiq
-gem 'newrelic_rpm' # performance monitoring
 
 ### Assorted conveniences and tools
 gem 'breadcrumbs_on_rails' # Used for breadcrumb navigation on training pages
@@ -105,7 +112,6 @@ gem 'wikidata-diff-analyzer', git: 'https://github.com/WikiEducationFoundation/w
 # gem 'rb-readline', platforms: [:mingw, :mswin, :x64_mingw]
 
 ### Performance
-gem 'rack-mini-profiler'
 gem 'stackprof'
 
 group :development do
@@ -128,6 +134,8 @@ group :development do
 end
 
 group :development, :test do
+  gem 'brakeman', require: false # Rails security static analysis; see config/brakeman.ignore
+  gem 'bundler-audit', require: false
   gem 'pry-rails'
   gem 'byebug'
   gem 'rspec-rails', '6.1.0'

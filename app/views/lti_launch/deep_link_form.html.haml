@@ -1,0 +1,6 @@
+- # Renders the self-submitting deep-linking response returned by LTIAAS
+- # (/api/deeplinking/form). `@deep_link_form` is a trusted HTML snippet
+- # from LTIAAS containing a hidden JWT and the JS that POSTs it back to the
+- # LMS, finalizing content selection — not user input. It is not HTML-
+- # escaped for that reason.
+= raw @deep_link_form

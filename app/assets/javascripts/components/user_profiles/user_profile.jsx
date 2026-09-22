@@ -7,7 +7,7 @@ import { fetchStats } from '../../actions/user_profile_actions.js';
 import { fetchUserTrainingStatus } from '../../actions/training_status_actions';
 import Loading from '../common/loading.jsx';
 import UserTrainingStatus from './user_training_status.jsx';
-import request from '../../utils/request';
+import request, { ensureOk } from '../../utils/request';
 import { useParams } from 'react-router-dom';
 
 const UserProfile = () => {
@@ -24,9 +24,13 @@ const UserProfile = () => {
   const getData = () => {
     const statsdataUrl = `/stats_graphs.json?username=${username}`;
     request(statsdataUrl)
+      .then(resp => ensureOk(resp))
       .then(resp => resp.json())
       .then((data) => {
         setStatsGraphsData(data);
+      })
+      .catch(() => {
+        // statsGraphsData stays unset; see Sentry issue PEONY-2NQ.
       });
   };
 

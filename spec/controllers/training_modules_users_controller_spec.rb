@@ -3,8 +3,9 @@
 require 'rails_helper'
 
 describe TrainingModulesUsersController, type: :request do
+  before { TrainingModule.load_all }
+
   describe '#create_or_update' do
-    before { TrainingModule.load_all }
     let(:user) { create(:user) }
     let(:training_module) { TrainingModule.find_by(slug: 'editing-basics') }
     let(:slide) { TrainingModule.find(training_module.id).slides.first }
@@ -72,30 +73,153 @@ describe TrainingModulesUsersController, type: :request do
   end
 
   describe '#mark_exercise_complete' do
-    let(:user) { create(:user) }
     let(:course) { create(:course) }
-    let(:week) { create(:week, course: course) }
-    let(:block) { create(:block, week: week) }
-    let(:training_module) do
-      TrainingModule.find_by(slug: 'update-a-biography-exercise') ||
-        create(:training_module, slug: 'update-a-biography-exercise',
-                                 settings: { 'article_title_input' => true }, kind: 1)
+    let(:week) { create(:week, course:) }
+    let(:user) { create(:user, username: 'Ragesock') }
+    let(:training_module) { TrainingModule.find_by(slug: module_slug) }
+    let(:block) { create(:block, week:, training_module_ids: [training_module.id]) }
+    let(:request_params) do
+      { block_id: block.id, complete: true, module_id: training_module.slug }
     end
-    let!(:tmu) do
-      TrainingModulesUsers.create(user_id: user.id, training_module_id: training_module.id)
-    end
+    let(:flags) { TrainingModulesUsers.last.flags[course.id] }
 
     before do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
     end
 
-    context 'when article_title_input has not been verified' do
+    context 'when the exercise expects no page' do
+      let(:module_slug) { 'copyedit-exercise' }
+
       before do
-        post '/training_modules_users/exercise',
-             params: { module_id: training_module.slug, block_id: block.id, complete: true }
+        post '/training_modules_users/exercise.json', params: request_params, as: :json
       end
 
-      it 'returns forbidden status' do
+      it 'marks the exercise complete' do
+        expect(flags[:marked_complete]).to eq(true)
+      end
+    end
+
+    context 'when the expected userpage sandbox exists' do
+      let(:module_slug) { 'choose-topic-exercise' }
+      let(:user) { create(:user, username: 'Kmblim') }
+
+      before do
+        VCR.use_cassette 'exercise_sandbox/user_sandbox' do
+          post '/training_modules_users/exercise.json', params: request_params, as: :json
+        end
+      end
+
+      it 'marks the exercise complete' do
+        expect(flags[:marked_complete]).to eq(true)
+      end
+    end
+
+    context 'when the expected userpage sandbox does not exist' do
+      let(:module_slug) { 'choose-topic-exercise' }
+
+      before do
+        VCR.use_cassette 'exercise_sandbox/user_sandbox' do
+          post '/training_modules_users/exercise.json', params: request_params, as: :json
+        end
+      end
+
+      it 'refuses the request' do
+        expect(response.status).to eq(403)
+      end
+
+      it 'does not mark the exercise complete' do
+        expect(flags).to be_nil
+      end
+
+      it 'names the expected page' do
+        expect(response.parsed_body['message'])
+          .to include('User:Ragesock/Choose_an_Article')
+      end
+    end
+
+    context 'when the expected bibliography page does not exist' do
+      let(:module_slug) { 'bibliography-exercise' }
+
+      before do
+        create(:assignment, course:, user:, wiki_id: 1,
+                            role: Assignment::Roles::ASSIGNED_ROLE,
+                            sandbox_url: 'https://en.wikipedia.org/wiki/User:Ragesock/student_sandbox')
+        VCR.use_cassette 'exercise_sandbox/assignment_sandbox' do
+          post '/training_modules_users/exercise.json', params: request_params, as: :json
+        end
+      end
+
+      it 'refuses the request' do
+        expect(response.status).to eq(403)
+      end
+
+      it 'names the expected page' do
+        expect(response.parsed_body['message'])
+          .to include('User:Ragesock/student_sandbox/Bibliography')
+      end
+    end
+
+    context 'when the expected bibliography page exists' do
+      let(:module_slug) { 'bibliography-exercise' }
+
+      before do
+        create(:assignment, course:, user:, wiki_id: 1,
+                            role: Assignment::Roles::ASSIGNED_ROLE,
+                            sandbox_url: 'https://en.wikipedia.org/wiki/User:Ragesock/student_sandbox_empty')
+        VCR.use_cassette 'exercise_sandbox/assignment_sandbox' do
+          post '/training_modules_users/exercise.json', params: request_params, as: :json
+        end
+      end
+
+      it 'marks the exercise complete' do
+        expect(flags[:marked_complete]).to eq(true)
+      end
+    end
+
+    context 'when unmarking an exercise whose expected page does not exist' do
+      let(:module_slug) { 'choose-topic-exercise' }
+      let(:request_params) do
+        { block_id: block.id, complete: false, module_id: training_module.slug }
+      end
+
+      before do
+        post '/training_modules_users/exercise.json', params: request_params, as: :json
+      end
+
+      it 'marks the exercise incomplete' do
+        expect(flags[:marked_complete]).to eq(false)
+      end
+
+      it 'does not query the wiki' do
+        expect(WikiApi).not_to receive(:new)
+        post '/training_modules_users/exercise.json', params: request_params, as: :json
+      end
+    end
+
+    context 'when the student has not assigned themselves an article yet' do
+      let(:module_slug) { 'bibliography-exercise' }
+
+      before do
+        post '/training_modules_users/exercise.json', params: request_params, as: :json
+      end
+
+      it 'refuses the request' do
+        expect(response.status).to eq(403)
+      end
+
+      it 'does not mark the exercise complete' do
+        expect(flags).to be_nil
+      end
+    end
+
+    context 'when the article title for an article_title_input exercise is unverified' do
+      let(:module_slug) { 'update-a-biography-exercise' }
+
+      before do
+        post '/training_modules_users/exercise.json', params: request_params, as: :json
+      end
+
+      it 'refuses the request' do
         expect(response.status).to eq(403)
       end
 
@@ -104,27 +228,25 @@ describe TrainingModulesUsersController, type: :request do
       end
     end
 
-    context 'when article title has already been verified' do
+    context 'when the article title for an article_title_input exercise is verified' do
+      let(:module_slug) { 'update-a-biography-exercise' }
+
       before do
+        tmu = TrainingModulesUsers.create(user:, training_module:)
         tmu.store_exercise_article_title('Selfie')
         tmu.save
-        post '/training_modules_users/exercise',
-             params: { module_id: training_module.slug, block_id: block.id, complete: true }
+        post '/training_modules_users/exercise.json', params: request_params, as: :json
       end
 
-      it 'does not return forbidden' do
-        expect(response.status).not_to eq(403)
+      it 'marks the exercise complete' do
+        expect(flags[:marked_complete]).to eq(true)
       end
     end
   end
 
   describe '#verify_exercise_article' do
     let(:user) { create(:user) }
-    let(:training_module) do
-      TrainingModule.find_by(slug: 'update-a-biography-exercise') ||
-        create(:training_module, slug: 'update-a-biography-exercise',
-                                 settings: { 'article_title_input' => true }, kind: 1)
-    end
+    let(:training_module) { TrainingModule.find_by(slug: 'update-a-biography-exercise') }
     let!(:tmu) do
       TrainingModulesUsers.create(user_id: user.id, training_module_id: training_module.id)
     end

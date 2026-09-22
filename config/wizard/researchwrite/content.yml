@@ -17,7 +17,8 @@ essentials:
   - # Week one
     weight: 6
     blocks:
-      - title: Introduction to the Wikipedia assignment
+      - id: introduction
+        title: Introduction to the Wikipedia assignment
         kind: 0
         content: |
           <p>
@@ -39,6 +40,7 @@ essentials:
           </ul>
 
       -
+        id: get_started
         title: Get started on Wikipedia
         kind: 1
         training_module_ids: [1,29,66] # Wikipedia policies, Sandboxes talk pages and watchlists, Communicating with others
@@ -52,6 +54,7 @@ essentials:
           </p>
 
       -
+        id: assignment_journal
         if: weekly_journal_assignment
         title: Wikipedia assignment journal
         kind: 1
@@ -64,6 +67,7 @@ essentials:
           </p>
 
       -
+        id: milestone_accounts
         title: Everyone has a Wikipedia account
         kind: 2
         content: |
@@ -72,6 +76,7 @@ essentials:
     weight: 6
     blocks:
       -
+        id: generative_ai_with_llm
         if: llm_training
         title: Generative AI
         kind: 1
@@ -81,6 +86,7 @@ essentials:
             Learn about Generative AI in the Wikipedia context and why you should NEVER copy and paste AI-generated text into Wikipedia.
           </p>
       -
+        id: generative_ai_only
         if: no_llm_training
         title: Generative AI
         kind: 1
@@ -90,13 +96,7 @@ essentials:
             Learn about Generative AI in the Wikipedia context and why you should NEVER copy and paste AI-generated text into Wikipedia.
           </p>
       -
-        if: fact_verification
-        title: Fact verification
-        kind: 1
-        training_module_ids: [86] # Exercise: Fact verification
-        content: |
-
-      -
+        id: discussion_sources_and_plagiarism
         if: sources_and_plagiarism_discussion
         title: "Discussion"
         kind: 0
@@ -108,18 +108,29 @@ essentials:
     weight: 6
     blocks:
       -
+        id: evaluate_wikipedia
         title: Evaluate Wikipedia
         kind: 1
         training_module_ids: [28,7,34] # How to edit, Evaluate an article, Exercise: Evaluate Wikipedia
         content: |
 
       -
+        id: fact_verification
+        if: fact_verification
+        title: Fact verification
+        kind: 1
+        training_module_ids: [86] # Exercise: Fact verification
+        content: |
+
+      -
+        id: improving_representation
         if: improving_representation
         title: Improving Representation
         training_module_ids: [68] # Improving representation
         content: |
 
       -
+        id: keeping_track_no_sandboxes
         if: no_sandboxes
         title: Keeping track of your work
         kind: 1
@@ -127,6 +138,7 @@ essentials:
         content: |
 
       -
+        id: keeping_track_sandboxes
         unless: no_sandboxes
         title: Keeping track of your work
         kind: 1
@@ -134,6 +146,7 @@ essentials:
         content: |
 
       -
+        id: medical_topics
         if: medical_topics
         title: Review the rules for health topics
         kind: 1
@@ -141,6 +154,7 @@ essentials:
         content: |
 
       -
+        id: choose_possible_topics
         if: explore_to_find_articles
         title: Choose possible topics
         kind: 1
@@ -149,6 +163,7 @@ essentials:
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=6">Editing Wikipedia</a>, page 6</p>
 
       -
+        id: choose_your_article
         if: choose_articles_from_list
         title: Choose your article
         kind: 1
@@ -156,6 +171,7 @@ essentials:
         content: |
 
       -
+        id: discussion_content_gaps
         if: content_gaps_discussion
         title: "Discussion"
         kind: 0
@@ -163,6 +179,7 @@ essentials:
         content: |
 
       -
+        id: handouts_from_list
         if: choose_articles_from_list
         title: Guide(s) for writing articles in your topic area
         kind: 4 # Special subject-specific guides block
@@ -171,6 +188,7 @@ essentials:
     weight: 4
     blocks:
       -
+        id: add_a_fact
         if: add_to_article
         title: Add a fact to Wikipedia
         kind: 1
@@ -180,6 +198,7 @@ essentials:
         content: |
 
       -
+        id: copyedit
         if: copyedit
         title: Copyedit an article
         kind: 1
@@ -189,6 +208,7 @@ essentials:
         content: |
 
       -
+        id: finalize_topic_and_sources
         if: explore_to_find_articles
         title: Finalize your topic, find sources, plan your changes
         kind: 1
@@ -196,6 +216,7 @@ essentials:
         content: |
 
       -
+        id: bibliography_and_outline
         if: choose_articles_from_list
         title: Find sources, create a bibliography, plan your changes
         kind: 1
@@ -203,6 +224,7 @@ essentials:
         content: |
 
       -
+        id: additional_article_extra_credit
         if: additional_article_extra_credit
         title: "Select an additional article for extra credit (Optional)"
         kind: 1
@@ -213,6 +235,7 @@ essentials:
     weight: 4
     blocks:
       -
+        id: start_drafting_individually
         if: working_individually
         unless: no_sandboxes
         title: Start drafting your contributions
@@ -228,6 +251,7 @@ essentials:
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
 
       -
+        id: start_drafting_in_groups
         if: working_in_groups
         unless: no_sandboxes
         title: Start drafting your contributions
@@ -239,11 +263,13 @@ essentials:
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
 
       -
+        id: handouts_explore
         if: explore_to_find_articles
         title: Guide(s) for writing articles in your topic area
         kind: 4 # Special subject-specific guides block
 
       -
+        id: start_editing_live
         if: no_sandboxes
         title: Start editing your article
         kind: 1
@@ -252,7 +278,8 @@ essentials:
           <p>Resource: <a href="https://wikiedu.org/editingwikipedia#page=7">Editing Wikipedia</a>, pages 7–9</p>
 
       -
-        if: no_sandoxes
+        id: drafting_new_article_in_sandbox
+        if: no_sandboxes
         title: Drafting a new article in a sandbox
         kind: 1
         content: |
@@ -262,6 +289,7 @@ essentials:
           <p>Resource: <a href="/training/students/drafting-in-sandbox/using-a-sandbox-v2">Drafting in the sandbox</a> training module</p>
 
       -
+        id: milestone_started_writing
         title: Everyone has started writing
         kind: 2
         content: |
@@ -271,6 +299,7 @@ essentials:
     blocks:
 
       - # 1 peer review
+        id: peer_review_one
         if: 1_peer_reviewers
         title: Peer review an article
         kind: 1
@@ -278,6 +307,7 @@ essentials:
           <a href="https://dashboard.wikiedu.org/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
 
       - # 2 peer reviews
+        id: peer_review_two
         if: 2_peer_reviewers
         title: Peer review two articles
         kind: 1
@@ -285,6 +315,7 @@ essentials:
           <a href="https://dashboard.wikiedu.org/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
 
       - # 3 peer reviews
+        id: peer_review_three
         if: 3_peer_reviewers
         title: Peer review three articles
         kind: 1
@@ -292,6 +323,7 @@ essentials:
           <a href="https://dashboard.wikiedu.org/training/students/peer-review" class="timeline-exercise">Guiding framework</a>
 
       -
+        id: discussion_thinking_about_wikipedia
         if: thinking_about_wikipedia_discussion
         title: "Discussion"
         kind: 0
@@ -299,6 +331,7 @@ essentials:
         content: |
 
       -
+        id: milestone_peer_reviews_complete
         title: Peer reviews are complete
         kind: 2
         content: |
@@ -308,6 +341,7 @@ essentials:
     weight: 3
     blocks:
       -
+        id: respond_to_peer_review
         title: Respond to your peer review
         kind: 1
         graded: true
@@ -329,6 +363,7 @@ essentials:
     weight: 6
     blocks:
       -
+        id: publishing_new_article_live
         if: no_sandboxes
         title: Publishing a new article
         kind: 1 # Assignment
@@ -348,6 +383,7 @@ essentials:
           </div>
 
       -
+        id: moving_to_mainspace_individually
         if: working_individually
         unless: no_sandboxes
         title: Begin moving your work to Wikipedia
@@ -372,6 +408,7 @@ essentials:
             </p>
           </div>
       -
+        id: moving_to_mainspace_in_groups
         if: working_in_groups
         unless: no_sandboxes
         title: Begin moving your work to Wikipedia
@@ -397,6 +434,7 @@ essentials:
           </div>
 
       -
+        id: did_you_know
         if: did_you_know
         title: Exercise
         kind: 1
@@ -408,6 +446,7 @@ essentials:
     weight: 2
     blocks:
       -
+        id: continue_improving
         title: Continue improving your article
         kind: 1
         training_module_ids: [6, 45] # Images and multimedia, Exercise: Link to other articles
@@ -422,6 +461,7 @@ essentials:
     weight: 2
     blocks:
       -
+        id: polish_your_work
         title: Polish your work
         kind: 1
         content: |
@@ -435,6 +475,7 @@ essentials:
     weight: 5
     blocks:
       -
+        id: final_article
         title: Final article
         kind: 1
         graded: true
@@ -447,6 +488,7 @@ essentials:
           </ul>
 
       -
+        id: in_class_presentation
         if: presentation
         title: In-class presentation
         kind: 0
@@ -456,6 +498,7 @@ essentials:
         content: |
 
       -
+        id: reflective_essay
         if: reflective_essay
         title: Reflective essay
         kind: 1
@@ -465,6 +508,7 @@ essentials:
         content: |
 
       -
+        id: original_research_paper
         if: original_research_paper
         title: Original research paper
         kind: 1
@@ -477,6 +521,7 @@ essentials:
     weight: 3
     blocks:
       -
+        id: milestone_finished
         title: You've finished your Wikipedia assignment!
         kind: 2
         content: |

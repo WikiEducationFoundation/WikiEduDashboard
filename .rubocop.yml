@@ -62,22 +62,27 @@ Metrics/AbcSize:
   Max: 23 # We should bring this down, ideally to the default of 15
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper methods
+    - 'staging_specs/**/*'
 
 Style/NumericPredicate:
   Exclude:
     - 'spec/**/*' # RSpec comparison matchers don't have predicate versions
+    - 'staging_specs/**/*'
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*' # pretty much impossible with RSpec
+    - 'staging_specs/**/*'
     - 'lib/tasks/*' # also impractical for Rake tasks
     - 'app/views/**/*' # jbuilder requires long blocks for large json views
 Metrics/MethodLength:
   Max: 16 # We should bring this down, ideally to the default of 10
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper methods
+    - 'staging_specs/**/*'
 Metrics/ModuleLength:
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper module
+    - 'staging_specs/**/*'
     - 'app/helpers/surveys_helper.rb' # this is too big and should be shrunk
 
 Rails/EnvironmentVariableAccess:

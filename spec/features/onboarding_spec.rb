@@ -80,6 +80,26 @@ describe 'onboarding', type: :feature, js: true do
       expect(page).to be_axe_clean
       expect(enrollment.reload.real_name).to eq('New Name')
     end
+
+    # A passcode enroll link really does mean a student joining a course, so the
+    # question is noise there.
+    it 'hides the instructor question when returning to an enroll URL' do
+      visit "#{onboarding_path}?return_to=/courses/School/Course_(2026)/enroll/passcode"
+      find('.intro .button').click
+      expect(page).to have_css('.form-group.hidden #onboarding-instructor-label',
+                               visible: :all)
+    end
+
+    # But NOT for a Canvas LTI launch: instructors and students both arrive
+    # through /lti?ltik, so assuming "student" here handed a first-time
+    # instructor a student account with no way back.
+    it 'still asks the instructor question when returning to an LTI launch' do
+      visit "#{onboarding_path}?return_to=/lti?ltik=abc"
+      find('.intro .button').click
+      expect(page).to have_no_css('.form-group.hidden #onboarding-instructor-label',
+                                  visible: :all)
+      expect(page).to have_content 'Are you an instructor?'
+    end
   end
 
   describe 'onboarding supplement' do

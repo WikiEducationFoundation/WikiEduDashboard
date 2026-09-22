@@ -134,8 +134,7 @@ class CourseWikiTimeslice < ApplicationRecord
   end
 
   def update_revision_count_from_acuwt
-    query = ArticleCourseUserWikiTimeslice
-              .where(course:, wiki:, start:)
+    query = acuwt_live_article_records
               .where.not(article_id: not_tracked_article_ids)
     query = query.where(article_id: course.scoped_article_ids) if
       course.only_scoped_articles_course?
@@ -147,10 +146,21 @@ class CourseWikiTimeslice < ApplicationRecord
   # so deleted revisions are not counted here. This is imperfect and should be improved
   # in the future to match exactly the same criteria as CourseRevisionUpdater#new_revisions?.
   def update_mw_rev_count_from_acuwt
-    query = ArticleCourseUserWikiTimeslice.where(course:, wiki:, start:)
+    query = acuwt_live_article_records
     query = query.where(article_id: course.scoped_article_ids) if
       course.only_scoped_articles_course?
     self.mw_rev_count = query.sum(:revision_count)
+  end
+
+  # ACUWT records for the timeslice, excluding deleted articles. Exclusion resets keep
+  # ACUWT records for deleted articles (so they can be re-included cheaply if undeleted),
+  # but their revisions no longer exist on-wiki, so they must not count. Filtering them
+  # also keeps mw_rev_count comparable to the live fetched-revision count in
+  # CourseRevisionUpdater#new_revisions?, which never sees deleted pages' revisions.
+  def acuwt_live_article_records
+    ArticleCourseUserWikiTimeslice.joins(:article)
+                                  .where(course:, wiki:, start:)
+                                  .where(articles: { deleted: false })
   end
 
   def acuwt_mainspace_tracked_student_records
@@ -193,7 +203,7 @@ class CourseWikiTimeslice < ApplicationRecord
 
   def update_stats_from_acuwt
     return unless wiki.project == 'wikidata'
-    query = ArticleCourseUserWikiTimeslice.where(course:, wiki:, start:)
+    query = acuwt_live_article_records
     query = query.where(article_id: course.scoped_article_ids) if
       course.only_scoped_articles_course?
     individual_stats = query.map(&:stats).compact

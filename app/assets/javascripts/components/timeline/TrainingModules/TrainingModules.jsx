@@ -18,6 +18,7 @@ const TrainingModules = createReactClass({
     editable: PropTypes.bool,
     header: PropTypes.any,
     isStudent: PropTypes.bool,
+    isStaff: PropTypes.bool,
     onChange: PropTypes.func,
     trainingLibrarySlug: PropTypes.string.isRequired,
   },
@@ -88,6 +89,7 @@ const TrainingModules = createReactClass({
       <ModuleRow
         key={module.id}
         isStudent={this.props.isStudent}
+        isStaff={this.props.isStaff}
         module={module}
         trainingLibrarySlug={this.props.trainingLibrarySlug}
       />

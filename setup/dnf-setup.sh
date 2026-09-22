@@ -87,6 +87,13 @@ else
   output_line "sudo dnf install -y redis" && print_success "${CLEAR_LINE}[+] Redis-Server installed\n"
 fi
 
+printf '[*] Installing memcached... \n'
+if which memcached > /dev/null; then
+  printf "${CLEAR_LINE}memcached already installed\n"
+else
+  output_line "sudo dnf install -y memcached" && print_success "${CLEAR_LINE}[+] Memcached installed\n"
+fi
+
 printf '[*] Installing MariaDB-server... \n'
 if mysql -V | grep MariaDB > /dev/null; then
   printf "${CLEAR_LINE}MariaDB already installed\n"
@@ -120,8 +127,8 @@ printf '[*] Starting MariaDB... \n'
 sudo service mariadb start
 
 printf "[*] Creating Databases... \n"
-echo "CREATE DATABASE IF NOT EXISTS dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
-      CREATE DATABASE IF NOT EXISTS dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+echo "CREATE DATABASE IF NOT EXISTS dashboard DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
+      CREATE DATABASE IF NOT EXISTS dashboard_testing DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;
       exit" | sudo mysql && print_success "${CLEAR_LINE}[+] Databases created\n"
 
 printf '[*] Checking for Database configurations... \n'
@@ -139,8 +146,7 @@ else
 
   printf '[*] Creating User for Mysql... \n'
   echo "CREATE USER 'wiki'@'localhost' IDENTIFIED BY 'wikiedu';
-      GRANT ALL PRIVILEGES ON dashboard . * TO 'wiki'@'localhost';
-      GRANT ALL PRIVILEGES ON dashboard_testing . * TO 'wiki'@'localhost';
+      GRANT ALL PRIVILEGES ON \`dashboard%\`.* TO 'wiki'@'localhost';
       exit" | sudo mysql > /dev/null && print_success "${CLEAR_LINE}[+] User created\n"
 fi
 

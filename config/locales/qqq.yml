@@ -141,6 +141,11 @@ qqq:
     log_in: Log in with Wikipedia button
     sign_up: Sign up with Wikipedia button
     sign_up_help: Instructions about how to log in via Wikipedia.
+  alerts:
+    ai_stats:
+      last_week: Button that filters the list of courses with AI edit alerts to show
+        only alerts from the previous week (the most recent 7 days), instead of all-time
+        totals. Here "last" means most recent, not final.
   activity:
     all: '{{Identical|Activity}}'
     edited_by: Column label for username of user who made an edit
@@ -535,6 +540,12 @@ qqq:
     training_nav: Link to go to the training page (Wiki Ed only)
     training_overdue: Training due date has passed for this course (Wiki Ed only)
     unsubmitted: Name for pseudo-campaign of unsubmitted courses (Wiki Ed only)
+    unsubmitted_show_all: Link on the unsubmitted courses page. By default the page
+      only lists courses that started within the last three months or have not started
+      yet; this link switches to the full list.
+    unsubmitted_show_recent: Link on the unsubmitted courses page that switches from
+      the full list back to the default view (courses that started within the last
+      three months or have not started yet).
     untrained: '{{Identical|Untrained}}'
     view: Label for link to a course page
     view_doc: Explanation of what 'article views' means
@@ -762,6 +773,15 @@ qqq:
       the background
     kind:
       discussion: '{{identical|Discussion}}'
+    exercise_sandbox_incomplete: Error shown when a student tries to mark an exercise
+      complete before creating the wiki page the exercise expects. %{pages} is a comma-separated
+      list of the expected page titles.
+    exercise_needs_assigned_article: Error shown when a student tries to mark an exercise
+      complete before assigning themselves an article, which the exercise's expected
+      page depends on
+    exercise_article_unverified: Error shown when a student tries to mark an exercise
+      complete before the dashboard has verified their edit to the article they name
+      for it
   uploads:
     image: '{{Identical|Image}}'
     label: |-

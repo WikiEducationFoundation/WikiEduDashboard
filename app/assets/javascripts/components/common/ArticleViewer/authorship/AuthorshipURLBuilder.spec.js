@@ -28,24 +28,6 @@ describe('AuthorshipURLBuilder', () => {
     });
   });
 
-  describe('#wikiwhoColorRevisionURL', () => {
-    it('should create a wikiwhoColorRevisionURL when given a valid article', () => {
-      const helper = new AuthorshipURLBuilder({ article: defaults.article });
-      const expected = 'https://wikiwho-api.wmcloud.org/en/api/v1.0.0-beta/rev_content/Brown%20Bear%2C%20Brown%20Bear%2C%20What%20Do%20You%20See%3F/?o_rev_id=true&editor=true&token_id=true&out=true&in=true';
-      expect(helper.wikiwhoColorRevisionURL()).toEqual(expected);
-    });
-    it('should throw an error if the language is missing', () => {
-      const article = { project: 'wikipedia', title: 'My Article' };
-      const result = new AuthorshipURLBuilder({ article });
-      expect(() => result.wikiwhoColorRevisionURL()).toThrow(TypeError);
-    });
-    it('should throw an error if the title is missing', () => {
-      const article = { language: 'en', project: 'wikipedia' };
-      const result = new AuthorshipURLBuilder({ article });
-      expect(() => result.wikiwhoColorRevisionURL()).toThrow(TypeError);
-    });
-  });
-
   describe('#wikiUserQueryURL', () => {
     it('should create a wikiUserQueryURL when given a valid article and multiple users', () => {
       const helper = new AuthorshipURLBuilder({ article: defaults.article, users: defaults.users });

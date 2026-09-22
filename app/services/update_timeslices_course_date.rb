@@ -83,9 +83,10 @@ class UpdateTimeslicesCourseDate
     Rails.logger.info "UpdateTimeslicesCourseDate: Course: #{@course.slug}\
     Removing data prior to: #{@course.start}"
 
-    # Delete course and course user timeslices
+    # Delete course, course user and article course user timeslices
     @timeslice_cleaner.delete_course_wiki_timeslices_prior_to_start_date
     @timeslice_cleaner.delete_course_user_wiki_timeslices_prior_to_start_date
+    @timeslice_cleaner.delete_article_course_user_wiki_timeslices_prior_to_start_date
 
     # Delete articles courses
     ArticlesCoursesCleaner.clean_articles_courses_prior_to_course_start(@course)
@@ -97,9 +98,10 @@ class UpdateTimeslicesCourseDate
     Rails.logger.info "UpdateTimeslicesCourseDate: Course: #{@course.slug}\
     Removing data after to: #{@course.end}"
 
-    # Delete course and course user timeslices
+    # Delete course, course user and article course user timeslices
     @timeslice_cleaner.delete_course_wiki_timeslices_after_end_date
     @timeslice_cleaner.delete_course_user_wiki_timeslices_after_end_date
+    @timeslice_cleaner.delete_article_course_user_wiki_timeslices_after_end_date
 
     # Delete articles courses
     ArticlesCoursesCleaner.clean_articles_courses_after_course_end(@course)

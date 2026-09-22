@@ -6,7 +6,6 @@ module CourseQueueSorting
 
   def queue_for(course)
     update_longest_update_time(course)
-    return 'acuwt_update' if course.use_acuwt?
     return 'very_long_update' if course.very_long_update?
     return 'long_update' if too_many_consecutive_unfinished_updates?(course)
 
@@ -62,9 +61,12 @@ module CourseQueueSorting
   end
 
   def update_longest_update_time(course)
-    return unless longest_recent_update_time(course).to_i >= longest_update_time(course).to_i
+    longest = longest_recent_update_time(course)
+    return unless longest.to_i >= longest_update_time(course).to_i
+    # This runs for every course on every scheduler pass and add_flag takes a
+    # row lock, so only write when the value actually changes.
+    return if longest == longest_update_time(course)
 
-    course.flags[:longest_update] = longest_recent_update_time(course)
-    course.save
+    course.add_flag(key: :longest_update, value: longest)
   end
 end

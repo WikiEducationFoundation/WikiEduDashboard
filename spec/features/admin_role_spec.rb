@@ -62,6 +62,31 @@ describe 'Admin users', type: :feature, js: true do
       expect(page).to have_content 'My Submitted Course'
       expect(page).to be_axe_clean
     end
+
+    it 'remembers when the submitted courses list is collapsed' do
+      visit root_path
+      expect(page).to have_css '#submitted-list.expanded'
+
+      find('#submitted-list h2').click
+      expect(page).to have_css '#submitted-list.collapsed'
+
+      visit root_path
+      expect(page).to have_css '#submitted-list.collapsed'
+      expect(page).not_to have_css '#submitted-list .course-list', visible: :visible
+    end
+
+    it 'remembers when the submitted courses list is expanded again' do
+      visit root_path
+      find('#submitted-list h2').click
+      expect(page).to have_css '#submitted-list.collapsed'
+
+      find('#submitted-list h2').click
+      expect(page).to have_css '#submitted-list.expanded'
+
+      visit root_path
+      expect(page).to have_css '#submitted-list.expanded'
+      expect(page).to have_content 'My Submitted Course'
+    end
   end
 
   describe 'adding a course to a campaign' do

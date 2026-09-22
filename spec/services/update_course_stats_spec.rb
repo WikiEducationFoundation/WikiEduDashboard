@@ -114,7 +114,10 @@ describe UpdateCourseStats do
       # The course user caches were updated
       # All the revisions were done in mainspace = 0,
       # except for one revision in mainspace = 120, which is ommited
-      expect(course_user.character_sum_ms).to eq(7991)
+      # This course tracks both en.wikipedia and wikidata. Character sums cover
+      # en.wikipedia only: of the 7991 characters added, 7867 were wikidata
+      # bytes, which are excluded. See WordCount::EXCLUDED_PROJECTS.
+      expect(course_user.character_sum_ms).to eq(124)
       expect(course_user.character_sum_us).to eq(0)
       expect(course_user.character_sum_draft).to eq(0)
       expect(course_user.references_count).to eq(-2)
@@ -130,7 +133,9 @@ describe UpdateCourseStats do
 
       # Check caches for course
       # Course caches were updated
-      expect(course.character_sum).to eq(7991)
+      # Character sums exclude the 7867 wikidata characters; revision counts
+      # still include all 27 wikidata edits alongside the 2 en.wikipedia ones.
+      expect(course.character_sum).to eq(124)
       expect(course.references_count).to eq(-2)
       expect(course.revision_count).to eq(29)
       # TODO: view_sum is miscalculated due to a DISTINCT. See issue #5911

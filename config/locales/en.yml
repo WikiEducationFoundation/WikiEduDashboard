@@ -88,6 +88,7 @@ en:
     change: Change
     details: Details
     confirm: OK
+    confirm_generic: Are you sure you want to do this?
     opt_in: "Yes"
     opt_out: "No"
     opt_yes: "yes"
@@ -136,6 +137,8 @@ en:
       If you are running a single, independent event, you can create a
       Program now. If your event is part of something bigger, find or create the
       Campaign for it. Then you can create a new Program from the Campaign page.
+    tooltip:
+      alt: More information
   home:
     explore: Explore
     log_in: Log in with Wikipedia
@@ -194,6 +197,76 @@ en:
       max_likelihood: Max AI likelihood distribution per day
       overall_avg_likelihood: Overall avg AI likelihood distribution
       overall_max_likelihood: Overall max AI likelihood distribution
+  system_stats:
+    title: "System & Facilitator Stats"
+    filters:
+      campaign: "Campaign"
+      home_wiki: "Home Wiki"
+      start_date: "Start Date"
+      end_date: "End Date"
+      all_campaigns: "All Campaigns"
+      all_wikis: "All Wikis"
+      export_csv: "Export CSV"
+      export_daily_csv: "Export Daily Stats CSV"
+      course_csv_tab: "Course Level Exports"
+      daily_stats_tab: "Daily System Snapshots"
+      generating: "Generating Export..."
+      generation_queued: "Your CSV export is being generated in the background. Retrying..."
+      still_processing: "Your CSV export is still generating in the background. Please check back shortly and click Export again."
+      fetch_error: "Could not generate CSV export. Please try again."
+      course_type: "Course Type"
+      status: "Status"
+      all_types: "All Types"
+      all_statuses: "All Statuses"
+      active: "Active"
+      archived: "Archived"
+    kpis:
+      total_edits: "Total Edits"
+      article_views: "Article Views"
+      articles_created: "Articles Created"
+      articles_improved: "Articles Improved"
+      characters_added: "Characters Added"
+      new_editors: "New Editors (60-day pre-registration)"
+      retained_new_editors: "Retained Editors"
+      active_programs: "Active Programs"
+      active_facilitators: "Active Facilitators"
+    charts:
+      monthly_trends: "Monthly Activity Trends"
+      wiki_trends: "Wiki Trends (Top 5)"
+      plot_metric: "Plot metric:"
+    tables:
+      wiki_breakdown: "Wiki Stats Breakdown"
+      wiki: "Wiki"
+      edits: "Edits"
+      programs: "Programs"
+      articles_created: "Articles Created"
+      new_editors: "New Editors (60-day pre-registration)"
+      retained_new_editors: "Retained Editors"
+    facilitators:
+      title: "Facilitator Leaderboard"
+      username: "Username"
+      courses: "Courses"
+      active: "Active"
+      students: "Students"
+      retained_new_editors: "Retained Editors"
+      active_in_year: "Active in Year"
+      "yes": "Yes"
+      "no": "No"
+    pagination:
+      previous: "Previous"
+      next: "Next"
+    loading:
+      data: "Loading data from server..."
+      facilitators: "Loading facilitators..."
+      wiki_stats: "Loading wiki stats..."
+      wiki_trends: "Loading wiki trends..."
+    empty:
+      no_trend_data: "No trend data available."
+      no_wiki_trend_data: "No wiki trend data available."
+      no_wiki_stats: "No wiki project stats available."
+      no_facilitators: "No facilitators found."
+    errors:
+      fetch_failed: "Failed to load data. Please try refreshing the page."
   activity:
     all: Activity
     edited_by: Edited By
@@ -367,6 +440,10 @@ en:
     confirm_add_available: Are you sure you want to add %{title}?
     confirm_addition: Are you sure you want to assign %{title} to %{username}?
     confirm_deletion: Are you sure you want to delete this assignment?
+    copy_available: Import from another course
+    copy_available_url_placeholder: course URL
+    copy_available_select_placeholder: Select a course
+    copy_available_include_student_assigned: Include assigned articles?
     delete: Remove and Delete
     editors: Assigned to
     change_sandbox_url: Change sandbox
@@ -770,16 +847,22 @@ en:
       If enabled, the dashboard will post a template to the userpage and talk page of
       each editor who joins the program.
     event_sync: "Editing disabled: This field cannot be changed because the course is already linked to an event. Changing it would disrupt the event's integration."
+    event_center_link: Event Center Page
+    view_event_center_page: View page
+    go_to_event_center: Go to Event Center to register
     courses_enrolled: Courses enrolled
     error:
       exists: That course already exists! Please try again with a different title, school, or term.
       user_exists: "Sorry, %{username} is not an existing user."
       user_exists_on_wiki: "Sorry, %{username} is not an existing user on %{domain}."
+      management_role_not_authorized: Only course instructors can add or remove a user in that role.
       invalid_language_or_project: Invalid language/project
       invalid_wiki: "Cannot connect to %{domain}. It may not be a valid wiki."
       duplicate_course_slug: "The URL %{slug} is already taken. Please change the title, school, or term."
       invalid_slug: Blank school/title for course.
       duplicate_slug: "Another program called %{slug} already exists."
+      event_sync_delete: This page is linked to Wikimedia Event Registration and cannot be deleted.
+      event_sync_rename: This page is linked to Wikimedia Event Registration and cannot be renamed.
     expected_students: Expected Students
     features_feedback: "Automated Suggestions:"
     feedback: Feedback
@@ -961,6 +1044,8 @@ en:
     training_nav: Go to training
     training_overdue: The training module "%{title}" is assigned for this course, and was due on %{date}.
     unsubmitted: Unsubmitted Courses
+    unsubmitted_show_all: Show all
+    unsubmitted_show_recent: Show recent
     untrained: Untrained
     update_stats: Update statistics
     uploads_none: This class has not contributed any images or other media files to Wikimedia Commons.
@@ -991,7 +1076,7 @@ en:
       if you don't want templates added to user pages, the talk pages of assigned articles, etc.
     wiki_staff: Wiki Education Staff
     withdrawn: Did not do assignment
-    word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
+    word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term. (Wikidata edits are not included.)
     word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the course's students during the course term
     yourcourses: Your Courses
     declined_note: "This course has been declined. Please contact Wiki Education staff if you have questions."
@@ -1150,7 +1235,7 @@ en:
     user_uploads_none: Selected users have not contributed any images or other media files to this project.
     view_other: View other campaigns
     view_page: View Page
-    word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
+    word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term. (Wikidata edits are not included.)
     word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the program's editors during the program term
     yourcourses: Your Programs
 
@@ -1342,6 +1427,42 @@ en:
       overview stats, like 'Articles Edited', 'Total Edits', 'Words Added', etc. Hence, only
       track the namespaces that your program aims to improve.
 
+  report_cards:
+    title: Report cards
+    subtitle: Scholars & Scientists report card
+    campaign: Campaign
+    courses: Courses
+    download_csv: Download CSV
+    pending: pending
+    not_applicable: "—"
+    total: Total
+    empty: "no stats computed"
+    legend: "Long-term Wikipedians (500+ edits before the course) are counted under Participants but left out of every other figure. Cells marked pending fill in 31 and 91 days after a course ends."
+    groups:
+      general: General
+      during: During the course
+      after: After the course
+    columns:
+      number: "#"
+      title: Course
+      instructors: Instructor
+      participants: Participants
+      long_term_wikipedians: "…of which is a long-term Wikipedian (500+ edits)"
+      sessions_during: Editing sessions
+      avg_sessions_during: Average editing sessions per participant
+      zero_edit_participants: Participants with no edits
+      uploads: Total number of uploads
+      avg_uploads: Average number of uploads per participant
+      words: Total number of words added
+      avg_words: Average amount of words per participant
+      editors_after_course: Participants who edited in 30 days after course
+      pct_active_editors_after: Percentage of active participants who made 1+ edit within 30 days after course
+      avg_days_to_return: Days to first independent edit
+      avg_sessions_after: Average editing sessions 30 days after course
+      any_survival_edits: Participants with 1+ edits between days 60 and 90 after course end
+      any_survival_edits_returning: "…of which took a prior course"
+      survivors: Participants with 5+ edits between days 60 and 90 after course end
+      survivors_returning: "…of which took a prior course"
   recent_activity:
     active_courses: Article is active in
     article_title: Title
@@ -1478,9 +1599,6 @@ en:
   status:
     active_jobs: Active jobs
     active_jobs_doc: The number of currently processing jobs.
-    acuwt_update: ACUWT update
-    acuwt_update_description: ACUWT updates process article scoped program courses with thousands of articles.
-    acuwt_update_doc: Handle updates for large article scoped program courses.
     all_queues_operational: All Queues Operational
     all_queues_not_operational: All Queues Operational except
     constant_update: Constant update
@@ -1506,6 +1624,9 @@ en:
     purpose: Purpose
     queues_overview: Queues Overview
     queue: Queue
+    report_csv: Report CSV generation
+    report_csv_description: Specific queue for generating user-requested CSV reports.
+    report_csv_doc: Handles user-requested CSV reports.
     short_update: Short update
     short_update_description: Short updates process courses with fewer than 1,000 revisions.
     short_update_doc: Handles updates for small courses.
@@ -1609,6 +1730,23 @@ en:
     week_number: "Week %{number}"
     add_block: Add Block
     delete_week: Delete Week
+    add_standard_block: Add Standard Block
+    standard_blocks: Standard Blocks
+    standard_block_add: Add
+    standard_block_filter: Filter blocks
+    standard_block_matches: Matches
+    standard_block_does_not_match: Does not match
+    standard_block_match_unknown: Unknown
+    standard_block_already_added: Already in timeline
+    sandbox_mode: Sandbox Mode
+    sandbox_mode_current_sandboxes: Drafting in sandboxes
+    sandbox_mode_current_live: Editing live articles
+    sandbox_mode_switch_to_live: Switch to live editing
+    sandbox_mode_switch_to_sandboxes: Switch to sandboxes
+    sandbox_mode_added: Blocks added
+    sandbox_mode_removed: Blocks removed
+    sandbox_mode_unmatched: "Expected block(s) not found. Title(s) may have been edited."
+    sandbox_mode_unresolved: "These blocks also depend on an unknown wizard answer, and have not been changed."
 
 
   training:
@@ -1641,6 +1779,9 @@ en:
     search_training_resources: Search for training resources
     no_training_resource_match_your_search: No training resource matches your search
     exercise_sandbox: Exercise Sandbox
+    exercise_sandbox_incomplete: Please complete the exercise in your Exercise Sandbox (%{pages}) before marking it complete
+    exercise_needs_assigned_article: You must assign yourself an article before you can complete this.
+    exercise_article_unverified: Please verify your Wikipedia edit before marking this exercise complete.
     open_exercise: Start Exercise
     remaining_exercise: "%{count} additional exercises remaining."
     view_all: View all exercises
@@ -1673,17 +1814,119 @@ en:
     cited_source: Cited source
     source_url: Source URL
     select_claim: Select this claim to verify
-    choose_article: Choose an article
     no_articles: No articles available
     your_selected_claim: Your selected claim
     find_in_article: Find this in the article text
     show_surrounding: Show surrounding paragraph
     choose_different_claim: Choose a different claim
+    back_to_claim: Back to my claim
     no_online_source: This cited source doesn't include a URL.
     course_picker_heading: Choose course
     course_picker_no_courses: No courses
     take_not_enrolled: You must be enrolled in the course to do that.
-    complete_in_sandbox: Complete this exercise in your Wikipedia sandbox.
+    # Exercise copy (operator-provided; see claim_verification_instructions.txt).
+    exercise_heading: "Fact Verification Exercise"
+    intro_p1: "Every fact on Wikipedia should be backed up by a reliable source. When consulting Wikipedia for information, you shouldn’t have to take the editor’s word for it; you can find the cited source and read that information for yourself. This is what’s known as verifiability, one of the most critical policies behind Wikipedia’s credibility."
+    intro_p2: "As AI tools become more widely used, it's more important than ever to learn how to verify information. AI-generated content often mismatches facts and sources — which is one of the major reasons why you cannot use it to add content to Wikipedia."
+    intro_p3: "In this exercise, you’ll see verifiability in action. You’ll practice how to verify claims by trying to find a specific fact in a cited source."
+    # Every step's heading, across the whole exercise: the numbers are composed in
+    # rather than written into the copy (see config/claim_verification_exercise.yml),
+    # so every `step_*` name — here and under `form` — is just the name.
+    step_heading: "Step %{number}: %{name}"
+    # The two steps before the form: the article picker, then choosing a claim
+    # inside the article viewer.
+    step_select_article: "Select an article"
+    step_select_claim: "Choose claim to verify"
+    # What each of those two steps asks the student to do.
+    select_article_instructions: "Choose from the list of articles below to begin this exercise."
+    select_claim_instructions: "The following claims need to be checked against the cited sources, because they may be AI-generated. (Note: the article may have changed since these claims were added.)"
+    form:
+      step_evaluate_source: Evaluate the source
+      evaluate_source_instructions: "First, consider the source itself: whether it seems reliable, and whether it's a good fit for the topic. You may want to review the [training on source evaluation](https://dashboard.wikiedu.org/training/students/evaluating-articles/what-is-a-good-source)."
+      source_appropriate_question: "Is this source appropriate for Wikipedia, for this particular article, and for the claim it supports?"
+      source_appropriate_options:
+        appropriate: "Yes, it's an appropriate source for the claim"
+        depends_on_use: "Somewhat, but it's not the best kind of source for this"
+        inappropriate: "No, this isn't the right kind of source to use here"
+        unsure: "Unsure"
+      source_appropriate_notes_label: "Why or why not? If not, what kind of source would be appropriate instead?"
+      meets_rs_policy_question: "Is it a reliable source?"
+      meets_rs_policy_options:
+        generally_reliable: "Yes, it clearly meets the definition of a reliable source in this context"
+        context_dependent: "Somewhat, but it has shortcomings"
+        not_reliable: "No, this clearly does not meet Wikipedia's definition of a reliable source"
+        unsure: "Unsure"
+      meets_rs_policy_notes_label: "What makes this a reliable source, or not?"
+      step_find_source: "Find the source"
+      find_source_instructions: "Now that you’ve selected your claim, track down the cited source. You may need to consult your instructor or librarian to find the source."
+      source_access_question: "Were you able to access the full text of the cited source for your claim?"
+      source_access_options:
+        accessed: "Yes, I have access to the source."
+        nonexistent: "No, the source does not exist."
+        inaccessible: "No, the source exists but I could not get access to it."
+      # Shown under the source-access question, with a "Choose a different claim"
+      # button, when the student says they could not get the source.
+      choose_another_claim_prompt: "Since you can't access the cited source, please choose a different claim to complete this exercise."
+      source_access_notes_label: "If you were unable to find the source, tell us more about your experience:"
+      step_verify: "Verify the claim"
+      # Markdown: the tips render as a bulleted list under the paragraph.
+      verify_instructions: |
+        Once you’ve found the cited source, determine how well it supports the claim you’ve chosen. If you find exactly where the information came from, note where in the document you found it.
+
+        Tips for verification:
+
+        - Read the abstract and conclusion of the source. Does it cover the topic of the claim?
+        - Use the “find” function in your application. Search the source for key words from the claim, then read the surrounding text where they appear. If you cannot find the key words or synonyms of them in the text, the claim is likely unverifiable.
+        - Text created by generative AI sources will often make broad, general claims about a topic with a citation that is cited to a source that offers one small example of that claim. Is the claim extrapolating a general claim from a specific instance? If so, it’s unverifiable.
+      verdict_question: "Does the source back up the claim?"
+      verdict_options:
+        full_support: "Yes — it explicitly supports the full claim."
+        partial_support: "Partially — some elements of the claim come from this source, but a significant part does not."
+        unsupported: "No — the source does not cover what the claim says."
+        contradicted: "The opposite — the source actually contradicts the claim."
+        undetermined: "I was unable to determine whether the claim was in the cited source."
+        # Retired options: no longer offered, kept for responses recorded with them.
+        mostly_supports: "Mostly yes — the core of the claim comes from this source."
+        mostly_unsupported: "Mostly no — the source is compatible with the claim, but doesn’t directly back it up."
+      # Shown under each verdict option in the form (not in summaries of a response).
+      verdict_option_descriptions:
+        full_support: "I can find all the facts of the claim in the cited source."
+        partial_support: "I can find some of the facts in the claim, but there is information in the claim that I cannot find in the cited source."
+        unsupported: "I cannot find any of the facts from the claim in the cited source."
+        contradicted: "I found facts in the cited source that state the opposite of what is mentioned in the claim."
+      claim_location_label: "If you were able to find the claim, where in the source was it located? (e.g. page number, chapter, etc…)"
+      verification_notes_label: "If you were unable to verify the information, tell us more about your experience. (e.g. was the source unclear or difficult to read? Was the source unrelated to the claim? Was the citation imprecise and the source too long to reasonably consult?)"
+      other_comments_label: "Any other comments about this exercise?"
+      # The verify step's worked example (the `verification_example` illustration
+      # in config/claim_verification_exercise.yml): screenshots of a claim that
+      # verifies, with the caption and conclusion from the edits document.
+      verification_example:
+        lead: "Here’s an example:"
+        verified_heading: "Example: The source backs up the claim"
+        verified_article_alt: 'Screenshot of the Wikipedia article "The Bicycle Tree". The sentence with the example claim is highlighted.'
+        verified_claim: "Claim reads: “In 2013, The Bicycle Tree launched a crowdfunding campaign to open a storefront.[1]”"
+        verified_source: "Source: DKELSEN (2016-06-08). \"Bicycle Tree Celebrates a Decade of Bike Activism in SanTana\". OC Weekly. Archived from the original on 2019-12-09. Retrieved 2026-05-29."
+        verified_source_alt: "Screenshot of an OC Weekly article, with the browser’s find bar matching “crowd” in the sentence about the crowdfunding campaign"
+        # `%{source_link}` is the link text below, linked to the source (an `_html` string).
+        verified_conclusion_html: "You can see the %{source_link} explicitly contains the information in the claim."
+        verified_source_link_text: "OC Weekly source"
+        failed_heading: "Example: The claim can't be verified from the source"
+        failed_article_alt: 'Screenshot of the Wikipedia article "Revolutionary Socialist Party (Zambia)". The sentence with the example claim is highlighted.'
+        failed_source_alt: 'Screenshot of a PDF of the cited Burnell 2001 journal article. A search bar has no results for “Revolutionary Socialist Party".'
+        failed_conclusion_html: "Because you can’t find key words from the claim anywhere in the %{source_link}, this fails verification, so you would select “No — the source does not cover what the claim says.”"
+        failed_source_link_text: "source text"
+      submit: Submit
+      submitted_heading: "Submitted response"
+      edit_response: Edit response
+      submit_failed: "Error! Your response was not saved."
+    # Instructor view of everyone's responses.
+    responses:
+      heading: Student responses
+      preview_exercise: Preview exercise
+      submitted_at: "Submitted %{date}"
+      pending_heading: "In progress"
+      taken_at: "Claim taken %{date}"
+      none_yet: "No students have selected a claim yet."
     # Internal staff harvest page.
     admin:
       loading: Loading…
@@ -1750,6 +1993,7 @@ en:
     assigned_wikidata: Assigned Items
     assignees: Assignee(s)
     loading_authorship_data: loading authorship data
+    scroll_to_users_edits: Scroll to Next Edit by %{username}
     authorship_data_not_fetched: Could not fetch authorship data
     character_doc: >
       The total amount of content a user has added to this namespace,
@@ -1757,6 +2001,7 @@ en:
       increased page size. This number doesn't necessarily reflect the
       amount of new content the user added. Restoring removed content
       will also increase this total.
+      (Wikidata edits are not included.)
     chars_added: Characters Added<br>(article | user | draft)
     chars_added_wikidata: Characters Added<br>(item | user | draft)
     contributions: User Contributions
@@ -1863,6 +2108,7 @@ en:
       across all edits that added more than they removed. This number doesn't
       necessarily reflect the amount of new content the user added. Restoring
       removed content will also increase this total.
+      (Wikidata edits are not included.)
     role:
       description: Role in course
       visitor: Visitor
@@ -2191,3 +2437,236 @@ en:
     advanced_search: "Advanced Search"
     clear: "Clear"
     program_date: "Program Date"
+
+  lms_integration:
+    heading: "%{lms_name} link"
+    linked_to: "Course:"
+    last_sync: "Last sync:"
+    last_roster_sync_error: "There was an error syncing the roster."
+    last_sync_error: "Last sync error"
+    # Two distinct counts, shown together on both status surfaces. "Students
+    # synced" was one label over the connected-accounts number, so a course whose
+    # roster sync had just pulled in 30 students read "Students synced: 0".
+    roster_students: "Canvas roster"
+    connected_accounts: "Connected"
+    never_synced: "Not yet synced"
+    time_ago: "%{time_ago} ago"
+    my_account_link: "Your account:"
+    linked: "Linked"
+    not_linked: "Not linked"
+    my_last_sync: "Last sync"
+    no_grades_yet: "No synced progress yet"
+    not_yet_linked: "Your account hasn't been linked to Canvas for this course."
+
+  lti:
+    beta_feedback:
+      message: "We welcome feedback about this beta version of our Canvas integration."
+      link: "Send feedback"
+    iframe_landing:
+      explanation: "Open dashboard.wikiedu.org in a new tab"
+      button: "Open the Wiki Education Dashboard"
+      not_linked: "This Canvas course is not yet linked to the Wiki Education Dashboard. Open the Dashboard to set up the integration."
+    oauth_redirect:
+      title: "Continuing to Wikipedia sign-in…"
+      button: "Continue"
+    setup:
+      header: "Set up the Wiki Education Dashboard for this Canvas course"
+      link_existing:
+        header: "Link an existing Wiki Education course"
+        label: "Course"
+      submit: "Link this course"
+      linked_notice: "Your course %{lms_course} is linked!"
+      already_linked: "Error: This course is already linked."
+      create_prompt: Create a course on the Dashboard
+      # Sits next to the course-creation link, which opens in a new tab because
+      # the full Dashboard can't be framed by Canvas. Tells the instructor how to
+      # get back to this step once the course exists.
+      create_return_note: "Course creation opens in a new tab. Reload once you have a Dashboard course."
+      no_approved_courses: "Canvas integration is only available after your course has been approved by Wiki Education staff."
+      no_courses_yet: "You have no course on the Wiki Education Dashboard yet. Please create one first."
+      # Setup link failures are shown to the instructor running setup, so they
+      # must not reuse the student-facing "contact your instructor" copy.
+      link_conflict_error: "There was a conflict with linking your Canvas and Dashboard accounts. Please contact Wiki Education staff for help."
+      duplicate_link_error: "This Canvas user is already linked to a different Wikipedia account. Sign in to the Dashboard with the account that was connected before, then relaunch."
+    deep_link:
+      module_name: "Research and write a Wikipedia article"
+      header: "Choose Wikipedia task"
+      header_multiple: "Import Wikipedia assignments"
+      instruction: "Choose a Wikipedia task for this gradable item"
+      instruction_multiple: "Choose which items from the Wiki Education Dashboard timeline to import."
+      submit: "Add to course"
+      all_added: "All available items have been added."
+      no_gradables: "No gradable items found"
+      # Shown inside Canvas's import dialog to non-instructor roles (which
+      # roles count as instructors is set by LtiSession::INSTRUCTOR_ROLES).
+      forbidden_header: "Only instructors may do this."
+      forbidden_explanation: "Importing Dashboard assignments is only available to course instructors."
+      # Shown when a submitted selection can no longer be reserved — an import
+      # dialog left open past the reservation window, the same items already
+      # imported from another tab, or a replayed submission. The instructor's
+      # next step is to close and reopen the import dialog.
+      # `unavailable_header` alone is also what a legacy (LTI 1.1) launch sees
+      # if it reaches a deep-linking placement (deep_link_legacy): import is
+      # 1.3-only, and that defensive path carries no copy of its own.
+      unavailable_header: Unavailable
+      unavailable_explanation: "These items are no longer available to import."
+    status:
+      roster:
+        peer_reviews: "Peer reviews"
+      header: "Wiki Education Dashboard"
+      linked: "Linked"
+      refresh: "Refresh"
+      roster_sync_label: "Roster sync"
+      grade_sync_label: "Grade sync"
+      sync_grades: "Sync grades"
+      grade_sync_started: "Grade sync started."
+      grade_sync_error: "There was an error syncing the grades."
+      roster_sync_error: "There was an error syncing the roster."
+      import_next_step:
+        header: "Import Wikipedia assignments from your Dashboard timeline"
+        instruction: "Go to Modules, open the ⋮ (options) menu, and choose wikiedu.org."
+      # Replaces the import step once anything has been imported. Canvas creates
+      # imported assignments and their module unpublished, and AGS gives us no
+      # way to tell whether the instructor has published them, so this stands as
+      # long as the course has imported columns.
+      publish_next_step:
+        header: "Wikipedia assignments imported"
+        instruction: "Don't forget to publish the module if you haven't already done so."
+    check_again: "Check again"
+    student_overview:
+      next_step: "Next step"
+      my_articles: "My articles"
+      trainings: "Trainings"
+      exercises: "Exercises"
+      # A student launching before the instructor has built the timeline. Reached
+      # in the ordinary setup order (the guide teaches linking the course first),
+      # so it has to explain itself rather than name the emptiness.
+      empty: "No Wikipedia activities"
+      role:
+        editing: "Editing"
+        reviewing: "Reviewing"
+    setup_pending:
+      header: "Wiki Education Dashboard is being set up"
+      explanation: "Your instructor is still setting up the Wikipedia assignment for this course. Check back after they finish, or contact your instructor."
+    enrollment_error:
+      header: "Couldn't enroll you in the Wiki Education course"
+      explanation: "Something prevented enrollment. Please contact your instructor or Wiki Education staff for help; the issue has been logged for review."
+    launch_error:
+      header: "There was an error launching the Dashboard's Canvas integration."
+      explanation: "Try reloading the Canvas page. If the problem persists, contact Wiki Education staff."
+    # The approval step before a Dashboard account is connected to a Canvas
+    # identity. `explanation` receives %{course} (the Canvas course title) and
+    # %{username} (the signed-in Dashboard account) whether or not the wording
+    # uses them; the two are also listed on their own rows below it. The link is
+    # write-once, so `wrong_account` — signing out and back in as the right
+    # account — is the escape hatch that keeps a mistake from needing staff.
+    connect_identity:
+
+      header: "Connect your Wikipedia account to this course"
+      explanation: "Connecting will report your Wikipedia work in %{course} to this Canvas course, using your Wiki Education Dashboard account %{username}. This connection cannot be changed later without help from Wiki Education staff, so check that the account below is the one you want to use."
+      canvas_course: "Canvas course"
+      dashboard_account: "Wikipedia account"
+      confirm: "Connect this account"
+      wrong_account: "Use a different account"
+    # Shown at the foot of every in-Canvas page so it's never a mystery which
+    # Dashboard account the integration is acting as. Note this is the account the
+    # page is ACTING AS, which inside the Canvas iframe is resolved from the launch
+    # rather than from a session — so the wording deliberately doesn't say "signed
+    # in", which would be false in the iframe even when the account is right.
+    identity:
+      signed_in_as: "Wikipedia account: %{username}"
+      no_account: "No Wikipedia account connected yet"
+    enrollment_pending_approval:
+      header: "This course is awaiting Wiki Education approval"
+      explanation: "Your instructor has set up this Wiki Education course, but Wiki Education staff are still reviewing it. Once it has been approved (usually within a few days), come back to this Canvas tab and you will be enrolled automatically."
+      contact_hint: "If you have questions, contact your instructor or Wiki Education staff."
+    assignment_view:
+      # Short column/status labels. connected/not_connected mirror the
+      # operator-supplied gradebook comments in LtiSetupProgress.
+      status:
+        completed: "Completed"
+        in_progress: "In progress"
+        not_started: "Not started"
+        connected: "Connected"
+        not_connected: "Not connected"
+        removed_in_lms: "Not enrolled in Canvas"
+      open_on_wikipedia: "Open on Wikipedia"
+      show: "Show"
+      hide: "Hide"
+      # Relocated verbatim from the sandbox-preview inline script in
+      # assignment_view.html.haml (the lti_iframe layout loads no i18n JS
+      # bundle, so the view passes these in).
+      sandbox_preview:
+        loading: "…"
+        not_found: "No sandbox found"
+        error: "Sandbox failed to load"
+      roster:
+        student: "Student"
+        username: "Username"
+        status: "Status"
+        sandbox: "Sandbox"
+        empty: "No students have connected Wikipedia accounts yet."
+        assigned_article: "Assigned article"
+      no_article_yet: "No article chosen yet"
+      # The shared panel showing the whole state of a student's article work,
+      # rendered at each stage of the writing process (choosing the article, the
+      # bibliography, the outline, continuing to improve). `pages.*` label the
+      # three userspace pages; the draft one is omitted for courses whose
+      # students edit live articles instead of drafting.
+      article_work:
+        header: "Article work"
+        not_created: "This article does not exist on Wikipedia yet."
+        created: "Started"
+        not_created_yet: "Not started"
+        characters: "Characters added"
+        references: "References added"
+        revisions: "Edits"
+        pages:
+          bibliography: "Bibliography"
+          outline: "Outline"
+          draft: "Draft sandbox"
+      student:
+        your_sandbox: "Your sandbox"
+        # Heading over the student's own assigned article(s).
+        your_article: "Your article"
+        open_exercise: "Open exercise"
+        launch_instructions: "Launch instructions"
+      setup:
+        summary: "%{connected} of %{total} have connected a Wikipedia account."
+        empty: "The roster sync is pending. Check back shortly."
+        # Not-yet-connected students are counted here rather than listed: all
+        # the anonymized roster gives us for them is an opaque LMS user id.
+        # The same students are identifiable by name in the Canvas gradebook,
+        # where this column shows no score for them. %{count} is how many.
+        pending: "%{count} student(s) have not connected a Wikipedia account yet."
+      trainings:
+        # Mirrors the operator-supplied gradebook comment phrasing in
+        # LtiTrainingProgress ("X of Y trainings completed").
+        progress: "%{completed} of %{total} trainings completed"
+        module: "Training"
+        due_date: "Due date"
+        # Heading over the instructor's list of the trainings this column covers.
+        covered: "Trainings in this course"
+        # Per-training, how many of the course's connected students have completed
+        # it. Spelled out because the roster below carries a different fraction
+        # (trainings completed per student), and "0 / 1" beside a module name read
+        # as neither. Operator's own wording (2026-08-05), so no placeholder.
+        module_completion: "Completed by %{completed} of %{total} students"
+      # The peer-review column. `progress` mirrors the comment phrasing in
+      # LtiPeerReviewProgress ("X of Y peer reviews completed"), the way the
+      # trainings one mirrors its own service.
+      peer_review:
+        progress: "%{completed} of %{total} peer reviews completed"
+        article: "Article to review"
+        review_page: "Review page"
+        reviews: "Assigned reviews"
+        your_reviews: "Your peer reviews"
+        none_yet: "None assigned yet"
+        none_assigned: "No peer reviews have been assigned to you yet."
+      orphan:
+        explanation: "There is no Dashboard content to show for this assignment."
+      submission:
+        explanation: "There is no student work to show for this submission."
+        open_dashboard: "Open the Wiki Education Dashboard"
+        viewing: "Showing work by %{username}"
+        details: "Open student details"

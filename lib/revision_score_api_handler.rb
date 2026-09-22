@@ -14,6 +14,12 @@ class RevisionScoreApiHandler
     @reference_counter_api = ReferenceCounterApi.new(@wiki, @update_service)
   end
 
+  # Whether any scoring API can return data for this wiki. Wikis unsupported by
+  # the reference-counter API (e.g. wikidata) have no revision scores at all.
+  def scores_available?
+    !@reference_counter_api.nil?
+  end
+
   # Returns data from the reference-counter API.
   # The response has the following format:
   # { "rev_0"=>

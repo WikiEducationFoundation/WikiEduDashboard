@@ -1,6 +1,7 @@
 import { getFiltered } from '../../utils/model_utils';
 import { ASSIGNED_ROLE, REVIEWING_ROLE } from '../../constants/assignments';
 import { uniqBy, flow, flatten, compact } from 'lodash-es';
+import { ensureOk } from '../../utils/request';
 
 export const delayFetchAssignmentsAndArticles = (props, cb) => {
   const { loadingArticles, loadingAssignments } = props;
@@ -94,7 +95,7 @@ export const selectUserByUsernameParam = (users, usernameParam) => {
   if (!usernameParam) return null;
 
   // Handle URLs that use an underscore instead of a space in the username.
-  const normalizedUsernameParam = usernameParam.replace('_', ' ');
+  const normalizedUsernameParam = usernameParam.replace(/_/g, ' ');
   let selectedUser = users.find(({ username }) => username === normalizedUsernameParam);
   if (selectedUser) return selectedUser;
 
@@ -105,18 +106,26 @@ export const selectUserByUsernameParam = (users, usernameParam) => {
   return selectedUser;
 };
 
+const CAN_USER_CREATE_ACCOUNT_URL = 'https://en.wikipedia.org/w/api.php?action=query&meta=userinfo&uiprop=cancreateaccount&format=json&origin=*';
+
 export const canUserCreateAccount = async () => {
-  const response = await fetch('https://en.wikipedia.org/w/api.php?action=query&meta=userinfo&uiprop=cancreateaccount&format=json&origin=*');
-  const data = await response.json();
+  try {
+    const response = await fetch(CAN_USER_CREATE_ACCOUNT_URL);
+    await ensureOk(response);
+    const data = await response.json();
 
-  // cancreateaccounterror is present if the user cannot create an account
-  // looks something like this
-//   {
-//     "code": "blocked",
-//     "type": "error",
-//     “message”: "blockedtext”,
-//     "params": [] -> contains actual error message. Is an array of strings.
-//   }
+    // cancreateaccounterror is present if the user cannot create an account
+    // looks something like this
+    //   {
+    //     "code": "blocked",
+    //     "type": "error",
+    //     “message”: "blockedtext”,
+    //     "params": [] -> contains actual error message. Is an array of strings.
+    //   }
 
-  return !data.query.userinfo.cancreateaccounterror;
+    return !data.query.userinfo.cancreateaccounterror;
+  } catch {
+    // Fail open; see Sentry issue PEONY-2P4.
+    return true;
+  }
 };

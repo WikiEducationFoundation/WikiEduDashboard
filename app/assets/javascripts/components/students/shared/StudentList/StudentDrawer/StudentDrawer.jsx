@@ -28,7 +28,7 @@ export const StudentDrawer = ({
                 student={student}
                 wikidataLabels={wikidataLabels}
               />
-            ) : <TrainingStatus trainingModules={trainingModules} />
+            ) : <TrainingStatus trainingModules={trainingModules} student={student} />
         }
       </td>
     </tr>

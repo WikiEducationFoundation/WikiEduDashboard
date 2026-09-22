@@ -150,12 +150,14 @@ describe 'Course creation for Article Scoped Programs', type: :feature, js: true
 
     find(:css, '#categories input').set('Earth ')
     find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
-    find(:css, '#category_depth').set('3')
     find(:css, '#categories input').set('Apple Inc. ')
     find(:css, '#categories div[class*="option"]', text: 'en:Apple Inc.', exact_text: true).click
 
-    expect(page).to have_content 'en:Earth sciences - 0'
-    expect(page).to have_content 'en:Apple Inc. - 3'
+    expect(page).to have_content 'en:Earth sciences'
+    expect(page).to have_content 'en:Apple Inc.'
+
+    # Each selection carries its own depth control, in selection order.
+    find(:css, '#category_depth_1').select('3')
 
     expect(page).to have_content 'Create my Program!'
     click_button 'Create my Program!'

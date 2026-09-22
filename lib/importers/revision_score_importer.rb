@@ -20,6 +20,11 @@ class RevisionScoreImporter
 
   # Takes an array of RevisionOnMemory records, and returns them with scores completed.
   def get_revision_scores(new_revisions)
+    # If no scoring API can return data for this wiki (e.g. wikidata), skip the whole
+    # loop: fetching parent revision ids would be wasted API calls, since the parent
+    # scores they're used for would be empty anyway.
+    return new_revisions unless @api_handler.scores_available?
+
     scores = {}
     parent_scores = {}
     parent_revisions = {}
@@ -38,7 +43,7 @@ class RevisionScoreImporter
       parent_revisions.merge!(my_parent_revisions)
 
       # Get scores for the parent revision batch
-      parent_scores.merge!(@api_handler.get_revision_data(my_parent_revisions.values.map(&:to_i)))
+      parent_scores.merge!(get_parent_scores(my_parent_revisions))
     end
 
     add_scores_to_revisions(revision_batches.flatten, parent_revisions, scores, parent_scores)
@@ -62,6 +67,10 @@ class RevisionScoreImporter
     rev_ids = non_new_revisions(rev_batch)
     WikiApi::ArticleContent.new(@wiki, update_service: @update_service)
                            .parent_revision_ids(rev_ids)
+  end
+
+  def get_parent_scores(parent_revisions)
+    @api_handler.get_revision_data(parent_revisions.values.map(&:to_i))
   end
 
   def non_new_revisions(revisions)

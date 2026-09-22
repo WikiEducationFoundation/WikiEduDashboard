@@ -1,3 +1,4 @@
+---
 timeslice_1:
   start: 2025-08-27 17:00:00 UTC
   end: 2025-08-28 17:00:00 UTC
@@ -59,73 +60,9 @@ timeslice_7:
   references_count: 4
   revision_count: 4
   stats:
-    merged to: 0
-    interwiki links added: 0
     claims created: 1
-    claims removed: 0
     claims changed: 3
-    items cleared: 0
-    items created: 0
-    labels added: 0
-    labels removed: 0
-    labels changed: 0
-    descriptions added: 0
-    descriptions removed: 0
-    descriptions changed: 0
-    aliases added: 0
-    aliases removed: 0
-    aliases changed: 0
     references added: 4
-    qualifiers added: 0
-    redirects created: 0
-    reverts performed: 0
-    restorations performed: 0
-    references removed: 0
-    references changed: 0
-    qualifiers removed: 0
-    qualifiers changed: 0
-    interwiki links removed: 0
-    interwiki links updated: 0
-    merged from: 0
-    lemmas added: 0
-    lemmas removed: 0
-    lemmas changed: 0
-    forms added: 0
-    forms removed: 0
-    forms changed: 0
-    senses added: 0
-    senses removed: 0
-    senses changed: 0
-    properties created: 0
-    lexeme items created: 0
-    representations added: 0
-    representations removed: 0
-    representations changed: 0
-    glosses added: 0
-    glosses removed: 0
-    glosses changed: 0
-    form claims added: 0
-    form claims removed: 0
-    form claims changed: 0
-    sense claims added: 0
-    sense claims removed: 0
-    sense claims changed: 0
-    form references added: 0
-    form references removed: 0
-    form references changed: 0
-    form qualifiers added: 0
-    form qualifiers removed: 0
-    form qualifiers changed: 0
-    sense references added: 0
-    sense references removed: 0
-    sense references changed: 0
-    sense qualifiers added: 0
-    sense qualifiers removed: 0
-    sense qualifiers changed: 0
-    language added: 0
-    language changed: 0
-    lexical category added: 0
-    lexical category changed: 0
     total revisions: 4
   last_mw_rev_datetime: 2025-08-26 22:25:45 UTC
   needs_update: false
@@ -136,73 +73,10 @@ timeslice_8:
   references_count: 3
   revision_count: 5
   stats:
-    merged to: 0
-    interwiki links added: 0
-    claims created: 0
     claims removed: 1
     claims changed: 4
-    items cleared: 0
-    items created: 0
-    labels added: 0
-    labels removed: 0
-    labels changed: 0
-    descriptions added: 0
-    descriptions removed: 0
-    descriptions changed: 0
-    aliases added: 0
-    aliases removed: 0
-    aliases changed: 0
     references added: 4
-    qualifiers added: 0
-    redirects created: 0
-    reverts performed: 0
-    restorations performed: 0
     references removed: 1
-    references changed: 0
-    qualifiers removed: 0
-    qualifiers changed: 0
-    interwiki links removed: 0
-    interwiki links updated: 0
-    merged from: 0
-    lemmas added: 0
-    lemmas removed: 0
-    lemmas changed: 0
-    forms added: 0
-    forms removed: 0
-    forms changed: 0
-    senses added: 0
-    senses removed: 0
-    senses changed: 0
-    properties created: 0
-    lexeme items created: 0
-    representations added: 0
-    representations removed: 0
-    representations changed: 0
-    glosses added: 0
-    glosses removed: 0
-    glosses changed: 0
-    form claims added: 0
-    form claims removed: 0
-    form claims changed: 0
-    sense claims added: 0
-    sense claims removed: 0
-    sense claims changed: 0
-    form references added: 0
-    form references removed: 0
-    form references changed: 0
-    form qualifiers added: 0
-    form qualifiers removed: 0
-    form qualifiers changed: 0
-    sense references added: 0
-    sense references removed: 0
-    sense references changed: 0
-    sense qualifiers added: 0
-    sense qualifiers removed: 0
-    sense qualifiers changed: 0
-    language added: 0
-    language changed: 0
-    lexical category added: 0
-    lexical category changed: 0
     total revisions: 5
   last_mw_rev_datetime: 2025-08-26 22:30:18 UTC
   needs_update: false
@@ -213,73 +87,9 @@ timeslice_9:
   references_count: 6
   revision_count: 6
   stats:
-    merged to: 0
-    interwiki links added: 0
     claims created: 1
-    claims removed: 0
     claims changed: 5
-    items cleared: 0
-    items created: 0
-    labels added: 0
-    labels removed: 0
-    labels changed: 0
-    descriptions added: 0
-    descriptions removed: 0
-    descriptions changed: 0
-    aliases added: 0
-    aliases removed: 0
-    aliases changed: 0
     references added: 6
-    qualifiers added: 0
-    redirects created: 0
-    reverts performed: 0
-    restorations performed: 0
-    references removed: 0
-    references changed: 0
-    qualifiers removed: 0
-    qualifiers changed: 0
-    interwiki links removed: 0
-    interwiki links updated: 0
-    merged from: 0
-    lemmas added: 0
-    lemmas removed: 0
-    lemmas changed: 0
-    forms added: 0
-    forms removed: 0
-    forms changed: 0
-    senses added: 0
-    senses removed: 0
-    senses changed: 0
-    properties created: 0
-    lexeme items created: 0
-    representations added: 0
-    representations removed: 0
-    representations changed: 0
-    glosses added: 0
-    glosses removed: 0
-    glosses changed: 0
-    form claims added: 0
-    form claims removed: 0
-    form claims changed: 0
-    sense claims added: 0
-    sense claims removed: 0
-    sense claims changed: 0
-    form references added: 0
-    form references removed: 0
-    form references changed: 0
-    form qualifiers added: 0
-    form qualifiers removed: 0
-    form qualifiers changed: 0
-    sense references added: 0
-    sense references removed: 0
-    sense references changed: 0
-    sense qualifiers added: 0
-    sense qualifiers removed: 0
-    sense qualifiers changed: 0
-    language added: 0
-    language changed: 0
-    lexical category added: 0
-    lexical category changed: 0
     total revisions: 6
   last_mw_rev_datetime: 2025-08-26 22:36:16 UTC
   needs_update: false
@@ -290,73 +100,9 @@ timeslice_10:
   references_count: 6
   revision_count: 6
   stats:
-    merged to: 0
-    interwiki links added: 0
     claims created: 1
-    claims removed: 0
     claims changed: 5
-    items cleared: 0
-    items created: 0
-    labels added: 0
-    labels removed: 0
-    labels changed: 0
-    descriptions added: 0
-    descriptions removed: 0
-    descriptions changed: 0
-    aliases added: 0
-    aliases removed: 0
-    aliases changed: 0
     references added: 6
-    qualifiers added: 0
-    redirects created: 0
-    reverts performed: 0
-    restorations performed: 0
-    references removed: 0
-    references changed: 0
-    qualifiers removed: 0
-    qualifiers changed: 0
-    interwiki links removed: 0
-    interwiki links updated: 0
-    merged from: 0
-    lemmas added: 0
-    lemmas removed: 0
-    lemmas changed: 0
-    forms added: 0
-    forms removed: 0
-    forms changed: 0
-    senses added: 0
-    senses removed: 0
-    senses changed: 0
-    properties created: 0
-    lexeme items created: 0
-    representations added: 0
-    representations removed: 0
-    representations changed: 0
-    glosses added: 0
-    glosses removed: 0
-    glosses changed: 0
-    form claims added: 0
-    form claims removed: 0
-    form claims changed: 0
-    sense claims added: 0
-    sense claims removed: 0
-    sense claims changed: 0
-    form references added: 0
-    form references removed: 0
-    form references changed: 0
-    form qualifiers added: 0
-    form qualifiers removed: 0
-    form qualifiers changed: 0
-    sense references added: 0
-    sense references removed: 0
-    sense references changed: 0
-    sense qualifiers added: 0
-    sense qualifiers removed: 0
-    sense qualifiers changed: 0
-    language added: 0
-    language changed: 0
-    lexical category added: 0
-    lexical category changed: 0
     total revisions: 6
   last_mw_rev_datetime: 2025-08-26 22:48:41 UTC
   needs_update: false
@@ -367,73 +113,9 @@ timeslice_11:
   references_count: 7
   revision_count: 7
   stats:
-    merged to: 0
-    interwiki links added: 0
     claims created: 2
-    claims removed: 0
     claims changed: 5
-    items cleared: 0
-    items created: 0
-    labels added: 0
-    labels removed: 0
-    labels changed: 0
-    descriptions added: 0
-    descriptions removed: 0
-    descriptions changed: 0
-    aliases added: 0
-    aliases removed: 0
-    aliases changed: 0
     references added: 7
-    qualifiers added: 0
-    redirects created: 0
-    reverts performed: 0
-    restorations performed: 0
-    references removed: 0
-    references changed: 0
-    qualifiers removed: 0
-    qualifiers changed: 0
-    interwiki links removed: 0
-    interwiki links updated: 0
-    merged from: 0
-    lemmas added: 0
-    lemmas removed: 0
-    lemmas changed: 0
-    forms added: 0
-    forms removed: 0
-    forms changed: 0
-    senses added: 0
-    senses removed: 0
-    senses changed: 0
-    properties created: 0
-    lexeme items created: 0
-    representations added: 0
-    representations removed: 0
-    representations changed: 0
-    glosses added: 0
-    glosses removed: 0
-    glosses changed: 0
-    form claims added: 0
-    form claims removed: 0
-    form claims changed: 0
-    sense claims added: 0
-    sense claims removed: 0
-    sense claims changed: 0
-    form references added: 0
-    form references removed: 0
-    form references changed: 0
-    form qualifiers added: 0
-    form qualifiers removed: 0
-    form qualifiers changed: 0
-    sense references added: 0
-    sense references removed: 0
-    sense references changed: 0
-    sense qualifiers added: 0
-    sense qualifiers removed: 0
-    sense qualifiers changed: 0
-    language added: 0
-    language changed: 0
-    lexical category added: 0
-    lexical category changed: 0
     total revisions: 7
   last_mw_rev_datetime: 2025-08-26 22:57:06 UTC
   needs_update: false

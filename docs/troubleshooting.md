@@ -33,8 +33,8 @@
 Then start the command line:
     - Debian: `mysql -u root -p`
     - `SET PASSWORD FOR 'root'@'localhost' = PASSWORD('mypassword')`
-    - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
-    - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;`
+    - `CREATE DATABASE dashboard DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;`
+    - `CREATE DATABASE dashboard_testing DEFAULT CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_unicode_ci;`
     - `exit`
 
 

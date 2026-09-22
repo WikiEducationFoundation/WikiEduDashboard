@@ -80,18 +80,17 @@ describe UpdateCourseWikiTimeslices do
 
         # Check caches for mw_page_id 6901525
         article = Article.find_by(mw_page_id: 6901525)
-        # The article course exists
-        article_course = ArticlesCourses.find_by(article_id: article.id)
 
+        article_course_timeslices = ArticleCourseTimeslice.where(course:, article:)
         # Article course timeslice record was created for mw_page_id 6901525
         # timeslices for 2018-11-24 was created
-        expect(article_course.article_course_timeslices.count).to eq(1)
-        expect(article_course.article_course_timeslices.first.start).to eq('2018-11-24')
+        expect(article_course_timeslices.count).to eq(1)
+        expect(article_course_timeslices.first.start).to eq('2018-11-24')
         # Article course timeslices caches were updated
-        expect(article_course.article_course_timeslices.first.character_sum).to eq(427)
-        expect(article_course.article_course_timeslices.first.references_count).to eq(-2)
-        expect(article_course.article_course_timeslices.first.user_ids).to eq([user.id])
-        expect(article_course.article_course_timeslices.first.first_revision)
+        expect(article_course_timeslices.first.character_sum).to eq(427)
+        expect(article_course_timeslices.first.references_count).to eq(-2)
+        expect(article_course_timeslices.first.user_ids).to eq([user.id])
+        expect(article_course_timeslices.first.first_revision)
           .to eq('2018-11-24 04:49:31')
       end
 
@@ -198,13 +197,13 @@ describe UpdateCourseWikiTimeslices do
 
       it 'fetches revisions up to end date' do
         expected_dates = [
-          %w[20181124000000 20181124235959],
-          %w[20181125000000 20181125235959],
-          %w[20181126000000 20181126235959],
-          %w[20181127000000 20181127235959],
-          %w[20181128000000 20181128235959],
-          %w[20181129000000 20181129235959],
-          %w[20181130000000 20181130235500]
+          %w[20181124000000 20181125000000],
+          %w[20181125000000 20181126000000],
+          %w[20181126000000 20181127000000],
+          %w[20181127000000 20181128000000],
+          %w[20181128000000 20181129000000],
+          %w[20181129000000 20181130000000],
+          %w[20181130000000 20181201000000]
         ]
 
         expected_wikis = [enwiki, wikidata]
@@ -213,7 +212,7 @@ describe UpdateCourseWikiTimeslices do
           expected_wikis.each do |wiki|
             expect_any_instance_of(CourseRevisionUpdater)
               .to receive(:fetch_revisions_for_course_wiki)
-              .with(wiki, start_time, end_time)
+              .with(wiki, start_time.to_datetime, end_time.to_datetime)
               .once
               .and_call_original
           end
@@ -331,7 +330,7 @@ describe UpdateCourseWikiTimeslices do
           expect(wikidata_timeslice.revision_count).to eq(0)
           expect(wikidata_timeslice.needs_update).to eq(false)
           expect(wikidata_timeslice.last_mw_rev_datetime).to eq(nil)
-          expect(wikidata_timeslice.stats['total revisions']).to eq(0)
+          expect(wikidata_timeslice.stats).to be_empty
         end
       end
     end
@@ -465,6 +464,121 @@ describe UpdateCourseWikiTimeslices do
           expect(steps).to include("timeslices_reaggregated_#{enwiki.id}")
           expect(steps).to include("timeslices_reaggregated_#{wikidata.id}")
         end
+      end
+    end
+  end
+
+  describe 'empty-gap precheck' do
+    # A dormant course: the ingestion watermark (last recorded revision) is
+    # weeks behind the end of the scan range, so the range exceeds
+    # GAP_PRECHECK_THRESHOLD and the wide-window precheck kicks in.
+    let(:course) do
+      create(:basic_course, start: '2018-10-01 00:00:00', end: '2018-11-30 23:55:00')
+    end
+    let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:updater) { described_class.new(course, UpdateDebugger.new(course)) }
+    let(:user) { create(:user, username: 'Ragesoss') }
+    let(:fetched_slice_days) { [] }
+    let(:watermark_day) { '2018-10-10' }
+
+    before do
+      stub_const('TimesliceManager::TIMESLICE_DURATION', 86400)
+      travel_to Date.new(2018, 12, 1)
+      # Without a campaign the course isn't approved, the student can't join,
+      # and no_point_in_importing_revisions? would skip the precheck entirely.
+      course.campaigns << Campaign.first
+      JoinCourse.new(course:, user:, role: 0)
+      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records(course.wikis)
+      CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: "#{watermark_day} 00:00:00")
+                         .update(last_mw_rev_datetime: "#{watermark_day} 14:05:30")
+      allow_any_instance_of(CourseRevisionUpdater)
+        .to receive(:fetch_revisions_for_course_wiki) do |_instance, wiki, ts_start, ts_end|
+          fetched_slice_days << ts_start.strftime('%Y-%m-%d')
+          { wiki => { start: ts_start, end: ts_end, new_data: false, revisions: [] } }
+        end
+    end
+
+    after do
+      travel_back
+    end
+
+    context 'when the wide query finds no revisions in the gap' do
+      it 'fetches only the watermark timeslice' do
+        expect_any_instance_of(Replica).to receive(:get_revisions_raw).once.and_return([])
+        processed, = updater.run(all_time: false)
+        expect(fetched_slice_days).to eq([watermark_day])
+        expect(processed).to eq(1)
+      end
+    end
+
+    context 'when the wide query finds revisions in some timeslices' do
+      it 'fetches those timeslices plus the watermark timeslice' do
+        allow_any_instance_of(Replica).to receive(:get_revisions_raw)
+          .and_return([{ 'rev_timestamp' => '20181120103000' },
+                       { 'rev_timestamp' => '20181125235959' }])
+        processed, = updater.run(all_time: false)
+        expect(fetched_slice_days).to contain_exactly(watermark_day, '2018-11-20', '2018-11-25')
+        expect(processed).to eq(3)
+      end
+    end
+
+    context 'when the wide query fails' do
+      it 'falls back to fetching every timeslice in the range' do
+        allow_any_instance_of(Replica).to receive(:get_revisions_raw).and_return(nil)
+        processed, = updater.run(all_time: false)
+        # 52 daily timeslices from 2018-10-10 through 2018-11-30
+        expect(fetched_slice_days.count).to eq(52)
+        expect(processed).to eq(52)
+      end
+    end
+
+    context 'when there is no point importing revisions for the course' do
+      it 'fetches only the watermark timeslice without a precheck query' do
+        # Every per-timeslice fetch short-circuits before reaching Replica, so
+        # the precheck can't find anything and shouldn't spend a query looking.
+        allow_any_instance_of(CourseRevisionUpdater)
+          .to receive(:no_point_in_importing_revisions?).and_return(true)
+        expect_any_instance_of(Replica).not_to receive(:get_revisions_raw)
+        processed, = updater.run(all_time: false)
+        expect(fetched_slice_days).to eq([watermark_day])
+        expect(processed).to eq(1)
+      end
+    end
+
+    context 'when a full update runs (all_time)' do
+      it 'skips slices whose revisions vanished on-wiki, because the wipe already cleared them' do
+        # The all_time range starts at the course start, before the watermark,
+        # so a slice with recorded revisions sits mid-range. Its on-wiki
+        # revisions have all since been deleted: Replica reports nothing
+        # anywhere. Skipping it is safe only because recreate_timeslices has
+        # already deleted and recreated every timeslice — this example pins
+        # that invariant by asserting the recorded data is actually gone.
+        CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-05 00:00:00')
+                           .update(mw_rev_count: 5, revision_count: 5, character_sum: 1000,
+                                   last_mw_rev_datetime: '2018-11-05 12:00:00')
+        allow_any_instance_of(Replica).to receive(:get_revisions_raw).and_return([])
+        updater.run(all_time: true)
+        # Only the range's first slice gets fetched (via the reprocess loop);
+        # every later slice is fresh and empty, so the precheck skips it.
+        expect(fetched_slice_days).to eq(['2018-10-01'])
+        slice = CourseWikiTimeslice.find_by(course:, wiki: enwiki, start: '2018-11-05 00:00:00')
+        expect(slice.last_mw_rev_datetime).to be_nil
+        expect(slice.character_sum).to eq(0)
+        expect(slice.revision_count).to eq(0)
+      end
+    end
+
+    context 'when the scan range is within the threshold' do
+      # A three-week backlog — e.g. from queue latency — stays under the
+      # threshold and on the plain per-timeslice path.
+      let(:watermark_day) { '2018-11-10' }
+
+      it 'fetches every timeslice without a precheck query' do
+        expect_any_instance_of(Replica).not_to receive(:get_revisions_raw)
+        processed, = updater.run(all_time: false)
+        # 21 daily timeslices from 2018-11-10 through 2018-11-30
+        expect(fetched_slice_days.count).to eq(21)
+        expect(processed).to eq(21)
       end
     end
   end

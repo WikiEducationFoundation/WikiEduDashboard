@@ -1,0 +1,24 @@
+---
+id: 8704
+title: AI detection
+summary: ''
+content: |
+  <div class="youtube-short-right">
+    <iframe class="youtube-short" width="270" height="480" src="https://www.youtube-nocookie.com/embed/f3yxtwjmZhE" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+  Heads up! We’re using an **AI detection tool called Pangram** to check your
+  work on Wikipedia for generative AI output, including all exercises you do.
+
+  Using AI detection isn’t about policing your Wikipedia edits. It’s about
+  protecting the accuracy of the encyclopedia we all rely on, and helping you
+  course correct if needed.
+
+  Remember, the stakes are high. Your words on Wikipedia could be
+  read by millions and influence real-world decisions!
+
+  If our system detects text that’s likely to be AI-generated,
+  you and your instructor will receive a “Fact Verification” email.
+
+  If you receive this AI detection alert, please be sure to follow the instructions provided.
+  We’ll talk more about the “Fact Verification” email in a bit.

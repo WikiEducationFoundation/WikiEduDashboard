@@ -89,6 +89,8 @@ Rails.application.routes.draw do
   patch '/assignments/:id/update_sandbox_url' => 'assignments#update_sandbox_url'
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
   post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
+  get 'copy_available_articles/preview' => 'copy_available_articles#preview'
+  post 'copy_available_articles' => 'copy_available_articles#create'
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',
       constraints: { course_id: /.*/ }
@@ -157,6 +159,17 @@ Rails.application.routes.draw do
   # assignment so the SPA can transition without a reload.
   post 'courses/*id/verify_claim/take' => 'claim_verification_exercises#take',
        :as => :take_verify_claim, constraints: { id: /.*/ }, defaults: { format: :json }
+  # The student's verification form answers (an upsert; submitting completes
+  # the exercise).
+  post 'courses/*id/verify_claim/response' => 'claim_verification_responses#create',
+       :as => :verify_claim_response, constraints: { id: /.*/ }, defaults: { format: :json }
+  # Everyone's responses, for the course's instructional staff. The explicit
+  # `.json` is mandatory (format: true): the bare path then falls through to
+  # courses#show, so `/courses/*id/verify_claim/responses` is an SPA page (the
+  # instructor view) while this same path with .json is its data.
+  get 'courses/*id/verify_claim/responses' => 'claim_verification_responses#index',
+      :as => :verify_claim_responses, format: true,
+      constraints: { id: /.*/, format: :json }
   # Slug-less entry (eg from the course-agnostic exercise training module):
   # infers the course and sends the student into its SPA exercise, else asks
   # which course.
@@ -209,6 +222,16 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/alerts.json' => 'courses#alerts',
         constraints: { slug: /.*/ }
+    get 'courses/:slug/lms_integration_status.json' => 'lms_integration_status#show',
+        constraints: { slug: /.*/ }
+    # The unlisted LTI 1.1 credentials page, declared before the courses#show
+    # catch-all so it wins. Nothing in the interface links to it; Wiki
+    # Education shares the URL with beta instructors who need the 1.1 path.
+    # See CourseCanvasCredentialsController.
+    get 'courses/:slug/canvas' => 'course_canvas_credentials#show',
+        constraints: { slug: /.*/ }
+    post 'courses/:slug/canvas' => 'course_canvas_credentials#create',
+         constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {
@@ -307,9 +330,17 @@ Rails.application.routes.draw do
   get 'usage' => 'analytics#usage'
   get 'ungreeted' => 'analytics#ungreeted'
   get 'tagged_courses_csv/:tag' => 'analytics#tagged_courses_csv'
+  get 'mentor_requests_csv' => 'analytics#mentor_requests_csv'
+  get 'mentor_volunteers_csv' => 'analytics#mentor_volunteers_csv'
   get 'all_courses_csv' => 'analytics#all_courses_csv'
   get 'all_courses' => 'analytics#all_courses'
   get 'all_campaigns' => 'analytics#all_campaigns'
+  get 'system_stats' => 'system_stats#index'
+  get 'system_stats/wiki_trends' => 'system_stats#wiki_trends'
+  get 'system_stats/facilitators' => 'system_stats#facilitators'
+  # Scholars & Scientists report cards (admin-only, Wiki Education Dashboard only)
+  get 'report_cards' => 'report_cards#index'
+  get 'report_cards/:campaign_slug' => 'report_cards#show'
 
   # Reports generated in background
   # Course reports
@@ -320,6 +351,8 @@ Rails.application.routes.draw do
   get 'course_wikidata_csv' => 'reports#course_wikidata_csv'
   get 'course_retention_csv' => 'reports#course_retention_csv'
   get "all_courses_and_instructors_csv" => "reports#all_courses_and_instructors_csv"
+  get 'system_csv' => 'reports#system_csv'
+  get 'system_daily_stats_csv' => 'reports#system_daily_stats_csv'
 
   # Campaign reports
   get 'campaigns/:slug/students' => 'reports#campaign_students_csv'
@@ -387,7 +420,10 @@ Rails.application.routes.draw do
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
   get 'wizards/:wizard_id' => 'wizard#wizard'
+  get 'wizards/:wizard_id/blocks' => 'wizard#wizard_blocks'
   post 'courses/:course_id/wizard/:wizard_id' => 'wizard#submit_wizard',
+       constraints: { course_id: /.*/ }
+  post 'courses/:course_id/sandbox_mode' => 'sandbox_mode#update',
        constraints: { course_id: /.*/ }
 
   # Training
@@ -446,7 +482,30 @@ Rails.application.routes.draw do
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
 
     # LTI
+  # Public installation guide (a rendered docs/ Markdown page, not part of the
+  # launch flow and not behind the canvas_integration feature gate).
+  get 'lti/guide' => 'about_this_site#canvas_integration_guide'
+  # The short, illustrated instructor page: installing the LTI 1.1 tool in one
+  # course without an admin. Same gate and rendering as the main guide.
+  get 'lti/guide/instructors' => 'about_this_site#canvas_instructor_guide'
+  # LTI 1.1 tool configuration XML for Canvas's "By URL" install (public; gated
+  # on the legacy-launch flags inside the controller). See LtiConfigController.
+  get 'lti/legacy/config' => 'lti_config#legacy', defaults: { format: :xml }
+  # Where Canvas posts an LTI 1.1 launch. We terminate these ourselves rather
+  # than through LTIAAS, so the consumer keys are ours to issue and revoke.
+  # See LtiLegacyLaunchesController.
+  post 'lti/legacy/launch' => 'lti_legacy_launches#create'
   get 'lti' => 'lti_launch#launch'
+  get 'lti/connect_course' => 'lti_launch#connect_course'
+  get 'lti/assignment_view' => 'lti_launch#assignment_view'
+  get 'lti/deep_link' => 'lti_launch#deep_link'
+  post 'lti/deep_link/select' => 'lti_launch#deep_link_select'
+  post 'lti/setup' => 'lti_launch#complete_setup'
+  post 'lti/sync_grades' => 'lti_launch#sync_grades'
+  # Connecting a Dashboard account to an LMS identity is a decision the user
+  # makes, not a side effect of arriving with a session — hence a POST of its own
+  # rather than something a launch does. See LtiLaunchController#connect_identity.
+  post 'lti/connect_identity' => 'lti_launch#connect_identity'
 
   # frequenty asked questions
   resources :faq do
@@ -533,6 +592,20 @@ Rails.application.routes.draw do
     get 'spring2018_cmu_experiment/:course_id/:email_code/opt_in' => 'spring2018_cmu_experiment#opt_in'
     get 'spring2018_cmu_experiment/:course_id/:email_code/opt_out' => 'spring2018_cmu_experiment#opt_out'
     get 'spring2018_cmu_experiment/course_list' => 'spring2018_cmu_experiment#course_list'
+
+    # Generic opt-in research experiments (e.g. the Fall 2026 study). The
+    # invitation lookup is slug-less (it discovers the active experiment for the
+    # course); opting in/out carries the experiment slug.
+    get 'courses/:course_id/invitation' => 'opt_in#show'
+    post ':experiment_slug/courses/:course_id/opt_in' => 'opt_in#opt_in'
+    post ':experiment_slug/courses/:course_id/opt_out' => 'opt_in#opt_out'
+
+    # Standalone instructor opt-in page, reached from invitation emails sent to
+    # instructors whose courses never went through the assignment wizard. The
+    # instructor's choice applies to all their eligible courses at once.
+    get ':experiment_slug/instructor_optin' => 'instructor_opt_in#show'
+    post ':experiment_slug/instructor_optin/opt_in' => 'instructor_opt_in#opt_in'
+    post ':experiment_slug/instructor_optin/opt_out' => 'instructor_opt_in#opt_out'
   end
 
   resources :admin
@@ -587,6 +660,7 @@ Rails.application.routes.draw do
 
   get '/private_information' => 'about_this_site#private_information'
   get '/accessibility' => 'about_this_site#accessibility'
+  get '/hecvat' => 'about_this_site#hecvat'
   get '/styleguide' => 'styleguide#index'
 
   get '/status' => 'system_status#index'

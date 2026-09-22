@@ -1,0 +1,192 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# List what a Google Doc exported as .docx says beyond its visible text: the
+# comment threads (with the text each is anchored to) and the pending
+# suggestions (tracked insertions and deletions, with author and date).
+#
+# Usage:
+#   bin/docx-changes "path/to/file.docx"
+#
+# Pair it with pandoc for the text itself — see
+# .claude/skills/google-doc-change-requests/SKILL.md. pandoc's default run
+# silently accepts every pending suggestion and drops every comment, which is
+# exactly what this script surfaces so nothing decided in the margins is missed.
+
+require 'zip'
+require 'nokogiri'
+require 'time'
+
+class DocxChanges
+  W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main'
+  NS = { 'w' => W }.freeze
+  TEXT_NODES = './/w:t | .//w:delText'
+
+  Comment = Struct.new(:id, :author, :date, :text, :anchor, :parent, keyword_init: true)
+  Change = Struct.new(:kind, :author, :date, :text, :context, keyword_init: true)
+
+  def initialize(path)
+    Zip::File.open(path) do |zip|
+      @document = Nokogiri::XML(zip.read('word/document.xml'))
+      entry = zip.find_entry('word/comments.xml')
+      @comments_xml = entry && Nokogiri::XML(zip.read(entry))
+      @media = zip.entries.count { |e| e.name.start_with?('word/media/') }
+    end
+  end
+
+  def report
+    [comments_report, changes_report,
+     "Media: #{@media} embedded image(s) — extract with pandoc --extract-media."].join("\n\n")
+  end
+
+  # Comment threads, in document order: a comment whose range opens inside
+  # another's is a reply to it.
+  def comments
+    return [] unless @comments_xml
+    @comments_xml.xpath('//w:comment', NS).map do |node|
+      id = attr(node, 'id')
+      Comment.new(id:, author: attr(node, 'author'), date: attr(node, 'date'),
+                  text: paragraphs_text(node), anchor: anchors[id].strip, parent: parents[id])
+    end
+  end
+
+  # Pending suggestions, grouped per paragraph by kind, author and date (Google
+  # Docs splits one suggestion into a run per formatting change).
+  def changes
+    @document.xpath('//w:body//w:p', NS).flat_map { |para| paragraph_changes(para) }
+  end
+
+  private
+
+  def attr(node, name)
+    node.attribute_with_ns(name, W)&.value
+  end
+
+  def paragraphs_text(node)
+    node.xpath('.//w:p', NS).map { |p| p.xpath(TEXT_NODES, NS).map(&:text).join }
+        .reject(&:empty?).join("\n")
+  end
+
+  # Text under each comment's range, keyed by comment id, by walking the body's
+  # text and range markers in document order.
+  def anchors
+    walk_ranges unless @anchors
+    @anchors
+  end
+
+  def parents
+    walk_ranges unless @parents
+    @parents
+  end
+
+  def walk_ranges
+    @anchors = Hash.new { |hash, key| hash[key] = +'' }
+    @parents = {}
+    open_ids = []
+    markers = '//w:body//w:p | //w:body//w:t | //w:body//w:delText | ' \
+              '//w:body//w:commentRangeStart | //w:body//w:commentRangeEnd'
+    @document.xpath(markers, NS).each { |node| visit_range_node(node, open_ids) }
+  end
+
+  def visit_range_node(node, open_ids)
+    case node.name
+    when 'p' # a paragraph boundary inside an open range
+      open_ids.each { |id| @anchors[id] << ' ¶ ' unless @anchors[id].empty? }
+    when 'commentRangeStart'
+      id = attr(node, 'id')
+      @parents[id] = open_ids.last
+      open_ids << id
+    when 'commentRangeEnd'
+      open_ids.delete(attr(node, 'id'))
+    else
+      open_ids.each { |id| @anchors[id] << node.text }
+    end
+  end
+
+  def paragraph_changes(para)
+    # Paragraph-mark changes (inside w:rPr) carry no text; skip them.
+    nodes = para.xpath('.//w:ins | .//w:del', NS).reject { |n| n.parent.name == 'rPr' }
+    nodes = nodes.select { |n| n.xpath(TEXT_NODES, NS).any? }
+    return [] if nodes.empty?
+    context = paragraph_text(para)
+    nodes.group_by { |n| [n.name, attr(n, 'author'), attr(n, 'date')] }
+         .map { |key, group| build_change(key, group, context) }
+  end
+
+  def build_change((name, author, date), group, context)
+    text = group.map { |n| n.xpath(TEXT_NODES, NS).map(&:text).join }.join
+    Change.new(kind: name == 'ins' ? 'insertion' : 'deletion', author:, date:, text:, context:)
+  end
+
+  # The paragraph with its suggestions marked: {+inserted+} and [-deleted-].
+  def paragraph_text(para)
+    para.xpath('./w:r | ./w:ins | ./w:del | ./w:hyperlink', NS).map do |node|
+      text = node.xpath(TEXT_NODES, NS).map(&:text).join
+      case node.name
+      when 'ins' then "{+#{text}+}"
+      when 'del' then "[-#{text}-]"
+      else text
+      end
+    end.join
+  end
+
+  # ── formatting ──────────────────────────────────────────────────────────────
+
+  def comments_report
+    list = comments
+    return 'Comments: none.' if list.empty?
+    lines = ["Comments (#{list.size}; pandoc drops these unless --track-changes=all):"]
+    list.each do |comment|
+      lines << (comment.parent ? reply_line(comment) : thread_line(comment))
+    end
+    lines.join("\n")
+  end
+
+  def thread_line(comment)
+    "\n##{comment.id} #{who_when(comment)} on \"#{squeeze(comment.anchor, 120)}\"\n" \
+      "   #{comment.text.gsub("\n", "\n   ")}"
+  end
+
+  def reply_line(comment)
+    "   ↳ reply to ##{comment.parent} #{who_when(comment)}: #{comment.text.gsub("\n", ' ')}"
+  end
+
+  def changes_report
+    list = changes
+    return 'Suggestions: none (no tracked changes).' if list.empty?
+    lines = ["Suggestions (#{list.size}; pandoc's default ACCEPTS all of these silently):"]
+    list.each do |change|
+      lines << "\n- #{change.kind.upcase} #{who_when(change)}: \"#{squeeze(change.text, 160)}\"\n" \
+               "  in: #{excerpt(change)}"
+    end
+    lines.join("\n")
+  end
+
+  def who_when(item)
+    date = begin
+      Time.iso8601(item.date).utc.strftime('%Y-%m-%d %H:%M UTC')
+    rescue ArgumentError, TypeError
+      item.date
+    end
+    "[#{item.author}, #{date}]"
+  end
+
+  # The paragraph around the change, trimmed to a window when it is long.
+  def excerpt(change, width: 220)
+    context = change.context
+    return "\"#{context}\"" if context.length <= width
+    marker = change.kind == 'insertion' ? "{+#{change.text[0, 30]}" : "[-#{change.text[0, 30]}"
+    at = context.index(marker) || 0
+    from = [at - (width / 2), 0].max
+    "\"…#{context[from, width]}…\""
+  end
+
+  def squeeze(text, max)
+    flat = text.gsub(/\s+/, ' ').strip
+    flat.length > max ? "#{flat[0, max]}…" : flat
+  end
+end
+
+path = ARGV[0]
+abort 'Usage: bin/docx-changes "path/to/file.docx"' if path.nil? || !File.exist?(path)
+puts DocxChanges.new(path).report

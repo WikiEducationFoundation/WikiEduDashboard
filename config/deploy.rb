@@ -27,8 +27,7 @@ set :pty, false
 # Default value for :linked_files is []
 set :linked_files, fetch(:linked_files, []).push('config/application.yml',
                                                  'config/database.yml',
-                                                 'config/secrets.yml',
-                                                 'config/newrelic.yml')
+                                                 'config/secrets.yml')
 
 # Default value for linked_dirs is []
 set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp', 'public/system',
@@ -149,6 +148,7 @@ namespace :deploy do
       'sidekiq-long', # data updates for long-running courses, which may have long queue latency
       'sidekiq-daily', # once-daily long-running data update tasks
       'sidekiq-constant', # frequently-run tasks like adding courses to the update queues
+      'sidekiq-report-csv', # user-requested CSV reports
     ]
   end
   set :sidekiq_roles, -> { :app }

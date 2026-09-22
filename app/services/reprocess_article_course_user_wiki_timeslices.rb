@@ -37,7 +37,7 @@ class ReprocessArticleCourseUserWikiTimeslices
       @course, @wiki, article_ids, ts_start
     )
     fetch_scores_and_update_acuwt(users, article_ids, ts_start, ts_end) if users.any?
-    reset_for_reaggregation(article_ids, ts_start)
+    mark_for_reaggregation(article_ids, ts_start)
   end
 
   def failing_article_ids_for(ts_start)
@@ -59,9 +59,7 @@ class ReprocessArticleCourseUserWikiTimeslices
 
   def fetch_filtered_revisions(users, article_ids, ts_start, ts_end)
     revisions = revision_data_manager.fetch_revision_data_for_users_with_articles_only(
-      users,
-      ts_start.strftime('%Y%m%d%H%M%S'),
-      (ts_end - 1.second).strftime('%Y%m%d%H%M%S')
+      users, ts_start, ts_end
     )
     revisions.select { |r| article_ids.include?(r.article_id) }
   end
@@ -71,14 +69,13 @@ class ReprocessArticleCourseUserWikiTimeslices
     UpdateWikidataStatsTimeslice.new(@course).update_revisions_with_stats(live_revisions)
   end
 
-  # Marks the CWT for reaggregation (deleting the stale ACT/CUWT rows) and clears
-  # needs_update so the reaggregation pass picks it up. Reaggregation then rebuilds
-  # ACT, CUWT and CWT from ACUWT and re-derives needs_update from ACUWT state.
-  def reset_for_reaggregation(article_ids, ts_start)
+  # Marks the CWT for the period as needing reaggregation, so that the re-scored ACUWT rows
+  # reach the derived caches (see TimesliceCleaner#mark_timeslices_for_reaggregation_from_acuwt).
+  def mark_for_reaggregation(article_ids, ts_start)
     acuwt = ArticleCourseUserWikiTimeslice.where(
       course: @course, wiki: @wiki, start: ts_start, article_id: article_ids
     )
-    @timeslice_cleaner.reset_timeslices_for_reaggregation_from_acuwt(acuwt)
+    @timeslice_cleaner.mark_timeslices_for_reaggregation_from_acuwt(acuwt)
   end
 
   def revision_data_manager

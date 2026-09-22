@@ -238,5 +238,67 @@ describe 'ticket dashboard', type: :feature, js: true do
         expect(find_link(course.title).visible?).to be true
       end
     end
+
+    it 'sorts tickets by creation date' do
+      # Make the newest and oldest tickets unambiguous.
+      TicketDispenser::Ticket.find_by(id: create_ticket.id)
+                             .update_column(:created_at, 1.day.from_now)
+      TicketDispenser::Ticket.find_by(id: create_a_fourth_ticket.id)
+                             .update_column(:created_at, 1.year.ago)
+      visit '/tickets/dashboard'
+      expect(page).to have_content 'A first subject'
+
+      find('th.created_at').click
+      expect(first('tbody tr')).to have_content 'A first subject'
+
+      find('th.created_at').click
+      expect(first('tbody tr')).to have_content 'I will not come back'
+    end
+
+    it 'shows the creation date in search results' do
+      # The browser formats the date in its local time zone, so use midday UTC
+      # to get the same calendar date wherever the spec runs.
+      TicketDispenser::Ticket.find_by(id: create_ticket.id)
+                             .update_column(:created_at, Time.utc(2026, 3, 15, 12))
+      fill_in 'tickets_search_subject', with: 'first subject'
+      click_button 'search_tickets'
+
+      within('tr', text: 'A first subject') do
+        expect(page).to have_content '2026-03-15'
+      end
+    end
+
+    it 'lists tickets after returning from a ticket page that was loaded directly' do
+      ticket = TicketDispenser::Ticket.first
+      # A full page load, so the ticket page is the first thing the React
+      # store sees, as when following the link in a notification email.
+      visit "/tickets/dashboard/#{ticket.id}"
+      expect(page).to have_content 'Send a Reply'
+      # Opening the ticket marks its messages read. That update used to sneak
+      # the ticket into the (never fetched) index list, so the dashboard
+      # skipped loading and spun forever.
+      Timeout.timeout(Capybara.default_max_wait_time) do
+        sleep 0.1 until ticket.messages.reload.all?(&:read)
+      end
+
+      click_link '← Ticketing Dashboard'
+      expect(page).to have_content 'A first subject'
+      expect(page).to have_content 'A second subject'
+    end
+
+    it 'shows a reply-and-resolve in the ticket list without a refresh' do
+      within('tr', text: 'A first subject') { click_link 'Show' }
+      within('form.tickets-reply') do
+        find('.wysiwyg-editor__content').click
+        find('.wysiwyg-editor__content').send_keys('All set now.')
+      end
+      click_button 'Send Reply and Resolve Ticket'
+      expect(page).to have_content 'Ticket is currently Resolved'
+
+      click_link '← Ticketing Dashboard'
+      # The default filter shows open tickets only, so the resolved one drops out.
+      expect(page).to have_content 'A second subject'
+      expect(page).to have_no_content 'A first subject'
+    end
   end
 end

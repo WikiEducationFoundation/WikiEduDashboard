@@ -77,6 +77,11 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
 
+  # Live-staging feature specs (real browser against the deployed staging
+  # stack) live in the top-level `staging_specs/` directory, outside RSpec's
+  # default path, so normal runs never load them. They carry their own
+  # spec_helper and :staging tag guard; run them via `bin/staging-feature-spec`.
+
 =begin
   # Limits the available syntax to the non-monkey patched
   # syntax that is recommended.

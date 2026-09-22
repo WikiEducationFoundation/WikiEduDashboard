@@ -236,8 +236,11 @@ describe UpdateTimeslicesCourseUser do
                        article_id: article1.id, user_id: user2.id, wiki_id: enwiki.id,
                        mw_rev_id: 12_345, mw_page_id: article1.mw_page_id,
                        date: start + 1.hour, scoped: true, new_article: false)
+      # Revisions are fetched per timeslice; only the first timeslice has a revision
       allow_any_instance_of(CourseRevisionUpdater)
-        .to receive(:fetch_revisions_for_new_users).and_return([revision])
+        .to receive(:fetch_revisions_for_new_users) do |_updater, _wiki, _users, ts_start, _ts_end|
+        ts_start == start.strftime('%Y%m%d%H%M%S') ? [revision] : []
+      end
 
       expect(ArticleCourseUserWikiTimeslice.where(course:, user: user2).count).to eq(0)
 
@@ -251,6 +254,55 @@ describe UpdateTimeslicesCourseUser do
       # The CWT for that period is flagged for reaggregation
       expect(course.course_wiki_timeslices.where(needs_reaggregation: true).count).to eq(1)
       expect(course.course_wiki_timeslices.find_by(needs_reaggregation: true).start).to eq(start)
+    end
+
+    it 'fetches revisions once per course wiki timeslice' do
+      fetch_calls = []
+      allow_any_instance_of(Replica)
+        .to receive(:get_revisions) do |_replica, _users, ts_start, ts_end|
+        fetch_calls << [ts_start, ts_end]
+        {}
+      end
+
+      described_class.new(course).run
+
+      # One fetch per timeslice, bounded to the timeslice period. The end bound is
+      # inclusive for Replica, so it's one second before the next timeslice start.
+      expect(fetch_calls.count).to eq(7)
+      expect(fetch_calls.min).to eq([start.strftime('%Y%m%d%H%M%S'),
+                                     (start + 1.day - 1.second).strftime('%Y%m%d%H%M%S')])
+    end
+
+    it 'marks the new user as processed so an interrupted update does not redo them' do
+      allow_any_instance_of(CourseRevisionUpdater)
+        .to receive(:fetch_revisions_for_new_users).and_return([])
+
+      expect(CoursesUsers.find_by(course:, user: user2).created_at)
+        .to be >= course.last_update_start_time
+
+      described_class.new(course).run
+
+      expect(CoursesUsers.find_by(course:, user: user2).created_at)
+        .to be < course.last_update_start_time
+    end
+
+    it 'continues with remaining users when processing one user fails' do
+      JoinCourse.new(course:, user: user3, role: CoursesUsers::Roles::STUDENT_ROLE)
+      allow_any_instance_of(CourseRevisionUpdater)
+        .to receive(:fetch_revisions_for_new_users) do |_updater, _wiki, users, _ts_start, _ts_end|
+        raise StandardError, 'Replica timeout' if users.first.id == user2.id
+        []
+      end
+      expect(Sentry).to receive(:capture_message)
+
+      described_class.new(course).run
+
+      # The failed user is still considered new, so the next update retries them;
+      # the successfully processed user is not redone
+      expect(CoursesUsers.find_by(course:, user: user2).created_at)
+        .to be >= course.last_update_start_time
+      expect(CoursesUsers.find_by(course:, user: user3).created_at)
+        .to be < course.last_update_start_time
     end
   end
 end

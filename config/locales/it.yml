@@ -122,6 +122,8 @@ it:
       creare ora un Programma. Se il tuo evento è parte di qualcosa più grande, trova
       o crea la Campagna per esso; puoi quindi creare un Programma nuovo dalla pagina
       della Campagna.
+    tooltip:
+      alt: Ulteriori informazioni
   home:
     explore: Esplora
     log_in: Accedi con Wikipedia
@@ -575,6 +577,7 @@ it:
     enrollment_edits_enabled_tooltip: Se abilitato, la dashboard pubblicherà un template
       nella pagina utente e nella pagina di discussione di ciascun contributore che
       partecipa al programma.
+    view_event_center_page: Vedi pagina
     courses_enrolled: Corsi abilitati
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
@@ -585,6 +588,10 @@ it:
         titolo, la scuola o il semestre.
       invalid_slug: Nome scuola/titolo del corso
       duplicate_slug: Un altro programma chiamato %{slug} esiste già.
+      event_sync_delete: Questa pagina è collegata alla registrazione per gli eventi
+        di Wikimedia e non può essere cancellata.
+      event_sync_rename: Questa pagina è collegata alla registrazione per gli eventi
+        di Wikimedia e non può essere rinominata.
     expected_students: Studenti previsti
     features_feedback: 'Suggerimenti automatizzati:'
     feedback: Feedback
@@ -681,6 +688,8 @@ it:
     training_overdue: Il modulo di formazione "%{title}" è stato assegnato per questo
       corso, ed era previsto per il %{date}.
     unsubmitted: Corsi non presentati
+    unsubmitted_show_all: Mostra tutto
+    unsubmitted_show_recent: Mostra recenti
     untrained: Inesperto
     update_stats: Aggiorna le statistiche
     uploads_none: Questa classe non ha contribuito con alcuna immagine o altri file
@@ -929,6 +938,8 @@ it:
         not_found: '%{username} non è nell''elenco degli utenti non autorizzati.'
         confirm: Vuoi davvero rimuovere %{username} dall'elenco degli utenti non autorizzati?
     actions: Azioni
+  status:
+    report_csv_doc: Gestisce i report in formato CSV richiesti dagli utenti.
   suggestions:
     suggestion_docs:
       does_not_exist: Questa voce non esiste su Wikipedia.
@@ -982,6 +993,22 @@ it:
     kind:
       discussion: Discussione
     loading: Caricamento…
+  claim_verification:
+    form:
+      source_access_options:
+        nonexistent: No, la fonte non esiste.
+        inaccessible: No, la fonte esiste ma non sono riuscito ad accedervi.
+      verdict_options:
+        full_support: Sì, supporta esplicitamente l'affermazione completa.
+        contradicted: Al contrario, la fonte contraddice l'affermazione.
+      other_comments_label: Altri commenti su questo esercizio?
+      submitted_heading: Risposta inviata
+      edit_response: Modifica risposta
+      submit_failed: Errore! La tua risposta non è stata salvata.
+    responses:
+      heading: Risposte degli studenti
+      submitted_at: Inviato il %{date}
+      pending_heading: In corso
   update_username:
     label: Nuovo nome utente
     button: Aggiorna

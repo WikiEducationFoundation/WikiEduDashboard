@@ -1,0 +1,30 @@
+-# Standalone instructor opt-in page for an opt-in research experiment, reached
+-# from invitation emails. All substantive text comes from the experiment's
+-# instructor_invitation_copy, which is sourced from the assignment wizard's
+-# panel for the same experiment, so the two entry points show the same thing.
+- content_for(:title) { @copy[:title] }
+.container
+  .instructor-opt-in
+    %h1= @copy[:title]
+    -# The description is a YAML literal block, so it carries hard newlines
+    -# mid-sentence; only blank lines are real paragraph breaks.
+    .instructor-opt-in__description
+      - @copy[:description].split(/\n{2,}/).each do |paragraph|
+        %p= paragraph.tr("\n", ' ')
+    - if @courses.empty?
+      %p.instructor-opt-in__no-courses= @copy[:no_courses]
+    - else
+      %p= @copy[:course_list_intro]
+      %ul.instructor-opt-in__courses
+        - @courses.each do |course|
+          %li
+            = link_to course.title, course_slug_path(course.slug)
+            %span.instructor-opt-in__status
+              = { opted_in: 'Opted in', opted_out: 'Opted out' }[@choices[course]] || 'Undecided'
+      .instructor-opt-in__actions
+        = button_to @copy[:opt_in_label],
+                    "/experiments/#{@experiment.slug}/instructor_optin/opt_in",
+                    class: 'button dark'
+        = button_to @copy[:opt_out_label],
+                    "/experiments/#{@experiment.slug}/instructor_optin/opt_out",
+                    class: 'button'

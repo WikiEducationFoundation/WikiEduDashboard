@@ -85,6 +85,8 @@ lb:
     explore_examples: Beispiller entdecken
     review_orientation: Orientatioun nokucken
     blog_headline: Rezent Neiegkeete vu Wiki Education
+    tooltip:
+      alt: Méi Informatiounen
   home:
     explore: Entdecken
     log_in: Mat Wikipedia aloggen
@@ -101,6 +103,34 @@ lb:
       sections:
         name: Numm
         description: Beschreiwung
+  system_stats:
+    filters:
+      campaign: Campagne
+      all_campaigns: All Campagnen
+      all_wikis: All Wikien
+      status: Status
+      all_types: All Typpen
+      all_statuses: All Statussen
+      active: Aktiv
+      archived: Archivéiert
+    kpis:
+      new_editors: Nei Editeuren
+      active_programs: Aktiv Programmen
+    tables:
+      wiki: Wiki
+      edits: Ännerungen
+      programs: Programmen
+      new_editors: Nei Editeuren
+    facilitators:
+      username: Benotzernumm
+      courses: Coursen
+      active: Aktiv
+      active_in_year: Aktiv am Joer
+      "yes": Jo
+      "no": Nee
+    pagination:
+      previous: Vireg
+      next: Nächst
   activity:
     all: Aktivitéit
     edited_by: Geännert Vum
@@ -165,6 +195,7 @@ lb:
     view_all: All weisen
     view_doc: D'Zomme vun de Kéiere wou all Artikel während dem Projet gewise gouf
     view_on_wiki: Op der Wiki weisen
+    article_size: Artikelgréisst
     edit_size: Gréisst änneren
     wiki: Wiki
     articles_short: Artikelen
@@ -190,6 +221,7 @@ lb:
     add_placeholder: Gitt den Titel oder d'URL vun engem Artikel an
     bibliography: Bibliographie
     clone: Eng Kopie maachen
+    confirm_add_available: Sidd Dir sécher, datt Dir %{title} derbäisetze wëllt?
     delete: Entfernen a Läschen
     editors: Net gespäichert
     group_members: Membere vum Grupp
@@ -198,6 +230,8 @@ lb:
     review_self: En Artikel nokucken
     sandbox_draft_link: Sandkaul-Brouillon
     select: Eraussichen
+    invalid_username: De Benotzernumm „%{username}“ ass ongülteg oder de Benotzernumm
+      existéiert net.
     username_label: Wikipedia-Benotzernumm
     username_or_url_label: Wikipedia-Benotzernumm oder URL
     sandbox_label: Sandkaul
@@ -279,6 +313,8 @@ lb:
     campaign_articles: '%{title} Artikelen'
     campaign_courses: '%{title} Coursen'
     campaign_users: '%{title} Auteuren'
+    confirm_course_deletion: Sidd Dir sécher, datt Dir de Cours mam Titel %{title}
+      läsche wëllt? Wa jo, tippt den Titel vum Cours a fir virunzefueren.
     course: Cours
     course_type_label: 'Typ:'
     course_description: Coursen
@@ -416,15 +452,15 @@ lb:
   courses_generic:
     school_system: Akademesche System
     all_courses: All Progtrammer
-    archived: Archivéiert Programmer
+    archived: Archivéiert Programmen
     articles_i_am_reviewing: Artikelen, déi ech nokucken
     assignment_end: Enn vum Evenement
     assignment_start: Ufank vum Evenement
     cancel: Ofbriechen
     course: Programm
-    courses: Programmer
+    courses: Programmen
     campaigns: 'Campagnen:'
-    campaign_courses: '%{title} Programmer'
+    campaign_courses: '%{title} Programmen'
     creator:
       assignment_end: Enn vum Evenement
       assignment_end_placeholder: JJJJ-MM-DD
@@ -463,7 +499,7 @@ lb:
     term: Wéini
     view_other: Aner Campagne weisen
     view_page: Säit weisen
-    yourcourses: Är Programmer
+    yourcourses: Är Programmen
   editable:
     edit: Änneren
     cancel: Ofbriechen
@@ -544,6 +580,16 @@ lb:
     author: Auteur
     cookbook: Kachbuch
     index: Index
+  report_cards:
+    campaign: Campagne
+    courses: Coursen
+    download_csv: Als CSV eroflueden
+    groups:
+      general: Allgemeng
+      after: Nom Cours
+    columns:
+      title: Cours
+      participants: Participanten
   recent_activity:
     article_title: Titel
     datetime: Datum/Zäit
@@ -620,6 +666,7 @@ lb:
     course_dates: Datume vum Cours
     course_end: Ënn vum Cours
     course_start: Ufank vum Cours
+    discard_all_changes: All Ännerunge verwerfen
     delete_timeline_and_start_over: Zäitplang läschen
     done: Fäerdeg
     due_default: Nächst Woch fälleg
@@ -635,6 +682,7 @@ lb:
     title: Chronologie
     view_full_timeline: Kompletten Zäitplang weisen
     week_number: Woch %{number}
+    sandbox_mode: Sandkaul-Modus
   training:
     continue: Virufueren (%{progress})
     start: Ufank
@@ -656,6 +704,13 @@ lb:
     take_your_time: Huelt Iech wgl. Zäit!
     close: ZOUMAACHEN
   claim_verification:
+    no_articles: Keng Artikelen disponibel
+    step_heading: 'Schrëtt %{number}: %{name}'
+    form:
+      verification_example:
+        lead: 'Hei ass e Beispill:'
+      edit_response: Äntwert änneren
+      submit_failed: Feeler! Är Äntwert gouf net gespäichert.
     admin:
       status: 'Status: %{status}'
   update_username:
@@ -740,6 +795,7 @@ lb:
       campus_volunteer: Campus-Fräiwëllegen
       online_volunteer: Online-Fräiwëllegen
       wiki_ed_staff: Mataarbechter vu Wiki Education
+    email_invalid: 'Ongülteg: Gitt wgl. eng gülteg E-Mail an'
   user_profiles:
     student_impact: Gesamtimpakt duerch %{username} als Student
     instructor_impact: Gesamtimpakt duerch %{username} als Instrukter
@@ -844,4 +900,38 @@ lb:
     advanced_search: Erweidert Sich
     clear: Eidel maachen
     program_date: Programmdatum
+  lms_integration:
+    time_ago: viru(n) %{time_ago}
+    my_account_link: 'Äre Kont:'
+  lti:
+    beta_feedback:
+      link: Feedback schécken
+    deep_link:
+      unavailable_header: Net disponibel
+    student_overview:
+      my_articles: Meng Artikelen
+      empty: Keng Wikipedia-Aktivitéiten
+    connect_identity:
+      dashboard_account: Wikipedia-Kont
+    identity:
+      signed_in_as: 'Wikipedia-Kont: %{username}'
+    assignment_view:
+      open_on_wikipedia: Op Wikipedia opmaachen
+      hide: Verstoppen
+      sandbox_preview:
+        loading: …
+        not_found: Keng Sandkaul fonnt
+      roster:
+        username: Benotzernumm
+        status: Status
+        sandbox: Sandkaul
+      article_work:
+        characters: Zeechen derbäigesat
+        references: Referenzen derbäigesat
+        revisions: Ännerungen
+        pages:
+          bibliography: Bibliographie
+      student:
+        your_sandbox: Är Sandkaul
+        your_article: Ären Artikel
 ...

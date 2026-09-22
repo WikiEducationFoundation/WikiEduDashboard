@@ -42,8 +42,11 @@ class TrainingModulesUsersController < ApplicationController
     set_training_module_user
     block = Block.find(params[:block_id])
     @course = block.course
-    verify_exercise_sandbox { return }
-    mark_completion_status(params[:complete], @course.id)
+    if marking_complete?
+      verify_exercise_article_recorded { return }
+      verify_exercise_sandbox { return }
+    end
+    mark_completion_status(marking_complete?, @course.id)
 
     render 'courses/_block', locals: { block:, course: @course }
   end
@@ -113,23 +116,37 @@ class TrainingModulesUsersController < ApplicationController
     course_ids.each { |cid| @training_module_user.mark_completion(true, cid) }
   end
 
-  def verify_exercise_sandbox
-    return if @training_module_user.eligible_for_completion?(@course.home_wiki)
+  # The sandbox check only guards against premature completion, so unmarking an
+  # exercise doesn't have to pass it.
+  def marking_complete?
+    ActiveModel::Type::Boolean.new.cast(params[:complete]) || false
+  end
 
-    error_message = exercise_incomplete_message
-    render json: { message: error_message, status: 'incomplete' },
+  # For article_title_input exercises, the title is only stored after
+  # verify_exercise_article confirmed the edit, so its presence is sufficient.
+  def verify_exercise_article_recorded
+    return unless @training_module.article_title_input
+    return if @training_module_user.exercise_article_title.present?
+
+    render json: { message: t('training.exercise_article_unverified'), status: 'incomplete' },
            status: :forbidden
     yield
   end
 
-  def exercise_incomplete_message
-    if @training_module_user.training_module.sandbox_location
-      sandbox = @training_module_user.exercise_sandbox_location
-      "Please complete the exercise in your Exercise Sandbox (#{sandbox}) " \
-      'before marking it complete'
-    else
-      'Please verify your Wikipedia edit before marking this exercise complete.'
-    end
+  def verify_exercise_sandbox
+    check = CheckExerciseSandbox.new(training_module_user: @training_module_user,
+                                     course: @course)
+    return if check.eligible?
+
+    render json: { message: exercise_sandbox_error(check), status: 'incomplete' },
+           status: :forbidden
+    yield
+  end
+
+  def exercise_sandbox_error(check)
+    return t('training.exercise_needs_assigned_article') if check.awaiting_article_assignment?
+
+    t('training.exercise_sandbox_incomplete', pages: check.missing_pages.join(', '))
   end
 
   def mark_completion_status(value, course_id)

@@ -95,6 +95,49 @@ describe CoursesUsers, type: :model do
       expect(course_user.references_count).to eq(7)
       expect(course_user.revision_count).to eq(6)
     end
+
+    context 'with timeslices for a wiki excluded from word counts' do
+      let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+
+      before do
+        create(:course_user_wiki_timeslice,
+               course:,
+               user:,
+               wiki: enwiki,
+               start: 10.days.ago,
+               end: 9.days.ago,
+               character_sum_ms: 9000,
+               character_sum_us: 500,
+               character_sum_draft: 400,
+               references_count: 4,
+               revision_count: 5)
+
+        create(:course_user_wiki_timeslice,
+               course:,
+               user:,
+               wiki: wikidata,
+               start: 9.days.ago,
+               end: 8.days.ago,
+               character_sum_ms: 50_000,
+               character_sum_us: 6000,
+               character_sum_draft: 7000,
+               references_count: 0,
+               revision_count: 3)
+
+        described_class.update_all_caches_from_timeslices(described_class.all)
+      end
+
+      it 'leaves the wikidata characters out of the character sums' do
+        course_user = described_class.first
+        expect(course_user.character_sum_ms).to eq(9000)
+        expect(course_user.character_sum_us).to eq(500)
+        expect(course_user.character_sum_draft).to eq(400)
+      end
+
+      it 'still counts the wikidata revisions in revision_count' do
+        expect(described_class.first.revision_count).to eq(8)
+      end
+    end
   end
 
   describe '#contribution_url' do

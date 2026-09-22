@@ -5,17 +5,26 @@ import { verifyExerciseArticle } from '~/app/assets/javascripts/actions/training
 import { fetchTrainingModuleExercisesByUser } from '~/app/assets/javascripts/actions/exercises_actions';
 import ArticleTitleInputModal from './ModuleStatus/ArticleTitleInputModal';
 
-export const ExerciseButton = ({ module, course, verifyArticle, fetchExercises }) => {
+export const ExerciseButton = ({ module, isStaff, course, verifyArticle, fetchExercises }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   // An in-app exercise (eg fact verification) is a nested route of the course
-  // SPA, so link to it with React Router to keep the student in-app (no reload).
+  // SPA, so link to it with React Router to keep the student in-app (no
+  // reload). Instructional staff also get the link to everyone's submissions.
   if (module.exercise_url) {
     return (
       <td className="block__training-modules-table__module-exercise-button">
         <Link className="button" to={module.exercise_url}>
           {I18n.t('training.open_exercise')}
         </Link>
+        {isStaff && (
+          <Link
+            className="block__training-modules-table__responses-link"
+            to={`${module.exercise_url}/responses`}
+          >
+            {I18n.t('claim_verification.responses.heading')}
+          </Link>
+        )}
       </td>
     );
   }

@@ -22,6 +22,7 @@ ps:
     back: پر شا کېدل
     cancel: ناگارل
     next: بل
+    skip_to_main_content: ارې منځپانگې ته ورتېرېدل
     cookie_consent: دا وېبځی ستاسو د ننوتلي ساتلو لپاره کوکيز کاروي، او ستاسو د ويکيپېډيا
       گڼون پورې اړوند مالومات ساتي.
     cookie_consent_acknowledge: زه پوهېږم
@@ -57,6 +58,7 @@ ps:
     no_results: د '%{query}' لپاره هېڅ پايلې ونه موندل شوې
     show_current_revision: اوسنۍ بلبڼه ښودل
     show_last_revision: وروستۍ سمه‌شوې بلبڼه ښودل
+    font_label: ليکبڼه
     sign_up_extended: د ويکيپېډيا له لارې نومليکنه
     sign_up_wikipedia: يا په ويکيپېډيا کې لاسليکنه وکړئ
     sign_up_log_in_extended: د ويکيپېډيا سره
@@ -71,6 +73,7 @@ ps:
     opt_yes: هو
     opt_no: نه
     print: چاپول
+    sort: اوډل
   article_statuses:
     not_yet_started: پیل کول
     in_progress: په شگبکس کې کار کول
@@ -138,6 +141,7 @@ ps:
     available: ‌ لاسرسي وړ ليکنې
     no_available: ليکنې چې د لاسرسي وړ نه دي
     next: راتلونکی
+    permalink: تلپاتې‌تړونی
     previous: پخوانی
     article_title: د ليکنې سرليک
     deleted: (ړنگول)
@@ -153,6 +157,9 @@ ps:
       tracked: څارل‌شوې
       untracked: ناڅارل‌شوې
       tracked_and_untracked: څارل‌شوې او ناڅارل‌شوې
+      wiki_label: ويکي
+      newness_label: د ليکنې نوی والی
+      tracked_label: پلنيوي دريځ
     filter_text: 'چاڼگران:'
     pageviews_label: 'مخليدنې:'
     daily_avg: ورځنی منځگوړی
@@ -178,7 +185,9 @@ ps:
     view: ليکنه کتل
     view_all: ټول کتل
     view_on_wiki: په ويکي کتل
+    article_size: ليکنې کچه
     edit_size: سمون کچه
+    editor_other: نور سمونگران
     wiki: ويکي
     wp10: ساختماني بشپړتیا
     articles_short: ليکنې

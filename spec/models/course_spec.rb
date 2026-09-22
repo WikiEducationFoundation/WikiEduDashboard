@@ -416,6 +416,37 @@ describe Course, type: :model do
     end
   end
 
+  describe '#articles_from_timeslices' do
+    let(:course) { create(:course) }
+    let(:wiki) { course.home_wiki }
+    let(:user) { create(:user) }
+    let(:article_with_acuwt) { create(:article, title: 'ACUWT Article', wiki:) }
+    let(:article_with_act) { create(:article, title: 'ACT Article', wiki:) }
+
+    before do
+      create(:article_course_user_wiki_timeslice, course:, wiki:, user:,
+             article: article_with_acuwt, start: course.start, end: course.start + 1.day)
+      create(:article_course_timeslice, course:, article: article_with_act,
+             start: course.start, end: course.start + 1.day)
+    end
+
+    context 'when the course uses ACUWT' do
+      before do
+        course.add_flag(key: :use_acuwt)
+      end
+
+      it 'returns articles based on article course user wiki timeslices' do
+        expect(course.articles_from_timeslices(wiki.id)).to contain_exactly(article_with_acuwt)
+      end
+    end
+
+    context 'when the course does not use ACUWT' do
+      it 'returns articles based on article course timeslices' do
+        expect(course.articles_from_timeslices(wiki.id)).to contain_exactly(article_with_act)
+      end
+    end
+  end
+
   describe '#timeslice_update_ran?' do
     let(:course) { build(:basic_course, flags:) }
     let(:subject) { course.timeslice_update_ran? }
@@ -441,6 +472,69 @@ describe Course, type: :model do
 
       it 'returns true' do
         expect(subject).to be true
+      end
+    end
+  end
+
+  describe '#last_update_start_time / #last_update_end_time' do
+    let(:course) { build(:basic_course, flags:) }
+    let(:start_time) { DateTime.new(2023, 1, 1, 10, 0, 0) }
+    let(:end_time) { DateTime.new(2023, 1, 1, 10, 5, 0) }
+
+    context 'when there are no update logs' do
+      let(:flags) { {} }
+
+      it 'returns nil for both' do
+        expect(course.last_update_start_time).to be_nil
+        expect(course.last_update_end_time).to be_nil
+      end
+    end
+
+    context 'when the times are stored as DateTimes (normal update)' do
+      let(:flags) do
+        { 'update_logs' => { 1 => { 'start_time' => start_time, 'end_time' => end_time } } }
+      end
+
+      it 'returns the times from the most recent log' do
+        expect(course.last_update_start_time).to eq(start_time)
+        expect(course.last_update_end_time).to eq(end_time)
+      end
+    end
+
+    context 'when the times are stored as Strings (copied course)' do
+      let(:flags) do
+        { 'update_logs' => { 1 => { 'start_time' => start_time.to_s,
+                                    'end_time' => end_time.to_s } } }
+      end
+
+      it 'coerces the values to DateTimes' do
+        expect(course.last_update_start_time).to eq(start_time)
+        expect(course.last_update_end_time).to eq(end_time)
+      end
+    end
+
+    context 'when the last update never finished (no end_time)' do
+      let(:flags) do
+        { 'update_logs' => { 1 => { 'start_time' => start_time } } }
+      end
+
+      it 'returns the start time but nil for the end time' do
+        expect(course.last_update_start_time).to eq(start_time)
+        expect(course.last_update_end_time).to be_nil
+      end
+    end
+
+    context 'with multiple logs' do
+      let(:flags) do
+        { 'update_logs' => {
+          1 => { 'start_time' => DateTime.new(2022, 1, 1), 'end_time' => DateTime.new(2022, 1, 2) },
+          2 => { 'start_time' => start_time, 'end_time' => end_time }
+        } }
+      end
+
+      it 'uses the most recent log entry' do
+        expect(course.last_update_start_time).to eq(start_time)
+        expect(course.last_update_end_time).to eq(end_time)
       end
     end
   end
@@ -893,6 +987,74 @@ describe Course, type: :model do
       it 'returns the time the first campaign was added' do
         expect(course.approved_at).to be_within(1.second).of(Time.zone.now)
       end
+    end
+  end
+
+  # Mirrors the client-side term inference in inferDefaultCampaign.js. Course
+  # eligibility for an opt-in research experiment is derived from this, so the
+  # month boundaries matter (see Fall2026ResearchExperiment#eligible_course?).
+  describe '#inferred_term' do
+    it 'returns nil when the course has no start date' do
+      expect(build(:course, start: nil).inferred_term).to be_nil
+    end
+
+    it 'infers spring from a January start' do
+      expect(build(:course, start: Date.new(2026, 1, 15)).inferred_term).to eq('spring_2026')
+    end
+
+    it 'infers spring from an April start' do
+      expect(build(:course, start: Date.new(2026, 4, 30)).inferred_term).to eq('spring_2026')
+    end
+
+    it 'infers summer from a May start' do
+      expect(build(:course, start: Date.new(2026, 5, 1)).inferred_term).to eq('summer_2026')
+    end
+
+    it 'infers summer from a July start' do
+      expect(build(:course, start: Date.new(2026, 7, 31)).inferred_term).to eq('summer_2026')
+    end
+
+    it 'infers fall from an August start' do
+      expect(build(:course, start: Date.new(2026, 8, 1)).inferred_term).to eq('fall_2026')
+    end
+
+    it 'infers fall from a November start' do
+      expect(build(:course, start: Date.new(2026, 11, 30)).inferred_term).to eq('fall_2026')
+    end
+
+    it 'infers the following spring from a December start' do
+      expect(build(:course, start: Date.new(2026, 12, 1)).inferred_term).to eq('spring_2027')
+    end
+  end
+
+  describe '#add_flag' do
+    let(:course) { create(:course, flags: { existing: true }) }
+
+    it 'keeps flags written by another process since the course was loaded' do
+      stale_copy = Course.find(course.id)
+      course.add_flag(key: :event_sync, value: 4563)
+      stale_copy.add_flag(key: :first_update, value: { queue_name: 'medium_update' })
+      expect(course.reload.flags).to include(existing: true,
+                                             event_sync: 4563,
+                                             first_update: { queue_name: 'medium_update' })
+    end
+
+    it 'returns false and writes nothing when the course is invalid' do
+      allow(course).to receive(:valid?).and_return(false)
+      expect(course.add_flag(key: :event_sync, value: 4563)).to be(false)
+      expect(course.reload.flags).not_to have_key(:event_sync)
+    end
+  end
+
+  describe '#remove_flag' do
+    let(:course) { create(:course, flags: { event_sync: 4563 }) }
+
+    it 'removes only the given flag, keeping flags written by another process' do
+      stale_copy = Course.find(course.id)
+      course.add_flag(key: :longest_update, value: 3)
+      stale_copy.remove_flag(:event_sync)
+      expect(course.reload.flags).to include(longest_update: 3)
+      expect(course.flags).not_to have_key(:event_sync)
     end
   end
 end

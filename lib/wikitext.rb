@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'pandoc-ruby'
+require_dependency "#{Rails.root}/lib/utils/wiki_link_resolver"
 
 # Interwiki shorthands, source: https://en.wikipedia.org/wiki/Help:Interwiki_linking#Project_titles_and_shortcuts
 INTERWIKI_PREFIXES = {
@@ -46,6 +47,7 @@ class Wikitext
   end
 
   def self.mediawiki_to_markdown(item)
+    item = WikiLinkResolver.resolve(item)
     PandocRuby.convert(item, { from: :mediawiki, to: :markdown_github }, '--wrap=none')
   end
 

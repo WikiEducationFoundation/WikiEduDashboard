@@ -51,13 +51,44 @@ describe 'Claim verification exercise', type: :request do
                     'language' => 'en', 'project' => 'wikipedia')
     end
 
-    it 'returns the taken claim and the sandbox handoff when one is taken' do
+    it 'returns the taken claim when one is taken' do
       VerificationClaimAssignment.create!(user: student, course:, verification_claim: pool_claim)
       get "/courses/#{course.slug}/verify_claim/state"
       assignment = response.parsed_body['assignment']
       expect(assignment['claim']['sentence']).to eq('Sea otters use rocks as tools.')
       expect(assignment['claim']['source_url']).to eq('https://example.com/otters')
-      expect(assignment['sandbox_url']).to include('User:Otterfan/Claim_verification_exercise')
+      expect(response.parsed_body['response']).to be_nil
+    end
+
+    it 'returns the submitted response alongside the taken claim' do
+      VerificationClaimAssignment.create!(user: student, course:, verification_claim: pool_claim)
+      VerificationClaimResponse.create!(
+        user: student, course:, verification_claim: pool_claim,
+        answers: { 'source_appropriate' => 'appropriate',
+                   'meets_rs_policy' => 'generally_reliable',
+                   'source_access' => 'accessed', 'verdict' => 'full_support' }
+      )
+      get "/courses/#{course.slug}/verify_claim/state"
+      expect(response.parsed_body['response']['answers']['verdict']).to eq('full_support')
+    end
+
+    # The SPA renders the form from this rather than from anything it knows
+    # itself, so the state has to carry the questions.
+    it 'returns the questions the exercise asks' do
+      get "/courses/#{course.slug}/verify_claim/state"
+      steps = response.parsed_body['form']['steps']
+      expect(steps.pluck('id')).to include('evaluate_source', 'find_source', 'verify')
+    end
+
+    # Options the exercise no longer offers still go out, labelled and apart from
+    # the offered ones, so a response recorded with one reads back correctly.
+    it 'sends retired options labelled, separately from the offered ones' do
+      get "/courses/#{course.slug}/verify_claim/state"
+      questions = response.parsed_body['form']['steps'].flat_map { |step| step['questions'] }
+      verdict = questions.find { |question| question['id'] == 'verdict' }
+      expect(verdict['options'].pluck('value')).not_to include('mostly_supports')
+      expect(verdict['retired_options'].pluck('value')).to include('mostly_supports')
+      expect(verdict['retired_options'].pluck('label')).to all(start_with('Mostly'))
     end
 
     it 'is open to any signed-in user, even one not enrolled in the course' do

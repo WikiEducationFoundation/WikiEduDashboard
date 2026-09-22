@@ -34,4 +34,39 @@ class WikiUrlParser
     match = @url.match(/oldid=(?<oldid>\d+)/)
     match['oldid'].to_i if match
   end
+
+  # diff=prev&oldid=X shows the edit that produced X, i.e. X against its parent.
+  def prev_diff?
+    @url.match?(/diff=prev\b/)
+  end
+
+  # diff=next&oldid=X shows the edit after X, which needs an API lookup.
+  def next_diff?
+    @url.match?(/diff=next\b/)
+  end
+
+  # True when the URL selects a revision or diff at all, as opposed to naming
+  # only a page. A selector that #revision_target cannot resolve (diff=next)
+  # must not be treated as a page URL.
+  def revision_selector?
+    !diff.nil? || !oldid.nil? || prev_diff? || next_diff?
+  end
+
+  # The revision whose text an AI detector should see, following the AI tools
+  # conventions: diff=X&oldid=Y means the text added between Y and X;
+  # diff=X alone or diff=prev&oldid=X means X against its parent; oldid=X
+  # alone means the whole revision X. Returns nil when the URL names only a
+  # page title, or a diff=next that cannot be resolved without the API.
+  def revision_target
+    if next_diff?
+      nil
+    elsif prev_diff?
+      { rev_id: oldid, from_rev: nil, diff_mode: true } if oldid
+    elsif diff
+      revs = [oldid, diff].compact
+      { rev_id: revs.max, from_rev: (revs.min if revs.count == 2), diff_mode: true }
+    elsif oldid
+      { rev_id: oldid, from_rev: nil, diff_mode: false }
+    end
+  end
 end

@@ -1,0 +1,59 @@
+- # In-Canvas drill-down for the rolled-up "Wikipedia trainings" column.
+- # Instructors get what the roll-up covers plus a per-student
+- # completed-count roster (same numbers the grade sync pushes); a student
+- # gets the same per-module table as the Students-tab details drawer —
+- # every assigned training in due-date order, its due date, their status,
+- # each linked straight to the training module on the Dashboard.
+.lti-iframe__drilldown
+  = render 'lti_launch/drilldown_header', title: @context.title, course: @context.course
+  - if @context.instructor?
+    - # What the roll-up covers: each module linked, with how many of the
+    - # connected students have completed it.
+    - #
+    - # Both numbers are spelled out rather than left as "0 / 1". This page carries
+    - # two different fractions — students-per-training here, trainings-per-student
+    - # in the roster below — and a bare pair of numbers next to a module name read
+    - # as neither of them (operator, 2026-08-05).
+    - # Course-wide, so it is left out of a single-student submission view, where
+    - # "Completed by 1 of 1 students" would read as a claim about the class.
+    - if @focus_user.nil?
+      .lti-iframe__description
+        %h2.lti-trainings-list__header= t('lti.assignment_view.trainings.covered')
+        %ul.lti-trainings-list
+          - @context.module_stats.each do |stat|
+            %li
+              = link_to stat.name, stat.training_url, target: '_blank', rel: 'noopener'
+              %span.lti-trainings-list__count
+                = t('lti.assignment_view.trainings.module_completion',
+                    completed: stat.completed_count, total: stat.total_count)
+    - roster = @context.roster
+    - if roster.empty?
+      %p.lti-iframe__empty= t('lti.assignment_view.roster.empty')
+    - else
+      .lti-table-scroll
+        %table.lti-assignment-roster
+          %thead
+            %tr
+              %th= t('lti.assignment_view.roster.student')
+              %th= t('lti.assignment_view.roster.status')
+          %tbody
+            - roster.each do |row|
+              %tr
+                %td= row.name
+                %td
+                  %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
+                    = t('lti.assignment_view.trainings.progress',
+                        completed: row.completed_count, total: row.total_count)
+    - # Grading one student's trainings column takes knowing WHICH trainings are
+    - # done; the roster row carries only the count.
+    - if @focus_user
+      = render 'lti_launch/training_modules', rows: @context.viewer_training_rows
+    = render 'lti_launch/grade_sync',
+             binding: @context.line_item.lti_course_binding, ltik: params[:ltik]
+  - else
+    - row = @context.student_panel
+    .lti-iframe__panel
+      %span.lti-status{ class: lti_progress_pill_class(row.progress_state) }
+        = t('lti.assignment_view.trainings.progress',
+            completed: row.completed_count, total: row.total_count)
+      = render 'lti_launch/training_modules', rows: @context.viewer_training_rows

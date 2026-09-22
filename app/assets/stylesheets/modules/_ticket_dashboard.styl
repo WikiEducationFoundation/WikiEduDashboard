@@ -3,8 +3,40 @@
   top 55px
   z-index 2
 .ticket-dashboard
-  td.sender
-    word-break break-all
+  // Fixed column widths keep the row layout stable regardless of content
+  // length; Subject takes whatever width is left over.
+  table.tickets
+    table-layout fixed
+    th, td
+      padding-left 12px
+      padding-right 12px
+    th.sender
+      width 14%
+    th.course_title
+      width 16%
+    th.created_at
+      width 110px
+    th.status
+      width 150px
+    th.owner
+      width 205px
+    th.actions
+      width 85px
+    td.created-at
+      white-space nowrap
+    td.actions .button
+      font-size 13px
+      padding 4px 12px
+    // Long text is clipped rather than growing the row without limit; the
+    // full text stays in the DOM (and in the title tooltip).
+    .clamp
+      display -webkit-box
+      -webkit-box-orient vertical
+      -webkit-line-clamp 2
+      overflow hidden
+      overflow-wrap anywhere
+    td.subject .clamp
+      -webkit-line-clamp 3
   .reply-header
     h3.subject
       color $text
@@ -20,6 +52,15 @@
   .message-body
     white-space pre-line
     overflow-x auto
+  // Messages composed in the WYSIWYG editor carry their own block markup, so
+  // they need normal whitespace handling rather than `pre-line`, and their
+  // paragraphs need the spacing that `.messages p` below otherwise removes.
+  .message-body.rich-text
+    white-space normal
+    p
+      margin-bottom 16px
+      &:last-child
+        margin-bottom 0
   .messages
     span(3/4)
     p
