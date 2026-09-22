@@ -178,9 +178,7 @@ const TrainingSlideHandler = () => {
       nextHref = userLoggedIn() ? '/' : `/training/${routeParams.library_id}`;
     }
 
-    const needsArticleInput = training.module.article_title_input
-      && !articleVerified
-      && !training.module.exercise_article_title;
+    const needsArticleInput = training.module.needs_exercise_article && !articleVerified;
 
     if (needsArticleInput) {
       nextLink = (

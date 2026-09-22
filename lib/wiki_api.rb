@@ -87,16 +87,19 @@ class WikiApi
     response&.status == 200 ? response.data : nil
   end
 
-  def user_has_edited_article?(username, title)
+  # Returns the title of the article, following a redirect from the given title,
+  # if the user has edited it (since the given time, if any), or nil otherwise.
+  def title_of_article_edited_by(username, title, since: nil)
     query_params = { prop: 'revisions',
                      titles: title,
+                     redirects: 'true',
                      rvprop: 'user',
                      rvlimit: 1,
                      rvuser: username }
-    response = query(query_params)
-    pages = response&.data&.dig('pages')
-    return false unless pages
-    pages.values.any? { |page| page['revisions'].present? }
+    # Revisions are listed newest first, so rvend is the oldest one included.
+    query_params[:rvend] = since.utc.iso8601 if since
+    page = query(query_params)&.data&.dig('pages')&.values&.first
+    page['title'] if page&.dig('revisions').present?
   end
 
   def get_article_rating(titles)

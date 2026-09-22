@@ -23,16 +23,15 @@ class TrainingModulesUsersController < ApplicationController
 
   def verify_exercise_article
     set_training_module
+    return render_article_title_input_error unless @training_module&.article_title_input
     set_training_module_user
-    article_title = params[:article_title]
-    if WikiApi.new(wiki_for_exercise).user_has_edited_article?(current_user.username, article_title)
-      @training_module_user.store_exercise_article_title(article_title)
-      auto_mark_complete_for_user_courses
-      @training_module_user.save
-      render json: { status: 'verified', article_title: }
+    verification = VerifyExerciseArticle.new(training_module_user: @training_module_user,
+                                             title: params[:article_title],
+                                             courses: courses_for_exercise_article)
+    if verification.verified?
+      render json: { status: 'verified', article_title: verification.article_title }
     else
-      message = I18n.t('training.article_title_input.not_found')
-      render json: { status: 'not_found', message: },
+      render json: { status: 'not_found', message: t('training.article_title_input.not_found') },
              status: :unprocessable_entity
     end
   end
@@ -99,21 +98,17 @@ class TrainingModulesUsersController < ApplicationController
     @training_module_user.furthest_slide?(@slide.slug)
   end
 
-  def wiki_for_exercise
-    return Block.find(params[:block_id]).course.home_wiki if params[:block_id].present?
-    Wiki.find_by(language: 'en', project: 'wikipedia')
+  def render_article_title_input_error
+    render json: { status: 'not_found',
+                   message: 'This training module does not take an article title.' },
+           status: :not_found
   end
 
-  def auto_mark_complete_for_user_courses
-    blocks = Block.joins(week: { course: :courses_users })
-                  .where(courses_users: { user_id: current_user.id,
-                                         role: CoursesUsers::Roles::STUDENT_ROLE })
-                  .where.not('training_module_ids = ?', [].to_yaml)
-                  .includes(:week)
-    course_ids = blocks.select { |b| b.training_module_ids.include?(@training_module.id) }
-                       .map { |b| b.week.course_id }
-                       .uniq
-    course_ids.each { |cid| @training_module_user.mark_completion(true, cid) }
+  # Verifying from a course timeline covers just that course. From the training
+  # slides, it covers each current course that assigns the module.
+  def courses_for_exercise_article
+    return [Block.find(params[:block_id]).course] if params[:block_id].present?
+    VerifyExerciseArticle.current_courses(user: current_user, training_module: @training_module)
   end
 
   # The sandbox check only guards against premature completion, so unmarking an
@@ -126,7 +121,7 @@ class TrainingModulesUsersController < ApplicationController
   # verify_exercise_article confirmed the edit, so its presence is sufficient.
   def verify_exercise_article_recorded
     return unless @training_module.article_title_input
-    return if @training_module_user.exercise_article_title.present?
+    return if @training_module_user.exercise_article_title(@course.id).present?
 
     render json: { message: t('training.exercise_article_unverified'), status: 'incomplete' },
            status: :forbidden

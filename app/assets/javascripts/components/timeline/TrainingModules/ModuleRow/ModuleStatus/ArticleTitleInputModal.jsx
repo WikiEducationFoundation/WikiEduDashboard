@@ -65,8 +65,10 @@ const ArticleTitleInputModal = ({ block_id, module_id, verifyArticle, onVerified
                 <button className="alert-button" onClick={onClose}>
                   {I18n.t('application.cancel')}
                 </button>
+                {/* The modal appears in both the main and the training layouts, which
+                    each style only their own button classes. */}
                 <button
-                  className="btn btn-primary"
+                  className="button dark btn btn-primary"
                   onClick={handleSubmit}
                   disabled={status === 'loading' || !inputValue.trim()}
                 >

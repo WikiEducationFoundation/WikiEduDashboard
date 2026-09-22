@@ -49,16 +49,14 @@ class TrainingModuleDueDateManager
 
   def flags(course_id)
     flags_hash = @tmu&.flags
-    if @training_module.exercise? && flags_hash.present?
-      course_flags = flags_hash[course_id]
-      if course_flags
-        return course_flags.merge(
-          'exercise_article_title' => flags_hash['exercise_article_title']
-          ).compact
-      end
-      return flags_hash
-    end
-    flags_hash
+    return flags_hash[course_id] || flags_hash if @training_module.exercise? && flags_hash.present?
+    return flags_hash
+  end
+
+  def exercise_article_url
+    title = @tmu&.exercise_article_title(@course.id)
+    return unless title
+    "#{@course.home_wiki.base_url}/wiki/#{title.tr(' ', '_')}"
   end
 
   def sandbox_url

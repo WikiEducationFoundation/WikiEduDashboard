@@ -29,7 +29,10 @@
     box-shadow: 0px 0px 10px #ccc
     z-index: 1000
     text-align: left
-    width: 480px
+    // 480px of content plus padding, narrowing to fit small screens
+    box-sizing: border-box
+    width: 540px
+    max-width: calc(100% - 32px)
     min-height: 220px
     h2
      font-weight: 500

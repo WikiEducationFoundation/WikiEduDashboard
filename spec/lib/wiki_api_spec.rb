@@ -225,24 +225,36 @@ describe WikiApi do
     end
   end
 
-  describe '#user_has_edited_article?' do
+  describe '#title_of_article_edited_by' do
     let(:wiki) { Wiki.find_by(language: 'en', project: 'wikipedia') }
     let(:subject) { described_class.new(wiki) }
 
-    it 'returns true when the API response includes a revision for the user' do
-      revision = { 'revid' => 1_102_334_271, 'user' => 'Ragesoss' }
-      pages = { '2082' => { 'pageid' => 2082, 'ns' => 0, 'title' => 'Ada Lovelace',
-                            'revisions' => [revision] } }
-      allow(subject).to receive(:query)
-        .and_return(double(data: { 'pages' => pages }))
-      expect(subject.user_has_edited_article?('Ragesoss', 'Ada Lovelace')).to be true
+    it 'returns the title of an article the user has edited' do
+      VCR.use_cassette 'wiki/title_of_article_edited_by' do
+        expect(subject.title_of_article_edited_by('Ragesoss', 'American Civil War'))
+          .to eq('American Civil War')
+      end
     end
 
-    it 'returns false when the API response has no revisions for the user' do
-      pages = { '20604' => { 'pageid' => 20604, 'ns' => 0, 'title' => 'Marie Curie' } }
-      allow(subject).to receive(:query)
-        .and_return(double(data: { 'pages' => pages }))
-      expect(subject.user_has_edited_article?('Ragesoss', 'Marie Curie')).to be false
+    it 'follows a redirect to the article the user edited' do
+      VCR.use_cassette 'wiki/title_of_article_edited_by' do
+        expect(subject.title_of_article_edited_by('Ragesoss', 'US Civil War'))
+          .to eq('American Civil War')
+      end
+    end
+
+    it 'returns nil when the user has not edited the article' do
+      VCR.use_cassette 'wiki/title_of_article_edited_by' do
+        expect(subject.title_of_article_edited_by('Ragesoss', 'Ada Lovelace')).to be_nil
+      end
+    end
+
+    it 'returns nil when the user has only edited the article before the given time' do
+      VCR.use_cassette 'wiki/title_of_article_edited_by' do
+        expect(subject.title_of_article_edited_by('Ragesoss', 'American Civil War',
+                                                  since: Time.zone.parse('2026-01-01')))
+          .to be_nil
+      end
     end
   end
 

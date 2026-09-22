@@ -255,51 +255,25 @@ describe TrainingModuleDueDateManager do
     end
   end
 
-  describe '#flags' do
-    subject {
- described_class.new(course:, training_module: exercise_module, user:).flags(course.id) }
-
-    let(:exercise_module) do
-      TrainingModule.find_by(slug: 'update-a-biography-exercise') ||
-        create(:training_module, slug: 'update-a-biography-exercise',
-                                 settings: { 'article_title_input' => true }, kind: 1)
+  describe '#exercise_article_url' do
+    subject do
+      described_class.new(course:, training_module: exercise_module, user:).exercise_article_url
     end
 
-    context 'when the student has verified an article and marked the course complete' do
-      before do
-        tmu.update!(training_module_id: exercise_module.id)
-        tmu.store_exercise_article_title('Marie Curie')
-        tmu.mark_completion(true, course.id)
-        tmu.save!
-      end
+    let(:exercise_module) { TrainingModule.find_by(slug: 'update-a-biography-exercise') }
 
-      it 'includes exercise_article_title merged into the course flags' do
-        expect(subject['exercise_article_title']).to eq('Marie Curie')
-      end
+    before { tmu.update!(training_module_id: exercise_module.id) }
 
-      it 'includes marked_complete from the course-specific flags' do
-        expect(subject[:marked_complete]).to eq(true)
-      end
+    it 'links to the verified article on the course home wiki' do
+      tmu.store_exercise_article_title('Marie Curie', course.id)
+      tmu.save!
+      expect(subject).to eq('https://en.wikipedia.org/wiki/Marie_Curie')
     end
 
-    context 'when the student has verified an article but has no course-specific flags' do
-      before do
-        tmu.update!(training_module_id: exercise_module.id)
-        tmu.store_exercise_article_title('Marie Curie')
-        tmu.save!
-      end
-
-      it 'returns all flags including exercise_article_title' do
-        expect(subject['exercise_article_title']).to eq('Marie Curie')
-      end
-    end
-
-    context 'for a non-exercise module' do
-      subject { described_class.new(course:, training_module: t_module, user:).flags(course.id) }
-
-      it 'returns flags as-is' do
-        expect(subject).to eq(tmu.flags)
-      end
+    it 'is nil when the article was verified for a different course' do
+      tmu.store_exercise_article_title('Marie Curie', course.id + 1)
+      tmu.save!
+      expect(subject).to be_nil
     end
   end
 

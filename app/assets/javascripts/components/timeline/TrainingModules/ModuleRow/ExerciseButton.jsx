@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { verifyExerciseArticle } from '~/app/assets/javascripts/actions/training_actions';
 import { fetchTrainingModuleExercisesByUser } from '~/app/assets/javascripts/actions/exercises_actions';
+import { fetchTimeline } from '~/app/assets/javascripts/actions/timeline_actions';
 import ArticleTitleInputModal from './ModuleStatus/ArticleTitleInputModal';
 
-export const ExerciseButton = ({ module, isStaff, course, verifyArticle, fetchExercises }) => {
+export const ExerciseButton = ({ module, isStaff, course, verifyArticle, fetchExercises, refreshTimeline }) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   // An in-app exercise (eg fact verification) is a nested route of the course
@@ -37,7 +38,7 @@ export const ExerciseButton = ({ module, isStaff, course, verifyArticle, fetchEx
       return (
         <td className="block__training-modules-table__module-exercise-button">
           <a
-            href={`https://en.wikipedia.org/wiki/${encodeURIComponent(articleTitle)}`}
+            href={module.exercise_article_url}
             target="_blank"
             rel="noopener noreferrer"
             title={articleTitle}
@@ -61,7 +62,9 @@ export const ExerciseButton = ({ module, isStaff, course, verifyArticle, fetchEx
             verifyArticle={handleVerify}
             onVerified={() => {
               setModalOpen(false);
-              if (course) fetchExercises(course.id);
+              // Verifying completes the exercise, which the timeline shows.
+              refreshTimeline(course.slug);
+              fetchExercises(course.id);
             }}
             onClose={() => setModalOpen(false)}
           />
@@ -93,7 +96,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   verifyArticle: (block_id, module_id, article_title) => dispatch(verifyExerciseArticle(block_id, module_id, article_title)),
-  fetchExercises: course_id => dispatch(fetchTrainingModuleExercisesByUser(course_id))
+  fetchExercises: course_id => dispatch(fetchTrainingModuleExercisesByUser(course_id)),
+  refreshTimeline: course_slug => dispatch(fetchTimeline(course_slug))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ExerciseButton);
