@@ -115,11 +115,7 @@ describe 'ticket dashboard', type: :feature, js: true do
       fill_in 'tickets_search_subject', with: 'subject'
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 2
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 2)
       expect(page).to be_axe_clean
     end
 
@@ -127,22 +123,14 @@ describe 'ticket dashboard', type: :feature, js: true do
       fill_in 'tickets_search_content', with: 'splash'
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 1
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 1)
     end
 
     it 'finds one match by course slug' do
       fill_in 'tickets_search_course', with: 'NASA_School/Fly_me_to_the_moon'
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 1
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 1)
     end
 
     it 'finds two matches by course slug and content' do
@@ -151,11 +139,7 @@ describe 'ticket dashboard', type: :feature, js: true do
 
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 2
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 2)
     end
 
     it 'finds one match by course slug and content and email' do
@@ -165,11 +149,7 @@ describe 'ticket dashboard', type: :feature, js: true do
 
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 1
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 1)
     end
 
     it 'finds one match by course slug and content and email and subject' do
@@ -180,22 +160,14 @@ describe 'ticket dashboard', type: :feature, js: true do
 
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 1
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 1)
     end
 
     it 'finds no match with an unknown slug' do
       fill_in 'tickets_search_course', with: 'Unknown_School/school_is_closed'
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 0
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 0)
     end
 
     it 'displays tickets coming from course page', :aggregate_failures do
