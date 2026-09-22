@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { startDownload } from '../../actions/download_actions.js';
+import { addNotification } from '../../actions/notification_actions.js';
 
 const CampaignExportModal = ({ campaign }) => {
   const dispatch = useDispatch();
@@ -32,8 +33,13 @@ const CampaignExportModal = ({ campaign }) => {
       ...option,
       label: `${campaign.title} — ${option.dataLabel}`
     }));
-    alert(I18n.t('campaign.data_download_generating'));
+    dispatch(addNotification({
+      message: I18n.t('campaign.data_download_generating'),
+      closable: true,
+      type: 'success'
+    }));
     setShow(false);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (!show) {
