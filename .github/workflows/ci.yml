@@ -79,6 +79,14 @@ jobs:
       - name: Ruby dependency vulnerability audit
         run: bundle exec bundle-audit check --update
 
+      # Security static analysis. Fails the build on any finding that is not
+      # in config/brakeman.ignore, where every baselined warning carries a
+      # written justification. A new finding means either a real issue or a
+      # pattern that needs reviewing and, if genuinely safe, adding to the
+      # baseline with its reasoning -- not a blanket suppression.
+      - name: Ruby security static analysis
+        run: bundle exec brakeman --no-pager -q -i config/brakeman.ignore
+
       - name: setup Node
         uses: actions/setup-node@v5
         with:

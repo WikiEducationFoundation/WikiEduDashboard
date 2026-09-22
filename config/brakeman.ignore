@@ -1,0 +1,145 @@
+{
+  "brakeman_version": "8.0.6",
+  "ignored_warnings": [
+    {
+      "fingerprint": "7664828bafaba1d242c4d71a11b11b0e700c31e04a388f85012dd1d7f92541c0",
+      "note": "False positive from dataflow merging. The class attribute is produced by the sort_class lambda, which returns @sort_direction.downcase or a literal default order; CampaignsController#set_sort validates @sort_column against an explicit column allowlist and @sort_direction against ASC/DESC. params[:sort] appears in the same expression only as a .present? test - its value is never emitted."
+    },
+    {
+      "fingerprint": "9adf1cfe303cf27b5272e818d1db76dfe4c4db3fd5fe79029099f95dfc24f029",
+      "note": "False positive from dataflow merging. The class attribute is produced by the sort_class lambda, which returns @sort_direction.downcase or a literal default order; CampaignsController#set_sort validates @sort_column against an explicit column allowlist and @sort_direction against ASC/DESC. params[:sort] appears in the same expression only as a .present? test - its value is never emitted."
+    },
+    {
+      "fingerprint": "dd90fe833913586706900c99cfc366b9b615e3dfa053c0a878087dadb1ef466c",
+      "note": "False positive from dataflow merging. The class attribute is produced by the sort_class lambda, which returns @sort_direction.downcase or a literal default order; CampaignsController#set_sort validates @sort_column against an explicit column allowlist and @sort_direction against ASC/DESC. params[:sort] appears in the same expression only as a .present? test - its value is never emitted."
+    },
+    {
+      "fingerprint": "74bef606c51f997005b97ef59a781c849c709d15b4316c5dc1ded04a41774807",
+      "note": "False positive from dataflow merging. The class attribute is produced by the sort_class lambda, which returns @sort_direction.downcase or a literal default order; CampaignsController#set_sort validates @sort_column against an explicit column allowlist and @sort_direction against ASC/DESC. params[:sort] appears in the same expression only as a .present? test - its value is never emitted."
+    },
+    {
+      "fingerprint": "ff97c465227ae16e1573e7d9f4253fc40e01a8d3bf1f2d169098c5a1125568c8",
+      "note": "False positive from dataflow merging. The class attribute is produced by the sort_class lambda, which returns @sort_direction.downcase or a literal default order; CampaignsController#set_sort validates @sort_column against an explicit column allowlist and @sort_direction against ASC/DESC. params[:sort] appears in the same expression only as a .present? test - its value is never emitted."
+    },
+    {
+      "fingerprint": "4d88c75c447c5b60cf48fbcdc0bf9fee7362893a62ca6cea3d481e96dbc06ed9",
+      "note": "False positive from dataflow merging. The class attribute is produced by the sort_class lambda, which returns @sort_direction.downcase or a literal default order; CampaignsController#set_sort validates @sort_column against an explicit column allowlist and @sort_direction against ASC/DESC. params[:sort] appears in the same expression only as a .present? test - its value is never emitted."
+    },
+    {
+      "fingerprint": "f1bc9678d8ce4995f17a99ca4994860e2b910bb185295a37523b71e3fc2de0c8",
+      "note": "False positive from dataflow merging. The class attribute is produced by the sort_class lambda, which returns @sort_direction.downcase or a literal default order; CampaignsController#set_sort validates @sort_column against an explicit column allowlist and @sort_direction against ASC/DESC. params[:sort] appears in the same expression only as a .present? test - its value is never emitted."
+    },
+    {
+      "fingerprint": "ba154bc0c55eacffd6680eb7c2aa0b739bfbb68e3531bf5463d6d4b61ce57c98",
+      "note": "False positive from dataflow merging. The class attribute is produced by the sort_class lambda, which returns @sort_direction.downcase or a literal default order; CampaignsController#set_sort validates @sort_column against an explicit column allowlist and @sort_direction against ASC/DESC. params[:sort] appears in the same expression only as a .present? test - its value is never emitted."
+    },
+    {
+      "fingerprint": "c70dd11c952f8df59c5bba376f41489e3b5cb8337492d7a504ca0ee936160e58",
+      "note": "Admin-authored content, rendered as HTML deliberately. FaqController gates :edit behind require_admin_permissions, and html_content is markdown an admin wrote. Residual risk is a compromised admin account, which is accepted here as it is for any CMS."
+    },
+    {
+      "fingerprint": "1f6aa7e942d09140c40d37f15ac2ee5c5fcd97cf505e9dee802355e7299aef23",
+      "note": "The form markup is returned by LTIAAS from POST /api/deeplinking/form and is a self-submitting form that has to render as HTML. Nothing is interpolated into it locally; the values we send are signed into a JWT by LTIAAS. Trusting that response is inherent to the integration."
+    },
+    {
+      "fingerprint": "4792f83651fb4d0d64582ccf4d8810a8376644c854a26e86d87e9473a44a263d",
+      "note": "Survey opt-out text is rich text authored through admin-gated actions; rendering it as HTML is the feature."
+    },
+    {
+      "fingerprint": "e04e46d120f2d6ddc02b4158a81517da3b810830b0cbba859c80fcc2581de21e",
+      "note": "Survey intro/thanks are rich text authored through admin-gated create/update; rendering them as HTML is the feature. Brakeman attributes the value to Survey.new(survey_params), but #show reads a persisted record through set_survey (Survey.find); Survey.new(survey_params) appears only in #create, which require_admin_permissions covers."
+    },
+    {
+      "fingerprint": "a43da7ecad20ede2e5b74f6a353f6c717ef98d5b10414fe904d6fa19b8a71d1c",
+      "note": "Survey intro/thanks are rich text authored through admin-gated create/update; rendering them as HTML is the feature. Brakeman attributes the value to Survey.new(survey_params), but #show reads a persisted record through set_survey (Survey.find); Survey.new(survey_params) appears only in #create, which require_admin_permissions covers."
+    },
+    {
+      "fingerprint": "1991501286db12e08a9e70a5e7b367f4d229e82cfd4e27166bac3c278eee2c54",
+      "note": "TrainingProgressManager#assignment_status_css_class returns only 'completed', 'overdue' or nil."
+    },
+    {
+      "fingerprint": "e77f17319f22ca6b1a9f65f6cbf10d21e68eb5e978675b4f9b7ce2bfe7ffb948",
+      "note": "TrainingProgressManager#assignment_status_css_class returns only 'completed', 'overdue' or nil."
+    },
+    {
+      "fingerprint": "e90f641d7bbade70aa4bce5d919ce6ee5f1d652a69aa020125a02d075c1b0068",
+      "note": "params[:wizard_id] reaches a file path, but only through the wizards/:wizard_id route segment, which Rails constrains to exclude / and . - traversal payloads are rejected at routing with a 404 (verified by request spec). The filename is fixed as wizard.yml and the content is parsed with YAML.safe_load. Revisit if this id ever arrives from a query parameter or a globbed route."
+    },
+    {
+      "fingerprint": "aa5a2b411ef7e82ff5efb110835fd92044784037fd878563b5b14ea4f859d1ad",
+      "note": "LEADING_COLON_MATCHER and SPECIAL_PAGE_MATCHER are deliberately first-character checks, so the \\z anchor Brakeman recommends does not apply to them."
+    },
+    {
+      "fingerprint": "b73ad3b228b6ae84a1a27f15d57b0f9a550cd70dc17df6bfb49e246f4256bbff",
+      "note": "The confusion resolves in the safe direction: a HEAD request is treated as non-GET, so respond_to_non_get_request returns the stub 200 instead of running the enrollment path."
+    },
+    {
+      "fingerprint": "ae4a8d5fd6d2f7d021db881f34b1cb74df0f222c816d2442614ea36e48827c6e",
+      "note": "Here :role is the assignment role (0 assigned / 1 reviewing), not a privilege level, and the controller requires course participation."
+    },
+    {
+      "fingerprint": "6f4564c6038e6ebc8438fb0029c85bef24e53deafb128ee2dfa000dcebc827ea",
+      "note": "Permitting :role is intentional, and authority over it is now enforced: ensure_management_role_is_authorized requires the requester to be an instructor in the course, or an admin, before either role in User::EDITING_ROLES (instructor, Wiki Ed staff) can be granted or removed. Those are the roles that make can_edit? true. Covered by spec/controllers/users/enrollment_role_authorization_spec.rb."
+    },
+    {
+      "fingerprint": "770cceeb08815eb2a11f0ca132a462daa4d8885428c84b301a9bc353e5e756e1",
+      "note": "Relative-path redirect. The interpolated value is a slug read from a persisted record and the path begins with a literal /, so the target stays on this origin; no host-controlling input reaches it."
+    },
+    {
+      "fingerprint": "2485a86bf1a9aaf91e054fa06be350f24c7ac2b70599e841d97243ddd723b005",
+      "note": "Relative-path redirect. The interpolated value is a slug read from a persisted record and the path begins with a literal /, so the target stays on this origin; no host-controlling input reaches it."
+    },
+    {
+      "fingerprint": "62b521135a7ae83492b5dc3efa22d6ec64782e3aa45e82ff2dde99e27650e6eb",
+      "note": "Relative-path redirect. The interpolated value is a slug read from a persisted record and the path begins with a literal /, so the target stays on this origin; no host-controlling input reaches it."
+    },
+    {
+      "fingerprint": "e8d4d4df36289aaf695cd42e5c962d7c6848bf6a83a83bb8f8017f621eda2211",
+      "note": "Relative-path redirect. The interpolated value is a slug read from a persisted record and the path begins with a literal /, so the target stays on this origin; no host-controlling input reaches it."
+    },
+    {
+      "fingerprint": "b86d36a92fc4ec41e8344e7d7f7314f1c2d7e5681a5412e6b2ecb4a72a1c9e45",
+      "note": "Relative-path redirect. The interpolated value is a slug read from a persisted record and the path begins with a literal /, so the target stays on this origin; no host-controlling input reaches it."
+    },
+    {
+      "fingerprint": "f8a35ba8247f834184b145a8831fa5dc0dff6da6e7b9ab5d005014ab648072f8",
+      "note": "Relative-path redirect. The interpolated value is a slug read from a persisted record and the path begins with a literal /, so the target stays on this origin; no host-controlling input reaches it."
+    },
+    {
+      "fingerprint": "01f77df01643d795cc1c156c3b12e303b07a52ebe3e4066cb58aff71f70ccd7c",
+      "note": "Relative-path redirect. The interpolated value is a slug read from a persisted record and the path begins with a literal /, so the target stays on this origin; no host-controlling input reaches it."
+    },
+    {
+      "fingerprint": "ead363dab96f6ba0beec9fd7c6fdf8df0ce5364323e91e8f4ce61e72c9441c69",
+      "note": "`column` is a string literal at every call site ('courses.view_sum', 'courses.user_count', 'courses.created_at', 'courses.start' and similar). The user-supplied bounds are passed as bind parameters, not interpolated."
+    },
+    {
+      "fingerprint": "f0297520582f4046b875198a89f71e7006388ecde85fed119685c0ea3a075b62",
+      "note": "`column` is a string literal at every call site ('courses.view_sum', 'courses.user_count', 'courses.created_at', 'courses.start' and similar). The user-supplied bounds are passed as bind parameters, not interpolated."
+    },
+    {
+      "fingerprint": "1688668228e529a4b331627766b77771b71fdcc3c29c247a4484f6f79a23d3b9",
+      "note": "`column` is a string literal at every call site ('courses.view_sum', 'courses.user_count', 'courses.created_at', 'courses.start' and similar). The user-supplied bounds are passed as bind parameters, not interpolated."
+    },
+    {
+      "fingerprint": "617a629d3e44edb3d8dff0a08edf311257cfdaf7d01983f8e3d011498670be44",
+      "note": "`year` iterates the literal range 2015..Time.now.year."
+    },
+    {
+      "fingerprint": "60789670e3a052f89d6422387cccc7ee801f4d37030c40b205d9ba28247ad5d9",
+      "note": "The interpolated tuples are integer wiki/article ids read from the database and Time#strftime output. No user input reaches the fragment."
+    },
+    {
+      "fingerprint": "18fe5feed0db07ca3e4c9fdce6a957ae5bdf6c376ddc23083b8addedba219b6b",
+      "note": "The interpolated tuples are integer wiki/article ids read from the database and Time#strftime output. No user input reaches the fragment."
+    },
+    {
+      "fingerprint": "8345a42df575bf17cb816ed765db79b56004b58bd37b1761d39df457e853c416",
+      "note": "The interpolated tuples are integer wiki/article ids read from the database and Time#strftime output. No user input reaches the fragment."
+    },
+    {
+      "fingerprint": "79e9987271e78777a8945bf1747d90680a2a3d03d6bea5d9ed357d0440bf37ed",
+      "note": "`ignore` is a fixed pattern returned by a private method with no arguments; the user-supplied search term is passed as a bind parameter."
+    }
+  ]
+}

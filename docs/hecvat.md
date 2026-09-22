@@ -7,7 +7,7 @@
 > infrastructure details, then reviewed and confirmed by Wiki Education (Sage Ross,
 > Chief Technology Officer).
 >
-> **Last reviewed:** 2026-09-21.
+> **Last reviewed:** 2026-09-22.
 
 This is a Higher Education Community Vendor Assessment Toolkit (HECVAT) response for the Wiki Education Dashboard's Canvas (LTI 1.3) integration, covering the **critical ("Core") questions** — the asterisked subset EDUCAUSE recommends for a Lite-style review. (Full HECVAT 4 has 332 questions across seven tabs; this Core answers the critical and identification questions.) Answers use **Yes / No / N/A**; the Notes field is optional context.
 
@@ -312,7 +312,7 @@ Sections such as HIPAA, PCI DSS, and Consulting Services apply only if the produ
 
 **Answer:** Yes
 
-**Notes:** Every CI build runs static code analysis — RuboCop (Ruby) and ESLint (JavaScript) — and dependency-vulnerability audits that fail the build if a dependency in use has a published security advisory: bundler-audit against the Ruby Advisory Database for gems, and `yarn npm audit` against npm's advisory data (the GitHub Advisory Database) for JavaScript packages, covering transitive dependencies at moderate severity and above. The static analyzers are code-quality/style tools; there is no dedicated security SAST (e.g., Brakeman) in the pipeline.
+**Notes:** Every CI build runs static code analysis and fails on new findings: Brakeman for application security (SAST), plus RuboCop (Ruby) and ESLint (JavaScript) for code quality and style. Brakeman runs against a reviewed baseline (`config/brakeman.ignore`) in which each previously triaged warning carries a written justification; any warning outside that baseline fails the build. Every build also runs dependency-vulnerability audits that fail the build if a dependency in use has a published security advisory: bundler-audit against the Ruby Advisory Database for gems, and `yarn npm audit` against npm's advisory data (the GitHub Advisory Database) for JavaScript packages, covering transitive dependencies at moderate severity and above.
 
 **APPL-07** — Do you have software testing processes (dynamic or static) that are established and followed?
 

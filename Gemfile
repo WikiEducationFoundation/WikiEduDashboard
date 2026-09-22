@@ -134,6 +134,7 @@ group :development do
 end
 
 group :development, :test do
+  gem 'brakeman', require: false # Rails security static analysis; see config/brakeman.ignore
   gem 'bundler-audit', require: false
   gem 'pry-rails'
   gem 'byebug'
