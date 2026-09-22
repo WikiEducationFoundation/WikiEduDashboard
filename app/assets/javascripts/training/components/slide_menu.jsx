@@ -24,7 +24,7 @@ const SlideMenu = (props) => {
 
     if (!props.slides) { return <div />; }
     // need the slide index because overflow: hidden cuts off li numbering
-    const slides = props.slides.map((slide, loopIndex) => {
+    const slides = props.slides.map((slide, loopIndex) => {`  1`
       const current = slide.id === props.currentSlide.id;
       const liClass = current ? 'current' : '';
       const newParams = extend(linkParams(), { slide_id: slide.slug });

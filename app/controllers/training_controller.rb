@@ -42,12 +42,12 @@ class TrainingController < ApplicationController
   def slide_view
     training_module = TrainingModule.find_by(slug: params[:module_id])
     raise ActionController::RoutingError, 'not found' if training_module.nil?
+    @training_module_name = training_module.translated_name
     if current_user
       @tmu = TrainingModulesUsers.find_or_create_by(
         user_id: current_user.id,
         training_module_id: training_module.id
       )
-      @training_module_name = training_module.translated_name
       find_recent_course
     end
   end
@@ -85,7 +85,7 @@ class TrainingController < ApplicationController
   def find_recent_course
     recent_course_object = current_user.recent_course
     if session[:training_return_to].present? &&
-      session[:training_return_to].include?("/courses/")#
+      session[:training_return_to].include?("/courses/")
       url = URI.parse(session[:training_return_to])
       _, _, course_school, course_title, = url.path.split('/')
       @course_slug = "#{course_school}/#{course_title}"
@@ -98,7 +98,7 @@ class TrainingController < ApplicationController
       @course = nil
     end
   end
-  
+
   def add_library_breadcrumb
     lib_id = params[:library_id]
     if Features.wiki_ed?

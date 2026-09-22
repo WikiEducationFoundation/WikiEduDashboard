@@ -7,7 +7,7 @@ global.TextDecoder = global.TextDecoder || TextDecoder;
 global.IS_REACT_ACT_ENVIRONMENT = true;
 const { createRoot } = require('react-dom/client');
 const { MemoryRouter, Routes, Route } = require('react-router-dom');
-const { act } = require('react');
+const { act } = require('react-dom/test-utils');
 const BreadCrumbs = require('../../app/assets/javascripts/training/components/bread_crumbs').default;
 
 if (typeof I18n !== 'undefined') {
