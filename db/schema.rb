@@ -459,21 +459,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_15_220000) do
     t.index ["key"], name: "index_lti_consumer_keys_on_key", unique: true
   end
 
-  create_table "lti_consumer_keys", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "key", null: false
-    t.text "secret", null: false
-    t.integer "course_id", null: false
-    t.integer "user_id", null: false
-    t.string "lms_instance_guid"
-    t.datetime "activated_at"
-    t.datetime "last_launch_at"
-    t.boolean "active", default: true, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["course_id"], name: "index_lti_consumer_keys_on_course_id"
-    t.index ["key"], name: "index_lti_consumer_keys_on_key", unique: true
-  end
-
   create_table "lti_contexts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "user_lti_id", null: false
     t.string "context_id"
@@ -517,23 +502,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_15_220000) do
   create_table "lti_launch_nonces", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "lti_consumer_key_id", null: false
     t.string "nonce", null: false
-    t.datetime "created_at", null: false
-    t.index ["created_at"], name: "index_lti_launch_nonces_on_created_at"
-    t.index ["lti_consumer_key_id", "nonce"], name: "index_lti_launch_nonces_on_key_and_nonce", unique: true
-  end
-
-  create_table "lti_legacy_launches", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.string "token", null: false
-    t.text "idtoken", null: false
-    t.datetime "expires_at", null: false
-    t.datetime "created_at", null: false
-    t.index ["expires_at"], name: "index_lti_legacy_launches_on_expires_at"
-    t.index ["token"], name: "index_lti_legacy_launches_on_token", unique: true
-  end
-
-  create_table "lti_line_items", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.datetime "archived_at"
-    t.string "canvas_assignment_id"
     t.datetime "created_at", null: false
     t.index ["created_at"], name: "index_lti_launch_nonces_on_created_at"
     t.index ["lti_consumer_key_id", "nonce"], name: "index_lti_launch_nonces_on_key_and_nonce", unique: true
@@ -643,22 +611,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_15_220000) do
     t.string "email"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-  end
-
-  create_table "retention_stats", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
-    t.integer "course_id", null: false
-    t.integer "user_id", null: false
-    t.integer "sessions_during", default: 0, null: false
-    t.integer "days_to_return"
-    t.integer "sessions_after"
-    t.integer "edits_60_90"
-    t.integer "prior_edit_count", default: 0, null: false
-    t.boolean "long_term_wikipedian", default: false, null: false
-    t.integer "prior_course_count", default: 0, null: false
-    t.datetime "computed_at", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["course_id", "user_id"], name: "index_retention_stats_on_course_id_and_user_id", unique: true
   end
 
   create_table "retention_stats", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
