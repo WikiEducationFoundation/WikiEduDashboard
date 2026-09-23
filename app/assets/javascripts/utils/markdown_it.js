@@ -3,6 +3,31 @@ import DOMPurify from 'dompurify';
 import { assign } from 'lodash-es';
 import footnotes from 'markdown-it-footnote';
 
+// Video slides embed YouTube players as iframes, so iframes are allowed, but
+// only when they point at a YouTube embed URL; any other iframe is removed.
+// A separate DOMPurify instance keeps this hook from affecting other callers.
+const YOUTUBE_EMBED_HOSTS = [
+  'www.youtube-nocookie.com', 'youtube-nocookie.com', 'www.youtube.com', 'youtube.com'
+];
+
+const isYouTubeEmbed = (src) => {
+  try {
+    const url = new URL(src);
+    return url.protocol === 'https:'
+      && YOUTUBE_EMBED_HOSTS.includes(url.hostname)
+      && url.pathname.startsWith('/embed/');
+  } catch {
+    return false;
+  }
+};
+
+const purifier = DOMPurify(window);
+purifier.addHook('afterSanitizeAttributes', (node) => {
+  if (node.tagName === 'IFRAME' && !isYouTubeEmbed(node.getAttribute('src'))) {
+    node.remove();
+  }
+});
+
 export default function (opts) {
   const mergedOpts = assign({}, opts, { html: true, linkify: true });
   const md = markdownIt(mergedOpts).use(footnotes);
@@ -40,11 +65,14 @@ export default function (opts) {
   // event-handler attributes and javascript: URLs.
   // `target` is not in DOMPurify's default allow-list, and dropping it would
   // silently undo the openLinksExternally rule above.
-  const sanitizeOptions = { ADD_ATTR: ['target'] };
+  const sanitizeOptions = {
+    ADD_TAGS: ['iframe'],
+    ADD_ATTR: ['target', 'allowfullscreen', 'frameborder']
+  };
 
   ['render', 'renderInline'].forEach((method) => {
     const renderUnsafe = md[method].bind(md);
-    md[method] = (...args) => DOMPurify.sanitize(renderUnsafe(...args), sanitizeOptions);
+    md[method] = (...args) => purifier.sanitize(renderUnsafe(...args), sanitizeOptions);
   });
 
   return md;
