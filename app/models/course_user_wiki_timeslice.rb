@@ -188,7 +188,9 @@ class CourseUserWikiTimeslice < ApplicationRecord
   def mainspace_records_in_tracked_namespaces(by_ns)
     ms_records = by_ns[Article::Namespaces::MAINSPACE] || []
     return ms_records if ms_records.empty?
-    tracked_article_ids = course.article_ids
+    tracked_article_ids = course.articles_courses
+                                .where(article_id: ms_records.map(&:article_id))
+                                .pluck(:article_id).to_set
     ms_records.select { |r| tracked_article_ids.include?(r.article_id) }
   end
 

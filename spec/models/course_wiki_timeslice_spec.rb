@@ -318,6 +318,26 @@ scoped: false)
         end
       end
 
+      # ArticlesCourses records are only created for the course's tracked namespaces,
+      # so a missing record means the article is outside them.
+      context 'when a mainspace article has no articles_courses record' do
+        let(:untracked_ns_article) { create(:article, id: 20, namespace: 0) }
+
+        before do
+          create(:article_course_user_wiki_timeslice, course:, wiki:,
+                 article: untracked_ns_article, user_id: 1, start:, end: timeslice_end,
+                 character_sum: 4213, references_count: 7, revision_count: 3)
+        end
+
+        it 'excludes the article from character_sum and references_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          expect(course_wiki_timeslice.character_sum).to eq(700)
+          expect(course_wiki_timeslice.references_count).to eq(4)
+        end
+      end
+
       context 'when an instructor has ACUWT records' do
         before do
           create(:user, id: 3, username: 'InstructorUser')

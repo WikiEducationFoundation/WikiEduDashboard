@@ -166,10 +166,12 @@ class CourseWikiTimeslice < ApplicationRecord
   def acuwt_mainspace_tracked_student_records
     @acuwt_mainspace_tracked_student_records ||= begin
       student_user_ids = @students.pluck(:user_id)
+      # ArticlesCourses rows only exist for the course's tracked namespaces, so this
+      # also drops untracked-namespace articles. A subquery, as some courses have 1M+ rows.
       query = ArticleCourseUserWikiTimeslice
                 .joins(:article)
                 .where(course:, wiki:, start:, user_id: student_user_ids)
-                .where(article_id: tracked_article_ids)
+                .where(article_id: course.articles_courses.tracked.select(:article_id))
                 .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
       query = query.where(article_id: course.scoped_article_ids) if
         course.only_scoped_articles_course?
@@ -179,15 +181,6 @@ class CourseWikiTimeslice < ApplicationRecord
 
   def not_tracked_article_ids
     @not_tracked_article_ids ||= course.articles_courses.not_tracked.pluck(:article_id)
-  end
-
-  # Articles with an articles_courses record that is still tracked. The record's
-  # existence is what makes this a tracked-namespace filter: ArticlesCourses rows
-  # are only created for articles in the course's tracked namespaces, so ACUWT rows
-  # for articles outside them have no record to match (this is what
-  # CourseUserWikiTimeslice#live_revisions_in_tracked_namespaces relies on too).
-  def tracked_article_ids
-    @tracked_article_ids ||= course.articles_courses.tracked.pluck(:article_id)
   end
 
   def update_revision_count
