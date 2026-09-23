@@ -21,11 +21,11 @@ describe 'settings', type: :feature, js: true do
       fill_in('new_special_user', with: user.username)
       find('#specialUserPosition').click
       within '#specialUserPosition' do
-        all('div', text: 'communications_manager')[2].click
+        find('div[class*="option"]', text: 'communications_manager', exact_text: true).click
       end
       click_button 'Submit'
       find('[value=confirm]').click
-      expect(page).to have_content('was upgraded')
+      expect(page).to have_content("#{user.username} was upgraded to communications_manager.")
       expect(SpecialUsers.is?(user, 'communications_manager')).to eq(true)
     end
 
