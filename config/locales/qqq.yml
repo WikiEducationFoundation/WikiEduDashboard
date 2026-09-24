@@ -779,6 +779,9 @@ qqq:
     exercise_needs_assigned_article: Error shown when a student tries to mark an exercise
       complete before assigning themselves an article, which the exercise's expected
       page depends on
+    exercise_article_unverified: Error shown when a student tries to mark an exercise
+      complete before the dashboard has verified their edit to the article they name
+      for it
   uploads:
     image: '{{Identical|Image}}'
     label: |-

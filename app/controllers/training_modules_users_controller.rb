@@ -2,7 +2,8 @@
 
 class TrainingModulesUsersController < ApplicationController
   respond_to :json
-  before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete]
+  before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete,
+                                            :verify_exercise_article]
 
   def index
     course = Course.find(params[:course_id])
@@ -20,12 +21,30 @@ class TrainingModulesUsersController < ApplicationController
     render_slide
   end
 
+  def verify_exercise_article
+    set_training_module
+    return render_article_title_input_error unless @training_module&.article_title_input
+    set_training_module_user
+    verification = VerifyExerciseArticle.new(training_module_user: @training_module_user,
+                                             title: params[:article_title],
+                                             courses: courses_for_exercise_article)
+    if verification.verified?
+      render json: { status: 'verified', article_title: verification.article_title }
+    else
+      render json: { status: 'not_found', message: t('training.article_title_input.not_found') },
+             status: :unprocessable_entity
+    end
+  end
+
   def mark_exercise_complete
     set_training_module
     set_training_module_user
     block = Block.find(params[:block_id])
     @course = block.course
-    verify_exercise_sandbox { return } if marking_complete?
+    if marking_complete?
+      verify_exercise_article_recorded { return }
+      verify_exercise_sandbox { return }
+    end
     mark_completion_status(marking_complete?, @course.id)
 
     render 'courses/_block', locals: { block:, course: @course }
@@ -79,10 +98,34 @@ class TrainingModulesUsersController < ApplicationController
     @training_module_user.furthest_slide?(@slide.slug)
   end
 
+  def render_article_title_input_error
+    render json: { status: 'not_found',
+                   message: 'This training module does not take an article title.' },
+           status: :not_found
+  end
+
+  # Verifying from a course timeline covers just that course. From the training
+  # slides, it covers each current course that assigns the module.
+  def courses_for_exercise_article
+    return [Block.find(params[:block_id]).course] if params[:block_id].present?
+    VerifyExerciseArticle.current_courses(user: current_user, training_module: @training_module)
+  end
+
   # The sandbox check only guards against premature completion, so unmarking an
   # exercise doesn't have to pass it.
   def marking_complete?
     ActiveModel::Type::Boolean.new.cast(params[:complete]) || false
+  end
+
+  # For article_title_input exercises, the title is only stored after
+  # verify_exercise_article confirmed the edit, so its presence is sufficient.
+  def verify_exercise_article_recorded
+    return unless @training_module.article_title_input
+    return if @training_module_user.exercise_article_title(@course.id).present?
+
+    render json: { message: t('training.exercise_article_unverified'), status: 'incomplete' },
+           status: :forbidden
+    yield
   end
 
   def verify_exercise_sandbox

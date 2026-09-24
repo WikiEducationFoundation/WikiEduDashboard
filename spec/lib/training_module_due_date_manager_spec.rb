@@ -255,6 +255,28 @@ describe TrainingModuleDueDateManager do
     end
   end
 
+  describe '#exercise_article_url' do
+    subject do
+      described_class.new(course:, training_module: exercise_module, user:).exercise_article_url
+    end
+
+    let(:exercise_module) { TrainingModule.find_by(slug: 'update-a-biography-exercise') }
+
+    before { tmu.update!(training_module_id: exercise_module.id) }
+
+    it 'links to the verified article on the course home wiki' do
+      tmu.store_exercise_article_title('Marie Curie', course.id)
+      tmu.save!
+      expect(subject).to eq('https://en.wikipedia.org/wiki/Marie_Curie')
+    end
+
+    it 'is nil when the article was verified for a different course' do
+      tmu.store_exercise_article_title('Marie Curie', course.id + 1)
+      tmu.save!
+      expect(subject).to be_nil
+    end
+  end
+
   describe '#exercise_url' do
     subject { described_class.new(course:, training_module:, user:).exercise_url }
 

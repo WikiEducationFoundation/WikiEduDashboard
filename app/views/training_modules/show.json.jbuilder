@@ -3,6 +3,7 @@ progress_manager = TrainingProgressManager.new(current_user, @training_module)
 
 json.training_module do
   json.call(@training_module, :slug, :id, :wiki_page)
+  json.needs_exercise_article @needs_exercise_article || false
   json.slides @training_module.slides do |slide|
     json.call(slide, :title_prefix, :title, :summary, :slug, :id, :content,
               :translations, :wiki_page)

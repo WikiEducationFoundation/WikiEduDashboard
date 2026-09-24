@@ -53,6 +53,12 @@ class TrainingModuleDueDateManager
     return flags_hash
   end
 
+  def exercise_article_url
+    title = @tmu&.exercise_article_title(@course.id)
+    return unless title
+    "#{@course.home_wiki.base_url}/wiki/#{title.tr(' ', '_')}"
+  end
+
   def sandbox_url
     return unless @training_module.sandbox_location && @user
     "#{@user.userpage_url(@course)}/#{@training_module.sandbox_location}"
