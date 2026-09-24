@@ -169,7 +169,7 @@ class SystemCsvBuilder
       Article::Namespaces::TALK,
       Article::Namespaces::USER
     ]
-    ArticleCourseTimeslice
+    ArticleCourseUserWikiTimeslice
       .where(tracked: true, course_id: course_ids)
       .select(:revision_count, :course_id)
       .joins(:article)

@@ -56,7 +56,7 @@ class CampaignCsvBuilder
 
     namespaces = [Article::Namespaces::MAINSPACE, Article::Namespaces::TALK, Article::Namespaces::USER]
 
-    @revision_counts = ArticleCourseTimeslice
+    @revision_counts = ArticleCourseUserWikiTimeslice
                        .where(tracked: true, course_id: course_ids)
                        .select(:revision_count, :course_id)
                        .joins(:article)

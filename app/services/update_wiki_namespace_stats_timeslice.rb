@@ -57,7 +57,7 @@ class UpdateWikiNamespaceStatsTimeslice
   end
 
   def articles_timeslices_filtered_by_wiki_namespace
-    @course.article_course_timeslices
+    @course.article_course_user_wiki_timeslices
            .where(article_id: articles_filtered_by_wiki_namespace.pluck(:article_id))
   end
 
