@@ -18,6 +18,7 @@
 # Author: Macofe
 # Author: Marcok
 # Author: Martinligabue
+# Author: Matroz
 # Author: Matteocng
 # Author: Nemo bis
 # Author: Neonsn0w
@@ -89,6 +90,7 @@ it:
     change: Modifica
     details: Dettagli
     confirm: OK
+    confirm_generic: Sei sicuro di volerlo fare?
     opt_in: Sì
     opt_out: "No"
     opt_yes: sì
@@ -583,6 +585,8 @@ it:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
       user_exists_on_wiki: Spiacenti, %{username} non è un utente esistente in %{domain}.
+      management_role_not_authorized: Solo i docenti del corso possono aggiungere
+        o rimuovere un utente da tale ruolo.
       invalid_language_or_project: Lingua/progetto non valido
       duplicate_course_slug: L'URL %{slug} è già in uso. Si prega di modificare il
         titolo, la scuola o il semestre.
@@ -707,7 +711,8 @@ it:
     wiki_staff: Staff Wiki Education
     withdrawn: Non assegnato
     word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
-      principale dagli studenti del corso durante il periodo del corso
+      principale dagli studenti del corso durante il periodo del corso. (Le modifiche
+      apportate da Wikidata non sono incluse.)
     yourcourses: Tuoi corsi
     survey:
       notification_message: Partecipa al nostro sondaggio per questo corso.
@@ -789,7 +794,8 @@ it:
       multimediali su Wikimedia Commons.
     view_other: Vedi altre campagne
     word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
-      principale dagli studenti del programma durante il periodo del programma
+      principale dagli studenti del programma durante il periodo del programma. (Le
+      modifiche apportate da Wikidata non sono incluse.)
   editable:
     edit: Modifica
     cancel: Annulla
@@ -978,6 +984,10 @@ it:
       è piena. Cancella almeno una settimana o cambia le date di assegnazione per
       fare spazio a una nuova.
     week_number: Settimana %{number}
+    standard_blocks: Blocchi standard
+    standard_block_does_not_match: Non corrisponde
+    sandbox_mode: Modalità Sandbox
+    sandbox_mode_switch_to_sandboxes: Passa alle sandbox
   training:
     continue: Continua (%{progress})
     start: Inizio
@@ -1219,4 +1229,9 @@ it:
     selector_placeholder: Inizia a digitare un dominio wiki
   question_groups:
     edit_question_group: Modifica gruppo di domande
+  lti:
+    beta_feedback:
+      message: Accogliamo volentieri i feedback riguardo a questa versione beta della
+        nostra integrazione Canvas.
+      link: Invia un feedback
 ...

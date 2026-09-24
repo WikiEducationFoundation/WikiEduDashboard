@@ -209,6 +209,8 @@ pl:
       characters_added: Liczba dodanych znaków
       new_editors: Liczba nowych edytujących
       active_programs: Liczba aktywnych programów
+    tables:
+      new_editors: Nowych edytujących (60-dniowa rejestracja wstępna)
   activity:
     all: Aktywność
     edited_by: Zmienił(a)
@@ -902,7 +904,7 @@ pl:
     character_doc: Suma treści dodana do tej przestrzeni nazw, podliczona jako suma
       znaków dodanych do artykułu jeśli edycja powiększyła jego objętość. Liczba niekoniecznie
       odzwierciedla ilość nowej treści dodanej przez użytkownika. Przywracanie wcześniej
-      usuniętej treści też zwiększy wynik.
+      usuniętej treści też zwiększy wynik. (Edycje z Wikidanych nie są uwzględniane).
     chars_added: Znaki dodane<br>(artykuły | strony użytkownika | brudnopisy)
     contributions: Wkład użytkownika
     contributions_history_full: Zobacz całą historię wkładu

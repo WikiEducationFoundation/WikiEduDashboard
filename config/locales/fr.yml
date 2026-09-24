@@ -34,6 +34,7 @@
 # Author: Melimeli
 # Author: Momo50WM
 # Author: Méthodes Bulebe Hangi
+# Author: NClara
 # Author: Oujon
 # Author: PenScribe
 # Author: PifyZ
@@ -229,6 +230,13 @@ fr:
       max_likelihood: Distribution de probabilité maximale de l'IA par jour
       overall_avg_likelihood: Distribution de probabilité moyenne globale de l'IA
       overall_max_likelihood: Répartition globale maximale de probabilité de l'IA
+  system_stats:
+    kpis:
+      retained_new_editors: Rédacteurs retenus
+    tables:
+      retained_new_editors: Rédacteurs retenus
+    facilitators:
+      retained_new_editors: Rédacteurs retenus
   activity:
     all: Activité
     edited_by: Modifié par
@@ -913,6 +921,8 @@ fr:
       user_exists: Désolé, %{username} n’existe pas.
       user_exists_on_wiki: Désolé, %{username} n’est pas un utilisateur existant sur
         %{domain}.
+      management_role_not_authorized: Seuls les responsables de cours peuvent ajouter
+        ou supprimer un utilisateur ayant ce rôle.
       invalid_language_or_project: Langue ou projet non valide
       invalid_wiki: Impossible de se connecter à %{domain}. Ce n’est peut-être pas
         un wiki valide.
@@ -1162,7 +1172,8 @@ fr:
     wiki_staff: Équipe de Wiki Éducation
     withdrawn: Affectation non réalisée
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
-      principal par les étudiants du cours pendant son déroulement
+      principal par les étudiants du cours pendant son déroulement. (Les modifications
+      apportées à Wikidata ne sont pas incluses.)
     word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux éléments
       de l’espace principal par les étudiants du cours pendant sa durée
     yourcourses: Vos cours
@@ -1341,7 +1352,8 @@ fr:
     view_other: Afficher les autres campagnes
     view_page: Afficher la page
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
-      principal par les rédacteurs du programme durant son déroulement
+      principal par les rédacteurs du programme durant son déroulement. (Les modifications
+      apportées à Wikidata ne sont pas incluses.)
     word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux articles
       de l’espace principal par les contributeurs et contributrices du programme durant
       son déroulement
@@ -1982,7 +1994,8 @@ fr:
       espace de nom, calculée en ajoutant les caractères ajoutés pour chaque modification
       ayant augmenté la taille de la page. Ce nombre ne reflète pas nécessairement
       la quantité de nouveau contenu ajouté par l’utilisateur. Restaurer un contenu
-      supprimé augmentera également ce total.
+      supprimé augmentera également ce total. (Les modifications apportées à Wikidata
+      ne sont pas incluses.)
     chars_added: Caractères ajoutés<br /> (article | utilisateur | brouillon)
     chars_added_wikidata: Caractères ajoutés<br /> (élément | utilisateur | brouillon)
     contributions: Contributions de l’utilisateur
@@ -2096,7 +2109,8 @@ fr:
       depuis la somme des modifications en taille de page de toutes les modifications
       qui ont ajouté plus de contenu qu’elles n’en ont enlevé. Ce nombre ne reflète
       pas nécessaire la quantité de nouveau contenu que l’utilisateur a ajouté. Restaurer
-      du contenu supprimé augmentera aussi ce nombre.
+      du contenu supprimé augmentera aussi ce nombre. (Les modifications apportées
+      à Wikidata ne sont pas incluses.)
     role:
       description: Rôle dans le cours
       visitor: Visiteur
