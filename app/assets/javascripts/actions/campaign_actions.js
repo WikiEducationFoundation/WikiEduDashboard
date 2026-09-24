@@ -68,7 +68,7 @@ export const addCampaign = (courseId, campaignId) => (dispatch) => {
 };
 
 const fetchAllCampaignsPromise = async (page, search) => {
-  let url = '/lookups/campaign.json';
+  let url = (page || search) ? '/campaigns.json' : '/lookups/campaign.json';
   const queryParams = [];
   if (page) {
     queryParams.push(`page=${page}`);

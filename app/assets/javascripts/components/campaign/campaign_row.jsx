@@ -74,6 +74,16 @@ const CampaignRow = ({ campaign }) => {
       <td className="table-link-cell title">
         <a href={`/campaigns/${campaign.slug}/overview`}>{campaign.title}</a>
       </td>
+      <td className="table-link-cell num-courses-human text-center">{campaign.human_course_count}</td>
+      <td className="table-link-cell articles-created-human text-center">{campaign.human_new_article_count}</td>
+      <td className="table-link-cell articles-edited-human text-center">{campaign.human_article_count}</td>
+      <td className="table-link-cell characters-human text-center">{campaign.human_word_count}</td>
+      <td className="table-link-cell references-human text-center">{campaign.human_references_count}</td>
+      <td className="table-link-cell views-human text-center">{campaign.human_view_sum}</td>
+      <td className="table-link-cell students text-center">{campaign.user_count}</td>
+      {!Features.wikiEd && (
+        <td className="table-link-cell creation-date text-center">{campaign.creation_date}</td>
+      )}
       <td className="table-action-cell export">
         <CampaignExportModal campaign={campaign} />
       </td>

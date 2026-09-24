@@ -41,6 +41,15 @@ describe CampaignsController, type: :request do
         expect(body['campaigns'].length).to eq(1)
         expect(body['campaigns'].first['title']).to eq('Campaign 10')
       end
+
+      it 'includes campaign statistics attributes' do
+        get '/campaigns.json', params: { page: 1 }
+        expect(response.status).to eq(200)
+        campaign = JSON.parse(response.body)['campaigns'].first
+        expect(campaign).to include('course_count', 'new_article_count', 'article_count',
+                                    'word_count', 'references_count', 'view_sum',
+                                    'user_count', 'creation_date', 'human_course_count')
+      end
     end
   end
 
