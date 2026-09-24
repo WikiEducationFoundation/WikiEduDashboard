@@ -96,4 +96,3 @@ describe('ParsedArticle Screen Reader Boundaries', () => {
     document.body.removeChild(container);
   });
 });
-
