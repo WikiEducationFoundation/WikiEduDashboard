@@ -252,17 +252,38 @@ describe TimesliceCleaner do
              wiki: enwiki, start: '2024-01-10'.to_datetime, end: '2024-01-11'.to_datetime)
       create(:article_course_user_wiki_timeslice, course:, article_id: article1.id, user_id: 1,
              wiki: enwiki, start: '2024-01-11'.to_datetime, end: '2024-01-12'.to_datetime)
+      create(:article_course_user_wiki_timeslice, course:, article_id: article2.id, user_id: 1,
+             wiki: wikidata, start: '2024-01-11'.to_datetime, end: '2024-01-12'.to_datetime)
     end
 
     it 'deletes article course user wiki timeslices for dates prior to start date properly' do
-      expect(ArticleCourseUserWikiTimeslice.where(course:).size).to eq(3)
+      expect(ArticleCourseUserWikiTimeslice.where(course:).size).to eq(4)
 
       # Update course start date
       course.update(start: '2024-01-10'.to_datetime)
       timeslice_cleaner.delete_article_course_user_wiki_timeslices_prior_to_start_date
 
       # Article course user wiki timeslices prior to the new start date were deleted
-      expect(ArticleCourseUserWikiTimeslice.where(course:).size).to eq(2)
+      expect(ArticleCourseUserWikiTimeslice.where(course:).size).to eq(3)
+    end
+
+    it 'touches the surviving timeslices of articles with deleted timeslices' do
+      course.update(start: '2024-01-10'.to_datetime)
+      travel 1.day
+      timeslice_cleaner.delete_article_course_user_wiki_timeslices_prior_to_start_date
+
+      ArticleCourseUserWikiTimeslice.where(course:, article_id: article1.id).find_each do |t|
+        expect(t.updated_at).to be_within(1.second).of(Time.zone.now)
+      end
+    end
+
+    it 'does not touch timeslices of articles without deleted timeslices' do
+      course.update(start: '2024-01-10'.to_datetime)
+      travel 1.day
+      timeslice_cleaner.delete_article_course_user_wiki_timeslices_prior_to_start_date
+
+      timeslice = ArticleCourseUserWikiTimeslice.find_by(course:, article_id: article2.id)
+      expect(timeslice.updated_at).to be_within(1.second).of(1.day.ago)
     end
   end
 
@@ -305,6 +326,24 @@ describe TimesliceCleaner do
       timeslice_cleaner.delete_article_course_user_wiki_timeslices_after_date([enwiki], date)
 
       expect(ArticleCourseUserWikiTimeslice.where(course:).size).to eq(2)
+    end
+
+    it 'touches the surviving timeslices of articles with deleted timeslices' do
+      travel 1.day
+      date = '2024-04-11'.to_datetime - 1.second
+      timeslice_cleaner.delete_article_course_user_wiki_timeslices_after_date([enwiki], date)
+
+      timeslice = ArticleCourseUserWikiTimeslice.find_by(course:, article_id: article1.id)
+      expect(timeslice.updated_at).to be_within(1.second).of(Time.zone.now)
+    end
+
+    it 'does not touch timeslices of articles without deleted timeslices' do
+      travel 1.day
+      date = '2024-04-11'.to_datetime - 1.second
+      timeslice_cleaner.delete_article_course_user_wiki_timeslices_after_date([enwiki], date)
+
+      timeslice = ArticleCourseUserWikiTimeslice.find_by(course:, article_id: article2.id)
+      expect(timeslice.updated_at).to be_within(1.second).of(1.day.ago)
     end
   end
 
