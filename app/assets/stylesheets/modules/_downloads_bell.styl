@@ -1,0 +1,133 @@
+.downloads-bell
+  display inline-block
+  opacity 0.6
+  width 35px
+  padding 25px 0 15px 0
+  border none
+  background-color transparent
+  cursor pointer
+  vertical-align middle
+
+  &:hover
+    animation ring 2s ease-in-out
+    border none
+    opacity 1
+
+nav.top-nav .top-nav__login-links .notifications
+  display flex
+  align-items center
+  margin 0 10px
+
+nav.top-nav .top-nav__login-links .downloads-bell
+  display block
+  width 35px
+  height 55px
+  padding 0
+  background-image url('../images/notifications-bell.svg')
+  background-position center
+  background-repeat no-repeat
+  background-size 20px
+
+.pop--downloads
+  width 480px
+  max-width 480px
+
+// Overrides the generic .pop__padded-content min-width (330px) which would
+// otherwise be wider than .pop--downloads and clip its contents.
+.pop__padded-content.downloads-list
+  min-width 440px
+  width 440px
+
+.downloads-list
+  max-height 340px
+  overflow-y auto
+
+  h3
+    margin-bottom 8px
+    font-size 15px
+
+  &__item
+    display flex
+    align-items center
+    justify-content space-between
+    padding 10px 0
+    border-bottom 1px solid $border_lt
+    gap 10px
+
+    &:last-child
+      border-bottom none
+
+  &__label
+    flex 1 1 auto
+    min-width 0
+    font-size 13px
+    word-break break-word
+
+  &__status
+    flex 0 0 auto
+    font-size 12px
+    color bayoux
+    white-space nowrap
+
+    .button
+      white-space nowrap
+      padding 4px 12px
+      font-size 12px
+
+  &__download-button
+    display inline-block
+    white-space nowrap
+    padding 4px 8px
+    font-size 12px
+    background-color bayoux
+    border 1px solid bayoux
+    color white
+    border-radius 3px
+    text-decoration none
+    cursor pointer
+    transition background-color 0.2s
+
+    &:hover
+      background-color darken(bayoux, 10%)
+      border-color darken(bayoux, 10%)
+
+// The nav applies `.notifications a { width: 35px; opacity: 0.6 }` (see
+// _nav.styl), which clips any link inside the downloads popover. Undo it
+// for the download button with a more specific selector.
+.notifications .downloads-list a.downloads-list__download-button
+  width auto
+  opacity 1
+  padding 4px 8px
+
+  &:hover
+    animation none
+    color white
+
+.downloads-list__item--error .downloads-list__status
+  color warning
+
+.downloads-list__dismiss
+  display inline-flex
+  align-items center
+  justify-content center
+  flex 0 0 auto
+  width 20px
+  height 20px
+  padding 0
+  opacity 0.7
+  cursor pointer
+  background none
+  border none
+  color body-color
+  font-size 20px
+  line-height 1
+
+  &:hover
+    opacity 1
+    color $text_dk
+
+.downloads-list__empty
+  color body-color
+  font-size 13px
+  padding 10px 0
+  margin-bottom 0

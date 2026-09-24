@@ -15,7 +15,7 @@ class LocalReportCsvStore
 
   def write(filename, data)
     FileUtils.mkdir_p @directory
-    File.write path_for(filename), data
+    File.binwrite path_for(filename), data
   end
 
   def url_for(filename)

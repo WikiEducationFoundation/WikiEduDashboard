@@ -71,6 +71,22 @@ describe('campaigns reducer', () => {
     expect(newState.all_campaigns_loaded).toBe(true);
   });
 
+  test('should receive paginated campaigns with total_pages and current_page', () => {
+    const initialState = { campaigns: [], all_campaigns: [], all_campaigns_loaded: false, total_pages: 0, current_page: 1 };
+    deepFreeze(initialState);
+
+    const mockedAction = {
+      type: RECEIVE_ALL_CAMPAIGNS,
+      data: { campaigns: campaignsArray, total_pages: 3, current_page: 2 }
+    };
+
+    const newState = campaigns(initialState, mockedAction);
+    expect(newState.all_campaigns).toEqual(campaignsArray);
+    expect(newState.all_campaigns_loaded).toBe(true);
+    expect(newState.total_pages).toBe(3);
+    expect(newState.current_page).toBe(2);
+  });
+
   test('sort active courses via SORT_ACTIVE_CAMPAIGN', () => {
     const initialState = { campaigns: [], all_campaigns: campaignsArray, isLoaded: false, sort: { sortKey: null } };
     deepFreeze(initialState);

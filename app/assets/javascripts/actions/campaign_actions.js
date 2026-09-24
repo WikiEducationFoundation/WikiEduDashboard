@@ -67,16 +67,27 @@ export const addCampaign = (courseId, campaignId) => (dispatch) => {
   );
 };
 
-const fetchAllCampaignsPromise = async () => {
-  const response = await request('/lookups/campaign.json');
+const fetchAllCampaignsPromise = async (page, search) => {
+  let url = (page || search) ? '/campaigns.json' : '/lookups/campaign.json';
+  const queryParams = [];
+  if (page) {
+    queryParams.push(`page=${page}`);
+  }
+  if (search) {
+    queryParams.push(`search=${encodeURIComponent(search)}`);
+  }
+  if (queryParams.length > 0) {
+    url += `?${queryParams.join('&')}`;
+  }
+  const response = await request(url);
   await ensureOk(response);
   return response.json();
 };
 
 
-export const fetchAllCampaigns = () => (dispatch) => {
+export const fetchAllCampaigns = (page, search) => (dispatch) => {
   return (
-    fetchAllCampaignsPromise()
+    fetchAllCampaignsPromise(page, search)
       .then((data) => {
         dispatch({
           type: RECEIVE_ALL_CAMPAIGNS,

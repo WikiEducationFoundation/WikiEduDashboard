@@ -559,6 +559,7 @@ es:
     course_already_removed: «%{title}» ya se había quitado de la campaña «%{campaign_title}»
     course: Curso
     course_data: datos del curso
+    all_data: Todos los datos
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
     course_removed_and_deleted: '"%{title}" ha sido eliminado y quitado de la campaña
       "%{campaign_title}"'
@@ -613,6 +614,8 @@ es:
     revision_data: datos de revisión
     students_small: Estudiantes
     student_course: estudiantes por curso
+    export: Exportar
+    data_download_generating: El archivo se está generando. Te notificaremos cuando esté listo para descargar.
     title: Título
     too_many_articles: La lista de artículos editados para esta campaña es demasiado
       larga para ser exhibida. Consulte los cursos/programas/eventos individuales
@@ -1578,6 +1581,22 @@ es:
     header: Error de inicio de sesión
     explanation: Parece que hubo un problema con el proceso de registro. (Lo sentimos!
       Esto sucede ocasionalmente.) Intenta iniciar sesión o inscribirse de nuevo.
+  notifications:
+    new_notifications: Tienes nuevas notificaciones.
+    no_notifications: No tienes nuevas notificaciones.
+    aria_label:
+      bell: Notificaciones
+  downloads:
+    title: Descargas
+    none: Aún no tienes descargas.
+    generating: Generando…
+    ready: Listo
+    error: Falló
+    download: Descargar
+    dismiss: Descartar
+    new_downloads: Tienes nuevas descargas.
+    no_downloads: No tienes nuevas descargas.
+    aria_label: Descargas
   survey:
     login_message: Gracias por tu tiempo. Inicia sesión en tu panel de Wiki Ed para
       participar en la encuesta.

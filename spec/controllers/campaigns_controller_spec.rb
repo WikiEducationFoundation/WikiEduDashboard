@@ -8,6 +8,49 @@ describe CampaignsController, type: :request do
       get '/campaigns'
       expect(response.status).to eq(200)
     end
+
+    context 'with json format' do
+      before do
+        30.times do |i|
+          create(:campaign, title: "Campaign #{i + 1}", slug: "campaign_#{i + 1}")
+        end
+      end
+
+      it 'returns 25 campaigns per page and pagination metadata' do
+        get '/campaigns.json', params: { page: 1 }
+        expect(response.status).to eq(200)
+        body = JSON.parse(response.body)
+        expect(body['campaigns'].length).to eq(25)
+        expect(body['total_pages']).to eq(2)
+        expect(body['current_page']).to eq(1)
+      end
+
+      it 'returns the remaining campaigns on the second page' do
+        total = Campaign.count
+        get '/campaigns.json', params: { page: 2 }
+        expect(response.status).to eq(200)
+        body = JSON.parse(response.body)
+        expect(body['campaigns'].length).to eq(total - 25)
+        expect(body['current_page']).to eq(2)
+      end
+
+      it 'filters campaigns by search query' do
+        get '/campaigns.json', params: { search: 'Campaign 10' }
+        expect(response.status).to eq(200)
+        body = JSON.parse(response.body)
+        expect(body['campaigns'].length).to eq(1)
+        expect(body['campaigns'].first['title']).to eq('Campaign 10')
+      end
+
+      it 'includes campaign statistics attributes' do
+        get '/campaigns.json', params: { page: 1 }
+        expect(response.status).to eq(200)
+        campaign = JSON.parse(response.body)['campaigns'].first
+        expect(campaign).to include('course_count', 'new_article_count', 'article_count',
+                                    'word_count', 'references_count', 'view_sum',
+                                    'user_count', 'creation_date', 'human_course_count')
+      end
+    end
   end
 
   describe '#create' do
