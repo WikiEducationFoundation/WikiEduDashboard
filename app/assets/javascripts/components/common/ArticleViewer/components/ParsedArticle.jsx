@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-
 
 const httpLinkMatcher = /(<a href="http)/g;
 const blankTargetLink = '<a target="_blank" href="http';
 
 const processAuthorshipHtml = (html) => {
   if (!html || typeof window === 'undefined' || !window.DOMParser) return html;
+  if (!html.includes('user-highlight-')) return html;
 
   try {
     const parser = new window.DOMParser();
@@ -61,22 +61,29 @@ const processAuthorshipHtml = (html) => {
 
     groups.forEach((group) => {
       const editorName = group[0].getAttribute('title');
+      const editedByText = (typeof I18n !== 'undefined' && I18n.t)
+        ? I18n.t('articles.edited_by', { author: editorName })
+        : `Edited by ${editorName}`;
+      const endEditText = (typeof I18n !== 'undefined' && I18n.t)
+        ? I18n.t('articles.end_edit')
+        : 'End edit';
 
       const firstSpan = group[0];
       const startSpan = doc.createElement('span');
       startSpan.className = 'screen-reader';
-      startSpan.textContent = `Edited by ${editorName}`;
+      startSpan.textContent = ` ${editedByText} `;
       firstSpan.parentNode.insertBefore(startSpan, firstSpan);
 
       const lastSpan = group[group.length - 1];
       const endSpan = doc.createElement('span');
       endSpan.className = 'screen-reader';
-      endSpan.textContent = 'End edit';
+      endSpan.textContent = ` ${endEditText} `;
       lastSpan.parentNode.insertBefore(endSpan, lastSpan.nextSibling);
 
+      // Strip title attributes from individual token spans inside the group so screen readers
+      // do not announce "title" on every token span, while keeping text intact in the a11y tree.
       group.forEach((span) => {
-        span.setAttribute('aria-hidden', 'true');
-        span.setAttribute('role', 'presentation');
+        span.removeAttribute('title');
       });
     });
 
@@ -91,7 +98,7 @@ export const ParsedArticle = ({ html, onInnerHTMLClick, onInnerHTMLKeyDown }) =>
   // This sets `target="_blank"` for all of the non-anchor links in the article HTML,
   // so that clicking one will open it in a new tab.
   const articleHTML = html?.replace(httpLinkMatcher, blankTargetLink);
-  const processedHTML = processAuthorshipHtml(articleHTML);
+  const processedHTML = useMemo(() => processAuthorshipHtml(articleHTML), [articleHTML]);
 
   // `onInnerHTMLClick`/`onInnerHTMLKeyDown` let a highlight feature respond to
   // clicks and keyboard activation on the injected HTML (e.g. claim verification
@@ -111,6 +118,7 @@ export const ParsedArticle = ({ html, onInnerHTMLClick, onInnerHTMLKeyDown }) =>
     />
   );
 };
+
 
 ParsedArticle.propTypes = {
   html: PropTypes.string,
