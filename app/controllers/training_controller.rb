@@ -48,7 +48,7 @@ class TrainingController < ApplicationController
         user_id: current_user.id,
         training_module_id: training_module.id
       )
-      find_recent_course
+      find_recent_course if Features.enable_get_help_button?
     end
   end
 
@@ -84,19 +84,8 @@ class TrainingController < ApplicationController
 
   def find_recent_course
     recent_course_object = current_user.recent_course
-    if session[:training_return_to].present? &&
-      session[:training_return_to].include?("/courses/")
-      url = URI.parse(session[:training_return_to])
-      _, _, course_school, course_title, = url.path.split('/')
-      @course_slug = "#{course_school}/#{course_title}"
-      @course = Course.find_by(slug: @course_slug)
-    elsif recent_course_object.present?
-      @course_slug = recent_course_object.slug
-      @course = Course.find_by(slug: @course_slug)
-    else
-      @course_slug = nil
-      @course = nil
-    end
+    @course = course_from_return_to || recent_course_object
+    @course_slug = @course&.slug
   end
 
   def add_library_breadcrumb
@@ -123,5 +112,22 @@ class TrainingController < ApplicationController
   def init_query_object
     @search = params[:search_training]
     @query_object = TrainingResourceQueryObject.new(current_user, @search)
+  end
+
+  def course_from_return_to
+    path = params[:return_to].presence || session[:training_return_to]
+    return if path.blank?
+    slug = slug_from_course_path(path)
+    slug.present? && Course.find_by(slug:)
+  rescue URI::InvalidURIError
+    nil
+  end
+
+  def slug_from_course_path(path)
+    path = CGI.unescape(path)
+    segments = path.split('/').compact_blank
+    index = segments.index('courses')
+    return if index.nil?
+    segments[index + 1, 2].to_a.join('/')
   end
 end

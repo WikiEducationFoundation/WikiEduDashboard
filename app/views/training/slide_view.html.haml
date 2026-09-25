@@ -1,2 +1,7 @@
 - content_for :before_title, "#{@training_module_name} - "
-#react_root{"data-course-slug" => @course_slug,"data-module-id" => params[:module_id],"data-return-to" => session[:training_return_to],"data-module-name" => @training_module_name,"data-current_user" => user_signed_in? && @course.present? ? current_user.roles(@course).to_json : '{ "admin": false, "id": null }'}
+#react_root{
+    "data-course-slug" => @course_slug,
+    "data-module-id" => params[:module_id],
+    "data-return-to" => session[:training_return_to],
+    "data-module-name" => @training_module_name,
+    "data-current_user" => user_signed_in? && @course.present? ? current_user.roles(@course).to_json : '{ "admin": false, "id": null }'}

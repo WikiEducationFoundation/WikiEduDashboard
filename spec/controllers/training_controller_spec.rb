@@ -227,18 +227,22 @@ describe TrainingController, type: :request do
   end
 
   describe '#find_recent_course' do
-    subject { get "/training/#{library_id}/#{module_id}/#{any}" }
-    let(:any) { 'five-pillars' }
+    subject { get "/training/#{library_id}/#{module_id}/#{slide_id}" }
+    let(:slide_id) { 'five-pillars' }
 
     before  do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       end
 
-    context 'when session has a return_to course URL' do
+    context 'when the user navigated from course and has a recent course' do
       let!(:course) { create(:course, slug:'School/Course_(2026)') }
+      let!(:old_course) { create(:course) }
+      let!(:new_course) { create(:course, slug: 'School/New_Course') }
       before do
-        get "/training/#{library_id}/#{module_id}",
-        params: { return_to: '/courses/School/Course_(2026)' }
+        allow_any_instance_of(TrainingController).to receive(:session)
+        .and_return({ training_return_to: '/courses/School/Course_(2026)' })
+        create(:courses_user,course_id: old_course.id, user_id: user.id)
+        create(:courses_user,course_id: new_course.id, user_id: user.id)
       end
 
       it 'sets course_slug from the session' do
@@ -246,13 +250,51 @@ describe TrainingController, type: :request do
         expect(assigns(:course_slug)).to eq('School/Course_(2026)')
       end
 
-      it 'sets course from the session slug' do
+      it 'uses the course the user navigated from, not their recent enrollment' do
         subject
         expect(assigns(:course)).to eq(course)
       end
     end
 
-    context 'when there is no session but the user has a recent course' do
+    context 'when the user navigated from course page with Unicode' do
+      let!(:course) { create(:course, slug: 'Школа/Курс_(2026)') }
+      before do
+        allow_any_instance_of(TrainingController).to receive(:session)
+        .and_return({ training_return_to: '/courses/Школа/Курс_(2026)' })
+      end
+
+      it 'sets course from the Unicode session slug' do
+        subject
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'sets course_slug from the Unicode session slug' do
+        subject
+        expect(assigns(:course_slug)).to eq('Школа/Курс_(2026)')
+      end
+    end
+
+    context 'when the user navigated from course page with percent-encoded Unicode' do
+      let!(:course) { create(:course, slug: 'Школа/Курс_(2026)') }
+      before do
+        allow_any_instance_of(TrainingController).to receive(:session)
+        .and_return({
+          training_return_to: '/courses/%D0%A8%D0%BA%D0%BE%D0%BB%D0%B0/%D0%9A%D1%83%D1%80%D1%81_(2026)'
+        })
+      end
+
+      it 'sets course from the encoded Unicode session slug' do
+        subject
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'sets course_slug from the encoded Unicode session slug' do
+        subject
+        expect(assigns(:course_slug)).to eq('Школа/Курс_(2026)')
+      end
+    end
+
+    context 'when the user navigated from training and has a recent course' do
       let!(:old_course) { create(:course) }
       let!(:new_course) { create(:course, slug: 'School/New_Course') }
 
@@ -272,7 +314,7 @@ describe TrainingController, type: :request do
       end
     end
 
-    context 'when there is no session and no recent course' do
+    context 'when the user navigated from training and has no recent course' do
       it 'sets course slug as nil' do
         subject
         expect(assigns(:course_slug)).to be_nil
