@@ -143,6 +143,11 @@ describe ArticlesCoursesCacheManager do
     it 'gives the other course the totals of its own timeslices' do
       expect(ArticlesCourses.find_by(course: other_course).character_sum).to eq(900)
     end
+
+    it 'does not update records of another course in the relation' do
+      described_class.new(course, ArticlesCourses.all).update_caches_from_timeslices
+      expect(ArticlesCourses.find_by(course: other_course).character_sum).to eq(900)
+    end
   end
 
   describe '#update_caches_from_timeslices across several batches' do

@@ -11,7 +11,9 @@ class ArticlesCoursesCacheManager
 
   def initialize(course, articles_courses)
     @course = course
-    @articles_courses = articles_courses
+    # Double check that the records are scoped to the course, since stats are
+    # computed from this course's timeslices only
+    @articles_courses = articles_courses.where(course:)
   end
 
   # Recalculates the cached fields from the article course timeslices, aggregating
