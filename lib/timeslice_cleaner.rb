@@ -202,12 +202,14 @@ class TimesliceCleaner
     delete_article_course_user_wiki_timeslices_for_pairs(wikis_and_starts)
   end
 
-  # Deletes ACUWT records for users removed from the course.
+  # Deletes ACUWT records for users removed from the course (the surviving rows for
+  # affected articles are touched).
   # Takes a collection of user ids.
   def delete_acuwt_for_deleted_course_users(user_ids)
     return if user_ids.empty?
 
-    delete_in_batches(ArticleCourseUserWikiTimeslice.where(course: @course, user_id: user_ids))
+    delete_acuwt_and_touch_articles(ArticleCourseUserWikiTimeslice.where(course: @course,
+                                                                         user_id: user_ids))
   end
 
   # Resets course wiki timeslices. This involves:
