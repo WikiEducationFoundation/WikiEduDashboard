@@ -120,6 +120,7 @@ fr:
     change: Modifier
     details: Détails
     confirm: Valider
+    confirm_generic: Êtes-vous certain·e de vouloir faire ceci?
     opt_in: Oui
     opt_out: Non
     opt_yes: oui
@@ -163,6 +164,8 @@ fr:
       pouvez créer un Programme maintenant. Si votre événement fait partie d’un ensemble,
       trouvez ou créez une Campagne pour cela. Créez ensuite un nouveau Programme
       depuis la page de la Campagne.
+    tooltip:
+      alt: Plus d'informations
   home:
     explore: Explorer
     log_in: Se connecter avec Wikipédia
@@ -231,8 +234,43 @@ fr:
       overall_avg_likelihood: Distribution de probabilité moyenne globale de l'IA
       overall_max_likelihood: Répartition globale maximale de probabilité de l'IA
   system_stats:
+    title: Statistiques du système et du facilitateur
+    filters:
+      campaign: Campagne
+      home_wiki: Wiki principal
+      start_date: Date de début
+      end_date: Date de fin
+      all_campaigns: Toutes les campagnes
+      all_wikis: Tous les wikis
+      export_csv: Exporter au format CSV
+      export_daily_csv: Exporter les statistiques quotidiennes au format CSV
+      course_csv_tab: Exportations au niveau de la formation
+      generating: Génération de l'exportation en cours...
+      generation_queued: Votre exportation CSV est en cours de génération en arrière-plan.
+        Nouvelle tentative en cours...
+      still_processing: Votre exportation CSV est toujours en cours de génération
+        dans l'arrière-plan. Veuillez revenir plus tard et cliquer à nouveau « Exporter
+        ».
+      fetch_error: Impossible de générer l'exportation CSV. Veuillez réessayer.
+      course_type: Type de formation
+      status: Statut
+      all_types: Tous les types
+      all_statuses: Tous les statuts
+      active: Actif
+      archived: Archivé
     kpis:
+      total_edits: Total des modifications
+      article_views: Vues de l'article
+      articles_created: Articles créés
+      articles_improved: Articles améliorés
+      characters_added: Caractères ajoutés
+      new_editors: Nouveaux contributeurs (préinscription de 60 jours)
       retained_new_editors: Rédacteurs retenus
+      active_programs: Programmes actifs
+      active_facilitators: Facilitateurs actifs
+    charts:
+      monthly_trends: Tendances mensuelles d'activité
+      wiki_trends: Tendances wiki (Top 5)
     tables:
       retained_new_editors: Rédacteurs retenus
     facilitators:
