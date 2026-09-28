@@ -37,6 +37,7 @@ import users from './users';
 import validations from './validations';
 import wikidataLabels from './wikidata_labels';
 import wizard from './wizard';
+import wizardBlocks from './wizard_blocks';
 import course_search_results from './course_search_results';
 import active_courses from './active_courses';
 import wiki_courses from './wiki_courses';
@@ -98,7 +99,8 @@ const reducer = combineReducers({
   validations,
   wikidataLabels,
   wiki_courses,
-  wizard
+  wizard,
+  wizardBlocks
 });
 
 export default reducer;

@@ -115,11 +115,7 @@ describe 'ticket dashboard', type: :feature, js: true do
       fill_in 'tickets_search_subject', with: 'subject'
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 2
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 2)
       expect(page).to be_axe_clean
     end
 
@@ -127,22 +123,14 @@ describe 'ticket dashboard', type: :feature, js: true do
       fill_in 'tickets_search_content', with: 'splash'
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 1
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 1)
     end
 
     it 'finds one match by course slug' do
       fill_in 'tickets_search_course', with: 'NASA_School/Fly_me_to_the_moon'
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 1
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 1)
     end
 
     it 'finds two matches by course slug and content' do
@@ -151,11 +139,7 @@ describe 'ticket dashboard', type: :feature, js: true do
 
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 2
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 2)
     end
 
     it 'finds one match by course slug and content and email' do
@@ -165,11 +149,7 @@ describe 'ticket dashboard', type: :feature, js: true do
 
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 1
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 1)
     end
 
     it 'finds one match by course slug and content and email and subject' do
@@ -180,22 +160,14 @@ describe 'ticket dashboard', type: :feature, js: true do
 
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 1
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 1)
     end
 
     it 'finds no match with an unknown slug' do
       fill_in 'tickets_search_course', with: 'Unknown_School/school_is_closed'
       click_button 'search_tickets'
 
-      nb_of_lines = within 'tbody' do
-        all('tr[class^="table-row"]')
-      end.count
-
-      expect(nb_of_lines).to eq 0
+      expect(page).to have_css('tbody tr[class^="table-row"]', count: 0)
     end
 
     it 'displays tickets coming from course page', :aggregate_failures do
@@ -236,6 +208,35 @@ describe 'ticket dashboard', type: :feature, js: true do
         expect(slug).to eq course.slug
         expect(find('input[name="tickets_search_course"]').value).to eq course.slug
         expect(find_link(course.title).visible?).to be true
+      end
+    end
+
+    it 'sorts tickets by creation date' do
+      # Make the newest and oldest tickets unambiguous.
+      TicketDispenser::Ticket.find_by(id: create_ticket.id)
+                             .update_column(:created_at, 1.day.from_now)
+      TicketDispenser::Ticket.find_by(id: create_a_fourth_ticket.id)
+                             .update_column(:created_at, 1.year.ago)
+      visit '/tickets/dashboard'
+      expect(page).to have_content 'A first subject'
+
+      find('th.created_at').click
+      expect(first('tbody tr')).to have_content 'A first subject'
+
+      find('th.created_at').click
+      expect(first('tbody tr')).to have_content 'I will not come back'
+    end
+
+    it 'shows the creation date in search results' do
+      # The browser formats the date in its local time zone, so use midday UTC
+      # to get the same calendar date wherever the spec runs.
+      TicketDispenser::Ticket.find_by(id: create_ticket.id)
+                             .update_column(:created_at, Time.utc(2026, 3, 15, 12))
+      fill_in 'tickets_search_subject', with: 'first subject'
+      click_button 'search_tickets'
+
+      within('tr', text: 'A first subject') do
+        expect(page).to have_content '2026-03-15'
       end
     end
 

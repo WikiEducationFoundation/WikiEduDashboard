@@ -682,6 +682,7 @@ lb:
     title: Chronologie
     view_full_timeline: Kompletten Zäitplang weisen
     week_number: Woch %{number}
+    sandbox_mode: Sandkaul-Modus
   training:
     continue: Virufueren (%{progress})
     start: Ufank
@@ -903,6 +904,8 @@ lb:
     time_ago: viru(n) %{time_ago}
     my_account_link: 'Äre Kont:'
   lti:
+    beta_feedback:
+      link: Feedback schécken
     deep_link:
       unavailable_header: Net disponibel
     student_overview:

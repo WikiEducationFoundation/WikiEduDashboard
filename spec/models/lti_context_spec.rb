@@ -79,6 +79,32 @@ describe LtiContext do
     end
   end
 
+  # The classification is LtiSession's, and it accepts both the LTI 1.3 and the
+  # legacy 1.1 role forms, so a membership reads the same whether its roles came
+  # from a 1.3 launch, NRPS, or a 1.1 launch.
+  describe '#instructor? / #learner? with LTI 1.1 role forms' do
+    def context_with(roles)
+      described_class.new(user_lti_id: 'u', lms_id: 'platform-x', roles:)
+    end
+
+    it 'reads the bare 1.1 short names' do
+      expect(context_with(['Instructor'])).to be_instructor
+      expect(context_with(['Learner'])).to be_learner
+    end
+
+    it 'reads the 1.1 context-role URNs' do
+      expect(context_with(['urn:lti:role:ims/lis/Instructor'])).to be_instructor
+      expect(context_with(['urn:lti:role:ims/lis/Learner'])).to be_learner
+    end
+
+    # Canvas's 1.1 observer roles: neither, as under 1.3.
+    it 'reads an observer (Mentor) as neither' do
+      ctx = context_with(['urn:lti:instrole:ims/lis/Observer', 'urn:lti:role:ims/lis/Mentor'])
+      expect(ctx).not_to be_instructor
+      expect(ctx).not_to be_learner
+    end
+  end
+
   describe 'roles serialization' do
     it 'persists and reads back an array' do
       ctx = described_class.create!(

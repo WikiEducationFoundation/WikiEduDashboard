@@ -52,13 +52,15 @@ class LtiBlockProgress
   # `completions`, when given, is this user's TrainingModulesUsers preloaded by
   # the caller and keyed by `training_module_id` — so a roster can look up
   # completion in memory instead of a per-(student, module) query. When nil,
-  # each module is looked up on demand (the single-user path).
-  def initialize(block, user, completions: nil)
+  # each module is looked up on demand (the single-user path). `training_modules`,
+  # when given, is the block's modules already resolved by the caller, sparing
+  # Block#training_modules's query per block per student.
+  def initialize(block, user, completions: nil, training_modules: nil)
     @block = block
     @user = user
     @course = block.course
     @completions = completions
-    @training_modules = block.training_modules.to_a.select(&:exercise?)
+    @training_modules = (training_modules || block.training_modules).to_a.select(&:exercise?)
     @score_maximum = SCORE_MAXIMUM
     @score_given = compute_score
   end

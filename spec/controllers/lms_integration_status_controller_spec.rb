@@ -14,11 +14,13 @@ describe LmsIntegrationStatusController, type: :request do
 
   # Pinned rather than inherited: the course URL now embeds the tool's launch
   # URL, and another spec sets LTIAAS_DOMAIN globally without clearing it, so
-  # leaving this to chance makes the expectations order-dependent.
+  # leaving this to chance makes the expectations order-dependent. A legacy
+  # binding's link embeds our own launch URL instead, built on dashboard_url.
   before do
     allow(Features).to receive(:canvas_integration?).and_return(true)
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(viewer)
     ENV['LTIAAS_DOMAIN'] = 'tenant.ltiaas.com'
+    ENV['dashboard_url'] = 'dashboard.wikiedu.org'
   end
 
   describe 'when the course has no binding' do
@@ -81,6 +83,7 @@ describe LmsIntegrationStatusController, type: :request do
         get request_path
         body = JSON.parse(response.body)
         expect(body['bound']).to be true
+        expect(body['legacy']).to be false
         expect(body['lms_name']).to eq('Canvas')
         expect(body['course_title']).to eq('WRIT 2010')
         expect(body['course_url']).to eq(expected_course_url)
@@ -100,6 +103,49 @@ describe LmsIntegrationStatusController, type: :request do
         get request_path
         expect(JSON.parse(response.body)['course_url'])
           .to eq('https://canvas.example.com/courses/lti_context_id:canvas-77')
+      end
+
+      # A launch-only LTI 1.1 binding: the sidebar reads the flag and drops the
+      # sync rows, which would otherwise show a sync that never happens as one
+      # that never succeeded.
+      it 'flags a legacy (LTI 1.1) binding' do
+        binding.update!(lti_version: '1.2.0')
+        get request_path
+        expect(JSON.parse(response.body)['legacy']).to be true
+      end
+
+      # Canvas's `retrieve` finds the installed tool by launch URL. The 1.1 tool
+      # is configured from our own config XML and posts to our own endpoint, not
+      # to LTIAAS, so the link has to carry the URL the XML installed.
+      it 'points a legacy binding\'s course link at our own legacy launch URL' do
+        binding.update!(lti_version: '1.2.0')
+        get request_path
+        legacy_launch_url = CGI.escape('https://dashboard.wikiedu.org/lti/legacy/launch')
+        expect(JSON.parse(response.body)['course_url'])
+          .to eq('https://canvas.example.com/courses/lti_context_id:canvas-77' \
+                 "/external_tools/retrieve?url=#{legacy_launch_url}")
+      end
+
+      # The two places that URL is defined must agree: what the config XML tells
+      # Canvas to install, and what this link asks Canvas to match on. If they
+      # drift, the sidebar link opens a Canvas error instead of the tool.
+      it 'embeds the same legacy launch URL the config XML installs' do
+        allow(Features).to receive(:lti_legacy_launches?).and_return(true)
+        binding.update!(lti_version: '1.2.0')
+        get '/lti/legacy/config.xml'
+        installed = Nokogiri::XML(response.body).remove_namespaces!.at('launch_url').text
+
+        get request_path
+        course_url = JSON.parse(response.body)['course_url']
+        expect(CGI.unescape(course_url.split('retrieve?url=').last)).to eq(installed)
+      end
+
+      # A legacy link never depended on LTIAAS, so it does not degrade with it.
+      it 'keeps a legacy binding\'s in-course link when LTIAAS_DOMAIN is unset' do
+        binding.update!(lti_version: '1.2.0')
+        ENV['LTIAAS_DOMAIN'] = nil
+        get request_path
+        expect(JSON.parse(response.body)['course_url']).to include('/external_tools/retrieve?url=')
       end
 
       # The recorded error is exception class + message — diagnostic data the

@@ -63,6 +63,48 @@ describe UpdateWikiNamespaceStatsTimeslice do
     expect(stats).to have_key(:view_count)
   end
 
+  context 'for a wiki whose byte counts are excluded from word counts' do
+    let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+    let(:item) do
+      create(:article, wiki: wikidata, namespace: 0, title: 'Q1339', language: nil)
+    end
+
+    before do
+      wikidata_course_wiki = create(:courses_wikis, course:, wiki: wikidata)
+      create(:course_wiki_namespaces, courses_wikis: wikidata_course_wiki, namespace: 0)
+      create(:articles_course, course:, article: item, character_sum: 50_000, tracked: true)
+      described_class.new(course)
+    end
+
+    it 'reports no word count for the wikidata namespace' do
+      stats = course.course_stat.reload.stats_hash['www.wikidata.org-namespace-0']
+      expect(stats).not_to have_key(:word_count)
+    end
+
+    it 'still reports the other stats for the wikidata namespace' do
+      stats = course.course_stat.reload.stats_hash['www.wikidata.org-namespace-0']
+      expect(stats[:edited_count]).to eq(1)
+    end
+  end
+
+  it 'reports zero stats for a tracked namespace without articles' do
+    create(:course_wiki_namespaces, courses_wikis: cookbook_course_wiki, namespace: 2600)
+    described_class.new(course)
+    stats = course.course_stat.reload.stats_hash['en.wikibooks.org-namespace-2600']
+
+    expect(stats[:edited_count]).to eq 0
+    expect(stats[:revision_count]).to eq 0
+    expect(stats[:user_count]).to eq 0
+  end
+
+  it 'removes stats for namespaces that are no longer tracked' do
+    course.course_stat.update(stats_hash: course.course_stat.stats_hash
+                                                .merge('en.wikipedia.org-namespace-4' => {}))
+    described_class.new(course)
+
+    expect(course.course_stat.reload.stats_hash).not_to have_key('en.wikipedia.org-namespace-4')
+  end
+
   it 'updates the wiki-namespace stats correctly' do
     stats = course.course_stat.stats_hash['en.wikibooks.org-namespace-102']
 

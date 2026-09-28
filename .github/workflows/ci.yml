@@ -79,11 +79,28 @@ jobs:
       - name: Ruby dependency vulnerability audit
         run: bundle exec bundle-audit check --update
 
+      # Security static analysis. Fails the build on any finding that is not
+      # in config/brakeman.ignore, where every baselined warning carries a
+      # written justification. A new finding means either a real issue or a
+      # pattern that needs reviewing and, if genuinely safe, adding to the
+      # baseline with its reasoning -- not a blanket suppression.
+      - name: Ruby security static analysis
+        run: bundle exec brakeman --no-pager -q -i config/brakeman.ignore
+
       - name: setup Node
         uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: 'yarn'
+
+      # Mirrors the Ruby audit above for the JavaScript dependency tree:
+      # fails the build when yarn.lock resolves a package with a published
+      # npm advisory of moderate severity or higher. `--recursive` covers
+      # transitive dependencies, where nearly all such advisories land.
+      # Reads the lockfile directly, so it needs no `yarn install` and adds
+      # only a few seconds before the suites start.
+      - name: JavaScript dependency vulnerability audit
+        run: yarn npm audit --recursive --severity moderate
 
       - name: Grant parallel DB permissions
         run: |

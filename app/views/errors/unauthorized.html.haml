@@ -1,4 +1,4 @@
-- content_for :after_title, " - #{t('home.log_in')}"
+- content_for :after_title, " - #{t('home.log_in')}" unless user_signed_in?
 
 %section.unauthorized-error
   .container.narrow
@@ -7,9 +7,13 @@
       %p.explanation= flash[:alert] || t('error_401.explanation')
 
       .actions
-        = link_to user_mediawiki_omniauth_authorize_path, method: :post, class: 'button dark auth big' do
-          %i.icon.icon-wiki-white
-          = t('home.log_in')
+        -# Offer to log in only when that could help. A signed-in user who is
+        -# refused lacks a role, not a session, and a login button here says
+        -# the opposite of what the page means.
+        - unless user_signed_in?
+          = link_to user_mediawiki_omniauth_authorize_path, method: :post, class: 'button dark auth big' do
+            %i.icon.icon-wiki-white
+            = t('home.log_in')
 
         %a.button.border.big(href="/")
           = t('application.home')

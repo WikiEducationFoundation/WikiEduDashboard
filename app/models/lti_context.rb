@@ -74,10 +74,10 @@ class LtiContext < ApplicationRecord
   end
 
   # Whether this membership's LMS roles mark it as course staff
-  # (instructor/administrator) rather than a learner. Mirrors LtiSession's role
-  # classification.
+  # (instructor/administrator) rather than a learner. LtiSession's role
+  # classification, which accepts both the LTI 1.3 and the legacy 1.1 role forms.
   def instructor?
-    LtiSession.role_match?(roles, LtiSession::INSTRUCTOR_ROLES)
+    LtiSession.instructor_role?(roles)
   end
 
   # Whether this membership is a learner. Deliberately not `!instructor?` —
@@ -85,6 +85,6 @@ class LtiContext < ApplicationRecord
   # pushes and the "synced students" metric must exclude them rather than treat
   # them as students by default. See LtiSession::LEARNER_ROLES.
   def learner?
-    !instructor? && LtiSession.role_match?(roles, LtiSession::LEARNER_ROLES)
+    !instructor? && LtiSession.learner_role?(roles)
   end
 end

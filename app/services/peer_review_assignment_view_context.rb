@@ -25,13 +25,6 @@ class PeerReviewAssignmentViewContext
     end
   end
 
-  ReviewRow = Struct.new(:article_title, :article_url, :review_url, :completed,
-                         keyword_init: true) do
-    def completed?
-      completed
-    end
-  end
-
   attr_reader :line_item, :course
 
   def initialize(line_item:, user:, instructor:, focus_user: nil)
@@ -87,17 +80,9 @@ class PeerReviewAssignmentViewContext
   end
 
   # Which article each review is of, the page it belongs on, and whether that page
-  # exists yet.
+  # exists yet (LtiPeerReviewProgress::ReviewRow).
   def review_rows_for(user)
-    progress_for(user).review_statuses.map do |assignment, completed|
-      ReviewRow.new(
-        # Stored underscored; de-underscored for display like Article#full_title.
-        article_title: assignment.article_title.tr('_', ' '),
-        article_url: assignment.article_url,
-        review_url: "#{assignment.wiki.base_url}/wiki/#{assignment.peer_review_pagename}",
-        completed:
-      )
-    end
+    progress_for(user).review_rows
   end
 
   def progress_for(user)

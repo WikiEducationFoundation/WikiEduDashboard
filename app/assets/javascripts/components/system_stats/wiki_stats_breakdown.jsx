@@ -69,12 +69,16 @@ const WikiStatsBreakdown = ({ wikiTrends, loading }) => {
                 {I18n.t('system_stats.tables.new_editors')}
                 <SortIndicator field="new_editors" sortField={sortField} sortOrder={sortOrder} />
               </th>
+              <th className={`sortable${sortField === 'retained_editors' ? ` ${sortOrder}` : ''}`} onClick={() => handleSort('retained_editors')}>
+                {I18n.t('system_stats.tables.retained_new_editors')}
+                <SortIndicator field="retained_editors" sortField={sortField} sortOrder={sortOrder} />
+              </th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan="5" className="system-stats__table-empty">{I18n.t('system_stats.loading.wiki_stats')}</td>
+                <td colSpan="6" className="system-stats__table-empty">{I18n.t('system_stats.loading.wiki_stats')}</td>
               </tr>
             ) : paginatedStats.length > 0 ? (
               paginatedStats.map(w => (
@@ -84,11 +88,12 @@ const WikiStatsBreakdown = ({ wikiTrends, loading }) => {
                   <td>{w.programs.toLocaleString()}</td>
                   <td>{w.articles_created.toLocaleString()}</td>
                   <td>{w.new_editors.toLocaleString()}</td>
+                  <td>{(w.retained_editors || 0).toLocaleString()}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="5" className="system-stats__table-empty">{I18n.t('system_stats.empty.no_wiki_stats')}</td>
+                <td colSpan="6" className="system-stats__table-empty">{I18n.t('system_stats.empty.no_wiki_stats')}</td>
               </tr>
             )}
           </tbody>

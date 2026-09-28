@@ -21,6 +21,18 @@ describe LtiServiceSession do
 
   subject(:service) { described_class.new(binding) }
 
+  # A legacy (LTI 1.1) binding has no NRPS or AGS behind it, and LTIAAS refuses
+  # 1.3 service calls made with legacy credentials. Construction fails closed so
+  # no caller can discover that one request at a time.
+  describe 'for a legacy (LTI 1.1) binding' do
+    before { binding.update!(lti_version: '1.2.0') }
+
+    it 'refuses to build a service session' do
+      expect { described_class.new(binding) }
+        .to raise_error(LtiServiceSession::NoLtiServicesError, /1\.2\.0/)
+    end
+  end
+
   describe '#fetch_memberships' do
     let(:memberships_url) { "https://#{domain}/api/memberships" }
 

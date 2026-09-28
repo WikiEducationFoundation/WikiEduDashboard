@@ -15,10 +15,16 @@ class LtiTrainingProgress
 
   SCORE_MAXIMUM = 1.0
 
-  def initialize(course, user)
+  # `training_modules` and `completions`, when given, are the course's
+  # training-kind modules and this user's TrainingModulesUsers keyed by
+  # `training_module_id`, preloaded by the caller (LtiProgressPreload) so a
+  # roster reads both from memory. When nil, each is looked up on demand: the
+  # grade sync's single-user path.
+  def initialize(course, user, training_modules: nil, completions: nil)
     @course = course
     @user = user
-    @training_modules = collect_training_modules
+    @completions = completions
+    @training_modules = training_modules || collect_training_modules
     @score_maximum = SCORE_MAXIMUM
     @score_given = compute_score
     @comment = compute_comment
@@ -53,8 +59,9 @@ class LtiTrainingProgress
   private
 
   def module_complete?(mod)
-    TrainingModulesUsers.find_by(user: @user, training_module: mod)
-                        &.completed_at.present?
+    tmu = @completions ? @completions[mod.id] : TrainingModulesUsers.find_by(user: @user,
+                                                                             training_module: mod)
+    tmu&.completed_at.present?
   end
 
   def collect_training_modules

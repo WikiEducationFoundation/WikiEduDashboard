@@ -34,6 +34,7 @@ const SORT_DESCENDING = {
   status: true,
   owner: true,
   actions: true,
+  created_at: true,
   updated_at: true
 };
 

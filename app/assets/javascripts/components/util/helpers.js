@@ -95,7 +95,7 @@ export const selectUserByUsernameParam = (users, usernameParam) => {
   if (!usernameParam) return null;
 
   // Handle URLs that use an underscore instead of a space in the username.
-  const normalizedUsernameParam = usernameParam.replace('_', ' ');
+  const normalizedUsernameParam = usernameParam.replace(/_/g, ' ');
   let selectedUser = users.find(({ username }) => username === normalizedUsernameParam);
   if (selectedUser) return selectedUser;
 

@@ -8,6 +8,7 @@
 # Author: Bonfire12
 # Author: Chqaz
 # Author: Kkairri
+# Author: Lin Xiangru
 # Author: MagicAho
 # Author: MathXplore
 # Author: MirukuPC
@@ -43,6 +44,7 @@ ja:
   application:
     back: 戻る
     cancel: 中止
+    next: 次へ
     cookie_consent: このサイトでは Cookie を使用してログイン状態を維持し、利用者のウィキペディア アカウントに関連する情報を保存します。
     cookie_consent_acknowledge: 分かりました
     cookie_consent_see_more: 続きを見る。
@@ -52,9 +54,10 @@ ja:
     error: 'エラーが起きました:'
     explore: 探検してみよう
     field_required: このフィールドは必要
-    field_invalid_characters: 向こうな文字があります
+    field_invalid_characters: 無効な文字が含まれています
+    field_invalid_term: 「Spring 2025」のように年を含める必要があります。
     field_invalid_date: YYYY-MM-DD の形式で年月日を入力してください
-    field_invalid_date_time: 終了時間は開始時間よりさかのぼって設定してください (0時間前から23時間前まで)
+    field_invalid_date_time: 終了時刻は開始時刻より後である必要があります。 (0時間前から23時間前まで)
     greeting2: ようこそ!
     greeting_extended: ウィキペディアへようこそ
     greeting: こんにちは!
@@ -64,17 +67,21 @@ ja:
     log_in: ログイン
     log_out: ログアウト
     my_dashboard: 私のダッシュボード
+    okay: OK
     recent_activity: 最近の活動
     report_problem: 問題を報告
-    request_account: アカウントをリクエストする
+    request_account: アカウントの作成をリクエストする
     request_account_create: アカウントを作成してください
     search: 質問をしてみる
     search_results:
       other: '''%{search_terms}''に対して：検索結果は%{count}件'
-    no_results: 「%{query}」で検索しましたがヒットしませんでした
+    no_results: '''%{query}'' に一致する結果は見つかりませんでした。'
     show_current_revision: 現在の版を表示
-    show_last_revision: 最終編集バージョンを表示
-    sign_up_extended: ウィキペディアに利用者登録
+    show_last_revision: 最新の版を表示
+    font_label: フォント
+    font_sans: サンセリフ（ゴシック体）
+    font_serif: セリフ（明朝体）
+    sign_up_extended: ウィキペディアにログイン
     sign_up_wikipedia: またはWikipediaにサインアップする
     sign_up_log_in_extended: ウィキペディアに
     sign_up: 利用者登録
@@ -88,6 +95,7 @@ ja:
     opt_yes: はい
     opt_no: いいえ
     print: 印刷
+    sort: 並べ替え
   article_statuses:
     not_yet_started: はじめに
     in_progress: サンドボックスで作業する
@@ -126,6 +134,14 @@ ja:
       までメールで連絡してください。
   alerts:
     alert_label: 通知
+  system_stats:
+    filters:
+      export_csv: CSVをエクスポート
+      export_daily_csv: 日次統計のCSVをエクスポート
+      generating: エクスポートファイルを生成しています...
+      generation_queued: CSVエクスポートがバックグラウンドで実行されています。再生成しています...
+      still_processing: CSVエクスポートは現在バックグラウンドで進行中です。しばらくしてから再度アクセスし、「エクスポート」をクリックしてください。
+      fetch_error: CSVエクスポートできませんでした。もう一度お試しください。
   activity:
     all: 活動
     edited_by: 編集担当
@@ -176,8 +192,8 @@ ja:
       fa: '%{class}(「秀逸な記事」) - ウィキペディアでの最高ランクの記事。新人の執筆者が取り上げるには、完成度が高すぎるかも知れません'
       fl: '%{class}(「秀逸な一覧」) - ウィキペディアで最高ランクに評価された一覧'
       a: '%{class} クラス — 非常に成長している記事で、新人編集者が主なプロジェクトにするには高度すぎるかもしれません'
-      ga: '%{class} (優秀な記事) — 成長している記事で、新人編集者が主なプロジェクトにするには高度すぎるかもしれません'
-      b: '%{class} クラス — ある程度成長している記事'
+      ga: '%{class} (良質な記事) — 成長している記事で、新人編集者が主なプロジェクトにするには高度すぎるかもしれません'
+      b: '%{class} クラス — （※日本語版ウィキペディアにはなし）'
       c: '%{class} クラス — 改善の余地のある記事'
       start: '%{class}クラス — 改善の余地のある、予備的な記事'
       stub: '%{class}クラス — 内容の加筆が必要な短い記事'

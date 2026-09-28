@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wizard_timeline_manager"
+require_dependency "#{Rails.root}/lib/wizard_block_catalog"
+require_dependency "#{Rails.root}/lib/wizard_logic_state"
 
 #= Controller for timeline functionality
 class WizardController < ApplicationController
   respond_to :html, :json
   before_action :require_permissions,
                 only: [:submit_wizard]
+  before_action :require_admin_permissions,
+                only: [:wizard_blocks]
 
   ##############
   # ADW config #
@@ -30,6 +34,23 @@ class WizardController < ApplicationController
     end
   end
 
+  # The catalog of standard blocks this wizard can build, for an admin putting
+  # one into a timeline after the fact. Each entry is annotated with whether it
+  # matches how the course was set up — :yes, :no, or :unknown where the wizard
+  # answer it depends on was never persisted (see WizardLogicState).
+  def wizard_blocks
+    catalog = WizardBlockCatalog.new(params[:wizard_id])
+    course = Course.find_by!(slug: params[:course_id])
+    logic = WizardLogicState.new(course, params[:wizard_id])
+    titles = Block.where(week_id: Week.where(course_id: course.id).select(:id)).pluck(:title)
+    render json: {
+      blocks: catalog.blocks.map { |entry| annotate(entry, logic, titles) },
+      unknown_logic_keys: logic.unknown_keys(catalog.condition_keys)
+    }
+  rescue WizardTimelineManager::InvalidWizardError => e
+    render json: { error: e.message }, status: :not_found
+  end
+
   ##################
   # Wizard methods #
   ##################
@@ -51,6 +72,11 @@ class WizardController < ApplicationController
   end
 
   private
+
+  def annotate(entry, logic, existing_titles)
+    entry.merge(match: logic.verdict_for(entry[:conditions]),
+                in_timeline: existing_titles.include?(entry[:title]))
+  end
 
   # If this course is bound to a Canvas placement via LTIAAS, the new
   # timeline shape changes which gradebook columns the binding should own.
