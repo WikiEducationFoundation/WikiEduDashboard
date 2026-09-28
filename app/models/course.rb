@@ -122,6 +122,7 @@ class Course < ApplicationRecord
   # deletes them in batches via TimesliceCleaner#delete_all_timeslices_for_course
   # before destroying the course.
   has_many :article_course_timeslices
+  has_many :article_course_user_wiki_timeslices
   has_many :course_user_wiki_timeslices
   has_many :course_wiki_timeslices
 
@@ -333,13 +334,13 @@ class Course < ApplicationRecord
                                   .collect(&:training_module_ids).flatten
   end
 
-  def tracked_article_course_timeslices
+  def tracked_article_timeslices
     # This method tries to replicate the idea of "tracked revisions"
     # 'revision_count > 0' condition is because we may create empty timeslices
     # due to system revisions
     # 'tracked: true' condition is to avoid timeslices for untracked articles courses
-    article_course_timeslices.where('revision_count > 0')
-                             .where(tracked: true)
+    article_course_user_wiki_timeslices.where('revision_count > 0')
+                                       .where(tracked: true)
   end
 
   def tracked_namespaces
@@ -378,10 +379,10 @@ class Course < ApplicationRecord
       assigned_article_page_ids(wiki).include?(mw_page_id)
   end
 
-  # Returns article course timeslices for scoped articles only.
+  # Returns article course user wiki timeslices for scoped articles only.
   def scoped_article_timeslices
-    return article_course_timeslices unless only_scoped_articles_course?
-    article_course_timeslices.where(article_id: scoped_article_ids)
+    return article_course_user_wiki_timeslices unless only_scoped_articles_course?
+    article_course_user_wiki_timeslices.where(article_id: scoped_article_ids)
   end
 
   # A Set rather than a uniq'd Array because scoped_article? looks a title up once per

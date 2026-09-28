@@ -14,7 +14,7 @@ describe CourseStatistics do
       id2 = id + 100
       create(:course, id:, start: 1.year.ago, end: Time.zone.today, slug: "foo/#{id}")
       # First user in course working within course dates
-      create(:user, id:, username: "user#{id}")
+      user = create(:user, id:, username: "user#{id}")
       create(:courses_user, id:, user_id: id, course_id: id, role: 0)
       create(:article, id:, title: "Article_#{id}", namespace: Article::Namespaces::MAINSPACE)
       create(:commons_upload, id:, user_id: id, uploaded_at: 1.day.ago, usage_count: 1)
@@ -25,8 +25,8 @@ describe CourseStatistics do
       # Create timeslices
       create(:course_wiki_timeslice, course_id: id, wiki:, revision_count: id,
       start: 1.month.ago, end: 1.month.ago + 1.day)
-      create(:article_course_timeslice, course_id: id, article_id: id, revision_count: 1,
-      new_article: id == 1, start: 1.month.ago, end: 1.month.ago + 1.day)
+      create(:article_course_user_wiki_timeslice, course_id: id, article_id: id, revision_count: 1,
+      new_article: id == 1, start: 1.month.ago, end: 1.month.ago + 1.day, user:, wiki:)
       create(:course_user_wiki_timeslice, course_id: id, user_id: id, wiki:, character_sum_ms: id,
       references_count: id, start: 1.month.ago, end: 1.month.ago + 1.day)
 
@@ -71,8 +71,8 @@ describe CourseStatistics do
     end
 
     it 'counts only tracked articles' do
-      ArticleCourseTimeslice.find_by(course_id: 1, article_id: 1).update(tracked: false)
-      ArticleCourseTimeslice.find_by(course_id: 2, article_id: 2).update(revision_count: 0)
+      ArticleCourseUserWikiTimeslice.find_by(course_id: 1, article_id: 1).update(tracked: false)
+      ArticleCourseUserWikiTimeslice.find_by(course_id: 2, article_id: 2).update(revision_count: 0)
       expect(subject[:articles_edited]).to eq(course_ids.count - 2)
     end
 

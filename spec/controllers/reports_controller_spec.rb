@@ -231,9 +231,9 @@ describe ReportsController, :report_csv_files, type: :request do
     let(:another_course) { create(:course, home_wiki: wikidata, slug: 'campaign/acourse') }
     let(:article) { create(:article) }
     let(:user) { create(:user) }
-    let!(:act) do
-      create(:article_course_timeslice, course:, article:, user_ids: [user.id], revision_count: 12,
-      start: course.start, end: course.start + 1.day)
+    let(:act) do
+      create(:article_course_user_wiki_timeslice, course:, wiki: wikidata, user:, article:,
+             revision_count: 12, start: course.start, end: course.start + 1.day)
     end
     let!(:course_stats) do
       create(:course_stats, stats_hash: { 'www.wikidata.org' => {
@@ -245,6 +245,7 @@ describe ReportsController, :report_csv_files, type: :request do
 
     before do
       stub_wiki_validation
+      act
       login_as(user)
       campaign.courses << another_course
       create(:courses_user, course:, user:)

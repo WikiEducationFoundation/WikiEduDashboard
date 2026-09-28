@@ -275,10 +275,11 @@ class AiEditAlert < Alert
 
   # This will only work for mainspace, and might exclude
   # revisions that happened after the alert but during the same timeslice.
+  # It only includes characters added by the alert user.
   def characters_added_after_alert
-    @chars_added_after ||= ArticleCourseTimeslice.where(course_id:, article_id:)
-                                                 .where('start > ?', created_at)
-                                                 .sum(:character_sum)
+    @chars_added_after ||= ArticleCourseUserWikiTimeslice.where(course_id:, article_id:, user_id:)
+                                                         .where('start > ?', created_at)
+                                                         .sum(:character_sum)
   end
 
   def to_partial_path

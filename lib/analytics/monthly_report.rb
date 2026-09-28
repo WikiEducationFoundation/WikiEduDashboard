@@ -50,7 +50,7 @@ class MonthlyReport
   end
 
   def monthly_articles_edited_for(courses, month, year)
-    timeslices = article_course_timeslices_during_month(courses, month, year)
+    timeslices = article_timeslices_during_month(courses, month, year)
     article_count(timeslices)
   end
 
@@ -66,14 +66,14 @@ class MonthlyReport
   def act_ids_for(courses)
     act_ids = []
     courses.each do |course|
-      act_ids += course.tracked_article_course_timeslices.pluck(:id)
+      act_ids += course.tracked_article_timeslices.pluck(:id)
     end
     act_ids
   end
 
-  def article_course_timeslices_during_month(courses, month, year)
+  def article_timeslices_during_month(courses, month, year)
     all_act_ids = act_ids_for(courses)
-    ArticleCourseTimeslice
+    ArticleCourseUserWikiTimeslice
       .where(id: all_act_ids)
       .where('extract(month from start) = ?', month)
       .where('extract(year from start) = ?', year)

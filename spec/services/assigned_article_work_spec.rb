@@ -92,14 +92,14 @@ describe AssignedArticleWork do
       article = create(:article, title: 'Chromatic_aberration', wiki:)
       other = create(:user, username: 'classmate')
       assign(article:)
-      ArticleCourseTimeslice.create!(course:, article:, character_sum: 400,
-                                     references_count: 3, revision_count: 2,
-                                     user_ids: [student.id],
-                                     start: 2.days.ago, end: 1.day.ago)
-      ArticleCourseTimeslice.create!(course:, article:, character_sum: 900,
-                                     references_count: 9, revision_count: 5,
-                                     user_ids: [other.id],
-                                     start: 1.day.ago, end: Time.zone.now)
+      ArticleCourseUserWikiTimeslice.create!(course:, article:, wiki:, character_sum: 400,
+                                            references_count: 3, revision_count: 2,
+                                            user_id: student.id,
+                                            start: 2.days.ago, end: 1.day.ago)
+      ArticleCourseUserWikiTimeslice.create!(course:, article:, wiki:, character_sum: 900,
+                                            references_count: 9, revision_count: 5,
+                                            user_id: other.id,
+                                            start: 1.day.ago, end: Time.zone.now)
 
       stats = work_for.first.stats
       expect(work_for.first.live).to be(true)
@@ -112,10 +112,10 @@ describe AssignedArticleWork do
       article = create(:article, title: 'Chromatic_aberration', wiki:)
       assign(article:)
       2.times do |i|
-        ArticleCourseTimeslice.create!(course:, article:, character_sum: 150,
-                                       references_count: 1, revision_count: 1,
-                                       user_ids: [student.id],
-                                       start: (i + 2).days.ago, end: (i + 1).days.ago)
+        ArticleCourseUserWikiTimeslice.create!(course:, article:, wiki:, character_sum: 150,
+                                              references_count: 1, revision_count: 1,
+                                              user_id: student.id,
+                                              start: (i + 2).days.ago, end: (i + 1).days.ago)
       end
 
       expect(work_for.first.stats.characters).to eq(300)

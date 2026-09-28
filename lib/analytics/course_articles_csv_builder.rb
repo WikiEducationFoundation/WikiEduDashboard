@@ -42,7 +42,7 @@ class CourseArticlesCsvBuilder
       article_edits[:revisions] += act.revision_count
       article_edits[:references] += act.references_count
       article_edits[:new_article] = true if act.new_article
-      article_edits[:usernames] += act.user_ids
+      article_edits[:usernames] << act.user_id
       @articles_edited[act.article_id] = article_edits
     end
   end

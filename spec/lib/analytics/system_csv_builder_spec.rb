@@ -281,12 +281,13 @@ describe SystemCsvBuilder do
       create(:article, title: 'Mainspace_Article', wiki: en_wiki,
                        namespace: Article::Namespaces::MAINSPACE)
     end
+    let(:user) { create(:user) }
 
     mainspace_index = CourseCsvBuilder::CSV_HEADERS.index('mainspace_edits')
 
     before do
-      create(:article_course_timeslice, course: stale_course, article:,
-                                        revision_count: 100, tracked: true,
+      create(:article_course_user_wiki_timeslice, wiki: en_wiki, course: stale_course, article:,
+                                        user:, revision_count: 100, tracked: true,
                                         start: 1.month.ago, end: 1.month.ago + 1.day)
     end
 
