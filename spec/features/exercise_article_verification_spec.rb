@@ -52,6 +52,22 @@ describe 'verifying the article for an article_title_input exercise', type: :fea
                                .exercise_article_title(course.id)).to eq('Marie Curie')
   end
 
+  it 'does not ask for an article when the exercise was completed without one' do
+    tmu = create(:training_modules_users, user: student, training_module:,
+                                          completed_at: Time.zone.now)
+    tmu.mark_completion(true, course.id)
+    tmu.save
+    login_as student
+
+    visit '/training/students/update-a-biography-exercise/update-a-bio-complete'
+    expect(page).to have_content 'Done'
+    expect(page).not_to have_button 'Submit Article'
+
+    visit "/courses/#{course.slug}/timeline"
+    expect(page).to have_content 'Status: Complete!'
+    expect(page).not_to have_button 'Submit Article'
+  end
+
   it 'shows instructors the verified article in the student drawer' do
     tmu = create(:training_modules_users, user: student, training_module:,
                                           completed_at: Time.zone.now)

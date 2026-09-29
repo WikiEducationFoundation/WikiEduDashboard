@@ -34,7 +34,9 @@ export const ExerciseButton = ({ module, isStaff, course, verifyArticle, fetchEx
     const articleTitle = module.flags?.exercise_article_title;
     const isMarkedComplete = !!module.flags?.marked_complete;
 
-    if (articleTitle && isMarkedComplete) {
+    if (isMarkedComplete) {
+      // Completions from before the exercise needed an article have none.
+      if (!articleTitle) { return null; }
       return (
         <td className="block__training-modules-table__module-exercise-button">
           <a

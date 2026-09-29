@@ -23,11 +23,12 @@ class TrainingModulesController < ApplicationController
   private
 
   # The slides ask for the exercise article only from a student it counts for,
-  # and only until it has been verified for each of their current courses.
+  # and only until the exercise is complete in each of their current courses.
+  # Completions from before it needed an article count, without one.
   def set_needs_exercise_article
     tmu = TrainingModulesUsers.find_by(user: current_user, training_module: @training_module)
     courses = VerifyExerciseArticle.current_courses(user: current_user,
                                                     training_module: @training_module)
-    @needs_exercise_article = courses.any? { |c| tmu&.exercise_article_title(c.id).blank? }
+    @needs_exercise_article = courses.any? { |c| !tmu&.flags&.dig(c.id, :marked_complete) }
   end
 end
