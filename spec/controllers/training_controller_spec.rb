@@ -279,7 +279,8 @@ describe TrainingController, type: :request do
       before do
         allow_any_instance_of(TrainingController).to receive(:session)
         .and_return({
-          training_return_to: '/courses/%D0%A8%D0%BA%D0%BE%D0%BB%D0%B0/%D0%9A%D1%83%D1%80%D1%81_(2026)'
+          training_return_to: '/courses/%D0%A8%D0%BA%D0%BE%D0%BB%D0%B0/' \
+                              '%D0%9A%D1%83%D1%80%D1%81_(2026)'
         })
       end
 
@@ -291,6 +292,44 @@ describe TrainingController, type: :request do
       it 'sets course_slug from the encoded Unicode session slug' do
         subject
         expect(assigns(:course_slug)).to eq('Школа/Курс_(2026)')
+      end
+    end
+
+    context 'when the return_to path is not a bare course path' do
+      let!(:course) { create(:course, slug: 'School/C++_Programming_(2026)') }
+
+      def visit_slide_with_return_to(return_to)
+        allow_any_instance_of(TrainingController).to receive(:session)
+          .and_return({ training_return_to: return_to })
+        subject
+      end
+
+      it 'ignores a query string after the slug' do
+        visit_slide_with_return_to("/courses/#{course.slug}?enroll=abc")
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'reads the slug from a full referer URL' do
+        visit_slide_with_return_to("http://www.example.com/courses/#{course.slug}/home")
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'keeps a literal plus sign in the slug' do
+        visit_slide_with_return_to("/courses/#{course.slug}/home")
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'falls back to recent_course when the path has malformed encoding' do
+        create(:courses_user, course:, user:)
+        visit_slide_with_return_to('/courses/School/Bad_%zz')
+        expect(response.status).to eq(200)
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'falls back to recent_course when the return_to course does not exist' do
+        create(:courses_user, course:, user:)
+        visit_slide_with_return_to('/courses/Gone/Deleted_Course')
+        expect(assigns(:course)).to eq(course)
       end
     end
 

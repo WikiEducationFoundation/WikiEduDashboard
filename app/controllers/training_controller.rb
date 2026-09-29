@@ -8,6 +8,8 @@ class TrainingController < ApplicationController
   layout 'training'
   before_action :init_query_object, only: :index
   include CourseHelper
+  include CourseFromReturnTo
+
   def index
     if @search
       @slides = @query_object.selected_slides_and_excerpt
@@ -83,8 +85,7 @@ class TrainingController < ApplicationController
   end
 
   def find_recent_course
-    recent_course_object = current_user.recent_course
-    @course = course_from_return_to || recent_course_object
+    @course = course_from_return_to || current_user.recent_course
     @course_slug = @course&.slug
   end
 
@@ -112,22 +113,5 @@ class TrainingController < ApplicationController
   def init_query_object
     @search = params[:search_training]
     @query_object = TrainingResourceQueryObject.new(current_user, @search)
-  end
-
-  def course_from_return_to
-    path = params[:return_to].presence || session[:training_return_to]
-    return if path.blank?
-    slug = slug_from_course_path(path)
-    slug.present? && Course.find_by(slug:)
-  rescue URI::InvalidURIError
-    nil
-  end
-
-  def slug_from_course_path(path)
-    path = CGI.unescape(path)
-    segments = path.split('/').compact_blank
-    index = segments.index('courses')
-    return if index.nil?
-    segments[index + 1, 2].to_a.join('/')
   end
 end

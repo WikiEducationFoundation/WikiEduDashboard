@@ -160,5 +160,12 @@ describe 'Claim verification exercise', type: :request do
       expect(response.body).to include("/courses/#{course.slug}/verify_claim")
       expect(response.body).to include("/courses/#{other.slug}/verify_claim")
     end
+
+    it 'redirects to the return_to course when the student has several courses' do
+      other = create(:course, slug: 'Школа/Курс_(2026)', subject: 'History', home_wiki: wiki)
+      create(:courses_user, course: other, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+      get '/verify_claim', params: { return_to: "/courses/#{other.slug}/home" }
+      expect(response).to redirect_to("/courses/#{other.slug}/verify_claim")
+    end
   end
 end
