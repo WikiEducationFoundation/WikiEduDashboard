@@ -1,4 +1,5 @@
 import '../testHelper';
+import DOMPurify from 'dompurify';
 import markdownIt from '../../app/assets/javascripts/utils/markdown_it';
 
 describe('markdown', () => {
@@ -47,8 +48,33 @@ describe('markdown', () => {
       expect(output).not.toContain('javascript:');
     });
 
-    test('removes iframes', () => {
+    test('removes iframes that are not YouTube embeds', () => {
       const output = markdownIt().render('<iframe src="https://evil.example"></iframe>');
+      expect(output).not.toContain('<iframe');
+    });
+
+    test('removes iframes that only mention YouTube in the url', () => {
+      const output = markdownIt().render(
+        '<iframe src="https://evil.example/www.youtube.com/embed/x"></iframe>'
+      );
+      expect(output).not.toContain('<iframe');
+    });
+
+    test('keeps YouTube embeds used by video slides', () => {
+      const output = markdownIt().render(
+        '<div class="youtube-short-right">\n<iframe class="youtube-short" width="270" height="480" src="https://www.youtube-nocookie.com/embed/f3yxtwjmZhE" frameborder="0" allowfullscreen></iframe>\n</div>'
+      );
+      expect(output).toContain('<iframe');
+      expect(output).toContain('src="https://www.youtube-nocookie.com/embed/f3yxtwjmZhE"');
+      expect(output).toContain('class="youtube-short"');
+      expect(output).toContain('allowfullscreen');
+    });
+
+    test('does not let the iframe allowance leak into the global DOMPurify', () => {
+      markdownIt();
+      const output = DOMPurify.sanitize(
+        '<iframe src="https://www.youtube-nocookie.com/embed/x"></iframe>'
+      );
       expect(output).not.toContain('<iframe');
     });
 

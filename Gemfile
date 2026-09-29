@@ -25,7 +25,7 @@ gem 'sidekiq' # Framework for running background worker jobs
 gem 'sidekiq-unique-jobs' # Plugin to prevent duplicate jobs in the sidekiq queue
 gem 'sidekiq-cron' # Plugin for cron-style recurring jobs in Sidekiq
 gem 'sidekiq-status' # Plugin for tracking information about Sidekiq
-gem 'dalli' # Caching
+gem 'dalli', '~> 3.2.9' # Caching
 gem 'connection_pool'
 gem 'fuzzily_reloaded' # fuzzy search for ActiveRecord tables
 
@@ -148,7 +148,7 @@ group :development, :test do
   gem 'rubocop-capybara', require: false
   gem 'factory_bot_rails' # Factory for creating ActiveRecord objects in tests
   gem 'parallel_tests'
-  gem 'rack-proxy', '~> 0.7.6'
+  gem 'rack-proxy', '~> 2.0'
 end
 
 group :test do

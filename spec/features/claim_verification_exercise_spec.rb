@@ -91,8 +91,11 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_css('.cv-pick-banner__heading',
                              text: step_heading(2, 'step_select_claim'), wait: 20)
 
-    # The viewer renders the flagged revision annotated with its harvested claims;
-    # clicking the highlighted claim sentence opens the in-viewer panel.
+    # The viewer renders the flagged revision annotated with its harvested claims,
+    # and "View on wiki" goes to that revision, not the current version.
+    expect(page).to have_link(I18n.t('articles.view_on_wiki'),
+                              href: "https://en.wikipedia.org/w/index.php?oldid=#{flagged_rev}")
+    # Clicking the highlighted claim sentence opens the in-viewer panel.
     find('.parsed-article .cv-claim', wait: 20).click
     within '.cv-selection-panel' do
       expect(page).to have_content(sentence)

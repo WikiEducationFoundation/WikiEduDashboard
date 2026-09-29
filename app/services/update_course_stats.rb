@@ -106,15 +106,9 @@ class UpdateCourseStats
   end
 
   def update_wiki_namespace_stats
-    # Update each of the tracked namespaces
-    @course.course_wiki_namespaces.each do |course_wiki_ns|
-      wiki = course_wiki_ns.courses_wikis.wiki
-      namespace = course_wiki_ns.namespace
-      UpdateWikiNamespaceStatsTimeslice.new(@course, wiki, namespace)
-    end
-    # Remove stats data for any namespaces that were previously
-    # tracked but are no longer tracked.
-    UpdateWikiNamespaceStatsTimeslice.clear_untracked_namespace_data(@course)
+    # Update each of the tracked namespaces, and remove stats data for any
+    # namespaces that were previously tracked but are no longer tracked.
+    UpdateWikiNamespaceStatsTimeslice.new(@course)
     @debugger.log_update_progress :wiki_namespace_stats_updated
   end
 

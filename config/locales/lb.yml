@@ -234,6 +234,7 @@ lb:
       existéiert net.
     username_label: Wikipedia-Benotzernumm
     username_or_url_label: Wikipedia-Benotzernumm oder URL
+    preview_label: 'Virschau vun neien URLen:'
     sandbox_label: Sandkaul
   blocks:
     milestones:
@@ -620,6 +621,7 @@ lb:
     common_settings_components:
       headings:
         default_campaign_setting: Standardcampagne
+        site_notice_preview: Live-Virschau
       buttons:
         add_admin_button: Admin derbäisetzen
         add_special_user_button: Spezielle Benotzer derbäisetzen

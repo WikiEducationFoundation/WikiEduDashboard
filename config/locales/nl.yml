@@ -240,7 +240,7 @@ nl:
       articles_created: Pagina's aangemaakt
       articles_improved: Pagina's verbeterd
       characters_added: Tekens toegevoegd
-      new_editors: Nieuwe bewerkers
+      new_editors: Nieuwe bewerkers (voorregistratie 60 dagen)
       active_programs: Actieve programma's
       active_facilitators: Actieve begeleiders
     charts:
@@ -253,7 +253,7 @@ nl:
       edits: Bewerkingen
       programs: Programma's
       articles_created: Pagina's aangemaakt
-      new_editors: Nieuwe bewerkers
+      new_editors: Nieuwe bewerkers (voorregistratie 60 dagen)
     facilitators:
       title: Begeleidersscorebord
       username: Gebruikersnaam
@@ -1181,6 +1181,7 @@ nl:
     withdrawn: Opdracht niet uitgevoerd
     word_count_doc: Een schatting van het aantal woorden dat door de studenten van
       de cursus gedurende de cursusperiode aan pagina's in de hoofdnaamruimte is toegevoegd.
+      (Wikidata-bewerkingen zijn niet inbegrepen.)
     word_count_doc_wikidata: Een schatting van het aantal woorden dat door de studenten
       van de cursus aan items in de hoofdnaamruimte is toegevoegd tijdens de cursusperiode
     yourcourses: Uw cursussen
@@ -1355,7 +1356,8 @@ nl:
     view_other: Andere campagnes bekijken
     view_page: Pagina bekijken
     word_count_doc: Een schatting van het aantal woorden dat door de bewerkers van
-      het programma aan pagina's in de hoofdnaamruimte is toegevoegd tijdens de programmaperiode
+      het programma aan pagina's in de hoofdnaamruimte is toegevoegd tijdens de programmaperiode.
+      (Wikidata-bewerkingen zijn niet inbegrepen.)
     word_count_doc_wikidata: Een schatting van het aantal woorden dat door de bewerkers
       van het programma aan items in de hoofdnaamruimte is toegevoegd tijdens de programmaperiode
     yourcourses: Uw programma's
@@ -2116,7 +2118,8 @@ nl:
       aan deze naamruimte, berekend door het aantal tekens dat de bewerkte pagina's
       groter zijn geworden bij elkaar op te tellen. Dit getal is niet noodzakelijk
       gelijk aan de hoeveelheid inhoud die een gebruiker heeft toegevoegd. Het terugplaatsen
-      van verwijderde inhoud verhoogt dit getal ook.
+      van verwijderde inhoud verhoogt dit getal ook. (Wikidata-bewerkingen zijn niet
+      inbegrepen.)
     chars_added: Tekens toegevoegd<br>(pagina | gebruiker | concept)
     chars_added_wikidata: Tekens toegevoegd<br>(item | gebruiker | concept)
     contributions: Gebruikersbijdragen
@@ -2231,7 +2234,7 @@ nl:
       som van wijzigingen in paginagrootte over alle bewerkingen die meer hebben toegevoegd
       dan verwijderd. Dit getal weerspiegelt niet noodzakelijk de hoeveelheid nieuwe
       inhoud die de gebruiker heeft toegevoegd. Het herstellen van verwijderde inhoud
-      verhoogt dit totaal ook.
+      verhoogt dit totaal ook. (Wikidata-bewerkingen zijn niet inbegrepen.)
     role:
       description: Rol in cursus
       visitor: Bezoeker

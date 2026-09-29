@@ -28,13 +28,13 @@ zh-TW:
       decimal_units:
         format: '%n%u'
         units:
-          thousand: K
-          million: M
-          billion: B
-          trillion: T
-          quadrillion: Q
+          thousand: 千
+          million: 百萬
+          billion: 十億
+          trillion: 兆
+          quadrillion: 千兆
   accessibility:
-    number_field: 這是數字欄位。在大多數瀏覽器，這個按鈕會讓使用者可以按按鈕來加一或減一。
+    number_field: 這是數字欄位。在大多數瀏覽器，這個按鈕可以對輸入值加一或減一。
   application:
     back: 返回
     cancel: 取消
@@ -86,6 +86,7 @@ zh-TW:
     change: 變更
     details: 詳細資訊
     confirm: 好
+    confirm_generic: 您確定要這麼做嗎？
     opt_in: 是
     opt_out: 否
     opt_yes: 是
@@ -116,21 +117,23 @@ zh-TW:
     review_orientation: 審核新手導覽
     start_orientation: 開始新手導覽
     blog_headline: 來自 Wiki 教育的最新消息
-    about_programs: 此網站經由方案（Program）來追蹤各 wiki 項目事件 —— 例如像是 Edit-a-thon 或學院課程之類的獨立事項。任一方案皆為一個、或更多競賽（Campaign）裡的一部分內容，而活動則提供了各方案之間的匯總統計資料。
-    about_creating_programs: 如果您在運作一個單一、獨立事項，您可以現在來創建一個方案。如果您的事項，是某件更大事項裡的一部分，請為此找尋或創建競賽，然後您可從競賽頁面裡創建一個新方案。
+    about_programs: 此網站經由學程來追蹤wiki的各個活動 —— 例如像是編輯松或學院課程之類的各別活動。任一學程皆為某個、或多個競賽裡的一部份內容，而競賽則提供了各學程之間的匯總統計資料。
+    about_creating_programs: 如果您在運作一個單一、獨立的活動，您可以現在來建立一個學程。如果您的活動，是某件更大活動裡的一部份，請為它找尋或建立一個競賽，然後您就可以從競賽頁面裡創建一個新學程。
+    tooltip:
+      alt: 更多資訊
   home:
     explore: 探索
-    log_in: 登入至維基百科
-    sign_up: 註冊維基百科
+    log_in: 使用維基百科登入
+    sign_up: 透過維基百科註冊
     registration_advice:
       username_rules:
         heading: 使用者名稱規則
-        avoid_offensive_usernames: 請勿選擇具有冒犯、誤導、搗亂或宣傳性質的使用者名稱。
-        represent_individual: 使用者名稱必須代表個人編輯者。請不要使用學校或組織的名稱。
+        avoid_offensive_usernames: 請勿選擇具有冒犯性、誤導性、擾亂性、或宣傳性質的使用者名稱。
+        represent_individual: 使用者名稱必須代表個人的編輯者。請不要使用學校或組織的名稱。
       additional_advice:
-        heading: 建議
-        anonymous_username_recommendation: 維基教育建議選擇匿名使用者名稱，而不是含有您的真實姓名，或是其他身份資訊的名稱。
-    sign_up_help: 要使用功能面板，您需要使用維基百科帳號登入，並允許功能面板存取維基百科帳號權限。您可以用已經存在的維基帳號登入或是建立一個新的。如果無法建立帳號的話，請聯絡
+        heading: 忠告
+        anonymous_username_recommendation: 維基教育建議選擇一個匿名使用者名稱，而不是含有您的真實姓名，或是其他身份資訊的名稱。
+    sign_up_help: 要使用功能面板，您需要使用維基百科帳號登入，並允許功能面板存取維基百科帳號權限。您可以用已經存在的維基帳號去登入、或是建立一個新的。如果無法建立帳號的話，請聯絡
       dashboard@wikiedu.org。
   alerts:
     alert_label: 提醒
@@ -138,16 +141,16 @@ zh-TW:
     ai_stats:
       timestamp: 時間戳記
       title: 針對%{campaign_name}的AI編輯提醒統計
-      total_alerts: 全面AI編輯提醒
+      total_alerts: AI編輯提醒總計
       with_followup: 帶有後續跟進的AI編輯提醒
       multiple_alerts_students: 收到多項提醒的學生
       multiple_alerts_pages: 包含多項提醒的頁面
-      pangram_url: 全字母句網址
-      go_to_pangram: 前往全字母句
+      pangram_url: Pangram網址
+      go_to_pangram: 前往Pangram
       revision_diff: 修訂版本差異
       single_alert_view: 提醒
-      alerts_in_mainspace: 主空間提醒
-      users_involved: 參與使用者
+      alerts_in_mainspace: 主空間中的提醒
+      users_involved: 參與的使用者
       total: 總計
       last_week: 上週
       sections:
@@ -158,21 +161,91 @@ zh-TW:
         courses_with_ai_alerts: 具有多樣 AI 提醒的課程
         recent_followup: 近期跟進的提醒
         multiple_alerts_students: 近期有多項提醒的學生提醒
-        in_mainspace: 主空間近期提醒
+        in_mainspace: 主空間中的近期提醒
         alerts_trend_over_time: AI 提醒隨時間變化的趨勢
         descriptions:
           courses_with_ai_alerts: 整個課程期間（不一定是最近的）發出超過 3 次 AI 提醒的課程。
           recent_followup: 過去 14 天內提交後續回覆的提醒，按後續回覆日期排序。
           multiple_alerts_students: 過去 14 天內為收到多個提醒的學生建立的提醒，按建立日期排序。
-          in_mainspace: 過去 14 天內為主空間條目建立的提醒，按建立日期排序。
+          in_mainspace: 過去 14 天內為主空間內的條目建立的提醒，按建立日期排序。
   ai_scores_stats:
     title: 修訂版 AI 分數統計
     graphs:
-      daily_checks: 依命名空間每日檢查
+      daily_checks: 依命名空間的每日檢查
       avg_likelihood: 每日平均 AI 可能性分佈
       max_likelihood: 每日最大 AI 可能性分佈
       overall_avg_likelihood: 整體平均 AI 可能性分佈
       overall_max_likelihood: 整體最大 AI 可能性分佈
+  system_stats:
+    title: 系統與協調者統計資料
+    filters:
+      campaign: 競賽
+      home_wiki: 首頁Wiki
+      start_date: 開始日期
+      end_date: 結束日期
+      all_campaigns: 所有競賽
+      all_wikis: 所有 wiki
+      export_csv: 匯出CSV檔
+      export_daily_csv: 匯出每日統計資料CSV檔
+      course_csv_tab: 課程層級匯出檔
+      daily_stats_tab: 每日系統快照
+      generating: 正在產生匯出檔...
+      generation_queued: 您的CSV檔匯出檔案正在背景中生成。正在重試...
+      still_processing: 您的CSV匯出檔仍在背景處理中。請稍後回來查看，然後再次點擊「匯出」。
+      fetch_error: 無法產生CSV匯出檔。請重試。
+      course_type: 課程類型
+      status: 狀態
+      all_types: 所有類型
+      all_statuses: 所有狀態
+      active: 活躍
+      archived: 已歸檔
+    kpis:
+      total_edits: 總編輯數
+      article_views: 條目檢視數
+      articles_created: 已建立的條目
+      articles_improved: 已改進的條目
+      characters_added: 新增角色
+      new_editors: 新編輯（60天的預先註冊）
+      retained_new_editors: 常駐的編輯者
+      active_programs: 活躍的學程
+      active_facilitators: 活躍的協調者
+    charts:
+      monthly_trends: 月度活動趨勢
+      wiki_trends: 維基趨勢（前五名）
+      plot_metric: 效能指標圖：
+    tables:
+      wiki_breakdown: 維基統計數據細項分析
+      wiki: Wiki
+      edits: 編輯次數
+      programs: 學程
+      articles_created: 已建立的條目
+      new_editors: 新編輯者（60天的預先註冊）
+      retained_new_editors: 常駐的編輯者
+    facilitators:
+      title: 協調者排行榜
+      username: 使用者名稱
+      courses: 課程
+      active: 活躍
+      students: 學生
+      retained_new_editors: 常駐的編輯者
+      active_in_year: 活躍的年份
+      "yes": 是
+      "no": 否
+    pagination:
+      previous: 上一個
+      next: 下一個
+    loading:
+      data: 正在從伺服器載入資料...
+      facilitators: 正在載入協調者...
+      wiki_stats: 正在載入wiki的統計資料...
+      wiki_trends: 正在載入wiki的趨勢資料...
+    empty:
+      no_trend_data: 沒有趨勢的資料。
+      no_wiki_trend_data: 沒有wiki趨勢的資料。
+      no_wiki_stats: 沒有wiki專案的統計資料。
+      no_facilitators: 沒有找到協調員的資料。
+    errors:
+      fetch_failed: 載入資料失敗。請嘗試重新整理頁面。
   activity:
     all: 活動
     edited_by: 編輯自
@@ -193,8 +266,7 @@ zh-TW:
     article_title: 條目標題
     assigned_to: 分配給
     character_doc: 開始到結束日之間由登記編輯者在條目中增加的字元總和。
-    cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。功能面板從此方案的首頁 wiki 來取出貢獻內容，以及和其它任何有著分配作業或可用條目的
-      wiki。
+    cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。功能面板從此學程的首頁wiki來取出貢獻內容，以及和其它任何有著分配作業或可用條目的wiki。
     deleted: (已刪除)
     does_not_exist: 該條目不存在。請創建一個沙盒頁面並分配給您自己來接收建議。
     edited: 編輯的條目
@@ -204,8 +276,8 @@ zh-TW:
     filter:
       wiki_all: 全部
       new: 新的
-      existing: 存在
-      new_and_existing: 新的且存在
+      existing: 已存在
+      new_and_existing: 新的且已存在
       tracked: 已追蹤
       untracked: 已取消追蹤
       tracked_and_untracked: 已追蹤與取消追蹤
@@ -250,7 +322,7 @@ zh-TW:
     show_current_version_with_authorship_highlighting: 彰顯作者在目前版本的所作編輯
     title: 標題
     tracked: 已追蹤
-    tracked_doc: 僅已追蹤條目會加在用於此方案的統計。當條目被標記為取消追蹤時，在下一次資料更新後會從統計裡移除。
+    tracked_doc: 僅已追蹤條目會加在用於此學程的統計。當條目被標記為取消追蹤時，在下一次資料更新後會從統計裡移除。
     title_example: 條目標題
     tools: 評估工具
     view: 檢視文章
@@ -284,7 +356,7 @@ zh-TW:
     assignments_none: 還沒有分配的項目。
     available: 可用項目
     character_doc: 開始到結束日之間由登記編輯者在項目中增加的字元總和。
-    cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。功能面板從此方案的首頁 wiki 來取出貢獻內容，以及和其它任何有著分配作業或可用項目的
+    cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。功能面板從此學程的首頁 wiki 來取出貢獻內容，以及和其它任何有著分配作業或可用項目的
       wiki。
     does_not_exist: 該項目不存在。請建立一個沙盒頁面並分配給您自己來接收建議。
     edited: 已編輯項目
@@ -293,7 +365,7 @@ zh-TW:
     how_to_find: 如何查找項目
     preview: 項目簡要預覽
     search: 在維基數據中搜尋項目
-    tracked_doc: 僅已追蹤項目會加在用於此方案的統計。當項目被標記為取消追蹤時，在下一次資料更新後會從統計裡移除。
+    tracked_doc: 僅已追蹤項目會加在用於此學程的統計。當項目被標記為取消追蹤時，在下一次資料更新後會從統計裡移除。
     view_doc: 透過最新統計更新，各項目從首次編輯後的估計檢視數。您可以使用 pageviews.toolforge.org 來查看準確數字。
     title_example: 項目標題
   articles_wikidata:
@@ -328,7 +400,11 @@ zh-TW:
     confirm_add_available: 確定要加入 %{title} 嗎？
     confirm_addition: 確定要將 %{title}分配給 %{username}？
     confirm_deletion: 確定要刪除分配作業嗎？
-    delete: 移除和刪除
+    copy_available: 從另一個課程匯入
+    copy_available_url_placeholder: 課程網址
+    copy_available_select_placeholder: 選擇一個課程
+    copy_available_include_student_assigned: 是否包含指定的條目？
+    delete: 移除然後刪除
     editors: 分配給
     change_sandbox_url: 更改沙盒
     group_members: 群組成員
@@ -377,8 +453,7 @@ zh-TW:
     sandbox_label: 沙盒
     bibliography_label: 參考書目
     outline_label: 大綱
-    warning_untracked_wiki: 請留意您所挑選的條目是位在沒被此課程追蹤的 wiki 上。要追蹤對於此條目的貢獻，導師必須添加以下 wiki
-      到此課程裡：%{wiki}
+    warning_untracked_wiki: 請留意您所挑選的條目是位在沒被此課程追蹤的 wiki 上。要追蹤對於此條目的貢獻，導師必須添加以下wiki到此課程裡：%{wiki}
   blocks:
     milestones:
       title: 里程碑
@@ -412,29 +487,29 @@ zh-TW:
     course: 課程
     course_data: 課程資料
     course_removed: '%{title}已從競賽「%{campaign_title}」移除'
-    course_removed_and_deleted: '%{title}已從競賽「%{campaign_title}」移除與刪除'
-    course_removed_but_not_deleted: 「%{title}」已從「%{campaign_title}」中移除，但因存於其他競賽裡而無法刪除
+    course_removed_and_deleted: '%{title}已被刪除並已從競賽「%{campaign_title}」中移除'
+    course_removed_but_not_deleted: 「%{title}」已從競賽「%{campaign_title}」中移除，但因存於其他競賽裡而無法刪除
     create_campaign: 建立新競賽
     create_my_campaign: 創建我的競賽！
     customize_passcode: 預設選課代碼
-    data_download_info: 下載競賽資料成 CSV
+    data_download_info: 下載競賽資料成CSV檔
     data_courses: 課程概要資料
-    data_courses_info: 各課程/方案的基本指標
+    data_courses_info: 各課程/學程的基本指標
     data_articles: 已編輯的頁面
     data_revisions: 修訂資料
     data_articles_info: 由競賽所編輯的各追蹤頁面詳情
     data_revisions_info: 有關各競賽的追蹤修訂詳情
     data_instructors: 導師
-    data_instructors_info: 導師/主持者與他們的課程/方案清單
+    data_instructors_info: 導師/主持者與他們的課程/學程清單
     data_editors_by_course: 按課程的編輯者
-    data_editors_by_course_info: 已登記編輯者與他們的課程/方案清單
+    data_editors_by_course_info: 已登記編輯者與他們的課程/學程清單
     data_editor_usernames: 編輯者使用者名稱
     data_editor_usernames_info: 編輯者使用者名稱清單，一行一個
     data_wikidata: 維基數據統計
     data_wikidata_info: 基於編輯摘要的維基數據活動詳細分類
     default_course_type: 預設課程類型
     default_passcode: 預設選課代碼
-    default_passcode_explanation: 預設情況下，此活動的新方案應有：
+    default_passcode_explanation: 預設情況下，此活動的新學程應有：
     description: 描述
     delete_campaign: 刪除此競賽
     delete_course_tooltip: 刪除並從競賽裡移除。
@@ -451,8 +526,8 @@ zh-TW:
     organizer_added: '%{user}現在是競賽「%{title}」的籌辦人員'
     organizer_removed: '%{user}已被移除競賽「%{title}」的籌辦人員身份'
     pages_edited_small: 已編輯頁面
-    program_template: 方案模板
-    program_template_tooltip: 當籌辦人員建立在此競賽的一個方案時，區域裡的文字會複製作為方案頁面上的描述
+    program_template: 學程模板
+    program_template_tooltip: 當籌辦人員建立在此競賽的一個學程時，區域裡的文字會複製作為學程頁面上的描述
     random_passcode: 隨機選課代碼
     remove_course_tooltip: 從競賽裡移除。
     requested_accounts: 申請的帳號
@@ -462,7 +537,7 @@ zh-TW:
     student_course: 按課程區分的學生
     title: 標題
     too_large: 此活動過於龐大，無法顯示所要求的資料。
-    too_many_articles: 為該競賽編輯的條目清單太長而無法顯示。請檢視各課程/方案/事項來查看編輯的條目。
+    too_many_articles: 為該競賽編輯的條目清單太長而無法顯示。請檢視各課程/學程/活動來查看編輯的條目。
     slug: 代稱
     search_campaigns: 搜尋競賽
     use_start_end_dates: 使用起始和結束時間
@@ -487,7 +562,7 @@ zh-TW:
     psid_description: PetScan 查詢功能每次只能在控制面板中針對一個 wiki 進行操作。請確認您的 PetScan 查詢僅包含來自單一
       wiki 的條目，且該 wiki 與下方列出的內容相符。
     pileid_name: 頁面檔案 ID
-    pileid_description: 請確保 PagePile 的 wiki 已列入此方案的追蹤 wiki 清單中。
+    pileid_description: 請確保 PagePile 的 wiki 已列入此學程的追蹤 wiki 清單中。
     template_name: 模板名稱
     none: 沒有被追蹤的分類。
     remove: 移除
@@ -579,7 +654,7 @@ zh-TW:
       course_dates_info: 輸入您課程的起始和結束日期。在下個步驟裡，您可以從時間範圍來挑選何時開始作維基百科分配。
       course_description: 課程說明
       course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
-      course_private: 非公開方案（僅可被管理員和主持者檢視）
+      course_private: 非公開學程（僅可被管理員和主持者檢視）
       course_ta_support: 此課程有額外的導師或助教
       course_school: 課程學校
       course_subject: 課程科目
@@ -587,16 +662,15 @@ zh-TW:
       course_term_placeholder: 學期（含年份）
       course_title: 課程名稱
       course_types:
-        basic_course_name: 基本方案
-        basic_course_description: 此方案類型會追蹤透過任何參與者對任何條目或主空間頁面所做的編輯。若在方案的主要 wiki 啟用了自動化
-          wiki 編輯，將會自動創建並更新此方案 wiki 版本。
+        basic_course_name: 基本學程
+        basic_course_description: 此學程類型會追蹤透過任何參與者對任何條目或主空間頁面所做的編輯。若在學程的主要wiki啟用了自動化wiki編輯，將會自動建立並更新此學程wiki版本。
         edit_a_thon_name: Edit-A-Thon
-        edit_a_thon_description: Edit-A-Thon 方案將會追蹤任何條目或主空間頁面的編輯，按預設不會對此方案做出自動化編輯。
-        article_scoped_program_name: 條目範圍方案
+        edit_a_thon_description: 編輯松學程將會追蹤任何條目或主空間頁面的編輯，按預設不會對此學程做出自動化編輯。
+        article_scoped_program_name: 條目範圍學程
         article_scoped_program_description: 此方案僅會追蹤分配的條目或分類的編輯。若您想要對已知條目或主題領域收集做出統計方面的限制，請使用此類型。按預設會開啟自動化
           wiki 編輯。
         single_user_name: 個人編輯者
-        single_user_description: 此方案類型旨在透過簡化介面來追蹤您自己的貢獻。如果您不需要追蹤其他使用者的編輯，請使用此類型。
+        single_user_description: 此學程類型旨在透過簡化介面來追蹤您自己的貢獻。如果您不需要追蹤其他使用者的編輯，請使用此類型。
       create_button: 建立我的課程！
       create_label: 建立新的課程
       create_new: 建立一個新的課程
@@ -617,12 +691,12 @@ zh-TW:
       - 教學助理
       role_description_placeholder: 導師、教學助理、其它
       separate_event_dates: 指定分別的事項起始/結束時間（可選）
-      separate_event_dates_info: 此方案的活動統計將會基於以上的日期與時間來追蹤，而您也可以指定分別的事項或方案之起始與結束時間（例如：讓參與者能夠知道何時露面或何時聚會結束）。
+      separate_event_dates_info: 此學程的活動統計將會基於以上的日期與時間來追蹤，而您也可以指定分別的活動或學程之起始與結束時間（例如：讓參與者能夠知道何時露面或何時聚會結束）。
       save_cloned_course: 儲存新的課程
       start_date: 開始日期
       start_date_placeholder: YYYY-MM-DD
       subject: 領域主題
-      update_scheduled: 已安排更新，資料將會連同目前所有程序在下次更新週期裡更新。這通常會花費數小時。
+      update_scheduled: 已安排更新，資料將會連同目前所有學程在下次更新週期裡更新。這通常會花費數小時。
       creating_course: 建立課程
     current: 目前的課程
     data_articles: 條目資料
@@ -655,25 +729,31 @@ zh-TW:
     edit_count: 編輯次數
     edit_course_dates: 編輯課程日期
     embed_course_stats: 內嵌課程統計
-    embed_course_stats_description: 要替在其它網站的此方案內嵌統計內容，請複製貼上此代碼段落資訊
+    embed_course_stats_description: 要替在其它網站的此學程內嵌統計內容，請複製貼上此代碼段落資訊
     enable_account_requests: 啟用帳號申請
     end: 結束
     ended: 課程已結束。
     enroll: 登記
     enrollment: 添加/移除學生
     enrollment_edits_enabled: 登記編輯已啟用
-    enrollment_edits_enabled_tooltip: 若有啟用，面板會對加入方案的各編者發布使用者頁面與討論頁模板。
-    event_sync: 已停用編輯：因為課程已連結到別的事項，無法更改此欄位。更改會造成擾亂到事項的整合。
+    enrollment_edits_enabled_tooltip: 若有啟用，面板會對加入學程的各編者發佈使用者頁面與討論頁模板。
+    event_sync: 已停用編輯：因為課程已連結到別的活動，無法更改此欄位。更改會造成擾亂到活動的整合。
+    event_center_link: 活動中心的頁面
+    view_event_center_page: 檢視頁面
+    go_to_event_center: 前往「活動中心」去註冊
     courses_enrolled: 課程已登記
     error:
       exists: 此項課程已經存在！請嘗試使用其他不同的標題、學校名稱或學期。
-      user_exists: 抱歉，%{username} 並非存在的使用者。
-      user_exists_on_wiki: 很抱歉，%{username} 並非存在於 %{domain} 的使用者。
-      invalid_language_or_project: 無法使用的語言或專案
+      user_exists: 抱歉，使用者%{username}並不存在。
+      user_exists_on_wiki: 抱歉，使用者%{username}並非存在於%{domain}。
+      management_role_not_authorized: 只有課程講師才能為該角色新增或移除使用者。
+      invalid_language_or_project: 無效的語言或專案
       invalid_wiki: 無法連接到 %{domain}。它可能不是有效的 wiki。
-      duplicate_course_slug: URL %{slug} 已被佔用。請更改標題、學校或學期。
+      duplicate_course_slug: URL %{slug} 已被佔用。請更改標題、學校、或學期。
       invalid_slug: 清空用於課程的學校/標題。
-      duplicate_slug: 另一個稱為%{slug}的方案已存在。
+      duplicate_slug: 另一個稱為%{slug}的學程已存在。
+      event_sync_delete: 此頁面已連結至維基媒體活動的報名系統，因此無法被刪除。
+      event_sync_rename: 此頁面已連結至維基媒體活動的報名系統，因此無法被更名。
     expected_students: 預計學生
     features_feedback: 自動化建議：
     feedback: 意見回饋
@@ -725,9 +805,9 @@ zh-TW:
     new_account_username_placeholder: wiki 編輯者 123
     new_account_username_taken: 該使用者已被註冊。請選擇另一個。
     new_account_submit: 申請帳號
-    new_account_submitted: 您的帳號申請已提交。此方案的主持者現在完成您的帳戶創建。一旦創建後，您將會透過電子郵件收到新帳號的密碼。
+    new_account_submitted: 您的帳號申請已提交。此學程的主持者現在完成您的帳戶創建。一旦創建後，您將會透過電子郵件收到新帳號的密碼。
     new_account_submitted_admin: 您申請的帳戶已創建。請通知您的學生檢查其電子郵件收件箱以獲取密碼
-    no_campaign: 要讓此方案生效並允許使用者加入，需要添加一項競賽。若您不確定要添加何種競賽，請使用「雜集」。
+    no_campaign: 要讓此學程生效並允許使用者加入，需要添加一項競賽。若您不確定要添加何種競賽，請使用「雜集」。
     no_sandboxes: 沒有沙盒
     no_sandboxes_info: 啟用後，課程將不再使用沙盒模式。若有必要，請務必更改標籤和時間軸內容。
     nocourses: 您尚未參加任何課程。
@@ -761,7 +841,8 @@ zh-TW:
     retain_available_articles: 保持可用條目
     retain_available_articles_wikidata: 保持可用項目
     retain_available_articles_info: 當啟用後，選擇一個不會從清單裡刪除的可用條目，允許學生群組來選擇同一條目。
-    retain_available_articles_info_wikidata: 當啟用後，選擇一個不會從清單裡刪除的可用項目，允許學生群組來選擇同一條目。
+    retain_available_articles_info_wikidata: 當啟用後，選擇一個不會從清單裡刪除的可用項目，允許學生群組來選擇同一項目。
+    retention_predictors: 留存率預測因子
     review_timeline: |-
       現在，請確認您的分配計畫時間表，並自訂內容來符合您的需求。
       一旦您確認時間軸無誤，您可以提交來給維基教育成員審核。
@@ -794,17 +875,17 @@ zh-TW:
     suggestions_failed: 無法寄送意見回饋，請稍後再試。
     user_role: 身份
     course_details: 課程詳細內容
-    course_submitted: 提交狀態是用於教育方案課程裡，必須在專案開始之前批准的課程計劃。它只相應於 ClassroomProgram 課程類型。
+    course_submitted: 提交狀態是用於教育學程的課程裡，必須在學程開始之前批准的課程計劃。它只相應於 ClassroomProgram 課程類型。
     subject: 主題
     submitted: 已提交
     submitted_at: 提交於
     approval_form_heading: 課程核准表單
-    add_program_manager: 添加方案管理員：
-    add_wiki_expert: 添加維基百科專家：
-    add_tags: 添加標籤：
-    add_campaigns: 添加競賽：
+    add_program_manager: 增加學程管理員：
+    add_wiki_expert: 增加維基百科專家：
+    add_tags: 增加標籤：
+    add_campaigns: 增加競賽：
     invalid_salesforce_id: 所輸入的 ID 無效。
-    add_salesforce_id: 添加 Salesforce ID：
+    add_salesforce_id: 增加 Salesforce ID：
     approve_course: 核准課程
     tag_select: 選擇或建立一個標籤
     tags: 標籤：
@@ -812,7 +893,7 @@ zh-TW:
     timeline: 分配作業細節
     timeline_enabled: 時間軸已啟用
     timeline_link: 時間軸
-    timeline_tooltip: 啟用時間軸能讓您指定各週活動以及分配培訓模組。這對於教育方案課程以及其它長時間、高度結構化方案很有用。
+    timeline_tooltip: 啟用時間軸能讓您指定各週活動以及分配培訓模組。這對於教育學程的課程以及其它長時間、高度結構化學程很有用。
     timeline_nav: 前往時間軸
     time_zone_message: 開始及結束時間會以您的本地時區顯示。
     title: 標題
@@ -837,9 +918,9 @@ zh-TW:
     weeks_none: 此課程尚未建立時間軸。
     warn_mirrored: 在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發布之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。您確定想要執行嗎？
     wiki_course_page_enabled: 已啟用 wiki 課程頁面
-    wiki_course_page_enabled_tooltip: 若有啟用，無論方案或使用者及分配是否有更改，頁面 wiki 鏡像將會更新。
+    wiki_course_page_enabled_tooltip: 若有啟用，無論學程或是其使用者及分配是否有更改，頁面 wiki 鏡像將會更新。
     wiki_edits_enabled: 已啟用 wiki 編輯
-    wiki_edits_enabled_tooltip: 若 wiki 編輯被啟用，此方案會自動進行 wiki 編輯。若您不想要模板新增到使用者頁面、已分配條目的討論頁等等，請停用
+    wiki_edits_enabled_tooltip: 若 wiki 編輯被啟用，此學程會自動進行 wiki 編輯。若您不想要模板新增到使用者頁面、已分配條目的討論頁等等，請停用
       wiki 編輯。
     wiki_staff: 維基教育成員
     withdrawn: 沒有分配
@@ -868,51 +949,51 @@ zh-TW:
   courses_generic:
     school_system: 學院系統
     add_campaign: 新增競賽
-    all_courses: 所有方案
-    archived: 存檔的方案
+    all_courses: 所有學程
+    archived: 歸檔的學程
     articles_i_am_reviewing: 我正在審核的條目
     assignment_headings:
       available_reviews: 可供審核
       available_reviews_wikidata: 可供審核
-    assignment_end: 事項結束
+    assignment_end: 活動結束
     assignments_none: 此專案沒有任何條目被分配。
     assignment_start: 事項起始
     cancel: 取消
-    course: 方案
-    courses: 方案
-    courses_taught: 教授的方案
+    course: 學程
+    courses: 學程
+    courses_taught: 教授的學程
     campaigns: 競賽：
-    campaign_courses: '%{title}方案'
+    campaign_courses: '%{title}學程'
     creator:
-      assignment_end: 事項結束
+      assignment_end: 活動結束
       assignment_end_placeholder: YYYY-MM-DD
-      assignment_start: 事項起始
+      assignment_start: 活動起始
       assignment_start_placeholder: YYYY-MM-DD
-      cancel_course_clone: 取消方案複製
-      cancel_course_clone_confirm: 您確定要停止複製這個方案嗎？
-      checking_for_uniqueness: 正在確認是否有重複的方案。
-      choose_clone: 選擇一個方案來複製。
-      clone_previous: 複製前一個方案
-      clone_this: 複製此方案
-      clone_successful: 方案成功複製
-      clone_successful_details: 您的方案已複製。請點擊下方的「儲存」來結束流程。
+      cancel_course_clone: 取消學程複製
+      cancel_course_clone_confirm: 您確定要停止複製這個學程嗎？
+      checking_for_uniqueness: 正在確認是否有重複的學程。
+      choose_clone: 選擇一個學程來複製。
+      clone_previous: 複製前一個學程
+      clone_this: 複製此學程
+      clone_successful: 學程成功複製
+      clone_successful_details: 您的學程已複製。請點擊下方的「儲存」來結束流程。
       course_when: 添加一些內容在「何時」欄位（例如：年份和月份）來和初始項目做區分。
-      course_dates_info: 輸入您方案的起始和結束日期。您可能會想在主要活動結束後延長數小時或數天，來包含到出現在事項後不久的相關編輯。
-      course_description: 方案描述
-      course_description_placeholder: 此方案是什麼？另外參與者會在 wiki 上做些什麼？請包含足夠的詳細內容，讓其他編者能有充分理解的感覺，來方便參與者做出貢獻。
+      course_dates_info: 輸入您學程的起始和結束日期。您可能會想在主要活動結束後延長數小時或數天，來包含到出現在活動後不久的相關編輯。
+      course_description: 學程描述
+      course_description_placeholder: 此學程是什麼？另外參與者會在 wiki 上做些什麼？請包含足夠的詳細內容，讓其他編者能有充分理解的感覺，來方便參與者做出貢獻。
       course_school: 機構
       course_term: 何時
       course_term_placeholder: 於
-      course_title: 方案標題
-      create_button: 建立我的方案！
-      create_label: 建立新的方案
-      create_new: 建立一個獨立方案
-      create_short: 建立方案
+      course_title: 學程標題
+      create_button: 建立我的學程！
+      create_label: 建立新的學程
+      create_new: 建立一個獨立學程
+      create_short: 建立學程
       end_date: 活動追蹤結束
-      find: 找尋一個方案
-      intro: 方案標題和形成方案 URL 的制度。首頁 wiki 為參與者主要使用的 wiki，預設會追蹤此 wiki 上的編輯。如果您的方案橫跨多個語系或專案，貢獻內容可由有明確地添加到「追蹤的
-        wiki」的任一 wiki 來追蹤。點選「建立我的方案！」來開始製作您的維基專案頁面吧。
-      new_or_clone: 現在就創建一個新方案，或使用「複製」選項來將您參與的其它方案給複製。
+      find: 找尋一個學程
+      intro: 學程標題和形成方案 URL 的制度。首頁 wiki 為參與者主要使用的 wiki，預設會追蹤此 wiki 上的編輯。如果您的學程橫跨多個語系或學程，貢獻內容可由有明確地添加到「追蹤的
+        wiki」的任一 wiki 來追蹤。點選「建立我的學程！」來開始製作您的維基專案頁面吧。
+      new_or_clone: 現在就創建一個新學程，或使用「複製」選項來複製您已參與的其它學程。
       participate_in_campaign: 參與競賽
       save_cloned_course: 儲存
       start_date: 活動追蹤起始
@@ -920,7 +1001,7 @@ zh-TW:
         scoping_methods: 範圍界定方法
         configure: 配置範圍界定方法
         about: |-
-          對於條目範圍方案，控制面板僅會追蹤您為其配置的條目的編輯。在您建立頁面後，您可以添加單獨條目來追蹤分配給各編輯者的條目，或是透過將它們添加為可用條目。對於較大的條目集合，您可以使用這些任一工具來定義要追蹤的條目。
+          對於條目範圍學程，控制面板僅會追蹤您為其配置的條目的編輯。在您建立頁面後，您可以添加單獨條目來追蹤分配給各編輯者的條目，或是透過將它們添加為可用條目。對於較大的條目集合，您可以使用這些任一工具來定義要追蹤的條目。
           選擇您現在要配置的任何範圍界定方法。您還可以事後從條目分頁來添加範圍界定方法。
         categories: 分類
         categories_short_desc: wiki 上的分類功能用於收集相關條目。您可以使用分類名稱來讓控制面板追蹤該分類裡的所有條目。
@@ -948,26 +1029,26 @@ zh-TW:
         categories_include_OR: 將追蹤包含這些任何分類的條目
         templates_include_OR: 將追蹤包含這些任何模板的條目
         start_typing_to_search: 開始輸入搜尋
-    delete_course: 刪除方案
+    delete_course: 刪除學程
     edit_course_dates: 編輯專案日期
     end: 活動追蹤結束
     enroll: 增加編輯者
     enrollment: 添加/移除編者
-    explore: 尋找方案
-    courses_enrolled: 方案已參與
+    explore: 尋找學程
+    courses_enrolled: 學程已參與
     expected_students: 預期編輯者
     instructors: 主持者
-    join_course: 加入方案
-    join_details: 要加入此方案，您需要獲得課程代碼 — 或來自主持者的包含選課代碼連結。
-    leave_course: 退出方案
+    join_course: 加入學程
+    join_details: 要加入此學程，您需要獲得課程代碼 — 或來自主持者的包含選課代碼連結。
+    leave_course: 退出學程
     milestones_none: 此專案裡目前沒有任何里程碑。
-    not_permitted: 您不被允許編輯此方案。
-    published: 此項目已發佈！編輯者可利用下列 URL 位址登記：
+    not_permitted: 您不被允許編輯此學程。
+    published: 此專案已發佈！編輯者可利用下列 URL 位址登記：
     request_accounts: 申請帳號
     revisions_none: 此專案目前沒有編輯活動。
     school: 機構
     school_and_term: 機構/何時
-    search_courses: 搜尋方案
+    search_courses: 搜尋學程
     start: 活動追蹤起始
     student_editors: 編輯者
     student: 編輯者
@@ -977,14 +1058,14 @@ zh-TW:
     students_short: 編輯者
     students_count: 參與者數量
     term: 何時
-    unsubmitted: 未提交方案
+    unsubmitted: 未提交學程
     uploads_none: 此專案沒有提供任何圖片或媒體檔案至維基共享資源裡。
     user_uploads_none: 所選使用者尚未對此專案貢獻任何圖片或其它多媒體檔案。
     view_other: 檢視其它競賽
     view_page: 檢視頁面
-    word_count_doc: 一個由條目編輯者在方案學期期間增加至條目主空間的估計數量
-    word_count_doc_wikidata: 一個由條目編輯者在方案學期期間增加至主空間項目的估計字詞數量
-    yourcourses: 您的方案
+    word_count_doc: 一個由條目編輯者在學程學期的期間增加至條目主空間的估計數量。（不包含維基數據的編輯。）
+    word_count_doc_wikidata: 一個由條目編輯者在學程學期的期間增加至主空間項目的估計字詞數量
+    yourcourses: 您的學程
   editable:
     edit: 編輯
     cancel: 取消
@@ -1024,14 +1105,14 @@ zh-TW:
       content_wikidata: 分配與檢視項目分配
   metrics:
     editors_doc: 這是編輯過課程條目的不重複使用者數量。
-    program_date_doc: 這是專案日期。
+    program_date_doc: 這是學程日期。
     label: 課程活動
     last_update: 最後一次統計更新
     last_articles_update: 最新條目更新
     next_update: 下一次的預計更新
     late_update: 新的更新預計時間為 %{late_update_time}。這代表更新花費的時間比預期長，或者可能是有會妨礙更新的問題。
-    no_update: 功能面板尚未匯入此方案的任何資料。
-    enqueued_update: 此方案已加入到更新佇列裡。
+    no_update: 功能面板尚未匯入此學程的任何資料。
+    enqueued_update: 此學程已加入到更新佇列裡。
     first_update: 估計統計更新的開始
     activity: 最近活躍度
     are_trained: 最近培訓
@@ -1043,8 +1124,8 @@ zh-TW:
     articles_edited_wikidata: 項目已編輯
     articles_edited_generic: 已編輯的頁面
     articles_edited_generic_wikidata: 項目已編輯
-    article_scoped_program_info: 此為「條目範圍方案」，這只會計算所分配到條目與分類的編輯次數。
-    article_scoped_program_info_wikidata: 此為「條目範圍方案」，這只會計算所分配到項目與分類的編輯次數。
+    article_scoped_program_info: 此為「條目範圍學程」，這只會計算所分配到條目與分類的編輯次數。
+    article_scoped_program_info_wikidata: 此為「條目範圍學程」，這只會計算所分配到項目與分類的編輯次數。
     bytes_added: 已添加位元組
     characters: 字元
     char_added: 新增的字元
@@ -1056,7 +1137,7 @@ zh-TW:
     error_count_message: 功能面板在最近更新期間遇到 %{error_count} 個錯誤。
     future_updates_remaining:
       updates_active: 統計內容會持續更新直到 %{date}。
-      updates_inactive: 此方案的統計內容不再定期更新。
+      updates_inactive: 此學程的統計內容不再定期更新。
     last_reviewed: 最新審核
     missing_data_heading: 缺少或非預期的結果？
     missing_data_info: 常見問題包括
@@ -1219,6 +1300,7 @@ zh-TW:
     categories:
       other_settings: 其他設定
       impact_stats: 影響統計
+      salesforce: Salesforce
       featured_campaigns: 特色競賽
       special_users: 特殊使用者
       admin_users: 管理員使用者
@@ -1267,15 +1349,15 @@ zh-TW:
       title: 已禁止的使用者
       description: 機器人帳號和其他不應登記課程的使用者名稱。
       add:
-        success: 已新增%{username}至禁止使用者清單。
+        success: 已新增%{username}至禁止使用者清單中。
         already_exists: '%{username}已在禁止使用者清單中。'
       remove:
-        success: 已將%{username}從禁止使用者清單移除。
+        success: 已將%{username}從禁止使用者清單中移除。
         not_found: '%{username}不在禁止使用者清單中。'
         confirm: 您確定要從禁止使用者清單中移除%{username}嗎？
     actions: 操作
   status:
-    active_jobs: 有效任務
+    active_jobs: 活躍的任務
     active_jobs_doc: 目前正在處理的任務數量。
     all_queues_operational: 所有隊列均已運行
     all_queues_not_operational: 所有隊列均可運行，除了
@@ -1297,7 +1379,7 @@ zh-TW:
     long_update_doc: 處理大型課程的更新。
     medium_update: 中等更新
     medium_update_description: 中等更新會處理修訂次數少於 10000 次的課程。
-    medium_update_doc: 處理典型規模課程的更新。
+    medium_update_doc: 處理標準規模課程的更新。
     no_info: 沒有可用資訊。
     purpose: 目的
     queues_overview: 佇列概要

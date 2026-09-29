@@ -1,6 +1,7 @@
-// Builds the MediaWiki URLs the article-viewer shell needs: the wiki origin and
-// the `action=parse` endpoint for the article's rendered HTML. Authorship/WhoColor
-// URLs live in the authorship feature's AuthorshipURLBuilder, which extends this.
+// Builds the MediaWiki URLs the article-viewer shell needs: the wiki origin, the
+// `action=parse` endpoint for the article's rendered HTML, and the on-wiki link
+// to a specific revision. Authorship/WhoColor URLs live in the authorship
+// feature's AuthorshipURLBuilder, which extends this.
 export class URLBuilder {
   constructor({ article, users }) {
     this.article = article;
@@ -21,6 +22,12 @@ export class URLBuilder {
       url = `${query}&page=${encodeURIComponent(title)}`;
     }
     return url;
+  }
+
+  // The on-wiki permanent link to a revision, for "View on wiki" when the viewer
+  // is showing that revision rather than the current version.
+  revisionURL(revisionId) {
+    return `${this.wikiURL()}/w/index.php?oldid=${revisionId}`;
   }
 
   wikiURL() {

@@ -148,6 +148,8 @@ describe 'standard wizard blocks in the timeline', type: :feature, js: true do
       expect(page).to have_selector('.wysiwyg-editor__content iframe')
 
       within('.block__block-actions') { click_button 'Save' }
+      # The block leaves edit mode only once the server has answered the save.
+      expect(page).to have_no_selector('.block.editable')
       block = course_blocks.find_by(title: 'Begin moving your work to Wikipedia')
       expect(block.content).to include('<iframe')
     end
