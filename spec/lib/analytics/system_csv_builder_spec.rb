@@ -236,8 +236,7 @@ describe SystemCsvBuilder do
     end
 
     it 'only counts students registered during their course duration' do
-      builder = described_class.new(filters: {})
-      counts = builder.send(:fetch_new_editor_counts, [active_en_course.id, archived_fr_course.id])
+      counts = SystemCsvBatchData.new([active_en_course, archived_fr_course]).new_editor_counts
       expect(counts[active_en_course.id]).to eq(1)
       expect(counts[archived_fr_course.id]).to be_nil
     end
@@ -261,11 +260,33 @@ describe SystemCsvBuilder do
     end
 
     it 'aggregates retained new editors per course, excluding non-new editors' do
-      builder = described_class.new(filters: {})
-      course_ids = [active_en_course.id, archived_fr_course.id]
-      counts = builder.send(:fetch_retained_editor_counts, course_ids)
+      counts = SystemCsvBatchData.new([active_en_course, archived_fr_course])
+               .retained_editor_counts
       expect(counts[active_en_course.id]).to eq(1)
       expect(counts[archived_fr_course.id]).to be_nil
+    end
+  end
+
+  describe 'facilitators column' do
+    let(:rows) { CSV.parse(described_class.new(filters: {}).generate_csv, headers: true) }
+
+    before do
+      create(:courses_user, course: active_en_course, role: CoursesUsers::Roles::INSTRUCTOR_ROLE,
+                            user: create(:user, username: 'Zed Facilitator'))
+      create(:courses_user, course: active_en_course, role: CoursesUsers::Roles::INSTRUCTOR_ROLE,
+                            user: create(:user, username: 'Amy Facilitator'))
+      create(:courses_user, course: active_en_course, role: CoursesUsers::Roles::STUDENT_ROLE,
+                            user: create(:user, username: 'Just A Student'))
+    end
+
+    it 'lists only facilitator usernames, sorted, for each course' do
+      course_row = rows.find { |r| r['course_slug'] == active_en_course.slug }
+      expect(course_row['facilitators']).to eq('Amy Facilitator, Zed Facilitator')
+    end
+
+    it 'leaves the column blank for courses without facilitators' do
+      course_row = rows.find { |r| r['course_slug'] == archived_fr_course.slug }
+      expect(course_row['facilitators']).to be_blank
     end
   end
 
