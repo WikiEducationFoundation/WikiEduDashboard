@@ -88,7 +88,11 @@ describe('pollReportCsv', () => {
     await Promise.resolve();
     await Promise.resolve();
 
-    expect(onError).toHaveBeenCalledWith('Invalid dates');
+    expect(onError).toHaveBeenCalledWith({
+      reason: 'validation',
+      message: 'Invalid dates',
+      status: 422
+    });
     expect(onReady).not.toHaveBeenCalled();
   });
 
@@ -117,7 +121,10 @@ describe('pollReportCsv', () => {
     await Promise.resolve();
     await Promise.resolve();
 
-    expect(onError).toHaveBeenCalledWith('Timed out waiting for report generation');
+    expect(onError).toHaveBeenCalledWith({
+      reason: 'timeout',
+      message: 'Timed out waiting for report generation'
+    });
     expect(onReady).not.toHaveBeenCalled();
   });
 

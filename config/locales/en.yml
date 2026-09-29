@@ -2238,6 +2238,8 @@ en:
     generating: Generating…
     ready: Ready
     error: Failed
+    timeout: Still processing…
+    retry: Check again
     download: Download
     dismiss: Dismiss
     new_downloads: You have new downloads.

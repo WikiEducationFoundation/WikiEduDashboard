@@ -106,6 +106,29 @@ nav.top-nav .top-nav__login-links .downloads-bell
 .downloads-list__item--error .downloads-list__status
   color warning
 
+.downloads-list__item--timeout .downloads-list__status
+  color manatee
+  display inline-flex
+  align-items center
+  gap 6px
+
+.downloads-list__retry-button
+  display inline-block
+  white-space nowrap
+  padding 2px 6px
+  font-size 11px
+  background-color sprout
+  border 1px solid sprout
+  color white
+  border-radius 3px
+  cursor pointer
+  line-height 1.2
+  transition background-color 0.2s
+
+  &:hover
+    background-color darken(sprout, 10%)
+    border-color darken(sprout, 10%)
+
 .downloads-list__dismiss
   display inline-flex
   align-items center

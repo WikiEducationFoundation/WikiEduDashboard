@@ -1592,6 +1592,8 @@ es:
     generating: Generando…
     ready: Listo
     error: Falló
+    timeout: Procesando todavía…
+    retry: Comprobar de nuevo
     download: Descargar
     dismiss: Descartar
     new_downloads: Tienes nuevas descargas.

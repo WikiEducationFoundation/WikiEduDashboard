@@ -62,8 +62,14 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
         stopExport();
         triggerDownload(data.url);
       },
-      onError: (errorMsg) => {
-        stopExport(errorMsg || I18n.t('system_stats.filters.fetch_error'));
+      onError: (err) => {
+        if (err?.reason === 'timeout') {
+          stopExport(I18n.t('system_stats.filters.still_processing'));
+        } else if (err?.reason === 'validation') {
+          stopExport(err.message || I18n.t('system_stats.filters.fetch_error'));
+        } else {
+          stopExport(I18n.t('system_stats.filters.fetch_error'));
+        }
       },
       onGenerating: () => {
         setNotice(I18n.t('system_stats.filters.generation_queued'));

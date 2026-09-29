@@ -1005,6 +1005,8 @@ qqq:
     error: |-
       Status label indicating that file generation failed
       {{Identical|Failed}}
+    timeout: Status label indicating a download is still being processed after the initial polling window
+    retry: Action button to check again if a processing download is ready
     download: |-
       Action button to download the generated file
       {{Identical|Download}}

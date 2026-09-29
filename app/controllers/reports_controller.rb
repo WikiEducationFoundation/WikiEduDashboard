@@ -64,7 +64,13 @@ class ReportsController < ApplicationController
   end
 
   def campaign_all_csv
-    csv_of('campaign_all')
+    filename = build_filename('campaign_all')
+    if ReportCsvStore.exists?(filename)
+      render_ready_report(filename)
+    else
+      enqueue_campaign_all_jobs(filename)
+      render_generating_report
+    end
   end
 
   def campaign_wikidata_csv
@@ -191,16 +197,37 @@ class ReportsController < ApplicationController
     request.format.json? || request.headers['Accept']&.include?('application/json')
   end
 
+  def enqueue_campaign_all_jobs(filename)
+    enqueue_constituent_csv('campaign_students')
+    enqueue_constituent_csv('campaign_students', with_course: true)
+    enqueue_constituent_csv('campaign_instructors', with_course: true)
+    enqueue_constituent_csv('campaign_courses')
+    enqueue_constituent_csv('campaign_articles')
+    ReportCsvWorker.generate_csv(
+      source: @campaign, filename:, type: 'campaign_all', include_course: nil
+    )
+  end
+
+  def enqueue_constituent_csv(type, with_course: false)
+    constituent_name = build_filename(type, with_course:)
+    return if ReportCsvStore.exists?(constituent_name)
+
+    ReportCsvWorker.generate_csv(
+      source: @campaign, filename: constituent_name, type:, include_course: with_course
+    )
+  end
+
   # Builds the filename for a report of the given type, based on wether @course is defined
   # or @campaign is defined
-  def build_filename(type)
+  def build_filename(type, with_course: nil)
     # Filename does not have to contain '/' char because it's interpreted as a route
     return "#{@course.slug}-#{type}-#{Time.zone.today}.csv".tr('/', '-') if course_report?(type)
     if type == 'campaign_all'
       return "#{@campaign.slug}-campaign-data-#{Time.zone.today}.zip".tr('/', '-')
     end
 
-    include_course_segment = csv_params[:course] ? '-with_courses' : ''
+    include_courses = with_course.nil? ? csv_params[:course] : with_course
+    include_course_segment = include_courses ? '-with_courses' : ''
     "#{@campaign.slug}-#{type}#{include_course_segment}-#{Time.zone.today}.csv".tr('/', '-')
   end
 

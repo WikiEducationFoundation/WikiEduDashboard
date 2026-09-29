@@ -27,9 +27,21 @@ class ReportCsvWorker
 
   def perform(id, filename, type, include_course, filters_json = '{}')
     parsed_filters = JSON.parse(filters_json).symbolize_keys
-    data = report_data(type, id, include_course, parsed_filters)
-    write_csv(filename, data)
+    if type == 'campaign_all'
+      write_campaign_zip(id, filename)
+    else
+      data = report_data(type, id, include_course, parsed_filters)
+      write_csv(filename, data)
+    end
     CsvCleanupWorker.perform_at(1.week.from_now, filename)
+  end
+
+  def write_campaign_zip(campaign_id, filename)
+    Tempfile.create(['campaign_zip', '.zip']) do |tempfile|
+      tempfile.close
+      stream_campaign_zip(campaign_id, tempfile.path)
+      write_csv(filename, tempfile)
+    end
   end
 
   def to_campaign_csv(type, campaign_id, include_course)
@@ -50,19 +62,28 @@ class ReportCsvWorker
     end
   end
 
-  def to_campaign_zip(campaign_id)
+  def to_campaign_zip(campaign_id, output_path = nil)
+    if output_path
+      stream_campaign_zip(campaign_id, output_path)
+    else
+      Tempfile.create(['campaign_zip', '.zip']) do |tempfile|
+        tempfile.close
+        stream_campaign_zip(campaign_id, tempfile.path)
+        File.binread(tempfile.path)
+      end
+    end
+  end
+
+  def stream_campaign_zip(campaign_id, output_path)
     campaign = Campaign.find(campaign_id)
     builder = CampaignCsvBuilder.new(campaign)
     csv_entries = campaign_zip_entries(campaign, builder)
 
-    Tempfile.create(['campaign_zip', '.zip']) do |tempfile|
-      Zip::OutputStream.open(tempfile.path) do |zip|
-        csv_entries.each do |entry_name, store_name, generator|
-          zip.put_next_entry(entry_name)
-          zip.write(fetch_or_build_csv(store_name, generator))
-        end
+    Zip::OutputStream.open(output_path) do |zip|
+      csv_entries.each do |entry_name, store_name, generator|
+        zip.put_next_entry(entry_name)
+        zip.write(fetch_or_build_csv(store_name, generator))
       end
-      File.binread(tempfile.path)
     end
   end
 

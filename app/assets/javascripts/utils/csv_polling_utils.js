@@ -4,6 +4,8 @@ export const DEFAULT_MAX_POLL_ATTEMPTS = 20;
 /**
  * Polls a report CSV endpoint that follows the { status, url } JSON / 202 contract.
  * Uses recursive setTimeout to prevent overlapping requests.
+ * Reports structured error objects with reason ('timeout', 'validation', 'server', 'network')
+ * so callers can present appropriate localized messages.
  *
  * @param {string} url - The report URL to poll
  * @param {object} callbacks - { onReady, onError, onGenerating }
@@ -41,12 +43,12 @@ export const pollReportCsv = (url, callbacks = {}, options = {}) => {
 
       if (response.status === 422) {
         const data = await response.json().catch(() => ({}));
-        if (onError) onError(data.error || 'Validation error');
+        if (onError) onError({ reason: 'validation', message: data.error, status: 422 });
         return;
       }
 
       if (!response.ok && response.status !== 202) {
-        if (onError) onError('Server error');
+        if (onError) onError({ reason: 'server', status: response.status, message: 'Server error' });
         return;
       }
 
@@ -62,11 +64,11 @@ export const pollReportCsv = (url, callbacks = {}, options = {}) => {
         if (onGenerating) onGenerating(data);
         timerId = setTimeout(poll, intervalMs);
       } else if (onError) {
-        onError('Timed out waiting for report generation');
+        onError({ reason: 'timeout', message: 'Timed out waiting for report generation' });
       }
     } catch (err) {
       if (cancelled) return;
-      if (onError) onError(err.message || 'Network error');
+      if (onError) onError({ reason: 'network', message: err.message || 'Network error' });
     }
   };
 

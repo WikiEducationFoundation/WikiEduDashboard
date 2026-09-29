@@ -95,7 +95,7 @@ describe('download actions', () => {
       });
     });
 
-    test('dispatches updateDownload with error status when polling fails', () => {
+    test('dispatches updateDownload with timeout status when polling times out', () => {
       let capturedCallbacks;
       jest.spyOn(csvPollingUtils, 'pollReportCsv').mockImplementation((_url, callbacks) => {
         capturedCallbacks = callbacks;
@@ -108,14 +108,60 @@ describe('download actions', () => {
         label: 'Test Campaign — Students'
       }));
 
-      // Trigger onError callback
-      capturedCallbacks.onError('Generation failed');
+      // Trigger onError with timeout
+      capturedCallbacks.onError({ reason: 'timeout' });
 
       const actions = store.getActions();
       expect(actions[1]).toEqual({
         type: UPDATE_DOWNLOAD,
         id: 'campaign-2-students',
+        changes: { status: 'timeout' }
+      });
+    });
+
+    test('dispatches updateDownload with error status when polling encounters server error', () => {
+      let capturedCallbacks;
+      jest.spyOn(csvPollingUtils, 'pollReportCsv').mockImplementation((_url, callbacks) => {
+        capturedCallbacks = callbacks;
+        return jest.fn();
+      });
+
+      store.dispatch(startDownload({
+        id: 'campaign-2-students-err',
+        href: '/campaigns/test/students',
+        label: 'Test Campaign — Students'
+      }));
+
+      // Trigger onError with server error
+      capturedCallbacks.onError({ reason: 'server', status: 500 });
+
+      const actions = store.getActions();
+      expect(actions[1]).toEqual({
+        type: UPDATE_DOWNLOAD,
+        id: 'campaign-2-students-err',
         changes: { status: 'error' }
+      });
+    });
+
+    test('updates existing download to pending on retry instead of adding duplicate', () => {
+      jest.spyOn(csvPollingUtils, 'pollReportCsv').mockReturnValue(jest.fn());
+      const storeWithExisting = mockStore({
+        downloads: {
+          items: [{ id: 'campaign-retry', status: 'timeout', label: 'Retry Item' }]
+        }
+      });
+
+      storeWithExisting.dispatch(startDownload({
+        id: 'campaign-retry',
+        href: '/campaigns/test/retry',
+        label: 'Retry Item'
+      }));
+
+      const actions = storeWithExisting.getActions();
+      expect(actions[0]).toEqual({
+        type: UPDATE_DOWNLOAD,
+        id: 'campaign-retry',
+        changes: { status: 'pending' }
       });
     });
 
