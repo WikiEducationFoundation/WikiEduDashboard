@@ -30,8 +30,13 @@ class S3ReportCsvStore
     false
   end
 
+  def read(filename)
+    @client.get_object(bucket: @bucket, key: filename).body.read
+  end
+
   def write(filename, data)
-    @client.put_object(bucket: @bucket, key: filename, body: data, content_type: 'text/csv')
+    content_type = filename.end_with?('.zip') ? 'application/zip' : 'text/csv'
+    @client.put_object(bucket: @bucket, key: filename, body: data, content_type:)
   end
 
   def url_for(filename)

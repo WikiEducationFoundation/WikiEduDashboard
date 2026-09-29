@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { pollReportCsv } from '../../utils/csv_polling_utils';
 
 const COURSE_TYPES = [
   { value: 'ClassroomProgramCourse', label: 'Classroom Program' },
@@ -43,60 +44,36 @@ const SystemCsvExportBar = ({ campaigns = [], wikis = [] }) => {
 
   useEffect(() => {
     return () => {
-      if (timerRef.current) clearTimeout(timerRef.current);
+      if (timerRef.current) timerRef.current();
     };
   }, []);
 
   const isExporting = exportingTab !== null;
 
   const startExportPoll = (exportUrl) => {
-    let attempts = 0;
-    // 20 attempts × 6 s = 120 s (2 min) polling window
-    const maxAttempts = 20;
-
     const stopExport = (noticeMsg = null) => {
-      if (timerRef.current) clearTimeout(timerRef.current);
+      if (timerRef.current) timerRef.current();
       setExportingTab(null);
       setNotice(noticeMsg);
     };
 
-    const poll = () => {
-      attempts += 1;
-      fetch(exportUrl, { headers: { Accept: 'application/json' } })
-        .then(resp => resp.json().then(data => ({ resp, data })))
-        .then(({ resp, data }) => {
-          if (resp.status === 422) {
-            stopExport(data.error || I18n.t('system_stats.filters.fetch_error'));
-            return;
-          }
-          if (!resp.ok && resp.status !== 202) {
-            stopExport(I18n.t('system_stats.filters.fetch_error'));
-            return;
-          }
-          if (data.status === 'ready') {
-            stopExport();
-            triggerDownload(data.url);
-            return;
-          }
-          if (attempts < maxAttempts) {
-            setNotice(I18n.t('system_stats.filters.generation_queued'));
-            timerRef.current = setTimeout(poll, 6000);
-          } else {
-            stopExport(I18n.t('system_stats.filters.still_processing'));
-          }
-        })
-        .catch(err => {
-          console.error(err);
-          stopExport(I18n.t('system_stats.filters.fetch_error'));
-        });
-    };
-
-    poll();
+    timerRef.current = pollReportCsv(exportUrl, {
+      onReady: (data) => {
+        stopExport();
+        triggerDownload(data.url);
+      },
+      onError: (errorMsg) => {
+        stopExport(errorMsg || I18n.t('system_stats.filters.fetch_error'));
+      },
+      onGenerating: () => {
+        setNotice(I18n.t('system_stats.filters.generation_queued'));
+      }
+    });
   };
 
   const startExport = (tab, exportUrl) => {
     if (isExporting) return;
-    if (timerRef.current) clearTimeout(timerRef.current);
+    if (timerRef.current) timerRef.current();
     setExportingTab(tab);
     setNotice(null);
     startExportPoll(exportUrl);

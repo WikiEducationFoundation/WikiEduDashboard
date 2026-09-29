@@ -99,7 +99,7 @@ class ReportsController < ApplicationController
     filename = "all-courses-and-instructors-#{Time.zone.today}.csv"
 
     if ReportCsvStore.exists?(filename)
-      redirect_to ReportCsvStore.url_for(filename), allow_other_host: true
+      render_ready_report(filename)
     else
       ReportCsvWorker.generate_csv(
         source: nil,
@@ -107,7 +107,7 @@ class ReportsController < ApplicationController
         type: 'all_courses_and_instructors',
         include_course: nil
       )
-      render plain: 'This file is being generated. Please try again shortly.', status: :ok
+      render_generating_report
     end
   end
 
@@ -163,12 +163,32 @@ class ReportsController < ApplicationController
   def csv_of(type)
     filename = build_filename(type)
     if ReportCsvStore.exists?(filename)
-      redirect_to ReportCsvStore.url_for(filename), allow_other_host: true
+      render_ready_report(filename)
     else
       ReportCsvWorker.generate_csv(source: @course || @campaign, filename:, type:,
                                    include_course: csv_params[:course])
+      render_generating_report
+    end
+  end
+
+  def render_ready_report(filename)
+    if json_request?
+      render json: { status: 'ready', url: ReportCsvStore.url_for(filename) }
+    else
+      redirect_to ReportCsvStore.url_for(filename), allow_other_host: true
+    end
+  end
+
+  def render_generating_report
+    if json_request?
+      render json: { status: 'generating' }, status: :accepted
+    else
       render plain: 'This file is being generated. Please try again shortly.', status: :ok
     end
+  end
+
+  def json_request?
+    request.format.json? || request.headers['Accept']&.include?('application/json')
   end
 
   # Builds the filename for a report of the given type, based on wether @course is defined

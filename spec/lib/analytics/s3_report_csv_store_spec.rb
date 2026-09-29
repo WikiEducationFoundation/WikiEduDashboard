@@ -20,10 +20,27 @@ describe S3ReportCsvStore do
   end
 
   describe '#write' do
-    it 'uploads the report to the bucket' do
+    it 'uploads the CSV report to the bucket with text/csv' do
       expect(client).to receive(:put_object)
         .with(bucket: 'reports', key: filename, body: 'data', content_type: 'text/csv')
       store.write(filename, 'data')
+    end
+
+    it 'uploads the ZIP archive to the bucket with application/zip' do
+      zip_filename = 'campaign-data.zip'
+      expect(client).to receive(:put_object)
+        .with(bucket: 'reports', key: zip_filename, body: 'data', content_type: 'application/zip')
+      store.write(zip_filename, 'data')
+    end
+  end
+
+  describe '#read' do
+    it 'reads the object body from the bucket' do
+      body = StringIO.new('report_content')
+      response = instance_double(Aws::S3::Types::GetObjectOutput, body:)
+      allow(client).to receive(:get_object)
+        .with(bucket: 'reports', key: filename).and_return(response)
+      expect(store.read(filename)).to eq('report_content')
     end
   end
 

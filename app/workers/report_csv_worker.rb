@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'tempfile'
 require 'zip'
 require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
@@ -52,20 +53,48 @@ class ReportCsvWorker
   def to_campaign_zip(campaign_id)
     campaign = Campaign.find(campaign_id)
     builder = CampaignCsvBuilder.new(campaign)
-    csv_files = {
-      'students.csv' => campaign.users_to_csv(:students),
-      'students-by-course.csv' => campaign.users_to_csv(:students, course: true),
-      'instructors-by-course.csv' => campaign.users_to_csv(:instructors, course: true),
-      'courses.csv' => builder.courses_to_csv,
-      'pages-edited.csv' => builder.articles_to_csv
-    }
+    csv_entries = campaign_zip_entries(campaign, builder)
 
-    Zip::OutputStream.write_buffer do |zip|
-      csv_files.each do |filename, data|
-        zip.put_next_entry(filename)
-        zip.write(data)
+    Tempfile.create(['campaign_zip', '.zip']) do |tempfile|
+      Zip::OutputStream.open(tempfile.path) do |zip|
+        csv_entries.each do |entry_name, store_name, generator|
+          zip.put_next_entry(entry_name)
+          zip.write(fetch_or_build_csv(store_name, generator))
+        end
       end
-    end.string
+      File.binread(tempfile.path)
+    end
+  end
+
+  def campaign_zip_entries(campaign, builder)
+    [
+      ['students.csv', campaign_csv_name(campaign, 'campaign_students'),
+       -> { campaign.users_to_csv(:students) }],
+      ['students-by-course.csv',
+       campaign_csv_name(campaign, 'campaign_students', course: true),
+       -> { campaign.users_to_csv(:students, course: true) }],
+      ['instructors-by-course.csv',
+       campaign_csv_name(campaign, 'campaign_instructors', course: true),
+       -> { campaign.users_to_csv(:instructors, course: true) }],
+      ['courses.csv', campaign_csv_name(campaign, 'campaign_courses'),
+       -> { builder.courses_to_csv }],
+      ['pages-edited.csv', campaign_csv_name(campaign, 'campaign_articles'),
+       -> { builder.articles_to_csv }]
+    ]
+  end
+
+  def campaign_csv_name(campaign, type, course: false)
+    course_segment = course ? '-with_courses' : ''
+    "#{campaign.slug}-#{type}#{course_segment}-#{Time.zone.today}.csv".tr('/', '-')
+  end
+
+  def fetch_or_build_csv(filename, generator)
+    return ReportCsvStore.read(filename) if ReportCsvStore.exists?(filename)
+
+    data = generator.call
+    ReportCsvStore.write(filename, data)
+    CsvCleanupWorker.perform_at(1.week.from_now, filename)
+    data
   end
 
   def to_course_csv(type, course_id)

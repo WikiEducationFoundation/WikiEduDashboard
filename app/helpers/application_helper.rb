@@ -41,9 +41,7 @@ module ApplicationHelper
   def css_fingerprinted(filename)
     manifest_path = "#{Rails.root}/public/assets/javascripts/manifest.json"
     manifest = Oj.load(File.read(File.expand_path(manifest_path, __FILE__)))
-    entry = manifest[filename]
-    entry ||= manifest[filename.sub('rtl-', '')] if filename.start_with?('rtl-')
-    entry&.split('/')&.last || filename
+    manifest[filename].split('/').last
   end
 
   def en_if_invalid(locale)

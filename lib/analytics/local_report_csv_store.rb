@@ -13,6 +13,10 @@ class LocalReportCsvStore
     File.exist? path_for(filename)
   end
 
+  def read(filename)
+    File.binread path_for(filename)
+  end
+
   def write(filename, data)
     FileUtils.mkdir_p @directory
     File.binwrite path_for(filename), data
