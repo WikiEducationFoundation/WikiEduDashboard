@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 # The obfuscated title and school are what keep a privacy-mode course anonymous,
-# and its slug is already published on-wiki, so neither can be edited.
+# so neither can be edited. The term can, and the slug follows it.
 describe 'Renaming a privacy-mode course', type: :request do
   let(:course) do
     create(:course, title: obfuscated_title, school: obfuscated_school, term: 'Fall 2026',
@@ -35,6 +35,16 @@ describe 'Renaming a privacy-mode course', type: :request do
         params: { id: course.slug, course: { title: 'Introduction to Biology',
                                              school: 'State University' } }
     expect(course.reload.slug).to eq(obfuscated_slug('Fall 2026'))
+  end
+
+  # The clone modal submits the unchanged title and school along with the new
+  # term, then redirects to the slug it builds from them.
+  it 'moves the slug to a new term when title and school are unchanged' do
+    put "/courses/#{course.slug}.json",
+        params: { id: course.slug, course: { title: obfuscated_title, school: obfuscated_school,
+                                             term: 'Spring 2027' } }
+    expect(response).to have_http_status(:success)
+    expect(course.reload.slug).to eq(obfuscated_slug('Spring 2027'))
   end
 
   it 'still allows edits to fields that are not confidential' do

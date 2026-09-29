@@ -87,6 +87,26 @@ describe 'Privacy-mode course confidentiality', type: :request do
     it 'leaks no confidential value from any course endpoint' do
       expect_no_sentinels_from(endpoints)
     end
+
+    # Only the instructor's identity is confidential. The roster the instructor
+    # grades from still needs their students' names.
+    it 'still shows the instructor their students\' real names' do
+      CoursesUsers.find_by(course:, user: student).update(real_name: 'Stu Dent')
+      get "/courses/#{course.slug}/users.json"
+      users = JSON.parse(response.body)['course']['users']
+      expect(users.find { |u| u['username'] == 'Student' }['real_name']).to eq('Stu Dent')
+    end
+  end
+
+  context 'when signed in as an admin' do
+    before { login_as create(:admin, username: 'Admin') }
+
+    it 'shows the instructor\'s real name' do
+      get "/courses/#{course.slug}/users.json"
+      users = JSON.parse(response.body)['course']['users']
+      expect(users.find { |u| u['username'] == 'Instructor' }['real_name'])
+        .to eq('ZZNAMESENTINEL')
+    end
   end
 
   it 'does not surface the course in a search for the real institution' do

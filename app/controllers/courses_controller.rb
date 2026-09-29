@@ -308,8 +308,10 @@ class CoursesController < ApplicationController
                                                instructor:) if instructor
   end
 
+  # A privacy-mode course reaches this only with its stored title and school
+  # (see #reject_rename_of_confidential_course), so its slug is rebuilt from the
+  # obfuscated stand-ins and can still follow a new term, as a clone's must.
   def should_set_slug?
-    return false if @course&.confidential?
     %i[title school].all? { |key| params[:course].key?(key) }
   end
 
@@ -321,9 +323,8 @@ class CoursesController < ApplicationController
   end
 
   # The obfuscated title and school of a privacy-mode course are what keep it
-  # anonymous, so editing them would deanonymize the course — and the slug,
-  # which is already published on-wiki, cannot follow along anyway. Admins
-  # change the real values through ConfidentialCourseDetailsController instead.
+  # anonymous, so editing them would deanonymize the course. Admins change the
+  # real values through ConfidentialCourseDetailsController instead.
   def reject_rename_of_confidential_course
     return unless @course.confidential?
     return unless renaming?(:title) || renaming?(:school)
