@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from '../common/modal.jsx';
 import request from '../../utils/request';
@@ -109,8 +109,9 @@ const ExperimentOptInInvitation = ({ course, current_user }) => {
   // Students often get stuck on the install step, so it leaves the site nav
   // (FAQ search) and the course nav (Get Help button) usable: the overlay starts
   // below the course nav, and the body class lifts the course nav above the
-  // overlay so the Get Help dropdown is not hidden behind it.
-  useEffect(() => {
+  // overlay so the Get Help dropdown is not hidden behind it. A layout effect,
+  // so the overlay is never painted over the nav before it is measured.
+  useLayoutEffect(() => {
     if (phase !== 'install') return undefined;
     const body = document.querySelector('body');
     const measure = () => {
