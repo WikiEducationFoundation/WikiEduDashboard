@@ -7,6 +7,8 @@ require_dependency "#{Rails.root}/lib/training/training_resource_query_object"
 class TrainingController < ApplicationController
   layout 'training'
   before_action :init_query_object, only: :index
+  include CourseHelper
+  include CourseFromReturnTo
 
   def index
     if @search
@@ -42,15 +44,14 @@ class TrainingController < ApplicationController
   def slide_view
     training_module = TrainingModule.find_by(slug: params[:module_id])
     raise ActionController::RoutingError, 'not found' if training_module.nil?
+    @training_module_name = training_module.translated_name
     if current_user
       @tmu = TrainingModulesUsers.find_or_create_by(
         user_id: current_user.id,
         training_module_id: training_module.id
       )
-      @training_module_name = training_module.name
+      find_recent_course if Features.enable_get_help_button?
     end
-    add_training_root_breadcrumb
-    add_module_breadcrumb(training_module)
   end
 
   def reload
@@ -81,6 +82,11 @@ class TrainingController < ApplicationController
 
   def add_training_root_breadcrumb
     add_breadcrumb I18n.t('training.training_library'), :training_path
+  end
+
+  def find_recent_course
+    @course = course_from_return_to || current_user.recent_course
+    @course_slug = @course&.slug
   end
 
   def add_library_breadcrumb

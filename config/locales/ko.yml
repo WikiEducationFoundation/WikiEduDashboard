@@ -1383,9 +1383,6 @@ ko:
   status:
     active_jobs: 활성 작업
     active_jobs_doc: 현재 처리 중인 작업 수입니다.
-    acuwt_update: ACUWT 업데이트
-    acuwt_update_description: 수 천개의 문서를 가진 ACUWT 업데이트 프로세스 문서 범위 집중 프로그램 과정입니다.
-    acuwt_update_doc: 큰 문서 범위 집중 프로그램 과정에 대한 업데이트를 처리합니다.
     all_queues_operational: 모든 대기열 정상 작동 중
     all_queues_not_operational: 다음 외의 모든 대기열 정상 작동 중
     constant_update: 지속적인 업데이트

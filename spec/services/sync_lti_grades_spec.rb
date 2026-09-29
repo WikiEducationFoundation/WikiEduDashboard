@@ -492,6 +492,17 @@ describe SyncLtiGrades do
     expect(WebMock).not_to have_requested(:post, /scores/)
   end
 
+  # No AGS under LTI 1.1 and no passback by design: guarded by version, so a
+  # legacy binding with credentials and a bound course still pushes nothing —
+  # and records no sync, since none ran.
+  it 'is a no-op for a legacy (LTI 1.1) binding' do
+    binding.update!(lti_version: '1.2.0')
+    described_class.new(binding)
+    expect(WebMock).not_to have_requested(:get, %r{/api/lineitems})
+    expect(WebMock).not_to have_requested(:post, /scores/)
+    expect(binding.reload.last_grade_sync_at).to be_nil
+  end
+
   # A 422 that isn't the membership-gone case is a permanent rejection of one
   # student's score: skip it, report it, keep going.
   def stub_rejected_score(lineitem_url)

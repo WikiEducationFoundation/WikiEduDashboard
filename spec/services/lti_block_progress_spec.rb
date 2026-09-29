@@ -154,4 +154,25 @@ describe LtiBlockProgress do
       expect(described_class.new(block, user).gradable?).to be(false)
     end
   end
+
+  describe 'with the block\'s modules preloaded' do
+    let(:block) do
+      create(:block, week: week, order: 2, title: 'Bibliography',
+                     training_module_ids: [training_module.id, exercise_module.id])
+    end
+
+    it 'grades from the given modules instead of resolving them again' do
+      tmu = TrainingModulesUsers.create!(user: user, training_module: exercise_module)
+      tmu.mark_completion(true, course.id)
+      tmu.save!
+      allow(block).to receive(:training_modules).and_call_original
+
+      modules = [training_module, exercise_module]
+      progress = described_class.new(block, user, completions: { exercise_module.id => tmu },
+                                                  training_modules: modules)
+
+      expect(progress.score_given).to eq(1.0)
+      expect(block).not_to have_received(:training_modules)
+    end
+  end
 end

@@ -48,6 +48,8 @@
     .experiment-opt-in__copy-button
       flex-shrink 0
       min-width 90px
+  .experiment-opt-in__help
+    margin-top 15px
   .experiment-opt-in__not-found
     font-weight bold
     margin-top 15px
@@ -56,3 +58,14 @@
     text-align right
     .button
       margin-left 10px
+
+// The install step's overlay starts below the course nav (its `top` is set
+// inline from the nav's measured height), so it needs less top padding.
+.wizard.experiment-opt-in--install
+  padding-top 30px
+
+// Lifts the course nav above the install step's overlay, so the Get Help
+// dropdown opens over it rather than behind it. When affixed, the nav already
+// has a higher z-index.
+body.experiment-install-open .course_navigation:not(.affix)
+  z-index 12

@@ -1731,11 +1731,6 @@ ga:
   status:
     active_jobs: Poist ghníomhacha
     active_jobs_doc: Líon na bpost atá á bpróiseáil faoi láthair.
-    acuwt_update: Nuashonrú ACUWT
-    acuwt_update_description: Nuashonraíonn ACUWT cúrsaí cláir atá faoi raon feidhme
-      alt an phróisis le mílte alt.
-    acuwt_update_doc: Láimhseáil nuashonruithe do chúrsaí cláir a bhfuil raon leathan
-      alt iontu.
     all_queues_operational: Gach Scuaine ag Oibriú
     all_queues_not_operational: Gach Scuaine ag Obair seachas
     constant_update: Nuashonrú leanúnach

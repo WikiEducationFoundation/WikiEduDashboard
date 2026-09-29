@@ -46,16 +46,31 @@ class ScheduleCourseUpdates
     courses_to_update.each do |course|
       next if course_ids_to_skip.include? course.id
 
-      queue = queue_for(course)
-      log_message "Set course #{course.slug} to queue #{queue}"
-      CourseDataUpdateWorker.update_course(course_id: course.id, queue:)
-
-      # if course isn't updated before, add first update flags.
-      # This course object was loaded at the start of the pass, so write the
-      # flag through add_flag rather than saving the stale copy wholesale.
-      next if course.flags[:first_update] || course.flags['update_logs']
-      course.add_flag(key: :first_update, value: first_update_flags(course))
+      enqueue_course_update(course)
+    rescue StandardError => e
+      report_enqueue_failure(course, e)
     end
+  end
+
+  def enqueue_course_update(course)
+    queue = queue_for(course)
+    log_message "Set course #{course.slug} to queue #{queue}"
+    CourseDataUpdateWorker.update_course(course_id: course.id, queue:)
+
+    # if course isn't updated before, add first update flags.
+    # This course object was loaded at the start of the pass, so write the
+    # flag through add_flag rather than saving the stale copy wholesale.
+    return if course.flags[:first_update] || course.flags['update_logs']
+    course.add_flag(key: :first_update, value: first_update_flags(course))
+  end
+
+  # One course must not cost the rest of the pass: `add_flag` raises when the
+  # course arrives with unsaved changes, and that used to abort the whole loop,
+  # leaving every course after it unqueued.
+  def report_enqueue_failure(course, error)
+    log_message "Failed to enqueue course #{course.slug}: #{error.message}"
+    Sentry.capture_exception error, extra: { course_id: course.id, slug: course.slug,
+                                             changed: course.changed }
   end
 
   def latency(queue)

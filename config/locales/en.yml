@@ -88,6 +88,7 @@ en:
     change: Change
     details: Details
     confirm: OK
+    confirm_generic: Are you sure you want to do this?
     opt_in: "Yes"
     opt_out: "No"
     opt_yes: "yes"
@@ -225,7 +226,8 @@ en:
       articles_created: "Articles Created"
       articles_improved: "Articles Improved"
       characters_added: "Characters Added"
-      new_editors: "New Editors"
+      new_editors: "New Editors (60-day pre-registration)"
+      retained_new_editors: "Retained Editors"
       active_programs: "Active Programs"
       active_facilitators: "Active Facilitators"
     charts:
@@ -238,13 +240,15 @@ en:
       edits: "Edits"
       programs: "Programs"
       articles_created: "Articles Created"
-      new_editors: "New Editors"
+      new_editors: "New Editors (60-day pre-registration)"
+      retained_new_editors: "Retained Editors"
     facilitators:
       title: "Facilitator Leaderboard"
       username: "Username"
       courses: "Courses"
       active: "Active"
       students: "Students"
+      retained_new_editors: "Retained Editors"
       active_in_year: "Active in Year"
       "yes": "Yes"
       "no": "No"
@@ -853,6 +857,7 @@ en:
       exists: That course already exists! Please try again with a different title, school, or term.
       user_exists: "Sorry, %{username} is not an existing user."
       user_exists_on_wiki: "Sorry, %{username} is not an existing user on %{domain}."
+      management_role_not_authorized: Only course instructors can add or remove a user in that role.
       invalid_language_or_project: Invalid language/project
       invalid_wiki: "Cannot connect to %{domain}. It may not be a valid wiki."
       duplicate_course_slug: "The URL %{slug} is already taken. Please change the title, school, or term."
@@ -1074,7 +1079,7 @@ en:
       if you don't want templates added to user pages, the talk pages of assigned articles, etc.
     wiki_staff: Wiki Education Staff
     withdrawn: Did not do assignment
-    word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term
+    word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term. (Wikidata edits are not included.)
     word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the course's students during the course term
     yourcourses: Your Courses
     declined_note: "This course has been declined. Please contact Wiki Education staff if you have questions."
@@ -1233,7 +1238,7 @@ en:
     user_uploads_none: Selected users have not contributed any images or other media files to this project.
     view_other: View other campaigns
     view_page: View Page
-    word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term
+    word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term. (Wikidata edits are not included.)
     word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the program's editors during the program term
     yourcourses: Your Programs
 
@@ -1728,6 +1733,23 @@ en:
     week_number: "Week %{number}"
     add_block: Add Block
     delete_week: Delete Week
+    add_standard_block: Add Standard Block
+    standard_blocks: Standard Blocks
+    standard_block_add: Add
+    standard_block_filter: Filter blocks
+    standard_block_matches: Matches
+    standard_block_does_not_match: Does not match
+    standard_block_match_unknown: Unknown
+    standard_block_already_added: Already in timeline
+    sandbox_mode: Sandbox Mode
+    sandbox_mode_current_sandboxes: Drafting in sandboxes
+    sandbox_mode_current_live: Editing live articles
+    sandbox_mode_switch_to_live: Switch to live editing
+    sandbox_mode_switch_to_sandboxes: Switch to sandboxes
+    sandbox_mode_added: Blocks added
+    sandbox_mode_removed: Blocks removed
+    sandbox_mode_unmatched: "Expected block(s) not found. Title(s) may have been edited."
+    sandbox_mode_unresolved: "These blocks also depend on an unknown wizard answer, and have not been changed."
 
 
   training:
@@ -1973,6 +1995,7 @@ en:
       increased page size. This number doesn't necessarily reflect the
       amount of new content the user added. Restoring removed content
       will also increase this total.
+      (Wikidata edits are not included.)
     chars_added: Characters Added<br>(article | user | draft)
     chars_added_wikidata: Characters Added<br>(item | user | draft)
     contributions: User Contributions
@@ -2079,6 +2102,7 @@ en:
       across all edits that added more than they removed. This number doesn't
       necessarily reflect the amount of new content the user added. Restoring
       removed content will also increase this total.
+      (Wikidata edits are not included.)
     role:
       description: Role in course
       visitor: Visitor
@@ -2429,6 +2453,9 @@ en:
     not_yet_linked: "Your account hasn't been linked to Canvas for this course."
 
   lti:
+    beta_feedback:
+      message: "We welcome feedback about this beta version of our Canvas integration."
+      link: "Send feedback"
     iframe_landing:
       explanation: "Open dashboard.wikiedu.org in a new tab"
       button: "Open the Wiki Education Dashboard"
@@ -2472,9 +2499,14 @@ en:
       # dialog left open past the reservation window, the same items already
       # imported from another tab, or a replayed submission. The instructor's
       # next step is to close and reopen the import dialog.
+      # `unavailable_header` alone is also what a legacy (LTI 1.1) launch sees
+      # if it reaches a deep-linking placement (deep_link_legacy): import is
+      # 1.3-only, and that defensive path carries no copy of its own.
       unavailable_header: Unavailable
       unavailable_explanation: "These items are no longer available to import."
     status:
+      roster:
+        peer_reviews: "Peer reviews"
       header: "Wiki Education Dashboard"
       linked: "Linked"
       refresh: "Refresh"

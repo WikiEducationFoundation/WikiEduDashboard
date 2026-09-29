@@ -24,6 +24,6 @@ describe CourseCsvBuilder do
     data = rows[1]
 
     retained_index = headers.index('retained_new_editors')
-    expect(data[retained_index]).to eq("5")
+    expect(data[retained_index]).to eq('5')
   end
 end

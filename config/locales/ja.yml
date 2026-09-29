@@ -8,6 +8,7 @@
 # Author: Bonfire12
 # Author: Chqaz
 # Author: Kkairri
+# Author: Lin Xiangru
 # Author: MagicAho
 # Author: MathXplore
 # Author: MirukuPC
@@ -43,6 +44,7 @@ ja:
   application:
     back: 戻る
     cancel: 中止
+    next: 次へ
     cookie_consent: このサイトでは Cookie を使用してログイン状態を維持し、利用者のウィキペディア アカウントに関連する情報を保存します。
     cookie_consent_acknowledge: 分かりました
     cookie_consent_see_more: 続きを見る。
@@ -52,9 +54,10 @@ ja:
     error: 'エラーが起きました:'
     explore: 探検してみよう
     field_required: このフィールドは必要
-    field_invalid_characters: 向こうな文字があります
+    field_invalid_characters: 無効な文字が含まれています
+    field_invalid_term: 「Spring 2025」のように年を含める必要があります。
     field_invalid_date: YYYY-MM-DD の形式で年月日を入力してください
-    field_invalid_date_time: 終了時間は開始時間よりさかのぼって設定してください (0時間前から23時間前まで)
+    field_invalid_date_time: 終了時刻は開始時刻より後である必要があります。 (0時間前から23時間前まで)
     greeting2: ようこそ!
     greeting_extended: ウィキペディアへようこそ
     greeting: こんにちは!
@@ -64,16 +67,20 @@ ja:
     log_in: ログイン
     log_out: ログアウト
     my_dashboard: 私のダッシュボード
+    okay: OK
     recent_activity: 最近の活動
     report_problem: 問題を報告
-    request_account: アカウントをリクエストする
+    request_account: アカウントの作成をリクエストする
     request_account_create: アカウントを作成してください
     search: 質問をしてみる
     search_results:
       other: '''%{search_terms}''に対して：検索結果は%{count}件'
-    no_results: 「%{query}」で検索しましたがヒットしませんでした
+    no_results: '''%{query}'' に一致する結果は見つかりませんでした。'
     show_current_revision: 現在の版を表示
-    show_last_revision: 最終編集バージョンを表示
+    show_last_revision: 最新の版を表示
+    font_label: フォント
+    font_sans: サンセリフ（ゴシック体）
+    font_serif: セリフ（明朝体）
     sign_up_extended: ウィキペディアに利用者登録
     sign_up_wikipedia: またはWikipediaにサインアップする
     sign_up_log_in_extended: ウィキペディアに
@@ -88,6 +95,7 @@ ja:
     opt_yes: はい
     opt_no: いいえ
     print: 印刷
+    sort: 並べ替え
   article_statuses:
     not_yet_started: はじめに
     in_progress: サンドボックスで作業する
@@ -126,6 +134,14 @@ ja:
       までメールで連絡してください。
   alerts:
     alert_label: 通知
+  system_stats:
+    filters:
+      export_csv: CSVをエクスポート
+      export_daily_csv: 日次統計のCSVをエクスポート
+      generating: エクスポートファイルを生成しています...
+      generation_queued: CSVエクスポートがバックグラウンドで実行されています。再生成しています...
+      still_processing: CSVエクスポートは現在バックグラウンドで進行中です。しばらくしてから再度アクセスし、「エクスポート」をクリックしてください。
+      fetch_error: CSVエクスポートできませんでした。もう一度お試しください。
   activity:
     all: 活動
     edited_by: 編集担当
@@ -176,8 +192,8 @@ ja:
       fa: '%{class}(「秀逸な記事」) - ウィキペディアでの最高ランクの記事。新人の執筆者が取り上げるには、完成度が高すぎるかも知れません'
       fl: '%{class}(「秀逸な一覧」) - ウィキペディアで最高ランクに評価された一覧'
       a: '%{class} クラス — 非常に成長している記事で、新人編集者が主なプロジェクトにするには高度すぎるかもしれません'
-      ga: '%{class} (優秀な記事) — 成長している記事で、新人編集者が主なプロジェクトにするには高度すぎるかもしれません'
-      b: '%{class} クラス — ある程度成長している記事'
+      ga: '%{class} (良質な記事) — 成長している記事で、新人編集者が主なプロジェクトにするには高度すぎるかもしれません'
+      b: '%{class} クラス — （※日本語版ウィキペディアにはなし）'
       c: '%{class} クラス — 改善の余地のある記事'
       start: '%{class}クラス — 改善の余地のある、予備的な記事'
       stub: '%{class}クラス — 内容の加筆が必要な短い記事'
@@ -302,24 +318,24 @@ ja:
     alert_select_label: 通知の書類で絞り込む
     alert_type: 種類
     alert_user_id: 利用者
-    all_campaigns: すべての告知
-    already_exists: このキャンペーンは告知済みです。
-    campaign: 告知
-    campaigns: 告知
-    campaign_deleted: 「%{title}」という告知を除去しました。
-    campaign_not_updated: 告知を更新できませんでした
-    campaign_updated: 告知を更新しました
+    all_campaigns: すべてのキャンペーン
+    already_exists: このキャンペーン名は既に使用されています。別のタイトルを付けてください。
+    campaign: キャンペーン
+    campaigns: キャンペーン
+    campaign_deleted: キャンペーン「%{title}」は削除されました。
+    campaign_not_updated: キャンペーンを更新できませんでした
+    campaign_updated: キャンペーンを更新しました
     created_at: 日付
-    confirm_campaign_deletion: 題名「%{title}」のキャンペーンをほんとうに削除しますか？ 削除してよい場合はキャンペーン名を入力して次へ進みます。
-    confirm_campaign_deletion_failed: 「%{title}」はこのキャンペーンの題名ではありません。キャンペーンは削除されませんでした。
+    confirm_campaign_deletion: キャンペーン「%{title}」を本当に削除しますか？ 削除する場合はキャンペーン名を入力して続行してください。
+    confirm_campaign_deletion_failed: 「%{title}」は削除するキャンペーン名と一致しませんでした。キャンペーンは削除されませんでした。
     confirm_course_removal: ほんとうに「%{title}」を「%{campaign_title}」キャンペーンから削除しますか？
     course_already_removed: 「%{title}」は「%{campaign_title}」キャンペーンから除去済みです。
     course: コース
     course_removed: 「%{title}」を「%{campaign_title}」キャンペーンから削除しました。
-    create_campaign: 新しい告知の作成
-    create_my_campaign: 新しい告知の作成！
+    create_campaign: 新しいキャンペーンの作成
+    create_my_campaign: キャンペーンを作成！
     customize_passcode: 既定のパスコード
-    data_download_info: 告知データをCSVとしてダウンロード
+    data_download_info: キャンペーンのデータをCSVとしてダウンロード
     data_courses: コースの概要データ
     data_courses_info: 各コース・プログラムの基本指標
     data_articles: 編集したページ
@@ -338,7 +354,7 @@ ja:
     default_passcode: 既定のパスコード
     default_passcode_explanation: このキャンペーンでは新規プログラムには既定で以下が求められます。
     description: 説明
-    delete_campaign: この告知を削除
+    delete_campaign: このキャンペーンを削除
     disable_account_requests: アカウント開設を無効にする
     enable_account_requests: アカウント開設を有効にする
     newest_campaigns: 最新のキャンペーン
@@ -352,11 +368,11 @@ ja:
     program_template_tooltip: 主催者がこの告知にプログラムを作成すると、この欄の文は説明としてプログラムページに転写されます
     random_passcode: ランダムパスコード
     requested_accounts: アカウント申請
-    title: 告知名
+    title: キャンペーン名
     too_many_articles: このキャンペーンで編集済み記事の一覧は、長すぎて表示できません。編集済みの記事を確認するには、コース／プログラム／イベントを個別に表示してください。
     slug: 別称
-    search_campaigns: 検索キャンペーン
-    use_start_end_dates: 開始日と終了日を使用
+    search_campaigns: キャンペーンを検索
+    use_start_end_dates: 開始日と終了日を使用する
     search: 検索
   categories:
     add_category: カテゴリを追加
@@ -422,10 +438,10 @@ ja:
       select_meeting_days: クラスでミーティングを開く曜日を選択します。
     cancel: キャンセル
     character_doc: コース期間中に受講者がメインスペースの記事に追加した文字数の合計
-    campaigns: '告知:'
+    campaigns: 'キャンペーン:'
     campaign_articles: '%{title}件の記事'
     campaign_courses: '%{title}コース'
-    campaign_select: 告知を選択
+    campaign_select: キャンペーンを選択
     campaign_users: '%{title}人の編集者'
     confirm_course_deletion: '%{title}という題名のコースを本当に削除しよろしいですか？ よろしければコース名を入力します。'
     confirm_course_deletion_failed: 「%{title}」はこのコースの題名ではありません。コースはまだ削除されていません。
@@ -670,7 +686,7 @@ ja:
     user_recent_uploads: 最近のアップロード
     user_suggestions: '利用者の提案:'
     user_suggestions_prompt: 記事の編集者に対するアドバイス
-    view_other: 他の告知を見る
+    view_other: 他のキャンペーンを見る
     view: コースを見る
     view_doc: 特定の編集者が初めて編集を加えた時点以降の、当該の記事ごとの閲覧総数の推計
     view_page: コースのページを見る
@@ -693,7 +709,7 @@ ja:
   course_instructor_notification:
     send_notification_button_text: 送信
   courses_generic:
-    add_campaign: 告知の追加
+    add_campaign: キャンペーンを追加
     all_courses: すべてのプログラム
     archived: アーカイブされたプログラム
     articles_i_am_reviewing: 自分が査読担当の記事
@@ -707,7 +723,7 @@ ja:
     course: プログラム
     courses: プログラム
     courses_taught: これまでに教えたプログラム
-    campaigns: '告知:'
+    campaigns: 'キャンペーン:'
     campaign_courses: '%{title} プログラム'
     creator:
       assignment_end: イベント終了
@@ -736,7 +752,7 @@ ja:
       find: プログラムを見つける
       intro: プログラムのURLを決める要素はプログラム名と主催者名です。ホームウィキとは、参加者が活動するメインページ（ウィキ）のことで、このウィキで行う編集は既定で記録されます。多言語版や複数プロジェクトのあるプログラムの場合は、「追跡するウィキ」に明確に追加したウィキごとに投稿を記録します。ウィキプログラムのページ作成を始めるには、「プログラムを作成する！」ボタンを押してください。
       new_or_clone: 今すぐ新しいプログラムを作成するか、「複製」オプションを使用して、既に参加した別のプログラムをコピーしてください。
-      participate_in_campaign: 告知に参加する
+      participate_in_campaign: キャンペーンに参加
       save_cloned_course: 保存
       start_date: 活動追跡の開始
       scoping_methods:
@@ -774,7 +790,7 @@ ja:
     unsubmitted: 提供してないプログラム
     uploads_none: このプロジェクトからウィキメディア コモンズに投稿された画像その他のメディアはありません。
     user_uploads_none: 選択した利用者は、このプロジェクトにまだ画像その他のメディア・ファイルを投稿していません。
-    view_other: 他の告知を見る
+    view_other: 他のキャンペーンを見る
     view_page: ページを見る
     word_count_doc: メイン空間の記事に追加された文字数増分の推計のうち、プログラム期間中にプログラムの編集者が加筆した部分
     word_count_doc_wikidata: メイン空間の項目に追加された文字数増分の推計のうち、プログラム期間中にプログラムの編集者が加筆した部分

@@ -15,4 +15,18 @@ describe Features do
       end
     end
   end
+
+  # Legacy (LTI 1.1) launches are opt-in per deployment, on top of the Canvas
+  # integration flag: off unless the env var says exactly 'true'.
+  describe '.lti_legacy_launches?' do
+    it 'is off by default' do
+      allow(ENV).to receive(:[]).with('lti_legacy_launches_enabled').and_return(nil)
+      expect(described_class.lti_legacy_launches?).to eq(false)
+    end
+
+    it 'is on when enabled explicitly' do
+      allow(ENV).to receive(:[]).with('lti_legacy_launches_enabled').and_return('true')
+      expect(described_class.lti_legacy_launches?).to eq(true)
+    end
+  end
 end

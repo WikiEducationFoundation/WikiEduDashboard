@@ -1605,11 +1605,6 @@ nb:
   status:
     active_jobs: Aktive jobber
     active_jobs_doc: Antall jobber som behandles for øyeblikket.
-    acuwt_update: ACUWT-oppdatering
-    acuwt_update_description: ACUWT-oppdateringer prosesserer fokuserte artikkelprogrammer
-      med tusenvis av artikler.
-    acuwt_update_doc: Håndter oppdateringer for fokuserte artikkelprogram-kurs med
-      stort omfang.
     all_queues_operational: Alle køer er i drift
     all_queues_not_operational: Alle køer er i drift unntatt
     constant_update: Konstant oppdatering

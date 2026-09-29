@@ -35,6 +35,19 @@ module LtiLaunchHelper
     none: 'lti-status--pending'
   }.freeze
 
+  # The feedback form, pre-addressed to the Canvas integration with this page's
+  # context, so a report says which view it came from without the writer having
+  # to. `main_subject` is what FeedbackFormResponsesController puts in its
+  # heading; `subject` carries the detail and is stored with the response.
+  def lti_feedback_url
+    detail = [request.path]
+    detail << "LTI #{@binding.lti_version}" if @binding
+    detail << @binding.course.slug if @binding&.course
+    query = { main_subject: 'Canvas integration',
+              subject: "Canvas integration — #{detail.join(', ')}" }.to_query
+    "/feedback?#{query}"
+  end
+
   def lti_progress_pill_class(state)
     PROGRESS_PILL_CLASSES.fetch(state, 'lti-status--pending')
   end

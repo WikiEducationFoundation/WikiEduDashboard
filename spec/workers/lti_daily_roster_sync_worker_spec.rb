@@ -40,4 +40,22 @@ describe LtiDailyRosterSyncWorker do
     expect(enqueued_ids.size).to eq(1)
     expect(LtiCourseBinding.find(enqueued_ids.first).course).to eq(in_window_course)
   end
+
+  # No roster service under LTI 1.1: excluded by version, whatever is stored in
+  # the credentials column.
+  it 'leaves a legacy (LTI 1.1) binding out even when it has credentials' do
+    legacy_course = create(:course, slug: 'school/legacy_(term)',
+                                    start: 30.days.ago, end: 30.days.from_now)
+    legacy = LtiCourseBinding.create!(
+      course: legacy_course, lms_id: 'p-legacy', lms_family: 'canvas',
+      lms_context_id: 'c-legacy', lms_resource_link_id: 'r-legacy',
+      ltiaas_service_credentials: 'legacy-key', lti_version: '1.2.0'
+    )
+    enqueued_ids = []
+    allow(LtiRosterSyncWorker).to receive(:perform_async) { |id| enqueued_ids << id }
+
+    described_class.new.perform
+
+    expect(enqueued_ids).not_to include(legacy.id)
+  end
 end

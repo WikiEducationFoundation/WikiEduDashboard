@@ -8,6 +8,10 @@ import { toDate } from '../../utils/date_utils';
 // course instructors get a clickable link to the LMS course view
 // (admins typically don't have access to the LMS instance, so the
 // controller omits `course_url` from their payload).
+//
+// A legacy (LTI 1.1, launch-only) binding has no roster sync and no grade
+// passback, so its sync timestamp, sync errors and roster count would read as
+// a permanently failed sync; only the connected-accounts count is shown.
 const StaffView = ({ status }) => {
   const courseTitle = status.course_url
     ? <a href={status.course_url} target="_blank" rel="noopener noreferrer">{status.course_title}</a>
@@ -21,11 +25,13 @@ const StaffView = ({ status }) => {
         {' '}
         {courseTitle}
       </p>
-      <p>
-        <strong>{I18n.t('lms_integration.last_sync')}</strong>
-        {' '}
-        {formatTimestamp(status.last_sync_at)}
-      </p>
+      {!status.legacy && (
+        <p>
+          <strong>{I18n.t('lms_integration.last_sync')}</strong>
+          {' '}
+          {formatTimestamp(status.last_sync_at)}
+        </p>
+      )}
       {status.last_roster_sync_error && (
         <p className="lms-integration-status__error">
           <strong>{I18n.t('lms_integration.last_roster_sync_error')}</strong>
@@ -44,11 +50,13 @@ const StaffView = ({ status }) => {
           with nobody connected yet is the normal state early in a term, and
           reporting only the latter made a working roster sync look like it had
           found no students. */}
-      <p>
-        <strong>{I18n.t('lms_integration.roster_students')}</strong>
-        {' '}
-        {status.roster_students_count}
-      </p>
+      {!status.legacy && (
+        <p>
+          <strong>{I18n.t('lms_integration.roster_students')}</strong>
+          {' '}
+          {status.roster_students_count}
+        </p>
+      )}
       <p>
         <strong>{I18n.t('lms_integration.connected_accounts')}</strong>
         {' '}
@@ -65,6 +73,7 @@ const formatTimestamp = (iso) => {
 
 StaffView.propTypes = {
   status: PropTypes.shape({
+    legacy: PropTypes.bool,
     lms_name: PropTypes.string,
     course_title: PropTypes.string,
     course_url: PropTypes.string,

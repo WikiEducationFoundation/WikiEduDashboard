@@ -47,6 +47,7 @@
 # Author: Teretalexev
 # Author: UniCollab
 # Author: Vlad5250
+# Author: Yurina Tatiana
 # Author: Маринад
 # Author: Марио
 # Author: Туллук
@@ -541,6 +542,8 @@ ru:
     time_zone_message: Начало и окончание программы отображается с учётом вашего часового
       пояса.
     title: Название
+    unsubmitted_show_all: Показать все
+    unsubmitted_show_recent: Показать недавние
     user_uploads_none: Этот участник не добавлял никакие изображения или иные медиафайлы
       на Викисклад.
     user_recent_uploads: Недавние загрузки
@@ -688,6 +691,12 @@ ru:
     cookbook: Кулинарная книга
     index: Индекс
     collection: Коллекция
+  report_cards:
+    courses: Курсы
+    download_csv: Скачать CSV
+    columns:
+      number: '#'
+      title: Курс
   recent_activity:
     article_title: Заголовок
     datetime: Дата/время

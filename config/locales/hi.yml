@@ -405,6 +405,8 @@ hi:
     property: गुणधर्म
     school: विद्यालय
     author: लेखक
+  report_cards:
+    total: कुल
   recent_activity:
     article_title: लेख शीर्षक
     datetime: दिनांक/समय

@@ -41,6 +41,20 @@ describe AboutThisSiteController, type: :request do
     end
   end
 
+  describe '#canvas_instructor_guide' do
+    it 'renders the instructor install page from the Markdown source' do
+      get '/lti/guide/instructors'
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Add the Wiki Education Dashboard to your Canvas course')
+    end
+
+    it 'is not served on the P&E Dashboard deployment' do
+      allow(Features).to receive(:wiki_ed?).and_return(false)
+      get '/lti/guide/instructors'
+      expect(response.status).to eq(404)
+    end
+  end
+
   describe '#hecvat' do
     it 'renders the HECVAT from the Markdown source' do
       get '/hecvat'

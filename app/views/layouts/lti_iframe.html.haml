@@ -19,6 +19,11 @@
     = csrf_meta_tags
   %body.lti-iframe
     %main.lti-iframe__main{ role: 'main' }
+      - # Beta notice on every integration page, framed or not, with the way to
+      - # the feedback form; the link carries this page's context in its subject.
+      %p.lti-beta-banner
+        = t('lti.beta_feedback.message')
+        = link_to t('lti.beta_feedback.link'), lti_feedback_url, target: '_blank', rel: 'noopener'
       = yield
       - # Which Dashboard account these pages are acting as, on every integration
       - # page, framed or not. A silent first-launch link connected the wrong

@@ -14,6 +14,7 @@
 #  archived_programs_count   :integer          default(0)
 #  new_editors_count         :integer          default(0)
 #  new_editors_count_with_preregistration :integer default(0)
+#  retained_new_editors_count :integer         default(0)
 #  active_facilitators_count :integer          default(0)
 #  total_characters_added    :bigint           default(0)
 #  wiki_stats                :text(65535)

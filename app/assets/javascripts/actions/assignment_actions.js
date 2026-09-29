@@ -18,7 +18,7 @@ const fetchAssignmentsPromise = (courseSlug) => {
     })
     .catch((error) => {
       logErrorMessage(error);
-      return error;
+      throw error;
     });
 };
 

@@ -14,7 +14,7 @@ for the cadence being kept and for deciding exceptions.
 |---|---|---|---|
 | Operating system security fixes | Debian security advisories for the kernel, OpenSSL, Apache, MariaDB, OpenSSH, and everything else installed from Debian | `unattended-upgrades`, restricted to the Debian security suite | Automatic, daily |
 | Other operating-system packages | Debian point-release updates; Redis from the redis.io repository | `apt update && apt full-upgrade` by hand | Monthly |
-| Ruby gems and JavaScript packages | Rails, Sidekiq, React, build tooling | GitHub Dependabot alerts (alerts only, no automatic PRs); `bundler-audit` fails CI when a gem in the lockfile has a published advisory | Monthly triage to zero open alerts; a failing CI build is fixed before the affected change merges |
+| Ruby gems and JavaScript packages | Rails, Sidekiq, React, build tooling | GitHub Dependabot alerts (alerts only, no automatic PRs); `bundler-audit` fails CI when a gem in the lockfile has a published advisory, and `yarn npm audit` does the same for a JavaScript package at moderate severity or above | Monthly triage to zero open alerts; a failing CI build is fixed before the affected change merges |
 | Language runtimes | Ruby (installed through RVM, so not covered by apt), Node.js | Manual, following [Upgrading dependencies](upgrade_dependencies.md) | Reviewed monthly; upgraded when a security release or end-of-life approaches |
 | Operating-system release | Debian 12 → 13 and later | A written, rehearsed runbook (the 2026 upgrade rehearsed on a clone of the production Linode first) | Before the running release leaves Debian security support |
 | The application itself | The Dashboard's own code | Merged to `master` after code review and a green CI build, then deployed with Capistrano from the `production` branch (see [Deployment](deploy.md)) | Several times a week |
@@ -75,6 +75,8 @@ Done by hand, at a quiet time, not on a Sunday evening (the weekly database back
    `root=UUID=` first, then reboot and run the post-change checks below.
 3. In GitHub, bring the repository's Dependabot alerts to zero: upgrade, or record why an
    alert does not apply (a `.bundler-audit.yml` ignore entry with a justification for gems).
+   Yarn 3 has no per-advisory ignore, so an npm advisory is cleared by upgrading, or by
+   pinning a patched transitive version through a `resolutions` entry in `package.json`.
    AI-assisted audits are fine; a person reviews the resulting pull request.
 4. Check the horizons: the Debian release's security-support end date, Ruby and Rails
    end-of-life dates, Node.js LTS status. Anything within six months gets a scheduled task.
