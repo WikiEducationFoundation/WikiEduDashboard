@@ -43,8 +43,9 @@ class OptInExperiment
   # with keys: :title, :message, :consent_form, :opt_in, :opt_out,
   # :install_title, :install_explanation, :install_message, :install_button,
   # :install_copy_button, :install_copied, :install_verify_button,
-  # :install_not_found (the :message, :consent_form, :install_explanation and
-  # :install_message values are Markdown).
+  # :install_not_found, and optionally :install_help (the :message,
+  # :consent_form, :install_explanation, :install_message and :install_help
+  # values are Markdown).
   def student_invitation_copy
     raise NotImplementedError
   end

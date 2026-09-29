@@ -20,9 +20,9 @@ class Fall2026ResearchExperiment < OptInExperiment
   USERSCRIPT_IMPORT_LINE = "importScript('#{USERSCRIPT_PAGE}');"
 
   # Student-facing invitation copy, shown in a modal. `message`, `consent_form`,
-  # `install_explanation` and `install_message` are rendered as Markdown. Kept
-  # here (not in en.yml) so this ephemeral experiment text stays out of the
-  # translation pipeline.
+  # `install_explanation`, `install_message` and `install_help` are rendered as
+  # Markdown. Kept here (not in en.yml) so this ephemeral experiment text stays
+  # out of the translation pipeline.
   STUDENT_INVITATION_COPY = {
     title: 'Research Study',
     message: <<~MESSAGE,
@@ -46,6 +46,9 @@ class Fall2026ResearchExperiment < OptInExperiment
     install_message: <<~INSTALL,
       To enable the experiment, copy the line below, click 'Install script', paste it to your common.js page, then "Publish changes". (If you see an error message, make sure you're logged on en.wikipedia.org.)
     INSTALL
+    # Pointer to the illustrated walkthrough and troubleshooting FAQ, for
+    # students who get stuck on this step.
+    install_help: '[(Walkthrough and troubleshooting FAQ)](/faq/32)',
     install_button: 'Install script',
     install_copy_button: 'Copy',
     install_copied: 'Copied!',
