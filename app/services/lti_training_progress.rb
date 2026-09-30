@@ -19,7 +19,7 @@ class LtiTrainingProgress
 
   # `training_modules` and `completions`, when given, are the course's
   # training-kind modules and this user's TrainingModulesUsers keyed by
-  # `training_module_id`, preloaded by the caller (LtiProgressPreload) so a
+  # `training_module_id`, preloaded by the caller (StudentProgress::Roster) so a
   # roster reads both from memory. When nil, each is looked up on demand: the
   # grade sync's single-user path.
   def initialize(course, user, training_modules: nil, completions: nil)

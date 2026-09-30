@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/student_progress/rules"
+require_dependency "#{Rails.root}/lib/student_progress/roster"
 
 # One student's state of work on their assigned article(s), for the in-Canvas
 # drill-downs: where each piece of the writing process lives, whether it exists
@@ -17,17 +18,18 @@ require_dependency "#{Rails.root}/lib/student_progress/rules"
 # whose own column reports it (see LtiPeerReviewProgress).
 #
 # Built for a whole roster at once. A per-student query for each of these would
-# be four round trips per row, so the constructor loads the course's assignments
-# and timeslices once and indexes them by user.
+# be four round trips per row, so it reads the assignments and timeslices from a
+# StudentProgress::Roster: the caller's, when it already has one for these
+# students, or one of its own.
 class AssignedArticleWork
   Article = Struct.new(:title, :url, :live, :pages, :stats, keyword_init: true)
   # `kind` is :bibliography / :outline / :draft — the view turns it into a label.
   Page = Struct.new(:kind, :url, :created, keyword_init: true)
   Stats = Struct.new(:characters, :references, :revisions, keyword_init: true)
 
-  def initialize(course:, user_ids:)
-    @course = course
-    @user_ids = user_ids.compact.uniq
+  def initialize(course: nil, user_ids: [], roster: nil)
+    @roster = roster || StudentProgress::Roster.new(course:, user_ids:)
+    @course = @roster.course
     @by_user = build
   end
 
@@ -46,9 +48,8 @@ class AssignedArticleWork
   end
 
   def assignments
-    @assignments ||= Assignment.where(course_id: @course.id, user_id: @user_ids,
-                                      role: Assignment::Roles::ASSIGNED_ROLE)
-                               .includes(:wiki).to_a
+    @assignments ||= @roster.user_ids.flat_map { |id| @roster.assignments_for(id) }
+                            .select(&:editing?)
   end
 
   def article_for(assignment)
@@ -95,26 +96,11 @@ class AssignedArticleWork
   # whose user_ids include them. Zeroes (rather than nil) for an article nobody
   # has edited yet, so the view has nothing to special-case.
   def stats_for(assignment)
-    slices = timeslices_for(assignment.article_id).select do |slice|
+    slices = @roster.timeslices_for(assignment.article_id).select do |slice|
       slice.user_ids.include?(assignment.user_id)
     end
     Stats.new(characters: slices.sum { |s| s.character_sum.to_i },
               references: slices.sum { |s| s.references_count.to_i },
               revisions: slices.sum { |s| s.revision_count.to_i })
-  end
-
-  def timeslices_for(article_id)
-    return [] if article_id.nil?
-
-    timeslices[article_id] || []
-  end
-
-  # One query for every assigned article in the course. `non_empty` skips the
-  # slices with no contributors, which are the bulk of them.
-  def timeslices
-    @timeslices ||= ArticleCourseTimeslice
-                    .where(course_id: @course.id, article_id: assignments.map(&:article_id).compact)
-                    .non_empty
-                    .group_by(&:article_id)
   end
 end

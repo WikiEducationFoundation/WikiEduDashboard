@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/student_progress/links"
+require_dependency "#{Rails.root}/lib/student_progress/roster"
 
 # Assembles a student's progress overview for the in-Canvas nav-item launch:
 # their assigned articles (mirroring "My Articles"), rolled-up training and
@@ -19,14 +20,14 @@ class StudentStatusContext
 
   attr_reader :course, :user
 
-  # `preload` is an LtiProgressPreload covering this user, shared across a
+  # `preload` is a StudentProgress::Roster covering this user, shared across a
   # roster's students so the course structure and each student's completions and
   # assignments are fetched once for the class. Without one, the same data is
   # loaded for this one user.
   def initialize(course:, user:, preload: nil)
     @course = course
     @user = user
-    @preload = preload || LtiProgressPreload.new(course:, user_ids: [user.id])
+    @preload = preload || StudentProgress::Roster.new(course:, user_ids: [user.id])
   end
 
   def articles

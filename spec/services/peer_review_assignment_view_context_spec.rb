@@ -96,6 +96,33 @@ describe PeerReviewAssignmentViewContext do
     expect(context.viewer_review_rows.map(&:article_title)).to eq(['Alpha'])
   end
 
+  it 'reads the roster in the same number of queries however many students' do
+    def queries_for_roster
+      counted = 0
+      subscriber = ActiveSupport::Notifications.subscribe('sql.active_record') do |*, payload|
+        counted += 1 unless %w[SCHEMA TRANSACTION].include?(payload[:name])
+      end
+      described_class.new(line_item: line_item.reload, user: nil, instructor: true)
+                     .roster.each { |row| row.reviews.to_a }
+      ActiveSupport::Notifications.unsubscribe(subscriber)
+      counted
+    end
+
+    2.times do |i|
+      student = create(:user, username: "First#{i}")
+      link_student(student)
+      assign_review(student, "Article_#{i}")
+    end
+    queries_for_roster # warm up one-time lookups (wiki, course) before counting
+    with_two = queries_for_roster
+    3.times do |i|
+      student = create(:user, username: "More#{i}")
+      link_student(student)
+      assign_review(student, "Other_#{i}")
+    end
+    expect(queries_for_roster).to eq(with_two)
+  end
+
   it 'reports the course\'s expected review count' do
     student = create(:user, username: 'Solo')
     link_student(student)

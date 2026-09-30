@@ -42,7 +42,7 @@ class LtiPeerReviewProgress
   DEFAULT_EXPECTED = 1
 
   # `assignments`, when given, is this user's assignments in the course, already
-  # loaded by the caller (LtiProgressPreload); the reviews are picked out of them.
+  # loaded by the caller (StudentProgress::Roster); the reviews are picked out of them.
   # When nil, they are queried: the grade sync's single-user path.
   def initialize(course, user, assignments: nil)
     @course = course
