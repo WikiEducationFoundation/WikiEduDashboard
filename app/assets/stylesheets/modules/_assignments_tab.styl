@@ -326,3 +326,49 @@
   .assignments-tab__funnel li,
   .assignments-tab__work-links li
     margin-left 0
+
+  // Progress column: one 100% bar per assignment, completed → in progress →
+  // not started. An ordinal ramp of the brand hue (validated: monotone
+  // lightness, single hue); not started is the pale track step. 2px surface
+  // gaps between segments, rounded outer ends, thin.
+  .assignments-tab__progress-heading
+    width 38%
+
+  .assignments-tab__legend
+    color $text_med
+    display flex
+    flex-wrap wrap
+    font-size 12px
+    font-weight normal
+    gap 2px 12px
+    margin-top 2px
+  .assignments-tab__legend-item
+    align-items center
+    display inline-flex
+    gap 5px
+  .assignments-tab__swatch
+    border-radius 2px
+    display inline-block
+    height 10px
+    width 10px
+
+  .assignments-tab__state-bar
+    border-radius 4px
+    display flex
+    gap 2px
+    height 12px
+    overflow hidden
+  .assignments-tab__segment
+    flex-basis 0
+    min-width 3px
+  .assignments-tab__segment--complete
+    background #474E97
+  .assignments-tab__segment--in_progress
+    background #9DA2D2
+  .assignments-tab__segment--not_started
+    background lighten($brand_primary, 82%)
+
+  .assignments-tab__state-counts
+    color $text_med
+    font-size 13px
+    margin-top 4px

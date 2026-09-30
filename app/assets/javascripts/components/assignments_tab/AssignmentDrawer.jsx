@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Loading from '@components/common/loading.jsx';
 import AssignmentRoster from './AssignmentRoster';
 
-const COLUMNS = 7;
+const COLUMNS = 5;
 
 // The open row's drawer: that assignment's students and statuses. Rows are
 // fetched the first time the drawer opens and kept by the list, so reopening
