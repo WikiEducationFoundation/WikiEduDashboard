@@ -53,7 +53,9 @@ const PAGE_LABELS = {
 // and the page this assignment is about; the grader shows everything.
 export const ArticleWork = ({ article, stage, compact }) => {
   const pages = compact ? article.pages.filter(page => page.kind === stage) : article.pages;
-  const status = articleStatusLabel(article.status);
+  // Only a status the student has set: until then the pipeline reports its
+  // first step, which says nothing about them.
+  const status = article.status_updated_at ? articleStatusLabel(article.status) : '';
   const showStats = !compact || stage === 'live';
   return (
     <div className="assignments-tab__article">

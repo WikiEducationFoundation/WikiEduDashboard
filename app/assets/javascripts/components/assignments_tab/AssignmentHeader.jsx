@@ -6,7 +6,7 @@ import { formatDate, itemTitle, kindLabel } from './assignmentHelpers';
 // The assignment a roster or grader is about: what it is, when it's due, and
 // where it's done, with the way back to the full list.
 const AssignmentHeader = ({ item, tabPath }) => (
-  <header className="assignments-tab__header">
+  <div className="assignments-tab__header">
     <p><Link to={tabPath}>← {I18n.t('assignments_tab.label')}</Link></p>
     <h3>{itemTitle(item)}</h3>
     <p className="assignments-tab__meta">
@@ -33,7 +33,7 @@ const AssignmentHeader = ({ item, tabPath }) => (
         </span>
       )}
     </p>
-  </header>
+  </div>
 );
 
 AssignmentHeader.propTypes = {
