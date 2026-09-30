@@ -111,8 +111,8 @@ describe AssignmentProgressPresenter do
     expect(amy_row[:articles].map { |a| a[:title] }).to eq(%w[First Second])
     bibliography = amy_row[:articles].first[:pages].find { |page| page[:kind] == :bibliography }
     expect(bibliography[:created]).to be(true)
-    expect(amy_row[:exercises]).to eq([{ slug: 'bib-ex', name: 'Bibliography', completed: false,
-                                         due_date: bibliography_due }])
+    expect(amy_row[:exercises]).to eq([{ slug: 'bib-ex', name: 'Bibliography', stage: :bibliography,
+                                         completed: false, due_date: bibliography_due }])
     expect(zed_row).to include(state: 'not_started', articles: [])
   end
 
@@ -127,6 +127,17 @@ describe AssignmentProgressPresenter do
     expect(amy_row[:state]).to eq('complete')
     expect(amy_row[:articles].first[:stats][:revisions]).to eq(3)
     expect(amy_row[:exercises].first[:completed]).to be(true)
+  end
+
+  it 'reports how far along each article is, stage by stage' do
+    first = assign(amy, 'First')
+    first.update_sandbox_status(:draft, AssignmentPipeline::SandboxStatuses::EXISTS_IN_USERSPACE)
+    complete_exercise(amy, bibliography_exercise) # counts for the bibliography stage
+
+    stages = rows('article').first[:articles].first[:stages]
+    expect(stages).to eq([{ key: :bibliography, reached: true }, { key: :outline, reached: false },
+                          { key: :draft, reached: true }, { key: :live, reached: false }])
+    expect(rows('article').first[:articles].first[:assigned_at]).to eq(first.created_at)
   end
 
   it 'marks the article overdue while one of its exercises is past due' do

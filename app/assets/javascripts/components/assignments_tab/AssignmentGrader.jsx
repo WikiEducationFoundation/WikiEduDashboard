@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import CellDetails, { StateBadge } from './CellDetails';
-import { matchesFilter, neighbors, studentName } from './assignmentHelpers';
+import { matchesFilter, neighbors, reachedStage, studentName } from './assignmentHelpers';
 import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 const isTyping = target => ['INPUT', 'SELECT', 'TEXTAREA'].includes(target.tagName)
@@ -16,9 +16,13 @@ const AssignmentGrader = ({ header, item, students, cellsByUser, itemPath }) => 
   const { username } = useParams();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  // The list the grader came from: a status filter, or (for the assigned
+  // article) the students who haven't reached a stage.
   const filter = searchParams.get('filter') || 'all';
-  const query = filter === 'all' ? '' : `?filter=${filter}`;
-  const shown = students.filter(student => matchesFilter(cellsByUser[student.id], filter));
+  const missing = searchParams.get('missing');
+  const query = searchParams.toString() ? `?${searchParams}` : '';
+  const shown = students.filter(student => matchesFilter(cellsByUser[student.id], filter)
+    && (!missing || !reachedStage(cellsByUser[student.id], missing)));
   const { index, previous, next } = neighbors(shown, username);
   const student = students.find(candidate => candidate.username === username);
 

@@ -8,8 +8,44 @@ import { FILTERS, filterLabel, matchesFilter, studentName } from './assignmentHe
 const DETAILS_HEADINGS = {
   training: 'training_status.completed_at',
   exercise: 'lti.assignment_view.article_work.header',
-  article: 'lti.assignment_view.article_work.header',
   peer_review: 'lti.assignment_view.peer_review.reviews',
+};
+
+// One row per student with their status and a compact view of their work.
+// (The assigned article has its own panel and table: ArticlePanel.)
+const StudentRoster = ({ item, students, cellsByUser, studentPath }) => (
+  <table className="table table--hoverable">
+    <thead>
+      <tr>
+        <th>{I18n.t('lti.assignment_view.roster.student')}</th>
+        <th>{I18n.t('lti.assignment_view.roster.status')}</th>
+        <th>{I18n.t(DETAILS_HEADINGS[item.kind])}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {students.map((student) => {
+        const cell = cellsByUser[student.id];
+        return (
+          <tr key={student.id}>
+            <td>
+              <Link to={studentPath(student)}>
+                {studentName(student)}
+              </Link>
+            </td>
+            <td><StateBadge cell={cell} /></td>
+            <td><CellDetails cell={cell} item={item} compact /></td>
+          </tr>
+        );
+      })}
+    </tbody>
+  </table>
+);
+
+StudentRoster.propTypes = {
+  item: PropTypes.object.isRequired,
+  students: PropTypes.array.isRequired,
+  cellsByUser: PropTypes.object.isRequired,
+  studentPath: PropTypes.func.isRequired,
 };
 
 // One assignment, every student: the contents of its row's drawer in the
@@ -20,6 +56,8 @@ const AssignmentRoster = ({ item, students, cellsByUser, itemPath }) => {
   const filter = searchParams.get('filter') || 'all';
   const shown = students.filter(student => matchesFilter(cellsByUser[student.id], filter));
   const query = filter === 'all' ? '' : `?filter=${filter}`;
+
+  const studentPath = student => `${itemPath}/${encodeURIComponent(student.username)}${query}`;
 
   const onFilterChange = (event) => {
     const params = new URLSearchParams(searchParams);
@@ -42,31 +80,7 @@ const AssignmentRoster = ({ item, students, cellsByUser, itemPath }) => {
           ))}
         </select>
       </label>
-      <table className="table table--hoverable">
-        <thead>
-          <tr>
-            <th>{I18n.t('lti.assignment_view.roster.student')}</th>
-            <th>{I18n.t('lti.assignment_view.roster.status')}</th>
-            <th>{I18n.t(DETAILS_HEADINGS[item.kind])}</th>
-          </tr>
-        </thead>
-        <tbody>
-          {shown.map((student) => {
-            const cell = cellsByUser[student.id];
-            return (
-              <tr key={student.id}>
-                <td>
-                  <Link to={`${itemPath}/${encodeURIComponent(student.username)}${query}`}>
-                    {studentName(student)}
-                  </Link>
-                </td>
-                <td><StateBadge cell={cell} /></td>
-                <td><CellDetails cell={cell} item={item} compact /></td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <StudentRoster item={item} students={shown} cellsByUser={cellsByUser} studentPath={studentPath} />
     </div>
   );
 };

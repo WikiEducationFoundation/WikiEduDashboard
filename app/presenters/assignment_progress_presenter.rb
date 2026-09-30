@@ -52,6 +52,12 @@ class AssignmentProgressPresenter
     @rows[item.key] ||= students.map { |user| cells.for(item, user) }
   end
 
+  # How many students have reached each stage of the assigned article.
+  def article_funnel
+    item = item(BuildAssignmentCatalog::ARTICLE_KEY)
+    ArticleFunnel.new(course: @course, item:, cells: rows_for(item), timeline:).to_h
+  end
+
   # Where a module-based assignment is done, the same for every student: the
   # module's training page (an exercise's instructions) and, for an exercise
   # done in the app, its page.

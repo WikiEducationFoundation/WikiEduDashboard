@@ -24,8 +24,12 @@ const AssignmentView = ({ course, tabPath }) => {
 
   const item = data.items.find(candidate => candidate.key === data.item_key);
   const cellsByUser = Object.fromEntries(data.rows.map(cell => [cell.user_id, cell]));
-  const backParams = new URLSearchParams({ open: item.key });
-  if (searchParams.get('filter')) { backParams.set('filter', searchParams.get('filter')); }
+  // Back to where the grader was opened from, with its filter still applied:
+  // the article panel's student list, or the assignment's open row.
+  const backParams = new URLSearchParams(item.kind === 'article' ? { students: '1' } : { open: item.key });
+  ['filter', 'missing'].forEach((param) => {
+    if (searchParams.get(param)) { backParams.set(param, searchParams.get(param)); }
+  });
 
   return (
     <div className="assignments-tab__assignment">

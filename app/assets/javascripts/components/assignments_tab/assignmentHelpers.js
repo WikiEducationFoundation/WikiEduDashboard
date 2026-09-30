@@ -62,6 +62,13 @@ export const articleStatusLabel = status => (
   status ? I18n.t(`article_statuses.${status}`, { defaultValue: '' }) : ''
 );
 
+// Whether a student's assigned-article cell has reached a stage: having an
+// article at all, or any of their articles reaching the page or live stage.
+export const reachedStage = (cell, key) => {
+  if (key === 'assigned') { return cell.articles.length > 0; }
+  return cell.articles.some(article => article.stages.some(stage => stage.key === key && stage.reached));
+};
+
 // Where `username` sits in `students`, and who comes before and after it.
 export const neighbors = (students, username) => {
   const index = students.findIndex(student => student.username === username);

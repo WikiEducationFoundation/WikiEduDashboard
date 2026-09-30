@@ -102,9 +102,6 @@
     .table
       margin-bottom 0
 
-  .assignments-tab__pages--inline
-    font-size 14px
-
   .assignments-tab__exercise-count
     color $text_med
     font-size 14px
@@ -130,14 +127,131 @@
     &[hidden]
       display none
 
-  // The assigned article's row: tinted, with an accent bar and a bolder title.
-  .assignments-tab__list > tbody > tr.assignments-tab__row--article
-    background-color lighten($brand_primary, 90%)
-    > td
-      font-weight 600
-    > td:first-child
-      border-left 5px solid $brand_primary
+
+  // The assigned article's drawer table.
+  .assignments-tab__article-roster
+    td
+      vertical-align top
+    .assignments-tab__student-cell
+      border-right 1px solid $border_lt
+    .assignments-tab__no-article
+      color $text_med
+
+  .assignments-tab__date
+    color $text_med
+    white-space nowrap
+
+  // Stages as a row of segments: filled once reached, labelled underneath.
+  .assignments-tab__stages
+    display flex
+    gap 3px
+    list-style none
+    margin 0 0 6px
+    padding 0
+    li
+      border-top 6px solid $border_lt
+      color $text_med
+      flex 1
+      font-size 11px
+      line-height 1.3
+      min-width 56px
+      padding-top 3px
+      &.reached
+        border-top-color $success_text
+        color $text_dk
+
+  // One link per line, never wrapped mid-label; pages that don't exist yet are
+  // muted (and titled "Not started").
+  .assignments-tab__work-links
+    list-style none
+    margin 0
+    padding 0
+    li
+      line-height 1.6
+      white-space nowrap
+    .assignments-tab__missing
+      color $text_med
+
+  // The assigned article's panel, above the other assignments: a funnel of how
+  // much of the class has reached each stage.
+  .assignments-tab__article-panel
+    background white
+    border 1px solid $border_lt
+    border-left 5px solid $brand_primary
+    margin-bottom 25px
+    padding 15px 20px
+    h3
       color $brand_primary
-      font-size 17px
-    .assignments-tab__kind
-      font-weight normal
+      margin 0 0 10px
+
+  .assignments-tab__funnel
+    list-style none
+    margin 0 0 10px
+    padding 0
+
+  // Each stage is a button (it filters the student list), laid out as a row:
+  // label, bar, count, then due date / overdue.
+  .assignments-tab__funnel-bar
+    align-items center
+    background none
+    border none
+    border-radius 3px
+    color $text_dk
+    cursor pointer
+    display grid
+    font inherit
+    gap 12px
+    grid-template-columns 150px minmax(120px, 1fr) 110px 190px
+    padding 5px 8px
+    text-align left
+    width 100%
+    &:hover, &:focus-visible
+      background athens
+    &:hover .assignments-tab__funnel-fill
+      background lighten($brand_primary, 12%)
+    &.active
+      background athens
+      box-shadow inset 3px 0 0 $brand_primary
+
+  // A meter: the fill carries the share; the track is a lighter step of the
+  // same hue. Thin (<= 24px) with a rounded data end, square at the start.
+  .assignments-tab__funnel-track
+    background lighten($brand_primary, 82%)
+    border-radius 0 4px 4px 0
+    display block
+    height 18px
+    overflow hidden
+  .assignments-tab__funnel-fill
+    background $brand_primary
+    border-radius 0 4px 4px 0
+    display block
+    height 100%
+
+  .assignments-tab__funnel-value
+    font-variant-numeric tabular-nums
+    white-space nowrap
+
+  .assignments-tab__funnel-meta
+    color $text_med
+    font-size 13px
+    .assignments-tab__overdue
+      margin-left 8px
+
+  .assignments-tab__students-toggle
+    align-items center
+    background none
+    border none
+    color $brand_primary
+    cursor pointer
+    display inline-flex
+    font inherit
+    font-weight 600
+    gap 6px
+    padding 4px 0
+    .icon
+      transition transform 250ms ease
+    &[aria-expanded="true"] .icon
+      transform rotateZ(180deg)
+
+  .assignments-tab__article-panel .assignments-tab__article-roster
+    margin-top 10px

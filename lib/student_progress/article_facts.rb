@@ -24,10 +24,17 @@ module StudentProgress
     # `statuses` is the pipeline it comes from, which depends on the course's
     # sandbox mode. `status_updated_at` is nil until the student first sets one.
     Article = Struct.new(:assignment_id, :title, :url, :live, :pages, :stats, :status,
-                         :statuses, :status_updated_at, keyword_init: true)
+                         :statuses, :status_updated_at, :assigned_at, keyword_init: true)
     # `kind` is :bibliography / :outline / :draft — the view turns it into a label.
     Page = Struct.new(:kind, :url, :created, keyword_init: true)
     Stats = Struct.new(:characters, :references, :revisions, keyword_init: true)
+
+    # Before this, a student claiming an Available Article took over its
+    # existing record without marking it, so an older record's creation time
+    # may be when the article was made available rather than when the student
+    # got it. The `available_article` flag arrived in 7ba09badb (2025-01-10);
+    # this allows for it reaching production.
+    AVAILABLE_ARTICLE_FLAG_SINCE = Time.zone.parse('2025-02-01')
 
     def initialize(roster)
       @roster = roster
@@ -68,8 +75,22 @@ module StudentProgress
         stats: stats_for(assignment),
         status: assignment.status,
         statuses: assignment.all_statuses,
-        status_updated_at: assignment.status_updated_at
+        status_updated_at: assignment.status_updated_at,
+        assigned_at: assigned_at(assignment)
       )
+    end
+
+    # When the student got the article: the record's creation, when that is
+    # what it means. Not for a claimed Available Article, whose record was
+    # created when the article was made available and then handed to the
+    # student (unless the course retains available articles, in which case
+    # claiming creates a fresh, unflagged record); nor for records from before
+    # claims were flagged, which can't be told apart.
+    def assigned_at(assignment)
+      return if assignment.flags[:available_article]
+      return if assignment.created_at < AVAILABLE_ARTICLE_FLAG_SINCE
+
+      assignment.created_at
     end
 
     # The writing process, in the order a student works through it. The draft

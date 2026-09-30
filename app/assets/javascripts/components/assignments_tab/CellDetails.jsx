@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import SandboxPreview from './SandboxPreview';
+import { StageTracker } from './ArticleParts';
 import {
   articleStatusLabel, formatDate, isLate, percent, stateLabel
 } from './assignmentHelpers';
@@ -89,57 +90,50 @@ const LiveStats = ({ stats }) => (
 
 LiveStats.propTypes = { stats: PropTypes.object.isRequired };
 
-// One assigned article: what it is, where the student says they are with it,
-// its bibliography/outline/draft pages, and what they've written live.
-const ArticleWork = ({ article, compact }) => {
+// One assigned article in full: what it is and when the student got it, how
+// far along it is, where the student says they are with it, its pages to read
+// in place, and what they've written live.
+const ArticleWork = ({ article }) => {
   const status = article.status_updated_at ? articleStatusLabel(article.status) : '';
   return (
     <div className="assignments-tab__article">
       <p className="assignments-tab__article-title">
         <ExternalLink href={article.url}>{article.title}</ExternalLink>
-        {status && (
-          <span className="assignments-tab__article-status">
-            {' '}{status} ({formatDate(article.status_updated_at)})
+        {article.assigned_at && (
+          <span className="assignments-tab__date">
+            {' · '}{I18n.t('assignments_tab.assigned')} {formatDate(article.assigned_at)}
           </span>
         )}
       </p>
-      {compact ? (
-        <p className="assignments-tab__pages--inline">
-          {article.pages.map((page, index) => (
-            <span key={page.kind}>
-              {index > 0 && ' · '}
-              <PageLink label={I18n.t(PAGE_LABELS[page.kind])} url={page.url} created={page.created} />
-            </span>
-          ))}
+      <StageTracker stages={article.stages} />
+      {status && (
+        <p className="assignments-tab__article-status">
+          {status} ({formatDate(article.status_updated_at)})
         </p>
-      ) : (
-        <ul className="assignments-tab__pages">
-          {article.pages.map(page => (
-            <li key={page.kind}>
-              <PageLink
-                label={I18n.t(PAGE_LABELS[page.kind])} url={page.url} created={page.created} preview
-              />
-            </li>
-          ))}
-        </ul>
       )}
-      {article.live && <LiveStats stats={article.stats} />}
-      {!article.live && !compact && <p>{I18n.t('lti.assignment_view.article_work.not_created')}</p>}
+      <ul className="assignments-tab__pages">
+        {article.pages.map(page => (
+          <li key={page.kind}>
+            <PageLink
+              label={I18n.t(PAGE_LABELS[page.kind])} url={page.url} created={page.created} preview
+            />
+          </li>
+        ))}
+      </ul>
+      {article.live
+        ? <LiveStats stats={article.stats} />
+        : <p>{I18n.t('lti.assignment_view.article_work.not_created')}</p>}
     </div>
   );
 };
 
-ArticleWork.propTypes = { article: PropTypes.object.isRequired, compact: PropTypes.bool };
+ArticleWork.propTypes = { article: PropTypes.object.isRequired };
 
-// The exercises about the article: a count in the roster, a checklist in the
-// grader with when each was done (where recorded) and its sandbox.
-const ArticleExercises = ({ exercises, compact }) => {
+// The exercises about the article, as a checklist with when each was done
+// (where recorded) and its sandbox.
+const ArticleExercises = ({ exercises }) => {
   if (!exercises.length) { return null; }
   const heading = I18n.t('lti.student_overview.exercises');
-  if (compact) {
-    const done = exercises.filter(exercise => exercise.completed).length;
-    return <p className="assignments-tab__exercise-count">{heading}: {done} / {exercises.length}</p>;
-  }
   return (
     <div className="assignments-tab__exercises">
       <h5>{heading}</h5>
@@ -165,19 +159,19 @@ const ArticleExercises = ({ exercises, compact }) => {
   );
 };
 
-ArticleExercises.propTypes = { exercises: PropTypes.array.isRequired, compact: PropTypes.bool };
+ArticleExercises.propTypes = { exercises: PropTypes.array.isRequired };
 
-const Article = ({ cell, compact }) => (
+// The grader's view of the assigned article. (The roster shows it as
+// ArticleRoster's table instead.)
+const Article = ({ cell }) => (
   <div>
     {cell.articles.length === 0 && <p>{I18n.t('lti.assignment_view.no_article_yet')}</p>}
-    {cell.articles.map(article => (
-      <ArticleWork key={article.assignment_id} article={article} compact={compact} />
-    ))}
-    <ArticleExercises exercises={cell.exercises} compact={compact} />
+    {cell.articles.map(article => <ArticleWork key={article.assignment_id} article={article} />)}
+    <ArticleExercises exercises={cell.exercises} />
   </div>
 );
 
-Article.propTypes = { cell: PropTypes.object.isRequired, compact: PropTypes.bool };
+Article.propTypes = { cell: PropTypes.object.isRequired };
 
 const Reviews = ({ cell, compact }) => {
   const total = cell.expected || cell.reviews.length;
@@ -240,7 +234,7 @@ const CellDetails = ({ cell, item, compact = false }) => {
     case 'exercise':
       return <Exercise cell={cell} compact={compact} />;
     case 'article':
-      return <Article cell={cell} compact={compact} />;
+      return <Article cell={cell} />;
     case 'peer_review':
       return <Reviews cell={cell} compact={compact} />;
     default:

@@ -509,6 +509,10 @@ en:
   assignments_tab:
     label: Assignments
     overdue: Overdue
+    progress: Progress
+    assigned: Assigned
+    live_article: Live article
+    stage_assigned: Article assigned
   blocks:
     milestones:
       title: Milestones

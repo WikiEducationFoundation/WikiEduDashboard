@@ -57,12 +57,26 @@ describe 'Assignments tab', type: :feature, js: true do
       expect(page).to have_css('.assignments-tab__list .drawer', text: 'Amy')
     end
 
+    it 'shows how far the class is through the article stages, and who hasn\'t reached one' do
+      visit "#{course_path}/assignments"
+      within('.assignments-tab__article-panel') do
+        assigned_bar = find('.assignments-tab__funnel-bar', text: 'Article assigned')
+        expect(assigned_bar).to have_content '1 / 2'
+        click_button 'Draft sandbox'
+        expect(page).to have_css('.assignments-tab__student-cell', count: 2)
+        assigned_bar.click
+        expect(page).to have_css('.assignments-tab__student-cell', count: 1, text: 'Amy')
+      end
+    end
+
     it 'opens the assigned article from its own URL, showing each student\'s article work' do
       visit "#{course_path}/assignments/article"
-      within('.assignments-tab__list .drawer') do
+      within('.assignments-tab__article-panel') do
         bo_row = find('tr', text: 'Bo')
         expect(bo_row).to have_link 'Sea otter'
-        expect(bo_row).to have_content 'Draft sandbox: Not started'
+        # bibliography, outline, draft, live
+        expect(bo_row).to have_css('.assignments-tab__stages li', count: 4)
+        expect(bo_row).to have_css('a.assignments-tab__missing', text: 'Draft sandbox')
         expect(find('tr', text: 'Amy')).to have_content 'No article chosen yet'
       end
     end

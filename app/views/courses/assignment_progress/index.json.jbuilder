@@ -15,6 +15,7 @@ json.items @presenter.items do |item|
 end
 
 json.summary @presenter.summary
+json.article_funnel @presenter.article_funnel
 json.article_statuses @presenter.article_statuses
 
 if @item

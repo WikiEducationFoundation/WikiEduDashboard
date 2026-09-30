@@ -163,6 +163,23 @@ describe StudentProgress::ArticleFacts do
     expect(work_for.first.statuses).to eq(AssignmentPipeline::PIPELINES[:assignment])
   end
 
+  describe 'assigned_at' do
+    it 'is when the assignment was created for the student' do
+      assignment = assign
+      expect(work_for.first.assigned_at).to eq(assignment.created_at)
+    end
+
+    it 'is left out for a claimed Available Article, whose record predates the claim' do
+      assign.update!(flags: { available_article: true })
+      expect(work_for.first.assigned_at).to be_nil
+    end
+
+    it 'is left out for records from before claims were flagged' do
+      assign.update_column(:created_at, Time.zone.parse('2024-09-01'))
+      expect(work_for.first.assigned_at).to be_nil
+    end
+  end
+
   it 'is empty for a student with no assignment, and for no user at all' do
     work = described_class.new(StudentProgress::Roster.new(course:, user_ids: [student.id]))
     expect(work.articles_for(student)).to be_empty
