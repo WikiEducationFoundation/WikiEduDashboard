@@ -1024,7 +1024,7 @@ describe Course, type: :model do
       expect(described_class.needs_partial_update.to_a.count(course)).to eq(1)
     end
   end
-  
+
   # Mirrors the client-side term inference in inferDefaultCampaign.js. Course
   # eligibility for an opt-in research experiment is derived from this, so the
   # month boundaries matter (see Fall2026ResearchExperiment#eligible_course?).
