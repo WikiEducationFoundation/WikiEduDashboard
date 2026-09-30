@@ -116,9 +116,10 @@ module StudentProgress
     end
 
     # [week order, block order]: where a block sits, for sorting other things
-    # into timeline order.
+    # into timeline order. A block with no order counts as its week's first, as
+    # in Roster#blocks.
     def position(block)
-      [block.week.order, block.order]
+      [block.week.order, block.order.to_i]
     end
 
     private

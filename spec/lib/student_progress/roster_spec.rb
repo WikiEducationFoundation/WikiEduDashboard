@@ -34,6 +34,13 @@ describe StudentProgress::Roster do
     expect(preload.blocks).to all(satisfy { |block| block.association(:week).loaded? })
   end
 
+  it 'puts a block with no position at the start of its week' do
+    create(:block, week: week_one, order: nil, title: 'Unpositioned', training_module_ids: [])
+    titles = preload.blocks.map(&:title)
+    expect(titles).to contain_exactly('Unpositioned', 'First', 'Second', 'Later')
+    expect(titles.last(2)).to eq(%w[Second Later])
+  end
+
   it "resolves a block's modules in the block's order" do
     later = preload.blocks.last
     expect(preload.modules_for(later)).to eq([exercise])

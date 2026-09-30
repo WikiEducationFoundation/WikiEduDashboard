@@ -37,6 +37,13 @@ describe BuildAssignmentCatalog do
     expect(keys).to eq(%w[training-tr-a exercise-ex-a article])
   end
 
+  it 'places a module on a block with no position at the start of its week' do
+    create(:block, week: week_one, order: 1, training_module_ids: [training.id])
+    create(:block, week: week_one, order: nil, training_module_ids: [exercise.id])
+
+    expect(keys).to eq(%w[exercise-ex-a training-tr-a article])
+  end
+
   it 'describes a module item with its kind, name and due date' do
     create(:block, week: week_one, order: 0, training_module_ids: [training.id])
     item = catalog.items.first

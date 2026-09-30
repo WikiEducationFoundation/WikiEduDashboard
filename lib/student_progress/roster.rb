@@ -24,9 +24,11 @@ module StudentProgress
 
     # The timeline's blocks in timeline order, with week and course loaded
     # (BlockDateManager reads both), so due dates are computed from memory.
+    # `blocks.order` can be null; such a block goes at the start of its week
+    # rather than failing the comparison.
     def blocks
       @blocks ||= @course.blocks.includes(:week, :course).to_a
-                         .sort_by { |block| [block.week.order, block.order] }
+                         .sort_by { |block| [block.week.order, block.order.to_i] }
     end
 
     # A block's training modules in the block's own order: Block#training_modules

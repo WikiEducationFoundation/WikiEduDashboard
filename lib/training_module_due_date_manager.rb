@@ -91,10 +91,11 @@ class TrainingModuleDueDateManager
 
   # The first block on the timeline with this module. `course.blocks` comes
   # back ordered by position within each week, not by week, so a later week's
-  # first block would otherwise win over an earlier week's second.
+  # first block would otherwise win over an earlier week's second. A block with
+  # no position (`blocks.order` can be null) counts as its week's first.
   def course_block_for_module
     @block ||= @course.blocks
                       .select { |block| block.training_module_ids.include?(@training_module.id) }
-                      .min_by { |block| [block.week.order, block.order] }
+                      .min_by { |block| [block.week.order, block.order.to_i] }
   end
 end
