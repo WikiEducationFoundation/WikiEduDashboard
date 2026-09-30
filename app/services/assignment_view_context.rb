@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/student_progress/links"
-require_dependency "#{Rails.root}/lib/student_progress/roster"
+require_dependency "#{Rails.root}/lib/student_progress/timeline"
 
 # Bundles the data the in-Canvas `assignment_view` needs for one gradebook
 # line item, so the controller action and its views stay thin. Produces a
@@ -21,18 +21,14 @@ class AssignmentViewContext
     end
   end
 
-  # Exercises whose outcome is *which article* the student took on, not whether
-  # they ticked a box. "Completed" is a useless thing to report for these: the
-  # instructor wants to know that this student is writing about Foo, and that
-  # this other student hasn't chosen anything yet. Both current selection
-  # exercises are listed — one where students pick from an instructor's list
-  # (no sandbox of its own) and one where they draft candidates in a sandbox
-  # (which still renders alongside).
-  #
-  # Keyed on module slug, the same way the fact-verification in-progress check
-  # keys on exercise_path. Wiki Ed's training library only; the integration is
-  # gated to that deployment.
-  ARTICLE_SELECTION_SLUGS = %w[choose-topic-exercise choose-topic-from-list-exercise].freeze
+  # Exercises whose outcome is *which article* the student took on
+  # (StudentProgress::Timeline::ARTICLE_SELECTION_SLUGS). "Completed" is a
+  # useless thing to report for these: the instructor wants to know that this
+  # student is writing about Foo, and that this other student hasn't chosen
+  # anything yet. Both current selection exercises are listed — one where
+  # students pick from an instructor's list (no sandbox of its own) and one
+  # where they draft candidates in a sandbox (which still renders alongside).
+  ARTICLE_SELECTION_SLUGS = StudentProgress::Timeline::ARTICLE_SELECTION_SLUGS
 
   # The stages of the writing process where the shared article panel belongs —
   # the whole state of the student's article (bibliography, outline, draft, and

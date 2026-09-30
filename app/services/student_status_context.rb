@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/student_progress/links"
-require_dependency "#{Rails.root}/lib/student_progress/roster"
+require_dependency "#{Rails.root}/lib/student_progress/timeline"
 
 # Assembles a student's progress overview for the in-Canvas nav-item launch:
 # their assigned articles (mirroring "My Articles"), rolled-up training and
@@ -99,10 +99,12 @@ class StudentStatusContext
                 url: exercise_url(block), due_date: block.calculated_due_date)
   end
 
-  # In timeline order, which is the order the preload keeps its blocks in.
   def exercise_blocks
-    @exercise_blocks ||= @preload.blocks
-                                 .select { |block| @preload.modules_for(block).any?(&:exercise?) }
+    timeline.exercise_blocks
+  end
+
+  def timeline
+    @timeline ||= StudentProgress::Timeline.new(@preload)
   end
 
   def exercise_done?(block)
@@ -123,8 +125,7 @@ class StudentStatusContext
   end
 
   def block_due_date(mod)
-    block = @preload.blocks.detect { |candidate| candidate.training_module_ids.include?(mod.id) }
-    block&.calculated_due_date
+    timeline.due_date_for(mod)
   end
 
   # Once trainings/exercises are done, the remaining work is the student's

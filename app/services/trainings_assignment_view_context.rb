@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/training_module_due_date_manager"
 require_dependency "#{Rails.root}/lib/training_progress_manager"
 require_dependency "#{Rails.root}/lib/student_progress/links"
-require_dependency "#{Rails.root}/lib/student_progress/roster"
+require_dependency "#{Rails.root}/lib/student_progress/timeline"
 require_dependency "#{Rails.root}/lib/student_progress/rules"
 
 # Bundles the data for the in-Canvas assignment view of the rolled-up
@@ -124,12 +123,12 @@ class TrainingsAssignmentViewContext
   end
 
   def module_due_date(mod)
-    TrainingModuleDueDateManager.new(course: @course, training_module: mod, user: nil)
-                                .computed_due_date
+    @timeline ||= StudentProgress::Timeline.new(progress_roster)
+    @timeline.due_date_for(mod)
   end
 
   # Same sources as the Students-tab drawer (TrainingStatusController):
-  # due date from the module's timeline block, status strings from
+  # due date from the module's first timeline block, status strings from
   # TrainingProgressManager.
   def viewer_module_row(mod)
     due_date = module_due_date(mod)
