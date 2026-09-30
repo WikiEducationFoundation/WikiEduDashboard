@@ -19,6 +19,13 @@ describe LocalReportCsvStore do
     end
   end
 
+  describe '#read' do
+    it 'reads the file from the public directory' do
+      store.write(filename, "a,b\n1,2\n")
+      expect(store.read(filename)).to eq("a,b\n1,2\n")
+    end
+  end
+
   describe '#exists?' do
     it 'returns false when the report has not been generated' do
       expect(store.exists?(filename)).to eq(false)

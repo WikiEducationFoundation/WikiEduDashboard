@@ -1,5 +1,6 @@
 import React from 'react';
 import Nav from './nav/nav.jsx';
+import Notifications from './common/notifications.jsx';
 import SerifModeToggle from './nav/serif_mode_toggle.jsx';
 import { render as renderMain } from './Main';
 import { createRoot } from 'react-dom/client';
@@ -27,6 +28,15 @@ if (fontToggle) {
 }
 
 const reactRoot = document.getElementById('react_root');
+const campaignNotificationsRoot = document.getElementById('campaign_notifications_root');
+
+if (campaignNotificationsRoot) {
+  createRoot(campaignNotificationsRoot).render(
+    <Provider store={store}>
+      <Notifications />
+    </Provider>
+  );
+}
 
 if (reactRoot) {
   // Render the Main component with the same Redux store and React Router
