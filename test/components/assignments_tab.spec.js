@@ -6,7 +6,7 @@ jest.mock('../../app/assets/javascripts/components/assignments_tab/AssignmentPro
 import {
   filterLabel, isLate, itemTitle, matchesFilter, neighbors, studentName
 } from '../../app/assets/javascripts/components/assignments_tab/assignmentHelpers';
-import { rebaseHtml } from '../../app/assets/javascripts/components/assignments_tab/sandboxPreview';
+import { rebaseHtml } from '../../app/assets/javascripts/components/assignments_tab/pagePreview';
 
 const React = require('react');
 const { TextEncoder, TextDecoder } = require('util');

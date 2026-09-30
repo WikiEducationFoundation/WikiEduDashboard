@@ -1,6 +1,6 @@
 import React, { useId, useState } from 'react';
 import PropTypes from 'prop-types';
-import { fetchPagePreview } from './sandboxPreview';
+import { fetchPagePreview } from './pagePreview';
 
 // A Show/Hide toggle that loads a sandbox (or any wiki page) inline, the first
 // time it's opened. A failed or missing page is retried on the next open, in
