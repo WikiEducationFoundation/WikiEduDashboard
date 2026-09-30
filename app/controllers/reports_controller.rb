@@ -222,13 +222,10 @@ class ReportsController < ApplicationController
   def build_filename(type, with_course: nil)
     # Filename does not have to contain '/' char because it's interpreted as a route
     return "#{@course.slug}-#{type}-#{Time.zone.today}.csv".tr('/', '-') if course_report?(type)
-    if type == 'campaign_all'
-      return "#{@campaign.slug}-campaign-data-#{Time.zone.today}.zip".tr('/', '-')
-    end
+    return ReportCsvWorker.campaign_zip_name(@campaign) if type == 'campaign_all'
 
     include_courses = with_course.nil? ? csv_params[:course] : with_course
-    include_course_segment = include_courses ? '-with_courses' : ''
-    "#{@campaign.slug}-#{type}#{include_course_segment}-#{Time.zone.today}.csv".tr('/', '-')
+    ReportCsvWorker.campaign_csv_name(@campaign, type, course: include_courses)
   end
 
   def csv_params

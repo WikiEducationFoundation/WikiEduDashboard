@@ -25,6 +25,17 @@ class ReportCsvWorker
     perform_async(source&.id, filename, type, include_course, filters.to_json)
   end
 
+  def self.campaign_csv_name(campaign, type, course: false)
+    slug = campaign.respond_to?(:slug) ? campaign.slug : campaign.to_s
+    course_segment = course ? '-with_courses' : ''
+    "#{slug}-#{type}#{course_segment}-#{Time.zone.today}.csv".tr('/', '-')
+  end
+
+  def self.campaign_zip_name(campaign)
+    slug = campaign.respond_to?(:slug) ? campaign.slug : campaign.to_s
+    "#{slug}-campaign-data-#{Time.zone.today}.zip".tr('/', '-')
+  end
+
   def perform(id, filename, type, include_course, filters_json = '{}')
     parsed_filters = JSON.parse(filters_json).symbolize_keys
     if type == 'campaign_all'
@@ -62,18 +73,6 @@ class ReportCsvWorker
     end
   end
 
-  def to_campaign_zip(campaign_id, output_path = nil)
-    if output_path
-      stream_campaign_zip(campaign_id, output_path)
-    else
-      Tempfile.create(['campaign_zip', '.zip']) do |tempfile|
-        tempfile.close
-        stream_campaign_zip(campaign_id, tempfile.path)
-        File.binread(tempfile.path)
-      end
-    end
-  end
-
   def stream_campaign_zip(campaign_id, output_path)
     campaign = Campaign.find(campaign_id)
     builder = CampaignCsvBuilder.new(campaign)
@@ -105,8 +104,7 @@ class ReportCsvWorker
   end
 
   def campaign_csv_name(campaign, type, course: false)
-    course_segment = course ? '-with_courses' : ''
-    "#{campaign.slug}-#{type}#{course_segment}-#{Time.zone.today}.csv".tr('/', '-')
+    self.class.campaign_csv_name(campaign, type, course:)
   end
 
   def fetch_or_build_csv(filename, generator)
@@ -156,9 +154,7 @@ class ReportCsvWorker
   private
 
   def report_data(type, id, include_course, filters)
-    if type == 'campaign_all'
-      to_campaign_zip(id)
-    elsif type == 'all_courses_and_instructors'
+    if type == 'all_courses_and_instructors'
       all_courses_and_instructors_csv
     elsif type == 'system_csv'
       to_system_csv(filters)

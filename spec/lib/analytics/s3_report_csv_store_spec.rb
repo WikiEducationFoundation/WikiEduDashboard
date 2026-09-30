@@ -32,6 +32,26 @@ describe S3ReportCsvStore do
         .with(bucket: 'reports', key: zip_filename, body: 'data', content_type: 'application/zip')
       store.write(zip_filename, 'data')
     end
+
+    it 'uploads from a Tempfile and ensures the file is closed' do
+      Tempfile.create(['test_zip', '.zip']) do |tempfile|
+        tempfile.write('binary_zip_content')
+        tempfile.flush
+
+        opened_file = nil
+        expect(client).to receive(:put_object) do |args|
+          expect(args[:bucket]).to eq('reports')
+          expect(args[:key]).to eq('campaign-data.zip')
+          expect(args[:content_type]).to eq('application/zip')
+          expect(args[:body]).to be_a(File)
+          opened_file = args[:body]
+          expect(opened_file.read).to eq('binary_zip_content')
+        end
+
+        store.write('campaign-data.zip', tempfile)
+        expect(opened_file).to be_closed
+      end
+    end
   end
 
   describe '#read' do

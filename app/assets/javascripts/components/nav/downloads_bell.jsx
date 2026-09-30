@@ -5,7 +5,6 @@ import { markDownloadsRead, removeDownload, startDownload } from '../../actions/
 
 const statusLabel = (status) => {
   if (status === 'pending') { return I18n.t('downloads.generating'); }
-  if (status === 'timeout') { return I18n.t('downloads.timeout'); }
   if (status === 'error') { return I18n.t('downloads.error'); }
   return I18n.t('downloads.ready');
 };
