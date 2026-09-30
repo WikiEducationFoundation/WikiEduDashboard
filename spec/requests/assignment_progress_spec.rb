@@ -67,7 +67,7 @@ describe 'Assignment progress', type: :request do
         subscriber = ActiveSupport::Notifications.subscribe('sql.active_record') do |*, payload|
           counted += 1 unless %w[SCHEMA TRANSACTION].include?(payload[:name])
         end
-        get path, params: { item: 'article-live' }
+        get path, params: { item: 'article' }
         ActiveSupport::Notifications.unsubscribe(subscriber)
         counted
       end

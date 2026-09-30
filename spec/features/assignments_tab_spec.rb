@@ -57,11 +57,13 @@ describe 'Assignments tab', type: :feature, js: true do
       expect(page).to have_css('.assignments-tab__list .drawer', text: 'Amy')
     end
 
-    it 'opens an assignment from its own URL, showing each student\'s article' do
-      visit "#{course_path}/assignments/article-selection"
+    it 'opens the assigned article from its own URL, showing each student\'s article work' do
+      visit "#{course_path}/assignments/article"
       within('.assignments-tab__list .drawer') do
-        expect(find('tbody tr', text: 'Bo')).to have_link 'Sea otter'
-        expect(find('tbody tr', text: 'Amy')).to have_content 'No article chosen yet'
+        bo_row = find('tr', text: 'Bo')
+        expect(bo_row).to have_link 'Sea otter'
+        expect(bo_row).to have_content 'Draft sandbox: Not started'
+        expect(find('tr', text: 'Amy')).to have_content 'No article chosen yet'
       end
     end
   end

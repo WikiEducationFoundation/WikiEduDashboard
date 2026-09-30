@@ -509,7 +509,6 @@ en:
   assignments_tab:
     label: Assignments
     overdue: Overdue
-    live_article: Live article
   blocks:
     milestones:
       title: Milestones

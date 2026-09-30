@@ -2,14 +2,6 @@ import { format, parseISO } from 'date-fns';
 
 // Labels come from existing translations wherever one fits: the Canvas
 // assignment views already name most of these things.
-const ARTICLE_STAGE_LABELS = {
-  selection: 'lti.assignment_view.roster.assigned_article',
-  bibliography: 'lti.assignment_view.article_work.pages.bibliography',
-  outline: 'lti.assignment_view.article_work.pages.outline',
-  draft: 'lti.assignment_view.article_work.pages.draft',
-  live: 'assignments_tab.live_article',
-};
-
 const KIND_LABELS = {
   training: 'training.kind.training',
   exercise: 'training.kind.exercise',
@@ -28,7 +20,7 @@ export const FILTERS = ['all', 'complete', 'in_progress', 'not_started', 'overdu
 export const itemTitle = (item) => {
   if (item.title) { return item.title; }
   if (item.kind === 'peer_review') { return I18n.t('lti.status.roster.peer_reviews'); }
-  return I18n.t(ARTICLE_STAGE_LABELS[item.article_stage]);
+  return I18n.t('lti.assignment_view.roster.assigned_article');
 };
 
 export const kindLabel = item => I18n.t(KIND_LABELS[item.kind]);

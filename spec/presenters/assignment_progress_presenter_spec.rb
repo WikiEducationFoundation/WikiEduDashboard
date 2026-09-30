@@ -16,6 +16,10 @@ describe AssignmentProgressPresenter do
     create(:training_module, slug: 'ex-a', kind: 1,
                              settings: { 'sandbox_location' => 'Evaluate_an_Article' })
   end
+  let(:bibliography_exercise) do
+    create(:training_module, slug: 'bib-ex', name: 'Bibliography', kind: 1,
+                             settings: { 'assignment_sandbox_location' => 'Bibliography' })
+  end
   let(:presenter) { described_class.new(course:) }
 
   before do
@@ -25,6 +29,7 @@ describe AssignmentProgressPresenter do
     create(:courses_user, course:, user: create(:user, username: 'Prof'),
                           role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     create(:block, week:, order: 0, training_module_ids: [training.id, exercise.id])
+    create(:block, week:, order: 1, training_module_ids: [bibliography_exercise.id])
   end
 
   def rows(key)
@@ -60,7 +65,7 @@ describe AssignmentProgressPresenter do
 
   it 'marks peer reviews overdue once the peer-review block is past due' do
     course.update!(flags: { peer_review_count: 1 })
-    create(:block, week:, order: 1, title: 'Peer review an article', training_module_ids: [])
+    create(:block, week:, order: 2, title: 'Peer review an article', training_module_ids: [])
     travel_to(presenter.item('peer-review').due_date + 1.day) do
       expect(rows('peer-review').map { |row| row[:overdue] }).to eq([true, true])
     end
@@ -78,32 +83,59 @@ describe AssignmentProgressPresenter do
     expect(amy_row[:sandbox_url]).to end_with('User:Amy/Evaluate_an_Article')
   end
 
-  it 'gives each assigned article its own entry, completing the student when all are done' do
+  def bibliography_due
+    Block.find_by(week:, order: 1).calculated_due_date
+  end
+
+  def complete_exercise(user, mod)
+    tmu = TrainingModulesUsers.create!(user:, training_module: mod)
+    tmu.mark_completion(true, course.id)
+    tmu.save!
+  end
+
+  def edit_live(assignment, revisions)
+    article = create(:article, title: assignment.article_title, wiki: course.home_wiki)
+    assignment.update!(article:)
+    ArticleCourseTimeslice.create!(course:, article:, user_ids: [assignment.user_id],
+                                   revision_count: revisions, start: 2.days.ago, end: 1.day.ago)
+  end
+
+  it 'shows each assigned article with its pages, and the article exercises as a checklist' do
     first = assign(amy, 'First')
     assign(amy, 'Second')
     first.update_sandbox_status(:bibliography,
                                 AssignmentPipeline::SandboxStatuses::EXISTS_IN_USERSPACE)
 
-    amy_row, zed_row = rows('article-bibliography')
+    amy_row, zed_row = rows('article')
     expect(amy_row[:state]).to eq('in_progress')
-    expect(amy_row[:articles].map { |a| [a[:title], a[:complete]] })
-      .to eq([['First', true], ['Second', false]])
-    expect(zed_row).to eq(user_id: zed.id, state: 'not_started', articles: [])
+    expect(amy_row[:articles].map { |a| a[:title] }).to eq(%w[First Second])
+    bibliography = amy_row[:articles].first[:pages].find { |page| page[:kind] == :bibliography }
+    expect(bibliography[:created]).to be(true)
+    expect(amy_row[:exercises]).to eq([{ slug: 'bib-ex', name: 'Bibliography', completed: false,
+                                         due_date: bibliography_due }])
+    expect(zed_row).to include(state: 'not_started', articles: [])
   end
 
-  it 'counts a bibliography marked done in the pipeline even without the page' do
-    assign(amy, 'First').update_status(AssignmentPipeline::AssignmentStatuses::IN_PROGRESS)
-    expect(rows('article-bibliography').first[:state]).to eq('complete')
+  it 'completes the article once its exercises are done and every article has live edits' do
+    first = assign(amy, 'First')
+    complete_exercise(amy, bibliography_exercise)
+    expect(rows('article').first[:state]).to eq('in_progress')
+
+    edit_live(first, 3)
+    fresh = described_class.new(course:)
+    amy_row = fresh.rows_for(fresh.item('article')).first
+    expect(amy_row[:state]).to eq('complete')
+    expect(amy_row[:articles].first[:stats][:revisions]).to eq(3)
+    expect(amy_row[:exercises].first[:completed]).to be(true)
   end
 
-  it 'counts live-article work once the student has edits in it' do
-    article = create(:article, title: 'First', wiki: course.home_wiki)
-    assign(amy, 'First').update!(article:)
-    ArticleCourseTimeslice.create!(course:, article:, user_ids: [amy.id], revision_count: 3,
-                                   start: 2.days.ago, end: 1.day.ago)
-
-    expect(rows('article-live').first[:state]).to eq('complete')
-    expect(rows('article-live').first[:articles].first[:stats][:revisions]).to eq(3)
+  it 'marks the article overdue while one of its exercises is past due' do
+    assign(amy, 'First')
+    travel_to(bibliography_due + 1.day) do
+      amy_row = rows('article').first
+      expect(amy_row[:overdue]).to be(true)
+      expect(amy_row[:exercises].first[:overdue]).to be(true)
+    end
   end
 
   it 'measures peer reviews against the assigned ones when the course sets no count' do
@@ -125,6 +157,6 @@ describe AssignmentProgressPresenter do
   it 'links module assignments to their training page' do
     expect(presenter.links_for(presenter.item('exercise-ex-a'))[:training_url])
       .to include('/training/')
-    expect(presenter.links_for(presenter.item('article-live'))).to eq({})
+    expect(presenter.links_for(presenter.item('article'))).to eq({})
   end
 end

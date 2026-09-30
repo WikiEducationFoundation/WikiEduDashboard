@@ -10,7 +10,6 @@ end
 json.items @presenter.items do |item|
   json.call(item, :key, :kind)
   json.title item.title if item.title
-  json.article_stage item.article_stage if item.article_stage
   json.due_date item.due_date if item.due_date
   json.merge! @presenter.links_for(item)
 end

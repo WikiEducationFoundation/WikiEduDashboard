@@ -80,3 +80,31 @@
     padding 15px 20px
     .table
       margin-bottom 0
+
+  .assignments-tab__pages--inline
+    font-size 14px
+
+  .assignments-tab__exercise-count
+    color $text_med
+    font-size 14px
+
+  .assignments-tab__exercises
+    margin-top 10px
+    h5
+      margin-bottom 5px
+    ul
+      list-style none
+      margin 0
+    li
+      margin-bottom 4px
+
+  // Inline sandbox previews: a scrollable, bordered excerpt of the wiki page.
+  .assignments-tab__preview-panel
+    background white
+    border 1px solid $border_lt
+    margin 8px 0 12px
+    max-height 480px
+    overflow auto
+    padding 10px 15px
+    &[hidden]
+      display none

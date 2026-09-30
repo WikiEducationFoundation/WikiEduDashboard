@@ -14,6 +14,12 @@ module StudentProgress
     # library only.
     ARTICLE_SELECTION_SLUGS = %w[choose-topic-exercise choose-topic-from-list-exercise].freeze
 
+    # Exercises done on the student's assigned article without being tied to
+    # one of its subpages. Together with the article-stage exercises
+    # (#article_stage_for) these are the exercises about the article; the list
+    # matches the Canvas views' article-panel exercises.
+    ARTICLE_WORK_SLUGS = %w[continue-improving-exercise].freeze
+
     # How the peer-review stage is identified on the timeline: by block title.
     # The wizard writes "Peer review an article" / "…two articles" / "…three
     # articles" for the work itself and "Peer reviews are complete" for the
@@ -84,6 +90,13 @@ module StudentProgress
       return :selection if ARTICLE_SELECTION_SLUGS.include?(training_module.slug)
 
       training_module.assignment_sandbox_location&.downcase&.to_sym
+    end
+
+    # Whether an exercise is part of the student's work on their assigned article.
+    def article_exercise?(training_module)
+      training_module.exercise? &&
+        (article_stage_for(training_module).present? ||
+         ARTICLE_WORK_SLUGS.include?(training_module.slug))
     end
 
     def peer_reviews_expected?

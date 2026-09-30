@@ -6,6 +6,7 @@ jest.mock('../../app/assets/javascripts/components/assignments_tab/AssignmentPro
 import {
   filterLabel, isLate, itemTitle, matchesFilter, neighbors, studentName
 } from '../../app/assets/javascripts/components/assignments_tab/assignmentHelpers';
+import { rebaseHtml } from '../../app/assets/javascripts/components/assignments_tab/sandboxPreview';
 
 const React = require('react');
 const { TextEncoder, TextDecoder } = require('util');
@@ -53,10 +54,20 @@ describe('assignmentHelpers', () => {
 
   test('labels module items by name and the rest from translations', () => {
     expect(itemTitle({ kind: 'training', title: 'Wikipedia essentials' })).toBe('Wikipedia essentials');
-    expect(itemTitle({ kind: 'article', article_stage: 'live' })).toBe('Live article');
-    expect(itemTitle({ kind: 'article', article_stage: 'draft' })).toBe('Draft sandbox');
+    expect(itemTitle({ kind: 'article', key: 'article' })).toBe('Assigned article');
     expect(itemTitle({ kind: 'peer_review' })).toBe('Peer reviews');
     expect(filterLabel('overdue')).toBe('Overdue');
+  });
+
+  test('rebaseHtml points wiki-relative links and images at the wiki, opening links in a new tab', () => {
+    const html = '<p><a href="/wiki/Telomere">T</a> <a href="#cite_note-1">1</a>'
+      + '<img src="/static/logo.png"></p>';
+    const rebased = new DOMParser().parseFromString(rebaseHtml(html, 'https://en.wikipedia.org'), 'text/html');
+    const [wikiLink, footnote] = rebased.querySelectorAll('a');
+    expect(wikiLink.getAttribute('href')).toBe('https://en.wikipedia.org/wiki/Telomere');
+    expect(wikiLink.getAttribute('target')).toBe('_blank');
+    expect(footnote.getAttribute('href')).toBe('#cite_note-1');
+    expect(rebased.querySelector('img').getAttribute('src')).toBe('https://en.wikipedia.org/static/logo.png');
   });
 
   test('studentName shows the real name when there is one', () => {
@@ -136,10 +147,10 @@ describe('Assignments tab views', () => {
 
   test('clicking an assignment row opens its students in a drawer, and again closes it', async () => {
     const data = {
-      items: [item, { key: 'article-live', kind: 'article', article_stage: 'live' }],
+      items: [item, { key: 'article', kind: 'article' }],
       summary: [
         { key: 'training-a', complete: 1, in_progress: 1, not_started: 1, overdue: 2, total: 3 },
-        { key: 'article-live', complete: 0, in_progress: 0, not_started: 3, overdue: 0, total: 3 },
+        { key: 'article', complete: 0, in_progress: 0, not_started: 3, overdue: 0, total: 3 },
       ],
     };
     fetchAssignmentProgress.mockResolvedValue({
@@ -161,5 +172,40 @@ describe('Assignments tab views', () => {
 
     await act(async () => { row.click(); });
     expect(container.querySelector('.drawer')).toBeNull();
+  });
+
+  test('the grader shows an article with its pages, exercises and a sandbox preview toggle', async () => {
+    const articleItem = { key: 'article', kind: 'article' };
+    const articleCells = {
+      1: {
+        user_id: 1,
+        state: 'in_progress',
+        articles: [{
+          assignment_id: 9, title: 'Telomere', url: 'https://en.wikipedia.org/wiki/Telomere', live: false,
+          pages: [{ kind: 'bibliography', url: 'https://en.wikipedia.org/wiki/User:Amy/Telomere/Bibliography', created: true }],
+          stats: { characters: 0, references: 0, revisions: 0 }
+        }],
+        exercises: [{ slug: 'bib-ex', name: 'Bibliography exercise', completed: true },
+                    { slug: 'outline-ex', name: 'Outline exercise', completed: false, overdue: true }],
+      },
+    };
+    global.fetch = jest.fn().mockResolvedValue({
+      json: () => Promise.resolve({ parse: { text: '<p>Sources <a href="/wiki/Book">Book</a></p>' } })
+    });
+    const grader = <AssignmentGrader item={articleItem} students={[students[0]]} cellsByUser={articleCells} itemPath="/a/article" />;
+    render('/a/article/Amy', grader, '/a/article/:username');
+
+    const detail = container.querySelector('.assignments-tab__student');
+    expect(detail.textContent).toContain('Telomere');
+    expect(detail.textContent).toContain('Bibliography: Started');
+    expect(detail.querySelectorAll('.assignments-tab__exercises li').length).toBe(2);
+    expect(detail.querySelector('.assignments-tab__exercises').textContent).toContain('Overdue');
+
+    const toggle = detail.querySelector('.assignments-tab__pages button');
+    await act(async () => { toggle.click(); });
+    expect(global.fetch.mock.calls[0][0]).toContain('page=User%3AAmy%2FTelomere%2FBibliography');
+    expect(detail.querySelector('.assignments-tab__preview-content a').getAttribute('href'))
+      .toBe('https://en.wikipedia.org/wiki/Book');
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
   });
 });

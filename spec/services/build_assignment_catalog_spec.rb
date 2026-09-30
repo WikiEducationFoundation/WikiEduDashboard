@@ -24,12 +24,17 @@ describe BuildAssignmentCatalog do
     catalog(for_course).items.map(&:key)
   end
 
-  it 'lists modules in timeline order, then the article stages, without discussions' do
+  # The test DB may already hold this real module.
+  let(:continue_improving) do
+    TrainingModule.find_by(slug: 'continue-improving-exercise') ||
+      create(:training_module, slug: 'continue-improving-exercise', name: 'Keep going', kind: 1)
+  end
+
+  it 'lists modules in timeline order, then the article, without discussions' do
     create(:block, week: week_two, order: 0, training_module_ids: [exercise.id])
     create(:block, week: week_one, order: 0, training_module_ids: [training.id, discussion.id])
 
-    expect(keys).to eq(%w[training-tr-a exercise-ex-a article-selection article-bibliography
-                          article-outline article-draft article-live])
+    expect(keys).to eq(%w[training-tr-a exercise-ex-a article])
   end
 
   it 'describes a module item with its kind, name and due date' do
@@ -40,22 +45,21 @@ describe BuildAssignmentCatalog do
     expect(item.due_date).to eq(course.blocks.first.calculated_due_date)
   end
 
-  it 'lets an exercise about an article stage stand in for that stage' do
-    create(:block, week: week_one, order: 0, training_module_ids: [bibliography_exercise.id])
+  it 'folds the exercises about the article into one article item, where the first one sits' do
+    create(:block, week: week_one, order: 0, training_module_ids: [training.id])
+    create(:block, week: week_one, order: 1, training_module_ids: [bibliography_exercise.id])
+    create(:block, week: week_two, order: 0, training_module_ids: [exercise.id])
+    create(:block, week: week_two, order: 1, training_module_ids: [continue_improving.id])
 
-    expect(keys).to include('exercise-bib-ex')
-    expect(keys).not_to include('article-bibliography')
-    expect(catalog.items.first.article_stage).to eq(:bibliography)
+    expect(keys).to eq(%w[training-tr-a article exercise-ex-a])
+    article = catalog.items.find { |item| item.key == 'article' }
+    expect(article.training_modules).to eq([bibliography_exercise, continue_improving])
   end
 
-  it 'leaves out bibliography and outline outside the classroom program' do
+  it 'lists the article on its own for a course with no article exercises' do
     fellows = create(:fellows_cohort)
-    expect(keys(fellows)).to eq(%w[article-selection article-draft article-live])
-  end
-
-  it 'leaves out the draft stage for a no-sandboxes course' do
-    course.update!(flags: { no_sandboxes: true })
-    expect(keys).not_to include('article-draft')
+    expect(keys(fellows)).to eq(%w[article])
+    expect(catalog(fellows).items.first.training_modules).to eq([])
   end
 
   describe 'peer review' do
@@ -70,7 +74,7 @@ describe BuildAssignmentCatalog do
                      training_module_ids: [])
       create(:block, week: week_two, order: 0, training_module_ids: [exercise.id])
 
-      expect(keys.first(3)).to eq(%w[training-tr-a peer-review exercise-ex-a])
+      expect(keys).to eq(%w[training-tr-a peer-review exercise-ex-a article])
     end
 
     it 'is included when a student has been assigned a review, even with no count set' do

@@ -70,6 +70,23 @@ describe StudentProgress::Timeline do
     end
   end
 
+  describe '#article_exercise?' do
+    it 'covers the article-stage exercises and continuing to improve the article' do
+      settings = { 'assignment_sandbox_location' => 'Outline' }
+      expect(timeline.article_exercise?(build(:training_module, slug: 'o', kind: 1, settings:)))
+        .to be(true)
+      expect(timeline.article_exercise?(build(:training_module, slug: 'choose-topic-exercise',
+                                                                kind: 1))).to be(true)
+      expect(timeline.article_exercise?(build(:training_module, slug: 'continue-improving-exercise',
+                                                                kind: 1))).to be(true)
+    end
+
+    it 'leaves out other exercises and training modules' do
+      expect(timeline.article_exercise?(exercise)).to be(false)
+      expect(timeline.article_exercise?(training)).to be(false)
+    end
+  end
+
   describe 'peer review' do
     it 'finds the last block titled for peer review' do
       create(:block, week: week_two, order: 2, title: 'Peer reviews are complete',
