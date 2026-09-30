@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/links"
+
 # Assembles a student's progress overview for the in-Canvas nav-item launch:
 # their assigned articles (mirroring "My Articles"), rolled-up training and
 # exercise completion, and the single most-urgent next step. The next step is
@@ -111,14 +113,12 @@ class StudentStatusContext
   def exercise_url(block)
     mod = @preload.modules_for(block).detect(&:exercise?)
     return if mod.nil?
-    return "/courses/#{@course.slug}/#{mod.exercise_path}" if mod.exercise_path.present?
 
-    training_url(mod)
+    StudentProgress::Links.exercise_url(@course, mod)
   end
 
   def training_url(mod)
-    "/training/#{@course.training_library_slug}/#{mod.slug}" \
-      "?return_to=#{CGI.escape("/courses/#{@course.slug}")}"
+    StudentProgress::Links.training_url(@course, mod)
   end
 
   def block_due_date(mod)

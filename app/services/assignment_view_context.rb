@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/links"
+
 # Bundles the data the in-Canvas `assignment_view` needs for one gradebook
 # line item, so the controller action and its views stay thin. Produces a
 # single student's row (student-facing panel) or one row per linked student
@@ -96,7 +98,7 @@ class AssignmentViewContext
     mod = exercise_modules.find { |m| m.exercise_path.present? }
     return unless mod
 
-    "/courses/#{@course.slug}/#{mod.exercise_path}"
+    StudentProgress::Links.exercise_path_url(@course, mod)
   end
 
   # Sandbox-based (mark-complete) exercises keep their how-to instructions in
@@ -108,8 +110,7 @@ class AssignmentViewContext
     mod = exercise_modules.find(&:sandbox_location)
     return unless mod
 
-    "/training/#{@course.training_library_slug}/#{mod.slug}" \
-      "?return_to=#{CGI.escape("/courses/#{@course.slug}")}"
+    StudentProgress::Links.training_url(@course, mod)
   end
 
   private
@@ -189,7 +190,7 @@ class AssignmentViewContext
     mod = exercise_modules.find(&:sandbox_location)
     return unless mod
 
-    "#{@course.home_wiki.base_url}/wiki/User:#{user.url_encoded_username}/#{mod.sandbox_location}"
+    StudentProgress::Links.exercise_sandbox_url(@course, user, mod)
   end
 
   # One query: every roster student's TrainingModulesUsers for this block's

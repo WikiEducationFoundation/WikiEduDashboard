@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/rules"
+
 # Progress on the peer-review stage for one (Course, User) — the column behind
 # LtiLineItem::PEER_REVIEW_TYPE.
 #
@@ -113,23 +115,13 @@ class LtiPeerReviewProgress
     [completed_count.to_f / @expected, SCORE_MAXIMUM].min
   end
 
-  # Either signal counts, because they fail in opposite directions and both live in
-  # `flags[:review]` under different keys:
-  #
-  #   - `:status` reaching PEER_REVIEW_COMPLETED — the student's own progress
-  #     through the review steps (AssignmentsController#update_status). Immediate,
-  #     and for an instructor-graded column it's the right trigger: the student
-  #     saying they're finished is what asks the instructor to look.
-  #   - `:review`, the review page existing. The artifact, so it catches a student
-  #     who wrote the review without clicking through the steps — but it's written
-  #     only by CheckAssignmentStatus, which runs from the constant update cycle
-  #     (lib/data_cycle/constant_update.rb), so it trails the work by up to a
-  #     cycle. On the strength of that flag alone a finished review read as "0 of
-  #     2" until the cycle caught up (operator decision 2026-08-04).
+  # Either the student marking it complete or the review page existing counts
+  # (operator decision 2026-08-04). For an instructor-graded column the student
+  # saying they're finished is the right trigger: it's what asks the instructor
+  # to look. On the page signal alone, which trails the work by up to an update
+  # cycle, a finished review read as "0 of 2" until the cycle caught up.
   def completed?(review)
-    review.status == AssignmentPipeline::ReviewStatuses::PEER_REVIEW_COMPLETED ||
-      review.peer_review_sandbox_status !=
-        AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST
+    StudentProgress::Rules.review_complete?(review)
   end
 
   def compute_comment

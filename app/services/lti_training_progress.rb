@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/rules"
+
 # Computes the rolled-up "Wikipedia trainings" progress for one (Course,
 # User) — used by the lumped-mode TrainingProgress sentinel line item.
 #
@@ -61,7 +63,7 @@ class LtiTrainingProgress
   def module_complete?(mod)
     tmu = @completions ? @completions[mod.id] : TrainingModulesUsers.find_by(user: @user,
                                                                              training_module: mod)
-    tmu&.completed_at.present?
+    StudentProgress::Rules.training_complete?(tmu)
   end
 
   def collect_training_modules

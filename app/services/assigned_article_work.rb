@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/rules"
+
 # One student's state of work on their assigned article(s), for the in-Canvas
 # drill-downs: where each piece of the writing process lives, whether it exists
 # yet, and how much of the live article they have actually written.
@@ -83,15 +85,10 @@ class AssignedArticleWork
     "#{assignment.wiki.base_url}/wiki/#{pagename}"
   end
 
-  # The statuses distinguish where a page ended up (userspace, draft space,
-  # mainspace, elsewhere); for "has the student started this yet" they all mean
-  # yes. Only DOES_NOT_EXIST means no.
-  #
-  # These are refreshed by CheckAssignmentStatus rather than checked live, so a
-  # page created minutes ago can still read as missing here. The view's own
-  # preview fetch is the live check.
+  # The view's own preview fetch is the live check; this can trail it by an
+  # update cycle.
   def created?(status)
-    status != AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST
+    StudentProgress::Rules.page_created?(status)
   end
 
   # This student's share of the live article: the timeslices for that article

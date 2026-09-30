@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/training_module_due_date_manager"
 require_dependency "#{Rails.root}/lib/training_progress_manager"
+require_dependency "#{Rails.root}/lib/student_progress/links"
 
 # Bundles the data for the in-Canvas assignment view of the rolled-up
 # "Wikipedia trainings" (TrainingProgress) gradebook column. Instructors
@@ -143,12 +144,8 @@ class TrainingsAssignmentViewContext
                   training_url: training_url(mod))
   end
 
-  # return_to sends the end-of-training "return" to the course home page —
-  # by default it uses the referer, which for these links would be the LTI
-  # iframe launch URL.
   def training_url(mod)
-    "/training/#{@course.training_library_slug}/#{mod.slug}" \
-      "?return_to=#{CGI.escape("/courses/#{@course.slug}")}"
+    StudentProgress::Links.training_url(@course, mod)
   end
 
   def row_for(user, name:)
