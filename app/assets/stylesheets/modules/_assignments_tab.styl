@@ -1,0 +1,75 @@
+// Instructor-facing Assignments tab (components/assignments_tab). The grader
+// reuses the Students tab's two-pane layout (.users-articles).
+.assignments-tab
+  padding-top 20px
+
+  .assignments-tab__kind
+    color $text_med
+    display block
+    font-size 12px
+
+  .assignments-tab__meta .assignments-tab__kind
+    display inline
+
+  .assignments-tab__header
+    margin-bottom 15px
+    h3
+      margin 5px 0
+
+  .assignments-tab__state
+    font-weight 600
+    white-space nowrap
+  .assignments-tab__state--complete
+    color $success_text
+  .assignments-tab__state--in_progress
+    color $brand_primary
+  .assignments-tab__state--not_started
+    color $text_med
+
+  .assignments-tab__overdue, .assignments-tab__late
+    color $warning_text
+    font-weight 600
+  .assignments-tab__overdue
+    margin-left 8px
+
+  .assignments-tab__overdue-count
+    color $warning_text
+    font-weight 600
+
+  .assignments-tab__filter
+    display inline-block
+    margin-bottom 10px
+    select
+      margin-left 5px
+
+  .assignments-tab__article
+    margin-bottom 10px
+    p
+      margin-bottom 3px
+
+  .assignments-tab__article-status
+    color $text_med
+    font-size 13px
+
+  .assignments-tab__pages
+    list-style none
+    margin 0 0 5px
+
+  .assignments-tab__stats
+    display grid
+    gap 2px 10px
+    grid-template-columns max-content max-content
+    dd
+      margin 0
+
+  .assignments-tab__grader-nav
+    align-items center
+    display flex
+    gap 15px
+    margin-bottom 15px
+
+  .assignments-tab__grader .student .assignments-tab__state
+    font-size 12px
+
+  .assignments-tab__grader li.student.selected .assignments-tab__state
+    color white
