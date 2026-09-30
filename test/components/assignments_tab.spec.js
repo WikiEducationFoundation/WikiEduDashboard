@@ -262,15 +262,21 @@ describe('Assignments tab views', () => {
 
     const detail = container.querySelector('.assignments-tab__student');
     expect(detail.textContent).toContain('Telomere');
-    expect(detail.textContent).toContain('Bibliography: Started');
     expect(detail.textContent).toContain('Assigned Sep 2, 2026');
     expect([...detail.querySelectorAll('.assignments-tab__stages li')].map(li => li.className))
       .toEqual(['reached', '']);
-    expect(detail.querySelectorAll('.assignments-tab__exercises li').length).toBe(2);
-    expect(detail.querySelector('.assignments-tab__exercises').textContent).toContain('Overdue');
+    const [articleCard, exerciseCard] = detail.querySelectorAll('.assignments-tab__card');
+    const bibliographyRow = articleCard.querySelector('.assignments-tab__work-table tr');
+    expect(bibliographyRow.querySelector('th').textContent).toBe('Bibliography');
+    expect(bibliographyRow.querySelector('.assignments-tab__status--done').textContent).toContain('Started');
+    expect(exerciseCard.querySelectorAll('tbody > tr').length).toBe(2);
+    expect(exerciseCard.textContent).toContain('Overdue');
 
-    const toggle = detail.querySelector('.assignments-tab__pages button');
+    const toggle = bibliographyRow.querySelector('button');
+    const previewRow = articleCard.querySelector('.assignments-tab__preview-row');
+    expect(previewRow.hidden).toBe(true);
     await act(async () => { toggle.click(); });
+    expect(previewRow.hidden).toBe(false);
     expect(global.fetch.mock.calls[0][0]).toContain('page=User%3AAmy%2FTelomere%2FBibliography');
     expect(detail.querySelector('.assignments-tab__preview-content a').getAttribute('href'))
       .toBe('https://en.wikipedia.org/wiki/Book');

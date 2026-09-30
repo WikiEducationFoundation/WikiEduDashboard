@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import SandboxPreview from './SandboxPreview';
+import SandboxPreview, { usePagePreview } from './SandboxPreview';
 import { StageTracker } from './ArticleParts';
 import {
   articleStatusLabel, formatDate, isLate, percent, stateLabel
@@ -77,97 +77,167 @@ const PAGE_LABELS = {
   draft: 'lti.assignment_view.article_work.pages.draft',
 };
 
+// A done / not-done marker with its word, so state never rests on color.
+const Status = ({ done, children }) => (
+  <span className={`assignments-tab__status assignments-tab__status--${done ? 'done' : 'todo'}`}>
+    <span className="assignments-tab__status-mark" aria-hidden="true">{done ? '✓' : '○'}</span>
+    {children}
+  </span>
+);
+
+Status.propTypes = { done: PropTypes.bool, children: PropTypes.node };
+
+// One row of a work table: what it is, its state, and actions in fixed
+// columns, so the links and Show buttons line up down the table. A preview
+// opens in a full-width row beneath.
+const WorkRow = ({ label, detail, url, preview }) => {
+  const { open, button, panel } = usePagePreview(url);
+  return (
+    <>
+      <tr>
+        <th scope="row">{label}</th>
+        <td>{detail}</td>
+        <td className="assignments-tab__work-actions">
+          <ExternalLink href={url}>{I18n.t('lti.assignment_view.open_on_wikipedia')}</ExternalLink>
+          {preview && button}
+        </td>
+      </tr>
+      {preview && (
+        <tr className="assignments-tab__preview-row" hidden={!open}>
+          <td colSpan={3}>{panel}</td>
+        </tr>
+      )}
+    </>
+  );
+};
+
+WorkRow.propTypes = {
+  label: PropTypes.node.isRequired,
+  detail: PropTypes.node,
+  url: PropTypes.string.isRequired,
+  preview: PropTypes.bool,
+};
+
 const LiveStats = ({ stats }) => (
-  <dl className="assignments-tab__stats">
-    <dt>{I18n.t('lti.assignment_view.article_work.characters')}</dt>
-    <dd>{stats.characters}</dd>
-    <dt>{I18n.t('lti.assignment_view.article_work.references')}</dt>
-    <dd>{stats.references}</dd>
-    <dt>{I18n.t('lti.assignment_view.article_work.revisions')}</dt>
-    <dd>{stats.revisions}</dd>
-  </dl>
+  <span className="assignments-tab__live-stats">
+    {[['characters', stats.characters], ['references', stats.references], ['revisions', stats.revisions]]
+      .map(([key, value]) => (
+        <span key={key}>
+          {I18n.t(`lti.assignment_view.article_work.${key}`)} <strong>{value.toLocaleString()}</strong>
+        </span>
+      ))}
+  </span>
 );
 
 LiveStats.propTypes = { stats: PropTypes.object.isRequired };
 
-// One assigned article in full: what it is and when the student got it, how
-// far along it is, where the student says they are with it, its pages to read
-// in place, and what they've written live.
-const ArticleWork = ({ article }) => {
+// One assigned article as a card: the article and when the student got it,
+// how far along it is, then where the work is: each page and the live article,
+// with its state, a link, and a preview to read it here.
+const ArticleCard = ({ article }) => {
   const status = article.status_updated_at ? articleStatusLabel(article.status) : '';
   return (
-    <div className="assignments-tab__article">
-      <p className="assignments-tab__article-title">
-        <ExternalLink href={article.url}>{article.title}</ExternalLink>
+    <section className="assignments-tab__card">
+      <div className="assignments-tab__card-header">
+        <div>
+          <h5 className="assignments-tab__card-title">
+            <ExternalLink href={article.url}>{article.title}</ExternalLink>
+          </h5>
+          {status && (
+            <span className="assignments-tab__pill">
+              {status} · {formatDate(article.status_updated_at)}
+            </span>
+          )}
+        </div>
         {article.assigned_at && (
           <span className="assignments-tab__date">
-            {' · '}{I18n.t('assignments_tab.assigned')} {formatDate(article.assigned_at)}
+            {I18n.t('assignments_tab.assigned')} {formatDate(article.assigned_at)}
           </span>
         )}
-      </p>
+      </div>
       <StageTracker stages={article.stages} />
-      {status && (
-        <p className="assignments-tab__article-status">
-          {status} ({formatDate(article.status_updated_at)})
-        </p>
-      )}
-      <ul className="assignments-tab__pages">
-        {article.pages.map(page => (
-          <li key={page.kind}>
-            <PageLink
-              label={I18n.t(PAGE_LABELS[page.kind])} url={page.url} created={page.created} preview
+      <table className="assignments-tab__work-table">
+        <tbody>
+          {article.pages.map(page => (
+            <WorkRow
+              key={page.kind} label={I18n.t(PAGE_LABELS[page.kind])} url={page.url} preview
+              detail={(
+                <Status done={page.created}>
+                  {I18n.t(page.created
+                    ? 'lti.assignment_view.article_work.created'
+                    : 'lti.assignment_view.article_work.not_created_yet')}
+                </Status>
+              )}
             />
-          </li>
-        ))}
-      </ul>
-      {article.live
-        ? <LiveStats stats={article.stats} />
-        : <p>{I18n.t('lti.assignment_view.article_work.not_created')}</p>}
-    </div>
+          ))}
+          <WorkRow
+            label={I18n.t('assignments_tab.live_article')} url={article.url}
+            detail={article.live
+              ? <LiveStats stats={article.stats} />
+              : <Status done={false}>{I18n.t('lti.assignment_view.article_work.not_created')}</Status>}
+          />
+        </tbody>
+      </table>
+    </section>
   );
 };
 
-ArticleWork.propTypes = { article: PropTypes.object.isRequired };
+ArticleCard.propTypes = { article: PropTypes.object.isRequired };
 
-// The exercises about the article, as a checklist with when each was done
-// (where recorded) and its sandbox.
-const ArticleExercises = ({ exercises }) => {
+// The exercises about the article, as a checklist: done or not, when (where
+// recorded) or overdue, and the exercise's sandbox to open or read here.
+const ExerciseChecklist = ({ exercises }) => {
   if (!exercises.length) { return null; }
-  const heading = I18n.t('lti.student_overview.exercises');
   return (
-    <div className="assignments-tab__exercises">
-      <h5>{heading}</h5>
-      <ul>
-        {exercises.map(exercise => (
-          <li key={exercise.slug}>
-            <span className={`assignments-tab__state assignments-tab__state--${exercise.completed ? 'complete' : 'not_started'}`}>
-              {stateLabel(exercise.completed ? 'complete' : 'not_started')}
-            </span>
-            {' '}{exercise.name}
-            {exercise.completed_at && ` (${formatDate(exercise.completed_at)})`}
-            {exercise.overdue && <OverdueFlag />}
-            {exercise.sandbox_url && (
+    <section className="assignments-tab__card">
+      <div className="assignments-tab__card-header">
+        <h5 className="assignments-tab__card-title">{I18n.t('lti.student_overview.exercises')}</h5>
+      </div>
+      <table className="assignments-tab__work-table">
+        <tbody>
+          {exercises.map((exercise) => {
+            const detail = (
               <>
-                {' · '}
-                <PageLink label={I18n.t('lti.assignment_view.roster.sandbox')} url={exercise.sandbox_url} preview />
+                <Status done={exercise.completed}>
+                  {stateLabel(exercise.completed ? 'complete' : 'not_started')}
+                  {exercise.completed_at && ` · ${formatDate(exercise.completed_at)}`}
+                </Status>
+                {exercise.overdue && <OverdueFlag />}
               </>
-            )}
-          </li>
-        ))}
-      </ul>
-    </div>
+            );
+            if (exercise.sandbox_url) {
+              return (
+                <WorkRow
+                  key={exercise.slug} label={exercise.name} detail={detail}
+                  url={exercise.sandbox_url} preview
+                />
+              );
+            }
+            return (
+              <tr key={exercise.slug}>
+                <th scope="row">{exercise.name}</th>
+                <td>{detail}</td>
+                <td />
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </section>
   );
 };
 
-ArticleExercises.propTypes = { exercises: PropTypes.array.isRequired };
+ExerciseChecklist.propTypes = { exercises: PropTypes.array.isRequired };
 
-// The grader's view of the assigned article. (The roster shows it as
-// ArticleRoster's table instead.)
+// The grader's view of the assigned article: a card per article, then the
+// exercises about it. (The article panel shows it as ArticleRoster's table.)
 const Article = ({ cell }) => (
   <div>
-    {cell.articles.length === 0 && <p>{I18n.t('lti.assignment_view.no_article_yet')}</p>}
-    {cell.articles.map(article => <ArticleWork key={article.assignment_id} article={article} />)}
-    <ArticleExercises exercises={cell.exercises} />
+    {cell.articles.length === 0 && (
+      <p className="assignments-tab__empty">{I18n.t('lti.assignment_view.no_article_yet')}</p>
+    )}
+    {cell.articles.map(article => <ArticleCard key={article.assignment_id} article={article} />)}
+    <ExerciseChecklist exercises={cell.exercises} />
   </div>
 );
 

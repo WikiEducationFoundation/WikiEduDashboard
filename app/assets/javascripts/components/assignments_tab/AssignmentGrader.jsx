@@ -77,8 +77,10 @@ const AssignmentGrader = ({ header, item, students, cellsByUser, itemPath }) => 
         <article className="student-details">
           {student && (
             <div className="assignments-tab__student">
-              <h4>{studentName(student)}</h4>
-              <p><StateBadge cell={cellsByUser[student.id]} /></p>
+              <div className="assignments-tab__student-header">
+                <h4>{studentName(student)}</h4>
+                <StateBadge cell={cellsByUser[student.id]} />
+              </div>
               <CellDetails cell={cellsByUser[student.id]} item={item} />
             </div>
           )}

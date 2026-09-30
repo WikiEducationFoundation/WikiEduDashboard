@@ -42,28 +42,10 @@
     select
       margin-left 5px
 
-  .assignments-tab__article
-    margin-bottom 10px
-    p
-      margin-bottom 3px
-
   .assignments-tab__article-status
     color $text_med
     font-size 13px
 
-  .assignments-tab__pages
-    list-style none
-    margin 0 0 5px
-
-  .assignments-tab__stats
-    display grid
-    gap 2px 10px
-    grid-template-columns max-content max-content
-    dd
-      margin 0
-
-  // The grader's top bar: the assignment's heading, with previous/next on
-  // the right, above the student list and the student's work.
   .assignments-tab__grader-top
     align-items flex-end
     display flex
@@ -105,16 +87,6 @@
   .assignments-tab__exercise-count
     color $text_med
     font-size 14px
-
-  .assignments-tab__exercises
-    margin-top 10px
-    h5
-      margin-bottom 5px
-    ul
-      list-style none
-      margin 0
-    li
-      margin-bottom 4px
 
   // Inline sandbox previews: a scrollable, bordered excerpt of the wiki page.
   .assignments-tab__preview-panel
@@ -255,3 +227,102 @@
 
   .assignments-tab__article-panel .assignments-tab__article-roster
     margin-top 10px
+
+  // The grader: the student's name and status, then a card per piece of work.
+  .assignments-tab__student-header
+    align-items baseline
+    display flex
+    flex-wrap wrap
+    gap 4px 14px
+    margin-bottom 16px
+    h4
+      margin 0
+
+  .assignments-tab__card
+    background white
+    border 1px solid $border_lt
+    border-radius 4px
+    margin-bottom 16px
+    padding 16px 20px
+
+  .assignments-tab__card-header
+    align-items flex-start
+    display flex
+    gap 12px
+    justify-content space-between
+    margin-bottom 12px
+
+  .assignments-tab__card-title
+    font-size 18px
+    margin 0 0 4px
+
+  .assignments-tab__pill
+    background athens
+    border-radius 10px
+    color $text_med
+    display inline-block
+    font-size 12px
+    padding 2px 10px
+
+  .assignments-tab__card .assignments-tab__stages
+    margin-bottom 14px
+    li
+      border-top-width 8px
+      font-size 12px
+
+  // Label, state and actions in fixed columns, hairline-separated rows.
+  .assignments-tab__work-table
+    border-collapse collapse
+    width 100%
+    tr + tr
+      border-top 1px solid $border_lt
+    th, td
+      padding 8px 12px 8px 0
+      vertical-align middle
+    th
+      font-weight 600
+      text-align left
+      width 26%
+    .assignments-tab__preview-row
+      border-top none
+      td
+        padding 0 0 12px
+      .assignments-tab__preview-panel
+        margin 0
+
+  .assignments-tab__work-actions
+    padding-right 0
+    text-align right
+    white-space nowrap
+    .button
+      margin 0 0 0 12px
+
+  .assignments-tab__status
+    color $text_med
+  .assignments-tab__status-mark
+    display inline-block
+    font-weight 700
+    margin-right 6px
+    width 1em
+  .assignments-tab__status--done
+    color $text_dk
+    .assignments-tab__status-mark
+      color $success_text
+
+  .assignments-tab__live-stats
+    color $text_med
+    > span
+      margin-right 16px
+      white-space nowrap
+    strong
+      color $text_dk
+
+  .assignments-tab__empty
+    color $text_med
+
+  // The site's base `li` indent is for prose lists; these lists are layout.
+  // (Previewed wiki content keeps it.)
+  .assignments-tab__stages li,
+  .assignments-tab__funnel li,
+  .assignments-tab__work-links li
+    margin-left 0
