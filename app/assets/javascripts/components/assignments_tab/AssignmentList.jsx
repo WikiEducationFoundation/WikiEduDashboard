@@ -54,7 +54,7 @@ const AssignmentList = ({ courseSlug, data, tabPath }) => {
               <tr className={rowClassName(item, isOpen)} onClick={() => toggle(item.key)}>
                 <td>
                   {itemTitle(item)}
-                  <span className="assignments-tab__kind">{kindLabel(item)}</span>
+                  {item.kind !== 'article' && <span className="assignments-tab__kind">{kindLabel(item)}</span>}
                 </td>
                 <td>{formatDate(item.due_date)}</td>
                 <td>{summary.complete}</td>

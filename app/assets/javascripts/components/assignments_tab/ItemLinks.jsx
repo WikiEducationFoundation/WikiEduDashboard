@@ -8,7 +8,10 @@ import { formatDate, kindLabel } from './assignmentHelpers';
 const ItemLinks = ({ item, withSummary = false }) => {
   const parts = [];
   if (withSummary) {
-    parts.push(<span key="kind" className="assignments-tab__kind">{kindLabel(item)}</span>);
+    // The assigned article's title already says what it is.
+    if (item.kind !== 'article') {
+      parts.push(<span key="kind" className="assignments-tab__kind">{kindLabel(item)}</span>);
+    }
     if (item.due_date) {
       parts.push(
         <span key="due">{I18n.t('training_status.due', { due_date: formatDate(item.due_date) })}</span>

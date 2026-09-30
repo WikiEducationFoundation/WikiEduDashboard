@@ -29,8 +29,8 @@ const AssignmentView = ({ course, tabPath }) => {
 
   return (
     <div className="assignments-tab__assignment">
-      <AssignmentHeader item={item} backPath={`${tabPath}?${backParams}`} />
       <AssignmentGrader
+        header={<AssignmentHeader item={item} backPath={`${tabPath}?${backParams}`} />}
         item={item} students={data.students} cellsByUser={cellsByUser}
         itemPath={`${tabPath}/${item.key}`}
       />

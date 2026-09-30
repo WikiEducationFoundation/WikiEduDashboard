@@ -62,11 +62,32 @@
     dd
       margin 0
 
+  // The grader's top bar: the assignment's heading, with previous/next on
+  // the right, above the student list and the student's work.
+  .assignments-tab__grader-top
+    align-items flex-end
+    display flex
+    flex-wrap wrap
+    gap 10px 20px
+    justify-content space-between
+    margin-bottom 15px
+    .assignments-tab__header
+      margin-bottom 0
+
   .assignments-tab__grader-nav
     align-items center
     display flex
-    gap 15px
-    margin-bottom 15px
+    gap 12px
+    .button
+      margin 0
+    .button:disabled
+      cursor default
+      opacity 0.5
+
+  .assignments-tab__position
+    color $text_med
+    min-width 3.5em
+    text-align center
 
   .assignments-tab__grader .student .assignments-tab__state
     font-size 12px
