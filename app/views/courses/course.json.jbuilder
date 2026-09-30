@@ -27,6 +27,7 @@ json.course do
   json.account_requests_enabled @course.account_requests_enabled?
   json.online_volunteers_enabled @course.online_volunteers_enabled?
   json.progress_tracker_enabled @course.progress_tracker_enabled?
+  json.assignments_tab_enabled @course.assignments_tab_enabled?
   json.stay_in_sandbox @course.stay_in_sandbox?
   json.no_sandboxes @course.no_sandboxes?
   json.retain_available_articles @course.retain_available_articles?

@@ -664,6 +664,12 @@ class Course < ApplicationRecord
     false
   end
 
+  # The instructor-facing Assignments tab. Overridden for ClassroomProgramCourse
+  # and FellowsCohort.
+  def assignments_tab_enabled?
+    false
+  end
+
   # Overridden for some course types
   def cloneable?
     !tag?('no_clone')
