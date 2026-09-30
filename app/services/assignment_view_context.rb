@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/article_facts"
+require_dependency "#{Rails.root}/lib/student_progress/exercise_facts"
 require_dependency "#{Rails.root}/lib/student_progress/links"
 require_dependency "#{Rails.root}/lib/student_progress/timeline"
 
@@ -135,7 +137,7 @@ class AssignmentViewContext
   end
 
   def article_work
-    @article_work ||= AssignedArticleWork.new(roster: progress_roster)
+    @article_work ||= StudentProgress::ArticleFacts.new(progress_roster)
   end
 
   # Everything the rows read, loaded once for the roster plus the panel's own
@@ -167,18 +169,15 @@ class AssignmentViewContext
                     .score_given >= 1.0
   end
 
-  # In-progress is only detectable for the fact-verification exercise: taking a
-  # claim creates a VerificationClaimAssignment (a re-pointable cursor), and
-  # submitting the response is what marks the module complete. Sandbox exercises
-  # have no comparable "started" signal, so they stay :none until complete.
+  # Only the fact-verification exercise has a "started" signal (see
+  # StudentProgress::ExerciseFacts#in_progress?); sandbox exercises stay :none
+  # until complete.
   def exercise_in_progress?(user)
-    return false unless fact_verification_block?
-
-    progress_roster.claim_taken?(user.id)
+    exercise_modules.any? { |mod| exercise_facts.in_progress?(user, mod) }
   end
 
-  def fact_verification_block?
-    exercise_modules.any? { |mod| mod.exercise_path == 'verify_claim' }
+  def exercise_facts
+    @exercise_facts ||= StudentProgress::ExerciseFacts.new(progress_roster)
   end
 
   # Built even before the student starts, so the link points to where their

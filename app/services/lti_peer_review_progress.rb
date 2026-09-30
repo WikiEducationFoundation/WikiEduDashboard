@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/peer_review_facts"
 require_dependency "#{Rails.root}/lib/student_progress/rules"
 
 # Progress on the peer-review stage for one (Course, User) — the column behind
@@ -25,15 +26,10 @@ class LtiPeerReviewProgress
   attr_reader :score_given, :score_maximum, :comment
 
   # One assigned review as the in-Canvas views list it: which article it is of,
-  # the page it belongs on, and whether that page exists yet. Built here, from
-  # #review_statuses, so the instructor roster and the student's own panel read
-  # identical rows (the shared lti_launch/peer_reviews partial renders them).
-  ReviewRow = Struct.new(:article_title, :article_url, :review_url, :completed,
-                         keyword_init: true) do
-    def completed?
-      completed
-    end
-  end
+  # the page it belongs on, and whether it's done. Built here, so the
+  # instructor roster and the student's own panel read identical rows (the
+  # shared lti_launch/peer_reviews partial renders them).
+  ReviewRow = StudentProgress::PeerReviewFacts::Review
 
   SCORE_MAXIMUM = 1.0
   # A course with the flag unset but the column imported still expects the
@@ -88,15 +84,7 @@ class LtiPeerReviewProgress
   end
 
   def review_rows
-    @review_rows ||= review_statuses.map do |assignment, completed|
-      ReviewRow.new(
-        # Stored underscored; de-underscored for display like Article#full_title.
-        article_title: assignment.article_title.tr('_', ' '),
-        article_url: assignment.article_url,
-        review_url: "#{assignment.wiki.base_url}/wiki/#{assignment.peer_review_pagename}",
-        completed:
-      )
-    end
+    @review_rows ||= reviews.map { |review| StudentProgress::PeerReviewFacts.review_for(review) }
   end
 
   private
