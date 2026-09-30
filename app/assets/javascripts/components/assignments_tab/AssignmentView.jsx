@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Routes, useParams } from 'react-router-dom';
+import { useParams, useSearchParams } from 'react-router-dom';
 import Loading from '@components/common/loading.jsx';
 import { fetchAssignmentProgress } from './AssignmentProgressAPI';
 import AssignmentHeader from './AssignmentHeader';
-import AssignmentRoster from './AssignmentRoster';
 import AssignmentGrader from './AssignmentGrader';
 
-// One assignment: its per-student rows, shown as the roster or, with a
-// student in the path, the grader.
+// The grader for one assignment: its per-student rows, one student at a time.
 const AssignmentView = ({ course, tabPath }) => {
   const { itemKey } = useParams();
+  const [searchParams] = useSearchParams();
   const [data, setData] = useState(null);
   const [failed, setFailed] = useState(false);
 
@@ -25,16 +24,16 @@ const AssignmentView = ({ course, tabPath }) => {
 
   const item = data.items.find(candidate => candidate.key === data.item_key);
   const cellsByUser = Object.fromEntries(data.rows.map(cell => [cell.user_id, cell]));
-  const itemPath = `${tabPath}/${item.key}`;
-  const props = { item, students: data.students, cellsByUser, itemPath };
+  const backParams = new URLSearchParams({ open: item.key });
+  if (searchParams.get('filter')) { backParams.set('filter', searchParams.get('filter')); }
 
   return (
     <div className="assignments-tab__assignment">
-      <AssignmentHeader item={item} tabPath={tabPath} />
-      <Routes>
-        <Route path=":username" element={<AssignmentGrader {...props} />} />
-        <Route path="*" element={<AssignmentRoster {...props} />} />
-      </Routes>
+      <AssignmentHeader item={item} backPath={`${tabPath}?${backParams}`} />
+      <AssignmentGrader
+        item={item} students={data.students} cellsByUser={cellsByUser}
+        itemPath={`${tabPath}/${item.key}`}
+      />
     </div>
   );
 };

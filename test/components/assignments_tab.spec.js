@@ -1,4 +1,8 @@
 import '../testHelper';
+
+jest.mock('../../app/assets/javascripts/components/assignments_tab/AssignmentProgressAPI', () => ({
+  fetchAssignmentProgress: jest.fn()
+}));
 import {
   filterLabel, isLate, itemTitle, matchesFilter, neighbors, studentName
 } from '../../app/assets/javascripts/components/assignments_tab/assignmentHelpers';
@@ -14,6 +18,8 @@ const { MemoryRouter, Routes, Route } = require('react-router-dom');
 const { act } = require('react-dom/test-utils');
 const AssignmentRoster = require('../../app/assets/javascripts/components/assignments_tab/AssignmentRoster').default;
 const AssignmentGrader = require('../../app/assets/javascripts/components/assignments_tab/AssignmentGrader').default;
+const AssignmentList = require('../../app/assets/javascripts/components/assignments_tab/AssignmentList').default;
+const { fetchAssignmentProgress } = require('../../app/assets/javascripts/components/assignments_tab/AssignmentProgressAPI');
 
 const students = [
   { id: 1, username: 'Amy' },
@@ -126,5 +132,34 @@ describe('Assignments tab views', () => {
       window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
     });
     expect(container.querySelector('.assignments-tab__student h4').textContent).toBe('Bo Real (Bo)');
+  });
+
+  test('clicking an assignment row opens its students in a drawer, and again closes it', async () => {
+    const data = {
+      items: [item, { key: 'article-live', kind: 'article', article_stage: 'live' }],
+      summary: [
+        { key: 'training-a', complete: 1, in_progress: 1, not_started: 1, overdue: 2, total: 3 },
+        { key: 'article-live', complete: 0, in_progress: 0, not_started: 3, overdue: 0, total: 3 },
+      ],
+    };
+    fetchAssignmentProgress.mockResolvedValue({
+      ...data, students, item_key: 'training-a', rows: Object.values(cellsByUser)
+    });
+    const list = <AssignmentList courseSlug="S/T" data={data} tabPath="/courses/S/T/assignments" />;
+    render('/courses/S/T/assignments', list, '/courses/S/T/assignments');
+    expect(container.querySelector('.drawer')).toBeNull();
+
+    const row = container.querySelector('tbody tr');
+    await act(async () => { row.click(); });
+    expect(fetchAssignmentProgress).toHaveBeenCalledWith('S/T', 'training-a');
+    expect(row.className).toBe('open');
+    const drawerRows = container.querySelectorAll('.drawer tbody tr');
+    expect(drawerRows.length).toBe(3);
+    expect(container.querySelector('.drawer a').getAttribute('href'))
+      .toBe('/courses/S/T/assignments/training-a/Amy');
+    expect(container.querySelector('tbody tr button').getAttribute('aria-expanded')).toBe('true');
+
+    await act(async () => { row.click(); });
+    expect(container.querySelector('.drawer')).toBeNull();
   });
 });

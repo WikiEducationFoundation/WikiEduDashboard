@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useSearchParams } from 'react-router-dom';
 import CellDetails, { StateBadge } from './CellDetails';
+import ItemLinks from './ItemLinks';
 import { FILTERS, filterLabel, matchesFilter, studentName } from './assignmentHelpers';
 
 const DETAILS_HEADINGS = {
@@ -11,8 +12,9 @@ const DETAILS_HEADINGS = {
   peer_review: 'lti.assignment_view.peer_review.reviews',
 };
 
-// One assignment, every student. The status filter rides in the URL, so the
-// grader steps through the same students the roster shows.
+// One assignment, every student: the contents of its row's drawer in the
+// list. The status filter rides in the URL, so the grader steps through the
+// same students the roster shows.
 const AssignmentRoster = ({ item, students, cellsByUser, itemPath }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get('filter') || 'all';
@@ -20,12 +22,18 @@ const AssignmentRoster = ({ item, students, cellsByUser, itemPath }) => {
   const query = filter === 'all' ? '' : `?filter=${filter}`;
 
   const onFilterChange = (event) => {
-    const value = event.target.value;
-    setSearchParams(value === 'all' ? {} : { filter: value });
+    const params = new URLSearchParams(searchParams);
+    if (event.target.value === 'all') {
+      params.delete('filter');
+    } else {
+      params.set('filter', event.target.value);
+    }
+    setSearchParams(params, { replace: true });
   };
 
   return (
     <div className="assignments-tab__roster">
+      <ItemLinks item={item} />
       <label className="assignments-tab__filter">
         {I18n.t('lti.assignment_view.roster.status')}{' '}
         <select value={filter} onChange={onFilterChange}>

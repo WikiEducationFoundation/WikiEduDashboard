@@ -35,32 +35,34 @@ describe 'Assignments tab', type: :feature, js: true do
   describe 'as the instructor' do
     before { login_as(instructor) }
 
-    it 'goes from the class summary to a roster and through students one at a time' do
+    it 'opens an assignment into its students, then goes through them one at a time' do
       visit course_path
       within('.course_navigation') { click_link 'Assignments' }
 
-      within('.assignments-tab__list') do
-        expect(page).to have_content 'Wikipedia essentials'
-        expect(page).to have_content 'Live article'
-        click_link 'Wikipedia essentials'
+      find('.assignments-tab__list > tbody > tr', text: 'Wikipedia essentials').click
+      within('.assignments-tab__list .drawer') do
+        expect(page).to have_css('.assignments-tab__roster table > tbody > tr', count: 2)
+        expect(find('tbody tr', text: 'Amy')).to have_content 'Completed'
+        expect(find('tbody tr', text: 'Bo')).to have_content 'Not started'
+        click_link 'Amy'
       end
 
-      expect(page).to have_css('tbody tr', count: 2)
-      expect(find('tbody tr', text: 'Amy')).to have_content 'Completed'
-      expect(find('tbody tr', text: 'Bo')).to have_content 'Not started'
-
-      click_link 'Amy'
       expect(page).to have_css('.assignments-tab__student h4', text: 'Amy')
       expect(page).to have_content '1 / 2'
       click_button 'Next'
       expect(page).to have_css('.assignments-tab__student h4', text: 'Bo')
       expect(page).to have_current_path(%r{/assignments/training-wiki-essentials/Bo\z})
+
+      within('.assignments-tab__header') { click_link '← Assignments' }
+      expect(page).to have_css('.assignments-tab__list .drawer', text: 'Amy')
     end
 
-    it 'shows each student\'s assigned article on an article stage' do
+    it 'opens an assignment from its own URL, showing each student\'s article' do
       visit "#{course_path}/assignments/article-selection"
-      expect(find('tbody tr', text: 'Bo')).to have_link 'Sea otter'
-      expect(find('tbody tr', text: 'Amy')).to have_content 'No article chosen yet'
+      within('.assignments-tab__list .drawer') do
+        expect(find('tbody tr', text: 'Bo')).to have_link 'Sea otter'
+        expect(find('tbody tr', text: 'Amy')).to have_content 'No article chosen yet'
+      end
     end
   end
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import Loading from '@components/common/loading.jsx';
 import { fetchAssignmentProgress } from './AssignmentProgressAPI';
 import AssignmentList from './AssignmentList';
@@ -18,7 +18,7 @@ const AssignmentSummary = ({ course, tabPath }) => {
 
   if (failed) { return <p role="alert">{I18n.t('system_stats.errors.fetch_failed')}</p>; }
   if (!data) { return <Loading />; }
-  return <AssignmentList data={data} tabPath={tabPath} />;
+  return <AssignmentList courseSlug={course.slug} data={data} tabPath={tabPath} />;
 };
 
 AssignmentSummary.propTypes = {
@@ -26,9 +26,17 @@ AssignmentSummary.propTypes = {
   tabPath: PropTypes.string.isRequired,
 };
 
+// An assignment's own URL opens its row in the list.
+const OpenInList = ({ tabPath }) => {
+  const { itemKey } = useParams();
+  return <Navigate replace to={`${tabPath}?${new URLSearchParams({ open: itemKey })}`} />;
+};
+
+OpenInList.propTypes = { tabPath: PropTypes.string.isRequired };
+
 // The instructor-facing Assignments tab: class-wide progress on everything the
-// Dashboard tracks (trainings, exercises, article work, peer reviews), then
-// per assignment a roster of students and a one-student-at-a-time grader.
+// Dashboard tracks (trainings, exercises, article work, peer reviews), each
+// opening into its students' statuses, and a one-student-at-a-time grader.
 const AssignmentsTabHandler = ({ course }) => {
   if (!course.slug) { return <Loading />; }
 
@@ -36,7 +44,8 @@ const AssignmentsTabHandler = ({ course }) => {
   return (
     <div className="assignments-tab">
       <Routes>
-        <Route path=":itemKey/*" element={<AssignmentView course={course} tabPath={tabPath} />} />
+        <Route path=":itemKey/:username" element={<AssignmentView course={course} tabPath={tabPath} />} />
+        <Route path=":itemKey" element={<OpenInList tabPath={tabPath} />} />
         <Route path="*" element={<AssignmentSummary course={course} tabPath={tabPath} />} />
       </Routes>
     </div>
