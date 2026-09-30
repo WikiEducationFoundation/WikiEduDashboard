@@ -62,4 +62,72 @@ describe RelevantClaimRevisionsForCourse do
                               sentence: 'Legacy.', alert: nil)
     expect(described_class.new(student_course).tiles).to be_empty
   end
+
+  # The temporary rollout gate: config/claim_verification_rollout.yml.
+  context 'when a rollout list is configured' do
+    it 'offers only listed revisions' do
+      approved = article('Otter')
+      pool_claim(article: approved, rev: 10, source_course: a_course)
+      pool_claim(article: article('Rock'), rev: 20, source_course: a_course)
+      rollout_revisions([approved.id, 10])
+      expect(described_class.new(student_course).tiles.map(&:article)).to eq([approved])
+    end
+
+    it 'keeps subject-tag priority within the listed revisions' do
+      tagged_source = a_course
+      create(:tag, course: tagged_source, tag: 'biology', key: 'topics-biology')
+      create(:tag, course: student_course, tag: 'biology', key: 'topics-biology')
+      related = article('Cell')
+      general = article('Quartz')
+      pool_claim(article: related, rev: 1, source_course: tagged_source)
+      pool_claim(article: general, rev: 2, source_course: a_course)
+      rollout_revisions([related.id, 1], [general.id, 2])
+      expect(described_class.new(student_course, limit: 1).tiles.map(&:article)).to eq([related])
+    end
+
+    # Prioritization orders the approved set; it can never reach past it.
+    it 'does not fall back to unlisted revisions when the listed set is thin' do
+      approved = article('Otter')
+      pool_claim(article: approved, rev: 10, source_course: a_course)
+      3.times do |i|
+        pool_claim(article: article("Other#{i}"), rev: 30 + i, source_course: a_course)
+      end
+      rollout_revisions([approved.id, 10])
+      expect(described_class.new(student_course).tiles.map(&:article)).to eq([approved])
+    end
+
+    it 'offers nothing when the pool and the list do not overlap' do
+      pool_claim(article: article('Otter'), rev: 10, source_course: a_course)
+      rollout_revisions([999_999, 10])
+      expect(described_class.new(student_course).tiles).to be_empty
+    end
+  end
+
+  # Claims curated out individually (excluded_claim_ids in the rollout config).
+  context 'when claims are curated out of the rollout' do
+    it 'leaves them out of the tile claim count' do
+      otter = article('Otter')
+      pool_claim(article: otter, rev: 10, source_course: a_course, sentence: 'One.')
+      excluded = pool_claim(article: otter, rev: 10, source_course: a_course, sentence: 'Two.')
+      rollout_revisions([otter.id, 10], excluding: [excluded.id])
+      expect(described_class.new(student_course).tiles.map(&:claim_count)).to eq([1])
+    end
+
+    it 'offers no tile for a revision with every claim curated out' do
+      otter = article('Otter')
+      excluded = pool_claim(article: otter, rev: 10, source_course: a_course)
+      rollout_revisions(excluding: [excluded.id])
+      expect(described_class.new(student_course).tiles).to be_empty
+    end
+
+    # The viewer shows a multi-citation sentence once; its other pool rows must
+    # not keep a tile alive (or padded) once that sentence is excluded.
+    it 'leaves the other pool rows of an excluded sentence out too' do
+      otter = article('Otter')
+      excluded = pool_claim(article: otter, rev: 10, source_course: a_course, sentence: 'One.')
+      pool_claim(article: otter, rev: 10, source_course: a_course, sentence: 'One.')
+      rollout_revisions(excluding: [excluded.id])
+      expect(described_class.new(student_course).tiles).to be_empty
+    end
+  end
 end

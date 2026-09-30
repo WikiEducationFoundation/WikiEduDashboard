@@ -1,4 +1,3 @@
-import { Editor } from '@tinymce/tinymce-react';
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import InputHOC from '../high_order/input_hoc';
@@ -22,36 +21,17 @@ const TextAreaInput = ({
   wysiwyg,
   markdown,
   className,
-  clearOnSubmit,
   invalid
 }) => {
-  const [tinymceLoaded, setTinymceLoaded] = useState(false);
-  const [activeEditor, setActiveEditor] = useState(null);
+  const [WysiwygEditor, setWysiwygEditor] = useState(null);
 
   useEffect(() => {
-    if (wysiwyg) {
-      loadTinyMCE();
+    // Load the rich text editor lazily, and only for signed-in users: anonymous
+    // visitors can't edit, and this keeps the editor out of the main bundle.
+    if (wysiwyg && Features.user_signed_in && !WysiwygEditor) {
+      import('./wysiwyg_editor').then(mod => setWysiwygEditor(() => mod.default));
     }
-  }, [wysiwyg]);
-
-  const loadTinyMCE = () => {
-    const user_signed_in = Features.user_signed_in; // Ensure Features is accessible
-    if (user_signed_in) {
-      import('../../tinymce').then(() => {
-        setTinymceLoaded(true);
-      });
-    }
-  };
-
-  const handleRichTextEditorChange = (e) => {
-    onChange({ target: { value: e } }, e);
-  };
-
-  const handleSubmit = () => {
-    if (clearOnSubmit) {
-      activeEditor.setContent('');
-    }
-  };
+  }, [wysiwyg, WysiwygEditor]);
 
   let inputElement;
   let rawHtml;
@@ -60,31 +40,15 @@ const TextAreaInput = ({
   // Edit mode //
   // ////////////
   if (editable) {
-    let inputClass = '';
-    if (invalid) {
-      inputClass = 'invalid';
-    }
+    const inputClass = invalid ? 'invalid' : '';
 
-    // Use TinyMCE if props.wysiwyg, otherwise, use a basic textarea.
-    if (wysiwyg && tinymceLoaded) {
+    // Use the wysiwyg editor if props.wysiwyg, otherwise, use a basic textarea.
+    if (wysiwyg && WysiwygEditor) {
       inputElement = (
-        <Editor
+        <WysiwygEditor
           value={value}
-          onEditorChange={handleRichTextEditorChange}
-          onSubmit={handleSubmit}
-          className={inputClass}
-          init={{
-            setup: editor => setActiveEditor(editor),
-            inline: true,
-            convert_urls: false,
-            plugins: 'lists link code',
-            toolbar: [
-              'undo redo | styleselect | bold italic',
-              'alignleft alignright',
-              'bullist numlist outdent indent',
-              'link'
-            ],
-          }}
+          onChange={onChange}
+          invalid={invalid}
         />
       );
     } else {
@@ -140,7 +104,7 @@ TextAreaInput.propTypes = {
   wysiwyg: PropTypes.bool, // use rich text editor instead of plain text
   markdown: PropTypes.bool, // render value as Markdown when in read mode
   className: PropTypes.string,
-  clearOnSubmit: PropTypes.bool
+  invalid: PropTypes.bool
 };
 
 export default InputHOC(TextAreaInput);

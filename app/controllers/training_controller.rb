@@ -7,6 +7,8 @@ require_dependency "#{Rails.root}/lib/training/training_resource_query_object"
 class TrainingController < ApplicationController
   layout 'training'
   before_action :init_query_object, only: :index
+  include CourseHelper
+  include CourseFromReturnTo
 
   def index
     if @search
@@ -29,8 +31,10 @@ class TrainingController < ApplicationController
     fail_if_entity_not_found(TrainingModule, params[:module_id])
     # Save the return-to source, typically a course page, so that
     # at the end of the training we can return the user to where they
-    # started from.
-    session[:training_return_to] = request.referer
+    # started from. An explicit `return_to` param wins over the referer:
+    # links from the in-Canvas LTI iframe carry one, because their referer
+    # is the iframe launch URL — not a sensible place to send anyone.
+    session[:training_return_to] = explicit_return_to || request.referer
     @pres = TrainingModulePresenter.new(current_user, params)
     add_training_root_breadcrumb
     add_library_breadcrumb
@@ -40,15 +44,14 @@ class TrainingController < ApplicationController
   def slide_view
     training_module = TrainingModule.find_by(slug: params[:module_id])
     raise ActionController::RoutingError, 'not found' if training_module.nil?
+    @training_module_name = training_module.translated_name
     if current_user
       @tmu = TrainingModulesUsers.find_or_create_by(
         user_id: current_user.id,
         training_module_id: training_module.id
       )
-      @training_module_name = training_module.name
+      find_recent_course if Features.enable_get_help_button?
     end
-    add_training_root_breadcrumb
-    add_module_breadcrumb(training_module)
   end
 
   def reload
@@ -70,8 +73,20 @@ class TrainingController < ApplicationController
 
   private
 
+  # Only site-relative paths ('/...', but not protocol-relative '//...'),
+  # so the end-of-training redirect can't become an open redirect.
+  def explicit_return_to
+    target = params[:return_to].to_s
+    target if target.start_with?('/') && !target.start_with?('//')
+  end
+
   def add_training_root_breadcrumb
     add_breadcrumb I18n.t('training.training_library'), :training_path
+  end
+
+  def find_recent_course
+    @course = course_from_return_to || current_user.recent_course
+    @course_slug = @course&.slug
   end
 
   def add_library_breadcrumb

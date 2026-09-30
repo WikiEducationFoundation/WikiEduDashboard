@@ -279,6 +279,30 @@ describe CourseMeetingsManager do
     end
   end
 
+  # A course with no weekdays selected AND no day exceptions is asynchronous:
+  # every day counts as a meeting day so the timeline has content every week.
+  # This is distinct from the "no weekdays but with day exceptions" case above,
+  # which still meets only on the specified exception dates.
+  context 'when the course has no meeting days and no day exceptions (async)' do
+    let(:weekdays) { '0000000' }
+    let(:day_ex) { '' }
+
+    it 'treats every day of the week as a meeting day' do
+      expect(described_class.new(course).send(:day_meetings))
+        .to eq(CourseMeetingsManager::DAYS_AS_SYM)
+    end
+
+    it 'has no blackout weeks, so timeline blocks can be inserted every week' do
+      expect(described_class.new(course).week_meetings).not_to include('()')
+    end
+
+    it 'counts every timeline week as open for assignments' do
+      allow_any_instance_of(Course).to receive(:weeks).and_return([])
+      # 21 timeline weeks - 0 blackout weeks - 0 assigned weeks
+      expect(described_class.new(course).open_weeks).to eq(21)
+    end
+  end
+
   # Should match the javascript function courseDateUtils.weeksBeforeTimeline
   # These tests match those in test/utils/course_date_utils.spec.js
   describe '#weeks_before_timeline' do

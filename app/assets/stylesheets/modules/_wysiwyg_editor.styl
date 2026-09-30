@@ -1,0 +1,55 @@
+// Styles for the TipTap-based rich text editor (see wysiwyg_editor.jsx), used
+// by TextAreaInput's wysiwyg mode. Replaces the former TinyMCE editor styles.
+
+.wysiwyg-editor
+  border solid 1px $brand_primary
+  border-radius 3px
+
+  &__toolbar
+    display flex
+    flex-wrap wrap
+    gap 2px
+    align-items center
+    padding 4px
+    background #f7f7f7
+    border-bottom solid 1px $brand_primary
+
+  &__btn
+    background none
+    border solid 1px transparent
+    border-radius 3px
+    padding 2px 6px
+    font-size 13px
+    line-height 1.4
+    color #333
+    cursor pointer
+
+    &:hover:not([disabled])
+      background #e7e7e7
+
+    &.is-active
+      background #ddd
+      border-color #ccc
+
+    &[disabled]
+      opacity .4
+      cursor default
+
+  &__select
+    font-size 13px
+    padding 2px
+    margin 0 2px
+
+  // TipTap applies this class to the contenteditable element itself.
+  &__content
+    padding 5px
+    min-height 4rem
+    outline none
+
+  &__source
+    display block
+    width 100%
+    padding 5px
+    border none
+    font-family monospace
+    font-size 13px

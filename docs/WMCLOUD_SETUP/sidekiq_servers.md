@@ -13,7 +13,7 @@ My strategy this time is to put every worker on a separate VM, so try to make th
 - Get the Dashboard code: `git clone https://github.com/WikiEducationFoundation/WikiEduDashboard.git`
 - In the Dashboard directory:
   - `bundle install`
-  - Copy `application.yml`, `database.yml`, `secrets.yml`, `newrelic.yml` from the web node into the `config` directory
+  - Copy `application.yml`, `database.yml`, `secrets.yml` from the web node into the `config` directory
 
 - Add the systemd service files for the sidekiq processes you want to run on this server. (These are typically in `/etc/systemd/system/[name].service`.)
   - Make sure the path is correct for RVM in `ExecStart`

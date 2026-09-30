@@ -151,7 +151,8 @@ class AlertMailerPreview < ActionMailer::Preview # rubocop:disable Metrics/Class
     details = { 'error' => { 'code' => 'blocked',
                               'info' => 'You have been blocked from editing.',
                               'blockinfo' => example_blockinfo,
-                              '*' => 'See https://en.wikipedia.org/w/api.php for API usage.' } }
+                              '*' => 'See https://en.wikipedia.org/w/api.php for API usage.' },
+                'wiki_domain' => 'en.wikipedia.org' }
     Alert.new(type: 'BlockedEditsAlert', user: example_user, details:)
   end
 

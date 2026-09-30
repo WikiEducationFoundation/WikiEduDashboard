@@ -1,17 +1,11 @@
 import * as types from '../constants';
-import logErrorMessage from '../utils/log_error_message';
 import API from '../utils/api.js';
-import request from '../utils/request';
+import request, { ensureOk } from '../utils/request';
 import { triggerNotificationsBellRefresh } from '../components/nav/notifications_bell';
 
 const _checkAvailability = async (newAccount) => {
   const response = await request(`https://meta.wikimedia.org/w/api.php?action=query&list=users&ususers=${newAccount.username}&usprop=cancreate&format=json&origin=*`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 

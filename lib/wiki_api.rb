@@ -87,6 +87,21 @@ class WikiApi
     response&.status == 200 ? response.data : nil
   end
 
+  # Returns the title of the article, following a redirect from the given title,
+  # if the user has edited it (since the given time, if any), or nil otherwise.
+  def title_of_article_edited_by(username, title, since: nil)
+    query_params = { prop: 'revisions',
+                     titles: title,
+                     redirects: 'true',
+                     rvprop: 'user',
+                     rvlimit: 1,
+                     rvuser: username }
+    # Revisions are listed newest first, so rvend is the oldest one included.
+    query_params[:rvend] = since.utc.iso8601 if since
+    page = query(query_params)&.data&.dig('pages')&.values&.first
+    page['title'] if page&.dig('revisions').present?
+  end
+
   def get_article_rating(titles)
     titles = [titles] unless titles.is_a?(Array)
     titles = titles.sort_by(&:downcase)
@@ -154,12 +169,14 @@ class WikiApi
   end
 
   # Returns the integer seconds requested by the server's Retry-After header,
-  # or nil if the header is absent / unparseable / the gem version in use
-  # doesn't expose the response on HttpError. Wikimedia uses delay-seconds;
-  # HTTP-date form (RFC 7231) is not parsed.
+  # or nil if the header is absent / unparseable / the error's response object
+  # doesn't expose headers (e.g. MediawikiApi::ApiError wraps a Response that
+  # delegates only :status and :success?, not :headers).
+  # Wikimedia uses delay-seconds; HTTP-date form (RFC 7231) is not parsed.
   def retry_after_seconds(error)
-    return nil unless error.respond_to?(:response) && error.response
-    raw = error.response.headers['Retry-After']
+    response = error.try(:response)
+    return nil unless response.respond_to?(:headers)
+    raw = response.headers['Retry-After']
     Integer(raw) if raw.present?
   rescue ArgumentError, TypeError
     nil

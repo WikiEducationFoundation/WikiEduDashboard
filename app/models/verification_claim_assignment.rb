@@ -12,10 +12,11 @@
 #  updated_at            :datetime         not null
 #
 
-# Records that a student in a course has been assigned one pooled
-# VerificationClaim to verify against its source. This is assignment only:
-# the student does the verification in their Wikipedia sandbox, and nothing
-# they produce is stored here. One assignment per student per course.
+# Records the pooled VerificationClaim a student in a course is currently
+# working on. This is assignment only: the verification work itself is
+# submitted as a VerificationClaimResponse (keyed per claim). The assignment
+# is a re-pointable "current claim" cursor — one row per student per course —
+# so it puts no limit on how many claims a student responds to over time.
 class VerificationClaimAssignment < ApplicationRecord
   belongs_to :user
   belongs_to :course

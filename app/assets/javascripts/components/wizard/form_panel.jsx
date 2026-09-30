@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Panel from './panel.jsx';
 import DatePicker from '../common/date_picker.jsx';
@@ -6,15 +6,6 @@ import Calendar from '../common/calendar.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
 
 const FormPanel = (props) => {
-  const noDates = useRef();
-
-  const setNoBlackoutDatesChecked = () => {
-    const { checked } = noDates.current;
-    const toPass = props.course;
-    toPass.no_day_exceptions = checked;
-    return props.updateCourse(toPass);
-  };
-
   const updateCourseDates = (valueKey, value) => {
     const updatedCourse = CourseDateUtils.updateCourseDates(props.course, valueKey, value);
     return props.updateCourse(updatedCourse);
@@ -29,13 +20,9 @@ const FormPanel = (props) => {
     return false;
   };
 
-  const nextEnabled = () => {
-    if (__guard__(props.course.weekdays, x => x.indexOf(1)) >= 0
-      && (__guard__(props.course.day_exceptions, x1 => x1.length) > 0 || props.course.no_day_exceptions)) {
-      return true;
-    }
-    return false;
-  };
+  // Setting meeting days is optional: a course with no meeting days is treated
+  // as asynchronous. The user can proceed as soon as the course dates are valid.
+  const nextEnabled = () => props.isValid;
 
   const dateProps = CourseDateUtils.dateProps(props.course);
 
@@ -108,13 +95,6 @@ const FormPanel = (props) => {
             calendarInstructions={I18n.t('wizard.calendar_instructions')}
             updateCourse={props.updateCourse}
           />
-          <label> {I18n.t('wizard.no_class_holidays')}
-            <input
-              type="checkbox"
-              onChange={setNoBlackoutDatesChecked}
-              ref={noDates}
-            />
-          </label>
         </div>
       </div>
     </div>
@@ -137,9 +117,5 @@ FormPanel.propTypes = {
   updateCourse: PropTypes.func.isRequired,
   isValid: PropTypes.bool.isRequired
 };
-
-function __guard__(value, transform) {
-  return (typeof value !== 'undefined' && value !== null) ? transform(value) : undefined;
-}
 
 export default FormPanel;

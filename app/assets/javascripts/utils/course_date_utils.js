@@ -127,13 +127,26 @@ const CourseDateUtils = {
     return differenceInWeeks(timelineStart, courseStart);
   },
 
+  // A course with no weekday meetings selected and no specific meeting-date
+  // exceptions is treated as asynchronous: every day counts as a meeting day,
+  // so the timeline has content every week and no week is blacked out. Meeting
+  // days are not displayed for such a course.
+  noMeetingDays(course) {
+    if (!course) return false;
+    const noWeekdays = !course.weekdays || course.weekdays.indexOf('1') === -1;
+    const noExceptions = !course.day_exceptions || course.day_exceptions === '';
+    return noWeekdays && noExceptions;
+  },
+
   // If the timeline starts mid-week and there are no meetings in
   // that first partial week, advance the effective start to the next
   // Sunday so we don't generate an empty "Week 1". (#2360)
   effectiveTimelineStart(course) {
     const ts = toDate(course.timeline_start);
     const dayOfWeek = getDay(ts);
-    if (dayOfWeek === 0 || !course.weekdays) return course.timeline_start;
+    if (dayOfWeek === 0 || !course.weekdays || this.noMeetingDays(course)) {
+      return course.timeline_start;
+    }
 
     const weekStart = startOfWeek(ts, { weekStartsOn: 0 });
     for (let i = dayOfWeek; i <= 6; i += 1) {
@@ -149,6 +162,7 @@ const CourseDateUtils = {
   // Ex: [["Sunday (01/09)"], ["Sunday (01/16)", "Wednesday (01/19)", "Thursday (01/20)"], []]
   weekMeetings(course, exceptions) {
     const effectiveStart = this.effectiveTimelineStart(course);
+    const courseHasNoMeetingDays = this.noMeetingDays(course);
     const timelineEndOrEnd = course.timeline_end || course.end;
     const weekEnd = endOfWeek(toDate(timelineEndOrEnd), { weekStartsOn: 0 });
     let weekStart = startOfWeek(toDate(effectiveStart), { weekStartsOn: 0 });
@@ -184,7 +198,11 @@ const CourseDateUtils = {
 
       for (const i of range(firstDayOfWeek, 6, true)) {
         const day = addDays(weekStart, i);
-        if (course && this.courseMeets(course.weekdays, i, format(day, 'yyyyMMdd'), exceptions) && !isAfter(day, weekendDate)) {
+        if (!course || isAfter(day, weekendDate)) { continue; }
+        // For an async course (no meeting days set) every day counts, so the
+        // week is never blacked out; otherwise fall back to the weekday pattern.
+        if (courseHasNoMeetingDays
+          || this.courseMeets(course.weekdays, i, format(day, 'yyyyMMdd'), exceptions)) {
           ms.push(format(day, 'EEEE (MM/dd)'));
         }
       }

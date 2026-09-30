@@ -64,3 +64,8 @@
   update_debug_DailyUpdate: 'true'
 
   REDIS_URL: 'redis://p-and-e-dashboard-redis'
+
+# Peony sits behind WMCloud's TLS-terminating proxy. This tells Rails to
+# treat every request as SSL, avoiding redirect loops when the proxy
+# omits the X-Forwarded-Proto header.
+  ASSUME_SSL: 'true'

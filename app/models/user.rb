@@ -71,6 +71,7 @@ class User < ApplicationRecord
   has_many :training_modules_users, class_name: 'TrainingModulesUsers'
   has_one :user_profile, dependent: :destroy
   has_many :lti_contexts, dependent: :destroy
+  has_many :retention_stats, dependent: :destroy
 
   has_many :assignment_suggestions
 
@@ -107,6 +108,9 @@ class User < ApplicationRecord
   ####################
   # Instance methods #
   ####################
+  def recent_course
+    courses_users.order(id: :desc).first&.course
+  end
   def roles(course)
     { id:, admin: admin?, campaign_organizer: campaign_organizer?(course) }
   end

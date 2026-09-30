@@ -405,6 +405,8 @@ hi:
     property: गुणधर्म
     school: विद्यालय
     author: लेखक
+  report_cards:
+    total: कुल
   recent_activity:
     article_title: लेख शीर्षक
     datetime: दिनांक/समय
@@ -439,6 +441,11 @@ hi:
     page: पृष्ठ
     training_library: प्रशिक्षण पुस्तकालय
     done: पूर्ण हुआ!
+  claim_verification:
+    form:
+      submit: जमा करें
+    responses:
+      pending_heading: चालू
   uploads:
     uploaded_at: अपलोड की गई
   users:

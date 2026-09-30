@@ -42,8 +42,6 @@ describe 'timeline editing', type: :feature, js: true do
 
   before do
     TrainingModule.load_all
-    include type: :feature
-    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
 
     login_as create(:admin)
@@ -72,6 +70,30 @@ describe 'timeline editing', type: :feature, js: true do
 
     within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
       expect(page).to have_content unassigned_module_name
+    end
+    sleep 1
+  end
+
+  it 'lets users add the fact verification exercise to an assignment block' do
+    visit "/courses/#{course_with_timeline.slug}/timeline"
+    expect(page).to have_content 'Block Title'
+
+    find('.week-1').hover
+    sleep 0.5
+    within('.week-1') do
+      find('.block__edit-block', match: :first).click
+    end
+    sleep 1
+    within(".week-1 .block-kind-#{Block::KINDS['assignment']}") do
+      within '.block__training-modules' do
+        find('input').send_keys('Fact verification', :enter)
+      end
+    end
+
+    within('.block__block-actions') { click_button 'Save' }
+
+    within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
+      expect(page).to have_content 'Fact verification'
     end
     sleep 1
   end

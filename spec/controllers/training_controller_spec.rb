@@ -64,6 +64,27 @@ describe TrainingController, type: :request do
         expect(response.status).to eq(404)
       end
     end
+
+    # Links from the in-Canvas LTI iframe carry an explicit return_to,
+    # since their referer (the iframe launch URL) is not a sensible
+    # end-of-training destination.
+    context 'with an explicit relative return_to param' do
+      let(:request_params) { super().merge(return_to: '/courses/School/Course_(2026)') }
+
+      it 'stores it as the end-of-training return target' do
+        subject
+        expect(session[:training_return_to]).to eq('/courses/School/Course_(2026)')
+      end
+    end
+
+    context 'with a non-relative return_to param (potential open redirect)' do
+      let(:request_params) { super().merge(return_to: 'https://evil.example.com/') }
+
+      it 'ignores it' do
+        subject
+        expect(session[:training_return_to]).not_to eq('https://evil.example.com/')
+      end
+    end
   end
 
   describe 'add_library_breadcrumbs' do
@@ -170,6 +191,176 @@ describe TrainingController, type: :request do
       it 'raises a module not found error' do
         subject
         expect(response.status).to eq(404)
+      end
+    end
+  end
+
+  describe '#slide_view' do
+    subject { get "/training/#{library_id}/#{module_id}/#{any}" }
+
+    before  do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+    end
+
+    let(:any) { 'five-pillars' }
+    let (:training_module) { TrainingModule.find_by(slug: module_id) }
+
+    context 'module is legit' do
+      it 'sets TrainingModulesUsers' do
+        subject
+        expect(assigns(:tmu)).to be_an_instance_of(TrainingModulesUsers)
+      end
+
+      it 'sets training_module_name' do
+        subject
+        expect(assigns(:training_module_name)).to eq(training_module.translated_name)
+      end
+    end
+    context 'not a real module' do
+      let(:module_id) { 'lolnotarealmodule' }
+
+      it 'raises a module not found error' do
+        subject
+        expect(response.status).to eq(404)
+      end
+    end
+  end
+
+  describe '#find_recent_course' do
+    subject { get "/training/#{library_id}/#{module_id}/#{slide_id}" }
+    let(:slide_id) { 'five-pillars' }
+
+    before  do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      end
+
+    context 'when the user navigated from course and has a recent course' do
+      let!(:course) { create(:course, slug:'School/Course_(2026)') }
+      let!(:old_course) { create(:course) }
+      let!(:new_course) { create(:course, slug: 'School/New_Course') }
+      before do
+        allow_any_instance_of(TrainingController).to receive(:session)
+        .and_return({ training_return_to: '/courses/School/Course_(2026)' })
+        create(:courses_user,course_id: old_course.id, user_id: user.id)
+        create(:courses_user,course_id: new_course.id, user_id: user.id)
+      end
+
+      it 'sets course_slug from the session' do
+        subject
+        expect(assigns(:course_slug)).to eq('School/Course_(2026)')
+      end
+
+      it 'uses the course the user navigated from, not their recent enrollment' do
+        subject
+        expect(assigns(:course)).to eq(course)
+      end
+    end
+
+    context 'when the user navigated from course page with Unicode' do
+      let!(:course) { create(:course, slug: 'Школа/Курс_(2026)') }
+      before do
+        allow_any_instance_of(TrainingController).to receive(:session)
+        .and_return({ training_return_to: '/courses/Школа/Курс_(2026)' })
+      end
+
+      it 'sets course from the Unicode session slug' do
+        subject
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'sets course_slug from the Unicode session slug' do
+        subject
+        expect(assigns(:course_slug)).to eq('Школа/Курс_(2026)')
+      end
+    end
+
+    context 'when the user navigated from course page with percent-encoded Unicode' do
+      let!(:course) { create(:course, slug: 'Школа/Курс_(2026)') }
+      before do
+        allow_any_instance_of(TrainingController).to receive(:session)
+        .and_return({
+          training_return_to: '/courses/%D0%A8%D0%BA%D0%BE%D0%BB%D0%B0/' \
+                              '%D0%9A%D1%83%D1%80%D1%81_(2026)'
+        })
+      end
+
+      it 'sets course from the encoded Unicode session slug' do
+        subject
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'sets course_slug from the encoded Unicode session slug' do
+        subject
+        expect(assigns(:course_slug)).to eq('Школа/Курс_(2026)')
+      end
+    end
+
+    context 'when the return_to path is not a bare course path' do
+      let!(:course) { create(:course, slug: 'School/C++_Programming_(2026)') }
+
+      def visit_slide_with_return_to(return_to)
+        allow_any_instance_of(TrainingController).to receive(:session)
+          .and_return({ training_return_to: return_to })
+        subject
+      end
+
+      it 'ignores a query string after the slug' do
+        visit_slide_with_return_to("/courses/#{course.slug}?enroll=abc")
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'reads the slug from a full referer URL' do
+        visit_slide_with_return_to("http://www.example.com/courses/#{course.slug}/home")
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'keeps a literal plus sign in the slug' do
+        visit_slide_with_return_to("/courses/#{course.slug}/home")
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'falls back to recent_course when the path has malformed encoding' do
+        create(:courses_user, course:, user:)
+        visit_slide_with_return_to('/courses/School/Bad_%zz')
+        expect(response.status).to eq(200)
+        expect(assigns(:course)).to eq(course)
+      end
+
+      it 'falls back to recent_course when the return_to course does not exist' do
+        create(:courses_user, course:, user:)
+        visit_slide_with_return_to('/courses/Gone/Deleted_Course')
+        expect(assigns(:course)).to eq(course)
+      end
+    end
+
+    context 'when the user navigated from training and has a recent course' do
+      let!(:old_course) { create(:course) }
+      let!(:new_course) { create(:course, slug: 'School/New_Course') }
+
+      before do
+        create(:courses_user,course_id: old_course.id, user_id: user.id)
+        create(:courses_user,course_id: new_course.id, user_id: user.id)
+      end
+
+      it 'sets course slug from recent_course ' do
+        subject
+        expect(assigns(:course_slug)).to eq('School/New_Course' )
+      end
+
+      it 'sets course as recent_course' do
+        subject
+        expect(assigns(:course)).to eq(new_course)
+      end
+    end
+
+    context 'when the user navigated from training and has no recent course' do
+      it 'sets course slug as nil' do
+        subject
+        expect(assigns(:course_slug)).to be_nil
+      end
+      it 'sets course as nil' do
+        subject
+        expect(assigns(:course)).to be_nil
       end
     end
   end

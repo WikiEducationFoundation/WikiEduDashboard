@@ -80,7 +80,8 @@ describe 'issue #6813 Wikidata merge scoping' do
     allow(manager).to receive(:get_revisions)
       .and_return([tracked_target_revision, merge_source_revision, unrelated_merge_revision])
 
-    revisions = manager.fetch_revision_data_for_course('20260401', '20260430')
+    revisions = manager.fetch_revision_data_for_course('20260401'.to_datetime,
+                                                       '20260430'.to_datetime)
 
     target_rev    = revisions.find { |r| r.mw_rev_id == normal_rev_id }
     merge_rev     = revisions.find { |r| r.mw_rev_id == merge_rev_id }

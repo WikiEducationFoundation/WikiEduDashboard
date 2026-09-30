@@ -114,7 +114,8 @@ class TrainingModule < ApplicationRecord
     self.estimated_ttc = content['estimated_ttc']
     self.translations = TrainingBase.format_translation_keys content['translations']
     self.settings = content['settings']
-    self.slide_slugs = content['slides'].pluck('slug')
+    # An in-app exercise module (see exercise_path) may have no slides at all.
+    self.slide_slugs = (content['slides'] || []).pluck('slug')
   end
 
   ####################
@@ -153,8 +154,18 @@ class TrainingModule < ApplicationRecord
     settings['sandbox_location']
   end
 
+  # For an exercise whose expected page is a subpage of an assigned article's
+  # sandbox (eg 'Bibliography'), rather than a fixed page under the userpage.
+  def assignment_sandbox_location
+    settings['assignment_sandbox_location']
+  end
+
   def sandbox_preload
     settings['preload']
+  end
+
+  def article_title_input
+    settings['article_title_input']
   end
 
   # For an in-app exercise: the course-relative path it launches (eg

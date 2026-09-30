@@ -5,3 +5,5 @@ description: |
   Review your sources and create an outline of the changes you plan to make to your assigned article.
 slides:
   - slug: outline-proposed-changes #3803
+settings:
+  assignment_sandbox_location: 'Outline'

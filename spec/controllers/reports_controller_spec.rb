@@ -2,17 +2,13 @@
 
 require 'rails_helper'
 
-describe ReportsController, type: :request do
+describe ReportsController, :report_csv_files, type: :request do
   let(:user) { create(:user) }
   let(:course) { create(:course, id: 1, slug: 'foo/bar_(baz)') }
   let(:campaign) { create(:campaign) }
 
   before do
     campaign.courses << course
-  end
-
-  after do
-    FileUtils.remove_dir('public/system/analytics') if File.directory?('public/system/analytics')
   end
 
   describe 'authenticated course CSV endpoints' do
@@ -28,6 +24,16 @@ describe ReportsController, type: :request do
       follow_redirect!
       csv = response.body.force_encoding('utf-8')
       expect(csv).to include(course.title)
+    end
+
+    # The suite uses the local store, so the off-host redirect that object storage
+    # relies on is only exercised by stubbing the store.
+    it '#course_csv redirects off-host when the report is in object storage' do
+      object_url = 'https://object.eqiad1.wikimediacloud.org/globaleducation:reports/r.csv'
+      allow(ReportCsvStore).to receive(:exists?).and_return(true)
+      allow(ReportCsvStore).to receive(:url_for).and_return(object_url)
+      get '/course_csv', params: { course: course.slug }
+      expect(response).to redirect_to(object_url)
     end
 
     it '#course_uploads_csv returns a CSV' do
@@ -217,6 +223,41 @@ describe ReportsController, type: :request do
       expect(CsvCleanupWorker).to receive(:perform_at).and_call_original
       get "/campaigns/#{campaign.slug}/courses", params: request_params
       expect(response.body).to include('file is being generated')
+    end
+
+    it 'returns all campaign reports in a ZIP archive' do
+      expect(CsvCleanupWorker).to receive(:perform_at).at_least(:once)
+      get "/campaigns/#{campaign.slug}/all_csv"
+      expect(response.body).to include('file is being generated')
+
+      get "/campaigns/#{campaign.slug}/all_csv"
+      follow_redirect!
+
+      archive = Zip::File.open_buffer(response.body)
+      expect(archive.entries.map(&:name)).to match_array([
+        'students.csv',
+        'students-by-course.csv',
+        'instructors-by-course.csv',
+        'courses.csv',
+        'pages-edited.csv'
+      ])
+      expect(archive.read('courses.csv')).to include(course.slug)
+      expect(archive.read('pages-edited.csv')).to include('course_slug')
+    end
+
+    context 'when requested with JSON format' do
+      it 'returns 202 when generating and 200 with url when ready' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
+        get "/campaigns/#{campaign.slug}/courses", headers: { 'Accept' => 'application/json' }
+        expect(response).to have_http_status(:accepted)
+        expect(Oj.load(response.body)).to eq('status' => 'generating')
+
+        get "/campaigns/#{campaign.slug}/courses", headers: { 'Accept' => 'application/json' }
+        expect(response).to have_http_status(:ok)
+        json = Oj.load(response.body)
+        expect(json['status']).to eq('ready')
+        expect(json['url']).to include('campaign_courses')
+      end
     end
   end
 

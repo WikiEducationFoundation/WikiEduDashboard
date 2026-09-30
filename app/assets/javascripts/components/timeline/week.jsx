@@ -5,6 +5,7 @@ import Block from './block.jsx';
 import DateCalculator from '../../utils/date_calculator.js';
 import SpringBlock from './SpringBlock';
 import BlockList from './BlockList';
+import AddWizardBlock from './AddWizardBlock/AddWizardBlock.jsx';
 
 const Week = createReactClass({
   displayName: 'Week',
@@ -14,6 +15,8 @@ const Week = createReactClass({
     timeline_start: PropTypes.string,
     timeline_end: PropTypes.string,
     meetings: PropTypes.array,
+    noMeetingDays: PropTypes.bool,
+    course: PropTypes.object,
     blocks: PropTypes.array,
     edit_permissions: PropTypes.bool,
     editableBlockIds: PropTypes.array,
@@ -76,7 +79,9 @@ const Week = createReactClass({
     const dateCalc = new DateCalculator(this.props.timeline_start, this.props.timeline_end, this.props.index, { zeroIndexed: false });
     let weekDatesContent;
     let meetDates;
-    if (this.props.meetings && this.props.meetings.length > 0) {
+    // Async courses (no meeting days set) have content every week but no
+    // meeting days to display.
+    if (!this.props.noMeetingDays && this.props.meetings && this.props.meetings.length > 0) {
       meetDates = `Meetings: ${this.props.meetings.join(', ')}`;
     }
     if (this.props.meetings) {
@@ -96,6 +101,9 @@ const Week = createReactClass({
       weekTitleContent = I18n.t('timeline.week_number', { number: this.weekNumber() });
     }
     const weekId = this.props.week.id;
+    // The header buttons come before the heading in DOM order, so each is
+    // described by the heading to say which week it acts on.
+    const weekTitleId = `${this.props.anchorId}-title`;
     const weekTitle = this.props.editableTitles ? (
       <input
         className="week-index week-title-input"
@@ -104,7 +112,7 @@ const Week = createReactClass({
         onChange={event => this.props.updateTitle(weekId, event.target.value)}
       />
     ) : (
-      <h2 className="week-index">{weekTitleContent}<span className="week-range"> ({weekDatesContent})</span></h2>
+      <h2 className="week-index" id={weekTitleId}>{weekTitleContent}<span className="week-range"> ({weekDatesContent})</span></h2>
     );
 
     // FIXME: This mutates redux state.
@@ -141,16 +149,30 @@ const Week = createReactClass({
     });
 
     const addBlock = !this.props.reorderable ? (
-      <button type="button" className="pull-right week__add-block" href="" onClick={this.addBlock}>{I18n.t('timeline.add_block')}<span className="icon-plus-blue" /></button>
+      <button type="button" className="pull-right week__add-block" href="" aria-describedby={weekTitleId} onClick={this.addBlock}>{I18n.t('timeline.add_block')}<span className="icon-plus-blue" /></button>
     ) : undefined;
 
+    // Inserting a block from the assignment wizard's catalog is an admin
+    // repair tool, and only the research-write wizard has a catalog worth
+    // offering, so it is limited to the course type that uses it.
+    const isAdmin = Boolean(this.props.current_user && this.props.current_user.isAdmin);
+    const addWizardBlock = !this.props.reorderable && isAdmin
+      && this.props.course && this.props.course.type === 'ClassroomProgramCourse' ? (
+        <AddWizardBlock
+          course={this.props.course}
+          weekId={this.props.week.id}
+          describedBy={weekTitleId}
+        />
+      ) : undefined;
+
     const deleteWeek = !this.props.reorderable && !this.props.week.is_new ? (
-      <button type="button" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="pull-right week__delete-week" href="" onClick={this.props.deleteWeek}>{I18n.t('timeline.delete_week')} <span className={`${this.state.isHover ? 'icon-trash_can-hover' : 'icon-trash_can'}`}/></button>
+      <button type="button" onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} className="pull-right week__delete-week" href="" aria-describedby={weekTitleId} onClick={this.props.deleteWeek}>{I18n.t('timeline.delete_week')} <span className={`${this.state.isHover ? 'icon-trash_can-hover' : 'icon-trash_can'}`}/></button>
     ) : undefined;
 
     const weekAddDelete = this.props.edit_permissions ? (
       <div className="week__week-add-delete pull-right">
         {addBlock}
+        {addWizardBlock}
         {deleteWeek}
       </div>
     ) : undefined;

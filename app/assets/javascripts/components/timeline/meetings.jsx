@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import CourseLink from '../common/course_link.jsx';
@@ -10,14 +10,6 @@ import { updateCourse, persistCourse } from '../../actions/course_actions';
 import { isValid } from '../../selectors';
 
 const Meetings = (props) => {
-  const noDatesRef = useRef();
-
-  const updateCourseHandler = (valueKey, value) => {
-    const toPass = props.course;
-    toPass[valueKey] = value;
-    return props.updateCourse(toPass);
-  };
-
   const updateCourseDates = (valueKey, value) => {
     const updatedCourse = CourseDateUtils.updateCourseDates(props.course, valueKey, value);
     return props.updateCourse(updatedCourse);
@@ -31,25 +23,16 @@ const Meetings = (props) => {
     return alert(I18n.t('error.form_errors'));
   };
 
-  const updateCheckbox = (e) => {
-    updateCourseHandler('no_day_exceptions', e.target.checked);
-    return updateCourseHandler('day_exceptions', '');
-  };
-
-  const saveDisabledClass = (course) => {
-    const blackoutDatesSelected = course.day_exceptions && course.day_exceptions.length > 0;
-    const anyDatesSelected = course.weekdays && course.weekdays.indexOf(1) >= 0;
-    const enable = blackoutDatesSelected || (anyDatesSelected && props.course.no_day_exceptions);
-    if (enable) { return ''; }
-    return 'disabled';
-  };
+  // Meeting days are optional (a course with none is treated as asynchronous),
+  // so the only requirement to save is that the course dates are valid.
+  const saveDisabledClass = () => (props.isValid ? '' : 'disabled');
 
   const { course } = props;
   if (!course) { return <div />; }
 
   const dateProps = CourseDateUtils.dateProps(course);
   let courseLinkClass = 'dark button ';
-  courseLinkClass += saveDisabledClass(course);
+  courseLinkClass += saveDisabledClass();
   const courseLinkTarget = `/courses/${course.slug}/timeline`;
 
   return (
@@ -118,14 +101,6 @@ const Meetings = (props) => {
             weeks={props.weeks}
             updateCourse={props.updateCourse}
           />
-          <label> {I18n.t('timeline.no_class_holidays')}
-            <input
-              type="checkbox"
-              onChange={updateCheckbox}
-              ref={noDatesRef}
-              checked={props.course.day_exceptions === '' && props.course.no_day_exceptions}
-            />
-          </label>
         </div>
         <div className="wizard__panel__controls">
           <div className="left" />

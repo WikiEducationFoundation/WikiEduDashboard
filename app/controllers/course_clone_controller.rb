@@ -10,7 +10,8 @@ class CourseCloneController < ApplicationController
     check_permission
 
     campaign_slug = clone_params[:campaign_slug]
-    clone_assignments = clone_params[:copy_assignments]
+    # The frontend always sends this param as the string 'true' or 'false'.
+    clone_assignments = clone_params[:copy_assignments] == 'true'
     new_course = CourseCloneManager.new(course: @course, user: current_user, clone_assignments:,
                                         campaign_slug:).clone!
 

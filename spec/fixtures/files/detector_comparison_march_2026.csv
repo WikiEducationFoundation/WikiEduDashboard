@@ -1,0 +1,4 @@
+term,pangram_fraction_ai,pangram_fraction_ai_assisted,pangram_fraction_human,pangram_max_likelihood,pangram_avg_likelihood,o_ai_turbo_result,o_ai_turbo_ai_confidence,o_ai_turbo_max_fake,o_ai_turbo_avg_fake,o_ai_academic_result,o_ai_academic_ai_confidence,o_ai_academic_max_fake,o_ai_academic_avg_fake,cumulative_diff
+spring_2021,0,0,1,0.00463095845397896,0.00427590357659054,0,0.1628,1,0.16154856737633,0,0.0009,0.917797591929228,0.0546394686274754,https://en.wikipedia.org/w/index.php?diff=1016458317&oldid=998714259
+spring_2021,,,,,,,,,,,,,,https://en.wikipedia.org/w/index.php?oldid=1009773007
+fall_2025,0.8,0.2,0,0.99,0.75,1,0.5917,1,0.563942655050798,0,0.0052,0.57814815253377,0.171431151015937,https://en.wikipedia.org/w/index.php?diff=1315039613&oldid=1310000000

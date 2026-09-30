@@ -35,7 +35,7 @@ class UpdateTimeslicesUntrackedArticle
     acuwt = ArticleCourseUserWikiTimeslice
               .where(course: @course, article_id: article_ids, tracked: true)
     return if acuwt.empty?
-    @timeslice_cleaner.reset_timeslices_for_reaggregation_from_acuwt(acuwt)
+    @timeslice_cleaner.mark_timeslices_for_reaggregation_from_acuwt(acuwt)
     acuwt.update_all(tracked: false) # rubocop:disable Rails/SkipsModelValidations
   end
 
@@ -44,7 +44,7 @@ class UpdateTimeslicesUntrackedArticle
     acuwt = ArticleCourseUserWikiTimeslice
               .where(course: @course, article_id: article_ids, tracked: false)
     return if acuwt.empty?
-    @timeslice_cleaner.reset_timeslices_for_reaggregation_from_acuwt(acuwt)
+    @timeslice_cleaner.mark_timeslices_for_reaggregation_from_acuwt(acuwt)
     acuwt.update_all(tracked: true) # rubocop:disable Rails/SkipsModelValidations
   end
 

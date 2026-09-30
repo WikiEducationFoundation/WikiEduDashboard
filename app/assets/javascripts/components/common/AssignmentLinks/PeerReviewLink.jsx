@@ -10,7 +10,7 @@ export const PeerReviewLink = ({ assignment, user }) => {
   let mouseoverText;
 
   if (!sandboxExists) {
-    peerReviewUrl += '?veaction=edit&preload=Template:Dashboard.wikiedu.org_peer_review';
+    peerReviewUrl += '?veaction=edit&preload=Template:Dashboard.wikiedu.org_peer_review/sections';
     linkClass += 'redlink';
     mouseoverText = I18n.t('assignments.sandbox_redlink_info');
   }

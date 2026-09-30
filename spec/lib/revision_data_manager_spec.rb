@@ -14,10 +14,11 @@ describe RevisionDataManager do
     let(:instance_class) { described_class.new(home_wiki, course) }
     let(:instance_class2) { described_class.new(arwiki, course2) }
     let(:subject) do
-      instance_class.fetch_revision_data_for_course('20180706', '20180707')
+      instance_class.fetch_revision_data_for_course('20180706'.to_datetime, '20180707'.to_datetime)
     end
     let(:subject2) do
-      instance_class2.fetch_revision_data_for_course('20241129134300', '20241130201900')
+      instance_class2.fetch_revision_data_for_course('20241129134300'.to_datetime,
+                                                     '20241130201900'.to_datetime)
     end
     let(:revision_data) do
       [{ 'mw_page_id' => '55345266',
@@ -173,7 +174,8 @@ describe RevisionDataManager do
       scoped_instance_class = described_class.new(home_wiki, scoped_course)
       allow(scoped_instance_class).to receive(:get_revisions).and_return([data1, data2])
       allow(scoped_course).to receive(:scoped_article_titles).and_return(['Draft_article'])
-      revisions = scoped_instance_class.fetch_revision_data_for_course('20180706', '20180707')
+      revisions = scoped_instance_class.fetch_revision_data_for_course('20180706'.to_datetime,
+                                                                       '20180707'.to_datetime)
       expect(revisions.first.scoped).to eq(false)
       expect(revisions.second.scoped).to eq(true)
     end
@@ -184,7 +186,8 @@ describe RevisionDataManager do
     let(:user) { create(:user, username: 'Ragesoss') }
     let(:home_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
     let(:instance_class) { described_class.new(home_wiki, course) }
-    let(:revisions) { instance_class.fetch_revision_data_for_course('20180706', '20180707') }
+    let(:revisions) { instance_class.fetch_revision_data_for_course('20180706'.to_datetime,
+                                                                    '20180707'.to_datetime) }
     let(:subject) do
       instance_class.fetch_score_data_for_course(revisions)
     end
@@ -299,7 +302,8 @@ describe RevisionDataManager do
       allow(scoped_instance_class).to receive(:get_revisions).and_return([data1, data2, data3])
       allow(scoped_course).to receive(:scoped_article_titles).and_return(['Scoped_article'])
       VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
-        revisions = scoped_instance_class.fetch_revision_data_for_course('20180706', '20180707')
+        revisions = scoped_instance_class.fetch_revision_data_for_course('20180706'.to_datetime,
+                                                                         '20180707'.to_datetime)
         revisions = scoped_instance_class.fetch_score_data_for_course(revisions)
         # Returns all revisions
         expect(revisions.length).to eq(3)

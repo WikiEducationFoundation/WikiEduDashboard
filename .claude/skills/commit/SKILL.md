@@ -7,6 +7,9 @@ description: Stage and commit changes with a well-formed commit message followin
 
 Create a git commit with a message that follows the project's format.
 
+Use the current coding agent's actual product name in attribution text (for
+example, `Claude Code` or `Codex`). Never attribute one agent's work to another.
+
 ## Phase 1: Understand what's being committed
 
 1. `git status` — identify staged and unstaged files
@@ -28,12 +31,12 @@ Include any non-obvious design decisions or tradeoffs.>
 
 ## Process
 
-<How Claude Code was used: what the user asked for, what approach was taken,
-any errors or corrections along the way. Be candid and specific — if Claude
-got something wrong and needed correction, say so. If the solution was
-straightforward, say that too.>
+<How the current coding agent was used: what the user asked for, what approach
+was taken, and any errors or corrections along the way. Be candid and specific
+— if the agent got something wrong and needed correction, say so. If the
+solution was straightforward, say that too.>
 
-(Commit message written by Claude Code.)
+(Commit message written by <agent name>.)
 
 Co-Authored-By: <current agent's trailer, per the harness/environment instructions>
 ```
@@ -75,7 +78,7 @@ Did the work require iteration and correction, or was it resolved quickly?
 what was the outcome trajectory (e.g. "two failures before a clean pass", "green
 on the first run")?
 
-**Tokens** — If token usage is visible in the Claude Code UI, report it.
+**Tokens** — If token usage is visible in the current agent's UI, report it.
 Otherwise omit this entirely.
 
 This section exists so future readers can calibrate how much human direction and
@@ -97,7 +100,7 @@ Subject line here
 
 ...
 
-(Commit message written by Claude Code.)
+(Commit message written by <agent name>.)
 
 Co-Authored-By: <current agent's trailer, per the harness/environment instructions>
 EOF

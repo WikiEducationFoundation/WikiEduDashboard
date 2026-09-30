@@ -40,7 +40,7 @@ const ActivityHandler = (props) => {
       <Routes>
         {props.usersLoaded && <Route path="recent" element={<RevisionHandler {...props} />} />}
         <Route path="alerts" element={<CourseAlertsList {...props} />} />
-        <Route path="*" element={<Navigate replace to="recent" />} />
+        <Route path="*" element={<Navigate replace to={`/courses/${course.slug}/activity/recent`} />} />
       </Routes>
     </div>
   );

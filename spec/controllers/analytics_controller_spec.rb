@@ -144,6 +144,60 @@ describe AnalyticsController, type: :request do
     end
   end
 
+  describe '#mentor_requests_csv' do
+    let(:admin) { create(:admin) }
+    let(:non_admin) { create(:user) }
+    let(:instructor) { create(:user, username: 'mentee_instructor') }
+
+    before do
+      create(:tag, course_id: 1, tag: 'mentor_requested', key: 'mentoring')
+      create(:courses_user, course_id: 1, user_id: instructor.id,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+
+    it 'blocks anonymous users' do
+      get '/mentor_requests_csv'
+      expect(response.status).to eq(401)
+    end
+
+    it 'blocks signed-in non-admin users' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(non_admin)
+      get '/mentor_requests_csv'
+      expect(response.status).to eq(401)
+    end
+
+    it 'returns a CSV for admins' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      get '/mentor_requests_csv', params: { campaign: { id: 1 } }
+      expect(response.status).to eq(200)
+      expect(response.body).to include('real_name')
+      expect(response.body).to include('mentee_instructor')
+    end
+  end
+
+  describe '#mentor_volunteers_csv' do
+    let(:admin) { create(:admin) }
+    let(:non_admin) { create(:user) }
+
+    it 'blocks anonymous users' do
+      get '/mentor_volunteers_csv'
+      expect(response.status).to eq(401)
+    end
+
+    it 'blocks signed-in non-admin users' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(non_admin)
+      get '/mentor_volunteers_csv'
+      expect(response.status).to eq(401)
+    end
+
+    it 'returns a CSV for admins' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      get '/mentor_volunteers_csv', params: { campaign: { id: 1 } }
+      expect(response.status).to eq(200)
+      expect(response.body).to include('real_name')
+    end
+  end
+
   describe '#usage' do
     it 'renders the stats page' do
       get '/usage'

@@ -8,6 +8,9 @@ description: Prepare a pull request description for the current branch following
 Draft a complete pull request description for the current branch, following the project's
 `PULL_REQUEST_TEMPLATE.md` and `docs/ai_guidelines.md`.
 
+Use the current coding agent's actual product name in attribution text (for
+example, `Claude Code` or `Codex`). Never attribute one agent's work to another.
+
 ## Phase 0: Clean up previous iteration
 
 Run `bin/pr-screenshots --clean` to remove any leftover screenshots and draft
@@ -148,17 +151,17 @@ Fill in every section of the template:
 ### AI usage
 
 Inspect the commit messages for signs of AI involvement:
-- "Co-Authored-By: Claude" — AI wrote or substantially drafted the code
-- "(Commit message written by Claude Code.)" — AI wrote the commit message
+- An AI agent in a `Co-Authored-By:` trailer — AI wrote or substantially drafted the code
+- A `(Commit message written by <agent name>.)` marker — AI wrote the commit message
 - "## Process" sections in commit bodies — read these for how AI was used
 
-Write an honest, specific statement. This project requires transparency. If Claude Code
-wrote most of the code under human direction, say so clearly. Name the tool (Claude Code),
+Write an honest, specific statement. This project requires transparency. If an AI coding
+agent wrote most of the code under human direction, say so clearly. Name the actual tool,
 describe what it did (drafted code, wrote commit messages, iterated on design), and note
 what the human contributed (direction, review, decisions about what to build).
 
 Note that the "What this PR does" summary and other analysis in the description were
-also drafted by Claude Code and may contain errors.
+also drafted by the named coding agent and may contain errors.
 
 Include a brief note on the scale of effort: how many commits, over what time span, and
 roughly what that implies about how much human time was involved. For example: "This was
@@ -166,7 +169,7 @@ developed across 8 commits over 3 days" or "All commits were made within a singl
 session." This helps reviewers calibrate how much iteration and review went into the work.
 
 Always end the AI usage section with a sentence noting that this PR description was drafted
-using a Claude Code skill (`/prepare-pr`).
+using the current coding agent and the `prepare-pr` skill.
 
 ### Screenshots
 
@@ -187,14 +190,23 @@ user should capture manually and which URLs to visit.
 End the entire description with this exact line as its final line, after the
 "Open questions and concerns" section, separated by a blank line:
 
-`(PR description written by Claude Code.)`
+`(PR description written by <agent name>.)`
 
 ## Phase 4: Preview locally and open the PR
 
 Run `code tmp/pr_description.md` to open the file in VS Code and tell the user to press
 Ctrl+Shift+V to preview it with screenshots rendered locally.
 
-When ready to publish, run `bin/open-pr` once. It will:
+Make sure the feature branch is on origin first, with a plain push
+(`git push -u origin <branch>`); that push and the screenshot-branch push below
+are the ones the "Git pushes" section of `.claude/CLAUDE.md` allows without
+asking, so do them and report them.
+
+When ready to publish, run `bin/open-pr "<PR title>"` once, passing the title
+explicitly: the commit subject for a single-commit branch, otherwise a title you
+draft from the "What this PR does" section. (Without an argument the script
+prompts on a terminal, and falls back to the last commit subject when there is
+no terminal to prompt — agents never have one.) It will:
 
 1. Find each `screenshots/…` reference in `tmp/pr_description.md`.
 2. Build an orphan commit containing those files and force-push it to
@@ -206,6 +218,10 @@ When ready to publish, run `bin/open-pr` once. It will:
 
 The result: a draft PR with screenshots rendered inline, in a single pass,
 with no manual drag-and-drop.
+
+The force-push in step 2 goes only to the `pr-screenshots/<branch>` orphan
+branch, never to the feature branch or a permanent branch; it is the one
+force-push agents may perform unprompted.
 
 **Authentication** is tried in this order:
 1. `GITHUB_TOKEN` env var

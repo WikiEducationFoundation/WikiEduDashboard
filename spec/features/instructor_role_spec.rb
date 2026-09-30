@@ -4,8 +4,6 @@ require 'rails_helper'
 
 describe 'Instructor users', :js, type: :feature do
   before do
-    include type: :feature
-    include Devise::TestHelpers
     TrainingModule.load_all
     page.current_window.resize_to(1920, 1080)
     instructor = create(:user,

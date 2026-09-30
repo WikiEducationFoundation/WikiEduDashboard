@@ -230,3 +230,40 @@ describe('CourseDateUtils.weekMeetings boundary cases', () => {
     expect(lastWeekMeetings).not.toContain('Saturday (04/11)');
   });
 });
+
+describe('CourseDateUtils async courses (no meeting days set)', () => {
+  // No weekdays selected and no day exceptions: the course is asynchronous, so
+  // every day counts as a meeting day and no week is blacked out.
+  const asyncCourse = {
+    timeline_start: '2026-03-01', // Sunday
+    timeline_end: '2026-03-21', // Saturday — three full weeks
+    end: '2026-03-21',
+    weekdays: '0000000',
+    day_exceptions: ''
+  };
+
+  test('noMeetingDays is true when no weekdays and no exceptions are set', () => {
+    expect(CourseDateUtils.noMeetingDays(asyncCourse)).toBe(true);
+  });
+
+  test('noMeetingDays is false when a weekday is selected', () => {
+    expect(CourseDateUtils.noMeetingDays({ ...asyncCourse, weekdays: '0010100' })).toBe(false);
+  });
+
+  test('noMeetingDays is false when a day exception is set', () => {
+    expect(CourseDateUtils.noMeetingDays({ ...asyncCourse, day_exceptions: '20260302' })).toBe(false);
+  });
+
+  test('every week has meetings so none is blacked out', () => {
+    const meetings = CourseDateUtils.weekMeetings(asyncCourse, '');
+    expect(meetings.length).toBeGreaterThan(0);
+    meetings.forEach((week) => {
+      expect(week.length).toBeGreaterThan(0);
+    });
+  });
+
+  test('openWeeks counts every week as available', () => {
+    const meetings = CourseDateUtils.weekMeetings(asyncCourse, '');
+    expect(CourseDateUtils.openWeeks(meetings)).toBe(meetings.length);
+  });
+});

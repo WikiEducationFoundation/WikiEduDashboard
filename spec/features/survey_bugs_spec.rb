@@ -7,8 +7,6 @@ describe 'Survey navigation and rendering', type: :feature, js: true do
   include Rapidfire::AnswerSpecHelper
 
   before do
-    include type: :feature
-    include Devise::TestHelpers
     page.current_window.resize_to(1920, 1080)
   end
 

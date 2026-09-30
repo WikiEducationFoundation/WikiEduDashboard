@@ -52,6 +52,22 @@
 # basis. See below.
   disable_wiki_output: 'true'
 
+# Setting fall_2026_research_student_optin to 'true' presents enrolled students
+# with the invitation for the Fall 2026 research experiment (see
+# Fall2026ResearchExperiment). Instructors can opt their courses in regardless;
+# this only controls the student-facing side, so the experiment can be deployed
+# and start collecting course opt-ins before the student side is ready to go
+# live. Anything other than 'true' — including leaving this out entirely — keeps
+# the student side off. Each experiment gets its own setting.
+  fall_2026_research_student_optin: 'false'
+
+# Shared secret for announcing Fall 2026 experiment opt-ins to the study's
+# data collection server (see WickieApi); the value comes from the research
+# team and must match the server's WICKIE_ENROLL_SECRET. When left unset, no
+# enrollment notifications are sent at all — set it only on the environment
+# that is meant to feed the real study cohort.
+# wickie_enroll_secret: ''
+
 # Projects with automatic edits enabled, add as edit_<language>.<project_url>
 # edit_en.wikipedia.org: "true"
 
@@ -136,9 +152,36 @@
 # LTIAAS Configuration
   LTIAAS_API_KEY: 'example_api_key'
   LTIAAS_DOMAIN: 'example.ltiaas.com'
+# Set to 'true' to enable LTI launches, NRPS roster sync, and AGS grade
+# passback. Leave default false until LTIAAS is registered against a live
+# Canvas instance for this environment.
+  canvas_integration_enabled: 'false'
+# Set to 'true' to also accept legacy LTI 1.1 launches (launch-only "companion
+# mode": no roster sync, no assignment import, no grade passback). Requires
+# canvas_integration_enabled and the ActiveRecord encryption keys below; LTIAAS
+# is not involved — the Dashboard verifies 1.1 launches itself and issues the
+# per-course consumer keys. Leave it false unless an institution needs 1.1.
+  lti_legacy_launches_enabled: 'false'
+
+# ActiveRecord encryption, used for the LTI 1.1 shared secrets the Dashboard
+# issues (LtiConsumerKey). Generate a set with `bin/rails db:encryption:init`
+# and paste the three values here. Outside production the app falls back to
+# fixed non-secret values so the suite runs without them; production leaves
+# encryption unconfigured when they are absent, which fails where it is used
+# rather than booting the whole app with a known key.
+  active_record_encryption_primary_key: 'example_primary_key'
+  active_record_encryption_deterministic_key: 'example_deterministic_key'
+  active_record_encryption_key_derivation_salt: 'example_key_derivation_salt'
 
 # Default timeslice duration (in seconds) used for processing course updates
   TIMESLICE_DURATION: '86400'
 
 # Originality.ai API key
   originality_api_key: 'example_api_key'
+
+# Credentials for storing CSV exports in S3-compatible object storage.
+# report_csv_bucket: 'bucket-name'
+# report_csv_s3_endpoint: 'https://object.eqiad1.wikimediacloud.org'
+# report_csv_public_url: 'https://object.eqiad1.wikimediacloud.org/globaleducation:bucket-name'
+# report_csv_access_key: 'access-key'
+# report_csv_secret_key: 'secret-key'

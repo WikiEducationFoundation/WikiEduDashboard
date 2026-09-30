@@ -12,6 +12,7 @@ describe 'campaign overview page', type: :feature, js: true do
   let(:slug)  { 'spring_2016' }
   let(:user)  { create(:user) }
   let(:wiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
+  let(:wikidata) { Wiki.get_or_create(project: 'wikidata', language: nil) }
   let(:campaign) do
     create(:campaign,
            title: 'Spring 2016 campaign',
@@ -22,6 +23,7 @@ describe 'campaign overview page', type: :feature, js: true do
 
   describe 'header' do
     before do
+      stub_wiki_validation
       campaign_two = create(:campaign_two)
 
       (1..campaign_course_count).each do |i|
@@ -64,6 +66,9 @@ describe 'campaign overview page', type: :feature, js: true do
 
         create(:course_wiki_timeslice, course: course1, wiki:, character_sum: 9,
                references_count: 2, revision_count: 1, start: 6.days.ago, end: 5.days.ago)
+        # Wikidata characters are not prose, so they must not reach the word count.
+        create(:course_wiki_timeslice, course: course1, wiki: wikidata, character_sum: 50_000,
+               references_count: 0, revision_count: 1, start: 5.days.ago, end: 4.days.ago)
         create(:course_wiki_timeslice, course: course2, wiki:, character_sum: 12,
                references_count: 3, revision_count: 1, start: 6.days.ago, end: 5.days.ago)
         article = create(:article,
@@ -94,8 +99,8 @@ describe 'campaign overview page', type: :feature, js: true do
       stat_text = "#{student_count}\n#{I18n.t('courses.students')}"
       expect(page).to have_css('.stat-display', text: stat_text)
 
-      # Words added
-      word_count = WordCount.from_characters campaign.courses.sum(:character_sum)
+      # Words added, counting the Wikipedia characters only
+      word_count = WordCount.from_characters(campaign_course_count * 9)
       stat_text = "#{word_count}\n#{I18n.t('metrics.word_count')}"
       expect(page).to have_css('.stat-display', text: stat_text)
 

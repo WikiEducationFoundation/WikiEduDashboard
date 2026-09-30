@@ -1,0 +1,25 @@
+- content_for :before_title, "#{@report_card.campaign.title} — "
+
+%header.main-page
+  .container
+    %h1= @report_card.campaign.title
+    %p.subtitle= t('report_cards.subtitle')
+
+.container.report-card
+  %p.report-card__legend= t('report_cards.legend')
+  %p
+    %a.button.dark{href: "/report_cards/#{@report_card.campaign.slug}.csv"}= t('report_cards.download_csv')
+  .report-card__scroll
+    %table.table.report-card__table
+      %thead
+        %tr
+          - @report_card.groups.each do |group, span|
+            %th.report-card__group{colspan: span}= t("report_cards.groups.#{group}")
+        %tr
+          - RetentionReportCard::COLUMNS.each do |column|
+            %th{class: (column.format == :text ? nil : 'report-card__number')}
+              = t("report_cards.columns.#{column.key}")
+      %tbody
+        - @report_card.rows.each do |row|
+          = render 'row', row: row
+        = render 'row', row: @report_card.totals

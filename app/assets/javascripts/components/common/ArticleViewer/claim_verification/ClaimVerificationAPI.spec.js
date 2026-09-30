@@ -57,4 +57,29 @@ describe('ClaimVerificationAPI', () => {
         .rejects.toMatchObject({ status: 403 });
     });
   });
+
+  describe('.submitResponse()', () => {
+    it('POSTs the form answers and resolves the saved response', async () => {
+      const answers = { source_access: 'accessed', verdict: 'full_support' };
+      const payload = { response: { ...answers } };
+      global.fetch = jest.fn(okResponse(payload));
+      const result = await api.submitResponse(answers);
+      const [url, options] = global.fetch.mock.calls[0];
+      expect(url).toContain('/courses/School/Claims_2024/verify_claim/response');
+      expect(options.method).toEqual('POST');
+      expect(JSON.parse(options.body)).toEqual(answers);
+      expect(result).toEqual(payload);
+    });
+  });
+
+  describe('.fetchResponses()', () => {
+    it('GETs the responses endpoint and resolves its JSON', async () => {
+      const payload = { responses: [], pending: [] };
+      global.fetch = jest.fn(okResponse(payload));
+      const result = await api.fetchResponses();
+      expect(global.fetch.mock.calls[0][0])
+        .toContain('/courses/School/Claims_2024/verify_claim/responses');
+      expect(result).toEqual(payload);
+    });
+  });
 });

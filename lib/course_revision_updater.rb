@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
+require_dependency "#{Rails.root}/lib/utils/replica_timeslice_bounds"
 
 #= Fetches and imports new revisions for courses and creates ArticlesCourses records
 class CourseRevisionUpdater
@@ -29,9 +30,11 @@ class CourseRevisionUpdater
   # {wiki0 => {:start=>"20160320", :end=>"20160401", :new_data=>true, :revisions=>[...]}}
   # :revisions array is empty if no point in importing revisions.
   # Creates ArticlesCourses records as side effect.
-  def fetch_revisions_for_course_wiki(wiki, ts_start, ts_end)
+  def fetch_revisions_for_course_wiki(wiki, timeslice_start, timeslice_end)
+    ts_start = ReplicaTimesliceBounds.real_start(@course, timeslice_start)
+    ts_end = ReplicaTimesliceBounds.real_end(@course, timeslice_end)
     return empty_response(wiki, ts_start, ts_end) if no_point_in_importing_revisions?
-    revision_data = fetch_revisions(wiki, ts_start, ts_end)
+    revision_data = fetch_revisions(wiki, timeslice_start, timeslice_end)
     create_articles_courses(revision_data)
 
     format_revision_response(wiki, ts_start, ts_end, revision_data)
@@ -43,6 +46,7 @@ class CourseRevisionUpdater
   def fetch_revisions_for_new_users(wiki, users, ts_start, ts_end)
     manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
     revisions = manager.fetch_revision_data_for_users_with_articles(users, ts_start, ts_end)
+    return revisions if revisions.empty?
     create_articles_courses(revisions)
     return revisions unless wiki.project == 'wikidata'
     live_revisions = revisions.reject(&:deleted)

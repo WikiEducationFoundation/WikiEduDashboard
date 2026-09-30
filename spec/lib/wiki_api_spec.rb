@@ -225,6 +225,39 @@ describe WikiApi do
     end
   end
 
+  describe '#title_of_article_edited_by' do
+    let(:wiki) { Wiki.find_by(language: 'en', project: 'wikipedia') }
+    let(:subject) { described_class.new(wiki) }
+
+    it 'returns the title of an article the user has edited' do
+      VCR.use_cassette 'wiki/title_of_article_edited_by' do
+        expect(subject.title_of_article_edited_by('Ragesoss', 'American Civil War'))
+          .to eq('American Civil War')
+      end
+    end
+
+    it 'follows a redirect to the article the user edited' do
+      VCR.use_cassette 'wiki/title_of_article_edited_by' do
+        expect(subject.title_of_article_edited_by('Ragesoss', 'US Civil War'))
+          .to eq('American Civil War')
+      end
+    end
+
+    it 'returns nil when the user has not edited the article' do
+      VCR.use_cassette 'wiki/title_of_article_edited_by' do
+        expect(subject.title_of_article_edited_by('Ragesoss', 'Ada Lovelace')).to be_nil
+      end
+    end
+
+    it 'returns nil when the user has only edited the article before the given time' do
+      VCR.use_cassette 'wiki/title_of_article_edited_by' do
+        expect(subject.title_of_article_edited_by('Ragesoss', 'American Civil War',
+                                                  since: Time.zone.parse('2026-01-01')))
+          .to be_nil
+      end
+    end
+  end
+
   describe '#fetch_all' do
     it 'returns the same data as a single complete query would' do
       VCR.use_cassette 'wiki/continue_response' do
@@ -382,6 +415,47 @@ describe WikiApi do
         stub_request(:any, /.*/).to_return(status: 200, body: '{}', headers: {})
         expect(subject).to eq(false)
       end
+    end
+  end
+
+  describe '#query with a MediawikiApi::ApiError (no interception block)' do
+    before { stub_wiki_validation }
+
+    # MediawikiApi::Client#send_request raises ApiError for HTTP 200 responses
+    # that carry a mediawiki-api-error header (e.g. baduser, badtitle).
+    # ApiError#response is a MediawikiApi::Response, which does NOT delegate
+    # :headers — so retry_after_seconds must not call .headers on it.
+    def baduser_error
+      body = { 'error' => { 'code' => 'baduser',
+                             'info' => 'Invalid value for user parameter.' } }
+      faraday = Faraday::Response.new(
+        status: 200, body: body.to_json,
+        response_headers: { 'mediawiki-api-error' => 'baduser' }
+      )
+      MediawikiApi::ApiError.new(MediawikiApi::Response.new(faraday, ['error']))
+    end
+
+    it 'returns nil instead of raising NoMethodError' do
+      allow_any_instance_of(MediawikiApi::Client)
+        .to receive(:query) { raise baduser_error }
+      wiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
+      expect(described_class.new(wiki).query(list: 'usercontribs',
+                                             ucuser: %w[A B])).to be_nil
+    end
+  end
+
+  describe '#retry_after_seconds' do
+    before { stub_wiki_validation }
+
+    it 'parses Retry-After from a real HttpError' do
+      faraday = Faraday::Response.new(
+        status: 429, body: '{}',
+        response_headers: { 'Retry-After' => '7' }
+      )
+      wiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
+      api = described_class.new(wiki)
+      expect(api.send(:retry_after_seconds,
+                      MediawikiApi::HttpError.new(faraday))).to eq(7)
     end
   end
 end

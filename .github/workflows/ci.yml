@@ -4,6 +4,43 @@ name: CI
 on: ['push', 'pull_request', 'workflow_dispatch']
 
 jobs:
+  # Dependency advisories are published independently of our code, so a new
+  # one can turn any build red overnight. Auditing in a separate job reports
+  # it as its own failing check, without keeping the test suites below from
+  # running to completion.
+  dependency-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5
+
+      - name: setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+           ruby-version: 3.4.8
+           bundler-cache: true
+
+      - name: setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      # Fails when Gemfile.lock contains a gem with a published security
+      # advisory (ruby-advisory-db, refreshed on each run).
+      - name: Ruby dependency vulnerability audit
+        run: bundle exec bundle-audit check --update
+
+      # Mirrors the Ruby audit for the JavaScript dependency tree: fails
+      # when yarn.lock resolves a package with a published npm advisory of
+      # moderate severity or higher. `--recursive` covers transitive
+      # dependencies, where nearly all such advisories land. Reads the
+      # lockfile directly, so it needs no `yarn install`. Runs even when the
+      # Ruby audit fails, so both sets of advisories show up at once.
+      - name: JavaScript dependency vulnerability audit
+        if: ${{ !cancelled() }}
+        run: yarn npm audit --recursive --severity moderate
+
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -40,7 +77,7 @@ jobs:
     steps:
       # checks-out your repository under $GITHUB_WORKSPACE , so that workflow can access it.
       - name: checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v5
         with:
           fetch-depth: 2
 
@@ -49,31 +86,21 @@ jobs:
         with:
           pandoc-version: '2.9.2.1'
 
+      # ImageMagick provides the `convert`/`identify` binaries that Paperclip
+      # shells out to when generating the UserProfile image thumbnail. The
+      # ubuntu-24.04 runner does not ship it preinstalled, so install it from
+      # apt. This lands the binaries in /usr/bin, matching
+      # Paperclip.options[:command_path] in config/environments/test.rb.
       - name: install ImageMagick
-        uses: mfinelli/setup-imagemagick@v6
-        with:
-          cache: true
-
-      # Cache ImageMagick binaries
-      - name: Cache Latest ImageMagick
-        uses: actions/cache@v3
-        with:
-          path: /home/runner/bin/magick
-          key: ${{ runner.os }}-imagemagick-latest
-          restore-keys: |
-            ${{ runner.os }}-imagemagick-latest
-
-      # Update PATH for ImageMagick
-      - name: Update PATH for ImageMagick
-        run: echo "/home/runner/bin" >> $GITHUB_PATH
-
-      - name: Create symlink for identify and convert
         run: |
-          for cmd in identify convert; do
-            if ! [ -x "$(command -v $cmd)" ]; then
-              sudo ln -s $(which magick) /usr/bin/$cmd
-            fi
-          done
+          # The ubuntu-24.04 runner preinstalls Microsoft/Azure apt repos whose
+          # signatures intermittently break ("Clearsigned file isn't valid ...
+          # got 'NOSPLIT'"), which makes `apt-get update` exit non-zero and abort
+          # this step (it runs under `bash -e`). ImageMagick comes from Ubuntu's
+          # own repos, so drop those third-party sources before updating.
+          sudo rm -f /etc/apt/sources.list.d/*microsoft* /etc/apt/sources.list.d/*azure*
+          sudo apt-get update
+          sudo apt-get install -y imagemagick
 
       # Starting ruby
       - name: setup Ruby
@@ -82,8 +109,16 @@ jobs:
            ruby-version: 3.4.8
            bundler-cache: true
 
+      # Security static analysis. Fails the build on any finding that is not
+      # in config/brakeman.ignore, where every baselined warning carries a
+      # written justification. A new finding means either a real issue or a
+      # pattern that needs reviewing and, if genuinely safe, adding to the
+      # baseline with its reasoning -- not a blanket suppression.
+      - name: Ruby security static analysis
+        run: bundle exec brakeman --no-pager -q -i config/brakeman.ignore
+
       - name: setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: 'yarn'
@@ -122,14 +157,14 @@ jobs:
 
       - name: Cache Webpack cache
         id: cache-webpack
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: node_modules/.cache/
           key: ${{ runner.os }}-webpack
 
       # Create cache or restore cache for Tests
       - name: Cache VCR cassettes
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: fixtures/vcr_cassettes
           key: vcr-cached-v1
@@ -147,7 +182,7 @@ jobs:
         run: yarn lint-non-build
 
       - name: Cache parallel runtime log
-        uses: actions/cache@v3
+        uses: actions/cache@v5
         with:
           path: tmp/parallel_runtime_rspec.log
           key: parallel-runtime-${{ hashFiles('spec/**/*_spec.rb') }}
@@ -173,7 +208,7 @@ jobs:
           } | tee -a "$GITHUB_STEP_SUMMARY"
 
       - name: Upload JS coverage report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: success()
         with:
           name: js-coverage
@@ -181,7 +216,7 @@ jobs:
           if-no-files-found: warn
 
       - name: Archive capybara failure screenshots
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         if: failure()
         with:
           name: dist-without-markdown

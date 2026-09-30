@@ -7,6 +7,7 @@ import ClaimLegend from '@components/common/ArticleViewer/claim_verification/Cla
 // Helpers
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
 import formatRevisionDate from '~/app/assets/javascripts/utils/format_revision_date';
+import { stepHeading } from '@components/claim_verification_exercise/steps';
 
 /*
   Claim-verification highlighting feature for the ArticleViewer shell.
@@ -25,7 +26,8 @@ import formatRevisionDate from '~/app/assets/javascripts/utils/format_revision_d
   with the shell's parse rather than after it.
 
   Taking a claim is an async POST; on success the hook calls `onTaken` with the
-  resulting assignment so the exercise can transition to the taken-claim view
+  result — the assignment, plus the student's earlier response for that claim
+  if they had one — so the exercise can transition to the taken-claim view
   without a reload.
 
   Claims belong to the flagged revision the article opens at (the shell's
@@ -167,7 +169,7 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
       .take({ articleId: article.id, verificationClaimId: selectedClaim.claimId })
       .then((data) => {
         setTaking(false);
-        onTaken(data.assignment);
+        onTaken(data);
       })
       .catch((error) => {
         setTaking(false);
@@ -181,13 +183,16 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
       });
   };
 
-  // Pinned to the top of the article (the shell's `banner` slot): a notice that
-  // this is the article at the flagged revision (a point in time, not the
-  // current version), plus the claim-picking instructions. Shown only while the
-  // annotated flagged revision is in view.
+  // Pinned to the top of the article (the shell's `banner` slot): the step
+  // heading — this is a numbered step of the exercise like any other, and
+  // without it the viewer was the one stop that didn't say where the student
+  // was — then a notice that this is the article at the flagged revision (a
+  // point in time, not the current version), plus the claim-picking
+  // instructions. Shown only while the annotated flagged revision is in view.
   const banner = annotatedHtml
     ? (
       <div className="cv-pick-banner">
+        <h2 className="cv-pick-banner__heading">{stepHeading('select_claim')}</h2>
         {article.mw_rev_timestamp && (
           <p className="cv-revision-notice">
             {I18n.t('claim_verification.revision_notice', {
@@ -195,6 +200,7 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
             })}
           </p>
         )}
+        <p className="cv-select-claim-note">{I18n.t('claim_verification.select_claim_instructions')}</p>
         <p>{I18n.t('claim_verification.pick_instructions')}</p>
       </div>
     )

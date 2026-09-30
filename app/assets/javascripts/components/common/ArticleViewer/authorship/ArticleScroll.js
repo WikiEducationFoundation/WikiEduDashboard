@@ -84,6 +84,7 @@ export class ArticleScroll {
         } else {
             this.scrollObject[name].index += 1;
         }
+        return paragraphs[index].paragraph;
     }
 
     findClosestEdit(name, paragraphs) {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import selectStyles from '../../styles/single_select';
 
 const CourseTypeSelector = (props) => {
@@ -17,7 +17,7 @@ const CourseTypeSelector = (props) => {
     }[type];
   };
 
-  const id = uuid.v4();
+  const id = uuidv4();
   const [selectedOption, setSelectedOption] = useState({ value: props.course.type, label: _getFormattedCourseType(props.course.type) });
 
   const _handleChange = (e) => {

@@ -1,0 +1,15 @@
+- # Whose submission the surrounding view is showing, for a launch that came from
+- # one student's submission in Canvas rather than from the assignment.
+- #
+- # The Dashboard link is the point of this banner as much as the name is: the
+- # in-Canvas views carry a column's worth of progress, and everything else about
+- # the student's work lives on their Dashboard details page.
+- # Locals: user (required), course (may be nil for an unlinked binding).
+.lti-submission-focus
+  %span.lti-submission-focus__student
+    = t('lti.assignment_view.submission.viewing', username: user.username)
+  - if course
+    = link_to "/courses/#{course.slug}/students/articles/#{user.url_encoded_username}",
+              target: '_blank', rel: 'noopener', class: 'lti-submission-focus__link' do
+      = t('lti.assignment_view.submission.details')
+      %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }

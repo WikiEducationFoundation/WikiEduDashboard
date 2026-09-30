@@ -20,7 +20,6 @@ class ApplicationController < ActionController::Base
   before_action :check_onboarded
   before_action :set_locale
   before_action :set_paper_trail_whodunnit
-  before_action :authorize_rmp
 
   def after_sign_out_path_for(_resource_or_scope)
     '/'
@@ -102,11 +101,6 @@ class ApplicationController < ActionController::Base
   def check_for_unsupported_browser
     supported = !browser.ie?
     flash[:notice] = t('error.unsupported_browser.explanation') unless supported
-  end
-
-  def authorize_rmp
-    return unless current_user&.super_admin?
-    Rack::MiniProfiler.authorize_request
   end
 
   def course_slug_path(slug, args = {})

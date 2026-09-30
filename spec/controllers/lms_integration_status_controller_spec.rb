@@ -1,0 +1,354 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+describe LmsIntegrationStatusController, type: :request do
+  let(:course) { create(:course, slug: 'School/Demo_(2026)') }
+  let(:request_path) { "/courses/#{course.slug}/lms_integration_status.json" }
+  # The bound course's Canvas link: the tool's in-course view, reached through
+  # Canvas's external_tools/retrieve with our launch URL to match on.
+  let(:expected_course_url) do
+    'https://canvas.example.com/courses/lti_context_id:canvas-77' \
+      '/external_tools/retrieve?url=https%3A%2F%2Ftenant.ltiaas.com%2Flti%2Flaunch'
+  end
+
+  # Pinned rather than inherited: the course URL now embeds the tool's launch
+  # URL, and another spec sets LTIAAS_DOMAIN globally without clearing it, so
+  # leaving this to chance makes the expectations order-dependent. A legacy
+  # binding's link embeds our own launch URL instead, built on dashboard_url.
+  before do
+    allow(Features).to receive(:canvas_integration?).and_return(true)
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(viewer)
+    ENV['LTIAAS_DOMAIN'] = 'tenant.ltiaas.com'
+    ENV['dashboard_url'] = 'dashboard.wikiedu.org'
+  end
+
+  describe 'when the course has no binding' do
+    let(:viewer) { create(:user) }
+
+    it 'returns bound: false' do
+      get request_path
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)).to eq('bound' => false)
+    end
+  end
+
+  describe 'when the course has a stale flag but no binding' do
+    let(:viewer) { create(:user) }
+
+    before { course.flags[:canvas_integration] = true; course.save! }
+
+    it 'returns bound: false' do
+      get request_path
+      expect(JSON.parse(response.body)).to eq('bound' => false)
+    end
+  end
+
+  describe 'when the course is bound to an LMS course' do
+    let!(:binding) do
+      LtiCourseBinding.create!(
+        course: course, lms_id: 'platform-x', lms_family: 'canvas',
+        lms_context_id: 'canvas-77', lms_resource_link_id: 'rl-99',
+        lms_context_title: 'WRIT 2010', lms_platform_url: 'https://canvas.example.com',
+        last_roster_sync_at: 2.hours.ago, last_grade_sync_at: 30.minutes.ago
+      )
+    end
+
+    # This endpoint is reachable independently of the gated launch controller,
+    # so the global switch has to reach it too.
+    context 'when the canvas integration feature is disabled' do
+      let(:viewer) { create(:user) }
+
+      before do
+        allow(Features).to receive(:canvas_integration?).and_return(false)
+        CoursesUsers.create!(user: viewer, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+
+      it 'returns bound: false and no LMS metadata' do
+        get request_path
+        expect(JSON.parse(response.body)).to eq('bound' => false)
+      end
+    end
+
+    context 'viewed by a course instructor' do
+      let(:viewer) { create(:user) }
+
+      before do
+        CoursesUsers.create!(user: viewer, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+
+      it 'returns the staff payload with a clickable LMS course URL' do
+        get request_path
+        body = JSON.parse(response.body)
+        expect(body['bound']).to be true
+        expect(body['legacy']).to be false
+        expect(body['lms_name']).to eq('Canvas')
+        expect(body['course_title']).to eq('WRIT 2010')
+        expect(body['course_url']).to eq(expected_course_url)
+        expect(body).to have_key('last_sync_at')
+        expect(body).not_to have_key('last_roster_sync_at')
+        expect(body['last_roster_sync_error']).to be_nil
+        expect(body['last_sync_error']).to be_nil
+        expect(body['connected_accounts_count']).to eq(0)
+      end
+
+      # The link points into the tool's in-course view via Canvas's
+      # external_tools/retrieve, which needs our launch URL to match against.
+      # Without LTIAAS_DOMAIN there is no such URL, so it degrades to the
+      # course home page rather than emitting a broken link.
+      it 'falls back to the plain course URL when LTIAAS_DOMAIN is unset' do
+        ENV['LTIAAS_DOMAIN'] = nil
+        get request_path
+        expect(JSON.parse(response.body)['course_url'])
+          .to eq('https://canvas.example.com/courses/lti_context_id:canvas-77')
+      end
+
+      # A launch-only LTI 1.1 binding: the sidebar reads the flag and drops the
+      # sync rows, which would otherwise show a sync that never happens as one
+      # that never succeeded.
+      it 'flags a legacy (LTI 1.1) binding' do
+        binding.update!(lti_version: '1.2.0')
+        get request_path
+        expect(JSON.parse(response.body)['legacy']).to be true
+      end
+
+      # Canvas's `retrieve` finds the installed tool by launch URL. The 1.1 tool
+      # is configured from our own config XML and posts to our own endpoint, not
+      # to LTIAAS, so the link has to carry the URL the XML installed.
+      it 'points a legacy binding\'s course link at our own legacy launch URL' do
+        binding.update!(lti_version: '1.2.0')
+        get request_path
+        legacy_launch_url = CGI.escape('https://dashboard.wikiedu.org/lti/legacy/launch')
+        expect(JSON.parse(response.body)['course_url'])
+          .to eq('https://canvas.example.com/courses/lti_context_id:canvas-77' \
+                 "/external_tools/retrieve?url=#{legacy_launch_url}")
+      end
+
+      # The two places that URL is defined must agree: what the config XML tells
+      # Canvas to install, and what this link asks Canvas to match on. If they
+      # drift, the sidebar link opens a Canvas error instead of the tool.
+      it 'embeds the same legacy launch URL the config XML installs' do
+        allow(Features).to receive(:lti_legacy_launches?).and_return(true)
+        binding.update!(lti_version: '1.2.0')
+        get '/lti/legacy/config.xml'
+        installed = Nokogiri::XML(response.body).remove_namespaces!.at('launch_url').text
+
+        get request_path
+        course_url = JSON.parse(response.body)['course_url']
+        expect(CGI.unescape(course_url.split('retrieve?url=').last)).to eq(installed)
+      end
+
+      # A legacy link never depended on LTIAAS, so it does not degrade with it.
+      it 'keeps a legacy binding\'s in-course link when LTIAAS_DOMAIN is unset' do
+        binding.update!(lti_version: '1.2.0')
+        ENV['LTIAAS_DOMAIN'] = nil
+        get request_path
+        expect(JSON.parse(response.body)['course_url']).to include('/external_tools/retrieve?url=')
+      end
+
+      # The recorded error is exception class + message — diagnostic data the
+      # staff sidebar displays verbatim, not user copy.
+      it 'carries the recorded grade-sync failure so staff can see what went wrong' do
+        binding.update!(last_grade_sync_error: 'AGS POST failed: 401')
+        get request_path
+        expect(JSON.parse(response.body)['last_sync_error']).to eq('AGS POST failed: 401')
+      end
+
+      it 'carries the recorded roster-sync failure so staff can see what went wrong' do
+        binding.update!(last_roster_sync_error: 'LtiaasClient::LtiaasTransientError: 502')
+        get request_path
+        expect(JSON.parse(response.body)['last_roster_sync_error'])
+          .to eq('LtiaasClient::LtiaasTransientError: 502')
+      end
+
+      # Roles come from the launch or NRPS on every real context, and only
+      # learner memberships are counted, so they belong in the fixture.
+      it 'counts only LtiContexts that have been linked to a User' do
+        learner_roles = ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner']
+        other_student = create(:user, username: 'OtherStudent')
+        LtiContext.create!(lti_course_binding: binding, user: other_student,
+                           user_lti_id: 'l1', lms_id: 'platform-x', roles: learner_roles)
+        LtiContext.create!(lti_course_binding: binding, user_id: nil,
+                           user_lti_id: 'l2', lms_id: 'platform-x', roles: learner_roles)
+        get request_path
+        expect(JSON.parse(response.body)['connected_accounts_count']).to eq(1)
+      end
+
+      # The pair of numbers the sidebar shows: a roster the sync has pulled in,
+      # most of whom haven't connected an account yet. Reporting only the second
+      # one under a roster-sounding label is what made a working sync read as
+      # having found nobody.
+      it 'reports the roster size separately from the connected-account count' do
+        learner_roles = ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner']
+        LtiContext.create!(lti_course_binding: binding, user: create(:user, username: 'Connected'),
+                           user_lti_id: 'l1', lms_id: 'platform-x', roles: learner_roles)
+        LtiContext.create!(lti_course_binding: binding, user_id: nil,
+                           user_lti_id: 'l2', lms_id: 'platform-x', roles: learner_roles)
+
+        get request_path
+        body = JSON.parse(response.body)
+        expect(body['roster_students_count']).to eq(2)
+        expect(body['connected_accounts_count']).to eq(1)
+      end
+
+      # A member Canvas has removed can't reach the course, so counting them
+      # would overstate the roster against what the instructor sees in Canvas.
+      it 'leaves LMS-removed members out of the roster count' do
+        learner_roles = ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner']
+        LtiContext.create!(lti_course_binding: binding, user_id: nil, user_lti_id: 'l1',
+                           lms_id: 'platform-x', roles: learner_roles,
+                           lms_membership_status: 'Active')
+        LtiContext.create!(lti_course_binding: binding, user_id: nil, user_lti_id: 'l2',
+                           lms_id: 'platform-x', roles: learner_roles,
+                           lms_membership_status: 'Deleted')
+
+        get request_path
+        expect(JSON.parse(response.body)['roster_students_count']).to eq(1)
+      end
+
+      it 'excludes the instructor-role linked context from the count' do
+        learner = create(:user, username: 'LinkedLearner')
+        teacher = create(:user, username: 'LinkedTeacher')
+        LtiContext.create!(lti_course_binding: binding, user: learner,
+                           user_lti_id: 's1', lms_id: 'platform-x',
+                           roles: ['http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'])
+        LtiContext.create!(lti_course_binding: binding, user: teacher,
+                           user_lti_id: 't1', lms_id: 'platform-x',
+                           roles: ['http://purl.imsglobal.org/vocab/lis/v2/membership#Instructor'])
+        get request_path
+        expect(JSON.parse(response.body)['connected_accounts_count']).to eq(1)
+      end
+
+      it 'reports the most recent of the roster and grade sync times' do
+        binding.update!(last_roster_sync_at: 2.days.ago, last_grade_sync_at: 1.hour.ago)
+        get request_path
+        reported = Time.zone.parse(JSON.parse(response.body)['last_sync_at'])
+        expect(reported).to be_within(1.minute).of(1.hour.ago)
+      end
+
+      it 'shows the roster sync time (not "never synced") when only the roster has synced' do
+        binding.update!(last_roster_sync_at: 10.minutes.ago, last_grade_sync_at: nil)
+        learner_role = 'http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'
+        LtiContext.create!(lti_course_binding: binding, user: create(:user, username: 'Rostered'),
+                           user_lti_id: 's3', lms_id: 'platform-x', roles: [learner_role])
+        get request_path
+        body = JSON.parse(response.body)
+        expect(body['connected_accounts_count']).to eq(1)
+        expect(body['last_sync_at']).to be_present
+      end
+
+      it 'falls back to the latest student link when neither sync has run yet' do
+        binding.update!(last_roster_sync_at: nil, last_grade_sync_at: nil)
+        learner_role = 'http://purl.imsglobal.org/vocab/lis/v2/membership#Learner'
+        LtiContext.create!(lti_course_binding: binding, user: create(:user, username: 'Fresh'),
+                           user_lti_id: 's2', lms_id: 'platform-x',
+                           linked_at: 5.minutes.ago, roles: [learner_role])
+        get request_path
+        body = JSON.parse(response.body)
+        expect(body['connected_accounts_count']).to eq(1)
+        expect(body['last_sync_at']).to be_present
+      end
+    end
+
+    context 'viewed by a site admin who is not enrolled on the course' do
+      let(:viewer) { create(:admin) }
+
+      it 'returns the staff payload but no LMS course URL' do
+        get request_path
+        body = JSON.parse(response.body)
+        expect(body['bound']).to be true
+        expect(body['course_title']).to eq('WRIT 2010')
+        expect(body).not_to have_key('course_url')
+        expect(body).to have_key('last_sync_at')
+      end
+    end
+
+    context 'viewed by a site admin who is an instructor on the course' do
+      let(:viewer) { create(:admin) }
+
+      before do
+        CoursesUsers.create!(user: viewer, course: course,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+
+      it 'treats them as instructor (includes the LMS course URL)' do
+        get request_path
+        body = JSON.parse(response.body)
+        expect(body['course_url']).to eq(expected_course_url)
+      end
+    end
+
+    context 'viewed by a linked student on the course' do
+      let(:viewer) { create(:user) }
+      let!(:context_row) do
+        LtiContext.create!(lti_course_binding: binding, user: viewer,
+                           user_lti_id: 'student-1', lms_id: 'platform-x')
+      end
+
+      before do
+        CoursesUsers.create!(user: viewer, course: course,
+                             role: CoursesUsers::Roles::STUDENT_ROLE)
+      end
+
+      it 'returns the student payload with the LMS course URL' do
+        get request_path
+        body = JSON.parse(response.body)
+        expect(body['bound']).to be true
+        expect(body['course_title']).to eq('WRIT 2010')
+        expect(body['course_url']).to eq(expected_course_url)
+        expect(body['my_linked']).to be true
+      end
+
+      it 'reports the most recent score push across the student\'s line items' do
+        line_item = LtiLineItem.create!(lti_course_binding: binding,
+                                        gradable_type: 'TrainingProgress',
+                                        lineitem_id: 'li-1')
+        LtiScoreSignature.create!(lti_line_item: line_item, lti_context: context_row,
+                                  signature: 'sig-1', last_pushed_at: 1.hour.ago)
+        get request_path
+        expect(JSON.parse(response.body)['my_last_sync_at']).to be_present
+      end
+
+      it 'reports my_last_sync_at as null when nothing has been pushed yet' do
+        get request_path
+        expect(JSON.parse(response.body)['my_last_sync_at']).to be_nil
+      end
+    end
+
+    context 'viewed by a Canvas-enrolled student who has not yet linked' do
+      let(:viewer) { create(:user) }
+
+      before do
+        CoursesUsers.create!(user: viewer, course: course,
+                             role: CoursesUsers::Roles::STUDENT_ROLE)
+      end
+
+      it 'returns bound: true with my_linked: false (no sync state yet)' do
+        get request_path
+        body = JSON.parse(response.body)
+        expect(body['bound']).to be true
+        expect(body['my_linked']).to be false
+      end
+    end
+
+    context 'viewed by a logged-in user with no role on the course' do
+      let(:viewer) { create(:user) }
+
+      it 'returns bound: false (panel not for them)' do
+        get request_path
+        expect(JSON.parse(response.body)).to eq('bound' => false)
+      end
+    end
+
+    context 'viewed by an unauthenticated visitor' do
+      let(:viewer) { nil }
+
+      it 'returns bound: false' do
+        get request_path
+        expect(JSON.parse(response.body)).to eq('bound' => false)
+      end
+    end
+  end
+end

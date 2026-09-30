@@ -69,6 +69,16 @@ describe('AvailableArticles', () => {
     expect(fetchAssignments).toHaveBeenCalledWith(course.slug);
   });
 
+  test('shows the copy-from-another-course control to instructors', () => {
+    const container = renderTab({ id: 1, isStudent: false, isAdvancedRole: true, isInstructor: true, admin: false }, jest.fn());
+    expect(container.querySelector('#copy-available-articles-button')).not.toBeNull();
+  });
+
+  test('hides the copy-from-another-course control from students', () => {
+    const container = renderTab({ id: 999, isStudent: true, isAdvancedRole: false, isInstructor: false, admin: false }, jest.fn());
+    expect(container.querySelector('#copy-available-articles-button')).toBeNull();
+  });
+
   test('renders not-yet-created (red link) available articles for a student', () => {
     const container = renderTab({ id: 999, isStudent: true, isAdvancedRole: false, admin: false }, jest.fn());
     expect(container.innerHTML).toContain('Existing Article');

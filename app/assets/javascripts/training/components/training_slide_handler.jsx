@@ -2,12 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import { extend } from 'lodash-es';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, toggleMenuOpen } from '../../actions/training_actions.js';
+import { fetchTrainingModule, setSlideCompleted, setCurrentSlide, verifyExerciseArticle } from '../../actions/training_actions.js';
 import SlideLink from './slide_link.jsx';
-import SlideMenu from './slide_menu.jsx';
 import Quiz from './quiz.jsx';
 import Notifications from '../../components/common/notifications.jsx';
 import { FastTrainingAlert, fastTrainingAlertHandler } from './fast_training_alert';
+import TrainingNav from './training_nav.jsx'
+import ArticleTitleInputModal from '../../components/timeline/TrainingModules/ModuleRow/ModuleStatus/ArticleTitleInputModal';
 
 
 
@@ -68,9 +69,13 @@ const TrainingSlideHandler = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [baseTitle, setBaseTitle] = useState('');
+  const [articleModalOpen, setArticleModalOpen] = useState(false);
+  const [articleVerified, setArticleVerified] = useState(false);
 
   // useState for fastTrainingAlertHandler function
   const [isShown, setIsShown] = useState(false);
+
+  const verifyArticle = (block_id, module_id, article_title) => dispatch(verifyExerciseArticle(block_id, module_id, article_title));
 
   const setSlideCompleted_FC = (slideId) => {
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));
@@ -172,13 +177,25 @@ const TrainingSlideHandler = () => {
     if (!nextHref) {
       nextHref = userLoggedIn() ? '/' : `/training/${routeParams.library_id}`;
     }
-    if (training.completed) {
+
+    const needsArticleInput = training.module.needs_exercise_article && !articleVerified;
+
+    if (needsArticleInput) {
+      nextLink = (
+        <button
+          className="slide-nav btn btn-primary pull-right"
+          onClick={() => setArticleModalOpen(true)}
+        >
+          {I18n.t('training.article_title_input.submit')}
+        </button>
+      );
+    } else if (training.completed) {
       nextLink = <a href={nextHref} className="slide-nav btn btn-primary pull-right"> {training.currentSlide.buttonText || I18n.t('training.done')} </a>;
     } else {
       nextLink = <a href={nextHref} className="slide-nav btn btn-primary disabled pull-right"> {training.currentSlide.buttonText || I18n.t('training.done')} </a>;
     }
 
-    if (training.completed === false) {
+    if (training.completed === false && !needsArticleInput) {
       pendingWarning = (
         <div className="training__slide__notification" key="pending">
           <div className="container">
@@ -214,9 +231,6 @@ const TrainingSlideHandler = () => {
   }
 
   const { slideTitle, assessment, rawHtml } = getSlideInfo(training, I18n.locale);
-
-  const menuClass = training.menuIsOpen === false ? 'hidden' : 'shown';
-
   let quiz;
   if (training.currentSlide.assessment) {
     quiz = (
@@ -241,68 +255,37 @@ const TrainingSlideHandler = () => {
  if (training.currentSlide.wiki_page) {
    sourceLink = <span><a href={`https://meta.wikimedia.org/wiki/${training.currentSlide.wiki_page}`} target="_blank">{I18n.t('training.wiki_source')}</a></span>;
  }
-
-
-  const toggleMenuOpen_FC = (e) => {
-    e.stopPropagation();
-    dispatch(toggleMenuOpen({ currently: training.menuIsOpen }));
-  };
-
-  const closeMenu_FC = (e) => {
-    if (training.menuIsOpen) {
-      e.stopPropagation();
-      dispatch(toggleMenuOpen({ currently: true }));
-    }
-  };
-
   return (
-    <div>
-      <Notifications />
-      <header>
-        <div
-          role="button"
-          tabIndex={0}
-          className="pull-right training__slide__nav"
-          onClick={toggleMenuOpen_FC}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              toggleMenuOpen_FC();
-            }
-          }}
-        >
-          <div className="pull-right hamburger">
-            <span className="hamburger__bar" />
-            <span className="hamburger__bar" />
-            <span className="hamburger__bar" />
-          </div>
-          <span className="pull-right training__slide__page-label">
-            {I18n.t('training.page_number', { number: training.currentSlide.index, total: training.slides.length })}
-          </span>
-        </div>
-        <SlideMenu
-          closeMenu={closeMenu_FC}
-          onClick={toggleMenuOpen_FC}
-          menuClass={menuClass}
-          currentSlide={training.currentSlide}
-          params={routeParams}
-          enabledSlides={training.enabledSlides}
-          slides={training.slides}
-        />
-      </header>
-      {loginWarning}
-      {pendingWarning}
-      <article className="training__slide">
-        {titlePrefix}
-        <h1>{slideTitle}</h1>
-        <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }} />
-        {quiz}
-        <footer className="training__slide__footer">
-          <span className="pull-left">{previousLink}</span>
-          {sourceLink}
-          <span className="pull-right">{nextLink}</span>
-        </footer>
-      </article>
+    <div className="training_content">
+      <TrainingNav/>
+      <div className="container training">
+        <Notifications />
+        {articleModalOpen && (
+          <ArticleTitleInputModal
+            block_id={null}
+            module_id={routeParams.module_id}
+            verifyArticle={verifyArticle}
+            onVerified={() => {
+              setArticleVerified(true);
+              setArticleModalOpen(false);
+            }}
+            onClose={() => setArticleModalOpen(false)}
+          />
+        )}
+        {loginWarning}
+        {pendingWarning}
+        <article className="training__slide">
+          {titlePrefix}
+          <h1>{slideTitle}</h1>
+          <div className="markdown training__slide__content" dangerouslySetInnerHTML={{ __html: rawHtml }} />
+          {quiz}
+          <footer className="training__slide__footer">
+            <span className="pull-left">{previousLink}</span>
+            {sourceLink}
+            <span className="pull-right">{nextLink}</span>
+          </footer>
+        </article>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,9 @@
+- # Shown when a non-instructor Canvas role opens a deep-linking placement
+- # (which roles count as instructors is the operator's
+- # LtiSession::INSTRUCTOR_ROLES policy). Renders inside Canvas's picker
+- # modal, where the bare `head :forbidden` it replaces appeared as a blank
+- # page; the 403 status is kept so the refusal stays visible as one.
+.lti-iframe__landing
+  = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
+  %h1.lti-iframe__title= t('lti.deep_link.forbidden_header')
+  %p= t('lti.deep_link.forbidden_explanation')

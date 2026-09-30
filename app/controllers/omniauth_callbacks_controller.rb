@@ -18,6 +18,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in @user
       redirect_to "/courses/#{session['course_slug']}/enroll/#{session['enroll_code']}"
     else
+      restore_lti_origin
       sign_in_and_redirect @user
     end
   end
@@ -66,5 +67,21 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def session_enroll_code
     session['enroll_code']
+  end
+
+  # If the user was bounced through Wikipedia OAuth from an LTI launch,
+  # `LtiLaunchController#connect_course` stashed the ltik in session
+  # before kicking off OAuth. Resume the launch by rewriting
+  # omniauth.origin so after_sign_in_path_for sends them back to
+  # /lti?ltik=... at top level (the connect_course flow already broke
+  # out of the LMS iframe, so the session cookie is the normal
+  # first-party one and survives the OAuth round-trip). The launch's
+  # idtoken still carries any assignment context, so /lti dispatches an
+  # assignment_view launch from there — no separate return path needed.
+  def restore_lti_origin
+    ltik = session.delete('ltik')
+    return if ltik.blank?
+
+    request.env['omniauth.origin'] = "/lti?ltik=#{CGI.escape(ltik)}"
   end
 end

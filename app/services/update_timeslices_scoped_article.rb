@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
-require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
-require_dependency "#{Rails.root}/lib/revision_data_manager"
 
 # Adjusts timeslices when articles enter or leave scope in ArticleScopedProgram
 # and VisitingScholarship courses.
@@ -11,13 +9,16 @@ require_dependency "#{Rails.root}/lib/revision_data_manager"
 # ACUWT path (course.use_acuwt? == true):
 #   New articles (scoped, no articles_courses, but ACUWT rows exist from a prior update
 #   when they were unscoped — those rows have revision data but zero references_count
-#   and no wikidata stats): re-fetches revisions per timeslice period, filters to the
-#   specific articles BEFORE the expensive reference-counter API call, upserts those
-#   ACUWT rows with correct data, then marks the affected CWT timeslices for
-#   reaggregation so ACT/CUWT/CWT are rebuilt without a full MediaWiki re-fetch.
+#   and no wikidata stats): creates the articles_courses records and marks the ACUWT
+#   rows as needs_update, so ReprocessArticleCourseUserWikiTimeslices re-scores them
+#   and reaggregates the affected timeslices later in the same update. This is the
+#   same mechanism used when an article moves into a tracked namespace (see
+#   ArticlesCourses.update_from_course_revisions).
 #
 #   Old articles (articles_courses present but no longer scoped): removes the
-#   articles_courses and ACUWT rows, then marks affected CWT timeslices for reaggregation.
+#   articles_courses records and marks affected CWT timeslices for reaggregation, via
+#   ArticlesCoursesCleaner#reset_excluded — the same mechanism used when an article
+#   moves out of a tracked namespace or is deleted. ACUWT rows are kept.
 #
 # Legacy path (course.use_acuwt? == false):
 #   Both cases are handled by ArticlesCoursesCleaner, marking CWT timeslices
@@ -25,7 +26,6 @@ require_dependency "#{Rails.root}/lib/revision_data_manager"
 class UpdateTimeslicesScopedArticle
   def initialize(course, update_service: nil)
     @course = course
-    @timeslice_cleaner = TimesliceCleaner.new(course)
     @scoped_article_ids = course.scoped_article_ids
     @update_service = update_service
   end
@@ -49,17 +49,11 @@ class UpdateTimeslicesScopedArticle
   ###############
 
   def handle_new_articles_acuwt
-    new_article_ids = new_article_ids_with_acuwt_rows
+    new_article_ids = tracked_article_ids(new_article_ids_with_acuwt_rows)
     return if new_article_ids.empty?
 
-    log_info "Fetching scores for new scoped articles: #{new_article_ids}"
-
-    @course.wikis.each do |wiki|
-      fetch_scores_and_update_acuwt(wiki, new_article_ids)
-    end
-
-    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: new_article_ids)
-    @timeslice_cleaner.reset_timeslices_for_reaggregation_from_acuwt(acuwt)
+    log_info "Adding new scoped articles: #{new_article_ids}"
+    ArticlesCourses.create_records_and_mark_acuwt(@course, new_article_ids)
   end
 
   def handle_old_articles_acuwt
@@ -67,10 +61,7 @@ class UpdateTimeslicesScopedArticle
     return if old_article_ids.empty?
 
     log_info "Removing old unscoped articles: #{old_article_ids}"
-
-    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: old_article_ids)
-    @timeslice_cleaner.reset_timeslices_for_reaggregation_from_acuwt(acuwt)
-    ArticlesCourses.where(course: @course, article_id: old_article_ids).delete_all
+    ArticlesCoursesCleaner.new(@course).reset_excluded(Article.where(id: old_article_ids))
   end
 
   # Scoped article IDs that lack articles_courses records but have existing ACUWT rows
@@ -85,45 +76,6 @@ class UpdateTimeslicesScopedArticle
     ArticleCourseUserWikiTimeslice
       .where(course: @course, article_id: untracked_scoped_ids)
       .distinct.pluck(:article_id)
-  end
-
-  # For each timeslice period with ACUWT rows for the given articles, re-fetches
-  # revisions for the relevant users, filters to the target articles before calling
-  # the reference-counter API, then upserts the ACUWT rows with correct scores.
-  # Also creates articles_courses records as a side effect of the revision fetch.
-  def fetch_scores_and_update_acuwt(wiki, article_ids)
-    manager = RevisionDataManager.new(wiki, @course, update_service: @update_service)
-    periods = ArticleCourseUserWikiTimeslice.periods_for_articles(@course, wiki, article_ids)
-    periods.each do |(ts_start, ts_end)|
-      update_timeslice_for_new_articles(manager, wiki, article_ids, ts_start, ts_end)
-    end
-  end
-
-  def update_timeslice_for_new_articles(manager, wiki, article_ids, ts_start, ts_end)
-    users = ArticleCourseUserWikiTimeslice
-              .users_for_articles_in_period(@course, wiki, article_ids, ts_start)
-    return if users.empty?
-
-    revisions = manager.fetch_revision_data_for_users_with_articles_only(
-      users,
-      ts_start.strftime('%Y%m%d%H%M%S'),
-      (ts_end - 1.second).strftime('%Y%m%d%H%M%S')
-    )
-    # Filter to target articles BEFORE the expensive reference-counter API call
-    revisions.select! { |r| article_ids.include?(r.article_id) }
-    return if revisions.empty?
-
-    revisions = manager.fetch_score_data_for_course(revisions)
-    update_wikidata_stats(wiki, revisions) if wiki.project == 'wikidata'
-    ArticlesCourses.update_from_course_revisions(@course, revisions)
-    ArticleCourseUserWikiTimeslice.bulk_upsert_from_revisions(
-      @course, wiki, ts_start, ts_end, revisions
-    )
-  end
-
-  def update_wikidata_stats(wiki, revisions)
-    live_revisions = revisions.reject(&:deleted)
-    UpdateWikidataStatsTimeslice.new(@course).update_revisions_with_stats(live_revisions)
   end
 
   ################
@@ -161,6 +113,20 @@ class UpdateTimeslicesScopedArticle
     @course.articles_courses
            .where.not(article_id: @scoped_article_ids)
            .pluck(:article_id)
+  end
+
+  # Only articles in tracked wikis and namespaces get articles_courses records.
+  # Scoped article ids are linked to mainspace articles, but may point to non-mainspace
+  # articles later: assignments keep their article_id when the article moves to another
+  # namespace (see AssignmentUpdater). Without this filter, such articles would get their
+  # articles_courses record created here and deleted by ArticleNamespacesManager on
+  # every update.
+  def tracked_article_ids(article_ids)
+    return [] if article_ids.empty?
+    @course.tracked_namespaces.flat_map do |wiki_ns|
+      Article.where(id: article_ids, wiki: wiki_ns[:wiki], namespace: wiki_ns[:namespace])
+             .pluck(:id)
+    end
   end
 
   def log_info(message)

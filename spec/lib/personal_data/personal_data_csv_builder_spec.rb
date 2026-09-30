@@ -74,4 +74,35 @@ describe PersonalData::PersonalDataCsvBuilder, type: :request do
     expect(csv_content).to include('Campaign', 'Joined At')
     expect(csv_content).to include(campaign.slug)
   end
+
+  describe 'LTI context info' do
+    let(:binding) do
+      LtiCourseBinding.create!(course:, lms_id: 'https://canvas.example.edu',
+                               lms_family: 'canvas', lms_context_id: 'ctx-1',
+                               lms_resource_link_id: 'rl-1')
+    end
+
+    before do
+      LtiContext.create!(user:, lti_course_binding: binding,
+                         user_lti_id: 'lti-user-9', lms_id: binding.lms_id,
+                         lms_family: 'canvas',
+                         roles: ['http://purl.imsglobal.org/vocab/lis/v2/' \
+                                 'membership#Learner'],
+                         lms_membership_status: 'Active',
+                         linked_at: '2026-01-05 12:00:00 UTC')
+    end
+
+    it 'exports the LMS identity fields that survive the anonymized posture' do
+      csv_content = described_class.new(user).generate_csv
+      expect(csv_content).to include('LMS', 'LMS User ID', 'Roles (from LMS)',
+                                     'Membership Status (from LMS)', 'Linked At')
+      expect(csv_content).to include('canvas', 'lti-user-9', 'membership#Learner', 'Active')
+    end
+
+    it 'does not export LMS-supplied name or email columns' do
+      csv_content = described_class.new(user).generate_csv
+      expect(csv_content).not_to include('Email (from LMS)')
+      expect(csv_content).not_to include('Name (from LMS)')
+    end
+  end
 end

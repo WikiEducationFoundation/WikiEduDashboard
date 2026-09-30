@@ -8,7 +8,6 @@ class CourseMeetingsManager
     @open_weeks = 0
     validate_course { return }
     @beginning_of_first_week = calculate_beginning_of_first_week
-    return unless course_has_meeting_date_data?
     @timeline_week_count = calculate_timeline_week_count
     @meeting_dates = all_actual_meetings
     @week_meeting_dates = calculate_week_meeting_dates
@@ -78,7 +77,11 @@ class CourseMeetingsManager
 
   # Returns an array of symbols on which the course meets,
   # e.g., [:tuesday, :thursday]
+  # When a course has no meeting date data at all (no weekdays and no
+  # day exceptions), it is treated as asynchronous: every day is a meeting
+  # day, so the timeline has content every week and no week is blacked out.
   def day_meetings
+    return DAYS_AS_SYM unless course_has_meeting_date_data?
     days = []
     @course.weekdays.each_char.each_with_index do |w, i|
       days.push(DAYS_AS_SYM[i]) if w.to_i == 1
@@ -123,7 +126,7 @@ class CourseMeetingsManager
   end
 
   def course_has_meeting_date_data?
-    @course.weekdays != '0000000' || @course.day_exceptions != ''
+    @course.weekdays != '0000000' || @course.day_exceptions.present?
   end
 
   def course_has_timeline_dates?

@@ -1,6 +1,7 @@
 // Student claim-verification exercise (/verify_claim). Two focal elements: the
-// claim, and the source it cites. Intro, context and the sandbox handoff are
-// kept visually subordinate so attention lands on the claim and the source.
+// claim, and the source it cites; the verification form follows as the work
+// area. Intro and context are kept visually subordinate so attention lands on
+// the claim and the source.
 // Variables come from _variables.styl (globally in scope via _shared).
 
 .claim-verification-exercise
@@ -9,9 +10,18 @@
 
   &__intro
     margin-bottom 28px
+    // The exercise's title. Bigger than the step heading below it but well short
+    // of the global h1 scale, which would shout over the intro it introduces.
     h1
+      font-size 2em
+      margin-bottom 14px
+    // The step heading. Keeps the size it had while it was this block's h1 — the
+    // title above has taken that level, not its prominence in the layout. Sits
+    // clear of the intro copy above and close to its own instruction line below.
+    h2
       font-size 1.6em
-      margin-bottom 8px
+      margin-top 26px
+      margin-bottom 6px
     p
       color $text_med
       max-width 40em
@@ -77,30 +87,18 @@
     color $text_med
     font-style italic
 
-  // Handoff to the sandbox, set off below a divider as the follow-on step.
-  &__sandbox
-    margin-top 28px
-    padding-top 24px
-    border-top 1px solid $border_lt
-    p
-      color $text_med
-      margin-bottom 16px
+  // The submitted-answers section (post-submission resting view).
+  &__response
+    border 1px solid $border_lt
+    border-radius 4px
+    padding 28px 32px
+    margin-bottom 20px
+    background white
 
   // Small link from the claim into the source article (at the cited footnote).
   &__article-link
     margin 14px 0 0 0
     font-size .9em
-
-  // "Switch claim" — a tertiary action below the exercise, kept low-emphasis
-  // so it doesn't compete with opening the source or the sandbox handoff.
-  &__switch
-    margin-top 22px
-    form
-      margin 0
-
-  &__switch-button
-    font-size 13px
-    padding 6px 16px
 
   // Article picker: a compact grid of title tiles. Tiles size to their content
   // and pack several per row so a long candidate list (up to 50) stays short.
@@ -176,6 +174,325 @@
     li
       margin-bottom 12px
       font-size 1.1em
+
+// Staff-only link to the submissions view, tucked under the timeline module
+// row's "Open Exercise" button.
+.block__training-modules-table__responses-link
+  display block
+  margin-top 6px
+  font-size .9em
+
+// "Submitted response" popover on the students-tab exercise rows: the claim
+// and the form answers, shown in place of navigating anywhere.
+.cv-response-pop
+  .pop
+    max-height 420px
+    overflow-y auto
+    text-align left
+    // The base .pop styles assume a compact edit-form popover and force
+    // nowrap on cells; this popover is prose, so wrap it and keep the table
+    // at its set width (long unbroken tokens break rather than overflow).
+    table
+      table-layout fixed
+      max-width 76vw
+    td
+      padding 16px 18px
+      white-space normal
+      overflow-wrap break-word
+
+  &__item blockquote
+    margin 0 0 12px 0
+    padding 0 0 0 12px
+    border-left 3px solid $brand_primary
+    font-family $header-font
+    color $text_dk
+
+  &__item + &__item
+    margin-top 18px
+    padding-top 18px
+    border-top 1px solid $border_lt
+
+// The verification form (every step after choosing the claim): each step is a
+// card in the same family as the claim/source cards above, with the questions
+// inside kept quiet so the operator-provided wording carries the structure.
+// Which steps there are comes from config/claim_verification_exercise.yml.
+.cv-form
+  &__step
+    border 1px solid $border_lt
+    border-radius 4px
+    padding 28px 32px
+    margin-bottom 20px
+    background white
+
+  &__step-heading
+    font-size 1.15em
+    margin 0 0 10px 0
+
+  // Markdown-rendered operator copy, so the container owns the spacing its
+  // paragraphs would otherwise each add, and a long bare URL wraps inside the
+  // card instead of overflowing it.
+  &__step-instructions
+    color $text_med
+    max-width 40em
+    margin-bottom 20px
+    p
+      margin 0 0 10px 0
+      &:last-child
+        margin-bottom 0
+    // A bulleted list in the copy (the verify step's tips): indented under its
+    // lead-in line, with a little air between items.
+    ul
+      margin 0 0 10px 0
+      padding-left 1.4em
+      &:last-child
+        margin-bottom 0
+    li
+      margin-bottom 6px
+      line-height 1.5
+      &:last-child
+        margin-bottom 0
+    a
+      overflow-wrap break-word
+
+  &__question
+    border 0
+    padding 0
+    margin 0 0 22px 0
+    &:last-child
+      margin-bottom 0
+
+  &__question-label
+    display block
+    font-weight 600
+    color $text_dk
+    margin-bottom 10px
+    max-width 44em
+    line-height 1.45
+
+  &__option
+    display flex
+    align-items baseline
+    gap 8px
+    margin-bottom 8px
+    cursor pointer
+    max-width 44em
+    line-height 1.45
+    input
+      flex none
+      cursor pointer
+
+  // The label and, under it, the option's description (when it has one).
+  &__option-text
+    display flex
+    flex-direction column
+    gap 2px
+
+  &__option-description
+    color $text_med
+    font-size .92em
+    line-height 1.45
+
+  // A prompt in the flow of questions (eg "choose a different claim" for a
+  // student who couldn't get the source): a quiet band with its sentence and
+  // action button, so it reads as guidance rather than another question.
+  &__prompt
+    display flex
+    flex-wrap wrap
+    align-items center
+    gap 10px 18px
+    max-width 44em
+    margin 0 0 22px 0
+    padding 14px 18px
+    background $bg_light_gray
+    border-left 3px solid $brand_primary
+    border-radius 0 4px 4px 0
+    &:last-child
+      margin-bottom 0
+
+  &__prompt-text
+    flex 1 1 22em
+    margin 0
+    color $text_dk
+    line-height 1.45
+
+  &__textarea
+    display block
+    width 100%
+    max-width 44em
+    padding 8px 10px
+    border 1px solid $border_lt
+    border-radius 4px
+    font inherit
+    line-height 1.5
+    &:focus-visible
+      outline 2px solid $brand_primary
+      outline-offset 1px
+
+  &__error
+    color $warning_text
+    margin-bottom 14px
+
+  &__actions
+    display flex
+    gap 10px
+
+// A worked example inside a form step (the verify step's screenshot pairs):
+// a lead-in, then one section per case, each with its figures stacked and a
+// concluding line. The screenshots are cropped to the passage that makes the
+// point, so each shows at its natural size up to the card's width — legible
+// in place, rather than two-up thumbnails. Each still links to itself.
+.cv-example
+  margin 0 0 26px 0
+  color $text_med
+  line-height 1.45
+
+  // The prose keeps the form's measure; the figures may use the card's full
+  // width, since a cropped screenshot is only legible at its natural size.
+  &__lead,
+  &__case-heading,
+  &__conclusion,
+  figcaption
+    max-width 44em
+
+  &__lead
+    margin 0 0 12px 0
+
+  &__case
+    margin-bottom 22px
+    &:last-child
+      margin-bottom 0
+
+  &__case-heading
+    margin 0 0 10px 0
+    font-size 1em
+    font-weight 600
+    color $text_dk
+
+  &__figures
+    display grid
+    grid-template-columns minmax(0, 1fr)
+    gap 14px
+    margin-bottom 10px
+
+  &__figure
+    margin 0
+    img
+      display block
+      max-width 100%
+      height auto
+      border 1px solid $border_lt
+      border-radius 3px
+    figcaption
+      margin-top 6px
+      font-size .88em
+      line-height 1.45
+
+  &__caption-line
+    display block
+    margin-bottom 4px
+
+  // Where the screenshot came from: the article permalink or the source.
+  &__link
+    display inline-block
+    margin-top 2px
+    font-size .95em
+
+  &__conclusion
+    margin 0
+
+// A submitted response as question/answer pairs — the student's own summary
+// and the instructor cards share this.
+.cv-response
+  &__answers
+    margin 0 0 18px 0
+
+  &__answer
+    margin-bottom 16px
+    &:last-child
+      margin-bottom 0
+    dt
+      font-weight 600
+      color $text_med
+      font-size .92em
+      max-width 44em
+      line-height 1.45
+      margin-bottom 4px
+    dd
+      margin 0
+      color $text_dk
+      line-height 1.5
+      max-width 44em
+
+// A heading with its action alongside: the submissions page's "open the
+// exercise", and the taken claim's "choose a different claim". Wraps so the
+// action drops below the heading rather than crushing it on a narrow screen.
+.claim-verification-responses__header,
+.claim-verification-exercise__taken-header
+  display flex
+  align-items baseline
+  justify-content space-between
+  gap 12px
+  flex-wrap wrap
+
+// Return bar on the single-student-filtered submissions view: the way back to
+// the full list. The content below brings its own top margin.
+.cv-preview-return
+  margin-top 24px
+  font-size .95em
+  a
+    display inline-block
+
+.cv-response-card
+  border 1px solid $border_lt
+  border-radius 4px
+  padding 24px 28px
+  margin-bottom 20px
+  background white
+
+  &__header
+    display flex
+    align-items baseline
+    justify-content space-between
+    gap 12px
+    flex-wrap wrap
+    margin-bottom 14px
+    // The card header is a <header> element, which the site-wide layout rule
+    // gives 20px padding and centering; neutralize that here.
+    padding 0
+    text-align left
+    h2, h3
+      font-size 1.15em
+      margin 0
+
+  &__date
+    color $text_med
+    font-size .88em
+
+  &__claim
+    margin-bottom 18px
+    blockquote
+      margin 0 0 8px 0
+      padding 0 0 0 14px
+      border-left 3px solid $brand_primary
+      font-family $header-font
+      font-size 1.05em
+      line-height 1.45
+      color $text_dk
+
+  &__claim-links
+    margin 0
+    font-size .9em
+    a
+      margin-right 16px
+
+  &--pending
+    background $bg_light_gray
+
+.cv-response-pending
+  margin-top 34px
+  h2
+    font-size 1.2em
+    margin-bottom 14px
 
 // In-viewer claim selection (the ArticleViewer claim-highlighting variant).
 // The annotated article HTML tags each cited claim's citation marker `.cv-claim`;
@@ -263,11 +580,30 @@
   line-height 1.4
   p
     margin 0
+
+  // "Step 2: …" — the exercise's step label, matching the form's step headings
+  // in weight and hierarchy. Kept tight: the banner is sticky, so every pixel
+  // here is article text the student can't see. The heading default (bayoux) is
+  // too close to the band's own tint to read, so it takes the banner's dark text.
+  &__heading
+    margin 0 0 6px 0
+    font-size 1.1em
+    line-height 1.3
+    color $text_dk
+
   // The point-in-time notice: secondary to the instruction below it, but still
   // dark enough for AA contrast (was $text_med, which failed on the band).
   .cv-revision-notice
     margin-bottom 6px
     font-size .82em
+    font-weight 400
+    color $text_dk
+
+  // The step-2 explanation (why these claims need checking): supporting copy
+  // above the bold click instruction.
+  .cv-select-claim-note
+    margin-bottom 6px
+    font-size .88em
     font-weight 400
     color $text_dk
 

@@ -7,6 +7,14 @@ describe 'Tracked categories and templates', js: true do
   let(:user) { create(:user) }
 
   before do
+    stub_browser_wiki_search(
+      'en.wikipedia.org|14|intitle:Earth ' => ['Category:Earth sciences'],
+      'en.wikipedia.org|14|intitle:Apple Inc. ' => ['Category:Apple Inc.'],
+      'fr.wikipedia.org|14|intitle:Matériel Apple ' => ['Catégorie:Matériel Apple'],
+      'en.wikipedia.org|10|intitle:Earth ' => ['Template:Earth mass'],
+      'en.wikipedia.org|10|intitle:Apple Inc. ' => ['Template:Apple Inc.'],
+      'fr.wikipedia.org|10|intitle:Palette Apple ' => ['Modèle:Palette Apple']
+    )
     JoinCourse.new(course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     login_as user
     stub_oauth_edit
@@ -118,12 +126,14 @@ describe 'Tracked categories and templates', js: true do
 
     find(:css, '#categories input').set('Earth ')
     find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
-    find(:css, '#category_depth').set('3')
     find(:css, '#categories input').set('Apple Inc. ')
     find(:css, '#categories div[class*="option"]', text: 'en:Apple Inc.', exact_text: true).click
 
-    expect(page).to have_content 'en:Earth sciences - 0'
-    expect(page).to have_content 'en:Apple Inc. - 3'
+    expect(page).to have_content 'en:Earth sciences'
+    expect(page).to have_content 'en:Apple Inc.'
+
+    # Each selection carries its own depth control, in selection order.
+    find(:css, '#category_depth_1').select('3')
 
     click_button 'Add categories'
     click_button 'OK'
@@ -136,5 +146,34 @@ describe 'Tracked categories and templates', js: true do
 
     expect(depth_for_apple).to eq(3)
     expect(depth_for_earth_sciences).to eq(0)
+  end
+
+  # Depth used to be captured when the autocomplete search ran, so changing it
+  # after picking a category silently saved the old value.
+  it 'applies a depth change made after the category is selected' do
+    visit "/courses/#{course.slug}/articles"
+    click_button 'Add category'
+
+    find(:css, '#categories input').set('Earth ')
+    find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
+    find(:css, '#category_depth_0').select('3')
+
+    click_button 'Add categories'
+    click_button 'OK'
+    expect(page).to have_content 'Category:Earth'
+
+    expect(Course.all.first.categories.find_by(name: 'Earth_sciences').depth).to eq(3)
+  end
+
+  it 'lets a facilitator drop a selected category before submitting' do
+    visit "/courses/#{course.slug}/articles"
+    click_button 'Add category'
+
+    find(:css, '#categories input').set('Earth ')
+    find(:css, '#categories div[class*="option"]', text: 'Earth sciences').click
+    expect(page).to have_content 'en:Earth sciences'
+
+    find(:css, '.selected-category__remove').click
+    expect(page).to have_no_css '.selected-category'
   end
 end

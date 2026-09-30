@@ -18,9 +18,15 @@ const EnrollCard = ({
       </div>
     );
   } else if (course.flags.event_sync) {
+    const eventCenterUrl = `https://meta.wikimedia.org/wiki/Special:EventDetails/${course.flags.event_sync}`;
     messageBody = (
       <div>
         <h1>{I18n.t('courses.controlled_by_event_center')}</h1>
+        <p>
+          <a href={eventCenterUrl} target="_blank" rel="noopener noreferrer" className="button dark">
+            {I18n.t('courses.go_to_event_center')}
+          </a>
+        </p>
       </div>
     );
   } else if (enrolledParam !== undefined) {

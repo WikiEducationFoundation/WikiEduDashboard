@@ -25,6 +25,9 @@ categories:
       - slug: editing-medical-topics-professional
         name: Editing health and psychology topics
         description: Special rules and advice for working on content related to medicine or human health (including psychology topics)
+      - slug: generative-ai-professional
+        name: Using AI tools with Wikipedia
+        description: Guidance for using AI tools while working on Wikipedia
   - title: How to edit
     description: These modules offer how-to instructions for contributing content to Wikipedia.
     modules:

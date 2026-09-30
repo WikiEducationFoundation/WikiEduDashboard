@@ -155,6 +155,8 @@ kab:
         add_admin_button: Rnu anedbal
         configure_site_notice:
           enable_button: Rmed
+  timeline:
+    standard_block_add: Rnu
   users:
     contribution_statistics: Tidaddanin n uttekki
   form_search:

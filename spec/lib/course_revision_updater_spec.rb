@@ -7,8 +7,10 @@ describe CourseRevisionUpdater do
   describe '#fetch_scores_for_revisions' do
     let(:user) { create(:user, username: 'Tedholtby') }
     let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
-    let(:start_date) { '20160320000000' }
-    let(:end_date) { '20160331235959' }
+    # let(:start_date) { '20160320000000' }
+    let(:start_date) { Time.new(2016, 3, 20, 0, 0, 0, '+00:00') }
+    # let(:end_date) { '20160331235959' }
+    let(:end_date) { Time.new(2016, 4, 1, 0, 0, 0, '+00:00') }
 
     context 'for regular courses' do
       let(:course) { create(:course, start: '2016-03-20', end: '2016-03-31') }
@@ -21,7 +23,7 @@ describe CourseRevisionUpdater do
 
       before do
         create(:course_wiki_timeslice, course:, wiki:, start: start_date,
-        end: end_date.to_datetime + 1.day)
+        end: end_date + 1.day)
       end
 
       it 'fetches all the scores if only_new is false' do
@@ -155,8 +157,9 @@ describe CourseRevisionUpdater do
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           expect(Sentry).not_to receive(:capture_message)
-          revisions = instance_class.fetch_revisions_for_course_wiki(wiki, '20160331092530',
-                                                                     '20160331225055')
+          revisions = instance_class.fetch_revisions_for_course_wiki(wiki,
+                                                                    '20160331092530'.to_datetime,
+                                                                    '20160331225055'.to_datetime)
           revisions_with_scores = instance_class.fetch_scores_for_revisions(revisions,
                                                                             only_new: true)
           expect(revisions_with_scores[wiki][:new_data]).to eq(false)
@@ -201,8 +204,10 @@ describe CourseRevisionUpdater do
   describe '#fetch_revisions_for_course_wiki' do
     let(:user) { create(:user, username: 'Tedholtby') }
     let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
-    let(:start_date) { '20160320000000' }
-    let(:end_date) { '20160331235959' }
+    # let(:start_date) { '20160320000000' }
+    let(:start_date) { Time.new(2016, 3, 20, 0, 0, 0, '+00:00') }
+    # let(:end_date) { '20160331235959' }
+    let(:end_date) { Time.new(2016, 4, 1, 0, 0, 0, '+00:00') }
 
     context 'for regular courses' do
       let(:course) { create(:course, start: '2016-03-20', end: '2016-03-31') }
@@ -215,7 +220,7 @@ describe CourseRevisionUpdater do
 
       before do
         create(:course_wiki_timeslice, course:, wiki:, start: start_date,
-        end: end_date.to_datetime + 1.day)
+        end: end_date + 1.day)
       end
 
       it 'fetches all the revisions without scores' do
@@ -250,8 +255,10 @@ describe CourseRevisionUpdater do
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           expect(Sentry).not_to receive(:capture_message)
-          revision_data = instance_class.fetch_revisions_for_course_wiki(wiki, '20160331092530',
-                                                                         '20160331225055')
+          revision_data = instance_class.fetch_revisions_for_course_wiki(
+            wiki,
+            '20160331092530'.to_datetime,
+            '20160331225055'.to_datetime)
           expect(revision_data[wiki][:new_data]).to eq(false)
           revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
           expect(revisions.count).to eq(3)
@@ -271,6 +278,37 @@ describe CourseRevisionUpdater do
           expect(revisions.last.features).to be_empty
           expect(revisions.last.features_previous).to be_empty
         end
+      end
+    end
+
+    # BasicCourse#use_start_and_end_times is true, so its start/end aren't rounded to
+    # beginning/end of day, letting a timeslice extend past the course's own bounds.
+    context 'for courses that allow own start and end' do
+      let(:course) do
+        create(:basic_course, start: Time.new(2016, 3, 31, 15, 0, 0, '+00:00'),
+                              end: Time.new(2016, 3, 31, 20, 0, 0, '+00:00'))
+      end
+      let(:instance_class) { described_class.new(course) }
+      let(:timeslice_start) { Time.new(2016, 3, 31, 0, 0, 0, '+00:00') }
+      let(:timeslice_end) { Time.new(2016, 4, 1, 0, 0, 0, '+00:00') }
+      let!(:courses_user) do
+        create(:courses_user, course:,
+                            user:,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+      end
+
+      before do
+        create(:course_wiki_timeslice, course:, wiki:,
+                                       start: timeslice_start, end: timeslice_end)
+      end
+
+      it 'sends Replica bounds clamped to the course start and end, not the timeslice limits' do
+        expect(Sentry).not_to receive(:capture_message)
+        expect_any_instance_of(Replica).to receive(:get_revisions)
+          .with(anything, '20160331150000', '20160331200000')
+          .and_return({})
+
+        instance_class.fetch_revisions_for_course_wiki(wiki, timeslice_start, timeslice_end)
       end
     end
 
@@ -298,7 +336,7 @@ describe CourseRevisionUpdater do
 
         before do
           create(:course_wiki_timeslice, course: scoped_course, wiki:,
-                                         start: start_date, end: end_date.to_datetime + 1.day,
+                                         start: start_date, end: end_date + 1.day,
                                          mw_rev_count: 1, last_mw_rev_datetime: rev_date)
           allow(scoped_instance_class).to receive(:no_point_in_importing_revisions?)
             .and_return(false)

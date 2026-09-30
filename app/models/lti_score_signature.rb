@@ -1,0 +1,35 @@
+# frozen_string_literal: true
+# == Schema Information
+#
+# Table name: lti_score_signatures
+#
+#  id                :integer          not null, primary key
+#  lti_line_item_id  :integer          not null
+#  lti_context_id    :integer          not null
+#  signature              :string(255)     not null
+#  last_pushed_at         :datetime        not null
+#  submission_reported_at :datetime
+#  created_at             :datetime        not null
+#  updated_at             :datetime        not null
+#
+
+# Per-(line item, student) score POST dedup record. The signature is the SHA1 hash
+# each progress class (LtiGradableProgress.for picks it) produces over the
+# (score_given, comment) tuple that would be pushed; SyncLtiGrades skips
+# the LTIAAS POST whenever the stored signature matches the next one to
+# push, so the 30-min cron only emits POSTs for state changes.
+#
+# `submission_reported_at` records when Canvas was first handed a submission launch
+# URL for this pair (the AGS submission extension). Diagnostic only, and read by
+# nothing: it briefly gated the extension to one push per pair, until staging showed
+# Canvas discards the stored URL whenever a later score arrives without one, so every
+# push now carries it (see LtiScorePayload). Kept on purpose after that — knowing when
+# a pair first got a URL is worth a nullable column when the same ground has been
+# re-measured three times (operator decision 2026-08-05).
+class LtiScoreSignature < ApplicationRecord
+  belongs_to :lti_line_item
+  belongs_to :lti_context
+
+  validates :signature, :last_pushed_at, presence: true
+  validates :lti_context_id, uniqueness: { scope: :lti_line_item_id }
+end

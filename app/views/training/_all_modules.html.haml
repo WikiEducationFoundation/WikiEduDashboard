@@ -1,5 +1,7 @@
 %ul.training-libraries.no-bullets.no-margin
   - defocus_class = @focused_library_slug ? 'training-library-defocus' : ''
+  -# A slide-less in-app exercise has no training page, so don't link it here.
+  - slideless_slugs = TrainingModule.all.select { |tm| tm.slide_slugs.empty? }.map(&:slug)
   - @libraries.each do |library|
     - next if library.exclude_from_index?
     - focus_class = @focused_library_slug == library.slug ? 'training-library-focus' : defocus_class
@@ -14,6 +16,7 @@
         %h3.included-modules-heading Included Modules:
         %ul
           - library.categories.pluck('modules').flatten.each do |training_module|
+            - next if slideless_slugs.include?(training_module['slug'])
             %li
               %a{href: "/training/#{library.slug}/#{training_module['slug']}", target: "_blank"}
                 = training_module['name']

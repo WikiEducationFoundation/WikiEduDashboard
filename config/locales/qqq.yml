@@ -141,6 +141,11 @@ qqq:
     log_in: Log in with Wikipedia button
     sign_up: Sign up with Wikipedia button
     sign_up_help: Instructions about how to log in via Wikipedia.
+  alerts:
+    ai_stats:
+      last_week: Button that filters the list of courses with AI edit alerts to show
+        only alerts from the previous week (the most recent 7 days), instead of all-time
+        totals. Here "last" means most recent, not final.
   activity:
     all: '{{Identical|Activity}}'
     edited_by: Column label for username of user who made an edit
@@ -267,6 +272,9 @@ qqq:
     active_campaigns: Heading for the list of active campaigns
     add_organizer: Button to add an organizer
     all_campaigns: Button to view the list of all campaigns
+    all_data: |-
+      Button label in the campaign export modal to export all campaign data as a ZIP archive
+      {{Identical|All}}
     already_exists: Error shown when a new campaign has the same name or slug of another
       campaign.
     campaign: |-
@@ -277,6 +285,12 @@ qqq:
       {{Identical|Campaign}}
     campaign_deleted: Message indicating a campaign was successfully deleted. 'title'
       is the title of the campaign.
+    data_download_generating: Notification message informing the user that their requested
+      export file is currently being generated and they will be notified when it is ready
+      to download.
+    export: |-
+      Button label to open the campaign data export modal
+      {{Identical|Export}}
     campaign_not_updated: Message indicating a campaign could not be updated.
     campaign_updated: Message indicating a campaign was successfully updated
     confirm_campaign_deletion: Confirmation dialog for deleting a campaign
@@ -535,6 +549,12 @@ qqq:
     training_nav: Link to go to the training page (Wiki Ed only)
     training_overdue: Training due date has passed for this course (Wiki Ed only)
     unsubmitted: Name for pseudo-campaign of unsubmitted courses (Wiki Ed only)
+    unsubmitted_show_all: Link on the unsubmitted courses page. By default the page
+      only lists courses that started within the last three months or have not started
+      yet; this link switches to the full list.
+    unsubmitted_show_recent: Link on the unsubmitted courses page that switches from
+      the full list back to the default view (courses that started within the last
+      three months or have not started yet).
     untrained: '{{Identical|Untrained}}'
     view: Label for link to a course page
     view_doc: Explanation of what 'article views' means
@@ -762,6 +782,15 @@ qqq:
       the background
     kind:
       discussion: '{{identical|Discussion}}'
+    exercise_sandbox_incomplete: Error shown when a student tries to mark an exercise
+      complete before creating the wiki page the exercise expects. %{pages} is a comma-separated
+      list of the expected page titles.
+    exercise_needs_assigned_article: Error shown when a student tries to mark an exercise
+      complete before assigning themselves an article, which the exercise's expected
+      page depends on
+    exercise_article_unverified: Error shown when a student tries to mark an exercise
+      complete before the dashboard has verified their edit to the article they name
+      for it
   uploads:
     image: '{{Identical|Image}}'
     label: |-
@@ -967,4 +996,29 @@ qqq:
     advanced_search: Label for advanced search toggle
     clear: Label for clear search button
     program_date: Label for program date
+  downloads:
+    title: |-
+      Header for the downloads notification panel
+      {{Identical|Downloads}}
+    none: Message shown when the user has no active or recent downloads
+    generating: Status label indicating a download file is currently being generated
+    ready: |-
+      Status label indicating a download file is ready
+      {{Identical|Ready}}
+    error: |-
+      Status label indicating that file generation failed
+      {{Identical|Failed}}
+    timeout: Status label indicating a download is still being processed after the initial polling window
+    retry: Action button to check again if a processing download is ready
+    download: |-
+      Action button to download the generated file
+      {{Identical|Download}}
+    dismiss: |-
+      Action button to dismiss a download notification from the list
+      {{Identical|Dismiss}}
+    new_downloads: Accessibility label indicating new downloads are available
+    no_downloads: Accessibility label indicating no new downloads are available
+    aria_label: |-
+      Accessibility label for the downloads icon in the navigation bar
+      {{Identical|Downloads}}
 ...
