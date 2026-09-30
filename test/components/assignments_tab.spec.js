@@ -159,8 +159,9 @@ describe('Assignments tab views', () => {
     const list = <AssignmentList courseSlug="S/T" data={data} tabPath="/courses/S/T/assignments" />;
     render('/courses/S/T/assignments', list, '/courses/S/T/assignments');
     expect(container.querySelector('.drawer')).toBeNull();
+    const [row, articleRow] = container.querySelectorAll('tbody tr');
+    expect(articleRow.className).toBe('assignments-tab__row--article');
 
-    const row = container.querySelector('tbody tr');
     await act(async () => { row.click(); });
     expect(fetchAssignmentProgress).toHaveBeenCalledWith('S/T', 'training-a');
     expect(row.className).toBe('open');

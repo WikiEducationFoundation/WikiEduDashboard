@@ -5,6 +5,12 @@ import AssignmentDrawer from './AssignmentDrawer';
 import { fetchAssignmentProgress } from './AssignmentProgressAPI';
 import { formatDate, itemTitle, kindLabel, stateLabel } from './assignmentHelpers';
 
+// The assigned article is the heart of the course, so its row stands out.
+const rowClassName = (item, isOpen) => [
+  isOpen ? 'open' : '',
+  item.kind === 'article' ? 'assignments-tab__row--article' : '',
+].filter(Boolean).join(' ');
+
 // Every tracked assignment, in timeline order, with how many students are
 // where on it. Clicking a row opens it as an accordion: the drawer below lists
 // every student's status and work on that assignment. One row is open at a
@@ -45,7 +51,7 @@ const AssignmentList = ({ courseSlug, data, tabPath }) => {
           const isOpen = openKey === item.key;
           return (
             <Fragment key={item.key}>
-              <tr className={isOpen ? 'open' : ''} onClick={() => toggle(item.key)}>
+              <tr className={rowClassName(item, isOpen)} onClick={() => toggle(item.key)}>
                 <td>
                   {itemTitle(item)}
                   <span className="assignments-tab__kind">{kindLabel(item)}</span>

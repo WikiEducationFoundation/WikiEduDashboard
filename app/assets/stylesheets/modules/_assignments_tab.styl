@@ -108,3 +108,15 @@
     padding 10px 15px
     &[hidden]
       display none
+
+  // The assigned article's row: tinted, with an accent bar and a bolder title.
+  .assignments-tab__list > tbody > tr.assignments-tab__row--article
+    background-color lighten($brand_primary, 90%)
+    > td
+      font-weight 600
+    > td:first-child
+      border-left 5px solid $brand_primary
+      color $brand_primary
+      font-size 17px
+    .assignments-tab__kind
+      font-weight normal
