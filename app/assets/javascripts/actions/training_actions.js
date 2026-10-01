@@ -13,7 +13,7 @@ const fetchAllTrainingModulesPromise = async () => {
   return response.json();
 };
 
-const fetchTrainingModulePromise = async (opts) => {
+export const fetchTrainingModulePromise = async (opts) => {
   const response = await request(`/training_module.json?module_id=${opts.module_id}`);
   await ensureOk(response);
   return response.json();
