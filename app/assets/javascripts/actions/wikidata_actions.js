@@ -7,12 +7,24 @@ import { stringify } from '~/app/assets/javascripts/utils/query_string';
 const wikidataApiBase = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&origin=*';
 
 // Wikidata rate-limits bursts of concurrent requests from the same client.
-// This bounds how hard a single course page can hit the API: at most
-// CONCURRENCY_LIMIT chunk requests in flight at once, instead of firing
-// every chunk simultaneously.
+// These bound how hard a single course page can hit the API: at most
+// CONCURRENCY_LIMIT chunk requests in flight at once, and one retry after a
+// short backoff if a chunk still gets a rate-limit response.
 const CONCURRENCY_LIMIT = 3;
+// Per https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits, both status
+// codes indicate a rate limit, and both carry the same Retry-After policy.
+const RETRY_STATUSES = [429, 503];
+// Wikimedia's documented policy (see
+// https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits): wait at least
+// 5 seconds before retrying.
+const RETRY_DELAY_MS = 5000;
+// Spreads out retries that all got rate-limited together, so they don't land
+// back on Wikidata in the same synchronized burst.
+const RETRY_JITTER_MS = 500;
 
-const fetchWikidataLabelsPromise = async (qNumbers) => {
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+const fetchWikidataLabelsPromise = async (qNumbers, isRetry = false) => {
   const idsParam = join(qNumbers, '|');
   const query = {
     ids: idsParam,
@@ -29,6 +41,10 @@ const fetchWikidataLabelsPromise = async (qNumbers) => {
     // Guard the mutation in case anything ever rejects with a non-object,
     // which would otherwise throw here and mask the real error.
     if (error && typeof error === 'object') error.url = error.url || url;
+    if (!isRetry && error && RETRY_STATUSES.includes(error.status)) {
+      await sleep(RETRY_DELAY_MS + (Math.random() * RETRY_JITTER_MS));
+      return fetchWikidataLabelsPromise(qNumbers, true);
+    }
     throw error;
   }
 };

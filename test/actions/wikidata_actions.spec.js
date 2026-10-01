@@ -93,6 +93,89 @@ describe('fetchWikidataLabels', () => {
     );
   });
 
+  test.each([
+    [429, 'Too Many Requests'],
+    [503, 'Service Unavailable'],
+  ])('retries once after a %i and dispatches on the retry if it succeeds', async (status, statusText) => {
+    jest.useFakeTimers();
+    const entities = { entities: { Q1: { labels: { en: { value: 'Example' } } } } };
+    const stub = sinon.stub(requestModule, 'default');
+    stub.onCall(0).resolves({
+      ok: false,
+      status,
+      statusText,
+      url: 'https://www.wikidata.org/w/api.php?action=wbgetentities',
+      text: () => Promise.resolve('rate limited'),
+    });
+    stub.onCall(1).resolves({ ok: true, json: () => Promise.resolve(entities) });
+    const dispatch = jest.fn();
+
+    fetchWikidataLabels([{ title: 'Q1' }], dispatch);
+    await flushPromises();
+    // Base delay (5000ms) plus up to RETRY_JITTER_MS (500ms) of jitter.
+    await jest.advanceTimersByTimeAsync(5500);
+    await flushPromises();
+
+    expect(stub.callCount).toBe(2);
+    expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({
+      type: RECEIVE_WIKIDATA_LABELS,
+      data: entities,
+    }));
+    jest.useRealTimers();
+  });
+
+  test('does not retry a second time if the retry also gets a 429', async () => {
+    jest.useFakeTimers();
+    sinon.stub(requestModule, 'default').resolves({
+      ok: false,
+      status: 429,
+      statusText: 'Too Many Requests',
+      url: 'https://www.wikidata.org/w/api.php?action=wbgetentities',
+      text: () => Promise.resolve('rate limited'),
+    });
+    global.Sentry = { captureException: jest.fn() };
+    const dispatch = jest.fn();
+
+    fetchWikidataLabels([{ title: 'Q1' }], dispatch);
+    await flushPromises();
+    await jest.advanceTimersByTimeAsync(5500);
+    await flushPromises();
+
+    expect(requestModule.default.callCount).toBe(2);
+    expect(global.Sentry.captureException).toHaveBeenCalledTimes(1);
+    jest.useRealTimers();
+  });
+
+  test('adds jitter on top of the base retry delay', async () => {
+    jest.useFakeTimers();
+    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0.4);
+    const entities = { entities: { Q1: { labels: { en: { value: 'Example' } } } } };
+    const stub = sinon.stub(requestModule, 'default');
+    stub.onCall(0).resolves({
+      ok: false,
+      status: 429,
+      statusText: 'Too Many Requests',
+      url: 'https://www.wikidata.org/w/api.php?action=wbgetentities',
+      text: () => Promise.resolve('rate limited'),
+    });
+    stub.onCall(1).resolves({ ok: true, json: () => Promise.resolve(entities) });
+    const dispatch = jest.fn();
+
+    fetchWikidataLabels([{ title: 'Q1' }], dispatch);
+    await flushPromises();
+    // Base 5000ms + (0.4 * 500ms jitter) = 5200ms.
+    await jest.advanceTimersByTimeAsync(5199);
+    await flushPromises();
+    expect(stub.callCount).toBe(1);
+
+    await jest.advanceTimersByTimeAsync(1);
+    await flushPromises();
+    expect(stub.callCount).toBe(2);
+
+    randomSpy.mockRestore();
+    jest.useRealTimers();
+  });
+
   test('limits chunk requests in flight instead of firing all of them at once', async () => {
     const entities = { entities: {} };
     const stub = sinon.stub(requestModule, 'default').resolves({
