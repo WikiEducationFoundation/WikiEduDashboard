@@ -6,7 +6,25 @@ import { stringify } from '~/app/assets/javascripts/utils/query_string';
 
 const wikidataApiBase = 'https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&origin=*';
 
-const fetchWikidataLabelsPromise = async (qNumbers) => {
+// Wikidata rate-limits bursts of concurrent requests from the same client.
+// These bound how hard a single course page can hit the API: at most
+// CONCURRENCY_LIMIT chunk requests in flight at once, and one retry after a
+// short backoff if a chunk still gets a rate-limit response.
+const CONCURRENCY_LIMIT = 3;
+// Per https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits, both status
+// codes indicate a rate limit, and both carry the same Retry-After policy.
+const RETRY_STATUSES = [429, 503];
+// Wikimedia's documented policy (see
+// https://www.mediawiki.org/wiki/Wikimedia_APIs/Rate_limits): wait at least
+// 5 seconds before retrying.
+const RETRY_DELAY_MS = 5000;
+// Spreads out retries that all got rate-limited together, so they don't land
+// back on Wikidata in the same synchronized burst.
+const RETRY_JITTER_MS = 500;
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+const fetchWikidataLabelsPromise = async (qNumbers, isRetry = false) => {
   const idsParam = join(qNumbers, '|');
   const query = {
     ids: idsParam,
@@ -23,8 +41,35 @@ const fetchWikidataLabelsPromise = async (qNumbers) => {
     // Guard the mutation in case anything ever rejects with a non-object,
     // which would otherwise throw here and mask the real error.
     if (error && typeof error === 'object') error.url = error.url || url;
+    if (!isRetry && error && RETRY_STATUSES.includes(error.status)) {
+      // Prefer Wikidata's own Retry-After when we can read it (per the
+      // documented policy above); otherwise fall back to RETRY_DELAY_MS.
+      // retryAfterSeconds can legitimately be 0 ("retry immediately"), so
+      // this checks for null/undefined rather than falsiness.
+      const baseDelay = error.retryAfterSeconds != null
+        ? error.retryAfterSeconds * 1000
+        : RETRY_DELAY_MS;
+      await sleep(baseDelay + (Math.random() * RETRY_JITTER_MS));
+      return fetchWikidataLabelsPromise(qNumbers, true);
+    }
     throw error;
   }
+};
+
+// Generic: runs `worker(item)` once per entry in `items`, with at most
+// `limit` calls in flight at once, instead of firing every item at the same
+// time. `items` can be an array of anything `worker` accepts.
+const runWithConcurrencyLimit = (items, worker, limit) => {
+  let nextIndex = 0;
+  const runNext = async () => {
+    const currentIndex = nextIndex;
+    nextIndex += 1;
+    if (currentIndex >= items.length) return;
+    await worker(items[currentIndex]);
+    await runNext();
+  };
+  const runnerCount = Math.min(limit, items.length);
+  return Promise.all(Array.from({ length: runnerCount }, runNext));
 };
 
 // This takes a Wikidata page title and checks whether it looks like
@@ -43,42 +88,42 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   const qNumbers = map(wikidataEntities, 'title')
                      .filter(isEntityTitle)
                      .map(CourseUtils.removeNamespace);
-  chunk(qNumbers, 30).forEach((someQNumbers) => {
-    fetchWikidataLabelsPromise(someQNumbers)
-      .then((resp) => {
-        dispatch({
-          type: types.RECEIVE_WIKIDATA_LABELS,
-          data: resp,
-          language: I18n.locale
-        });
-      })
-      .catch((error) => {
-        // This request has no other .catch() upstream, so without an explicit
-        // report here, a failure here would be invisible to Sentry (ensureOk
-        // only console.logs) even though it's the dominant real-world source
-        // of this bug (see Sentry issue PEONY-2NS).
-        // onLine/visibilityState/hasServiceWorkerController separate a
-        // dropped connection or backgrounded tab from an actually blocked or
-        // intercepted request, for the TypeError: Failed to fetch case (see
-        // PEONY-2P3, #7018). They're low-cardinality, so they go in tags
-        // (searchable/aggregatable in Sentry, unlike extra).
-        if (typeof Sentry !== 'undefined') {
-          Sentry.captureException(error, {
-            tags: {
-              onLine: navigator.onLine,
-              visibilityState: document.visibilityState,
-              hasServiceWorkerController: !!navigator.serviceWorker?.controller
-            },
-            // requestUrl (not `url`, which is Sentry's own tag for the page
-            // URL) is high-cardinality, so it stays in extra.
-            extra: {
-              requestUrl: error.url,
-              responseText: error.responseText
-            }
-          });
-        }
+  const chunks = chunk(qNumbers, 30);
+  const fetchOneChunk = someQNumbers => fetchWikidataLabelsPromise(someQNumbers)
+    .then((resp) => {
+      dispatch({
+        type: types.RECEIVE_WIKIDATA_LABELS,
+        data: resp,
+        language: I18n.locale
       });
-  });
+    })
+    .catch((error) => {
+      // This request has no other .catch() upstream, so without an explicit
+      // report here, a failure here would be invisible to Sentry (ensureOk
+      // only console.logs) even though it's the dominant real-world source
+      // of this bug (see Sentry issue PEONY-2NS).
+      // onLine/visibilityState/hasServiceWorkerController separate a
+      // dropped connection or backgrounded tab from an actually blocked or
+      // intercepted request, for the TypeError: Failed to fetch case (see
+      // PEONY-2P3, #7018). They're low-cardinality, so they go in tags
+      // (searchable/aggregatable in Sentry, unlike extra).
+      if (typeof Sentry !== 'undefined') {
+        Sentry.captureException(error, {
+          tags: {
+            onLine: navigator.onLine,
+            visibilityState: document.visibilityState,
+            hasServiceWorkerController: !!navigator.serviceWorker?.controller
+          },
+          // requestUrl (not `url`, which is Sentry's own tag for the page
+          // URL) is high-cardinality, so it stays in extra.
+          extra: {
+            requestUrl: error.url,
+            responseText: error.responseText
+          }
+        });
+      }
+    });
+  runWithConcurrencyLimit(chunks, fetchOneChunk, CONCURRENCY_LIMIT);
 };
 
 export const fetchWikidataLabelsForArticles = (articles, dispatch) => {

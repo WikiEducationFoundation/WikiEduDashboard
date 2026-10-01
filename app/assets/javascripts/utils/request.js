@@ -4,6 +4,16 @@ import logErrorMessage from './log_error_message';
 // it is a relative path if it doesn't start with http or https
 const isRelativePath = path => !path.match(/^http(s?)/);
 
+// Retry-After is only readable here if the server explicitly exposes it via
+// Access-Control-Expose-Headers on a cross-origin response; otherwise this
+// resolves to null and callers fall back to their own default backoff.
+const parseRetryAfterSeconds = (headers) => {
+  const value = headers?.get?.('retry-after');
+  if (!value) return null;
+  const seconds = Number(value);
+  return Number.isNaN(seconds) ? null : seconds;
+};
+
 // Thrown by ensureOk instead of the raw Response, so failed requests surface
 // in Sentry (and anywhere else that inspects errors) as a real Error with a
 // message and stack trace, rather than as an unhandled "[object Response]".
@@ -15,6 +25,7 @@ export class ApiError extends Error {
     this.statusText = response.statusText;
     this.url = response.url;
     this.responseText = responseText;
+    this.retryAfterSeconds = parseRetryAfterSeconds(response.headers);
   }
 }
 
