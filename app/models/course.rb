@@ -210,11 +210,9 @@ class Course < ApplicationRecord
 
   # A course needs a partial update if any of its timeslices still needs work:
   # a course wiki timeslice flagged needs_update or needs_reaggregation, or an
-  # article-course-user-wiki timeslice flagged needs_update (a failed
-  # score/wikidata-stats fetch awaiting retry). This mirrors the "pending work"
-  # check in MarkPurgeableCourses, so a course is never protected from purging
-  # while being ineligible for the update that would clear the flag. The ACUWT
-  # branch is served by the (needs_update, course_id) index.
+  # article-course-user-wiki timeslice flagged needs_update. This mirrors the
+  # "pending work" check in MarkPurgeableCourses, so a course is never protected
+  # from purging while being ineligible for the update that would clear the flag.
   scope :needs_partial_update, lambda {
     cwt_course_ids = CourseWikiTimeslice.where(needs_update: true)
                                         .or(CourseWikiTimeslice.where(needs_reaggregation: true))
