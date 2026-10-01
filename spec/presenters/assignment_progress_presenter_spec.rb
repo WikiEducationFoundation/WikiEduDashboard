@@ -131,13 +131,29 @@ describe AssignmentProgressPresenter do
 
   it 'reports how far along each article is, stage by stage' do
     first = assign(amy, 'First')
+    first.update_sandbox_status(:bibliography,
+                                AssignmentPipeline::SandboxStatuses::EXISTS_IN_USERSPACE)
     first.update_sandbox_status(:draft, AssignmentPipeline::SandboxStatuses::EXISTS_IN_USERSPACE)
-    complete_exercise(amy, bibliography_exercise) # counts for the bibliography stage
 
     stages = rows('article').first[:articles].first[:stages]
     expect(stages).to eq([{ key: :bibliography, reached: true }, { key: :outline, reached: false },
                           { key: :draft, reached: true }, { key: :live, reached: false }])
     expect(rows('article').first[:articles].first[:assigned_at]).to eq(first.created_at)
+  end
+
+  it 'reaches a page stage only for the article whose page exists' do
+    first = assign(amy, 'First')
+    second = assign(amy, 'Second')
+    first.update_sandbox_status(:bibliography,
+                                AssignmentPipeline::SandboxStatuses::EXISTS_IN_USERSPACE)
+    # Neither the exercise nor the student's own status says which article has the page.
+    complete_exercise(amy, bibliography_exercise)
+    second.update_status(AssignmentPipeline::AssignmentStatuses::BIBLIOGRAPHY_COMPLETE)
+
+    bibliography_reached = rows('article').first[:articles].map do |article|
+      article[:stages].find { |stage| stage[:key] == :bibliography }[:reached]
+    end
+    expect(bibliography_reached).to eq([true, false])
   end
 
   it 'marks the article overdue while one of its exercises is past due' do
