@@ -26,7 +26,6 @@ import EnrollCard from '../enroll/enroll_card.jsx';
 import CourseNavbar from '../common/course_navbar.jsx';
 import Notifications from '../common/notifications.jsx';
 import CourseAlerts from './course_alerts';
-import StudentViewToggle from './student_view_toggle';
 import { getStudentCount, getCurrentUser, getWeeksArray, getCanViewAsStudent, getIsViewingAsStudent } from '../../selectors';
 import ActivityHandler from '../activity/activity_handler';
 import CourseApproval from './course_approval';
@@ -130,6 +129,7 @@ const Course = withRouter((props) => {
             currentUser={props.currentUser}
             courseLink={_courseLinkParams()}
             weeks={props.weeks}
+            isViewingAsStudent={props.isViewingAsStudent}
           />
           <Notifications />
         </Affix>
@@ -147,7 +147,6 @@ const Course = withRouter((props) => {
         dismissNotification={props.dismissNotification}
       />
       <div className="course_main container">
-        <StudentViewToggle courseSlug={courseSlug} location={props.router.location} />
         <Confirm />
         {courseApprovalForm}
         {enrollCard}

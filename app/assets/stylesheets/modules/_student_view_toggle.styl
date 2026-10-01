@@ -1,4 +1,48 @@
+// "View as student" on/off switch: in the Actions panel while off, in the
+// course nav while on.
 .student-view-toggle
-  display flex
-  justify-content flex-end
-  margin-bottom 15px
+  align-items center
+  background none
+  border none
+  color $text_dk
+  cursor pointer
+  display inline-flex
+  font-family inherit
+  font-size 13px
+  gap 8px
+  justify-self center
+  padding 4px 0
+
+  &__track
+    background #c4c4c4
+    border-radius 8px
+    display inline-block
+    flex-shrink 0
+    height 16px
+    position relative
+    transition background 0.2s ease
+    width 28px
+
+  &__knob
+    background white
+    border-radius 50%
+    box-shadow 0 1px 2px rgba(0, 0, 0, 0.3)
+    height 12px
+    left 2px
+    position absolute
+    top 2px
+    transition transform 0.2s ease
+    width 12px
+
+  &[aria-checked="true"]
+    .student-view-toggle__track
+      background $brand_primary
+    .student-view-toggle__knob
+      transform translateX(12px)
+
+  &:focus-visible
+    outline 2px solid $brand_primary
+    outline-offset 2px
+
+nav .nav__button#student-view-toggle
+  margin-left 16px

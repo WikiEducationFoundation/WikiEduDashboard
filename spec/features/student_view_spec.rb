@@ -34,9 +34,12 @@ describe 'View as student', type: :feature, js: true do
       expect(page).to have_button 'Delete course'
       expect(page).not_to have_button 'Leave course'
 
-      click_button 'View as student'
+      # It's switched on from the Actions panel, then moves into the course nav.
+      within('.module.actions') { click_button 'View as student' }
       expect(page).to have_button 'Leave course'
       expect(page).not_to have_button 'Delete course'
+      expect(page).to have_css 'nav [role="switch"][aria-checked="true"]', text: 'View as student'
+      within('.module.actions') { expect(page).not_to have_button 'View as student' }
 
       # Students don't have the Assignments tab.
       visit "/courses/#{course.slug}/assignments"
@@ -45,7 +48,7 @@ describe 'View as student', type: :feature, js: true do
 
       # It stays on across tabs and reloads, and can be switched off from any tab.
       visit "/courses/#{course.slug}/students"
-      expect(page).to have_css 'button[aria-pressed="true"]', text: 'View as student'
+      expect(page).to have_css 'nav [role="switch"][aria-checked="true"]', text: 'View as student'
       expect(page).to have_content 'Student'
       expect(page).not_to have_content 'Sam Student'
 
