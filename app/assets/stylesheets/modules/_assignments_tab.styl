@@ -143,7 +143,7 @@
       background-size 12px
       padding 0
 
-  // The assigned article's drawer table. Seven columns, so tighter padding
+  // The assigned article's drawer table. Up to six columns, so tighter padding
   // than the site's tables.
   .assignments-tab__article-roster
     > thead > tr > th, > tbody > tr > td
@@ -152,6 +152,11 @@
       vertical-align top
     .assignments-tab__student-status
       border-right 1px solid $border_lt
+    // On a line of its own, two lines like the article beside it, leaving the
+    // progress column room for its labels.
+    .assignments-tab__student-status .assignments-tab__overdue
+      display block
+      margin-left 0
     .assignments-tab__no-article
       color $text_med
 
@@ -160,33 +165,64 @@
     white-space nowrap
 
   // Stages as a row of segments: filled once reached, labelled underneath.
+  // Each segment starts as wide as its label and shares out any room left, so
+  // the labels sit on one line where they fit. Squeezed, a label wraps between
+  // words but never runs into the next one.
   .assignments-tab__stages
     display flex
-    gap 3px
+    gap 4px
     list-style none
     margin 0 0 6px
     padding 0
     li
       border-top 6px solid $border_lt
       color $text_med
-      flex 1
+      flex 1 1 auto
       font-size 11px
       line-height 1.3
-      min-width 56px
-      padding-top 3px
+      padding 3px 8px 0 0
       &.reached
         border-top-color $success_text
         color $text_dk
 
-  // One link per line, never wrapped mid-label; pages that don't exist yet are
-  // muted (and titled "Not started").
+  // Labels hidden but still taking their width, so the segments line up with
+  // the labelled tracker above.
+  .assignments-tab__stages--unlabelled li
+    padding-top 0
+    span
+      display block
+      height 0
+      overflow hidden
+      visibility hidden
+
+  // The article's title, then its viewer's icon once the student has edited
+  // it: the shared article-viewer icon, at the size of a line of text.
+  .assignments-tab__article-title
+    align-items center
+    display flex
+    gap 4px
+  .assignments-tab__viewer-opener
+    flex none
+    .icon-article-viewer
+      background-size 40px
+      display block
+      padding 12px
+      &:hover
+        background-size 40px
+
+  // The article's pages on one line beneath its title, dot-separated; pages
+  // that don't exist yet are muted (and titled "Not started").
   .assignments-tab__work-links
+    display flex
+    font-size 13px
     list-style none
-    margin 0
+    margin 2px 0 0
     padding 0
-    li
-      line-height 1.6
-      white-space nowrap
+    white-space nowrap
+    li + li:before
+      color $text_med
+      content '·'
+      margin 0 6px
     .assignments-tab__missing
       color $text_med
 
@@ -313,10 +349,12 @@
     font-size 12px
     padding 2px 10px
 
+  // The card has room for equal segments.
   .assignments-tab__card .assignments-tab__stages
     margin-bottom 14px
     li
       border-top-width 8px
+      flex-basis 0
       font-size 12px
 
   // Label, state and actions in fixed columns, hairline-separated rows.
@@ -345,6 +383,12 @@
     white-space nowrap
     .button
       margin 0 0 0 12px
+
+  // The article viewer opens in place of its opener, so it would inherit the
+  // alignment of the cell it sits in (the actions cell's, in the grader).
+  .article-viewer
+    text-align left
+    white-space normal
 
   .assignments-tab__status
     color $text_med

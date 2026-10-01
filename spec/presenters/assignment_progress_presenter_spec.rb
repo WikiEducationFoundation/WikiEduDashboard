@@ -129,6 +129,16 @@ describe AssignmentProgressPresenter do
     expect(amy_row[:exercises].first[:completed]).to be(true)
   end
 
+  it 'identifies each live article for the article viewer, once it exists' do
+    first = assign(amy, 'First')
+    expect(rows('article').first[:articles].first).not_to have_key(:article_id)
+
+    edit_live(first, 1)
+    fresh = described_class.new(course:)
+    entry = fresh.rows_for(fresh.item('article')).first[:articles].first
+    expect(entry).to include(article_id: first.article_id, language: 'en', project: 'wikipedia')
+  end
+
   it 'reports how far along each article is, stage by stage' do
     first = assign(amy, 'First')
     first.update_sandbox_status(:bibliography,

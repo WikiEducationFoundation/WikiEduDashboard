@@ -90,7 +90,7 @@ const AssignmentGrader = ({ header, item, students, cellsByUser, itemPath }) => 
                 <h4>{studentName(student)}</h4>
                 <StateBadge cell={cellsByUser[student.id]} />
               </div>
-              <CellDetails cell={cellsByUser[student.id]} item={item} />
+              <CellDetails cell={cellsByUser[student.id]} item={item} username={student.username} />
             </div>
           )}
         </article>

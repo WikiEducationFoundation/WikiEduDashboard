@@ -23,8 +23,11 @@ module StudentProgress
     # `status` is the student's own place in the pipeline (AssignmentPipeline);
     # `statuses` is the pipeline it comes from, which depends on the course's
     # sandbox mode. `status_updated_at` is nil until the student first sets one.
+    # `article_id`, `mw_page_id`, `language` and `project` are what the article
+    # viewer needs to open the live article; the ids are nil until it exists.
     Article = Struct.new(:assignment_id, :title, :url, :live, :pages, :stats, :status,
-                         :statuses, :status_updated_at, :assigned_at, keyword_init: true)
+                         :statuses, :status_updated_at, :assigned_at, :article_id,
+                         :mw_page_id, :language, :project, keyword_init: true)
     # `kind` is :bibliography / :outline / :draft — the view turns it into a label.
     Page = Struct.new(:kind, :url, :created, keyword_init: true)
     Stats = Struct.new(:characters, :references, :revisions, keyword_init: true)
@@ -71,6 +74,8 @@ module StudentProgress
         # article_id is filled in once the live article exists on the wiki, so
         # its absence is exactly "nobody has created this article yet".
         live: assignment.article_id.present?,
+        article_id: assignment.article_id, mw_page_id: assignment.article&.mw_page_id,
+        language: assignment.wiki.language, project: assignment.wiki.project,
         pages: pages_for(assignment),
         stats: stats_for(assignment),
         status: assignment.status,

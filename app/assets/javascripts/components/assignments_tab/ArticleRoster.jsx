@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { StateBadge } from './CellDetails';
 import { StageTracker, WorkLinks } from './ArticleParts';
+import LiveArticleViewer from './LiveArticleViewer';
 import { StudentHeaders, useStudentSort } from './StudentSort';
 import { articleStatusLabel, formatDate, sortStudents } from './assignmentHelpers';
 
-// The assigned article's drawer: one row per student and article, with how
-// far along it is, where to see the work, and when the student got it. A
-// student with several articles spans several rows. Sortable by any of the
-// student columns.
+// The assigned article's drawer: one row per student and article, with where
+// to see the work (under the article's title), how far along it is, and when
+// the student got it. A student with several articles spans several rows, with
+// the stages labelled once, on the first. Sortable by any of the student
+// columns.
 const ArticleRoster = ({ students, cellsByUser, studentPath, showNames }) => {
   const { sort, sortBy } = useStudentSort();
   return (
@@ -19,7 +21,6 @@ const ArticleRoster = ({ students, cellsByUser, studentPath, showNames }) => {
           <StudentHeaders showNames={showNames} sort={sort} sortBy={sortBy} />
           <th>{I18n.t('assignments.article_link')}</th>
           <th>{I18n.t('assignments_tab.progress')}</th>
-          <th>{I18n.t('lti.assignment_view.article_work.header')}</th>
           <th>{I18n.t('assignments_tab.assigned')}</th>
         </tr>
       </thead>
@@ -42,7 +43,7 @@ const ArticleRoster = ({ students, cellsByUser, studentPath, showNames }) => {
             return (
               <tr key={student.id}>
                 {studentCells}
-                <td colSpan={4} className="assignments-tab__no-article">
+                <td colSpan={3} className="assignments-tab__no-article">
                   {I18n.t('lti.assignment_view.no_article_yet')}
                 </td>
               </tr>
@@ -56,11 +57,14 @@ const ArticleRoster = ({ students, cellsByUser, studentPath, showNames }) => {
                   <tr key={article.assignment_id}>
                     {index === 0 && studentCells}
                     <td>
-                      <a href={article.url} target="_blank" rel="noopener noreferrer">{article.title}</a>
+                      <div className="assignments-tab__article-title">
+                        <a href={article.url} target="_blank" rel="noopener noreferrer">{article.title}</a>
+                        <LiveArticleViewer article={article} username={student.username} />
+                      </div>
+                      <WorkLinks article={article} />
                       {status && <div className="assignments-tab__article-status">{status}</div>}
                     </td>
-                    <td><StageTracker stages={article.stages} /></td>
-                    <td><WorkLinks article={article} /></td>
+                    <td><StageTracker stages={article.stages} labelled={index === 0} /></td>
                     <td className="assignments-tab__date">{formatDate(article.assigned_at)}</td>
                   </tr>
                 );
