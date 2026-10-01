@@ -374,6 +374,25 @@ nav.ham-nav
   .campaign-nav__ul
     display inline
 
+// With every tab an instructor sees, the course nav is about 700px wide, so a
+// course title wider than about 330px would push it onto a second row at any
+// desktop width. Instead the title gives way, truncating with its ellipsis.
+// It starts from a small flex basis, so the nav only drops below it when even
+// that much title won't fit beside it (as at high browser zoom), then grows
+// back to its own width where there's room, but no wider. Holding the box to
+// its content moves the usual cap on the title's width to the heading (the
+// box's cap less its padding and border).
+.course_navigation > .container
+  > a, > .nav__item
+    +above(desktop)
+      flex 1 1 200px
+      min-width 0
+      max-width max-content
+      > h2
+        max-width 269px
+        @media only screen and (min-width: 1000px)
+          max-width 349px
+
 .campaign-nav__search
   display inline-block
 
