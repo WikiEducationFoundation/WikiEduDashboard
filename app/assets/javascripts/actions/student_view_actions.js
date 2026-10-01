@@ -13,10 +13,19 @@ const refetchViewerDependentData = (courseSlug, dispatch) => Promise.all([
 // Called before the course page's first fetch, so a reload in student view
 // requests student data from the start. Whether the user may use student view
 // isn't known until the course and users load; the selectors check that.
+// Student view is saved per course, so it's switched off for a course where it
+// wasn't left on.
 export const restoreStudentView = courseSlug => (dispatch) => {
-  if (!readStoredStudentView(courseSlug)) { return; }
-  setStudentViewActive(true);
-  dispatch({ type: ENTER_STUDENT_VIEW });
+  const stored = readStoredStudentView(courseSlug);
+  setStudentViewActive(stored);
+  dispatch({ type: stored ? ENTER_STUDENT_VIEW : EXIT_STUDENT_VIEW });
+};
+
+// Called when the course page unmounts, so pages reached from it without a
+// reload don't block writes. The course's saved choice is kept.
+export const leaveStudentView = () => (dispatch) => {
+  setStudentViewActive(false);
+  dispatch({ type: EXIT_STUDENT_VIEW });
 };
 
 export const enterStudentView = courseSlug => (dispatch) => {

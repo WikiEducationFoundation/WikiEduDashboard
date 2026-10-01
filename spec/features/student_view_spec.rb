@@ -49,12 +49,29 @@ describe 'View as student', type: :feature, js: true do
       # It stays on across tabs and reloads, and can be switched off from any tab.
       visit "/courses/#{course.slug}/students"
       expect(page).to have_css 'nav [role="switch"][aria-checked="true"]', text: 'View as student'
-      expect(page).to have_content 'Student'
+      expect(page).to have_css 'tr.students .name', text: 'Student'
       expect(page).not_to have_content 'Sam Student'
 
       click_button 'View as student'
       expect(page).to have_content 'Sam Student'
       expect(page).not_to have_button 'View as student'
+    end
+
+    it 'keeps keyboard focus with the switch as it moves' do
+      visit "/courses/#{course.slug}"
+      find('.module.actions [role="switch"]').send_keys(:enter)
+      expect(page).to have_css 'nav [role="switch"][aria-checked="true"]:focus'
+
+      # Off on the Home tab: back to the switch in the Actions panel.
+      find('nav [role="switch"]').send_keys(:enter)
+      expect(page).to have_css '.module.actions [role="switch"][aria-checked="false"]:focus'
+
+      # Off on a tab without the Actions panel: the current tab's link.
+      find('.module.actions [role="switch"]').send_keys(:enter)
+      find('#students-link a').click
+      find('nav [role="switch"]').send_keys(:enter)
+      expect(page).to have_css '#students-link a.active:focus'
+      expect(page).not_to have_css '[role="switch"]'
     end
 
     it 'blocks a change that a student could make' do

@@ -2,8 +2,8 @@ import '../testHelper';
 import {
   getCurrentUser, getRealCurrentUser, getCanViewAsStudent, getIsViewingAsStudent, editPermissions
 } from '../../app/assets/javascripts/selectors';
-import { restoreStudentView } from '../../app/assets/javascripts/actions/student_view_actions';
-import { isStudentViewActive, setStudentViewActive, storeStudentView } from '../../app/assets/javascripts/utils/student_view';
+import { restoreStudentView, leaveStudentView } from '../../app/assets/javascripts/actions/student_view_actions';
+import { isStudentViewActive, readStoredStudentView, setStudentViewActive, storeStudentView } from '../../app/assets/javascripts/utils/student_view';
 import { INSTRUCTOR_ROLE, STAFF_ROLE, STUDENT_ROLE } from '../../app/assets/javascripts/constants';
 
 describe('current user in student view', () => {
@@ -77,11 +77,28 @@ describe('current user in student view', () => {
       expect(dispatch).toHaveBeenCalledWith({ type: 'ENTER_STUDENT_VIEW' });
     });
 
-    test('does nothing for other courses', () => {
+    test('turns student view off for a course where it was not left on', () => {
+      setStudentViewActive(true);
       const dispatch = jest.fn();
       restoreStudentView('school/title')(dispatch);
       expect(isStudentViewActive()).toBe(false);
-      expect(dispatch).not.toHaveBeenCalled();
+      expect(dispatch).toHaveBeenCalledWith({ type: 'EXIT_STUDENT_VIEW' });
+    });
+  });
+
+  describe('leaveStudentView', () => {
+    afterEach(() => {
+      storeStudentView('school/title', false);
+    });
+
+    test('turns student view off but keeps it saved for the course', () => {
+      storeStudentView('school/title', true);
+      setStudentViewActive(true);
+      const dispatch = jest.fn();
+      leaveStudentView()(dispatch);
+      expect(isStudentViewActive()).toBe(false);
+      expect(dispatch).toHaveBeenCalledWith({ type: 'EXIT_STUDENT_VIEW' });
+      expect(readStoredStudentView('school/title')).toBe(true);
     });
   });
 });

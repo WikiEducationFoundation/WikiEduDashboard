@@ -19,7 +19,7 @@ import { fetchUsers } from '../../actions/user_actions.js';
 import { fetchCampaigns } from '../../actions/campaign_actions.js';
 import { fetchCourse, updateCourse, persistCourse, dismissNotification } from '../../actions/course_actions';
 import { fetchTimeline } from '../../actions/timeline_actions';
-import { restoreStudentView, exitStudentView } from '../../actions/student_view_actions';
+import { restoreStudentView, exitStudentView, leaveStudentView } from '../../actions/student_view_actions';
 import Affix from '../common/affix.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import EnrollCard from '../enroll/enroll_card.jsx';
@@ -39,6 +39,7 @@ const Course = withRouter((props) => {
     props.fetchUsers(courseSlug);
     props.fetchTimeline(courseSlug);
     props.fetchCampaigns(courseSlug);
+    return () => props.leaveStudentView();
   }, []);
 
   // Student view restored from an earlier visit is dropped if the user can't
@@ -204,7 +205,8 @@ const mapDispatchToProps = {
   persistCourse,
   dismissNotification,
   restoreStudentView,
-  exitStudentView
+  exitStudentView,
+  leaveStudentView
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Course));
