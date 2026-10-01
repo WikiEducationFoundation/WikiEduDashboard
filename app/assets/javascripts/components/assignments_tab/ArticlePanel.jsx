@@ -4,7 +4,8 @@ import { useSearchParams } from 'react-router-dom';
 import Loading from '@components/common/loading.jsx';
 import ArticleRoster from './ArticleRoster';
 import { STAGE_LABELS } from './ArticleParts';
-import { formatDate, itemTitle, reachedStage } from './assignmentHelpers';
+import { hasRealNames } from './StudentSort';
+import { formatDate, itemTitle, listQuery, reachedStage } from './assignmentHelpers';
 
 const ARTICLE_KEY = 'article';
 
@@ -81,7 +82,7 @@ const ArticlePanel = ({ data, itemData, loadItem, tabPath }) => {
       const cellsByUser = Object.fromEntries(itemData.rows.map(cell => [cell.user_id, cell]));
       const shown = itemData.students
         .filter(student => !missing || !reachedStage(cellsByUser[student.id], missing));
-      const query = missing ? `?missing=${missing}` : '';
+      const query = listQuery(searchParams);
       students = (
         <>
           {missing && (
@@ -90,7 +91,7 @@ const ArticlePanel = ({ data, itemData, loadItem, tabPath }) => {
             </button>
           )}
           <ArticleRoster
-            students={shown} cellsByUser={cellsByUser}
+            students={shown} cellsByUser={cellsByUser} showNames={hasRealNames(itemData.students)}
             studentPath={student => `${tabPath}/${ARTICLE_KEY}/${encodeURIComponent(student.username)}${query}`}
           />
         </>

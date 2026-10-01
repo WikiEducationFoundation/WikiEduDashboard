@@ -57,8 +57,12 @@ const AssignmentsTabHandler = ({ course }) => {
   if (!course.slug) { return <Loading />; }
 
   const tabPath = `/courses/${course.slug}/assignments`;
+  // The course page's h1 is the course title (for screen readers); this names
+  // the tab, so the sections' and grader's h3s sit under it. The tab bar
+  // already shows which tab this is, so it's for screen readers too.
   return (
     <div className="assignments-tab">
+      <h2 className="screen-reader">{I18n.t('assignments_tab.label')}</h2>
       <Routes>
         <Route path=":itemKey/:username" element={<AssignmentView course={course} tabPath={tabPath} />} />
         <Route path=":itemKey" element={<OpenInList tabPath={tabPath} />} />

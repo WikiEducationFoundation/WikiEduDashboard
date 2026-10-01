@@ -69,6 +69,51 @@ export const reachedStage = (cell, key) => {
   return cell.articles.some(article => article.stages.some(stage => stage.key === key && stage.reached));
 };
 
+// The student lists' sort, as the `sort` URL param: a column key, with a
+// leading "-" for descending. Unsorted lists come in username order.
+export const DEFAULT_SORT = 'username';
+const STATE_ORDER = { complete: 0, in_progress: 1, not_started: 2 };
+
+export const parseSort = (sort) => {
+  const value = sort || DEFAULT_SORT;
+  const descending = value.startsWith('-');
+  return { key: descending ? value.slice(1) : value, descending };
+};
+
+const compareText = (a, b) => (a || '').localeCompare(b || '', undefined, { sensitivity: 'base' });
+
+const SORT_COMPARATORS = {
+  name: (a, b) => compareText(a.real_name, b.real_name),
+  username: (a, b) => compareText(a.username, b.username),
+  status: (a, b, cellsByUser) => STATE_ORDER[cellsByUser[a.id]?.state] - STATE_ORDER[cellsByUser[b.id]?.state],
+};
+
+// Students without a real name come after those with one, either way round.
+const unnamedLast = (a, b) => Number(!a.real_name) - Number(!b.real_name);
+
+// `students` in the order `sort` asks for, ties broken by username.
+export const sortStudents = (students, cellsByUser, sort) => {
+  const { key, descending } = parseSort(sort);
+  const compare = SORT_COMPARATORS[key] || SORT_COMPARATORS.username;
+  const direction = descending ? -1 : 1;
+  return [...students].sort((a, b) => (key === 'name' && unnamedLast(a, b))
+    || (direction * compare(a, b, cellsByUser))
+    || SORT_COMPARATORS.username(a, b));
+};
+
+// The params that shape a student list (status filter, missing stage, sort),
+// carried from the list into the grader's links and back, so the grader steps
+// through the same students in the same order.
+export const LIST_PARAMS = ['filter', 'missing', 'sort'];
+
+export const listQuery = (searchParams) => {
+  const params = new URLSearchParams();
+  LIST_PARAMS.forEach((param) => {
+    if (searchParams.get(param)) { params.set(param, searchParams.get(param)); }
+  });
+  return params.toString() ? `?${params}` : '';
+};
+
 // Where `username` sits in `students`, and who comes before and after it.
 export const neighbors = (students, username) => {
   const index = students.findIndex(student => student.username === username);

@@ -57,6 +57,26 @@ describe 'Assignments tab', type: :feature, js: true do
       expect(page).to have_css('.assignments-tab__list .drawer', text: 'Amy')
     end
 
+    it 'sorts an assignment\'s students, and the grader goes through them in that order' do
+      visit "#{course_path}/assignments"
+      expect(page).to have_css('.assignments-tab__section h3', text: 'Trainings')
+      find('.assignments-tab__list > tbody > tr', text: 'Wikipedia essentials').click
+      within('.assignments-tab__list .drawer') do
+        expect(page).to have_css('tbody tr:first-child', text: 'Amy')
+        2.times { click_button 'Status' }
+        expect(page).to have_css('th[aria-sort="descending"]', text: 'Status')
+        expect(page).to have_css('tbody tr:first-child', text: 'Bo')
+        click_link 'Bo'
+      end
+
+      expect(page).to have_css('.assignments-tab__student h4', text: 'Bo')
+      expect(page).to have_content '1 / 2'
+      click_button 'Next'
+      expect(page).to have_css('.assignments-tab__student h4', text: 'Amy')
+      within('.assignments-tab__header') { click_link '← Assignments' }
+      expect(page).to have_css('.drawer th[aria-sort="descending"]', text: 'Status')
+    end
+
     it 'shows how far the class is through the article stages, and who hasn\'t reached one' do
       visit "#{course_path}/assignments"
       within('.assignments-tab__article-panel') do
