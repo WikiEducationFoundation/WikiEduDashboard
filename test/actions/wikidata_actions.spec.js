@@ -92,4 +92,28 @@ describe('fetchWikidataLabels', () => {
       }
     );
   });
+
+  test('limits chunk requests in flight instead of firing all of them at once', async () => {
+    const entities = { entities: {} };
+    const stub = sinon.stub(requestModule, 'default').resolves({
+      ok: true,
+      json: () => Promise.resolve(entities),
+    });
+    const dispatch = jest.fn();
+    // 7 chunks of 30 qNumbers each (210 entities) should run with at most
+    // CONCURRENCY_LIMIT (3) requests in flight, not all 7 at once.
+    const entitiesList = Array.from({ length: 210 }, (_, i) => ({ title: `Q${i}` }));
+
+    fetchWikidataLabels(entitiesList, dispatch);
+    // Right after kicking things off, only the first batch should have
+    // started — before any promise in that batch has resolved.
+    expect(stub.callCount).toBeLessThanOrEqual(3);
+
+    // The concurrency-limited runner recurses one chunk at a time, so each of
+    // the later chunks needs a few more microtask turns to kick off than a
+    // single flushPromises() provides.
+    await flushPromises();
+    await flushPromises();
+    expect(stub.callCount).toBe(7);
+  });
 });
