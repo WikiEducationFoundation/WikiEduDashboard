@@ -85,6 +85,46 @@ describe 'Assignment progress', type: :request do
     end
   end
 
+  describe 'the CSV' do
+    let(:csv_path) { "/courses/#{course.slug}/assignment_progress.csv" }
+
+    before { student.update!(real_name: 'Stu Dent') }
+
+    it 'downloads every student\'s statuses, one row per student, with real names' do
+      login_as instructor
+      get csv_path
+      expect(response.status).to eq(200)
+      expect(response.media_type).to eq('text/csv')
+      expect(response.headers['Content-Disposition'])
+        .to start_with('attachment').and include("-assignments-#{Time.zone.today}.csv")
+      rows = CSV.parse(response.body, headers: true)
+      expect(rows.map(&:to_h)).to eq([{ 'username' => 'Student', 'real_name' => 'Stu Dent',
+                                        'Assigned article: status' => 'not_started',
+                                        'Assigned article: overdue' => 'false',
+                                        'Assigned article: articles' => nil,
+                                        'Assigned article: bibliography_reached' => 'false',
+                                        'Assigned article: outline_reached' => 'false',
+                                        'Assigned article: draft_reached' => 'false',
+                                        'Assigned article: live_reached' => 'false',
+                                        'Training A: status' => 'not_started',
+                                        'Training A: overdue' => 'false',
+                                        'Training A: completed_at' => nil }])
+    end
+
+    it 'is not found for a course type without the tab' do
+      course.update!(type: 'BasicCourse')
+      login_as instructor
+      get csv_path
+      expect(response.status).to eq(404)
+    end
+
+    it 'refuses a student' do
+      login_as student
+      get csv_path
+      expect(response.status).to eq(401)
+    end
+  end
+
   it 'refuses a student' do
     login_as student
     get path

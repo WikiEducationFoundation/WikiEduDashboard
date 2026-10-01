@@ -513,6 +513,8 @@ en:
     assigned: Assigned
     live_article: Live article
     stage_assigned: Article assigned
+    stage_live: Edited live article
+    view_training: View training
   blocks:
     milestones:
       title: Milestones

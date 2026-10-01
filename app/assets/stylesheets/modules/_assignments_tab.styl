@@ -3,6 +3,13 @@
 .assignments-tab
   padding-top 20px
 
+  .assignments-tab__toolbar
+    display flex
+    justify-content flex-end
+    margin-bottom 10px
+    .button
+      margin 0
+
   .assignments-tab__kind
     color $text_med
     display block
@@ -77,16 +84,28 @@
   .assignments-tab__grader li.student.selected .assignments-tab__state
     color white
 
+  // A section per kind of assignment, each with its own table. The tables lay
+  // out their columns at fixed widths so they line up with one another.
+  .assignments-tab__section
+    margin-bottom 25px
+    h3
+      margin 0 0 10px
+
+  .assignments-tab__list
+    table-layout fixed
+    .assignments-tab__due-heading
+      width 150px
+    .assignments-tab__overdue-heading
+      width 120px
+    .assignments-tab__toggle-heading
+      width 70px
+
   // The open assignment's drawer in the list.
   .assignments-tab__list > tbody > .drawer > td
     background white
     padding 15px 20px
     .table
       margin-bottom 0
-
-  .assignments-tab__exercise-count
-    color $text_med
-    font-size 14px
 
   // Inline sandbox previews: a scrollable, bordered excerpt of the wiki page.
   .assignments-tab__preview-panel
@@ -100,11 +119,38 @@
       display none
 
 
-  // The assigned article's drawer table.
+  // Student tables' sortable column headings: the heading's text is a button,
+  // with the shared sort arrow on the sorted column.
+  .assignments-tab__sort
+    align-items center
+    background none
+    border none
+    color inherit
+    cursor pointer
+    display inline-flex
+    font inherit
+    padding 0
+    text-align left
+    &:hover, &:focus-visible
+      color $brand_primary
+  .assignments-tab__sort-indicator
+    display inline-block
+    height 12px
+    margin-left 4px
+    width 12px
+    &.sortable-indicator-asc, &.sortable-indicator-desc
+      background-position center
+      background-size 12px
+      padding 0
+
+  // The assigned article's drawer table. Seven columns, so tighter padding
+  // than the site's tables.
   .assignments-tab__article-roster
+    > thead > tr > th, > tbody > tr > td
+      padding 10px 12px
     td
       vertical-align top
-    .assignments-tab__student-cell
+    .assignments-tab__student-status
       border-right 1px solid $border_lt
     .assignments-tab__no-article
       color $text_med
@@ -209,6 +255,8 @@
     .assignments-tab__overdue
       margin-left 8px
 
+  // Sized like the tab's card titles, so the student list reads as a section
+  // of the panel rather than a small link.
   .assignments-tab__students-toggle
     align-items center
     background none
@@ -217,6 +265,7 @@
     cursor pointer
     display inline-flex
     font inherit
+    font-size 18px
     font-weight 600
     gap 6px
     padding 4px 0

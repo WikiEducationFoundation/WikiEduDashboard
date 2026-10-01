@@ -6,14 +6,15 @@ require_dependency "#{Rails.root}/lib/student_progress/timeline"
 # The assignments the course page's Assignments tab tracks for a course, in
 # timeline order:
 #
-# - one per training module and one per exercise module on the timeline,
-#   except the exercises about the student's article (discussion modules are
-#   not tracked);
+# - one per training module and one per exercise module on the timeline
+#   (discussion modules are not tracked);
 # - the assigned article, as one assignment covering all the work on it: the
 #   article itself, its bibliography/outline/draft pages, the live article,
 #   and the exercises about it (choosing it, the bibliography and outline
-#   exercises, continuing to improve it). It sits where the first of those
-#   exercises does, or after the timeline when there are none;
+#   exercises, continuing to improve it). Those exercises are also listed as
+#   exercises in their own right, so each has its own per-student rows. The
+#   article sits where the first of them does (just before it), or after the
+#   timeline when there are none;
 # - the peer-review stage, at its timeline block, when the course expects
 #   reviews or anyone has been assigned one.
 class BuildAssignmentCatalog
@@ -36,14 +37,16 @@ class BuildAssignmentCatalog
 
   private
 
+  # Sorted by position, then by the order built (sort_by alone isn't stable),
+  # so the article comes before the exercise whose position it shares.
   def build
-    (module_items + [article_item] + peer_review_items).sort_by(&:first).map(&:last)
+    ([article_item] + module_items + peer_review_items)
+      .each_with_index.sort_by { |(position, _item), index| [position, index] }
+      .map { |(_position, item), _index| item }
   end
 
   def module_items
-    (@timeline.training_modules + @timeline.exercise_modules).filter_map do |mod|
-      next if @timeline.article_exercise?(mod)
-
+    (@timeline.training_modules + @timeline.exercise_modules).map do |mod|
       [module_position(mod), module_item(mod)]
     end
   end

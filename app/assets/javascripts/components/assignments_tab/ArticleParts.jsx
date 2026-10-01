@@ -7,7 +7,7 @@ export const STAGE_LABELS = {
   bibliography: 'lti.assignment_view.article_work.pages.bibliography',
   outline: 'lti.assignment_view.article_work.pages.outline',
   draft: 'lti.assignment_view.article_work.pages.draft',
-  live: 'assignments_tab.live_article',
+  live: 'assignments_tab.stage_live',
 };
 
 // How far along an article is: its stages in order, the reached ones filled
@@ -29,13 +29,14 @@ export const StageTracker = ({ stages }) => (
 StageTracker.propTypes = { stages: PropTypes.array.isRequired };
 
 // Where to see the work: each page and the live article, dimmed where it
-// doesn't exist yet (still linked, since the page check can lag).
+// doesn't exist yet (still linked, since the page check can lag). The live
+// article's link names the article, not its stage (the student's edits in it).
 export const WorkLinks = ({ article }) => {
   const links = article.pages.map(page => ({
     key: page.kind, label: I18n.t(STAGE_LABELS[page.kind]), url: page.url, exists: page.created
   }));
   links.push({
-    key: 'live', label: I18n.t(STAGE_LABELS.live), url: article.url, exists: article.live
+    key: 'live', label: I18n.t('assignments_tab.live_article'), url: article.url, exists: article.live
   });
   return (
     <ul className="assignments-tab__work-links">
