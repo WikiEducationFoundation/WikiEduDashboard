@@ -35,15 +35,6 @@ describe MarkPurgeableCourses do
       expect(recent_course.reload.purgeable?).to be false
     end
 
-    it 'skips a course never tracked in the timeslice system' do
-      old_course # no course wiki timeslices created
-
-      result = described_class.new
-
-      expect(result.marked_count).to eq(0)
-      expect(old_course.reload.purgeable?).to be false
-    end
-
     it 'skips a course with a timeslice still needing update' do
       add_timeslice(old_course, needs_update: true)
 

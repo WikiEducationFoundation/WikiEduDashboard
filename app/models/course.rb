@@ -610,8 +610,7 @@ class Course < ApplicationRecord
   end
 
   # True once MarkPurgeableCourses has flagged this course for timeslice purging
-  # (it ended long ago, was tracked in the timeslice system, and has no pending
-  # timeslice work).
+  # (it ended long ago and has no pending timeslice work).
   def purgeable?
     flags[:purgeable].present?
   end
