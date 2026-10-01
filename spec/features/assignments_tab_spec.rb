@@ -79,6 +79,7 @@ describe 'Assignments tab', type: :feature, js: true do
 
     it 'shows how far the class is through the article stages, and who hasn\'t reached one' do
       visit "#{course_path}/assignments"
+      expect(page).to have_link('Download CSV', href: "#{course_path}/assignment_progress.csv")
       within('.assignments-tab__article-panel') do
         assigned_bar = find('.assignments-tab__funnel-bar', text: 'Article assigned')
         expect(assigned_bar).to have_content '1 / 2'

@@ -281,6 +281,13 @@ describe('Assignments tab views', () => {
       .toEqual(['Trainings', 'Exercises']);
   });
 
+  test('links to the CSV of every student\'s statuses', async () => {
+    await renderTab();
+    const link = container.querySelector('.assignments-tab__toolbar a');
+    expect(link.textContent).toBe('Download CSV');
+    expect(link.getAttribute('href')).toBe('/courses/S/T/assignment_progress.csv');
+  });
+
   test('clicking an assignment row opens its students in a drawer, and again closes it', async () => {
     await renderTab();
     const rows = container.querySelectorAll('.assignments-tab__list > tbody > tr');

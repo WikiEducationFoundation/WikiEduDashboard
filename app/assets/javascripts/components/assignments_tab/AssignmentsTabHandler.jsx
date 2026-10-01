@@ -29,6 +29,12 @@ const AssignmentSummary = ({ course, tabPath }) => {
   if (!data) { return <Loading />; }
   return (
     <>
+      {/* Every student's status on every assignment, one row per student. */}
+      <div className="assignments-tab__toolbar">
+        <a className="button border small" href={`/courses/${course.slug}/assignment_progress.csv`} download>
+          {I18n.t('report_cards.download_csv')}
+        </a>
+      </div>
       <ArticlePanel data={data} itemData={itemData.article} loadItem={loadItem} tabPath={tabPath} />
       <AssignmentList data={data} itemData={itemData} loadItem={loadItem} tabPath={tabPath} />
     </>
