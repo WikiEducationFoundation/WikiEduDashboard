@@ -80,7 +80,8 @@ class AssignmentProgressCells
     { assignment_id: article.assignment_id, title: article.title, url: article.url,
       live: article.live, status: article.status, status_updated_at: article.status_updated_at,
       assigned_at: article.assigned_at, pages: pages(article).map(&:to_h),
-      stats: article.stats.to_h, stages: stages(article) }.compact
+      stats: article.stats.to_h, stages: stages(article), article_id: article.article_id,
+      mw_page_id: article.mw_page_id, language: article.language, project: article.project }.compact
   end
 
   # The course's pages for the article: bibliography and outline pages are a

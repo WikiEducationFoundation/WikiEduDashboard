@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SandboxPreview, { usePagePreview } from './SandboxPreview';
 import { StageTracker } from './ArticleParts';
+import LiveArticleViewer from './LiveArticleViewer';
 import {
   articleStatusLabel, formatDate, isLate, percent, stateLabel
 } from './assignmentHelpers';
@@ -89,8 +90,8 @@ Status.propTypes = { done: PropTypes.bool, children: PropTypes.node };
 
 // One row of a work table: what it is, its state, and actions in fixed
 // columns, so the links and Show buttons line up down the table. A preview
-// opens in a full-width row beneath.
-const WorkRow = ({ label, detail, url, preview }) => {
+// opens in a full-width row beneath; `action` is any other button.
+const WorkRow = ({ label, detail, url, preview, action }) => {
   const { open, button, panel } = usePagePreview(url);
   return (
     <>
@@ -100,6 +101,7 @@ const WorkRow = ({ label, detail, url, preview }) => {
         <td className="assignments-tab__work-actions">
           <ExternalLink href={url}>{I18n.t('lti.assignment_view.open_on_wikipedia')}</ExternalLink>
           {preview && button}
+          {action}
         </td>
       </tr>
       {preview && (
@@ -116,6 +118,7 @@ WorkRow.propTypes = {
   detail: PropTypes.node,
   url: PropTypes.string.isRequired,
   preview: PropTypes.bool,
+  action: PropTypes.node,
 };
 
 const LiveStats = ({ stats }) => (
@@ -131,10 +134,18 @@ const LiveStats = ({ stats }) => (
 
 LiveStats.propTypes = { stats: PropTypes.object.isRequired };
 
+// The Show button for the live article opens it in the article viewer.
+const viewerButton = ({ open }) => (
+  <button type="button" className="button border small" onClick={open}>
+    {I18n.t('lti.assignment_view.show')}
+  </button>
+);
+
 // One assigned article as a card: the article and when the student got it,
 // how far along it is, then where the work is: each page and the live article,
-// with its state, a link, and a preview to read it here.
-const ArticleCard = ({ article }) => {
+// with its state, a link, and a way to read it here (a preview of each page;
+// the article viewer for a live article the student has edited).
+const ArticleCard = ({ article, username }) => {
   const status = article.status_updated_at ? articleStatusLabel(article.status) : '';
   return (
     <section className="assignments-tab__card">
@@ -175,6 +186,7 @@ const ArticleCard = ({ article }) => {
             detail={article.live
               ? <LiveStats stats={article.stats} />
               : <Status done={false}>{I18n.t('lti.assignment_view.article_work.not_created')}</Status>}
+            action={<LiveArticleViewer article={article} username={username} renderOpener={viewerButton} />}
           />
         </tbody>
       </table>
@@ -182,7 +194,7 @@ const ArticleCard = ({ article }) => {
   );
 };
 
-ArticleCard.propTypes = { article: PropTypes.object.isRequired };
+ArticleCard.propTypes = { article: PropTypes.object.isRequired, username: PropTypes.string.isRequired };
 
 // The exercises about the article, as a checklist: done or not, when (where
 // recorded) or overdue, and the exercise's sandbox to open or read here.
@@ -231,17 +243,19 @@ ExerciseChecklist.propTypes = { exercises: PropTypes.array.isRequired };
 
 // The grader's view of the assigned article: a card per article, then the
 // exercises about it. (The article panel shows it as ArticleRoster's table.)
-const Article = ({ cell }) => (
+const Article = ({ cell, username }) => (
   <div>
     {cell.articles.length === 0 && (
       <p className="assignments-tab__empty">{I18n.t('lti.assignment_view.no_article_yet')}</p>
     )}
-    {cell.articles.map(article => <ArticleCard key={article.assignment_id} article={article} />)}
+    {cell.articles.map(article => (
+      <ArticleCard key={article.assignment_id} article={article} username={username} />
+    ))}
     <ExerciseChecklist exercises={cell.exercises} />
   </div>
 );
 
-Article.propTypes = { cell: PropTypes.object.isRequired };
+Article.propTypes = { cell: PropTypes.object.isRequired, username: PropTypes.string.isRequired };
 
 const Reviews = ({ cell, compact }) => {
   const total = cell.expected || cell.reviews.length;
@@ -297,14 +311,15 @@ Exercise.propTypes = { cell: PropTypes.object.isRequired, compact: PropTypes.boo
 
 // Everything known about one student's work on one assignment. `compact` is
 // the roster's summary; the grader shows it in full, with sandbox previews.
-const CellDetails = ({ cell, item, compact = false }) => {
+// (Only the grader shows the assigned article, which needs the `username`.)
+const CellDetails = ({ cell, item, username, compact = false }) => {
   switch (item.kind) {
     case 'training':
       return <TrainingProgress cell={cell} item={item} />;
     case 'exercise':
       return <Exercise cell={cell} compact={compact} />;
     case 'article':
-      return <Article cell={cell} />;
+      return <Article cell={cell} username={username} />;
     case 'peer_review':
       return <Reviews cell={cell} compact={compact} />;
     default:
@@ -315,6 +330,7 @@ const CellDetails = ({ cell, item, compact = false }) => {
 CellDetails.propTypes = {
   cell: PropTypes.object.isRequired,
   item: PropTypes.object.isRequired,
+  username: PropTypes.string,
   compact: PropTypes.bool,
 };
 

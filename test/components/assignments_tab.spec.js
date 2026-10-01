@@ -17,6 +17,10 @@ global.IS_REACT_ACT_ENVIRONMENT = true;
 const { createRoot } = require('react-dom/client');
 const { MemoryRouter, Routes, Route } = require('react-router-dom');
 const { act } = require('react-dom/test-utils');
+const { Provider } = require('react-redux');
+const { createStore, applyMiddleware } = require('redux');
+const thunk = require('redux-thunk').default;
+const reducer = require('../../app/assets/javascripts/reducers').default;
 const AssignmentRoster = require('../../app/assets/javascripts/components/assignments_tab/AssignmentRoster').default;
 const AssignmentGrader = require('../../app/assets/javascripts/components/assignments_tab/AssignmentGrader').default;
 const ArticleRoster = require('../../app/assets/javascripts/components/assignments_tab/ArticleRoster').default;
@@ -139,12 +143,15 @@ describe('Assignments tab views', () => {
     document.body.removeChild(container);
   });
 
+  // In a store, as on the course page, for the article viewer.
   const render = (path, element, routePath) => {
     act(() => {
       root.render(
-        <MemoryRouter initialEntries={[path]}>
-          <Routes><Route path={routePath} element={element} /></Routes>
-        </MemoryRouter>
+        <Provider store={createStore(reducer, applyMiddleware(thunk))}>
+          <MemoryRouter initialEntries={[path]}>
+            <Routes><Route path={routePath} element={element} /></Routes>
+          </MemoryRouter>
+        </Provider>
       );
     });
   };
@@ -277,11 +284,13 @@ describe('Assignments tab views', () => {
     });
     await act(async () => {
       root.render(
-        <MemoryRouter initialEntries={[path]}>
-          <Routes>
-            <Route path="/courses/S/T/assignments/*" element={<AssignmentsTabHandler course={{ slug: 'S/T' }} />} />
-          </Routes>
-        </MemoryRouter>
+        <Provider store={createStore(reducer, applyMiddleware(thunk))}>
+          <MemoryRouter initialEntries={[path]}>
+            <Routes>
+              <Route path="/courses/S/T/assignments/*" element={<AssignmentsTabHandler course={{ slug: 'S/T' }} />} />
+            </Routes>
+          </MemoryRouter>
+        </Provider>
       );
     });
   };
@@ -442,12 +451,56 @@ describe('Assignments tab views', () => {
     expect(rows[0].textContent).toContain('No article chosen yet');
     expect(rows[1].querySelector('td').getAttribute('rowspan')).toBe('2');
     expect(rows[1].textContent).not.toContain('Exercises');
-    // The tracker names the stage; the work link names the article.
+    // The tracker names the stages; the links under the title are the pages
+    // (the title itself links to the live article).
     expect(rows[1].querySelector('.assignments-tab__stages').textContent).toContain('Edited live article');
+    // A student's stages are labelled once, on their first article.
+    expect(rows[1].querySelector('.assignments-tab__stages--unlabelled')).toBeNull();
+    expect(rows[2].querySelector('.assignments-tab__stages--unlabelled')).not.toBeNull();
     expect([...rows[1].querySelectorAll('.assignments-tab__work-links a')].map(a => a.textContent))
-      .toEqual(['Draft sandbox', 'Live article']);
+      .toEqual(['Draft sandbox']);
     expect(rows[1].textContent).toContain('Sep 2, 2026');
-    expect(rows[2].querySelectorAll('td').length).toBe(4);
+    expect(rows[2].querySelectorAll('td').length).toBe(3);
     expect(rows[2].querySelector('.assignments-tab__work-links a').className).toBe('assignments-tab__missing');
+  });
+
+  describe('an article the student has edited', () => {
+    const liveArticle = (id, title, revisions) => ({
+      assignment_id: id, title, url: `https://en.wikipedia.org/wiki/${title}`, live: true,
+      article_id: 100 + id, language: 'en', project: 'wikipedia', pages: [],
+      stats: { characters: 0, references: 0, revisions },
+      stages: [{ key: 'live', reached: revisions > 0 }],
+    });
+    const cells = {
+      1: {
+        user_id: 1, state: 'in_progress', exercises: [],
+        articles: [liveArticle(1, 'Telomere', 2), liveArticle(2, 'Heterosis', 0)],
+      },
+    };
+
+    // Left pending: opening the viewer starts its fetches.
+    beforeEach(() => { global.fetch = jest.fn(() => new Promise(() => {})); });
+
+    test('gets the article viewer beside its title in the drawer, and opens in it', () => {
+      const roster = <ArticleRoster students={[students[0]]} cellsByUser={cells} studentPath={s => `/g/${s.username}`} showNames={false} />;
+      render('/', roster, '/');
+      const [edited, unedited] = container.querySelectorAll('tbody tr');
+      expect(unedited.querySelector('.assignments-tab__article-title button')).toBeNull();
+      expect(unedited.querySelector('.assignments-tab__work-links')).toBeNull();
+
+      act(() => { edited.querySelector('.assignments-tab__article-title button').click(); });
+      expect(container.querySelector('.article-viewer .article-viewer-title').textContent).toBe('Telomere');
+    });
+
+    test('gets a Show button for the article viewer in the grader', () => {
+      const grader = <AssignmentGrader item={{ key: 'article', kind: 'article' }} students={[students[0]]} cellsByUser={cells} itemPath="/a/article" />;
+      render('/a/article/Amy', grader, '/a/article/:username');
+      const liveRows = [...container.querySelectorAll('.assignments-tab__work-table tr')]
+        .filter(row => row.querySelector('th')?.textContent === 'Live article');
+      expect(liveRows.map(row => row.querySelectorAll('button').length)).toEqual([1, 0]);
+
+      act(() => { liveRows[0].querySelector('button').click(); });
+      expect(container.querySelector('.article-viewer')).not.toBeNull();
+    });
   });
 });

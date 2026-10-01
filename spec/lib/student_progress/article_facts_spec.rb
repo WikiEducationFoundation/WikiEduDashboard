@@ -90,6 +90,17 @@ describe StudentProgress::ArticleFacts do
       expect(work_for.first.stats.characters).to eq(0)
     end
 
+    it 'identifies the live article for the article viewer once it exists' do
+      assignment = assign
+      expect(work_for.first.article_id).to be_nil
+
+      article = create(:article, title: 'Chromatic_aberration', wiki:, mw_page_id: 4242)
+      assignment.update!(article:)
+      live = work_for.first
+      expect([live.article_id, live.mw_page_id]).to eq([article.id, 4242])
+      expect([live.language, live.project]).to eq([wiki.language, wiki.project])
+    end
+
     it 'sums only the timeslices this student contributed to' do
       article = create(:article, title: 'Chromatic_aberration', wiki:)
       other = create(:user, username: 'classmate')
