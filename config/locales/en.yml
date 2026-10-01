@@ -1014,6 +1014,7 @@ en:
     student_editors: Student Editors
     students_none: This course has no students.
     students_short: Students
+    student_view_action_blocked: You cannot do this while in "View as student" mode.
     submitted_admin: >
       This course has been submitted for approval by its creator. To approve it,
       add it to a campaign on the Overview page.
@@ -1068,6 +1069,7 @@ en:
     view: View Course
     view_doc: The estimated number of views to articles edited by enrolled editors since the editor made their first edit to each article
     view_page: View Course Page
+    view_as_student: View as student
     view_wiki: View on Wikipedia
     volunteer:
       one: Volunteer

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { parse } from '~/app/assets/javascripts/utils/query_string';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import withRouter from '../util/withRouter';
 import OverviewHandler from '../overview/overview_handler.jsx';
 import TimelineHandler from '../timeline/timeline_handler.jsx';
@@ -19,13 +19,15 @@ import { fetchUsers } from '../../actions/user_actions.js';
 import { fetchCampaigns } from '../../actions/campaign_actions.js';
 import { fetchCourse, updateCourse, persistCourse, dismissNotification } from '../../actions/course_actions';
 import { fetchTimeline } from '../../actions/timeline_actions';
+import { restoreStudentView, exitStudentView } from '../../actions/student_view_actions';
 import Affix from '../common/affix.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import EnrollCard from '../enroll/enroll_card.jsx';
 import CourseNavbar from '../common/course_navbar.jsx';
 import Notifications from '../common/notifications.jsx';
 import CourseAlerts from './course_alerts';
-import { getStudentCount, getCurrentUser, getWeeksArray } from '../../selectors';
+import StudentViewToggle from './student_view_toggle';
+import { getStudentCount, getCurrentUser, getWeeksArray, getCanViewAsStudent, getIsViewingAsStudent } from '../../selectors';
 import ActivityHandler from '../activity/activity_handler';
 import CourseApproval from './course_approval';
 
@@ -33,11 +35,21 @@ const Course = withRouter((props) => {
   useEffect(() => {
     // Fetch all the data needed to render a course page
     const courseSlug = getCourseSlug();
+    props.restoreStudentView(courseSlug);
     props.fetchCourse(courseSlug);
     props.fetchUsers(courseSlug);
     props.fetchTimeline(courseSlug);
     props.fetchCampaigns(courseSlug);
   }, []);
+
+  // Student view restored from an earlier visit is dropped if the user can't
+  // use it here (for example, they're no longer an instructor of the course).
+  const courseLoaded = Boolean(props.course.type);
+  useEffect(() => {
+    if (props.viewAsStudent && courseLoaded && props.usersLoaded && !props.canViewAsStudent) {
+      props.exitStudentView(getCourseSlug());
+    }
+  }, [props.viewAsStudent, courseLoaded, props.usersLoaded, props.canViewAsStudent]);
 
   const getCourseSlug = () => {
     const { course_school, course_title } = props.router.params;
@@ -135,6 +147,7 @@ const Course = withRouter((props) => {
         dismissNotification={props.dismissNotification}
       />
       <div className="course_main container">
+        <StudentViewToggle courseSlug={courseSlug} location={props.router.location} />
         <Confirm />
         {courseApprovalForm}
         {enrollCard}
@@ -145,7 +158,8 @@ const Course = withRouter((props) => {
           <Route path="overview" element={<OverviewHandler {...courseProps} />} />
           <Route path="activity/*" element={<ActivityHandler {...courseProps} users={props.users} usersLoaded={props.usersLoaded} />}/>
           <Route path="students/*" element={<StudentsTabHandler {...courseProps} />} />
-          <Route path="assignments/*" element={<AssignmentsTabHandler {...courseProps} />} />
+          {/* Students don't have the Assignments tab. */}
+          <Route path="assignments/*" element={props.isViewingAsStudent ? <Navigate replace to={_courseLinkParams()} /> : <AssignmentsTabHandler {...courseProps} />} />
           <Route path="articles/*" element={<ArticlesHandler {...courseProps} />} />
           <Route path="uploads" element={<UploadsHandler {...courseProps} />} />
           <Route path="article_finder" element={<ArticleFinder {...courseProps} />} />
@@ -176,7 +190,10 @@ const mapStateToProps = state => ({
   weeks: getWeeksArray(state),
   usersLoaded: state.users.isLoaded,
   studentCount: getStudentCount(state),
-  currentUser: getCurrentUser(state)
+  currentUser: getCurrentUser(state),
+  viewAsStudent: state.viewAsStudent,
+  canViewAsStudent: getCanViewAsStudent(state),
+  isViewingAsStudent: getIsViewingAsStudent(state)
 });
 
 const mapDispatchToProps = {
@@ -186,7 +203,9 @@ const mapDispatchToProps = {
   fetchTimeline,
   updateCourse,
   persistCourse,
-  dismissNotification
+  dismissNotification,
+  restoreStudentView,
+  exitStudentView
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Course));
