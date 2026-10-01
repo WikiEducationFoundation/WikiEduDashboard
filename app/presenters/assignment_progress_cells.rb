@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/assignment_pipeline"
 require_dependency "#{Rails.root}/lib/student_progress/article_facts"
 require_dependency "#{Rails.root}/lib/student_progress/exercise_facts"
 require_dependency "#{Rails.root}/lib/student_progress/peer_review_facts"
@@ -81,7 +80,7 @@ class AssignmentProgressCells
     { assignment_id: article.assignment_id, title: article.title, url: article.url,
       live: article.live, status: article.status, status_updated_at: article.status_updated_at,
       assigned_at: article.assigned_at, pages: pages(article).map(&:to_h),
-      stats: article.stats.to_h, stages: stages(article, exercises) }.compact
+      stats: article.stats.to_h, stages: stages(article) }.compact
   end
 
   # The course's pages for the article: bibliography and outline pages are a
@@ -93,24 +92,15 @@ class AssignmentProgressCells
 
   # How far along the article is: each stage of the writing process in order
   # (the course's pages, then the live article) and whether the student has
-  # reached it. A page stage counts once its page exists or the exercise for
-  # it is done (the page check trails by an update cycle, and a student may
-  # keep the page elsewhere); the bibliography also once the student has
-  # moved past it in their own progress steps. The live article counts once
-  # the student has edits in it.
-  def stages(article, exercises)
-    done_stages = exercises.select { |e| e[:completed] }.filter_map { |e| e[:stage] }
-    page_stages = pages(article).map do |page|
-      reached = page.created || done_stages.include?(page.kind) ||
-                (page.kind == :bibliography && past_bibliography?(article))
-      { key: page.kind, reached: }
-    end
+  # reached it. A page stage counts once that article's page exists, as the
+  # Students tab shows it. Not the exercise for the page: it belongs to the
+  # student rather than to one article, and a student with several articles
+  # can complete it with the page for just one of them (CheckExerciseSandbox).
+  # Nor the student's own status, which nothing checks. The live article
+  # counts once the student has edits in it.
+  def stages(article)
+    page_stages = pages(article).map { |page| { key: page.kind, reached: page.created } }
     page_stages << { key: :live, reached: article.stats.revisions.positive? }
-  end
-
-  def past_bibliography?(article)
-    marked = article.statuses.index(AssignmentPipeline::AssignmentStatuses::BIBLIOGRAPHY_COMPLETE)
-    marked.present? && article.statuses.index(article.status).to_i >= marked
   end
 
   def article_exercise(user, mod)

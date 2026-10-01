@@ -67,10 +67,12 @@ describe AssignmentProgressCsvBuilder do
   end
 
   it 'gives the article\'s titles and stages reached, with its exercises as exercises' do
-    %w[First Second].each do |title|
+    first, _second = %w[First Second].map do |title|
       Assignment.create!(course:, user: amy, wiki: course.home_wiki,
                          role: Assignment::Roles::ASSIGNED_ROLE, article_title: title)
     end
+    first.update_sandbox_status(:bibliography,
+                                AssignmentPipeline::SandboxStatuses::EXISTS_IN_USERSPACE)
     complete_exercise(amy, bibliography_exercise)
     amy_row = csv.first
     expect(amy_row['Assigned article: status']).to eq('in_progress')
