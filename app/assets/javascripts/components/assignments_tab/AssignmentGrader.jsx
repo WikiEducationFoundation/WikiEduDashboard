@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import CellDetails, { StateBadge } from './CellDetails';
-import { matchesFilter, neighbors, reachedStage, studentName } from './assignmentHelpers';
+import {
+  listQuery, matchesFilter, neighbors, reachedStage, sortStudents, studentName
+} from './assignmentHelpers';
 import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 const isTyping = target => ['INPUT', 'SELECT', 'TEXTAREA'].includes(target.tagName)
@@ -11,18 +13,25 @@ const isTyping = target => ['INPUT', 'SELECT', 'TEXTAREA'].includes(target.tagNa
 // One assignment, one student at a time: the assignment's heading with
 // previous/next through the students beside it (also on the ← and → keys),
 // then the student list on the side (the same students the roster's filter
-// shows) and that student's work on the assignment.
+// shows, in its order) and that student's work on the assignment.
 const AssignmentGrader = ({ header, item, students, cellsByUser, itemPath }) => {
   const { username } = useParams();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   // The list the grader came from: a status filter, or (for the assigned
-  // article) the students who haven't reached a stage.
-  const filter = searchParams.get('filter') || 'all';
-  const missing = searchParams.get('missing');
-  const query = searchParams.toString() ? `?${searchParams}` : '';
-  const shown = students.filter(student => matchesFilter(cellsByUser[student.id], filter)
-    && (!missing || !reachedStage(cellsByUser[student.id], missing)));
+  // article) the students who haven't reached a stage, in the list's sort.
+  // Only the params of this item's own list apply (see listParams): the other
+  // list's would narrow the wrong students, and a missing stage can't be
+  // checked against another assignment's cells.
+  const isArticle = item.kind === 'article';
+  const filter = (!isArticle && searchParams.get('filter')) || 'all';
+  const missing = isArticle && searchParams.get('missing');
+  const query = listQuery(searchParams, item);
+  const shown = sortStudents(
+    students.filter(student => matchesFilter(cellsByUser[student.id], filter)
+      && (!missing || !reachedStage(cellsByUser[student.id], missing))),
+    cellsByUser, searchParams.get('sort')
+  );
   const { index, previous, next } = neighbors(shown, username);
   const student = students.find(candidate => candidate.username === username);
 

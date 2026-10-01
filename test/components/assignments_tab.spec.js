@@ -4,7 +4,7 @@ jest.mock('../../app/assets/javascripts/components/assignments_tab/AssignmentPro
   fetchAssignmentProgress: jest.fn()
 }));
 import {
-  filterLabel, isLate, itemTitle, matchesFilter, neighbors, studentName
+  filterLabel, isLate, itemTitle, listQuery, matchesFilter, neighbors, sortStudents, studentName
 } from '../../app/assets/javascripts/components/assignments_tab/assignmentHelpers';
 import { rebaseHtml } from '../../app/assets/javascripts/components/assignments_tab/pagePreview';
 
@@ -75,6 +75,44 @@ describe('assignmentHelpers', () => {
     expect(studentName(students[1])).toBe('Bo Real (Bo)');
     expect(studentName(students[0])).toBe('Amy');
   });
+
+  describe('sortStudents', () => {
+    const roster = [
+      { id: 1, username: 'amy' },
+      { id: 2, username: 'Bo', real_name: 'Zed Real' },
+      { id: 3, username: 'Cy', real_name: 'Ann Real' },
+      { id: 4, username: 'Di' },
+    ];
+    const cells = {
+      1: { state: 'not_started' }, 2: { state: 'complete' }, 3: { state: 'in_progress' }, 4: { state: 'complete' },
+    };
+    const order = sort => sortStudents(roster, cells, sort).map(student => student.username);
+
+    test('sorts by username, ignoring case, when no sort is given', () => {
+      expect(order(null)).toEqual(['amy', 'Bo', 'Cy', 'Di']);
+    });
+
+    test('a leading "-" reverses the sort', () => {
+      expect(order('-username')).toEqual(['Di', 'Cy', 'Bo', 'amy']);
+    });
+
+    test('sorts by real name, with students without one after, either way round', () => {
+      expect(order('name')).toEqual(['Cy', 'Bo', 'amy', 'Di']);
+      expect(order('-name')).toEqual(['Bo', 'Cy', 'amy', 'Di']);
+    });
+
+    test('sorts by status from completed to not started, ties by username', () => {
+      expect(order('status')).toEqual(['Bo', 'Di', 'Cy', 'amy']);
+      expect(order('-status')).toEqual(['amy', 'Cy', 'Bo', 'Di']);
+    });
+  });
+
+  test('listQuery keeps only the params that shape the item\'s own student list', () => {
+    const params = new URLSearchParams('open=training-a&filter=overdue&students=1&missing=draft&sort=-status');
+    expect(listQuery(params, { kind: 'training' })).toBe('?filter=overdue&sort=-status');
+    expect(listQuery(params, { kind: 'article' })).toBe('?missing=draft&sort=-status');
+    expect(listQuery(new URLSearchParams('students=1'), { kind: 'article' })).toBe('');
+  });
 });
 
 describe('Assignments tab views', () => {
@@ -85,6 +123,8 @@ describe('Assignments tab views', () => {
     3: { user_id: 3, state: 'not_started', overdue: true },
   };
   const itemPath = '/courses/S/T/assignments/training-a';
+  const exercise = { key: 'exercise-e', kind: 'exercise', title: 'Exercise E', due_date: '2026-02-15' };
+  const exercisePath = '/courses/S/T/assignments/exercise-e';
   let container;
   let root;
 
@@ -120,11 +160,48 @@ describe('Assignments tab views', () => {
     expect(rows[1].textContent).toContain('Overdue');
   });
 
-  test('the roster filter narrows the students and carries into the grader links', () => {
+  test('the roster sorts by a column heading, and again reverses it', () => {
     const roster = <AssignmentRoster item={item} students={students} cellsByUser={cellsByUser} itemPath={itemPath} />;
-    render(`${itemPath}?filter=overdue`, roster, itemPath);
+    render(itemPath, roster, itemPath);
+    const usernames = () => [...container.querySelectorAll('tbody tr')].map(tr => tr.children[1].textContent);
+    const heading = label => [...container.querySelectorAll('thead th')]
+      .find(th => th.textContent === label);
+    expect([...container.querySelectorAll('thead th')].map(th => th.textContent))
+      .toEqual(['Name', 'Username', 'Status', 'Completed at']);
+    expect(heading('Username').getAttribute('aria-sort')).toBe('ascending');
+
+    act(() => { heading('Status').querySelector('button').click(); });
+    expect(heading('Status').getAttribute('aria-sort')).toBe('ascending');
+    expect(heading('Username').hasAttribute('aria-sort')).toBe(false);
+    act(() => { heading('Status').querySelector('button').click(); });
+    expect(heading('Status').getAttribute('aria-sort')).toBe('descending');
+    expect(usernames()).toEqual(['Cy', 'Bo', 'Amy']);
+  });
+
+  test('a training\'s roster doesn\'t link to a one-student view', () => {
+    const roster = <AssignmentRoster item={item} students={students} cellsByUser={cellsByUser} itemPath={itemPath} />;
+    render(itemPath, roster, itemPath);
+    expect(container.querySelectorAll('tbody tr').length).toBe(3);
+    expect(container.querySelector('tbody a')).toBeNull();
+  });
+
+  test('the roster has no Name column when no student has a real name to show', () => {
+    const roster = (
+      <AssignmentRoster item={item} students={[students[0], students[2]]} cellsByUser={cellsByUser} itemPath={itemPath} />
+    );
+    render(itemPath, roster, itemPath);
+    expect([...container.querySelectorAll('thead th')].map(th => th.textContent))
+      .toEqual(['Username', 'Status', 'Completed at']);
+  });
+
+  test('the roster filter and sort narrow and order the students, and carry into the grader links', () => {
+    const roster = (
+      <AssignmentRoster item={exercise} students={students} cellsByUser={cellsByUser} itemPath={exercisePath} />
+    );
+    render(`${exercisePath}?filter=overdue&sort=-status`, roster, exercisePath);
     const links = [...container.querySelectorAll('tbody a')].map(a => a.getAttribute('href'));
-    expect(links).toEqual([`${itemPath}/Bo?filter=overdue`, `${itemPath}/Cy?filter=overdue`]);
+    expect(links).toEqual([`${exercisePath}/Cy?filter=overdue&sort=-status`,
+                           `${exercisePath}/Bo?filter=overdue&sort=-status`]);
   });
 
   test('the grader shows one student with previous and next', () => {
@@ -135,6 +212,25 @@ describe('Assignments tab views', () => {
     const [previous, next] = container.querySelectorAll('.assignments-tab__grader-nav button');
     expect(previous.disabled).toBe(false);
     expect(next.disabled).toBe(false);
+  });
+
+  test('the grader steps through the students in the roster\'s sort', () => {
+    const grader = <AssignmentGrader item={item} students={students} cellsByUser={cellsByUser} itemPath={itemPath} />;
+    render(`${itemPath}/Amy?sort=-username`, grader, `${itemPath}/:username`);
+    expect(container.querySelector('.assignments-tab__grader-nav').textContent).toContain('3 / 3');
+    expect([...container.querySelectorAll('.student-selection li')].map(li => li.textContent))
+      .toEqual(['CyNot startedOverdue', 'Bo RealBoIn progressOverdue', 'AmyCompleted']);
+    const [previous, next] = container.querySelectorAll('.assignments-tab__grader-nav button');
+    expect(next.disabled).toBe(true);
+    act(() => { previous.click(); });
+    expect(container.querySelector('.assignments-tab__student h4').textContent).toBe('Bo Real (Bo)');
+  });
+
+  test('the grader ignores the article list\'s missing stage', () => {
+    const grader = <AssignmentGrader item={item} students={students} cellsByUser={cellsByUser} itemPath={itemPath} />;
+    render(`${itemPath}/Bo?missing=draft`, grader, `${itemPath}/:username`);
+    expect(container.querySelector('.assignments-tab__student h4').textContent).toBe('Bo Real (Bo)');
+    expect(container.querySelector('.assignments-tab__grader-nav').textContent).toContain('2 / 3');
   });
 
   test('the grader moves to the next student on the right arrow key', () => {
@@ -161,10 +257,11 @@ describe('Assignments tab views', () => {
   };
   const summary = {
     students,
-    items: [item, { key: 'article', kind: 'article' }],
+    items: [item, { key: 'article', kind: 'article' }, { key: 'exercise-e', kind: 'exercise', title: 'Exercise E' }],
     summary: [
       { key: 'training-a', complete: 1, in_progress: 1, not_started: 1, overdue: 2, total: 3 },
       { key: 'article', complete: 0, in_progress: 1, not_started: 2, overdue: 0, total: 3 },
+      { key: 'exercise-e', complete: 0, in_progress: 0, not_started: 3, overdue: 0, total: 3 },
     ],
     article_funnel: {
       total: 3,
@@ -189,19 +286,40 @@ describe('Assignments tab views', () => {
     });
   };
 
+  test('names the tab for screen readers, then gives each kind of assignment its own section', async () => {
+    await renderTab();
+    expect(container.querySelector('h2').textContent).toBe('Assignments');
+    expect(container.querySelector('h2').className).toBe('screen-reader');
+    expect([...container.querySelectorAll('h3')].map(h3 => h3.textContent))
+      .toEqual(['Assigned article', 'Trainings', 'Exercises']);
+    const tables = [...container.querySelectorAll('.assignments-tab__list')];
+    expect(tables.map(table => table.querySelector('tbody').textContent)).toEqual([
+      expect.stringContaining('Training A'), expect.stringContaining('Exercise E')
+    ]);
+    expect(tables.map(table => document.getElementById(table.getAttribute('aria-labelledby')).textContent))
+      .toEqual(['Trainings', 'Exercises']);
+  });
+
+  test('links to the CSV of every student\'s statuses', async () => {
+    await renderTab();
+    const link = container.querySelector('.assignments-tab__toolbar a');
+    expect(link.textContent).toBe('Download CSV');
+    expect(link.getAttribute('href')).toBe('/courses/S/T/assignment_progress.csv');
+  });
+
   test('clicking an assignment row opens its students in a drawer, and again closes it', async () => {
     await renderTab();
     const rows = container.querySelectorAll('.assignments-tab__list > tbody > tr');
-    expect(rows.length).toBe(1); // the assigned article is in its own panel, not the table
+    expect(rows.length).toBe(2); // the assigned article is in its own panel, not the tables
     expect(container.querySelector('.drawer')).toBeNull();
 
-    const row = rows[0];
+    const row = rows[1];
     await act(async () => { row.click(); });
-    expect(fetchAssignmentProgress).toHaveBeenCalledWith('S/T', 'training-a');
+    expect(fetchAssignmentProgress).toHaveBeenCalledWith('S/T', 'exercise-e');
     expect(row.className).toBe('open');
     expect(container.querySelectorAll('.drawer tbody tr').length).toBe(3);
     expect(container.querySelector('.drawer a').getAttribute('href'))
-      .toBe('/courses/S/T/assignments/training-a/Amy');
+      .toBe('/courses/S/T/assignments/exercise-e/Amy');
     expect(row.querySelector('button').getAttribute('aria-expanded')).toBe('true');
 
     await act(async () => { row.click(); });
@@ -212,7 +330,7 @@ describe('Assignments tab views', () => {
     await renderTab();
     const bars = [...container.querySelectorAll('.assignments-tab__funnel-bar')];
     expect(bars.map(bar => bar.querySelector('.assignments-tab__funnel-label').textContent))
-      .toEqual(['Article assigned', 'Draft sandbox', 'Live article']);
+      .toEqual(['Article assigned', 'Draft sandbox', 'Edited live article']);
     expect(bars[1].querySelector('.assignments-tab__funnel-value').textContent).toBe('1 / 3 · 33%');
     expect(bars[1].querySelector('.assignments-tab__funnel-fill').style.width).toBe('33%');
     expect(bars[1].textContent).toContain('Overdue: 2');
@@ -234,7 +352,26 @@ describe('Assignments tab views', () => {
     const all = [...container.querySelectorAll('.assignments-tab__article-panel button')]
       .find(button => button.textContent === 'All');
     await act(async () => { all.click(); });
-    expect(names()).toEqual(['Amy', 'Bo Real (Bo)', 'Cy']);
+    expect(names()).toEqual(['Amy', 'Bo', 'Cy']);
+  });
+
+  test('sorting the article panel\'s students carries into the grader links', async () => {
+    await renderTab('/courses/S/T/assignments?students=1&missing=draft');
+    const statusSort = [...container.querySelectorAll('.assignments-tab__article-roster th button')]
+      .find(button => button.textContent === 'Status');
+    await act(async () => { statusSort.click(); });
+    await act(async () => { statusSort.click(); });
+    expect(container.querySelector('.assignments-tab__student-cell a').getAttribute('href'))
+      .toBe('/courses/S/T/assignments/article/Amy?missing=draft&sort=-status');
+  });
+
+  test('with an assignment row and the article\'s students both open, each list\'s links keep only its own narrowing', async () => {
+    await renderTab('/courses/S/T/assignments?open=exercise-e&filter=complete&students=1&missing=draft');
+    expect([...container.querySelectorAll('.drawer tbody a')].map(a => a.getAttribute('href')))
+      .toEqual(['/courses/S/T/assignments/exercise-e/Amy?filter=complete']);
+    expect([...container.querySelectorAll('.assignments-tab__student-cell a')].map(a => a.getAttribute('href')))
+      .toEqual(['/courses/S/T/assignments/article/Amy?missing=draft',
+                '/courses/S/T/assignments/article/Cy?missing=draft']);
   });
 
   test('the grader shows an article with its pages, exercises and a sandbox preview toggle', async () => {
@@ -298,13 +435,17 @@ describe('Assignments tab views', () => {
         articles: [article(1, 'Telomere', { assigned_at: '2026-09-02T15:00:00Z' }), article(2, 'Heterosis')],
       },
     };
-    const roster = <ArticleRoster students={students.slice(0, 2)} cellsByUser={cells} studentPath={s => `/g/${s.username}`} />;
+    const roster = <ArticleRoster students={students.slice(0, 2)} cellsByUser={cells} studentPath={s => `/g/${s.username}`} showNames />;
     render('/', roster, '/');
     const rows = container.querySelectorAll('tbody tr');
     expect(rows.length).toBe(3);
     expect(rows[0].textContent).toContain('No article chosen yet');
     expect(rows[1].querySelector('td').getAttribute('rowspan')).toBe('2');
-    expect(rows[1].textContent).toContain('Exercises: 1 / 1');
+    expect(rows[1].textContent).not.toContain('Exercises');
+    // The tracker names the stage; the work link names the article.
+    expect(rows[1].querySelector('.assignments-tab__stages').textContent).toContain('Edited live article');
+    expect([...rows[1].querySelectorAll('.assignments-tab__work-links a')].map(a => a.textContent))
+      .toEqual(['Draft sandbox', 'Live article']);
     expect(rows[1].textContent).toContain('Sep 2, 2026');
     expect(rows[2].querySelectorAll('td').length).toBe(4);
     expect(rows[2].querySelector('.assignments-tab__work-links a').className).toBe('assignments-tab__missing');

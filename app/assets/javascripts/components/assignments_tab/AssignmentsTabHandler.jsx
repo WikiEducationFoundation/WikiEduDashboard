@@ -29,6 +29,12 @@ const AssignmentSummary = ({ course, tabPath }) => {
   if (!data) { return <Loading />; }
   return (
     <>
+      {/* Every student's status on every assignment, one row per student. */}
+      <div className="assignments-tab__toolbar">
+        <a className="button border small" href={`/courses/${course.slug}/assignment_progress.csv`} download>
+          {I18n.t('report_cards.download_csv')}
+        </a>
+      </div>
       <ArticlePanel data={data} itemData={itemData.article} loadItem={loadItem} tabPath={tabPath} />
       <AssignmentList data={data} itemData={itemData} loadItem={loadItem} tabPath={tabPath} />
     </>
@@ -57,8 +63,12 @@ const AssignmentsTabHandler = ({ course }) => {
   if (!course.slug) { return <Loading />; }
 
   const tabPath = `/courses/${course.slug}/assignments`;
+  // The course page's h1 is the course title (for screen readers); this names
+  // the tab, so the sections' and grader's h3s sit under it. The tab bar
+  // already shows which tab this is, so it's for screen readers too.
   return (
     <div className="assignments-tab">
+      <h2 className="screen-reader">{I18n.t('assignments_tab.label')}</h2>
       <Routes>
         <Route path=":itemKey/:username" element={<AssignmentView course={course} tabPath={tabPath} />} />
         <Route path=":itemKey" element={<OpenInList tabPath={tabPath} />} />

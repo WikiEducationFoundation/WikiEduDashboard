@@ -52,15 +52,17 @@ describe BuildAssignmentCatalog do
     expect(item.due_date).to eq(course.blocks.first.calculated_due_date)
   end
 
-  it 'folds the exercises about the article into one article item, where the first one sits' do
+  it 'folds the exercises about the article into the article item, just before the first one' do
     create(:block, week: week_one, order: 0, training_module_ids: [training.id])
     create(:block, week: week_one, order: 1, training_module_ids: [bibliography_exercise.id])
     create(:block, week: week_two, order: 0, training_module_ids: [exercise.id])
     create(:block, week: week_two, order: 1, training_module_ids: [continue_improving.id])
 
-    expect(keys).to eq(%w[training-tr-a article exercise-ex-a])
     article = catalog.items.find { |item| item.key == 'article' }
     expect(article.training_modules).to eq([bibliography_exercise, continue_improving])
+    # They're also listed as exercises in their own right.
+    expect(keys).to eq(%w[training-tr-a article exercise-bib-ex exercise-ex-a
+                          exercise-continue-improving-exercise])
   end
 
   it 'lists the article on its own for a course with no article exercises' do

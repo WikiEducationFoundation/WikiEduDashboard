@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { Link, useSearchParams } from 'react-router-dom';
 import CellDetails, { StateBadge } from './CellDetails';
 import ItemLinks from './ItemLinks';
-import { FILTERS, filterLabel, matchesFilter, studentName } from './assignmentHelpers';
+import { StudentHeaders, hasRealNames, useStudentSort } from './StudentSort';
+import { FILTERS, filterLabel, listQuery, matchesFilter, sortStudents } from './assignmentHelpers';
 
 const DETAILS_HEADINGS = {
   training: 'training_status.completed_at',
@@ -11,53 +12,57 @@ const DETAILS_HEADINGS = {
   peer_review: 'lti.assignment_view.peer_review.reviews',
 };
 
-// One row per student with their status and a compact view of their work.
-// (The assigned article has its own panel and table: ArticlePanel.)
-const StudentRoster = ({ item, students, cellsByUser, studentPath }) => (
-  <table className="table table--hoverable">
-    <thead>
-      <tr>
-        <th>{I18n.t('lti.assignment_view.roster.student')}</th>
-        <th>{I18n.t('lti.assignment_view.roster.status')}</th>
-        <th>{I18n.t(DETAILS_HEADINGS[item.kind])}</th>
-      </tr>
-    </thead>
-    <tbody>
-      {students.map((student) => {
-        const cell = cellsByUser[student.id];
-        return (
-          <tr key={student.id}>
-            <td>
-              <Link to={studentPath(student)}>
-                {studentName(student)}
-              </Link>
-            </td>
-            <td><StateBadge cell={cell} /></td>
-            <td><CellDetails cell={cell} item={item} compact /></td>
-          </tr>
-        );
-      })}
-    </tbody>
-  </table>
-);
+// One row per student with their status and a compact view of their work,
+// sortable by any of the student columns. (The assigned article has its own
+// panel and table: ArticlePanel.)
+const StudentRoster = ({ item, students, cellsByUser, studentPath, showNames }) => {
+  const { sort, sortBy } = useStudentSort();
+  return (
+    <table className="table table--hoverable">
+      <thead>
+        <tr>
+          <StudentHeaders showNames={showNames} sort={sort} sortBy={sortBy} />
+          <th>{I18n.t(DETAILS_HEADINGS[item.kind])}</th>
+        </tr>
+      </thead>
+      <tbody>
+        {sortStudents(students, cellsByUser, sort).map((student) => {
+          const cell = cellsByUser[student.id];
+          return (
+            <tr key={student.id}>
+              {showNames && <td>{student.real_name}</td>}
+              <td>
+                {studentPath ? <Link to={studentPath(student)}>{student.username}</Link> : student.username}
+              </td>
+              <td><StateBadge cell={cell} /></td>
+              <td><CellDetails cell={cell} item={item} compact /></td>
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  );
+};
 
 StudentRoster.propTypes = {
   item: PropTypes.object.isRequired,
   students: PropTypes.array.isRequired,
   cellsByUser: PropTypes.object.isRequired,
-  studentPath: PropTypes.func.isRequired,
+  studentPath: PropTypes.func,
+  showNames: PropTypes.bool.isRequired,
 };
 
 // One assignment, every student: the contents of its row's drawer in the
-// list. The status filter rides in the URL, so the grader steps through the
-// same students the roster shows.
+// list. The status filter and sort ride in the URL, so the grader steps
+// through the same students the roster shows, in the same order.
 const AssignmentRoster = ({ item, students, cellsByUser, itemPath }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get('filter') || 'all';
   const shown = students.filter(student => matchesFilter(cellsByUser[student.id], filter));
-  const query = filter === 'all' ? '' : `?filter=${filter}`;
-
-  const studentPath = student => `${itemPath}/${encodeURIComponent(student.username)}${query}`;
+  // A training's one-student view would only repeat its row here (when the
+  // student finished it), so a training's usernames don't link to one.
+  const studentPath = item.kind === 'training' ? null
+    : student => `${itemPath}/${encodeURIComponent(student.username)}${listQuery(searchParams, item)}`;
 
   const onFilterChange = (event) => {
     const params = new URLSearchParams(searchParams);
@@ -80,7 +85,10 @@ const AssignmentRoster = ({ item, students, cellsByUser, itemPath }) => {
           ))}
         </select>
       </label>
-      <StudentRoster item={item} students={shown} cellsByUser={cellsByUser} studentPath={studentPath} />
+      <StudentRoster
+        item={item} students={shown} cellsByUser={cellsByUser} studentPath={studentPath}
+        showNames={hasRealNames(students)}
+      />
     </div>
   );
 };

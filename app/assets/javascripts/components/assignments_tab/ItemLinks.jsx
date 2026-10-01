@@ -23,7 +23,7 @@ const ItemLinks = ({ item, withSummary = false }) => {
       <a key="training" href={item.training_url} target="_blank" rel="noopener noreferrer">
         {item.kind === 'exercise'
           ? I18n.t('lti.assignment_view.student.launch_instructions')
-          : I18n.t('training_status.view')}
+          : I18n.t('assignments_tab.view_training')}
       </a>
     );
   }
