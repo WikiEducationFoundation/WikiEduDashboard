@@ -85,7 +85,7 @@ describe StudentStatusContext do
   it 'reads the same overview through a shared preload' do
     mark_complete(exercise_a)
     classmate = create(:user, username: 'Classmate')
-    preload = LtiProgressPreload.new(course:, user_ids: [user.id, classmate.id])
+    preload = StudentProgress::Roster.new(course:, user_ids: [user.id, classmate.id])
     shared = described_class.new(course:, user:, preload:)
 
     expect(shared.exercise_items.map(&:to_a)).to eq(context.exercise_items.map(&:to_a))

@@ -146,8 +146,9 @@ class LtiCourseBinding < ApplicationRecord
   # Learner memberships that have linked a Wikipedia account — the set that sync
   # status counts and assignment rosters list. Learners specifically, not
   # "everyone who isn't staff": a Canvas observer belongs in neither group.
+  # Users are loaded with them, since every roster reads each one's username.
   def linked_student_contexts
-    lti_contexts.linked.select(&:learner?)
+    lti_contexts.linked.includes(:user).select(&:learner?)
   end
 
   # Every learner the LMS roster has reported, connected or not. This is the

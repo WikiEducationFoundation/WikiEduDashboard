@@ -71,6 +71,18 @@ const CourseNavbar = ({ course, location, currentUser, courseLink, weeks = [] })
     );
   }
 
+  // Instructor-facing class progress; the endpoint behind it enforces the same
+  // roles (anyone who can edit the course).
+  let assignments;
+  if (course.assignments_tab_enabled && currentUser?.isAdvancedRole) {
+    const assignmentsLink = `${courseLink}/assignments`;
+    assignments = (
+      <div className="nav__item" id="assignments-link">
+        <p><NavLink to={assignmentsLink} className={({ isActive }) => (isActive ? 'active' : '')}>{I18n.t('assignments_tab.label')}</NavLink></p>
+      </div>
+    );
+  }
+
   // //////////////
   // Common tabs //
   // //////////////
@@ -99,6 +111,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink, weeks = [] })
         </div>
         {timeline}
         {users}
+        {assignments}
         <div className="nav__item" id="articles-link">
           <p><NavLink to={articlesLink} className={({ isActive }) => (isActive ? 'active' : '')}>{CourseUtils.i18n('articles_short', course.wiki_string_prefix)}</NavLink></p>
         </div>

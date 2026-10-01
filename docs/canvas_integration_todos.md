@@ -1490,7 +1490,7 @@ now rebasing links against the wiki origin) and the roster/own-panel split.
   (`AssignmentViewContext::ARTICLE_PANEL_SLUGS`); every `editing` assignment is
   listed, so a student with two articles gets two; the live-article numbers are
   characters, references and edits, from `article_course_timeslices` filtered to
-  that student. Data assembly lives in `AssignedArticleWork`, built once per
+  that student. Data assembly lives in `StudentProgress::ArticleFacts`, built once per
   drill-down for the whole roster rather than per row. Stale statuses were left as
   they are — `CheckAssignmentStatus` is the source, and the panel's own preview
   fetch is the live check._

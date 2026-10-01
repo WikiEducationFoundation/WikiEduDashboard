@@ -7,6 +7,7 @@ import withRouter from '../util/withRouter';
 import OverviewHandler from '../overview/overview_handler.jsx';
 import TimelineHandler from '../timeline/timeline_handler.jsx';
 import StudentsTabHandler from '../students/containers/StudentsTabHandler';
+import AssignmentsTabHandler from '../assignments_tab/AssignmentsTabHandler';
 import ArticlesHandler from '../articles/articles_handler.jsx';
 import UploadsHandler from '../uploads/uploads_handler.jsx';
 import Resources from '../resources/resources.jsx';
@@ -144,6 +145,7 @@ const Course = withRouter((props) => {
           <Route path="overview" element={<OverviewHandler {...courseProps} />} />
           <Route path="activity/*" element={<ActivityHandler {...courseProps} users={props.users} usersLoaded={props.usersLoaded} />}/>
           <Route path="students/*" element={<StudentsTabHandler {...courseProps} />} />
+          <Route path="assignments/*" element={<AssignmentsTabHandler {...courseProps} />} />
           <Route path="articles/*" element={<ArticlesHandler {...courseProps} />} />
           <Route path="uploads" element={<UploadsHandler {...courseProps} />} />
           <Route path="article_finder" element={<ArticleFinder {...courseProps} />} />

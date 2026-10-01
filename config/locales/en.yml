@@ -505,6 +505,14 @@ en:
       Please note that the article you’ve chosen is on a wiki not tracked
       by this course. To track contributions to this article, an instructor
       must add the following wiki to this course: %{wiki}
+  # The instructor-facing Assignments tab on the course page.
+  assignments_tab:
+    label: Assignments
+    overdue: Overdue
+    progress: Progress
+    assigned: Assigned
+    live_article: Live article
+    stage_assigned: Article assigned
   blocks:
     milestones:
       title: Milestones

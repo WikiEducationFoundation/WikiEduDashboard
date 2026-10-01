@@ -1,0 +1,374 @@
+// Instructor-facing Assignments tab (components/assignments_tab). The grader
+// reuses the Students tab's two-pane layout (.users-articles).
+.assignments-tab
+  padding-top 20px
+
+  .assignments-tab__kind
+    color $text_med
+    display block
+    font-size 12px
+
+  .assignments-tab__meta .assignments-tab__kind
+    display inline
+
+  .assignments-tab__header
+    margin-bottom 15px
+    h3
+      margin 5px 0
+
+  .assignments-tab__state
+    font-weight 600
+    white-space nowrap
+  .assignments-tab__state--complete
+    color $success_text
+  .assignments-tab__state--in_progress
+    color $brand_primary
+  .assignments-tab__state--not_started
+    color $text_med
+
+  .assignments-tab__overdue, .assignments-tab__late
+    color $warning_text
+    font-weight 600
+  .assignments-tab__overdue
+    margin-left 8px
+
+  .assignments-tab__overdue-count
+    color $warning_text
+    font-weight 600
+
+  .assignments-tab__filter
+    display inline-block
+    margin-bottom 10px
+    select
+      margin-left 5px
+
+  .assignments-tab__article-status
+    color $text_med
+    font-size 13px
+
+  .assignments-tab__grader-top
+    align-items flex-end
+    display flex
+    flex-wrap wrap
+    gap 10px 20px
+    justify-content space-between
+    margin-bottom 15px
+    .assignments-tab__header
+      margin-bottom 0
+
+  .assignments-tab__grader-nav
+    align-items center
+    display flex
+    gap 12px
+    .button
+      margin 0
+    .button:disabled
+      cursor default
+      opacity 0.5
+
+  .assignments-tab__position
+    color $text_med
+    min-width 3.5em
+    text-align center
+
+  .assignments-tab__grader .student .assignments-tab__state
+    font-size 12px
+
+  .assignments-tab__grader li.student.selected .assignments-tab__state
+    color white
+
+  // The open assignment's drawer in the list.
+  .assignments-tab__list > tbody > .drawer > td
+    background white
+    padding 15px 20px
+    .table
+      margin-bottom 0
+
+  .assignments-tab__exercise-count
+    color $text_med
+    font-size 14px
+
+  // Inline sandbox previews: a scrollable, bordered excerpt of the wiki page.
+  .assignments-tab__preview-panel
+    background white
+    border 1px solid $border_lt
+    margin 8px 0 12px
+    max-height 480px
+    overflow auto
+    padding 10px 15px
+    &[hidden]
+      display none
+
+
+  // The assigned article's drawer table.
+  .assignments-tab__article-roster
+    td
+      vertical-align top
+    .assignments-tab__student-cell
+      border-right 1px solid $border_lt
+    .assignments-tab__no-article
+      color $text_med
+
+  .assignments-tab__date
+    color $text_med
+    white-space nowrap
+
+  // Stages as a row of segments: filled once reached, labelled underneath.
+  .assignments-tab__stages
+    display flex
+    gap 3px
+    list-style none
+    margin 0 0 6px
+    padding 0
+    li
+      border-top 6px solid $border_lt
+      color $text_med
+      flex 1
+      font-size 11px
+      line-height 1.3
+      min-width 56px
+      padding-top 3px
+      &.reached
+        border-top-color $success_text
+        color $text_dk
+
+  // One link per line, never wrapped mid-label; pages that don't exist yet are
+  // muted (and titled "Not started").
+  .assignments-tab__work-links
+    list-style none
+    margin 0
+    padding 0
+    li
+      line-height 1.6
+      white-space nowrap
+    .assignments-tab__missing
+      color $text_med
+
+  // The assigned article's panel, above the other assignments: a funnel of how
+  // much of the class has reached each stage.
+  .assignments-tab__article-panel
+    background white
+    border 1px solid $border_lt
+    border-left 5px solid $brand_primary
+    margin-bottom 25px
+    padding 15px 20px
+    h3
+      color $brand_primary
+      margin 0 0 10px
+
+  .assignments-tab__funnel
+    list-style none
+    margin 0 0 10px
+    padding 0
+
+  // Each stage is a button (it filters the student list), laid out as a row:
+  // label, bar, count, then due date / overdue.
+  .assignments-tab__funnel-bar
+    align-items center
+    background none
+    border none
+    border-radius 3px
+    color $text_dk
+    cursor pointer
+    display grid
+    font inherit
+    gap 12px
+    grid-template-columns 150px minmax(120px, 1fr) 110px 190px
+    padding 5px 8px
+    text-align left
+    width 100%
+    &:hover, &:focus-visible
+      background athens
+    &:hover .assignments-tab__funnel-fill
+      background lighten($brand_primary, 12%)
+    &.active
+      background athens
+      box-shadow inset 3px 0 0 $brand_primary
+
+  // A meter: the fill carries the share; the track is a lighter step of the
+  // same hue. Thin (<= 24px) with a rounded data end, square at the start.
+  .assignments-tab__funnel-track
+    background lighten($brand_primary, 82%)
+    border-radius 0 4px 4px 0
+    display block
+    height 18px
+    overflow hidden
+  .assignments-tab__funnel-fill
+    background $brand_primary
+    border-radius 0 4px 4px 0
+    display block
+    height 100%
+
+  .assignments-tab__funnel-value
+    font-variant-numeric tabular-nums
+    white-space nowrap
+
+  .assignments-tab__funnel-meta
+    color $text_med
+    font-size 13px
+    .assignments-tab__overdue
+      margin-left 8px
+
+  .assignments-tab__students-toggle
+    align-items center
+    background none
+    border none
+    color $brand_primary
+    cursor pointer
+    display inline-flex
+    font inherit
+    font-weight 600
+    gap 6px
+    padding 4px 0
+    .icon
+      transition transform 250ms ease
+    &[aria-expanded="true"] .icon
+      transform rotateZ(180deg)
+
+  .assignments-tab__article-panel .assignments-tab__article-roster
+    margin-top 10px
+
+  // The grader: the student's name and status, then a card per piece of work.
+  .assignments-tab__student-header
+    align-items baseline
+    display flex
+    flex-wrap wrap
+    gap 4px 14px
+    margin-bottom 16px
+    h4
+      margin 0
+
+  .assignments-tab__card
+    background white
+    border 1px solid $border_lt
+    border-radius 4px
+    margin-bottom 16px
+    padding 16px 20px
+
+  .assignments-tab__card-header
+    align-items flex-start
+    display flex
+    gap 12px
+    justify-content space-between
+    margin-bottom 12px
+
+  .assignments-tab__card-title
+    font-size 18px
+    margin 0 0 4px
+
+  .assignments-tab__pill
+    background athens
+    border-radius 10px
+    color $text_med
+    display inline-block
+    font-size 12px
+    padding 2px 10px
+
+  .assignments-tab__card .assignments-tab__stages
+    margin-bottom 14px
+    li
+      border-top-width 8px
+      font-size 12px
+
+  // Label, state and actions in fixed columns, hairline-separated rows.
+  .assignments-tab__work-table
+    border-collapse collapse
+    width 100%
+    tr + tr
+      border-top 1px solid $border_lt
+    th, td
+      padding 8px 12px 8px 0
+      vertical-align middle
+    th
+      font-weight 600
+      text-align left
+      width 26%
+    .assignments-tab__preview-row
+      border-top none
+      td
+        padding 0 0 12px
+      .assignments-tab__preview-panel
+        margin 0
+
+  .assignments-tab__work-actions
+    padding-right 0
+    text-align right
+    white-space nowrap
+    .button
+      margin 0 0 0 12px
+
+  .assignments-tab__status
+    color $text_med
+  .assignments-tab__status-mark
+    display inline-block
+    font-weight 700
+    margin-right 6px
+    width 1em
+  .assignments-tab__status--done
+    color $text_dk
+    .assignments-tab__status-mark
+      color $success_text
+
+  .assignments-tab__live-stats
+    color $text_med
+    > span
+      margin-right 16px
+      white-space nowrap
+    strong
+      color $text_dk
+
+  .assignments-tab__empty
+    color $text_med
+
+  // The site's base `li` indent is for prose lists; these lists are layout.
+  // (Previewed wiki content keeps it.)
+  .assignments-tab__stages li,
+  .assignments-tab__funnel li,
+  .assignments-tab__work-links li
+    margin-left 0
+
+  // Progress column: one 100% bar per assignment, completed → in progress →
+  // not started. An ordinal ramp of the brand hue (validated: monotone
+  // lightness, single hue); not started is the pale track step. 2px surface
+  // gaps between segments, rounded outer ends, thin.
+  .assignments-tab__progress-heading
+    width 38%
+
+  .assignments-tab__legend
+    color $text_med
+    display flex
+    flex-wrap wrap
+    font-size 12px
+    font-weight normal
+    gap 2px 12px
+    margin-top 2px
+  .assignments-tab__legend-item
+    align-items center
+    display inline-flex
+    gap 5px
+  .assignments-tab__swatch
+    border-radius 2px
+    display inline-block
+    height 10px
+    width 10px
+
+  .assignments-tab__state-bar
+    border-radius 4px
+    display flex
+    gap 2px
+    height 12px
+    overflow hidden
+  .assignments-tab__segment
+    flex-basis 0
+    min-width 3px
+  .assignments-tab__segment--complete
+    background #474E97
+  .assignments-tab__segment--in_progress
+    background #9DA2D2
+  .assignments-tab__segment--not_started
+    background lighten($brand_primary, 82%)
+
+  .assignments-tab__state-counts
+    color $text_med
+    font-size 13px
+    margin-top 4px
