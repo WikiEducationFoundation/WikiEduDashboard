@@ -101,14 +101,16 @@ export const sortStudents = (students, cellsByUser, sort) => {
     || SORT_COMPARATORS.username(a, b));
 };
 
-// The params that shape a student list (status filter, missing stage, sort),
-// carried from the list into the grader's links and back, so the grader steps
-// through the same students in the same order.
-export const LIST_PARAMS = ['filter', 'missing', 'sort'];
+// The params that shape an item's student list, carried from the list into
+// the grader's links and back, so the grader steps through the same students
+// in the same order: the assigned article's list narrows to a missing stage,
+// the others to a status filter, and either has a sort. The article's list and
+// an assignment's row can be open at once, so each carries only its own.
+export const listParams = item => [item.kind === 'article' ? 'missing' : 'filter', 'sort'];
 
-export const listQuery = (searchParams) => {
+export const listQuery = (searchParams, item) => {
   const params = new URLSearchParams();
-  LIST_PARAMS.forEach((param) => {
+  listParams(item).forEach((param) => {
     if (searchParams.get(param)) { params.set(param, searchParams.get(param)); }
   });
   return params.toString() ? `?${params}` : '';

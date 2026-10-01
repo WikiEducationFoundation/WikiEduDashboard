@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import CellDetails, { StateBadge } from './CellDetails';
 import {
-  matchesFilter, neighbors, reachedStage, sortStudents, studentName
+  listQuery, matchesFilter, neighbors, reachedStage, sortStudents, studentName
 } from './assignmentHelpers';
 import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
@@ -20,9 +20,13 @@ const AssignmentGrader = ({ header, item, students, cellsByUser, itemPath }) => 
   const [searchParams] = useSearchParams();
   // The list the grader came from: a status filter, or (for the assigned
   // article) the students who haven't reached a stage, in the list's sort.
-  const filter = searchParams.get('filter') || 'all';
-  const missing = searchParams.get('missing');
-  const query = searchParams.toString() ? `?${searchParams}` : '';
+  // Only the params of this item's own list apply (see listParams): the other
+  // list's would narrow the wrong students, and a missing stage can't be
+  // checked against another assignment's cells.
+  const isArticle = item.kind === 'article';
+  const filter = (!isArticle && searchParams.get('filter')) || 'all';
+  const missing = isArticle && searchParams.get('missing');
+  const query = listQuery(searchParams, item);
   const shown = sortStudents(
     students.filter(student => matchesFilter(cellsByUser[student.id], filter)
       && (!missing || !reachedStage(cellsByUser[student.id], missing))),

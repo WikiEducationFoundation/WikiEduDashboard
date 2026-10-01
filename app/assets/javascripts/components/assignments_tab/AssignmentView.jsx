@@ -5,7 +5,7 @@ import Loading from '@components/common/loading.jsx';
 import { fetchAssignmentProgress } from './AssignmentProgressAPI';
 import AssignmentHeader from './AssignmentHeader';
 import AssignmentGrader from './AssignmentGrader';
-import { LIST_PARAMS } from './assignmentHelpers';
+import { listParams } from './assignmentHelpers';
 
 // The grader for one assignment: its per-student rows, one student at a time.
 const AssignmentView = ({ course, tabPath }) => {
@@ -28,7 +28,7 @@ const AssignmentView = ({ course, tabPath }) => {
   // Back to where the grader was opened from, with its filter and sort still
   // applied: the article panel's student list, or the assignment's open row.
   const backParams = new URLSearchParams(item.kind === 'article' ? { students: '1' } : { open: item.key });
-  LIST_PARAMS.forEach((param) => {
+  listParams(item).forEach((param) => {
     if (searchParams.get(param)) { backParams.set(param, searchParams.get(param)); }
   });
 

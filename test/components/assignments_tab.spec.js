@@ -107,10 +107,11 @@ describe('assignmentHelpers', () => {
     });
   });
 
-  test('listQuery keeps only the params that shape a student list', () => {
-    expect(listQuery(new URLSearchParams('open=training-a&filter=overdue&sort=-status')))
-      .toBe('?filter=overdue&sort=-status');
-    expect(listQuery(new URLSearchParams('students=1'))).toBe('');
+  test('listQuery keeps only the params that shape the item\'s own student list', () => {
+    const params = new URLSearchParams('open=training-a&filter=overdue&students=1&missing=draft&sort=-status');
+    expect(listQuery(params, { kind: 'training' })).toBe('?filter=overdue&sort=-status');
+    expect(listQuery(params, { kind: 'article' })).toBe('?missing=draft&sort=-status');
+    expect(listQuery(new URLSearchParams('students=1'), { kind: 'article' })).toBe('');
   });
 });
 
@@ -212,6 +213,13 @@ describe('Assignments tab views', () => {
     expect(next.disabled).toBe(true);
     act(() => { previous.click(); });
     expect(container.querySelector('.assignments-tab__student h4').textContent).toBe('Bo Real (Bo)');
+  });
+
+  test('the grader ignores the article list\'s missing stage', () => {
+    const grader = <AssignmentGrader item={item} students={students} cellsByUser={cellsByUser} itemPath={itemPath} />;
+    render(`${itemPath}/Bo?missing=draft`, grader, `${itemPath}/:username`);
+    expect(container.querySelector('.assignments-tab__student h4').textContent).toBe('Bo Real (Bo)');
+    expect(container.querySelector('.assignments-tab__grader-nav').textContent).toContain('2 / 3');
   });
 
   test('the grader moves to the next student on the right arrow key', () => {
@@ -344,6 +352,15 @@ describe('Assignments tab views', () => {
     await act(async () => { statusSort.click(); });
     expect(container.querySelector('.assignments-tab__student-cell a').getAttribute('href'))
       .toBe('/courses/S/T/assignments/article/Amy?missing=draft&sort=-status');
+  });
+
+  test('with an assignment row and the article\'s students both open, each list\'s links keep only its own narrowing', async () => {
+    await renderTab('/courses/S/T/assignments?open=training-a&filter=complete&students=1&missing=draft');
+    expect([...container.querySelectorAll('.drawer tbody a')].map(a => a.getAttribute('href')))
+      .toEqual(['/courses/S/T/assignments/training-a/Amy?filter=complete']);
+    expect([...container.querySelectorAll('.assignments-tab__student-cell a')].map(a => a.getAttribute('href')))
+      .toEqual(['/courses/S/T/assignments/article/Amy?missing=draft',
+                '/courses/S/T/assignments/article/Cy?missing=draft']);
   });
 
   test('the grader shows an article with its pages, exercises and a sandbox preview toggle', async () => {

@@ -57,7 +57,7 @@ const AssignmentRoster = ({ item, students, cellsByUser, itemPath }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get('filter') || 'all';
   const shown = students.filter(student => matchesFilter(cellsByUser[student.id], filter));
-  const studentPath = student => `${itemPath}/${encodeURIComponent(student.username)}${listQuery(searchParams)}`;
+  const studentPath = student => `${itemPath}/${encodeURIComponent(student.username)}${listQuery(searchParams, item)}`;
 
   const onFilterChange = (event) => {
     const params = new URLSearchParams(searchParams);

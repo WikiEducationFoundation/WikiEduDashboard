@@ -82,7 +82,7 @@ const ArticlePanel = ({ data, itemData, loadItem, tabPath }) => {
       const cellsByUser = Object.fromEntries(itemData.rows.map(cell => [cell.user_id, cell]));
       const shown = itemData.students
         .filter(student => !missing || !reachedStage(cellsByUser[student.id], missing));
-      const query = listQuery(searchParams);
+      const query = listQuery(searchParams, item);
       students = (
         <>
           {missing && (
