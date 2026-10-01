@@ -31,6 +31,7 @@ export * from './user_revisions';
 export * from './user_roles';
 export * from './users';
 export * from './settings';
+export * from './student_view';
 export * from './tags';
 export * from './tagged_courses_stats';
 export * from './timeline';
