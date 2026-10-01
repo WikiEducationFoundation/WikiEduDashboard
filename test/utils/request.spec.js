@@ -52,6 +52,24 @@ describe('ensureOk', () => {
     await expect(ensureOk(response)).rejects.toMatchObject({ responseText: '' });
   });
 
+  test('reads retryAfterSeconds off the response headers when exposed', async () => {
+    const response = {
+      ok: false,
+      status: 429,
+      statusText: 'Too Many Requests',
+      headers: { get: name => (name === 'retry-after' ? '2' : null) },
+      text: () => Promise.resolve(''),
+    };
+
+    await expect(ensureOk(response)).rejects.toMatchObject({ retryAfterSeconds: 2 });
+  });
+
+  test('retryAfterSeconds is null when there is no headers object or no Retry-After value', async () => {
+    const response = { ok: false, status: 429, statusText: '', text: () => Promise.resolve('') };
+
+    await expect(ensureOk(response)).rejects.toMatchObject({ retryAfterSeconds: null });
+  });
+
   test('an optional prefix is passed through to error logging without changing the thrown error', async () => {
     const response = { ok: false, status: 400, statusText: 'Bad Request', text: () => Promise.resolve('') };
 

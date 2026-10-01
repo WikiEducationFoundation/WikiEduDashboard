@@ -42,7 +42,14 @@ const fetchWikidataLabelsPromise = async (qNumbers, isRetry = false) => {
     // which would otherwise throw here and mask the real error.
     if (error && typeof error === 'object') error.url = error.url || url;
     if (!isRetry && error && RETRY_STATUSES.includes(error.status)) {
-      await sleep(RETRY_DELAY_MS + (Math.random() * RETRY_JITTER_MS));
+      // Prefer Wikidata's own Retry-After when we can read it (per the
+      // documented policy above); otherwise fall back to RETRY_DELAY_MS.
+      // retryAfterSeconds can legitimately be 0 ("retry immediately"), so
+      // this checks for null/undefined rather than falsiness.
+      const baseDelay = error.retryAfterSeconds != null
+        ? error.retryAfterSeconds * 1000
+        : RETRY_DELAY_MS;
+      await sleep(baseDelay + (Math.random() * RETRY_JITTER_MS));
       return fetchWikidataLabelsPromise(qNumbers, true);
     }
     throw error;

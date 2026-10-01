@@ -176,6 +176,72 @@ describe('fetchWikidataLabels', () => {
     jest.useRealTimers();
   });
 
+  test('uses the Retry-After header value for the backoff delay when present', async () => {
+    jest.useFakeTimers();
+    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0);
+    const entities = { entities: { Q1: { labels: { en: { value: 'Example' } } } } };
+    const stub = sinon.stub(requestModule, 'default');
+    stub.onCall(0).resolves({
+      ok: false,
+      status: 429,
+      statusText: 'Too Many Requests',
+      url: 'https://www.wikidata.org/w/api.php?action=wbgetentities',
+      headers: { get: name => (name === 'retry-after' ? '3' : null) },
+      text: () => Promise.resolve('rate limited'),
+    });
+    stub.onCall(1).resolves({ ok: true, json: () => Promise.resolve(entities) });
+    const dispatch = jest.fn();
+
+    fetchWikidataLabels([{ title: 'Q1' }], dispatch);
+    await flushPromises();
+    // Retry-After: 3 seconds -> 3000ms base delay (jitter mocked to 0),
+    // not the default RETRY_DELAY_MS of 5000ms.
+    await jest.advanceTimersByTimeAsync(2999);
+    await flushPromises();
+    expect(stub.callCount).toBe(1);
+
+    await jest.advanceTimersByTimeAsync(1);
+    await flushPromises();
+    expect(stub.callCount).toBe(2);
+
+    randomSpy.mockRestore();
+    jest.useRealTimers();
+  });
+
+  test('treats a Retry-After of 0 as "retry immediately", not as absent', async () => {
+    jest.useFakeTimers();
+    const randomSpy = jest.spyOn(Math, 'random').mockReturnValue(0);
+    const entities = { entities: { Q1: { labels: { en: { value: 'Example' } } } } };
+    const stub = sinon.stub(requestModule, 'default');
+    stub.onCall(0).resolves({
+      ok: false,
+      status: 429,
+      statusText: 'Too Many Requests',
+      url: 'https://www.wikidata.org/w/api.php?action=wbgetentities',
+      headers: { get: name => (name === 'retry-after' ? '0' : null) },
+      text: () => Promise.resolve('rate limited'),
+    });
+    stub.onCall(1).resolves({ ok: true, json: () => Promise.resolve(entities) });
+    const dispatch = jest.fn();
+
+    fetchWikidataLabels([{ title: 'Q1' }], dispatch);
+    await flushPromises();
+    // Retry-After: 0 -> 0ms base delay (jitter mocked to 0). Fake timers
+    // still need an explicit (even zero-length) advance to run the retry's
+    // setTimeout(resolve, 0).
+    await jest.advanceTimersByTimeAsync(0);
+    await flushPromises();
+
+    expect(stub.callCount).toBe(2);
+    expect(dispatch).toHaveBeenCalledWith(expect.objectContaining({
+      type: RECEIVE_WIKIDATA_LABELS,
+      data: entities,
+    }));
+
+    randomSpy.mockRestore();
+    jest.useRealTimers();
+  });
+
   test('limits chunk requests in flight instead of firing all of them at once', async () => {
     const entities = { entities: {} };
     const stub = sinon.stub(requestModule, 'default').resolves({
