@@ -2487,6 +2487,18 @@ en:
     no_grades_yet: "No synced progress yet"
     not_yet_linked: "Your account hasn't been linked to Canvas for this course."
 
+  lti_integrations:
+    title: "LTI integrations"
+    course: "Course"
+    instructor: "Instructor"
+    lms_course: "Canvas course"
+    lms_instance: "Canvas instance"
+    lti_version: "LTI version"
+    installed: "Installed"
+    connected_students: "Connected students"
+    roster: "Canvas roster"
+    not_applicable: "—"
+
   lti:
     beta_feedback:
       message: "We welcome feedback about this beta version of our Canvas integration."

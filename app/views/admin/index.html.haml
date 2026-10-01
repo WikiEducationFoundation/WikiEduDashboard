@@ -46,6 +46,9 @@
           %a{href: '/sidekiq'} Job queue
         %li
           %a{href: '/unsubmitted_courses'} Unsubmitted Courses
+        - if Features.canvas_integration?
+          %li
+            %a{href: '/lti_integrations'} LTI integrations
         %li
           %a{href: '/course_flags'} Manage course flags
         %li
