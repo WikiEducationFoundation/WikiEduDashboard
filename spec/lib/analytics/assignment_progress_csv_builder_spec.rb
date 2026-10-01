@@ -46,7 +46,8 @@ describe AssignmentProgressCsvBuilder do
   it 'leads with the assigned article, then trainings, exercises and peer reviews' do
     statuses = csv.headers.select { |header| header.end_with?(': status') }
     expect(statuses).to eq(['Assigned article: status', 'Training A: status',
-                            'Exercise A: status', 'Peer reviews: status'])
+                            'Exercise A: status', 'Bibliography exercise: status',
+                            'Peer reviews: status'])
   end
 
   it 'gives each training and exercise its status, completion and whether it\'s overdue' do
@@ -65,7 +66,7 @@ describe AssignmentProgressCsvBuilder do
     end
   end
 
-  it 'gives the article\'s titles, the stages reached, and each exercise about it' do
+  it 'gives the article\'s titles and stages reached, with its exercises as exercises' do
     %w[First Second].each do |title|
       Assignment.create!(course:, user: amy, wiki: course.home_wiki,
                          role: Assignment::Roles::ASSIGNED_ROLE, article_title: title)
@@ -76,7 +77,7 @@ describe AssignmentProgressCsvBuilder do
     expect(amy_row['Assigned article: articles']).to eq('First; Second')
     expect(amy_row['Assigned article: bibliography_reached']).to eq('true')
     expect(amy_row['Assigned article: live_reached']).to eq('false')
-    expect(amy_row['Assigned article: Bibliography exercise completed']).to eq('true')
+    expect(amy_row['Bibliography exercise: status']).to eq('complete')
     expect(csv.headers).not_to include('Assigned article: assigned_reached')
   end
 

@@ -26,7 +26,6 @@ const ArticleRoster = ({ students, cellsByUser, studentPath, showNames }) => {
       <tbody>
         {sortStudents(students, cellsByUser, sort).map((student) => {
           const cell = cellsByUser[student.id];
-          const done = cell.exercises.filter(exercise => exercise.completed).length;
           const rowSpan = Math.max(cell.articles.length, 1);
           const studentCells = (
             <>
@@ -36,11 +35,6 @@ const ArticleRoster = ({ students, cellsByUser, studentPath, showNames }) => {
               </td>
               <td rowSpan={rowSpan} className="assignments-tab__student-status">
                 <StateBadge cell={cell} />
-                {cell.exercises.length > 0 && (
-                  <div className="assignments-tab__exercise-count">
-                    {I18n.t('lti.student_overview.exercises')}: {done} / {cell.exercises.length}
-                  </div>
-                )}
               </td>
             </>
           );

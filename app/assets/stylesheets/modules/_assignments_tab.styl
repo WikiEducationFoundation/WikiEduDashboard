@@ -107,10 +107,6 @@
     .table
       margin-bottom 0
 
-  .assignments-tab__exercise-count
-    color $text_med
-    font-size 14px
-
   // Inline sandbox previews: a scrollable, bordered excerpt of the wiki page.
   .assignments-tab__preview-panel
     background white
@@ -259,6 +255,8 @@
     .assignments-tab__overdue
       margin-left 8px
 
+  // Sized like the tab's card titles, so the student list reads as a section
+  // of the panel rather than a small link.
   .assignments-tab__students-toggle
     align-items center
     background none
@@ -267,6 +265,7 @@
     cursor pointer
     display inline-flex
     font inherit
+    font-size 18px
     font-weight 600
     gap 6px
     padding 4px 0

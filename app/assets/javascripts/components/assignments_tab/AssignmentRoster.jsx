@@ -31,7 +31,9 @@ const StudentRoster = ({ item, students, cellsByUser, studentPath, showNames }) 
           return (
             <tr key={student.id}>
               {showNames && <td>{student.real_name}</td>}
-              <td><Link to={studentPath(student)}>{student.username}</Link></td>
+              <td>
+                {studentPath ? <Link to={studentPath(student)}>{student.username}</Link> : student.username}
+              </td>
               <td><StateBadge cell={cell} /></td>
               <td><CellDetails cell={cell} item={item} compact /></td>
             </tr>
@@ -46,7 +48,7 @@ StudentRoster.propTypes = {
   item: PropTypes.object.isRequired,
   students: PropTypes.array.isRequired,
   cellsByUser: PropTypes.object.isRequired,
-  studentPath: PropTypes.func.isRequired,
+  studentPath: PropTypes.func,
   showNames: PropTypes.bool.isRequired,
 };
 
@@ -57,7 +59,10 @@ const AssignmentRoster = ({ item, students, cellsByUser, itemPath }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get('filter') || 'all';
   const shown = students.filter(student => matchesFilter(cellsByUser[student.id], filter));
-  const studentPath = student => `${itemPath}/${encodeURIComponent(student.username)}${listQuery(searchParams, item)}`;
+  // A training's one-student view would only repeat its row here (when the
+  // student finished it), so a training's usernames don't link to one.
+  const studentPath = item.kind === 'training' ? null
+    : student => `${itemPath}/${encodeURIComponent(student.username)}${listQuery(searchParams, item)}`;
 
   const onFilterChange = (event) => {
     const params = new URLSearchParams(searchParams);

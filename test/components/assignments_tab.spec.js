@@ -123,6 +123,8 @@ describe('Assignments tab views', () => {
     3: { user_id: 3, state: 'not_started', overdue: true },
   };
   const itemPath = '/courses/S/T/assignments/training-a';
+  const exercise = { key: 'exercise-e', kind: 'exercise', title: 'Exercise E', due_date: '2026-02-15' };
+  const exercisePath = '/courses/S/T/assignments/exercise-e';
   let container;
   let root;
 
@@ -161,7 +163,7 @@ describe('Assignments tab views', () => {
   test('the roster sorts by a column heading, and again reverses it', () => {
     const roster = <AssignmentRoster item={item} students={students} cellsByUser={cellsByUser} itemPath={itemPath} />;
     render(itemPath, roster, itemPath);
-    const usernames = () => [...container.querySelectorAll('tbody a')].map(a => a.textContent);
+    const usernames = () => [...container.querySelectorAll('tbody tr')].map(tr => tr.children[1].textContent);
     const heading = label => [...container.querySelectorAll('thead th')]
       .find(th => th.textContent === label);
     expect([...container.querySelectorAll('thead th')].map(th => th.textContent))
@@ -174,7 +176,13 @@ describe('Assignments tab views', () => {
     act(() => { heading('Status').querySelector('button').click(); });
     expect(heading('Status').getAttribute('aria-sort')).toBe('descending');
     expect(usernames()).toEqual(['Cy', 'Bo', 'Amy']);
-    expect(container.querySelector('tbody a').getAttribute('href')).toBe(`${itemPath}/Cy?sort=-status`);
+  });
+
+  test('a training\'s roster doesn\'t link to a one-student view', () => {
+    const roster = <AssignmentRoster item={item} students={students} cellsByUser={cellsByUser} itemPath={itemPath} />;
+    render(itemPath, roster, itemPath);
+    expect(container.querySelectorAll('tbody tr').length).toBe(3);
+    expect(container.querySelector('tbody a')).toBeNull();
   });
 
   test('the roster has no Name column when no student has a real name to show', () => {
@@ -186,11 +194,14 @@ describe('Assignments tab views', () => {
       .toEqual(['Username', 'Status', 'Completed at']);
   });
 
-  test('the roster filter narrows the students and carries into the grader links', () => {
-    const roster = <AssignmentRoster item={item} students={students} cellsByUser={cellsByUser} itemPath={itemPath} />;
-    render(`${itemPath}?filter=overdue`, roster, itemPath);
+  test('the roster filter and sort narrow and order the students, and carry into the grader links', () => {
+    const roster = (
+      <AssignmentRoster item={exercise} students={students} cellsByUser={cellsByUser} itemPath={exercisePath} />
+    );
+    render(`${exercisePath}?filter=overdue&sort=-status`, roster, exercisePath);
     const links = [...container.querySelectorAll('tbody a')].map(a => a.getAttribute('href'));
-    expect(links).toEqual([`${itemPath}/Bo?filter=overdue`, `${itemPath}/Cy?filter=overdue`]);
+    expect(links).toEqual([`${exercisePath}/Cy?filter=overdue&sort=-status`,
+                           `${exercisePath}/Bo?filter=overdue&sort=-status`]);
   });
 
   test('the grader shows one student with previous and next', () => {
@@ -302,13 +313,13 @@ describe('Assignments tab views', () => {
     expect(rows.length).toBe(2); // the assigned article is in its own panel, not the tables
     expect(container.querySelector('.drawer')).toBeNull();
 
-    const row = rows[0];
+    const row = rows[1];
     await act(async () => { row.click(); });
-    expect(fetchAssignmentProgress).toHaveBeenCalledWith('S/T', 'training-a');
+    expect(fetchAssignmentProgress).toHaveBeenCalledWith('S/T', 'exercise-e');
     expect(row.className).toBe('open');
     expect(container.querySelectorAll('.drawer tbody tr').length).toBe(3);
     expect(container.querySelector('.drawer a').getAttribute('href'))
-      .toBe('/courses/S/T/assignments/training-a/Amy');
+      .toBe('/courses/S/T/assignments/exercise-e/Amy');
     expect(row.querySelector('button').getAttribute('aria-expanded')).toBe('true');
 
     await act(async () => { row.click(); });
@@ -319,7 +330,7 @@ describe('Assignments tab views', () => {
     await renderTab();
     const bars = [...container.querySelectorAll('.assignments-tab__funnel-bar')];
     expect(bars.map(bar => bar.querySelector('.assignments-tab__funnel-label').textContent))
-      .toEqual(['Article assigned', 'Draft sandbox', 'Live article']);
+      .toEqual(['Article assigned', 'Draft sandbox', 'Edited live article']);
     expect(bars[1].querySelector('.assignments-tab__funnel-value').textContent).toBe('1 / 3 · 33%');
     expect(bars[1].querySelector('.assignments-tab__funnel-fill').style.width).toBe('33%');
     expect(bars[1].textContent).toContain('Overdue: 2');
@@ -355,9 +366,9 @@ describe('Assignments tab views', () => {
   });
 
   test('with an assignment row and the article\'s students both open, each list\'s links keep only its own narrowing', async () => {
-    await renderTab('/courses/S/T/assignments?open=training-a&filter=complete&students=1&missing=draft');
+    await renderTab('/courses/S/T/assignments?open=exercise-e&filter=complete&students=1&missing=draft');
     expect([...container.querySelectorAll('.drawer tbody a')].map(a => a.getAttribute('href')))
-      .toEqual(['/courses/S/T/assignments/training-a/Amy?filter=complete']);
+      .toEqual(['/courses/S/T/assignments/exercise-e/Amy?filter=complete']);
     expect([...container.querySelectorAll('.assignments-tab__student-cell a')].map(a => a.getAttribute('href')))
       .toEqual(['/courses/S/T/assignments/article/Amy?missing=draft',
                 '/courses/S/T/assignments/article/Cy?missing=draft']);
@@ -430,7 +441,11 @@ describe('Assignments tab views', () => {
     expect(rows.length).toBe(3);
     expect(rows[0].textContent).toContain('No article chosen yet');
     expect(rows[1].querySelector('td').getAttribute('rowspan')).toBe('2');
-    expect(rows[1].textContent).toContain('Exercises: 1 / 1');
+    expect(rows[1].textContent).not.toContain('Exercises');
+    // The tracker names the stage; the work link names the article.
+    expect(rows[1].querySelector('.assignments-tab__stages').textContent).toContain('Edited live article');
+    expect([...rows[1].querySelectorAll('.assignments-tab__work-links a')].map(a => a.textContent))
+      .toEqual(['Draft sandbox', 'Live article']);
     expect(rows[1].textContent).toContain('Sep 2, 2026');
     expect(rows[2].querySelectorAll('td').length).toBe(4);
     expect(rows[2].querySelector('.assignments-tab__work-links a').className).toBe('assignments-tab__missing');

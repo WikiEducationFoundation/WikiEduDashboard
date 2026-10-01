@@ -8,8 +8,9 @@ require 'csv'
 # main details of its kind:
 #
 # - trainings and exercises: when the student completed it;
-# - the assigned article: the student's articles, which stages of the writing
-#   process they've reached, and each exercise about the article;
+# - the assigned article: the student's articles and which stages of the
+#   writing process they've reached (the exercises about the article have
+#   their own columns, as exercises);
 # - peer reviews: how many the student has done.
 #
 # Assignments come in the tab's order: the assigned article, then trainings,
@@ -73,24 +74,16 @@ class AssignmentProgressCsvBuilder
   def kind_fields(item)
     case item.kind
     when 'training', 'exercise' then [['completed_at', ->(cell) { cell[:completed_at] }]]
-    when 'article' then article_fields(item)
+    when 'article' then article_fields
     when 'peer_review' then [['reviews_completed', ->(cell) { cell[:completed_count] }]]
     end
   end
 
   # Having an article at all is the articles column, so the stages start
   # after that one.
-  def article_fields(item)
+  def article_fields
     stages = ArticleFunnel.stage_keys(@presenter.course) - [:assigned]
     [['articles', ->(cell) { cell[:articles].pluck(:title).join('; ').presence }]] +
-      stages.map { |key| ["#{key}_reached", ->(cell) { ArticleFunnel.reached?(cell, key) }] } +
-      item.training_modules.flat_map { |mod| article_exercise_fields(mod) }
-  end
-
-  def article_exercise_fields(mod)
-    exercise = ->(cell) { cell[:exercises].find { |entry| entry[:slug] == mod.slug } }
-    [["#{mod.name} completed", ->(cell) { exercise.call(cell)[:completed] }],
-     ["#{mod.name} completed_at", ->(cell) { exercise.call(cell)[:completed_at] }],
-     ["#{mod.name} overdue", ->(cell) { exercise.call(cell)[:overdue].present? }]]
+      stages.map { |key| ["#{key}_reached", ->(cell) { ArticleFunnel.reached?(cell, key) }] }
   end
 end
