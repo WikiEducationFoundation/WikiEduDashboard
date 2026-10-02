@@ -11,8 +11,10 @@
       .course-details_title
         = course_i18n('instructors', course)
       .course-details_value
+        -# In a privacy-mode course the instructor's identity is admin-only.
+        - show_real_names = Features.wiki_ed? && (current_user&.admin? || !course.confidential?)
         - course.instructors.each do |user|
-          = Features.wiki_ed? ? user.real_name : user.username
+          = show_real_names ? user.real_name : user.username
     .col
       .course-details_title
         = course_i18n('school', course)

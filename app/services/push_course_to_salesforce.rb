@@ -17,6 +17,13 @@ class PushCourseToSalesforce
 
   private
 
+  # Salesforce is Wiki Ed's own admin-only system, so a privacy-mode course is
+  # recorded there under its real name rather than the obfuscated stand-in the
+  # rest of the application uses.
+  def course_name
+    @course.confidential_course_detail&.real_title || @course.title
+  end
+
   def push
     if @salesforce_id
       update_salesforce_record
@@ -57,7 +64,7 @@ class PushCourseToSalesforce
   # rubocop:disable Metrics/AbcSize
   def base_salesforce_fields
     {
-      Name: @course.title,
+      Name: course_name,
       Course_Page__c: @course.url,
       Course_End_Date__c: @course.end.strftime('%Y-%m-%d'),
       Course_Dashboard__c: "https://#{ENV['dashboard_url']}/courses/#{@course.slug}",

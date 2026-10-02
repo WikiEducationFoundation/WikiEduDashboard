@@ -82,6 +82,7 @@ class Course < ApplicationRecord
            foreign_key: 'project_id',
            dependent: :destroy
   has_one :course_stat, class_name: 'CourseStat', dependent: :destroy
+  has_one :confidential_course_detail, dependent: :destroy
   has_many :retention_stats, dependent: :destroy
 
   #########################
@@ -303,6 +304,14 @@ class Course < ApplicationRecord
   # Overridden for some course types
   def passcode_required?
     true
+  end
+
+  # Privacy mode: `title` and `school` hold obfuscated stand-ins and the real
+  # values live in the admin-only ConfidentialCourseDetail. Derived from the
+  # record rather than stored as a column of its own, so the two cannot drift
+  # apart. Distinct from `private`, which hides the course from non-participants.
+  def confidential?
+    confidential_course_detail.present?
   end
 
   def approved?
