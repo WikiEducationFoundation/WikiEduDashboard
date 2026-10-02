@@ -4,29 +4,18 @@ import {
   SET_CURRENT_SLIDE, RECEIVE_ALL_TRAINING_MODULES,
   EXERCISE_COMPLETION_UPDATE, SLIDE_COMPLETED, API_FAIL
 } from '../constants';
-import request from '../utils/request';
-import logErrorMessage from '../utils/log_error_message';
-import { stringify } from 'query-string';
+import request, { ensureOk } from '../utils/request';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 
 const fetchAllTrainingModulesPromise = async () => {
   const response = await request('/training_modules.json');
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
-const fetchTrainingModulePromise = async (opts) => {
+export const fetchTrainingModulePromise = async (opts) => {
   const response = await request(`/training_module.json?module_id=${opts.module_id}`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -39,12 +28,7 @@ const setSlideCompletedPromise = async (opts) => {
   const response = await request(`/training_modules_users.json?${stringify(params)}`, {
     method: 'POST'
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -92,6 +76,13 @@ const setExerciseModule = (complete = true) => (block_id, module_id) => (dispatc
 
 export const setExerciseModuleComplete = setExerciseModule();
 export const setExerciseModuleIncomplete = setExerciseModule(false);
+
+export const verifyExerciseArticle = (block_id, module_id, article_title) => () => {
+  return request('/training_modules_users/verify_exercise_article.json', {
+    body: JSON.stringify({ block_id, module_id, article_title }),
+    method: 'POST'
+  }).then(resp => resp.json());
+};
 
 export const toggleMenuOpen = opts => (dispatch) => {
   return dispatch({

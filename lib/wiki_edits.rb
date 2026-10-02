@@ -127,7 +127,8 @@ class WikiEdits
     response_data = Oj.load(response.body)
     WikiResponse.capture(response_data, current_user:,
                                         post_data: data,
-                                        type: data[:action])
+                                        type: data[:action],
+                                        wiki: @wiki)
     response_data
   end
 
@@ -147,7 +148,7 @@ class WikiEdits
 
     # Handle Mediawiki API response
     token_response = Oj.load(get_token.body)
-    WikiResponse.capture(token_response, current_user:, type: 'tokens')
+    WikiResponse.capture(token_response, current_user:, type: 'tokens', wiki: @wiki)
     handle_token_response_errors(token_response) { |err| return { status: 'failed', error: err } }
 
     OpenStruct.new(action_token: token_response['query']['tokens']["#{type}token"],

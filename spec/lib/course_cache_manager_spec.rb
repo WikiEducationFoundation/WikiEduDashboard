@@ -12,6 +12,7 @@ describe CourseCacheManager do
   end
 
   before do
+    stub_wiki_validation
     create(:user, id: 1, username: 'Ragesoss')
     create(:user, id: 2, username: 'Gatoespecie')
 
@@ -59,6 +60,31 @@ describe CourseCacheManager do
       expect(course.character_sum).to eq(9110)
       expect(course.references_count).to eq(11)
       expect(course.revision_count).to eq(10)
+    end
+
+    context 'when the course also tracks a wiki excluded from word counts' do
+      let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+
+      before do
+        create(:course_wiki_timeslice,
+               course:,
+               wiki: wikidata,
+               start: 7.days.ago,
+               end: 6.days.ago,
+               character_sum: 50_000,
+               references_count: 0,
+               revision_count: 3)
+      end
+
+      it 'leaves the wikidata characters out of character_sum' do
+        described_class.new(course).update_cache_from_timeslices course.course_wiki_timeslices
+        expect(course.character_sum).to eq(9110)
+      end
+
+      it 'still counts the wikidata revisions in revision_count' do
+        described_class.new(course).update_cache_from_timeslices course.course_wiki_timeslices
+        expect(course.revision_count).to eq(13)
+      end
     end
 
     it 'updates caches based on existing articles courses records' do

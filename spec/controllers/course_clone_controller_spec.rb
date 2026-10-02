@@ -30,6 +30,22 @@ describe CourseCloneController, type: :request do
           post "/clone_course/#{course.id}", params: { format: :html, id: course.id }
         end
       end
+
+      it 'does not copy assignments when copy_assignments is the string "false"' do
+        expect(CourseCloneManager).to receive(:new)
+          .with(hash_including(clone_assignments: false)).and_call_original
+        expect_any_instance_of(CourseCloneManager).to receive(:clone!)
+        post "/clone_course/#{course.id}",
+             params: { format: :json, id: course.id, copy_assignments: 'false' }
+      end
+
+      it 'copies assignments when copy_assignments is the string "true"' do
+        expect(CourseCloneManager).to receive(:new)
+          .with(hash_including(clone_assignments: true)).and_call_original
+        expect_any_instance_of(CourseCloneManager).to receive(:clone!)
+        post "/clone_course/#{course.id}",
+             params: { format: :json, id: course.id, copy_assignments: 'true' }
+      end
     end
 
     context 'when the user is not the original instructor' do

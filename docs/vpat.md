@@ -15,7 +15,7 @@ Wiki Education Dashboard — `dashboard.wikiedu.org`.
 
 ## Report Date
 
-2026-06-01
+2026-08-19
 
 ## Product Description
 
@@ -23,7 +23,9 @@ Web application that supports instructors and students contributing to
 Wikipedia and sister projects as part of for-credit university courses.
 Public-facing course pages, a student-facing assignment workflow, an
 instructor-facing course-management surface, and an admin surface for
-Wiki Education Foundation staff.
+Wiki Education Foundation staff. The product also includes an LTI 1.3
+Canvas integration whose Dashboard-served views render inside the
+Canvas LMS at institutions that install it.
 
 ## Contact Information
 
@@ -38,17 +40,25 @@ the public dashboard FAQ at <https://dashboard.wikiedu.org/faq/23>.
   Events Dashboard at `outreachdashboard.wmflabs.org`; that
   deployment is operated by the Wikimedia Foundation and is not
   covered by this attestation.
-- Canvas LTI integration surfaces are under development and are
-  not yet in production. They will require separate evaluation when
-  shipped.
+- The Canvas LTI integration's Dashboard-served surfaces — the launch
+  and account-connection pages, instructor setup and sync-status
+  views, student progress views, per-assignment roster drill-downs,
+  and the assignment-import picker — render inside iframes within the
+  Canvas LMS and are covered by this attestation. See "Coverage of
+  the Canvas LTI integration" under Evaluation Methods for what has
+  and has not been evaluated on those surfaces. The Canvas interface
+  surrounding those iframes is Instructure's product and is covered
+  by Instructure's own accessibility attestations, not this one.
 - Wikipedia article content shown in iframes (the Article Viewer)
   is rendered by Wikipedia/Wikimedia and is governed by their
-  accessibility statement, not this one.
+  accessibility statement, not this one. The same applies to the
+  sandbox-preview panels in the Canvas assignment views, which insert
+  Wikipedia-rendered article content.
 
 ## Evaluation Methods Used
 
 1. **Automated testing via axe-core** (`axe-core-rspec` 4.11.3) at the
-   feature-spec layer. ~99 `be_axe_clean` assertions across ~52
+   feature-spec layer. ~101 `be_axe_clean` assertions across ~53
    spec files lock a substantial subset of public, course, admin,
    training, survey, and analytics pages against the default axe
    ruleset (which covers WCAG 2.0 A/AA, WCAG 2.1 A/AA, and some
@@ -103,13 +113,36 @@ the public dashboard FAQ at <https://dashboard.wikiedu.org/faq/23>.
    any student or instructor; the known impact of that view is
    confined to internal Wiki Education staff use.
 
+**Coverage of the Canvas LTI integration:**
+
+The in-Canvas views are server-rendered HAML pages on a dedicated
+minimal layout, which places them outside most of the methods above:
+they are not part of the React codebase that Method 2's ESLint rules
+lint, none of them is axe-locked under Method 1 (nor are the public
+`/lti/guide` and `/hecvat` pages), they are not among the 13 pages
+Method 5 visits, and they are not among the surfaces exercised in
+Method 3's daily JAWS use. The evidence for them is structured
+code-level review: every page carries exactly one `<h1>` with no
+heading-level gaps; rosters are native tables with header cells;
+form inputs are label-associated; decorative icons are marked
+`aria-hidden`; the sandbox-preview toggles are native buttons that
+maintain `aria-expanded`/`aria-controls`; and the shared layout sets
+the request locale's `lang` attribute and a `<main>` landmark. The
+small amount of JavaScript on these views is progressive enhancement
+(the server enforces the same constraints without it). Structured
+testing of these surfaces is listed below as a gap.
+
 **Methods NOT used in this evaluation** (gaps for v2):
 
 - Structured manual keyboard-only navigation testing.
 - Structured manual screen-reader testing on the surfaces the
   JAWS-using admin does not routinely exercise (student-role
   assignment wizard, training-module taking flow, survey-taking
-  flow, ArticleViewer authorship view).
+  flow, ArticleViewer authorship view, and the Canvas in-iframe
+  LTI views).
+- Automated axe-core locks and the Method 5 layout-stress passes
+  (zoom, reflow, text spacing) on the Canvas in-iframe LTI views
+  and the public `/lti/guide` and `/hecvat` pages.
 - Mobile and touch-only interaction testing.
 - Third-party audit.
 
@@ -150,19 +183,19 @@ the public dashboard FAQ at <https://dashboard.wikiedu.org/faq/23>.
 | **1.2.1 Audio-only and Video-only (Prerecorded)** | Not Applicable | The Dashboard does not present prerecorded audio-only or video-only content as a primary feature. Training modules embed third-party video which falls under those providers' attestations. |
 | **1.2.2 Captions (Prerecorded)** | Not Applicable | No Dashboard-hosted prerecorded video. |
 | **1.2.3 Audio Description or Media Alternative (Prerecorded)** | Not Applicable | No Dashboard-hosted prerecorded video. |
-| **1.3.1 Info and Relationships** | Partially Supports | axe-locked pages enforce heading order, list semantics, form-label association, and landmark presence. `jsx-a11y/label-has-associated-control` is enforced in the React layer. Admin and core course-page surfaces validated through daily JAWS use. The ArticleViewer authorship view does not expose author attribution to assistive tech. The survey-taking flow has not been recently re-evaluated for programmatic relationship exposure. |
+| **1.3.1 Info and Relationships** | Partially Supports | axe-locked pages enforce heading order, list semantics, form-label association, and landmark presence. `jsx-a11y/label-has-associated-control` is enforced in the React layer. Admin and core course-page surfaces validated through daily JAWS use. The ArticleViewer authorship view does not expose author attribution to assistive tech. The survey-taking flow has not been recently re-evaluated for programmatic relationship exposure. The Canvas in-iframe LTI views use native table semantics with header cells for rosters, definition lists for status readouts, and label-associated form inputs, with exactly one `<h1>` per page and no heading-level gaps (verified in code review); they are not axe-locked. |
 | **1.3.2 Meaningful Sequence** | Partially Supports | Admin and core course-page surfaces validated through daily JAWS use. Student-only assignment-wizard, training-module, and survey-taking flows have not been structurally evaluated for reading-order vs. visual-order divergence. |
 | **1.3.3 Sensory Characteristics** | Partially Supports | Most affordances combine shape, position, and text labels. A comprehensive inventory of color-only signals (e.g. status indicators in analytics, alert severity badges, and AI-score plots) has not been done. |
 | **1.4.1 Use of Color** | Partially Supports | Status indicators typically combine color with text or icons, but a structured audit has not been done. |
 | **1.4.2 Audio Control** | Not Applicable | No auto-playing audio. |
-| **2.1.1 Keyboard** | Supports | `jsx-a11y/click-events-have-key-events` and `jsx-a11y/no-static-element-interactions` are enforced in the React layer, and axe-locked pages pass keyboard-relevant axe rules. The two drag-and-drop reorder interactions in the product (timeline block reordering and the admin-only training-module composer slide reordering) each include redundant keyboard-accessible Move up / Move down buttons with localized `aria-label`s, so the drag affordance is not the only path to the action. |
+| **2.1.1 Keyboard** | Supports | `jsx-a11y/click-events-have-key-events` and `jsx-a11y/no-static-element-interactions` are enforced in the React layer, and axe-locked pages pass keyboard-relevant axe rules. The two drag-and-drop reorder interactions in the product (timeline block reordering and the admin-only training-module composer slide reordering) each include redundant keyboard-accessible Move up / Move down buttons with localized `aria-label`s, so the drag affordance is not the only path to the action. The Canvas in-iframe LTI views use native links, buttons, and form controls throughout; their small amount of JavaScript (disclosure toggles, submit guards, and an auto-submitting OAuth interstitial with a visible no-JS fallback button) attaches to native controls and degrades to server-enforced behavior without JS. |
 | **2.1.2 No Keyboard Trap** | Partially Supports | The shared Modal and Confirm components do not implement a focus trap, an Escape-key handler, or focus return to the trigger on close. A keyboard user is therefore not trapped (they can Tab into the page underneath), so the strict criterion is not violated; but the focus-management behavior fails 2.4.3 and is the inverse of what users expect from a modal. |
 | **2.1.4 Character Key Shortcuts** | Not Applicable | The product does not implement single-character key shortcuts. |
 | **2.2.1 Timing Adjustable** | Not Applicable | The product does not impose time limits on user interactions. |
 | **2.2.2 Pause, Stop, Hide** | Supports | The product does not include moving, blinking, scrolling, or auto-updating content that starts automatically. The survey-taking flow uses a slick.js carousel between questions, but it advances only on user action (no autoplay). |
 | **2.3.1 Three Flashes or Below Threshold** | Supports | The product contains no flashing content. |
 | **2.4.1 Bypass Blocks** | Supports | Pages use HTML5 landmarks for assistive-tech navigation, with a `<main>` element on every layout. A visible "Skip to main content" link is rendered as the first focusable element on every navigation-bearing layout; it is positioned offscreen by default and revealed on focus, and targets the main landmark. |
-| **2.4.2 Page Titled** | Supports | All pages set a descriptive `<title>` via the Rails `content_for(:title)` mechanism. |
+| **2.4.2 Page Titled** | Supports | All top-level pages set a descriptive `<title>` via the Rails `content_for(:title)` mechanism. The Canvas in-iframe LTI views carry a static product-name `<title>`; the page title a user experiences there is that of the containing Canvas page, which Canvas controls. |
 | **2.4.3 Focus Order** | Partially Supports | Admin and core course-page surfaces validated through daily JAWS use. The shared Modal does not return focus to the triggering control on close, and only the Confirm modal moves focus into the dialog on open. Multi-step flows (course-creation wizard, onboarding) have not been structurally evaluated for focus management on step transitions. |
 | **2.4.4 Link Purpose (In Context)** | Partially Supports | axe-locked pages enforce accessible names on links; `jsx-a11y/anchor-has-content` and `jsx-a11y/anchor-is-valid` enforced. Some link text (e.g., "View", "Edit" in list rows) relies on surrounding visual context that may not be exposed to assistive tech. |
 | **2.5.1 Pointer Gestures** | Supports | Most interactions are single-point. The two path-based pointer gestures in the product (timeline block reordering and the admin-only training-module composer slide reordering) each include a redundant single-point alternative (Move up / Move down buttons), so the path-based gesture is not the only path to the action. |
@@ -175,7 +208,7 @@ the public dashboard FAQ at <https://dashboard.wikiedu.org/faq/23>.
 | **3.3.1 Error Identification** | Supports | Server-side form errors are rendered as text in the page. Errored fields automatically carry `aria-invalid="true"`, and every form's top-of-form error summary carries `role="alert"` so the error text is announced on submission. Per-field `aria-describedby` linking each error message to its specific field is a future enhancement but is not strictly required by 3.3.1. |
 | **3.3.2 Labels or Instructions** | Supports | Forms use `<label>` association; `jsx-a11y/label-has-associated-control` is enforced in CI; axe-locked pages pass label rules. |
 | **4.1.1 Parsing** | Supports | This criterion was made obsolete by WCAG 2.2. For WCAG 2.1, the product passes axe's parsing rules on axe-locked pages and uses HAML/JSX templating that produces well-formed HTML. |
-| **4.1.2 Name, Role, Value** | Partially Supports | axe-locked pages enforce ARIA attribute validity and accessible-name presence on interactive controls. The shared Modal declares `role="dialog"` and `aria-modal="true"`, and each call site supplies an accessible name. Custom widgets (multi-step wizard step indicators, custom toggle controls in surveys) have not been comprehensively audited, and the Modal does not implement focus-trap or focus-return on close (see 2.4.3). |
+| **4.1.2 Name, Role, Value** | Partially Supports | axe-locked pages enforce ARIA attribute validity and accessible-name presence on interactive controls. The shared Modal declares `role="dialog"` and `aria-modal="true"`, and each call site supplies an accessible name. Custom widgets (multi-step wizard step indicators, custom toggle controls in surveys) have not been comprehensively audited, and the Modal does not implement focus-trap or focus-return on close (see 2.4.3). In the Canvas in-iframe LTI views, the sandbox-preview disclosure buttons maintain `aria-expanded` and `aria-controls`, decorative icons are `aria-hidden`, and the linked-course check mark carries `role="img"` with a localized `aria-label`; these views have not been axe-locked or comprehensively audited. |
 
 ### Table 2: Success Criteria, Level AA
 
@@ -185,10 +218,10 @@ the public dashboard FAQ at <https://dashboard.wikiedu.org/faq/23>.
 | **1.2.5 Audio Description (Prerecorded)** | Not Applicable | No Dashboard-hosted prerecorded video. |
 | **1.3.4 Orientation** | Supports | The product does not lock orientation. |
 | **1.3.5 Identify Input Purpose** | Supports | User-info inputs (onboarding form, new-account-request modal, user-profile email field) carry HTML `autocomplete` attributes with WCAG-recognised input-purpose tokens. The product authenticates via OAuth (MediaWiki) and has no traditional password forms; the inputs that do collect user-purpose data are annotated. |
-| **1.4.3 Contrast (Minimum)** | Partially Supports | axe-locked pages enforce 4.5:1 contrast for normal text and 3:1 for large text. Pages without an axe-clean lock have not been verified. |
+| **1.4.3 Contrast (Minimum)** | Partially Supports | axe-locked pages enforce 4.5:1 contrast for normal text and 3:1 for large text. Pages without an axe-clean lock have not been verified; this includes the Canvas in-iframe LTI views, which load a dedicated stylesheet. |
 | **1.4.4 Resize Text** | Supports | At 200% browser zoom, text remains readable and functionality remains accessible across the surfaces verified under Evaluation Method 5 (13 pages including all seven course-page tabs). Horizontal page scroll appears at high zoom on most pages, which 1.4.4 permits; the stricter 1.4.10 Reflow criterion is reported separately. Some button labels with longer localized text wrap onto a second line at 200% — layout adaptation, not loss of content or functionality. |
 | **1.4.5 Images of Text** | Supports | The product does not use images of text for content; text in the UI is rendered as HTML. Logos are the only exception, which is permitted. |
-| **1.4.10 Reflow** | Partially Supports | At a 320 CSS pixel viewport width, the core student- and instructor-facing surfaces after a course is underway — the course-page tabs (home, timeline, students, articles, uploads, activity, resources), explore, the logged-out home, admin dashboard, survey admin, and onboarding — remain usable: layout adapts vertically, navigation wraps, the timeline relocates its sidebar above the weeks list, and content remains reachable. The **course-creator modal** does not adapt to 320 CSS pixels and is not currently supported at that viewport size; the wizard's multi-step form layout would need substantial restructuring. Some course-page tables (students, articles, uploads list view) reflow vertically for most columns but retain a horizontal scroll for their tabular data; this is a known pattern that some 1.4.10 audits treat as a Partial pass and others treat as a fail. |
+| **1.4.10 Reflow** | Partially Supports | At a 320 CSS pixel viewport width, the core student- and instructor-facing surfaces after a course is underway — the course-page tabs (home, timeline, students, articles, uploads, activity, resources), explore, the logged-out home, admin dashboard, survey admin, and onboarding — remain usable: layout adapts vertically, navigation wraps, the timeline relocates its sidebar above the weeks list, and content remains reachable. The **course-creator modal** does not adapt to 320 CSS pixels and is not currently supported at that viewport size; the wizard's multi-step form layout would need substantial restructuring. Some course-page tables (students, articles, uploads list view) reflow vertically for most columns but retain a horizontal scroll for their tabular data; this is a known pattern that some 1.4.10 audits treat as a Partial pass and others treat as a fail. The Canvas in-iframe LTI views have not been evaluated for reflow; their viewport is the iframe Canvas allocates. |
 | **1.4.11 Non-text Contrast** | Partially Supports | UI component boundaries (form fields, buttons in their resting state) have not been comprehensively audited for 3:1 contrast against adjacent colors. |
 | **1.4.12 Text Spacing** | Supports | With the WCAG-mandated text-spacing override applied (line-height 1.5, letter-spacing 0.12em, word-spacing 0.16em, paragraph-spacing 2em), text on the verified surfaces does not clip and functionality remains accessible. Minor caveat: the sticky table header on the students tab uses a hardcoded `top` offset that assumes the default global-nav height; at increased text spacing the nav grows taller and the sticky header sits at a slightly off position relative to the table body. Table content remains reachable by scrolling. |
 | **1.4.13 Content on Hover or Focus** | Partially Supports | Some controls deliver additional content via mouseover-only tooltips (the HTML `title` attribute or equivalent), which does not satisfy the criterion's hoverable / persistent / dismissable requirements and is not keyboard-accessible. The most consequential case is the **ArticleViewer authorship view**, where per-author attribution is revealed only on mouseover of colored text spans — making the information effectively unavailable to screen-reader and keyboard users, even though the underlying labels exist. |
@@ -214,4 +247,4 @@ The VPAT does not constitute a legally binding guarantee or certification of com
 
 **Sage Ross**, Chief Technology Officer, Wiki Education Foundation
 
-Attested 2026-06-01
+Attested 2026-08-19

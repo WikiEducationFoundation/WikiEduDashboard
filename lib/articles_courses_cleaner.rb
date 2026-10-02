@@ -27,22 +27,8 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     new(course).remove_articles_courses_for_dates_after_end_date
   end
 
-  # Reset articles involves the following actions:
-  # - Mark timeslices for those articles as needs_update
-  # - Remove article course records for those articles (if they exist)
-  # - Remove article course timeslices for those articles
-  def self.reset_articles_for_course(course)
-    cleaner = new(course)
-    cleaner.reset_deleted_or_untracked_articles
-    cleaner.reset_undeleted_or_retracked_articles
-  end
-
   def self.reset_specific_articles(course, articles)
-    new(course).reset(articles)
-  end
-
-  def self.reset_articles_in_untracked_namespaces(course)
-    new(course).reset_articles_in_untracked_namespaces
+    new(course).reset_specific_articles(articles)
   end
 
   def initialize(course)
@@ -119,49 +105,69 @@ class ArticlesCoursesCleaner # rubocop:disable Metrics/ClassLength
     delete_in_batches(after_timeslices)
   end
 
-  def reset_deleted_or_untracked_articles
-    # Note that this could remove articles courses records for manually untracked articles
-    # Find articles with an articles_courses record but without a non-deleted article record.
-    @course.articles.where(deleted: true).in_batches do |article_batch|
-      reset(article_batch)
-    end
-
-    reset_articles_in_untracked_namespaces
-  end
-
-  def reset_undeleted_or_retracked_articles
-    @course.wikis.each do |wiki|
-      # Find non-deleted and tracked articles without an articles_courses record
-      @course.articles_from_timeslices(wiki.id)
-             .where(deleted: false).in_batches do |article_batch|
-        tracked = @course.tracked_namespaces.flat_map do |wiki_ns|
-          wiki_id = wiki_ns[:wiki].id
-          namespace = wiki_ns[:namespace]
-          article_batch.where(wiki_id:, namespace:)
-        end
-
-        tracked_without_articles_courses = tracked - @course.articles.to_a
-        reset(tracked_without_articles_courses, wiki)
-      end
-    end
-  end
-
-  def reset(articles, wiki = nil)
+  # Legacy reset (full re-fetch). It involves the following actions:
+  # - Mark timeslices for those articles as needs_update
+  # - Remove article course records for those articles (if they exist)
+  # - Remove article course timeslices for those articles
+  def reset_legacy(articles, wiki = nil)
     mark_as_needs_update(articles, wiki)
     delete_article_course(articles.pluck(:id))
   end
 
-  def reset_articles_in_untracked_namespaces
-    @course.articles.in_batches do |article_batch|
-      tracked = @course.tracked_namespaces.each.flat_map do |wiki_ns|
-        wiki_id = wiki_ns[:wiki].id
-        namespace = wiki_ns[:namespace]
-        article_batch.where(wiki_id:, namespace:).pluck(:id)
-      end
-      # Find articles with articles_courses records but not in tracked namespaces
-      untracked_articles = article_batch.where.not(id: tracked)
-      reset(untracked_articles)
-    end
+  # Resets articles that should be excluded from the course stats from now on
+  # (e.g. articles that moved to an untracked namespace).
+  # For ACUWT courses, no re-fetching is needed: the articles' ACUWT rows already hold
+  # complete scored data, so reaggregating the affected timeslices is enough (the
+  # aggregation filters exclude the articles). ACUWT rows are kept, so the articles can
+  # be re-included later without a full re-fetch
+  # (see ArticlesCourses.create_records_and_mark_acuwt).
+  # For non-ACUWT courses, it falls back to the legacy reset.
+  def reset_excluded(articles)
+    return reset_legacy(articles) unless @course.use_acuwt?
+
+    article_ids = articles.pluck(:id)
+    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: article_ids)
+    TimesliceCleaner.new(@course).mark_timeslices_for_reaggregation_from_acuwt(acuwt)
+    delete_article_course(article_ids)
+  end
+
+  # Resets articles that should be included in the course stats from now on
+  # (e.g. undeleted or re-tracked articles: tracked articles that have timeslices
+  # but no articles_courses record).
+  # For ACUWT courses, this is exactly the create-articles-courses-and-rescore case:
+  # ArticlesCourses.create_records_and_mark_acuwt creates the records and marks the
+  # articles' ACUWT rows as needs_update, so they are re-scored and the affected
+  # timeslices reaggregated. No re-fetch of full periods is needed.
+  # For non-ACUWT courses, it falls back to the legacy reset.
+  def reset_included(articles, wiki = nil)
+    return reset_legacy(articles, wiki) unless @course.use_acuwt?
+
+    ArticlesCourses.create_records_and_mark_acuwt(@course, articles.map(&:id))
+  end
+
+  # Resets specific articles detected during the article status sync (stale,
+  # deleted duplicates of a live copy for the same mw_page_id: see
+  # ArticleStatusManager#handle_undeletion). This is a history-merge / undeletion
+  # case where revisions must be re-ingested, so it needs a full per-period
+  # re-fetch rather than a targeted rescore (reset_included) or reaggregation
+  # (reset_excluded).
+  # For ACUWT courses, the covering periods are derived from the articles' ACUWT
+  # rows: those CWTs are marked needs_update (so they are fully re-fetched, and the
+  # revisions re-attributed to the live copy, the next time UpdateCourseWikiTimeslices
+  # runs) and the ACUWT rows for those periods (along with the ACT/CUWT rows
+  # derived from them) are deleted so the re-fetch regenerates them cleanly,
+  # leaving no stale rows.
+  # The article course records are deleted too (as in the legacy reset), since the
+  # revisions are re-attributed to the live copy, so these articles keep no
+  # timeslices to refresh their caches from.
+  # For non-ACUWT courses, it falls back to the legacy reset.
+  def reset_specific_articles(articles)
+    return reset_legacy(articles) unless @course.use_acuwt?
+
+    article_ids = articles.map(&:id)
+    acuwt = ArticleCourseUserWikiTimeslice.where(course: @course, article_id: article_ids)
+    TimesliceCleaner.new(@course).reset_timeslices_for_update_from_acuwt(acuwt)
+    delete_article_course(article_ids)
   end
 
   private

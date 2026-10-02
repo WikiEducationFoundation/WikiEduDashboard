@@ -237,6 +237,8 @@ hi:
       देने की योजना बनाते हैं।
     select: चयन करें
     submit: जमा करें
+  assignments_tab:
+    progress: प्रगति
   blocks:
     milestones:
       title: मील के पत्थर
@@ -263,6 +265,8 @@ hi:
     course_already_removed: '"%{campaign_title}" अभियान से "%{title}" पहले से ही निकाल
       दिया गया था'
     course: कोर्स
+    all_data: सभी
+    export: निर्यात
     course_removed: '"%{campaign_title}" अभियान से "%{title}" हटा दिया गया है'
     create_campaign: नया अभियान बनाए
     create_my_campaign: अपना अभियान बनाएं!
@@ -405,6 +409,8 @@ hi:
     property: गुणधर्म
     school: विद्यालय
     author: लेखक
+  report_cards:
+    total: कुल
   recent_activity:
     article_title: लेख शीर्षक
     datetime: दिनांक/समय
@@ -439,6 +445,11 @@ hi:
     page: पृष्ठ
     training_library: प्रशिक्षण पुस्तकालय
     done: पूर्ण हुआ!
+  claim_verification:
+    form:
+      submit: जमा करें
+    responses:
+      pending_heading: चालू
   uploads:
     uploaded_at: अपलोड की गई
   users:
@@ -452,6 +463,10 @@ hi:
     sub_navigation:
       assignments_and_exercises: कार्य और अभ्यास
       student_overview: '%{prefix} अवलोकन'
+  downloads:
+    title: डाउनलोड
+    ready: तैयार
+    download: डाउनलोड
   training_status:
     completed: पूर्ण
     not_started: प्रारम्भ नहीं हुआ

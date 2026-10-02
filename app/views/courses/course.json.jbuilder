@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 json.course do
-  user_role = current_user&.highest_role(@course) || CoursesUsers::Roles::VISITOR_ROLE
+  user_role = viewer_role(@course)
 
   json.call(@course, :id, :title, :description, :start, :end, :school,
             :subject, :slug, :url, :submitted, :expected_students, :timeline_start,
@@ -27,6 +27,7 @@ json.course do
   json.account_requests_enabled @course.account_requests_enabled?
   json.online_volunteers_enabled @course.online_volunteers_enabled?
   json.progress_tracker_enabled @course.progress_tracker_enabled?
+  json.assignments_tab_enabled @course.assignments_tab_enabled?
   json.stay_in_sandbox @course.stay_in_sandbox?
   json.no_sandboxes @course.no_sandboxes?
   json.retain_available_articles @course.retain_available_articles?
@@ -40,6 +41,8 @@ json.course do
   json.enroll_url "#{request.base_url}#{course_slug_path(@course.slug)}/enroll/"
   json.wiki_string_prefix @course.home_wiki.string_prefix
   json.returning_instructor @course.returning_instructor?
+  json.eligible_for_active_research_experiment @course.eligible_for_active_research_experiment?
+  json.research_experiment_open_to_students @course.research_experiment_open_to_students?
 
   if @course&.course_stat&.stats_hash.present?
     formatted_stats = format_course_stats(@course.course_stat.stats_hash)

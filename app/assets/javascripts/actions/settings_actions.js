@@ -9,29 +9,18 @@ import {
 import { API_FAIL } from '../constants/api';
 import { ADD_NOTIFICATION } from '../constants/notifications';
 import { addNotification } from '../actions/notification_actions';
-import logErrorMessage from '../utils/log_error_message';
-import request from '../utils/request';
+import request, { ensureOk } from '../utils/request';
 import API from '../utils/api';
 
 const fetchAdminUsersPromise = async () => {
   const response = await request('/settings/all_admins');
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
 const fetchSpecialUsersPromise = async () => {
   const response = await request('/settings/special_users');
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -46,12 +35,7 @@ const grantAdminPromise = async (username, upgrade) => {
     method: 'POST',
     body: JSON.stringify({ user: { username } })
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -61,12 +45,7 @@ const grantSpecialUserPromise = async (username, upgrade, position) => {
     method: 'POST',
     body: JSON.stringify({ special_user: { username, position } })
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -125,7 +104,7 @@ export const upgradeSpecialUser = (username, position) => (dispatch) => {
       })
       );
 
-      fetchSpecialUsersPromise()
+      return fetchSpecialUsersPromise()
         .then(resp =>
           dispatch({
             type: SET_SPECIAL_USERS,
@@ -168,7 +147,7 @@ export const downgradeSpecialUser = (username, position) => (dispatch) => {
       })
       );
 
-      fetchSpecialUsersPromise()
+      return fetchSpecialUsersPromise()
         .then((resp) => {
           dispatch({
             type: SET_SPECIAL_USERS,
@@ -230,7 +209,7 @@ export const upgradeAdmin = username => (dispatch) => {
         closable: true
       }));
 
-      fetchAdminUsersPromise()
+      return fetchAdminUsersPromise()
         .then((resp) => {
           dispatch({
             type: SET_ADMIN_USERS,
@@ -277,7 +256,7 @@ export const downgradeAdmin = username => (dispatch) => {
       })
       );
 
-      fetchAdminUsersPromise()
+      return fetchAdminUsersPromise()
         .then((resp) => {
           dispatch({
             type: SET_ADMIN_USERS,
@@ -317,12 +296,7 @@ const updateSalesforceCredentialsPromise = async (password, token) => {
     method: 'POST',
     body: JSON.stringify({ password, token })
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -334,12 +308,7 @@ export const updateSalesforceCredentials = (password, token) => (dispatch) => {
 
 const fetchCourseCreationSettingsPromise = async () => {
   const response = await request('/settings/course_creation');
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -364,12 +333,7 @@ const updateCourseCreationSettingsPromise = async (settings) => {
     body: JSON.stringify(settings)
   });
 
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -386,12 +350,7 @@ export const updateCourseCreationSettings = settings => (dispatch) => {
 const fetchDefaultCamapignPromise = async () => {
   const response = await request('/settings/default_campaign');
 
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -416,12 +375,7 @@ const updateDefaultCampaignPromise = async (campaignSlug) => {
     body: JSON.stringify({ default_campaign: campaignSlug })
   });
 
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -442,23 +396,13 @@ const updateImpactStatsPromise = async (impactStats) => {
     method: 'POST',
     body: JSON.stringify(body),
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
 const fetchImpactStatsPromise = async () => {
   const response = await request('/settings/fetch_impact_stats', { method: 'GET' });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -476,12 +420,7 @@ export const updateImpactStats = impactStats => (dispatch) => {
 
 const fetchFeaturedCampaignsPromise = async () => {
   const response = await request('/campaigns/featured_campaigns');
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -504,12 +443,7 @@ const removeFeaturedCampaignPromise = async (campaign_slug) => {
   const response = await request(`/settings/remove_featured_campaign?featured_campaign_slug=${campaign_slug}`, {
     method: 'POST'
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -521,12 +455,7 @@ const updateSiteNoticePromise = async (siteNotice) => {
     method: 'POST',
     body: JSON.stringify(body),
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -540,12 +469,7 @@ const addFeaturedCampaignPromise = async (campaign_slug) => {
   const response = await request(`/settings/add_featured_campaign?featured_campaign_slug=${campaign_slug}`, {
     method: 'POST'
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -565,12 +489,7 @@ const getSiteNoticePromise = async () => {
   const response = await request('/settings/fetch_site_notice', {
     method: 'GET'
   });
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 

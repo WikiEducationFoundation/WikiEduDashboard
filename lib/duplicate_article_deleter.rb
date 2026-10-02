@@ -21,10 +21,14 @@ class DuplicateArticleDeleter
 
     articles = Article.where(id: @deleted_ids)
     # Get all courses with at least one deleted article
-    course_ids = ArticlesCourses.where(article_id: @deleted_ids).pluck(:course_id).uniq
-    course_ids.each do |course_id|
+    courses_with_articles = ArticlesCourses.where(article_id: @deleted_ids)
+                                           .pluck(:course_id, :article_id)
+                                           .group_by(&:first)
+    courses_with_articles.each do |course_id, course_article_pairs|
       # Reset articles for every course involved
-      ArticlesCoursesCleaner.reset_specific_articles(Course.find(course_id), articles)
+      course = Course.find(course_id)
+      ArticlesCoursesCleaner.reset_specific_articles(course, articles)
+      log_reset(course, course_article_pairs.map(&:last))
     end
   end
 
@@ -32,6 +36,15 @@ class DuplicateArticleDeleter
   # Helper method #
   #################
   private
+
+  # These resets are hard to reproduce (they depend on on-wiki events happening
+  # in the middle of course updates), so we log them to learn how frequent they are.
+  def log_reset(course, article_ids)
+    Sentry.capture_message 'Article retracked',
+                           level: 'info',
+                           extra: { course_slug: course.slug, course_id: course.id,
+                                    reason: 'duplicate_article_deleted', article_ids: }
+  end
 
   def articles_grouped_by_title_and_namespace(articles)
     article_group = {}

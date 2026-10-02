@@ -435,6 +435,8 @@ fi:
     ended: Kurssi on päättynyt.
     enroll: Ilmoittaudu
     enrollment: Lisää/poista opiskelijoita
+    view_event_center_page: Näytä sivu
+    go_to_event_center: Rekisteröidy tapahtumakeskuksessa
     courses_enrolled: Kaikki kurssit
     error:
       exists: Kurssi on jo olemassa! Yritä uudelleen eri nimellä, oppilaitoksella
@@ -861,6 +863,23 @@ fi:
     included_modules: Sisällytetyt moduulit
     kind:
       discussion: Keskustelu
+    open_exercise: Aloita harjoitus
+  claim_verification:
+    tile_revision_date: alkaen %{date}
+    previous_claim: Edellinen väite
+    claim_position: Väite %{current}/%{total}
+    cited_source: Lainauksen lähde
+    source_url: Lähde-URL
+    no_articles: Artikkeleja ei ole saatavilla
+    your_selected_claim: Valitsemasi väite
+    find_in_article: Etsi tämä artikkelin tekstistä
+    show_surrounding: Näytä koko kappale
+    course_picker_heading: Valitse kurssi
+    course_picker_no_courses: Ei kursseja
+    admin:
+      loading: Ladataan…
+      status: 'Tila: %{status}'
+      progress: ' — %{at}/%{total} hälytystä (%{pct}%)'
   update_username:
     label: Uusi käyttäjänimi
   uploads:

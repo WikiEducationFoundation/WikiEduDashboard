@@ -270,6 +270,26 @@ scoped: false)
         end
       end
 
+      context 'when the article is deleted' do
+        before do
+          article.update(deleted: true)
+        end
+
+        it 'excludes deleted articles from revision_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          expect(course_wiki_timeslice.revision_count).to eq(0)
+        end
+
+        it 'excludes deleted articles from mw_rev_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          expect(course_wiki_timeslice.mw_rev_count).to eq(0)
+        end
+      end
+
       context 'when the article course is not tracked' do
         before do
           ArticlesCourses.find(1).update(tracked: false)
@@ -295,6 +315,26 @@ scoped: false)
           course_wiki_timeslice.update_cache_from_acuwt
 
           expect(course_wiki_timeslice.mw_rev_count).to eq(5)
+        end
+      end
+
+      # ArticlesCourses records are only created for the course's tracked namespaces,
+      # so a missing record means the article is outside them.
+      context 'when a mainspace article has no articles_courses record' do
+        let(:untracked_ns_article) { create(:article, id: 20, namespace: 0) }
+
+        before do
+          create(:article_course_user_wiki_timeslice, course:, wiki:,
+                 article: untracked_ns_article, user_id: 1, start:, end: timeslice_end,
+                 character_sum: 4213, references_count: 7, revision_count: 3)
+        end
+
+        it 'excludes the article from character_sum and references_count' do
+          course_wiki_timeslice = described_class.find_by(course:, wiki:, start:)
+          course_wiki_timeslice.update_cache_from_acuwt
+
+          expect(course_wiki_timeslice.character_sum).to eq(700)
+          expect(course_wiki_timeslice.references_count).to eq(4)
         end
       end
 
@@ -386,11 +426,11 @@ scoped: false)
           expect(cuwt.stats['total revisions']).to eq(7)
         end
 
-        it 'sets zero for stats keys with no ACUWT contributions' do
+        it 'omits stats keys with no ACUWT contributions' do
           cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
           cuwt.update_cache_from_acuwt
 
-          expect(cuwt.stats['descriptions added']).to eq(0)
+          expect(cuwt.stats).not_to have_key('descriptions added')
         end
 
         context 'when course is article-scoped' do
@@ -411,6 +451,24 @@ scoped: false)
             cuwt.update_cache_from_acuwt
 
             # Only scoped article ACUWT: claims created 3+1=4; unscoped (99) excluded
+            expect(cuwt.stats['claims created']).to eq(4)
+            expect(cuwt.stats['total revisions']).to eq(7)
+          end
+        end
+
+        context 'when an article is deleted' do
+          let(:deleted_article) { create(:article, title: 'Deleted item', deleted: true) }
+
+          before do
+            create(:article_course_user_wiki_timeslice, course:, wiki: wikidata_wiki,
+                   article: deleted_article, user_id: 1, start:, end: timeslice_end,
+                   stats: { 'claims created' => 50, 'total revisions' => 20 })
+          end
+
+          it 'excludes deleted articles from wikidata stats' do
+            cuwt = described_class.find_by(course:, wiki: wikidata_wiki, start:)
+            cuwt.update_cache_from_acuwt
+
             expect(cuwt.stats['claims created']).to eq(4)
             expect(cuwt.stats['total revisions']).to eq(7)
           end

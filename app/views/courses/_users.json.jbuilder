@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-show_email_and_real_name = user_signed_in? && current_user.can_see_real_names?(course)
+show_email_and_real_name = viewer_sees_real_names?(course)
 show_instructor_identity = user_signed_in? && current_user.nonvisitor?(course)
 
 json.users course.courses_users.eager_load(:user, :course) do |cu|

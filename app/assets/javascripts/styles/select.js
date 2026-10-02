@@ -34,4 +34,15 @@ const selectStyles = {
   })
 };
 
+// Smaller dropdown arrow and tighter padding, for selects inside table rows.
+export const compactIndicatorStyles = {
+  dropdownIndicator: base => ({
+    ...base,
+    padding: '0 4px',
+    svg: { width: 14, height: 14 }
+  }),
+  indicatorSeparator: base => ({ ...base, marginTop: 6, marginBottom: 6 }),
+  valueContainer: base => ({ ...base, padding: '2px 6px' })
+};
+
 export default selectStyles;

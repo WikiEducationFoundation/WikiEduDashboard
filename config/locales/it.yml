@@ -18,6 +18,7 @@
 # Author: Macofe
 # Author: Marcok
 # Author: Martinligabue
+# Author: Matroz
 # Author: Matteocng
 # Author: Nemo bis
 # Author: Neonsn0w
@@ -89,6 +90,7 @@ it:
     change: Modifica
     details: Dettagli
     confirm: OK
+    confirm_generic: Sei sicuro di volerlo fare?
     opt_in: Sì
     opt_out: "No"
     opt_yes: sì
@@ -122,6 +124,8 @@ it:
       creare ora un Programma. Se il tuo evento è parte di qualcosa più grande, trova
       o crea la Campagna per esso; puoi quindi creare un Programma nuovo dalla pagina
       della Campagna.
+    tooltip:
+      alt: Ulteriori informazioni
   home:
     explore: Esplora
     log_in: Accedi con Wikipedia
@@ -575,16 +579,23 @@ it:
     enrollment_edits_enabled_tooltip: Se abilitato, la dashboard pubblicherà un template
       nella pagina utente e nella pagina di discussione di ciascun contributore che
       partecipa al programma.
+    view_event_center_page: Vedi pagina
     courses_enrolled: Corsi abilitati
     error:
       exists: Quel corso esiste già! Riprova con un differente titolo, scuola o termine.
       user_exists: Spiacenti, %{username} non è un utente esistente.
       user_exists_on_wiki: Spiacenti, %{username} non è un utente esistente in %{domain}.
+      management_role_not_authorized: Solo i docenti del corso possono aggiungere
+        o rimuovere un utente da tale ruolo.
       invalid_language_or_project: Lingua/progetto non valido
       duplicate_course_slug: L'URL %{slug} è già in uso. Si prega di modificare il
         titolo, la scuola o il semestre.
       invalid_slug: Nome scuola/titolo del corso
       duplicate_slug: Un altro programma chiamato %{slug} esiste già.
+      event_sync_delete: Questa pagina è collegata alla registrazione per gli eventi
+        di Wikimedia e non può essere cancellata.
+      event_sync_rename: Questa pagina è collegata alla registrazione per gli eventi
+        di Wikimedia e non può essere rinominata.
     expected_students: Studenti previsti
     features_feedback: 'Suggerimenti automatizzati:'
     feedback: Feedback
@@ -681,6 +692,8 @@ it:
     training_overdue: Il modulo di formazione "%{title}" è stato assegnato per questo
       corso, ed era previsto per il %{date}.
     unsubmitted: Corsi non presentati
+    unsubmitted_show_all: Mostra tutto
+    unsubmitted_show_recent: Mostra recenti
     untrained: Inesperto
     update_stats: Aggiorna le statistiche
     uploads_none: Questa classe non ha contribuito con alcuna immagine o altri file
@@ -698,7 +711,8 @@ it:
     wiki_staff: Staff Wiki Education
     withdrawn: Non assegnato
     word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
-      principale dagli studenti del corso durante il periodo del corso
+      principale dagli studenti del corso durante il periodo del corso. (Le modifiche
+      apportate da Wikidata non sono incluse.)
     yourcourses: Tuoi corsi
     survey:
       notification_message: Partecipa al nostro sondaggio per questo corso.
@@ -780,7 +794,8 @@ it:
       multimediali su Wikimedia Commons.
     view_other: Vedi altre campagne
     word_count_doc: Una stima del numero di parole aggiunte alle voci nel namespace
-      principale dagli studenti del programma durante il periodo del programma
+      principale dagli studenti del programma durante il periodo del programma. (Le
+      modifiche apportate da Wikidata non sono incluse.)
   editable:
     edit: Modifica
     cancel: Annulla
@@ -929,6 +944,8 @@ it:
         not_found: '%{username} non è nell''elenco degli utenti non autorizzati.'
         confirm: Vuoi davvero rimuovere %{username} dall'elenco degli utenti non autorizzati?
     actions: Azioni
+  status:
+    report_csv_doc: Gestisce i report in formato CSV richiesti dagli utenti.
   suggestions:
     suggestion_docs:
       does_not_exist: Questa voce non esiste su Wikipedia.
@@ -967,6 +984,10 @@ it:
       è piena. Cancella almeno una settimana o cambia le date di assegnazione per
       fare spazio a una nuova.
     week_number: Settimana %{number}
+    standard_blocks: Blocchi standard
+    standard_block_does_not_match: Non corrisponde
+    sandbox_mode: Modalità Sandbox
+    sandbox_mode_switch_to_sandboxes: Passa alle sandbox
   training:
     continue: Continua (%{progress})
     start: Inizio
@@ -982,6 +1003,22 @@ it:
     kind:
       discussion: Discussione
     loading: Caricamento…
+  claim_verification:
+    form:
+      source_access_options:
+        nonexistent: No, la fonte non esiste.
+        inaccessible: No, la fonte esiste ma non sono riuscito ad accedervi.
+      verdict_options:
+        full_support: Sì, supporta esplicitamente l'affermazione completa.
+        contradicted: Al contrario, la fonte contraddice l'affermazione.
+      other_comments_label: Altri commenti su questo esercizio?
+      submitted_heading: Risposta inviata
+      edit_response: Modifica risposta
+      submit_failed: Errore! La tua risposta non è stata salvata.
+    responses:
+      heading: Risposte degli studenti
+      submitted_at: Inviato il %{date}
+      pending_heading: In corso
   update_username:
     label: Nuovo nome utente
     button: Aggiorna
@@ -1192,4 +1229,9 @@ it:
     selector_placeholder: Inizia a digitare un dominio wiki
   question_groups:
     edit_question_group: Modifica gruppo di domande
+  lti:
+    beta_feedback:
+      message: Accogliamo volentieri i feedback riguardo a questa versione beta della
+        nostra integrazione Canvas.
+      link: Invia un feedback
 ...

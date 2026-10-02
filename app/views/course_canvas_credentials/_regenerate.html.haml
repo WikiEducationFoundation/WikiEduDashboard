@@ -1,0 +1,9 @@
+-# Shared by the waiting and connected states. The warning is the load-bearing
+-# part: regenerating is not additive, it breaks the install that exists.
+.module
+  %h2 Generate new credentials
+  %p
+    %strong This will invalidate the previous credentials and disable the previous Canvas integration.
+  = button_to 'Generate new credentials', "/courses/#{course.slug}/canvas",
+              method: :post, class: 'button danger',
+              data: { confirm: 'This invalidates the previous credentials. Continue?' }

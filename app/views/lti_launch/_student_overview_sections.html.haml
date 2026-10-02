@@ -1,0 +1,56 @@
+- # One student's state of work, as the student's own overview shows it: the
+- # empty state, the next step, assigned articles with sandbox links, and the
+- # training and exercise roll-ups. Shared by the student's launch view
+- # (student_status) and the instructor's per-student disclosure on the LTI 1.1
+- # roster (_roster_student_detail), so the two cannot describe the work
+- # differently. Every link opens in a new tab: the full Dashboard cannot render
+- # inside the Canvas iframe.
+- # Locals: status (StudentStatusContext); articles_heading and sandbox_label,
+- # since the student reads "My Articles" / "Your sandbox" where the instructor
+- # reads "Assigned Articles" / "Sandbox".
+- if status.empty?
+  %p.lti-iframe__empty= t('lti.student_overview.empty')
+
+- step = status.next_step
+- if step
+  .lti-iframe__next-step
+    %h2= t('lti.student_overview.next_step')
+    %p
+      - if step.url
+        = link_to step.label, step.url, target: '_blank', rel: 'noopener'
+      - else
+        = step.label
+
+- if status.articles.any?
+  %section.lti-overview-section
+    %h2= articles_heading
+    %ul.lti-overview-list
+      - status.articles.each do |article|
+        %li.lti-overview-item
+          .lti-overview-item__main
+            - if article.url
+              = link_to article.title, article.url, target: '_blank', rel: 'noopener'
+            - else
+              = article.title
+            %span.lti-overview-role= t("lti.student_overview.role.#{article.role}")
+            - if article.status_label.present?
+              %span.lti-muted= article.status_label
+          - if article.sandbox_url
+            = link_to sandbox_label, article.sandbox_url,
+                      target: '_blank', rel: 'noopener', class: 'lti-overview-link'
+
+- if status.training_items.any?
+  %section.lti-overview-section
+    %h2
+      = t('lti.student_overview.trainings')
+      %span.lti-overview-count
+        = "#{status.trainings_completed} / #{status.training_items.size}"
+    = render 'lti_launch/overview_items', items: status.training_items
+
+- if status.exercise_items.any?
+  %section.lti-overview-section
+    %h2
+      = t('lti.student_overview.exercises')
+      %span.lti-overview-count
+        = "#{status.exercises_completed} / #{status.exercise_items.size}"
+    = render 'lti_launch/overview_items', items: status.exercise_items

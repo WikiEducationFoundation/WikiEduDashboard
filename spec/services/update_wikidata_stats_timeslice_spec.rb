@@ -105,6 +105,34 @@ describe UpdateWikidataStatsTimeslice do
       expect(stats['sense qualifiers changed']).to eq(2)
     end
 
+    it 'omits zero-valued counters from built stats' do
+      revision = build(:revision_on_memory, wiki_id: wikidata.id, scoped: true)
+      revision.summary = { 'added_claims' => 2, 'removed_claims' => 0 }.to_json
+      stats = updater.build_stats_from_revisions([revision])
+      expect(stats).to eq('claims created' => 2, 'total revisions' => 1)
+    end
+
+    it 'builds an empty stats hash from no revisions' do
+      expect(updater.build_stats_from_revisions([])).to eq({})
+    end
+
+    it 'sums sparse and legacy dense stats hashes, omitting zero values' do
+      legacy_dense = { 'claims created' => 1, 'labels added' => 0, 'total revisions' => 2 }
+      sparse = { 'claims created' => 3, 'total revisions' => 4 }
+      expect(updater.sum_up_stats([legacy_dense, sparse]))
+        .to eq('claims created' => 4, 'total revisions' => 6)
+    end
+
+    it 'stores the complete hash including zero values in CourseStat' do
+      updater.update_wikidata_statistics([{ 'claims created' => 2, 'total revisions' => 3 }])
+      stats = CourseStat.last.stats_hash[wikidata.domain]
+      expect(stats['claims created']).to eq(2)
+      expect(stats['total revisions']).to eq(3)
+      expect(stats['merged to']).to eq(0)
+      expect(stats.keys)
+        .to match_array(described_class::STATS_CLASSIFICATION.values + ['total revisions'])
+    end
+
     it 'creates record in CourseStat table', :vcr do
       expect(CourseStat.count).to eq(0)
       updater.update_revisions_with_stats(revisions)

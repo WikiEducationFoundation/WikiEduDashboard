@@ -5,6 +5,7 @@ import {
   CANCEL_BLOCK_EDITABLE,
   UPDATE_BLOCK,
   ADD_BLOCK,
+  ADD_WIZARD_BLOCK,
   DELETE_BLOCK,
   INSERT_BLOCK,
   UPDATE_TITLE,
@@ -17,18 +18,12 @@ import {
   RESTORE_TIMELINE,
   DELETE_ALL_WEEKS,
 } from '../constants';
-import logErrorMessage from '../utils/log_error_message';
 import { fetchCourse } from './course_actions';
-import request from '../utils/request';
+import request, { ensureOk } from '../utils/request';
 
 const fetchTimelinePromise = async (courseSlug) => {
   const response = await request(`/courses/${courseSlug}/timeline.json`);
-  if (!response.ok) {
-    logErrorMessage(response);
-    const data = await response.text();
-    response.responseText = data;
-    throw response;
-  }
+  await ensureOk(response);
   return response.json();
 };
 
@@ -87,6 +82,19 @@ export const updateBlock = (block) => {
 
 export const addBlock = (weekId) => {
   return { type: ADD_BLOCK, weekId, tempId: Date.now() };
+};
+
+// Insert a standard block from the assignment wizard's catalog into a week.
+// The training modules are hydrated here rather than in the reducer, which has
+// no access to the training slice, and the block is left in edit mode so the
+// admin reviews it before the normal timeline save persists it.
+export const addWizardBlock = (weekId, entry) => (dispatch, getState) => {
+  const modules = getState().training.modules || [];
+  const ids = entry.training_module_ids || [];
+  const trainingModules = ids
+    .map(id => modules.find(module => module.id === id))
+    .filter(module => module);
+  return dispatch({ type: ADD_WIZARD_BLOCK, weekId, entry, trainingModules, tempId: Date.now() });
 };
 
 export const insertBlock = (block, newWeekId, afterBlock) => {

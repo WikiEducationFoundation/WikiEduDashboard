@@ -34,6 +34,7 @@ const getValidationErrors = state => state.validations.errorQueue;
 const getCourse = state => state.course;
 const getTickets = state => state.tickets;
 const getSpecialUsers = state => state.settings.specialUsers;
+const getViewAsStudent = state => state.viewAsStudent;
 
 export const getInstructorUsers = createSelector(
   [getUsers], users => sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -107,12 +108,45 @@ export const getCampusVolunteerUsers = createSelector(
   [getUsers], users => sortBy(getFiltered(users, { role: CAMPUS_VOLUNTEER_ROLE }), 'enrolled_at')
 );
 
-export const getCurrentUser = createSelector(
+// The current user's actual roles, ignoring student view.
+export const getRealCurrentUser = createSelector(
   [getCurrentUserFromHtml, getUsers], (currentUserFromHtml, users) => {
     const currentUserFromUsers = getFiltered(users, { id: currentUserFromHtml.id })[0];
     const currentUser = currentUserFromUsers || currentUserFromHtml;
     const userRoles = UserUtils.userRoles(currentUser, users);
     return { ...currentUser, ...userRoles };
+  }
+);
+
+export const getCanViewAsStudent = createSelector(
+  [getRealCurrentUser, getCourseType], (user, courseType) => {
+    return Boolean(user.isInstructor) && courseType === 'ClassroomProgramCourse';
+  }
+);
+
+export const getIsViewingAsStudent = createSelector(
+  [getViewAsStudent, getCanViewAsStudent], (viewAsStudent, canViewAsStudent) => {
+    return viewAsStudent && canViewAsStudent;
+  }
+);
+
+// In student view, an instructor keeps their identity but has a student's
+// roles, so the course page renders as it would for an enrolled student.
+export const getCurrentUser = createSelector(
+  [getRealCurrentUser, getIsViewingAsStudent], (realUser, isViewingAsStudent) => {
+    if (!isViewingAsStudent) { return realUser; }
+    const {
+      isInstructor, isAdvancedRole, isAdmin, isStaff, isCampusVolunteer, isOnlineVolunteer,
+      notEnrolled, ...user
+    } = realUser;
+    return {
+      ...user,
+      role: STUDENT_ROLE,
+      admin: false,
+      campaign_organizer: false,
+      isStudent: true,
+      isEnrolled: true
+    };
   }
 );
 

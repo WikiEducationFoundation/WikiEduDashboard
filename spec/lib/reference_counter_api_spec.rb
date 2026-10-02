@@ -10,6 +10,7 @@ describe ReferenceCounterApi do
   let(:es_wiktionary) { Wiki.get_or_create(language: 'es', project: 'wiktionary') }
   let(:commons) { Wiki.get_or_create(language: 'commons', project: 'wikimedia') }
   let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
+  let(:multilingual_wikisource) { Wiki.get_or_create(language: nil, project: 'wikisource') }
   let(:deleted_rev_id) { [6115106] }
   let(:rev_ids) { [5006940, 5006942, 5006946] }
 
@@ -19,10 +20,20 @@ describe ReferenceCounterApi do
     end.to raise_error(described_class::InvalidProjectError)
   end
 
-  it 'raises InvalidProjectError for wikimedia projects (commons, meta, etc.)' do
+  it 'does not raise InvalidProjectError for wikimedia projects (commons, meta, incubator)' do
     expect do
       described_class.new(commons)
-    end.to raise_error(described_class::InvalidProjectError)
+    end.not_to raise_error
+  end
+
+  it 'uses www as the language for multilingual Wikisource' do
+    ref_counter_api = described_class.new(multilingual_wikisource)
+    expect(ref_counter_api.send(:batch_query_url)).to eq('/api/v1/references/wikisource/www')
+  end
+
+  it 'uses the wiki language for language-edition wikis' do
+    ref_counter_api = described_class.new(es_wiktionary)
+    expect(ref_counter_api.send(:batch_query_url)).to eq('/api/v1/references/wiktionary/es')
   end
 
   context 'when the API returns 200 responses' do

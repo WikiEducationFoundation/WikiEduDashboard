@@ -1,0 +1,59 @@
+.container.narrow
+  .section-header
+    %h1= t('lti.setup.header')
+  %hr
+  - if @setup_error
+    .lti-setup__error
+      %p= @setup_error
+  - if @user_courses.any?
+    = form_with url: '/lti/setup', method: :post, local: true do |f|
+      - # The ltik is the only binding identifier the POST carries: the server
+      - # re-verifies the launch and derives the binding from it, so a submitted
+      - # binding id would be ignored (and was forgeable).
+      = hidden_field_tag :ltik, params[:ltik]
+      .module
+        %h2= t('lti.setup.link_existing.header')
+        = label_tag :course_slug, t('lti.setup.link_existing.label')
+        - # With a single course, preselect it (no blank prompt) so the
+        - # instructor can just click Link. With several, require an explicit pick.
+        - single_course = @user_courses.one?
+        = select_tag :course_slug,
+                     options_for_select(@user_courses.map { |c| [pretty_course_title(c), c.slug] },
+                                        single_course ? @user_courses.first.slug : nil),
+                     required: true, include_blank: !single_course
+      %button.button.dark.lti-setup__submit{ type: 'submit' }= t('lti.setup.submit')
+    - # Course creation happens on the full Dashboard, which keeps its
+    - # SAMEORIGIN framing — following this link in place would blank the Canvas
+    - # frame on any browser that let the Dashboard session through to the
+    - # iframe. New tab, and the instructor comes back here and relaunches.
+    %p.lti-setup__alt-path
+      = link_to t('lti.setup.create_prompt'), root_path, class: 'lti-setup__alt-link',
+                target: '_blank', rel: 'noopener'
+      %span.lti-setup__alt-note= t('lti.setup.create_return_note')
+    :javascript
+      // Keep the primary action disabled until a course is picked, so its
+      // enabled/disabled state mirrors whether the form can actually submit.
+      // Progressive enhancement: without JS the button stays active and the
+      // `required` select still blocks an empty submit.
+      (function () {
+        var select = document.getElementById('course_slug');
+        var submit = document.querySelector('.lti-setup__submit');
+        if (!select || !submit) { return; }
+        var sync = function () { submit.disabled = !select.value; };
+        select.addEventListener('change', sync);
+        sync();
+      })();
+  - else
+    .module
+      - if @no_courses_yet
+        - # No Dashboard courses at all: the approval message would be a dead
+        - # end (nothing is awaiting approval). Point at course creation, the
+        - # same path the alt-path link offers under the form.
+        %p= t('lti.setup.no_courses_yet')
+        = link_to t('lti.setup.create_prompt'), root_path, class: 'button dark',
+                  target: '_blank', rel: 'noopener'
+        %p.lti-setup__alt-note= t('lti.setup.create_return_note')
+      - else
+        %p= t('lti.setup.no_approved_courses')
+        = link_to t('application.my_dashboard'), root_path, class: 'button dark',
+                  target: '_blank', rel: 'noopener'

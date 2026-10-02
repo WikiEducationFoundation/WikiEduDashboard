@@ -1,18 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Select from 'react-select';
-import selectStyles from '../../styles/select';
+import selectStyles, { compactIndicatorStyles } from '../../styles/select';
 import { STATUSES } from './util';
 
 import { updateTicketStatus } from '../../actions/tickets_actions';
 
-export const TicketStatusHandler = ({ updateStatus, ticket, arialabelledby }) => {
+export const TicketStatusHandler = ({ updateStatus, ticket, arialabelledby, compact }) => {
   const options = Object.entries(STATUSES).map(([value, label]) => ({ label, value }));
   return (
     <Select
       onChange={({ value: status }) => updateStatus(ticket.id, status)}
       options={options}
-      styles={{ ...selectStyles, singleValue: null }}
+      styles={{
+        ...selectStyles,
+        singleValue: base => ({ ...base, whiteSpace: 'normal' }),
+        ...(compact ? compactIndicatorStyles : {})
+      }}
       value={{ label: STATUSES[ticket.status], value: ticket.status }}
       aria-label="Ticket status"
       aria-labelledby={arialabelledby}

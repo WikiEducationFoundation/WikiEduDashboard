@@ -100,6 +100,33 @@ describe ArticlesCourses, type: :model do
     end
   end
 
+  describe '.update_required_caches_from_timeslices' do
+    let(:other_course) do
+      create(:course, slug: 'Other/Course', start: '2024-06-16', end: '2024-08-16')
+    end
+
+    before do
+      create(:articles_course, article:, course:)
+      create(:articles_course, article:, course: other_course)
+      course.flags['update_logs'] = { 1 => { 'end_time' => '2024-07-10'.to_datetime } }
+      course.save
+      create(:article_course_timeslice, article:, course:,
+             start: '2024-07-11', end: '2024-07-12', character_sum: 500)
+      create(:article_course_timeslice, article:, course: other_course,
+             start: '2024-07-11', end: '2024-07-12', character_sum: 900)
+    end
+
+    it 'updates the caches for the given course' do
+      described_class.update_required_caches_from_timeslices(course)
+      expect(described_class.find_by(course:).character_sum).to eq(500)
+    end
+
+    it 'does not update the caches for other courses sharing the same article' do
+      described_class.update_required_caches_from_timeslices(course)
+      expect(described_class.find_by(course: other_course).character_sum).to eq(0)
+    end
+  end
+
   describe '.update_from_course_revisions' do
     let(:article2) { create(:article, title: 'Second Article', namespace: 0, wiki_id: 2) }
     let(:article3) { create(:article, title: 'Third Article', namespace: 0) }
@@ -131,6 +158,76 @@ describe ArticlesCourses, type: :model do
       expect(described_class.count).to eq(0)
       described_class.update_from_course_revisions(course, array_revisions)
       expect(described_class.count).to eq(2)
+    end
+
+    context 'when the course uses ACUWT' do
+      before do
+        course.add_flag(key: :use_acuwt)
+        # ACUWT record from an edit ingested before the article became relevant to the course
+        create(:article_course_user_wiki_timeslice, course:, article:, user_id:,
+               wiki: course.home_wiki, start: '2024-06-20', end: '2024-06-21')
+      end
+
+      it 'marks preexisting ACUWT records for the new articles as needs_update' do
+        described_class.update_from_course_revisions(course, array_revisions)
+        expect(ArticleCourseUserWikiTimeslice.find_by(article:).needs_update).to eq(true)
+      end
+    end
+  end
+
+  describe '.create_records_and_mark_acuwt' do
+    let(:another_article) { create(:article, title: 'Another Article') }
+
+    before do
+      # ACUWT records from edits ingested before the article became relevant to the course
+      create(:article_course_user_wiki_timeslice, course:, article:, user_id:,
+             wiki: course.home_wiki, start: '2024-06-20', end: '2024-06-21')
+      create(:article_course_user_wiki_timeslice, course:, article:, user_id:,
+             wiki: course.home_wiki, start: '2024-06-25', end: '2024-06-26')
+    end
+
+    it 'creates articles_courses records for the given articles' do
+      expect do
+        described_class.create_records_and_mark_acuwt(course, [article.id])
+      end.to change(described_class, :count).by(1)
+    end
+
+    context 'when the course uses ACUWT' do
+      before do
+        course.add_flag(key: :use_acuwt)
+      end
+
+      it 'marks the preexisting ACUWT records for the articles as needs_update' do
+        described_class.create_records_and_mark_acuwt(course, [article.id])
+        statuses = ArticleCourseUserWikiTimeslice.where(article:).pluck(:needs_update)
+        expect(statuses).to eq([true, true])
+      end
+
+      it 'logs the articles with preexisting ACUWT records to Sentry' do
+        allow(Sentry).to receive(:capture_message)
+        described_class.create_records_and_mark_acuwt(course, [article.id])
+
+        expect(Sentry).to have_received(:capture_message)
+          .with('Article retracked', level: 'info',
+                extra: { course_slug: course.slug, course_id: course.id,
+                         reason: 'created_with_preexisting_acuwt_history',
+                         article_ids: [article.id] })
+      end
+
+      it 'does not log articles without preexisting ACUWT records to Sentry' do
+        allow(Sentry).to receive(:capture_message)
+        described_class.create_records_and_mark_acuwt(course, [another_article.id])
+
+        expect(Sentry).not_to have_received(:capture_message)
+      end
+    end
+
+    context 'when the course does not use ACUWT' do
+      it 'does not mark the preexisting ACUWT records for the articles' do
+        described_class.create_records_and_mark_acuwt(course, [article.id])
+        statuses = ArticleCourseUserWikiTimeslice.where(article:).pluck(:needs_update)
+        expect(statuses).to eq([false, false])
+      end
     end
   end
 end

@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 #= Copy course from another server
 class CopyCourse # rubocop:disable Metrics/ClassLength
+  # Flags containing update logs keyed by update number, which need their keys
+  # converted back to integers after the JSON round-trip.
+  UPDATE_LOGS_KEYS = %w[update_logs unfinished_update_logs].freeze
+
   def initialize(url:, user_data:)
     @url = url
     @user_data = user_data
@@ -37,14 +41,15 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
     change_type(copied_data) # Changes the course type of certain courses
     assign_home_wiki(copied_data)
     copied_data['passcode'] = GeneratePasscode.call # set a random passcode
-    if copied_data['flags'].key?('update_logs')
-      copied_data['flags']['update_logs'] =
-        fix_update_logs_parsing(copied_data['flags']['update_logs'])
+    UPDATE_LOGS_KEYS.each do |key|
+      next unless copied_data['flags'].key?(key)
+      copied_data['flags'][key] = fix_update_logs_parsing(copied_data['flags'][key])
     end
     # The flags hash is copied via JSON so all keys are strings.
     # We must convert known feature flags to symbols because Course model
     # readers (e.g. peer_review_count) look for symbol keys.
     symbolize_feature_flags(copied_data['flags'])
+    force_use_acuwt(copied_data['flags'])
     # Create the course
     @course = Course.create!(copied_data)
   end
@@ -69,7 +74,8 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
       "#{@course_data['school']}/#{@course_data['title']}_(#{@course_data['term']})".tr(' ', '_')
   end
 
-  # When parsing update_logs from flags, keys are set as strings instead of integers
+  # When parsing update_logs and unfinished_update_logs from flags, keys are set
+  # as strings instead of integers.
   # This causes problems, so we need to force the keys to be integers.
   def fix_update_logs_parsing(update_logs)
     update_logs.transform_keys(&:to_i)
@@ -83,6 +89,13 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
         flags_hash[key.to_sym] = flags_hash.delete(key)
       end
     end
+  end
+
+  # The copy is a new course on this server, so it uses the ACUWT update path
+  # regardless of what the source server had set.
+  def force_use_acuwt(flags_hash)
+    flags_hash.delete('use_acuwt')
+    flags_hash[:use_acuwt] = true
   end
 
   def add_tracked_wikis

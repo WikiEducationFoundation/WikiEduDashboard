@@ -2,10 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import GetHelpButton from './get_help_button.jsx';
+import StudentViewToggle from '../course/student_view_toggle.jsx';
 import CourseUtils from '../../utils/course_utils.js';
+import { BLOCK_KIND_RESOURCES } from '../../constants/timeline';
 
+// Resources blocks live in the timeline but render on the Resources tab. When the
+// timeline is disabled, those blocks are the only reason to keep the tab around.
+const hasResourcesBlock = weeks => weeks.some(
+  week => (week.blocks || []).some(block => block.kind === BLOCK_KIND_RESOURCES)
+);
 
-const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
+const CourseNavbar = ({ course, location, currentUser, courseLink, weeks = [], isViewingAsStudent = false }) => {
   // ///////////////
   // Course title //
   // ///////////////
@@ -46,7 +53,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
   }
 
   let resources;
-  if (course.timeline_enabled) {
+  if (course.timeline_enabled || hasResourcesBlock(weeks)) {
     const resourcesLink = `${courseLink}/resources`;
     resources = (
       <div className="nav__item" id="resources-link">
@@ -61,6 +68,18 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
     users = (
       <div className="nav__item" id="students-link">
         <p><NavLink to={studentsLink} className={({ isActive }) => (isActive ? 'active' : '')}>{CourseUtils.i18n('students_short', course.string_prefix)}</NavLink></p>
+      </div>
+    );
+  }
+
+  // Instructor-facing class progress; the endpoint behind it enforces the same
+  // roles (anyone who can edit the course).
+  let assignments;
+  if (course.assignments_tab_enabled && currentUser?.isAdvancedRole) {
+    const assignmentsLink = `${courseLink}/assignments`;
+    assignments = (
+      <div className="nav__item" id="assignments-link">
+        <p><NavLink to={assignmentsLink} className={({ isActive }) => (isActive ? 'active' : '')}>{I18n.t('assignments_tab.label')}</NavLink></p>
       </div>
     );
   }
@@ -84,6 +103,17 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
     );
   }
 
+  // Student view is switched on from the Home tab's Actions panel. While it's on,
+  // the switch is here on every tab, so it's easy to switch off.
+  let studentViewToggle;
+  if (isViewingAsStudent) {
+    studentViewToggle = (
+      <div className="nav__button" id="student-view-toggle">
+        <StudentViewToggle courseSlug={course.slug} />
+      </div>
+    );
+  }
+
   return (
     <div className="container">
       {courseLinkElement}
@@ -93,6 +123,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
         </div>
         {timeline}
         {users}
+        {assignments}
         <div className="nav__item" id="articles-link">
           <p><NavLink to={articlesLink} className={({ isActive }) => (isActive ? 'active' : '')}>{CourseUtils.i18n('articles_short', course.wiki_string_prefix)}</NavLink></p>
         </div>
@@ -104,6 +135,7 @@ const CourseNavbar = ({ course, location, currentUser, courseLink }) => {
         </div>
         {resources}
         {getHelp}
+        {studentViewToggle}
       </nav>
     </div>
   );
@@ -113,7 +145,9 @@ CourseNavbar.propTypes = {
   course: PropTypes.object,
   location: PropTypes.object,
   currentUser: PropTypes.object,
-  courseLink: PropTypes.string
+  courseLink: PropTypes.string,
+  isViewingAsStudent: PropTypes.bool,
+  weeks: PropTypes.array
 };
 
 export default CourseNavbar;

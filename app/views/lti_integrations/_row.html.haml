@@ -1,0 +1,17 @@
+- course = binding.course
+- status = LtiSyncStatus.new(binding)
+%tr
+  %td.dashboard-course
+    - if course
+      = link_to course.title, course_slug_path(course.slug)
+    - else
+      = t('lti_integrations.not_applicable')
+  %td.instructor= course&.instructors&.first&.username
+  %td.lms-course= binding.lms_context_title
+  %td.lms-instance= binding.lms_platform_url&.delete_prefix('https://')
+  %td.lti-version= binding.legacy? ? '1.1' : '1.3'
+  %td.installed= binding.created_at.strftime('%Y-%m-%d')
+  %td.connected-students= status.connected_accounts_count
+  -# A legacy (LTI 1.1) install has no roster service, so its learners are only
+  -# the ones who have launched; that is not a roster, so it is not shown as one.
+  %td.roster= binding.legacy? ? t('lti_integrations.not_applicable') : status.roster_students_count

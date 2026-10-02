@@ -64,6 +64,18 @@ Now deploy as usual with the upgraded Ruby version. This will break the app unti
 
 * Sidekiq processes should have restarted during deployment.
 * Update references throughout the documentation to replace the old Ruby version with the new one.
+* Check each production server for course `flags` that no longer round-trip. Ruby ships Psych, whose YAML output can change between versions: Ruby 3.4 emits a nil value as `key:`, earlier versions as `key: `. Rails compares a serialized column against its stored bytes, so a course whose `flags` predate the change loads dirty and `Course#add_flag` raises instead of writing (PEONY-3CT). Detect it in a console on each server:
+
+  ```ruby
+  stale_ids = []
+  Course.select(:id, :flags).find_each(batch_size: 500) do |course|
+    course.flags # in-place comparison only starts once the attribute has been read
+    stale_ids << course.id if course.will_save_change_to_flags?
+  end
+  puts stale_ids.count
+  ```
+
+  Only the bytes are stale; the values survive a dump/load cycle, so storing each row again under a row lock repairs it. Script in [PR #7080](https://github.com/WikiEducationFoundation/WikiEduDashboard/pull/7080).
 
 ### Troubleshooting
 

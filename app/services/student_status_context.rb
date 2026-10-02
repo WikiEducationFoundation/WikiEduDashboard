@@ -1,0 +1,139 @@
+# frozen_string_literal: true
+
+require_dependency "#{Rails.root}/lib/student_progress/links"
+require_dependency "#{Rails.root}/lib/student_progress/timeline"
+
+# Assembles a student's progress overview for the in-Canvas nav-item launch:
+# their assigned articles (mirroring "My Articles"), rolled-up training and
+# exercise completion, and the single most-urgent next step. The next step is
+# the earliest-due incomplete training or exercise (by timeline due date),
+# falling back to article work once those are done. Read-only; every link opens
+# the Dashboard in a new tab, since the full SPA can't render in the partitioned
+# Canvas iframe.
+class StudentStatusContext
+  ArticleRow = Struct.new(:title, :url, :role, :status_label, :sandbox_url,
+                          keyword_init: true)
+  ItemRow = Struct.new(:name, :done, :url, :due_date, keyword_init: true)
+  NextStep = Struct.new(:label, :url, keyword_init: true)
+
+  FAR_FUTURE = Date.new(9999, 1, 1)
+
+  attr_reader :course, :user
+
+  # `preload` is a StudentProgress::Roster covering this user, shared across a
+  # roster's students so the course structure and each student's completions and
+  # assignments are fetched once for the class. Without one, the same data is
+  # loaded for this one user.
+  def initialize(course:, user:, preload: nil)
+    @course = course
+    @user = user
+    @preload = preload || StudentProgress::Roster.new(course:, user_ids: [user.id])
+  end
+
+  def articles
+    @articles ||= assignments.map { |assignment| article_row(assignment) }
+  end
+
+  def training_items
+    @training_items ||= training_progress.module_statuses
+                                         .map { |mod, done| training_item(mod, done) }
+  end
+
+  def exercise_items
+    @exercise_items ||= exercise_blocks.map { |block| exercise_item(block) }
+  end
+
+  def trainings_completed
+    training_items.count(&:done)
+  end
+
+  def exercises_completed
+    exercise_items.count(&:done)
+  end
+
+  # True when the course gives this student nothing to list yet — no assigned
+  # articles and no timeline-derived trainings or exercises. Reachable in the
+  # ordinary setup order (courses get linked before the timeline is built),
+  # so the view shows an explanatory empty state instead of a bare header.
+  def empty?
+    articles.empty? && training_items.empty? && exercise_items.empty?
+  end
+
+  # Earliest-due incomplete training/exercise; article work once those are done.
+  def next_step
+    return @next_step if defined?(@next_step)
+
+    pending = (training_items + exercise_items).reject(&:done)
+    soonest = pending.min_by { |item| item.due_date || FAR_FUTURE }
+    @next_step = soonest ? NextStep.new(label: soonest.name, url: soonest.url) : article_next_step
+  end
+
+  private
+
+  def training_progress
+    LtiTrainingProgress.new(@course, @user, training_modules: @preload.training_modules,
+                                            completions:)
+  end
+
+  def completions
+    @preload.completions_for(@user.id)
+  end
+
+  def assignments
+    @preload.assignments_for(@user.id)
+  end
+
+  def article_row(assignment)
+    ArticleRow.new(title: assignment.article_title, url: assignment.article&.url,
+                   role: assignment.editing? ? 'editing' : 'reviewing',
+                   status_label: I18n.t("article_statuses.#{assignment.status}", default: ''),
+                   sandbox_url: assignment.sandbox_url)
+  end
+
+  def training_item(mod, done)
+    ItemRow.new(name: mod.name, done:, url: training_url(mod), due_date: block_due_date(mod))
+  end
+
+  def exercise_item(block)
+    ItemRow.new(name: block.title, done: exercise_done?(block),
+                url: exercise_url(block), due_date: block.calculated_due_date)
+  end
+
+  def exercise_blocks
+    timeline.exercise_blocks
+  end
+
+  def timeline
+    @timeline ||= StudentProgress::Timeline.new(@preload)
+  end
+
+  def exercise_done?(block)
+    LtiBlockProgress.new(block, @user, completions:,
+                                       training_modules: @preload.modules_for(block))
+                    .score_given >= 1.0
+  end
+
+  def exercise_url(block)
+    mod = @preload.modules_for(block).detect(&:exercise?)
+    return if mod.nil?
+
+    StudentProgress::Links.exercise_url(@course, mod)
+  end
+
+  def training_url(mod)
+    StudentProgress::Links.training_url(@course, mod)
+  end
+
+  def block_due_date(mod)
+    timeline.due_date_for(mod)
+  end
+
+  # Once trainings/exercises are done, the remaining work is the student's
+  # article; point at the first one they're editing.
+  def article_next_step
+    row = articles.find { |article| article.role == 'editing' }
+    return if row.nil?
+
+    NextStep.new(label: row.title, url: row.url)
+  end
+end

@@ -20,12 +20,10 @@ class CourseDataUpdateWorker
           phase: 'initialization')
     sidekiq_status_logger = LogSidekiqStatus.new(method(:store))
     course = Course.find(course_id)
-    # use_acuwt courses are intentionally flagged very_long_update so they stay
-    # out of the normal queues; the acuwt_update queue is the one that updates
-    # them, so we must not skip them here.
-    ignore_update = course.very_long_update? && !course.use_acuwt?
-    logger.info "Ignoring #{course.slug} update" if ignore_update
-    return if ignore_update
+    if course.very_long_update?
+      logger.info "Ignoring #{course.slug} update"
+      return
+    end
 
     logger.info "Updating course timeslice version: #{course.slug}"
     UpdateCourseStats.new(course, sidekiq_status_logger:)

@@ -1,0 +1,26 @@
+- # One student's assigned peer reviews: the article each review is of, whether the
+- # review page has been written, and a link to that page. Shared by the instructor
+- # roster and the student's own panel so the two can't describe the stage
+- # differently.
+- #
+- # The review page lives in the student's userspace, so its URL carries their
+- # Wikipedia username — fine here (a role-gated view rendered per request from the
+- # Dashboard) and never to be written into Canvas.
+- if reviews.empty?
+  %span.lti-assigned-article__empty= t('lti.assignment_view.peer_review.none_yet')
+- else
+  %ul.lti-assigned-articles
+    - reviews.each do |review|
+      %li
+        = link_to review.article_url, target: '_blank', rel: 'noopener' do
+          = review.article_title
+          %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }
+        %span.lti-status{ class: review.completed? ? 'lti-status--done' : 'lti-status--pending' }
+          - if review.completed?
+            = t('lti.assignment_view.article_work.created')
+          - else
+            = t('lti.assignment_view.article_work.not_created_yet')
+        = link_to review.review_url, target: '_blank', rel: 'noopener',
+                  class: 'lti-sandbox__link' do
+          = t('lti.assignment_view.peer_review.review_page')
+          %span.icon.icon-z-external-link{ 'aria-hidden': 'true' }

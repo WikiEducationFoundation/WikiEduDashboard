@@ -51,8 +51,8 @@ describe CourseQueueSorting do
                         flags: { use_acuwt: true })
       end
 
-      it 'queues in acuwt_update' do
-        expect(subject.queue_for(course)).to eq 'acuwt_update'
+      it 'queues according to the normal rules' do
+        expect(subject.queue_for(course)).to eq 'medium_update'
       end
     end
 
@@ -62,8 +62,8 @@ describe CourseQueueSorting do
                         flags: { use_acuwt: true, very_long_update: true })
       end
 
-      it 'prefers acuwt_update over very_long_update' do
-        expect(subject.queue_for(course)).to eq 'acuwt_update'
+      it 'queues in very_long_update' do
+        expect(subject.queue_for(course)).to eq 'very_long_update'
       end
     end
 
@@ -137,6 +137,30 @@ describe CourseQueueSorting do
       it 'returns 0' do
         expect(subject.consecutive_unfinished_updates(course)).to eq 0
       end
+    end
+  end
+
+  describe '#update_longest_update_time' do
+    let(:seven_second_log) do
+      { 1 => { 'start_time' => Time.zone.parse('2026-09-08 19:00:00'),
+               'end_time' => Time.zone.parse('2026-09-08 19:00:07') } }
+    end
+
+    it 'records the longest recent update without clobbering other flags' do
+      course = create(:course, flags: { 'update_logs' => seven_second_log })
+      stale_copy = Course.find(course.id)
+      course.add_flag(key: :event_sync, value: 4563)
+
+      subject.update_longest_update_time(stale_copy)
+
+      expect(course.reload.flags).to include(event_sync: 4563, longest_update: 7)
+    end
+
+    it 'does not save when the value is unchanged' do
+      course = create(:course, flags: { 'update_logs' => seven_second_log, longest_update: 7 })
+      expect(course).not_to receive(:save)
+
+      subject.update_longest_update_time(course)
     end
   end
 end

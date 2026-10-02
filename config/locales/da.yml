@@ -251,7 +251,7 @@ da:
     use_dashboard: Sådan bruger du dashboardet
     evaluate_and_source: Evaluering af artikler og kilder
   items:
-    items: Elementer
+    items: Emner
     lexeme: Lexeme
     article_not_found: Dette element er ikke oprettet endnu.
     assigned: Tildelte elementer
@@ -284,7 +284,7 @@ da:
   assignments:
     article: Artiklen %{title} er nu tildelt dig.
     article_link: Artikel
-    article_link_wikidata: Element
+    article_link_wikidata: Emne
     blocked_assignment: '%{title} kunne ikke tildeles, fordi den er på Wikipedia-fællesskabets
       blokeringsliste for Dashboard-opgaver.'
     already_exists: Denne tildeling findes allerede!

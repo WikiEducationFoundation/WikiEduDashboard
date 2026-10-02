@@ -1,0 +1,9 @@
+- # Shown inside Canvas's import dialog when a submitted selection can't be
+- # reserved: the picker was left open until its reservation expired, the same
+- # items were imported from another tab, or the POST was replayed. Replaces a
+- # bare 422, which rendered as a blank panel in the modal; the 422 status is
+- # kept so the refusal stays visible as one.
+.lti-iframe__landing
+  = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
+  %h1.lti-iframe__title= t('lti.deep_link.unavailable_header')
+  %p= t('lti.deep_link.unavailable_explanation')

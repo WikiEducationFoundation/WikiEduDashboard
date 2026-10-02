@@ -80,9 +80,19 @@ const CourseAlerts = ({
           newAlerts.push(<CourseAlert key="requested_accounts" message={message} href={url} actionMessage={actionMessage} />);
         }
       }
-      // For published courses with no students, highlight the enroll link
+      // For published courses with no students, highlight the enroll link —
+      // except on Canvas-linked courses, where students are brought in by the
+      // Canvas roster sync, so the self-enroll passcode URL doesn't apply and
+      // would contradict the LMS-integration panel.
+      //
+      // Gated on the global feature too, not just the course flag: the flag is a
+      // denormalized cache, so keying core course UX off it alone meant turning
+      // Canvas off disabled its endpoints and workers but still suppressed
+      // ordinary self-enrollment on every previously-linked course.
       const hasNoStudents = usersLoaded && studentCount === 0;
-      if (userRoles.isAdvancedRole && course.published && hasNoStudents && !course.legacy) {
+      const isCanvasLinked = Features.canvasIntegration
+        && course.flags && course.flags.canvas_integration;
+      if (userRoles.isAdvancedRole && course.published && hasNoStudents && !course.legacy && !isCanvasLinked) {
         const enrollEquals = '?enroll=';
         const url = window.location.origin + courseLinkParams + enrollEquals + course.passcode;
         newAlerts.push((

@@ -62,6 +62,64 @@ describe AnnotateRevisionClaims do
     expect(described_class.new(article:, mw_rev_id: 999).html).to be_nil
   end
 
+  # Curating a claim out of the exercise (excluded_claim_ids in the rollout
+  # config) has to remove the sentence the student would have seen, not just
+  # the pool row behind it: a sentence with several citations has one pool row
+  # per citation, and dropping only the displayed row would promote the next.
+  # (RolloutList.without_excluded drops the sentence's other rows as well.)
+  context 'when a claim is curated out of the rollout' do
+    let(:revision_html) do
+      <<~HTML
+        <p>Sea otters use rocks as tools.<sup class="reference"><a href="#cite_note-a-1">[1]</a></sup><sup class="reference"><a href="#cite_note-b-2">[2]</a></sup>
+        Otters eat urchins.<sup class="reference"><a href="#cite_note-a-1">[1]</a></sup></p>
+        <ol class="references">
+          <li id="cite_note-a-1"><span class="reference-text"><cite>
+            <a class="external" href="https://example.com/a">Riedman 1990</a></cite></span></li>
+          <li id="cite_note-b-2"><span class="reference-text"><cite>
+            <a class="external" href="https://example.com/b">Kenyon 1969</a></cite></span></li>
+        </ol>
+      HTML
+    end
+    let!(:harvested) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-a-1',
+                                sentence: 'Sea otters use rocks as tools.',
+                                cite_text: 'Riedman 1990', source_url: 'https://example.com/a')
+    end
+    let!(:second_citation) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-b-2',
+                                sentence: 'Sea otters use rocks as tools.',
+                                cite_text: 'Kenyon 1969', source_url: 'https://example.com/b')
+    end
+    let!(:kept) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-a-1',
+                                sentence: 'Otters eat urchins.', cite_text: 'Riedman 1990',
+                                source_url: 'https://example.com/a')
+    end
+
+    before { rollout_revisions(excluding: [harvested.id]) }
+
+    def spans
+      Nokogiri::HTML.fragment(annotate.html).css('.cv-claim')
+    end
+
+    it 'still highlights the other claims' do
+      expect(spans.map { |span| span['data-claim-id'] }).to eq([kept.id.to_s])
+    end
+
+    it 'leaves the excluded sentence unhighlighted' do
+      expect(spans.map(&:text).join(' ')).not_to include('Sea otters use rocks as tools.')
+    end
+
+    it 'does not promote the same sentence under its other citation' do
+      expect(annotate.html).not_to include(%(data-claim-id="#{second_citation.id}"))
+    end
+
+    it 'returns no html when every claim of the revision is curated out' do
+      rollout_revisions(excluding: [harvested.id, kept.id])
+      expect(annotate.html).to be_nil
+    end
+  end
+
   # A named ref like <ref name="O'Brien 2020"> renders with the apostrophe kept in
   # the cite_note id, which used to break the interpolated CSS selector that
   # located the marker (Nokogiri::CSS::SyntaxError, 500ing the endpoint).
@@ -86,6 +144,88 @@ describe AnnotateRevisionClaims do
       expect(html).to include('cv-claim')
       expect(html).to include(%(data-claim-id="#{harvested.id}"))
       expect(html).to include('Otters were studied for years.')
+    end
+  end
+
+  # The bug this guards: a source cited on several sentences renders the same
+  # cite_note href at every one of them, and locating a claim by its marker
+  # attached each claim's data to the *first* of those sentences — so the
+  # highlighted text was not the claim that came up when you clicked it.
+  context 'when one source is cited on several sentences' do
+    # The first sentence is deliberately long: locating a claim by walking back
+    # from the first marker sharing its ref id then finds plenty of prose to
+    # consume, and so silently succeeds on the wrong sentence.
+    let(:revision_html) do
+      <<~HTML
+        <p>Otters were studied extensively throughout the twentieth century by many
+        researchers.<sup class="reference"><a href="#cite_note-shared-1">[1]</a></sup>
+        Otters eat urchins.<sup class="reference"><a href="#cite_note-shared-1">[1]</a></sup>
+        Otters have dense fur.<sup class="reference"><a href="#cite_note-shared-1">[1]</a></sup></p>
+        <ol class="references">
+          <li id="cite_note-shared-1"><span class="reference-text"><cite>
+            <a class="external" href="https://example.com/r">Riedman 1990</a></cite></span></li>
+        </ol>
+      HTML
+    end
+    # Only the second and third sentences were added in this revision.
+    let!(:harvested) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-shared-1',
+                                sentence: 'Otters eat urchins.', cite_text: 'Riedman 1990',
+                                source_url: 'https://example.com/r')
+    end
+    let!(:other) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-shared-1',
+                                sentence: 'Otters have dense fur.', cite_text: 'Riedman 1990',
+                                source_url: 'https://example.com/r')
+    end
+
+    def span_for(html, claim)
+      Nokogiri::HTML.fragment(html).at_css(%(.cv-claim[data-claim-id="#{claim.id}"]))
+    end
+
+    it 'highlights the text of each claim, not the first sentence citing the source' do
+      html = annotate.html
+      expect(span_for(html, harvested).text).to include('Otters eat urchins.')
+      expect(span_for(html, other).text).to include('Otters have dense fur.')
+    end
+
+    it 'agrees with the claim data behind every highlight' do
+      spans = Nokogiri::HTML.fragment(annotate.html).css('.cv-claim')
+      expect(spans).not_to be_empty
+      spans.each do |span|
+        expect(span.text.gsub(/\[\d+\]|\s+/, ' ').squeeze(' ').strip)
+          .to include(span['data-sentence'])
+      end
+    end
+
+    it 'leaves the sentence that was not harvested unhighlighted' do
+      highlighted = Nokogiri::HTML.fragment(annotate.html).css('.cv-claim').map(&:text).join(' ')
+      expect(highlighted).not_to include('studied extensively')
+    end
+  end
+
+  # A citation can sit inside a sentence rather than at its end, which a
+  # marker-relative search could never cover: the sentence continues past it.
+  context 'when the citation sits mid-sentence' do
+    let(:revision_html) do
+      <<~HTML
+        <p>Otters use rocks<sup class="reference"><a href="#cite_note-r-1">[1]</a></sup>, and they eat urchins.</p>
+        <ol class="references">
+          <li id="cite_note-r-1"><span class="reference-text"><cite>
+            <a class="external" href="https://example.com/r">Riedman</a></cite></span></li>
+        </ol>
+      HTML
+    end
+    let!(:harvested) do
+      VerificationClaim.create!(wiki:, article:, mw_rev_id:, ref_id: 'cite_note-r-1',
+                                sentence: 'Otters use rocks, and they eat urchins.',
+                                cite_text: 'Riedman', source_url: 'https://example.com/r')
+    end
+
+    it 'highlights the whole sentence, both sides of the citation' do
+      span = Nokogiri::HTML.fragment(annotate.html).at_css('.cv-claim')
+      expect(span.text).to include('Otters use rocks')
+      expect(span.text).to include('and they eat urchins.')
     end
   end
 

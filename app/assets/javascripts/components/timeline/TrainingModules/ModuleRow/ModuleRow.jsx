@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
-} from '../../../../constants';
+import { EXERCISE_KIND, TRAINING_MODULE_KIND } from '../../../../constants';
 
 // Components
 import ModuleStatus from './ModuleStatus/ModuleStatus';
@@ -19,16 +17,15 @@ const calcProgressClass = (progress) => {
   return `${linkStart}in-progress `;
 };
 
-export const ModuleRow = ({ isStudent, module, trainingLibrarySlug }) => {
+export const ModuleRow = ({ isStudent, isStaff, module, trainingLibrarySlug }) => {
   const isTrainingModule = module.kind === TRAINING_MODULE_KIND;
   const isExercise = module.kind === EXERCISE_KIND;
-  const isDiscussion = module.kind === DISCUSSION_KIND;
 
   let iconClassName = 'icon ';
   let progressClass;
   let linkText;
 
-  if (isExercise || isDiscussion) {
+  if (isExercise) {
     progressClass = calcProgressClass(module.module_progress);
     linkText = I18n.t('training_status.view');
     iconClassName += 'icon-rt_arrow_purple_training';
@@ -50,23 +47,31 @@ export const ModuleRow = ({ isStudent, module, trainingLibrarySlug }) => {
   if (module.deadline_status === 'complete') progressClass += ' complete';
 
   const link = `/training/${trainingLibrarySlug}/${module.slug}`;
+  // A slide-less module (an in-app exercise) has no training page: the
+  // exercise button is the whole interaction, so no view/start link.
+  const hasTrainingPage = module.slide_count !== 0;
   return (
     <tr className="training-module">
       <ModuleName {...module} isExercise={isExercise} />
-      { isExercise ? <ExerciseButton module={module} /> : null }
+      { isExercise ? <ExerciseButton module={module} isStaff={isStaff} /> : null }
       { isStudent ? <ModuleStatus {...module} progressClass={progressClass} /> : null }
-      <ModuleLink
-        iconClassName={iconClassName}
-        link={link}
-        linkText={linkText}
-        module_progress={module.module_progress}
-      />
+      { hasTrainingPage ? (
+        <ModuleLink
+          iconClassName={iconClassName}
+          link={link}
+          linkText={linkText}
+          module_progress={module.module_progress}
+        />
+      ) : <td className="block__training-modules-table__module-link" /> }
     </tr>
   );
 };
 
 ModuleRow.propTypes = {
   isStudent: PropTypes.bool,
+  // Instructor/staff/admin viewer: shows the student-submissions link on
+  // in-app exercises.
+  isStaff: PropTypes.bool,
   module: PropTypes.object.isRequired,
   trainingLibrarySlug: PropTypes.string.isRequired
 };

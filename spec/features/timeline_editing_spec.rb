@@ -74,6 +74,30 @@ describe 'timeline editing', type: :feature, js: true do
     sleep 1
   end
 
+  it 'lets users add the fact verification exercise to an assignment block' do
+    visit "/courses/#{course_with_timeline.slug}/timeline"
+    expect(page).to have_content 'Block Title'
+
+    find('.week-1').hover
+    sleep 0.5
+    within('.week-1') do
+      find('.block__edit-block', match: :first).click
+    end
+    sleep 1
+    within(".week-1 .block-kind-#{Block::KINDS['assignment']}") do
+      within '.block__training-modules' do
+        find('input').send_keys('Fact verification', :enter)
+      end
+    end
+
+    within('.block__block-actions') { click_button 'Save' }
+
+    within ".week-1 .block-kind-#{Block::KINDS['assignment']}" do
+      expect(page).to have_content 'Fact verification'
+    end
+    sleep 1
+  end
+
   it 'lets users delete a week' do
     visit "/courses/#{course_with_timeline.slug}/timeline"
     expect(page).not_to have_content 'Add Assignment'

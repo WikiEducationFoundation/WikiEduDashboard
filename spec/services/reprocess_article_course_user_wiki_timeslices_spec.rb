@@ -49,7 +49,7 @@ describe ReprocessArticleCourseUserWikiTimeslices do
                start: ts_start, end: ts_end)
       end
 
-      it 'marks CWT for reaggregation and removes ACT/CUWT rows' do
+      it 'marks CWT for reaggregation and leaves the ACT/CUWT rows to be rewritten' do
         revision = build(:revision_on_memory,
                          article_id: article1.id, user_id: user1.id, wiki_id: enwiki.id,
                          mw_rev_id: 12345, date: ts_start + 1.hour, error: false)
@@ -62,9 +62,11 @@ describe ReprocessArticleCourseUserWikiTimeslices do
 
         expect(course.course_wiki_timeslices.where(start: ts_start).first.needs_reaggregation)
           .to eq(true)
+        # The re-scored ACUWT rows are kept, so the reaggregation pass rewrites these rows
+        # from them rather than needing them deleted here
         expect(course.article_course_timeslices.where(article: article1, start: ts_start).count)
-          .to eq(0)
-        expect(CourseUserWikiTimeslice.where(course:, start: ts_start).count).to eq(0)
+          .to eq(1)
+        expect(CourseUserWikiTimeslice.where(course:, start: ts_start).count).to eq(1)
       end
 
       it 'filters to failing articles before calling the score API' do
@@ -107,7 +109,7 @@ describe ReprocessArticleCourseUserWikiTimeslices do
         expect(course.course_wiki_timeslices.where(start: ts_start).first.needs_reaggregation)
           .to eq(true)
         expect(course.article_course_timeslices.where(article: article1, start: ts_start).count)
-          .to eq(0)
+          .to eq(1)
       end
     end
 
@@ -143,7 +145,7 @@ describe ReprocessArticleCourseUserWikiTimeslices do
         described_class.new(course, enwiki).run
 
         expect(course.course_wiki_timeslices.where(needs_reaggregation: true).count).to eq(2)
-        expect(course.article_course_timeslices.count).to eq(0)
+        expect(course.article_course_timeslices.count).to eq(2)
       end
     end
   end

@@ -42,6 +42,11 @@ describe CopyCourse do
               "sentry_tag_uuid": "4c0a1b87-da5a-4e82-8f40-3d560690cdb2",
               "error_count": 0
             }
+          },
+          "unfinished_update_logs": {
+            "1": {
+              "start_time": "2022-05-27T16:13:42.177+00:00"
+            }
           }
         },
         "training_library_slug": "students",
@@ -282,6 +287,11 @@ describe CopyCourse do
         expect(key).to be_a(Integer)
       end
 
+      # Unfinished update logs were correctly created
+      course.flags['unfinished_update_logs'].each_key do |key|
+        expect(key).to be_a(Integer)
+      end
+
       # Training modules were copied into block content
       block = Block.last
       expect(block.content).to include('Wikipedia essentials')
@@ -377,6 +387,10 @@ describe CopyCourse do
 
       it 'exposes online_volunteers_enabled? through the model reader after copy' do
         expect(copied_course.online_volunteers_enabled?).to eq(true)
+      end
+
+      it 'uses the ACUWT update path' do
+        expect(copied_course.use_acuwt?).to eq(true)
       end
     end
 

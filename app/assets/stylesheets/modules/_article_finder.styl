@@ -35,9 +35,9 @@
     border-radius 5px 5px 5px 5px
     padding 1rem 11rem 1rem 2rem
     transition border-radius linear 0.1s
-  button:disabled
+  > button:disabled
     opacity 50%
-  button
+  > button
     position absolute
     right 0
     height 100%
@@ -69,6 +69,10 @@
     box-shadow 0px 2px 4px rgba(0, 0, 0, 0.1)
     z-index 5
     .autocomplete-item
+      display block
+      width 100%
+      text-align start
+      line-height inherit
       padding 0.5rem 2rem
       cursor pointer
     .autocomplete-item:hover
