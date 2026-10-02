@@ -41,14 +41,14 @@ describe PurgeTimeslicesWorker do
     expect(ArticleCourseUserWikiTimeslice.where(course_id: other_course.id).count).to eq(1)
   end
 
-  it 'clears the purgeable flag and records the purge' do
+  it 'clears the purgeable flag and marks the course as finalized' do
     course = purgeable_course # create it before the worker runs (let is lazy)
 
     described_class.new.perform
 
     course.reload
     expect(course.purgeable?).to be false
-    expect(course.purged?).to be true
+    expect(course.finalized?).to be true
   end
 
   it 'purges at most COURSES_PER_RUN courses per run' do
@@ -58,9 +58,9 @@ describe PurgeTimeslicesWorker do
 
     described_class.new.perform
 
-    purged = [first, second].map { |c| c.reload.purged? }
+    finalized = [first, second].map { |c| c.reload.finalized? }
     # Exactly one of the two purgeable courses is purged; the other keeps its flag.
-    expect(purged.count(true)).to eq(1)
-    expect(purged.count(false)).to eq(1)
+    expect(finalized.count(true)).to eq(1)
+    expect(finalized.count(false)).to eq(1)
   end
 end

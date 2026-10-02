@@ -3,7 +3,7 @@
 require_dependency "#{Rails.root}/lib/timeslice_cleaner"
 
 # Deletes every timeslice record for courses that MarkPurgeableCourses has
-# flagged as purgeable. See Course#purgeable?.
+# flagged as purgeable and sets the course as finalized. See Course#purgeable?.
 class PurgeTimeslicesWorker
   include Sidekiq::Worker
   sidekiq_options lock: :until_executed
@@ -16,11 +16,11 @@ class PurgeTimeslicesWorker
   def perform
     purgeable_courses.each do |course|
       TimesliceCleaner.new(course).delete_all_timeslices_for_course
-      # Drop the purgeable flag and record that the purge happened, so this
+      # Drop the purgeable flag and mark the course as finalized, so this
       # course drops out of the query on the next run instead of being
       # re-scanned every week.
       course.flags.delete(:purgeable)
-      course.add_flag(key: :purged, value: true)
+      course.add_flag(key: :finalized, value: true)
     end
   end
 

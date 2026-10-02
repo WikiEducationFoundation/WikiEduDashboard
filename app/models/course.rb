@@ -630,9 +630,10 @@ class Course < ApplicationRecord
     flags[:purgeable].present?
   end
 
-  # True once PurgeTimeslicesWorker has deleted this course's timeslice records.
-  def purged?
-    flags[:purged].present?
+  # True once PurgeTimeslicesWorker has deleted this course's timeslice records
+  # and it doesn't allow new metadata updates.
+  def finalized?
+    flags[:finalized].present?
   end
 
   def debug_updates?
