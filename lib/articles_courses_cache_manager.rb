@@ -9,46 +9,55 @@ class ArticlesCoursesCacheManager
   EMPTY_CACHE = { character_sum: 0, references_count: 0, user_ids: [],
                   new_article: false, first_revision: nil }.freeze
 
-  def initialize(articles_courses)
-    @articles_courses = articles_courses
+  def initialize(course, articles_courses)
+    @course = course
+    # Double check that the records are scoped to the course, since stats are
+    # computed from this course's timeslices only
+    @articles_courses = articles_courses.where(course:)
   end
 
   # Recalculates the cached fields from the article course timeslices, aggregating
   # them in SQL and writing every record of a batch with a single upsert.
   def update_caches_from_timeslices
-    @articles_courses.pluck(:id, :course_id, :article_id)
+    @articles_courses.pluck(:id, :article_id)
                      .each_slice(BATCH_SIZE) { |batch| write_caches(batch) }
   end
 
   private
 
-  # Takes [id, course_id, article_id] triples and writes their recalculated caches.
+  # Takes [id, article_id] pairs and writes their recalculated caches.
   def write_caches(records)
-    stats = timeslice_stats(records)
+    stats = timeslice_stats(records.map(&:last))
     now = Time.zone.now
-    rows = records.map do |id, course_id, article_id|
-      { id:, course_id:, article_id:, updated_at: now,
-        **(stats[[course_id, article_id]] || EMPTY_CACHE) }
+    rows = records.map do |id, article_id|
+      { id:, course_id: @course.id, article_id:, updated_at: now,
+        **(stats[article_id] || EMPTY_CACHE) }
     end
     ArticlesCourses.upsert_all(rows, update_only: UPDATED_FIELDS)
   end
 
-  # Returns { [course_id, article_id] => cache values }. Timeslices are queried per
-  # course so that the article_course_timeslices unique index applies.
-  def timeslice_stats(records)
-    stats = {}
-    records.group_by { |_id, course_id, _article_id| course_id }
-           .each do |course_id, triples|
-      stats.merge!(stats_for_course(course_id, triples.map(&:last)))
-    end
+  # Returns { article_id => cache values }.
+  def timeslice_stats(article_ids)
+    return legacy_stats(article_ids) unless @course.use_acuwt?
+    acuwt_stats(article_ids)
+  end
+
+  # The query fixes course_id so that the article_course_timeslices unique index applies.
+  def legacy_stats(article_ids)
+    timeslices = ArticleCourseTimeslice.where(course_id: @course.id, article_id: article_ids)
+    stats = aggregated_stats(timeslices)
+    legacy_user_ids_by_article(timeslices).each { |id, ids| stats[id][:user_ids] = ids }
     stats
   end
 
-  def stats_for_course(course_id, article_ids)
-    timeslices = ArticleCourseTimeslice.where(course_id:, article_id: article_ids)
+  # The same values ArticleCourseTimeslice would hold, read straight from the
+  # per-user rows it is reaggregated from.
+  def acuwt_stats(article_ids)
+    timeslices = ArticleCourseUserWikiTimeslice.where(course_id: @course.id,
+                                                      article_id: article_ids)
     stats = aggregated_stats(timeslices)
-    user_ids_by_article(timeslices).each { |id, user_ids| stats[id][:user_ids] = user_ids }
-    stats.transform_keys { |article_id| [course_id, article_id] }
+    acuwt_user_ids_by_article(timeslices).each { |id, ids| stats[id][:user_ids] = ids }
+    stats
   end
 
   # SQL aggregates for every cached field but user_ids, keyed by article id.
@@ -65,9 +74,18 @@ class ArticlesCoursesCacheManager
   end
 
   # user_ids is a serialized array, so it cannot be aggregated in SQL.
-  def user_ids_by_article(timeslices)
+  def legacy_user_ids_by_article(timeslices)
     timeslices.pluck(:article_id, :user_ids)
               .group_by(&:first)
               .transform_values { |pairs| pairs.flat_map(&:last).uniq }
+  end
+
+  # ACUWT has a row per user, and only users who actually edited are cached.
+  def acuwt_user_ids_by_article(timeslices)
+    timeslices.where('revision_count > 0')
+              .distinct
+              .pluck(:article_id, :user_id)
+              .group_by(&:first)
+              .transform_values { |pairs| pairs.map(&:last) }
   end
 end
