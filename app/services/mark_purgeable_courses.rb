@@ -26,7 +26,7 @@ class MarkPurgeableCourses
   end
 
   def mark_if_purgeable(course)
-    return if course.purgeable? || course.update_possibly_running?
+    return if course.purgeable? || course.finalized? || course.update_possibly_running?
     return if pending_timeslices?(course)
     return if pending_acuwt?(course)
 

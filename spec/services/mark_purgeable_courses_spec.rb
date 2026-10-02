@@ -84,6 +84,15 @@ describe MarkPurgeableCourses do
       expect(result.marked_count).to eq(0)
     end
 
+    it 'skips a course already finalized' do
+      old_course.add_flag(key: :finalized) # its timeslices were already deleted
+
+      result = described_class.new
+
+      expect(result.marked_count).to eq(0)
+      expect(old_course.reload.purgeable?).to be false
+    end
+
     it 'skips a course that may currently be running an update' do
       add_timeslice(old_course)
       old_course.add_flag(key: 'unfinished_update_logs',

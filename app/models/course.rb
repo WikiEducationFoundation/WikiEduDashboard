@@ -613,6 +613,12 @@ class Course < ApplicationRecord
     flags[:purgeable].present?
   end
 
+  # True once course's timeslice records were deleted and the course doesn't allow
+  # new metadata updates.
+  def finalized?
+    flags[:finalized].present?
+  end
+
   # An unfinished update log more recent than this is treated as a possibly
   # running update; an older one is stale (left behind by a deploy or restart
   # mid-update), since real updates usually take hours, not weeks.
