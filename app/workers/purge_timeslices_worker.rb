@@ -19,7 +19,7 @@ class PurgeTimeslicesWorker
       # Drop the purgeable flag and mark the course as finalized, so this
       # course drops out of the query on the next run instead of being
       # re-scanned every week.
-      course.flags.delete(:purgeable)
+      course.remove_flag(:purgeable)
       course.add_flag(key: :finalized, value: true)
     end
   end
