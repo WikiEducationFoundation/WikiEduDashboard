@@ -62,6 +62,20 @@ describe UpdateWikiNamespaceStatsTimeslice do
     expect(stats).to have_key(:view_count)
   end
 
+  context 'for reference_count and view_count' do
+    let(:article) { create(:article, namespace: file_ns, wiki: enwiki) }
+    before do
+      create(:articles_course, article: article, course:, first_revision: 8.days.ago,
+           average_views: 100, references_count: 500)
+    end
+    it 'updates references and views correctly' do
+      described_class.new(course)
+      stats = course.course_stat.reload.stats_hash['en.wikipedia.org-namespace-6']
+      expect(stats[:reference_count]).to eq 500
+      expect(stats[:view_count]).to eq 800
+    end
+  end
+
   context 'for a wiki whose byte counts are excluded from word counts' do
     let(:wikidata) { Wiki.get_or_create(language: nil, project: 'wikidata') }
     let(:item) do

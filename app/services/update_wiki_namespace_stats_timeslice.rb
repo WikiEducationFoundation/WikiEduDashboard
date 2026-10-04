@@ -88,7 +88,7 @@ class UpdateWikiNamespaceStatsTimeslice
       .group('articles.wiki_id', 'articles.namespace')
       .pluck('articles.wiki_id', 'articles.namespace', 'COUNT(articles_courses.id)',
              'SUM(articles_courses.new_article)', 'SUM(articles_courses.character_sum)',
-             'SUM(articles_courses.references_count)', 'SUM(articles_courses.view_count)')
+             'SUM(articles_courses.references_count)', Arel.sql('SUM(FLOOR(DATEDIFF(UTC_TIMESTAMP(), articles_courses.first_revision) * articles_courses.average_views))'))
       .to_h do |wiki_id, namespace, edited, new_count, characters, references, views|
         [[wiki_id, namespace],
          { edited_count: edited, new_count: new_count.to_i, character_sum: characters.to_i,
