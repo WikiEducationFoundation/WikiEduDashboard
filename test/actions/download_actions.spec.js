@@ -178,5 +178,54 @@ describe('download actions', () => {
       removeDownload('campaign-3-instructors');
       expect(mockCancel).toHaveBeenCalled();
     });
+
+    test('invokes onGenerating callback only once across multiple generating events', () => {
+      let capturedCallbacks;
+      jest.spyOn(csvPollingUtils, 'pollReportCsv').mockImplementation((_url, callbacks) => {
+        capturedCallbacks = callbacks;
+        return jest.fn();
+      });
+
+      const onGenerating = jest.fn();
+      store.dispatch(startDownload({
+        id: 'campaign-gen-test',
+        href: '/campaigns/test/gen',
+        label: 'Test Campaign — Generating',
+        onGenerating
+      }));
+
+      expect(onGenerating).not.toHaveBeenCalled();
+
+      // First 202 generating event
+      capturedCallbacks.onGenerating({ status: 'generating' });
+      expect(onGenerating).toHaveBeenCalledTimes(1);
+
+      // Subsequent 202 generating event should not invoke callback again
+      capturedCallbacks.onGenerating({ status: 'generating' });
+      expect(onGenerating).toHaveBeenCalledTimes(1);
+    });
+
+    test('does not invoke onGenerating callback when report is ready immediately', () => {
+      let capturedCallbacks;
+      jest.spyOn(csvPollingUtils, 'pollReportCsv').mockImplementation((_url, callbacks) => {
+        capturedCallbacks = callbacks;
+        return jest.fn();
+      });
+
+      const onGenerating = jest.fn();
+      store.dispatch(startDownload({
+        id: 'campaign-ready-immediate',
+        href: '/campaigns/test/ready-now',
+        label: 'Test Campaign — Ready Immediately',
+        onGenerating
+      }));
+
+      capturedCallbacks.onReady({
+        status: 'ready',
+        url: 'https://example.com/reports/campaign-ready.csv'
+      });
+
+      expect(onGenerating).not.toHaveBeenCalled();
+    });
   });
 });

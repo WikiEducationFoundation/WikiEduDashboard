@@ -18,7 +18,7 @@ export const markDownloadsRead = () => ({ type: MARK_DOWNLOADS_READ });
 
 // Starts (or resumes polling for) a CSV download. The polling itself lives
 // here rather than in a component, so it survives modal closes and route changes.
-export const startDownload = ({ id, href, label }) => (dispatch, getState) => {
+export const startDownload = ({ id, href, label, onGenerating }) => (dispatch, getState) => {
   if (activePolls[id]) { return; }
 
   const state = getState ? getState() : null;
@@ -30,7 +30,16 @@ export const startDownload = ({ id, href, label }) => (dispatch, getState) => {
     dispatch(addDownload({ id, href, label, status: 'pending', createdAt: Date.now() }));
   }
 
+  let hasNotifiedGenerating = false;
   const cancel = pollReportCsv(href, {
+    onGenerating: (data) => {
+      if (!hasNotifiedGenerating) {
+        hasNotifiedGenerating = true;
+        if (onGenerating) {
+          onGenerating(data);
+        }
+      }
+    },
     onReady: (data) => {
       delete activePolls[id];
       const filename = data.url.split('/').pop() || `${label}.csv`;

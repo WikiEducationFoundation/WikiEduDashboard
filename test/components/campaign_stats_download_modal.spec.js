@@ -33,6 +33,7 @@ describe('CampaignStatsDownloadModal', () => {
     });
     container = document.createElement('div');
     document.body.appendChild(container);
+    global.Features = { user_signed_in: true };
     jest.clearAllMocks();
   });
 
@@ -65,30 +66,111 @@ describe('CampaignStatsDownloadModal', () => {
     expect(button.textContent).toBe(I18n.t('courses.download_stats_data'));
   });
 
-  test('opens modal with all 6 download options on button click', () => {
-    renderComponent();
-    const button = container.querySelector('button');
-    act(() => {
-      button.click();
+  describe('when user is signed in', () => {
+    beforeEach(() => {
+      global.Features = { user_signed_in: true };
     });
 
-    const modal = container.querySelector('.course-stats-download-modal');
-    expect(modal).not.toBeNull();
+    test('opens modal with 6 button options (no hrefs) on button click', () => {
+      renderComponent();
+      const openButton = container.querySelector('button');
+      act(() => {
+        openButton.click();
+      });
 
-    const links = modal.querySelectorAll('a.button.right');
-    expect(links.length).toBe(6);
+      const modal = container.querySelector('.course-stats-download-modal');
+      expect(modal).not.toBeNull();
 
-    const expectedHrefs = [
-      '/campaigns/miscellanea/courses.csv',
-      '/campaigns/miscellanea/articles_csv.csv',
-      '/campaigns/miscellanea/students.csv',
-      '/campaigns/miscellanea/students.csv?course=true',
-      '/campaigns/miscellanea/instructors.csv?course=true',
-      '/campaigns/miscellanea/wikidata.csv'
-    ];
+      const buttons = modal.querySelectorAll('button.button.right');
+      expect(buttons.length).toBe(6);
 
-    expectedHrefs.forEach((href, index) => {
-      expect(links[index].getAttribute('href')).toBe(href);
+      // Buttons have no href attribute to prevent bypassing the flow via middle-click
+      buttons.forEach((btn) => {
+        expect(btn.getAttribute('href')).toBeNull();
+      });
+
+      expect(modal.querySelectorAll('a.button.right').length).toBe(0);
+    });
+
+    test('clicking a button dispatches startDownload with onGenerating callback and closes modal', () => {
+      let passedOptions;
+      const startDownloadSpy = jest.spyOn(downloadActions, 'startDownload').mockImplementation((options) => {
+        passedOptions = options;
+        return { type: 'START_DOWNLOAD' };
+      });
+      const addNotificationSpy = jest.spyOn(notificationActions, 'addNotification').mockReturnValue({ type: 'ADD_NOTIFICATION' });
+
+      renderComponent();
+      act(() => {
+        container.querySelector('button').click();
+      });
+
+      const buttons = container.querySelectorAll('button.button.right');
+      const coursesButton = buttons[0];
+
+      act(() => {
+        coursesButton.click();
+      });
+
+      expect(startDownloadSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          id: 'miscellanea-courses',
+          href: '/campaigns/miscellanea/courses.csv',
+          label: `Miscellanea — ${I18n.t('campaign.data_courses')}`
+        })
+      );
+
+      // Verify that the onGenerating callback dispatches the toast notification
+      expect(addNotificationSpy).not.toHaveBeenCalled();
+      act(() => {
+        passedOptions.onGenerating();
+      });
+      expect(addNotificationSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          message: I18n.t('campaign.data_download_generating'),
+          closable: true,
+          type: 'success'
+        })
+      );
+
+      // Modal should close
+      expect(container.querySelector('.course-stats-download-modal')).toBeNull();
+
+      startDownloadSpy.mockRestore();
+      addNotificationSpy.mockRestore();
+    });
+  });
+
+  describe('when user is signed out', () => {
+    beforeEach(() => {
+      global.Features = { user_signed_in: false };
+    });
+
+    test('opens modal with plain anchor links with hrefs so visitors get the login prompt', () => {
+      renderComponent();
+      const openButton = container.querySelector('button');
+      act(() => {
+        openButton.click();
+      });
+
+      const modal = container.querySelector('.course-stats-download-modal');
+      expect(modal).not.toBeNull();
+
+      const links = modal.querySelectorAll('a.button.right');
+      expect(links.length).toBe(6);
+
+      const expectedHrefs = [
+        '/campaigns/miscellanea/courses.csv',
+        '/campaigns/miscellanea/articles_csv.csv',
+        '/campaigns/miscellanea/students.csv',
+        '/campaigns/miscellanea/students.csv?course=true',
+        '/campaigns/miscellanea/instructors.csv?course=true',
+        '/campaigns/miscellanea/wikidata.csv'
+      ];
+
+      expectedHrefs.forEach((href, index) => {
+        expect(links[index].getAttribute('href')).toBe(href);
+      });
     });
   });
 
@@ -116,44 +198,5 @@ describe('CampaignStatsDownloadModal', () => {
       document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
     });
     expect(container.querySelector('.course-stats-download-modal')).toBeNull();
-  });
-
-  test('clicking a link dispatches startDownload and addNotification, and closes modal', () => {
-    const startDownloadSpy = jest.spyOn(downloadActions, 'startDownload').mockReturnValue({ type: 'START_DOWNLOAD' });
-    const addNotificationSpy = jest.spyOn(notificationActions, 'addNotification').mockReturnValue({ type: 'ADD_NOTIFICATION' });
-
-    renderComponent();
-    act(() => {
-      container.querySelector('button').click();
-    });
-
-    const links = container.querySelectorAll('a.button.right');
-    const coursesLink = links[0];
-
-    act(() => {
-      coursesLink.click();
-    });
-
-    expect(startDownloadSpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        id: 'miscellanea-courses',
-        href: '/campaigns/miscellanea/courses.csv',
-        label: `Miscellanea — ${I18n.t('campaign.data_courses')}`
-      })
-    );
-
-    expect(addNotificationSpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        message: I18n.t('campaign.data_download_generating'),
-        closable: true,
-        type: 'success'
-      })
-    );
-
-    // Modal should close
-    expect(container.querySelector('.course-stats-download-modal')).toBeNull();
-
-    startDownloadSpy.mockRestore();
-    addNotificationSpy.mockRestore();
   });
 });
