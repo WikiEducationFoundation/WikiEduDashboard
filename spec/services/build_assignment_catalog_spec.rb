@@ -72,12 +72,18 @@ describe BuildAssignmentCatalog do
   end
 
   describe 'peer review' do
-    it 'is left out when reviews are neither expected nor assigned' do
+    it 'is left out when reviews are neither on the timeline nor assigned' do
       expect(keys).not_to include('peer-review')
     end
 
-    it 'is included, at its timeline block, when the course expects reviews' do
+    it 'is left out when the count is set but the peer-review blocks were deleted' do
       course.update!(flags: { peer_review_count: 1 })
+      create(:block, week: week_one, order: 0, training_module_ids: [training.id])
+
+      expect(keys).not_to include('peer-review')
+    end
+
+    it 'is included, at its timeline block, when the timeline has one' do
       create(:block, week: week_one, order: 0, training_module_ids: [training.id])
       create(:block, week: week_one, order: 1, title: 'Peer review an article',
                      training_module_ids: [])
@@ -86,7 +92,15 @@ describe BuildAssignmentCatalog do
       expect(keys).to eq(%w[training-tr-a peer-review exercise-ex-a article])
     end
 
-    it 'is included when a student has been assigned a review, even with no count set' do
+    it 'is included, after the timeline, when only the response block mentions it' do
+      create(:block, week: week_one, order: 0, title: 'Respond to your peer review',
+                     training_module_ids: [])
+      create(:block, week: week_two, order: 0, training_module_ids: [exercise.id])
+
+      expect(keys).to eq(%w[exercise-ex-a article peer-review])
+    end
+
+    it 'is included when a student has been assigned a review, even with no block' do
       Assignment.create!(course:, user: student, wiki: course.home_wiki,
                          role: Assignment::Roles::REVIEWING_ROLE, article_title: 'Reviewed')
       expect(keys).to include('peer-review')

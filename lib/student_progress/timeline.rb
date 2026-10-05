@@ -34,6 +34,11 @@ module StudentProgress
     # separate, later block and must not be mistaken for the stage's end.
     PEER_REVIEW_TITLE = /\Apeer review/i
 
+    # Looser, for whether peer review is on the timeline at all: anywhere in a
+    # block title, so the response block and retitled blocks ("In class Friday:
+    # Peer review two articles") count too.
+    PEER_REVIEW_MENTION = /peer.?review/i
+
     def initialize(roster)
       @roster = roster
       @course = roster.course
@@ -101,6 +106,13 @@ module StudentProgress
 
     def peer_reviews_expected?
       @course.peer_review_count.to_i.positive?
+    end
+
+    # Whether peer review is part of the course as its timeline now stands. The
+    # wizard's peer_review_count can't say: it stays set when the instructor
+    # deletes the peer-review blocks.
+    def peer_review_on_timeline?
+      @roster.blocks.any? { |block| block.title.to_s.match?(PEER_REVIEW_MENTION) }
     end
 
     # The LAST peer-review block by timeline position. The stage spans a couple
