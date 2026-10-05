@@ -37,4 +37,22 @@ describe 'downloads icon in the nav', type: :feature, js: true do
       expect(page).to have_link(I18n.t('downloads.download'), href: csv_url)
     end
   end
+
+  it 'confirms an export that is already generating when it is requested again' do
+    allow(ReportCsvWorker).to receive(:generate_csv) # the file stays ungenerated
+
+    visit '/campaigns'
+    find('tr', text: campaign.title).find('.campaign-export-button').click
+    first('.campaign-export-modal button.button--block').click
+    expect(page).to have_content(I18n.t('campaign.data_download_generating'))
+
+    # After a page load, the export's polling is resumed rather than started anew.
+    visit '/campaigns'
+    expect(page).to have_css('.downloads-bell')
+    expect(page).to have_no_content(I18n.t('campaign.data_download_generating'))
+
+    find('tr', text: campaign.title).find('.campaign-export-button').click
+    first('.campaign-export-modal button.button--block').click
+    expect(page).to have_content(I18n.t('campaign.data_download_generating'))
+  end
 end

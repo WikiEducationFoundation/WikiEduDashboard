@@ -228,6 +228,22 @@ describe('download actions', () => {
 
       expect(onGenerating).not.toHaveBeenCalled();
     });
+
+    test('invokes onGenerating without polling again when the download is already polling', () => {
+      const pollSpy = jest.spyOn(csvPollingUtils, 'pollReportCsv').mockReturnValue(jest.fn());
+      const download = {
+        id: 'campaign-already-polling',
+        href: '/campaigns/test/already-polling',
+        label: 'Test Campaign — Already Polling'
+      };
+      store.dispatch(startDownload(download));
+
+      const onGenerating = jest.fn();
+      store.dispatch(startDownload({ ...download, onGenerating }));
+
+      expect(onGenerating).toHaveBeenCalledTimes(1);
+      expect(pollSpy).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('resumePendingDownloads', () => {

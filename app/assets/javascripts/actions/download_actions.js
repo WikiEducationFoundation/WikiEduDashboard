@@ -19,7 +19,12 @@ export const markDownloadsRead = () => ({ type: MARK_DOWNLOADS_READ });
 // Starts (or resumes polling for) a CSV download. The polling itself lives
 // here rather than in a component, so it survives modal closes and route changes.
 export const startDownload = ({ id, href, label, onGenerating }) => (dispatch, getState) => {
-  if (activePolls[id]) { return; }
+  // Already polling, e.g. resumed after a page load. Don't poll twice, but still
+  // let the caller know the file is generating.
+  if (activePolls[id]) {
+    if (onGenerating) { onGenerating(); }
+    return;
+  }
 
   const state = getState ? getState() : null;
   const existingItem = state?.downloads?.items?.find(item => item.id === id);
