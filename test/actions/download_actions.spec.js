@@ -5,7 +5,8 @@ import {
   updateDownload,
   removeDownload,
   markDownloadsRead,
-  startDownload
+  startDownload,
+  resumePendingDownloads
 } from '../../app/assets/javascripts/actions/download_actions';
 import {
   ADD_DOWNLOAD,
@@ -226,6 +227,52 @@ describe('download actions', () => {
       });
 
       expect(onGenerating).not.toHaveBeenCalled();
+    });
+
+    test('invokes onGenerating without polling again when the download is already polling', () => {
+      const pollSpy = jest.spyOn(csvPollingUtils, 'pollReportCsv').mockReturnValue(jest.fn());
+      const download = {
+        id: 'campaign-already-polling',
+        href: '/campaigns/test/already-polling',
+        label: 'Test Campaign — Already Polling'
+      };
+      store.dispatch(startDownload(download));
+
+      const onGenerating = jest.fn();
+      store.dispatch(startDownload({ ...download, onGenerating }));
+
+      expect(onGenerating).toHaveBeenCalledTimes(1);
+      expect(pollSpy).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('resumePendingDownloads', () => {
+    test('restarts polling for pending downloads only', () => {
+      const pollSpy = jest.spyOn(csvPollingUtils, 'pollReportCsv').mockReturnValue(jest.fn());
+      const pending = {
+        id: 'campaign-resume-pending',
+        href: '/campaigns/resume/students.csv',
+        label: 'Resume — Students',
+        status: 'pending'
+      };
+      store = mockStore({
+        downloads: {
+          items: [
+            pending,
+            { id: 'campaign-resume-ready', href: '/campaigns/resume/courses.csv', status: 'ready' },
+            { id: 'campaign-resume-error', href: '/campaigns/resume/articles.csv', status: 'error' }
+          ],
+          unreadCount: 0
+        }
+      });
+
+      store.dispatch(resumePendingDownloads());
+
+      expect(pollSpy).toHaveBeenCalledTimes(1);
+      expect(pollSpy).toHaveBeenCalledWith(pending.href, expect.any(Object));
+      expect(store.getActions()).toEqual([
+        { type: UPDATE_DOWNLOAD, id: pending.id, changes: { status: 'pending' } }
+      ]);
     });
   });
 });
