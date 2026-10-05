@@ -35,9 +35,11 @@ jobs:
       # Mirrors the Ruby audit for the JavaScript dependency tree: fails
       # when yarn.lock resolves a package with a published npm advisory of
       # moderate severity or higher. `--recursive` covers transitive
-      # dependencies, where nearly all such advisories land. Reads the
-      # lockfile directly, so it needs no `yarn install`. Runs even when the
-      # Ruby audit fails, so both sets of advisories show up at once.
+      # dependencies, where nearly all such advisories land. Advisories that
+      # have been reviewed and don't apply are listed, with the reasoning, in
+      # npmAuditIgnoreAdvisories in .yarnrc.yml. Reads the lockfile directly,
+      # so it needs no `yarn install`. Runs even when the Ruby audit fails,
+      # so both sets of advisories show up at once.
       - name: JavaScript dependency vulnerability audit
         if: ${{ !cancelled() }}
         run: yarn npm audit --recursive --severity moderate
