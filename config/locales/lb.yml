@@ -22,6 +22,7 @@ lb:
   application:
     back: Zeréck
     cancel: Ofbriechen
+    close: Zoumaachen
     next: Nächst
     cookie_consent_acknowledge: Ech verstinn
     cookie_consent_see_more: Fir méi ze wëssen.
@@ -909,6 +910,9 @@ lb:
   lms_integration:
     time_ago: viru(n) %{time_ago}
     my_account_link: 'Äre Kont:'
+  lti_integrations:
+    course: Cours
+    installed: Installéiert
   lti:
     beta_feedback:
       link: Feedback schécken

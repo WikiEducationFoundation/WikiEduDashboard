@@ -37,6 +37,7 @@ pl:
   application:
     back: Wstecz
     cancel: Anuluj
+    close: Zamknij
     next: Dalej
     skip_to_main_content: Przejdź do głównej treści
     cookie_consent: Ta strona używa ciasteczek, aby utrzymać Twoją sesję logowania,
