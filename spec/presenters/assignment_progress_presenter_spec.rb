@@ -196,4 +196,12 @@ describe AssignmentProgressPresenter do
       .to include('/training/')
     expect(presenter.links_for(presenter.item('article'))).to eq({})
   end
+
+  it 'links a slide-less in-app exercise to its page only, with no training page' do
+    fact_check = create(:training_module, slug: 'fv-ex', kind: 1,
+                                          settings: { 'exercise_path' => 'verify_claim' })
+    create(:block, week:, order: 2, training_module_ids: [fact_check.id])
+    expect(presenter.links_for(presenter.item('exercise-fv-ex')))
+      .to eq(exercise_url: "/courses/#{course.slug}/verify_claim")
+  end
 end
