@@ -112,6 +112,19 @@ describe TrainingController, type: :request do
           expect(response).to redirect_to("/courses/#{course.slug}/verify_claim")
         end
       end
+
+      context 'when the exercise path would leave the site' do
+        before do
+          mod = TrainingModule.find_by(slug: module_id)
+          mod.update(settings: mod.settings.merge('exercise_path' => '/evil.example.com'))
+        end
+
+        it 'refuses to redirect' do
+          subject
+          expect(response).not_to have_http_status(:redirect)
+          expect(response.location).to be_nil
+        end
+      end
     end
   end
 

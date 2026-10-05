@@ -40,7 +40,9 @@ class TrainingController < ApplicationController
     # would lead back here), but links from outside the dashboard can still
     # land on it. Its slug-less entry finds the course from the
     # training_return_to just stored.
-    return redirect_to("/#{mod.exercise_path}") unless mod.training_page?
+    unless mod.training_page?
+      return redirect_to("/#{mod.exercise_path}", allow_other_host: false)
+    end
     @pres = TrainingModulePresenter.new(current_user, params)
     add_training_root_breadcrumb
     add_library_breadcrumb
