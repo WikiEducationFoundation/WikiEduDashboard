@@ -35,6 +35,14 @@ class TrainingController < ApplicationController
     # links from the in-Canvas LTI iframe carry one, because their referer
     # is the iframe launch URL — not a sensible place to send anyone.
     session[:training_return_to] = explicit_return_to || request.referer
+    mod = TrainingModule.find_by(slug: params[:module_id])
+    # A slide-less in-app exercise has no training page (its Start button
+    # would lead back here), but links from outside the dashboard can still
+    # land on it. Its slug-less entry finds the course from the
+    # training_return_to just stored.
+    unless mod.training_page?
+      return redirect_to("/#{mod.exercise_path}", allow_other_host: false)
+    end
     @pres = TrainingModulePresenter.new(current_user, params)
     add_training_root_breadcrumb
     add_library_breadcrumb

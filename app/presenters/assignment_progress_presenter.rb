@@ -60,12 +60,13 @@ class AssignmentProgressPresenter
 
   # Where a module-based assignment is done, the same for every student: the
   # module's training page (an exercise's instructions) and, for an exercise
-  # done in the app, its page.
+  # done in the app, its page. A slide-less in-app exercise has only the latter.
   def links_for(item)
     mod = item.training_module
     return {} if mod.nil?
 
-    { training_url: StudentProgress::Links.training_url(@course, mod),
+    training_url = StudentProgress::Links.training_url(@course, mod) if mod.training_page?
+    { training_url:,
       exercise_url: StudentProgress::Links.exercise_path_url(@course, mod) }.compact
   end
 
