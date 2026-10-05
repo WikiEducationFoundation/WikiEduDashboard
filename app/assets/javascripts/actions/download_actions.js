@@ -54,3 +54,11 @@ export const startDownload = ({ id, href, label, onGenerating }) => (dispatch, g
 
   activePolls[id] = cancel;
 };
+
+// Polling stops when the page unloads, so downloads restored as 'pending' from
+// localStorage need their polling restarted on each page load.
+export const resumePendingDownloads = () => (dispatch, getState) => {
+  getState().downloads.items
+    .filter(item => item.status === 'pending')
+    .forEach(item => dispatch(startDownload(item)));
+};
