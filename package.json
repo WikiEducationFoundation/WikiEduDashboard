@@ -185,5 +185,5 @@
     "diff@^4.0.2": "^4.0.4",
     "@tootallnate/once": "^2.0.1"
   },
-  "packageManager": "yarn@3.2.1"
+  "packageManager": "yarn@3.8.7"
 }
