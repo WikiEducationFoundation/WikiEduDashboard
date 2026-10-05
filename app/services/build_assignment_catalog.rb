@@ -15,8 +15,8 @@ require_dependency "#{Rails.root}/lib/student_progress/timeline"
 #   exercises in their own right, so each has its own per-student rows. The
 #   article sits where the first of them does (just before it), or after the
 #   timeline when there are none;
-# - the peer-review stage, at its timeline block, when the course expects
-#   reviews or anyone has been assigned one.
+# - the peer-review stage, at its timeline block, when a timeline block
+#   mentions peer review or anyone has been assigned one.
 class BuildAssignmentCatalog
   # `key` is stable across requests and safe in a URL path segment.
   # `title` is the module's own name; the tab labels the other kinds itself.
@@ -70,7 +70,7 @@ class BuildAssignmentCatalog
 
   # Positioned at the end of its block, or after the timeline without one.
   def peer_review_items
-    return [] unless @timeline.peer_reviews_expected? ||
+    return [] unless @timeline.peer_review_on_timeline? ||
                      StudentProgress::PeerReviewFacts.new(@roster).any?
 
     block = @timeline.peer_review_block

@@ -100,6 +100,19 @@ describe StudentProgress::Timeline do
       expect(timeline.peer_review_block.title).to eq('Peer review an article')
     end
 
+    it 'finds peer review on the timeline when any block title mentions it' do
+      other = create(:course, slug: 'Other/Course')
+      other_week = create(:week, course: other, order: 0)
+      other_timeline = described_class.new(StudentProgress::Roster.new(course: other,
+                                                                       user_ids: []))
+      expect(other_timeline.peer_review_on_timeline?).to be(false)
+
+      create(:block, week: other_week, title: 'In class: Peer-review two articles',
+                     training_module_ids: [])
+      expect(described_class.new(StudentProgress::Roster.new(course: other, user_ids: []))
+               .peer_review_on_timeline?).to be(true)
+    end
+
     it 'expects reviews only when the course sets a count' do
       expect(timeline.peer_reviews_expected?).to be(false)
       course.update!(flags: { peer_review_count: 2 })
