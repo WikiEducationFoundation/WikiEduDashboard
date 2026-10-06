@@ -88,7 +88,9 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
   const qNumbers = map(wikidataEntities, 'title')
                      .filter(isEntityTitle)
                      .map(CourseUtils.removeNamespace);
-  const chunks = chunk(qNumbers, 30);
+  // 50 is the max `ids` count wbgetentities accepts for anonymous requests
+  // (per action=paraminfo&modules=wbgetentities).
+  const chunks = chunk(qNumbers, 50);
   const fetchOneChunk = someQNumbers => fetchWikidataLabelsPromise(someQNumbers)
     .then((resp) => {
       dispatch({
@@ -114,11 +116,15 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
             visibilityState: document.visibilityState,
             hasServiceWorkerController: !!navigator.serviceWorker?.controller
           },
-          // requestUrl (not `url`, which is Sentry's own tag for the page
-          // URL) is high-cardinality, so it stays in extra.
+          // requestUrl (not `url`, Sentry's own page-URL tag) is
+          // high-cardinality, so it stays in extra. retryAfterRaw is the
+          // unparsed header, so a null retryAfterSeconds can be told apart
+          // from an unparsed format (e.g. a date) rather than just absent.
           extra: {
             requestUrl: error.url,
-            responseText: error.responseText
+            responseText: error.responseText,
+            retryAfterSeconds: error.retryAfterSeconds,
+            retryAfterRaw: error.retryAfterRaw
           }
         });
       }

@@ -68,7 +68,12 @@ describe('fetchWikidataLabels', () => {
       expect.objectContaining({ name: 'ApiError', status: 403, statusText: 'Forbidden' }),
       {
         tags: { onLine: true, visibilityState: 'visible', hasServiceWorkerController: false },
-        extra: { requestUrl: 'https://www.wikidata.org/w/api.php?action=wbgetentities', responseText: 'blocked' },
+        extra: {
+          requestUrl: 'https://www.wikidata.org/w/api.php?action=wbgetentities',
+          responseText: 'blocked',
+          retryAfterSeconds: null,
+          retryAfterRaw: null,
+        },
       }
     );
   });
@@ -88,6 +93,8 @@ describe('fetchWikidataLabels', () => {
         extra: {
           requestUrl: expect.stringContaining('https://www.wikidata.org/w/api.php'),
           responseText: undefined,
+          retryAfterSeconds: undefined,
+          retryAfterRaw: undefined,
         },
       }
     );
@@ -249,9 +256,9 @@ describe('fetchWikidataLabels', () => {
       json: () => Promise.resolve(entities),
     });
     const dispatch = jest.fn();
-    // 7 chunks of 30 qNumbers each (210 entities) should run with at most
+    // 7 chunks of 50 qNumbers each (350 entities) should run with at most
     // CONCURRENCY_LIMIT (3) requests in flight, not all 7 at once.
-    const entitiesList = Array.from({ length: 210 }, (_, i) => ({ title: `Q${i}` }));
+    const entitiesList = Array.from({ length: 350 }, (_, i) => ({ title: `Q${i}` }));
 
     fetchWikidataLabels(entitiesList, dispatch);
     // Right after kicking things off, only the first batch should have

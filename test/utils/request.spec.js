@@ -52,7 +52,7 @@ describe('ensureOk', () => {
     await expect(ensureOk(response)).rejects.toMatchObject({ responseText: '' });
   });
 
-  test('reads retryAfterSeconds off the response headers when exposed', async () => {
+  test('reads retryAfterSeconds and retryAfterRaw off the response headers when exposed', async () => {
     const response = {
       ok: false,
       status: 429,
@@ -61,13 +61,28 @@ describe('ensureOk', () => {
       text: () => Promise.resolve(''),
     };
 
-    await expect(ensureOk(response)).rejects.toMatchObject({ retryAfterSeconds: 2 });
+    await expect(ensureOk(response)).rejects.toMatchObject({ retryAfterSeconds: 2, retryAfterRaw: '2' });
   });
 
-  test('retryAfterSeconds is null when there is no headers object or no Retry-After value', async () => {
+  test('retryAfterSeconds and retryAfterRaw are null when there is no headers object or no Retry-After value', async () => {
     const response = { ok: false, status: 429, statusText: '', text: () => Promise.resolve('') };
 
-    await expect(ensureOk(response)).rejects.toMatchObject({ retryAfterSeconds: null });
+    await expect(ensureOk(response)).rejects.toMatchObject({ retryAfterSeconds: null, retryAfterRaw: null });
+  });
+
+  test('retryAfterRaw preserves an unparseable value (e.g. an HTTP-date) that retryAfterSeconds cannot represent', async () => {
+    const response = {
+      ok: false,
+      status: 429,
+      statusText: 'Too Many Requests',
+      headers: { get: name => (name === 'retry-after' ? 'Fri, 07 Nov 2014 23:59:59 GMT' : null) },
+      text: () => Promise.resolve(''),
+    };
+
+    await expect(ensureOk(response)).rejects.toMatchObject({
+      retryAfterSeconds: null,
+      retryAfterRaw: 'Fri, 07 Nov 2014 23:59:59 GMT',
+    });
   });
 
   test('an optional prefix is passed through to error logging without changing the thrown error', async () => {

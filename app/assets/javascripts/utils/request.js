@@ -4,11 +4,10 @@ import logErrorMessage from './log_error_message';
 // it is a relative path if it doesn't start with http or https
 const isRelativePath = path => !path.match(/^http(s?)/);
 
-// Retry-After is only readable here if the server explicitly exposes it via
-// Access-Control-Expose-Headers on a cross-origin response; otherwise this
-// resolves to null and callers fall back to their own default backoff.
-const parseRetryAfterSeconds = (headers) => {
-  const value = headers?.get?.('retry-after');
+// Retry-After is only readable here if the server exposes it via
+// Access-Control-Expose-Headers. Only the delay-seconds form is parsed; an
+// HTTP-date value resolves to null here (see retryAfterRaw below).
+const parseRetryAfterSeconds = (value) => {
   if (!value) return null;
   const seconds = Number(value);
   return Number.isNaN(seconds) ? null : seconds;
@@ -25,7 +24,10 @@ export class ApiError extends Error {
     this.statusText = response.statusText;
     this.url = response.url;
     this.responseText = responseText;
-    this.retryAfterSeconds = parseRetryAfterSeconds(response.headers);
+    // Raw header value, so a null retryAfterSeconds can be told apart from
+    // an absent header vs. an unparsed format (e.g. a date).
+    this.retryAfterRaw = response.headers?.get?.('retry-after') ?? null;
+    this.retryAfterSeconds = parseRetryAfterSeconds(this.retryAfterRaw);
   }
 }
 
