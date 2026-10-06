@@ -1,5 +1,6 @@
 import Rails from '@rails/ujs';
 import logErrorMessage from './log_error_message';
+import { isBlockedInStudentView } from './student_view';
 
 // it is a relative path if it doesn't start with http or https
 const isRelativePath = path => !path.match(/^http(s?)/);
@@ -31,7 +32,24 @@ export const ensureOk = async (response, prefix) => {
   return response;
 };
 
+// Stands in for the server's response to a write blocked in student view, so
+// callers handle it like any other refused request.
+const studentViewBlockedResponse = (path) => {
+  const message = I18n.t('courses.student_view_action_blocked');
+  return {
+    ok: false,
+    status: 403,
+    statusText: 'Forbidden',
+    url: path,
+    json: () => Promise.resolve({ message }),
+    text: () => Promise.resolve(JSON.stringify({ message }))
+  };
+};
+
 export default (path, { method = 'GET', body = null, ...extraOptions } = {}) => {
+  if (isBlockedInStudentView(method, path)) {
+    return Promise.resolve(studentViewBlockedResponse(path));
+  }
   const options = {
     headers: {
       'Content-Type': 'application/json'

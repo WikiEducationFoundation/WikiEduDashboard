@@ -5,6 +5,7 @@ import { stringify } from '~/app/assets/javascripts/utils/query_string';
 import Rails from '@rails/ujs';
 import { toWikiDomain } from './wiki_utils';
 import { formatCategoryName } from '../components/util/scoping_methods';
+import { studentViewQuery } from './student_view';
 
 const SentryLogger = {};
 
@@ -170,7 +171,7 @@ const API = {
   },
 
   fetch(courseId, endpoint) {
-    return request(`/courses/${courseId}/${endpoint}.json`, {
+    return request(`/courses/${courseId}/${endpoint}.json${studentViewQuery(endpoint)}`, {
       credentials: "include"
     })
       .then(res => {

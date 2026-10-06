@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/roster"
+
 # One row per enrolled student for the LTI 1.1 instructor view inside Canvas:
 # whether they have connected through Canvas, rolled-up training, exercise and
 # peer-review fractions, edit statistics from the course roster, and the same
@@ -51,9 +53,10 @@ class InstructorRosterContext
 
   # Everything the per-student services read, fetched once for the whole class
   # rather than once per student, so an instructor launch costs a handful of
-  # queries however large the enrollment (see LtiProgressPreload).
+  # queries however large the enrollment (see StudentProgress::Roster).
   def preload
-    @preload ||= LtiProgressPreload.new(course: @course, user_ids: courses_users.map(&:user_id))
+    @preload ||= StudentProgress::Roster.new(course: @course,
+                                             user_ids: courses_users.map(&:user_id))
   end
 
   # Students with a linked launch context on this binding: the ones who have

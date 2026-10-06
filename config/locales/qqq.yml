@@ -289,9 +289,18 @@ qqq:
     confirm_course_removal: |-
       Confirmation dialog for removing a course from a campaign.
       'title' is the title of the course, and 'campaign_title' is the title of the campaign.
+    all_data: |-
+      Button label in the campaign export modal to export all campaign data as a ZIP archive
+      {{Identical|All}}
+    export: |-
+      Button label to open the campaign data export modal
+      {{Identical|Export}}
     course_removed: Message indicating a course was successfully removed from a campaign.
     create_campaign: Header for the page to create a new campaign
     create_my_campaign: Label for the button to create a new campaign
+    data_download_generating: Notification message informing the user that their requested
+      export file is currently being generated and they will be notified when it is
+      ready to download.
     description: |-
       Label for the description field when creating a new campaign
       {{Identical|Description}}
@@ -779,6 +788,9 @@ qqq:
     exercise_needs_assigned_article: Error shown when a student tries to mark an exercise
       complete before assigning themselves an article, which the exercise's expected
       page depends on
+    exercise_article_unverified: Error shown when a student tries to mark an exercise
+      complete before the dashboard has verified their edit to the article they name
+      for it
   uploads:
     image: '{{Identical|Image}}'
     label: |-
@@ -917,6 +929,32 @@ qqq:
   error_500:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
+  downloads:
+    title: |-
+      Header for the downloads notification panel
+      {{Identical|Downloads}}
+    none: Message shown when the user has no active or recent downloads
+    generating: Status label indicating a download file is currently being generated
+    ready: |-
+      Status label indicating a download file is ready
+      {{Identical|Ready}}
+    error: |-
+      Status label indicating that file generation failed
+      {{Identical|Failed}}
+    timeout: Status label indicating a download is still being processed after the
+      initial polling window
+    retry: Action button to check again if a processing download is ready
+    download: |-
+      Action button to download the generated file
+      {{Identical|Download}}
+    dismiss: |-
+      Action button to dismiss a download notification from the list
+      {{Identical|Dismiss}}
+    new_downloads: Accessibility label indicating new downloads are available
+    no_downloads: Accessibility label indicating no new downloads are available
+    aria_label: |-
+      Accessibility label for the downloads icon in the navigation bar
+      {{Identical|Downloads}}
   survey:
     login_message: Message prompting user to log in before taking a survey. (Wiki
       Ed only)

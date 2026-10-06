@@ -688,6 +688,7 @@ sl:
     average_views: Povprečno ogledov na dan
     category_search: Poišči po kategorijah
     fetching_pageviews: Pridobivanje ogledov strani
+    hide_options: Skrij možnosti
     keyword_search: Iskanje po ključni besedi
     minimum_views_label: Minimum ogledov
     more_results: Več zadetkov
@@ -701,4 +702,7 @@ sl:
     continue: Nadaljuj
     completion_time: Čas dokončanja
     view: Ogled
+  lti:
+    assignment_view:
+      hide: Skrij
 ...

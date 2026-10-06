@@ -224,6 +224,10 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/lms_integration_status.json' => 'lms_integration_status#show',
         constraints: { slug: /.*/ }
+    get 'courses/:slug/assignment_progress.json' => 'courses/assignment_progress#index',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/assignment_progress.csv' => 'courses/assignment_progress#csv',
+        constraints: { slug: /.*/ }
     # The unlisted LTI 1.1 credentials page, declared before the courses#show
     # catch-all so it wins. Nothing in the interface links to it; Wiki
     # Education shares the URL with beta instructors who need the 1.1 path.
@@ -347,6 +351,8 @@ Rails.application.routes.draw do
   # Scholars & Scientists report cards (admin-only, Wiki Education Dashboard only)
   get 'report_cards' => 'report_cards#index'
   get 'report_cards/:campaign_slug' => 'report_cards#show'
+  # Courses that have installed the Canvas (LTI) integration (admin-only)
+  get 'lti_integrations' => 'lti_integrations#index'
 
   # Reports generated in background
   # Course reports
@@ -365,6 +371,7 @@ Rails.application.routes.draw do
   get 'campaigns/:slug/instructors' => 'reports#campaign_instructors_csv'
   get 'campaigns/:slug/courses' => 'reports#campaign_courses_csv'
   get 'campaigns/:slug/articles_csv' => 'reports#campaign_articles_csv'
+  get 'campaigns/:slug/all_csv' => 'reports#campaign_all_csv'
   get 'campaigns/:slug/wikidata' => 'reports#campaign_wikidata_csv'
 
   # Campaigns
@@ -439,6 +446,7 @@ Rails.application.routes.draw do
   get 'training_modules_users' => 'training_modules_users#index'
   post 'training_modules_users' => 'training_modules_users#create_or_update'
   post 'training_modules_users/exercise' => 'training_modules_users#mark_exercise_complete'
+  post 'training_modules_users/verify_exercise_article' => 'training_modules_users#verify_exercise_article'
   get 'reload_trainings' => 'training#reload'
 
   get 'training_status' => 'training_status#show'

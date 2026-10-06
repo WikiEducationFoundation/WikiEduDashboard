@@ -334,4 +334,30 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_no_content(I18n.t('claim_verification.your_selected_claim'))
     expect(VerificationClaimAssignment.find_by(user: outsider, course:)).to be_nil
   end
+
+  it 'tells an instructor in "View as student" that taking a claim is blocked' do
+    instructor = create(:user, username: 'Prof', onboarded: true)
+    create(:courses_user, course:, user: instructor,
+                          role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    # courses#show verifies an instructor's OAuth edit credentials.
+    stub_token_request
+    login_as instructor
+
+    visit "/courses/#{course.slug}"
+    within('.module.actions') { click_button I18n.t('courses.view_as_student') }
+    expect(page).to have_css('nav [role="switch"][aria-checked="true"]')
+
+    visit "/courses/#{course.slug}/verify_claim"
+    expect(page).to have_content(I18n.t('claim_verification.step_select_article'), wait: 20)
+    click_on 'Sea otter'
+    find('.parsed-article .cv-claim', wait: 20).click
+    within '.cv-selection-panel' do
+      click_button I18n.t('claim_verification.select_claim')
+    end
+
+    # The take is blocked before it's sent, so it isn't the not-enrolled refusal.
+    expect(page).to have_content(I18n.t('courses.student_view_action_blocked'), wait: 10)
+    expect(page).to have_no_content(I18n.t('claim_verification.take_not_enrolled'))
+    expect(VerificationClaimAssignment.find_by(user: instructor, course:)).to be_nil
+  end
 end

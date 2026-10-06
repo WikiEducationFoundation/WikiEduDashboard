@@ -38,6 +38,7 @@ en:
   application:
     back: Back
     cancel: Cancel
+    close: Close
     next: Next
     skip_to_main_content: Skip to main content
     cookie_consent: This site uses cookies to keep you logged in, and stores information related to your Wikipedia account.
@@ -505,6 +506,16 @@ en:
       Please note that the article you’ve chosen is on a wiki not tracked
       by this course. To track contributions to this article, an instructor
       must add the following wiki to this course: %{wiki}
+  # The instructor-facing Assignments tab on the course page.
+  assignments_tab:
+    label: Assignments
+    overdue: Overdue
+    progress: Progress
+    assigned: Assigned
+    live_article: Live article
+    stage_assigned: Article assigned
+    stage_live: Edited live article
+    view_training: View training
   blocks:
     milestones:
       title: Milestones
@@ -541,6 +552,8 @@ en:
     course_already_removed: '"%{title}" was already removed from the "%{campaign_title}" campaign'
     course: Course
     course_data: course data
+    all_data: All
+    export: Export
     course_removed: '"%{title}" has been removed from the "%{campaign_title}" campaign'
     course_removed_and_deleted: '"%{title}" has been deleted and removed from the "%{campaign_title}" campaign'
     course_removed_but_not_deleted: '"%{title}" has been removed from the "%{campaign_title}" but has not been deleted as it is present in other campaigns as well'
@@ -548,6 +561,7 @@ en:
     create_my_campaign: Create my Campaign!
     customize_passcode: a default passcode
     data_download_info: Download campaign data as CSVs
+    data_download_generating: The file is being generated. You will be notified when it is ready to download.
     data_courses: Course overview data
     data_courses_info: Basic metrics for each course/program
     data_articles: Pages edited
@@ -1006,6 +1020,7 @@ en:
     student_editors: Student Editors
     students_none: This course has no students.
     students_short: Students
+    student_view_action_blocked: You cannot do this while in "View as student" mode.
     submitted_admin: >
       This course has been submitted for approval by its creator. To approve it,
       add it to a campaign on the Overview page.
@@ -1060,6 +1075,7 @@ en:
     view: View Course
     view_doc: The estimated number of views to articles edited by enrolled editors since the editor made their first edit to each article
     view_page: View Course Page
+    view_as_student: View as student
     view_wiki: View on Wikipedia
     volunteer:
       one: Volunteer
@@ -1784,6 +1800,7 @@ en:
     exercise_sandbox: Exercise Sandbox
     exercise_sandbox_incomplete: Please complete the exercise in your Exercise Sandbox (%{pages}) before marking it complete
     exercise_needs_assigned_article: You must assign yourself an article before you can complete this.
+    exercise_article_unverified: Please verify your Wikipedia edit before marking this exercise complete.
     open_exercise: Start Exercise
     remaining_exercise: "%{count} additional exercises remaining."
     view_all: View all exercises
@@ -1792,6 +1809,14 @@ en:
     close: "CLOSE"
     loading: "Loading…"
     wiki_source: "wiki source"
+    article_title_input:
+      submit: "Submit Article"
+      modal_title: "Which article did you edit?"
+      success: "Great work! Your edit has been verified. You can now mark this exercise complete."
+      placeholder: "e.g. Marie Curie or https://en.wikipedia.org/wiki/Marie_Curie"
+      checking: "Checking..."
+      verify: "Verify"
+      not_found: "We could not find your edit on that article. Please check the article name and try again."
 
   claim_verification:
     pick_instructions: Click a highlighted claim to see the citation details.
@@ -2232,6 +2257,20 @@ en:
     aria_label:
       bell: Notifications
 
+  downloads:
+    title: Downloads
+    none: You have no downloads yet.
+    generating: Generating…
+    ready: Ready
+    error: Failed
+    timeout: Still processing…
+    retry: Check again
+    download: Download
+    dismiss: Dismiss
+    new_downloads: You have new downloads.
+    no_downloads: You have no new downloads.
+    aria_label: Downloads
+
   survey:
     login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."
     notification_explanation: If below is checked, users will receive emails according to the notification schedule, in addition to seeing in-browser notifications. If not, only in-browser notifications will be shown.
@@ -2451,6 +2490,18 @@ en:
     my_last_sync: "Last sync"
     no_grades_yet: "No synced progress yet"
     not_yet_linked: "Your account hasn't been linked to Canvas for this course."
+
+  lti_integrations:
+    title: "LTI integrations"
+    course: "Course"
+    instructor: "Instructor"
+    lms_course: "Canvas course"
+    lms_instance: "Canvas instance"
+    lti_version: "LTI version"
+    installed: "Installed"
+    connected_students: "Connected students"
+    roster: "Canvas roster"
+    not_applicable: "—"
 
   lti:
     beta_feedback:

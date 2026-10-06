@@ -5,6 +5,7 @@
 # Author: Aefgh39622
 # Author: Ajeje Brazorf
 # Author: Apple TD
+# Author: Beta empire
 # Author: Bonfire12
 # Author: Chqaz
 # Author: Kkairri
@@ -331,11 +332,14 @@ ja:
     confirm_course_removal: ほんとうに「%{title}」を「%{campaign_title}」キャンペーンから削除しますか？
     course_already_removed: 「%{title}」は「%{campaign_title}」キャンペーンから除去済みです。
     course: コース
+    all_data: すべて
+    export: 書き出し
     course_removed: 「%{title}」を「%{campaign_title}」キャンペーンから削除しました。
     create_campaign: 新しいキャンペーンの作成
     create_my_campaign: キャンペーンを作成！
     customize_passcode: 既定のパスコード
     data_download_info: キャンペーンのデータをCSVとしてダウンロード
+    data_download_generating: ファイルが生成されています。ダウンロード準備が整い次第、通知いたします。
     data_courses: コースの概要データ
     data_courses_info: 各コース・プログラムの基本指標
     data_articles: 編集したページ
@@ -983,6 +987,13 @@ ja:
     table_of_contents: 目次
     done: 完了！
     view_module_source: モジュールのソースを表示
+    article_title_input:
+      submit: 記事を投稿する
+      modal_title: どの記事を編集しましたか？
+      success: 素晴らしい出来栄えです！編集内容が確認されました。これでこの課題は完了です。
+      checking: チェック中
+      verify: 認証する
+      not_found: 該当記事への編集内容が見つかりませんでした。記事名をご確認の上、再度お試しください。
   update_username:
     header: 変更された利用者名の更新
     not_found: 入力された名前の利用者が見つかりません。
@@ -1100,6 +1111,19 @@ ja:
     header: 500 — internal server error.  :-(
   login_error:
     header: ログインエラー
+  downloads:
+    title: ダウンロード一覧
+    none: まだダウンロードはできません。
+    generating: 生成中
+    ready: 準備
+    error: 失敗
+    timeout: 処理中です…
+    retry: もう一度確認してください
+    download: ダウンロード
+    dismiss: 非表示
+    new_downloads: 新しいダウンロードができます。
+    no_downloads: 新しいダウンロードはありません。
+    aria_label: ダウンロード
   survey:
     login_message: お時間をいただきありがとうございます。ダッシュボードにログインしてアンケートにご協力ください。
     email:

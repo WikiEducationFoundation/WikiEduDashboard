@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-show_email_and_real_name = user_signed_in? && current_user.can_see_real_names?(course)
+show_email_and_real_name = viewer_sees_real_names?(course)
 show_instructor_identity = user_signed_in? && current_user.nonvisitor?(course)
 # In a privacy-mode course the instructor's name and email are admin-only. Only
 # the instructor rows are withheld: instructors still see their students' names.

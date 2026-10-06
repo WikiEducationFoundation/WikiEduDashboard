@@ -559,6 +559,8 @@ es:
     course_already_removed: «%{title}» ya se había quitado de la campaña «%{campaign_title}»
     course: Curso
     course_data: datos del curso
+    all_data: Todos los datos
+    export: Exportar
     course_removed: «%{title}» se ha quitado de la campaña «%{campaign_title}»
     course_removed_and_deleted: '"%{title}" ha sido eliminado y quitado de la campaña
       "%{campaign_title}"'
@@ -568,6 +570,8 @@ es:
     create_my_campaign: ¡Crear mi campaña!
     customize_passcode: un código de acceso predeterminado
     data_download_info: Descargar datos de campaña como CSV
+    data_download_generating: El archivo se está generando. Te notificaremos cuando
+      esté listo para descargar.
     data_courses: Datos generales del curso
     data_courses_info: Metricas básicas para cada curso/programa
     data_articles: Páginas editadas
@@ -1578,6 +1582,24 @@ es:
     header: Error de inicio de sesión
     explanation: Parece que hubo un problema con el proceso de registro. (Lo sentimos!
       Esto sucede ocasionalmente.) Intenta iniciar sesión o inscribirse de nuevo.
+  notifications:
+    new_notifications: Tienes nuevas notificaciones.
+    no_notifications: No tienes nuevas notificaciones.
+    aria_label:
+      bell: Notificaciones
+  downloads:
+    title: Descargas
+    none: Aún no tienes descargas.
+    generating: Generando…
+    ready: Listo
+    error: Falló
+    timeout: Procesando todavía…
+    retry: Comprobar de nuevo
+    download: Descargar
+    dismiss: Descartar
+    new_downloads: Tienes nuevas descargas.
+    no_downloads: No tienes nuevas descargas.
+    aria_label: Descargas
   survey:
     login_message: Gracias por tu tiempo. Inicia sesión en tu panel de Wiki Ed para
       participar en la encuesta.
