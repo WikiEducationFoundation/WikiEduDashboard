@@ -3,8 +3,8 @@
 #= Flags old courses as purgeable so a later job can delete their timeslices and
 #  keep the timeslice tables from growing without bound. A course is purgeable
 #  once it ended long enough ago and is "done":
-#  - it has no pending timeslice work (no course wiki timeslice needing update or
-#    reaggregation, and no article-course-user-wiki timeslice needing update);
+#  - it has no pending timeslice work (no full update required, no course wiki timeslice
+#  needing update or reaggregation, and no article-course-user-wiki timeslice needing update);
 #  - it is not possibly running an update.
 class MarkPurgeableCourses
   # A course becomes eligible for purging once it ended at least this long ago.
@@ -27,6 +27,7 @@ class MarkPurgeableCourses
 
   def mark_if_purgeable(course)
     return if course.purgeable? || course.finalized? || course.update_possibly_running?
+    return if course.needs_update
     return if pending_timeslices?(course)
     return if pending_acuwt?(course)
 

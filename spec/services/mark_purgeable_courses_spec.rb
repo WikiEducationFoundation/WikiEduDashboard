@@ -35,6 +35,16 @@ describe MarkPurgeableCourses do
       expect(recent_course.reload.purgeable?).to be false
     end
 
+    it 'skips a course with a pending full update' do
+      add_timeslice(old_course)
+      old_course.update(needs_update: true)
+
+      result = described_class.new
+
+      expect(result.marked_count).to eq(0)
+      expect(old_course.reload.purgeable?).to be false
+    end
+
     it 'skips a course with a timeslice still needing update' do
       add_timeslice(old_course, needs_update: true)
 
