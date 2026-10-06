@@ -49,6 +49,30 @@ describe 'course overview page', type: :feature, js: true do
       expect(page).to have_content 'Schedule Data Update'
     end
 
+    context 'when the course is finalized' do
+      before do
+        course.update(flags: { finalized: true })
+        visit "/courses/#{course.slug}"
+      end
+
+      it 'does not show the "Needs Update" button, even for admin' do
+        expect(page).to have_content 'This Week' # page has loaded
+        expect(page).not_to have_content 'Schedule Data Update'
+      end
+    end
+
+    context 'when the course is purgeable' do
+      before do
+        course.update(flags: { purgeable: true })
+        visit "/courses/#{course.slug}"
+      end
+
+      it 'does not show the "Needs Update" button, even for admin' do
+        expect(page).to have_content 'This Week' # page has loaded
+        expect(page).not_to have_content 'Schedule Data Update'
+      end
+    end
+
     context 'when update is scheduled' do
       before do
         course.update(needs_update: true)
