@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/course_cache_manager"
 
 describe UpdateWikiNamespaceStatsTimeslice do
   let(:course) { create(:course, start: Date.new(2022, 8, 1), end: Date.new(2022, 8, 2)) }
@@ -13,6 +14,12 @@ describe UpdateWikiNamespaceStatsTimeslice do
   let(:user3) { create(:user, username: 'The Editor') } # user with en-wiki mainspace edits
   let(:cookbook_course_wiki) { create(:courses_wikis, course:, wiki: wikibooks) }
   let(:enwiki_course_wiki) { course.courses_wikis.find_by(wiki: enwiki) }
+  let(:stats) { course.course_stat.reload.stats_hash['en.wikipedia.org-namespace-0'] }
+
+  def add_ac(attrs = {}, article_attrs = {})
+    article = create(:article, { namespace: 0, wiki: enwiki }.merge(article_attrs))
+    create(:articles_course, { article:, course: }.merge(attrs))
+  end
 
   before do
     stub_wiki_validation
@@ -65,14 +72,33 @@ describe UpdateWikiNamespaceStatsTimeslice do
   context 'for reference_count and view_count' do
     let(:article) { create(:article, namespace: file_ns, wiki: enwiki) }
     before do
-      create(:articles_course, article: article, course:, first_revision: 8.days.ago,
-           average_views: 100, references_count: 500)
-    end
-    it 'updates references and views correctly' do
+      create(:course_wiki_namespaces, courses_wikis: course.courses_wikis.find_by(wiki: enwiki),
+                                    namespace: 0)
+      # counted for views: 8 days * 100
+      add_ac(first_revision: 8.days.ago, average_views: 100, references_count: 5)
+      # NULL average_views: no views, but still counted as edited, refs counted
+      add_ac(first_revision: 1.day.ago, average_views: nil, references_count: 7)
+      # NULL first_revision: no views, still counted as edited
+      add_ac(first_revision: nil, average_views: 50, references_count: 0)
+      # untracked: excluded from everything
+      add_ac(first_revision: 8.days.ago, average_views: 1000, references_count: 900, tracked: false)
+      # deleted article: excluded from everything
+      add_ac({ first_revision: 8.days.ago, average_views: 1000, references_count: 900 },
+           { deleted: true })
       described_class.new(course)
-      stats = course.course_stat.reload.stats_hash['en.wikipedia.org-namespace-6']
-      expect(stats[:reference_count]).to eq 500
+    end
+    it 'sums views only for rows with both first_revision and average_views' do
       expect(stats[:view_count]).to eq 800
+    end
+
+    it 'keeps NULL-view rows in the edited and reference counts' do
+      expect(stats[:edited_count]).to eq 3
+      expect(stats[:reference_count]).to eq 12
+    end
+
+    it 'matches the course-level view_sum from CourseCacheManager' do
+      CourseCacheManager.new(course).send(:update_view_sum_based_on_first_revision)
+      expect(course.view_sum).to eq stats[:view_count]
     end
   end
 
