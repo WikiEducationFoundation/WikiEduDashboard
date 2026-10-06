@@ -35,6 +35,19 @@ describe MarkPurgeableCourses do
       expect(recent_course.reload.purgeable?).to be false
     end
 
+    it 'does not count or flag a course that fails validation' do
+      add_timeslice(old_course)
+      old_course.update_column(:passcode, nil) # rubocop:disable Rails/SkipsModelValidations
+      allow(Rails.logger).to receive(:warn)
+
+      result = described_class.new
+
+      expect(result.marked_count).to eq(0)
+      expect(old_course.reload.purgeable?).to be false
+      expect(Rails.logger).to have_received(:warn)
+        .with(/failed to flag #{Regexp.escape(old_course.slug)}/)
+    end
+
     it 'skips a course with a pending full update' do
       add_timeslice(old_course)
       old_course.update(needs_update: true)

@@ -31,8 +31,18 @@ class MarkPurgeableCourses
     return if pending_timeslices?(course)
     return if pending_acuwt?(course)
 
-    course.add_flag(key: :purgeable)
-    @marked_count += 1
+    if course.add_flag(key: :purgeable)
+      @marked_count += 1
+    else
+      log_flag_failure(course)
+    end
+  end
+
+  # add_flag doesn't save when the course fails validation or a before_save
+  # callback aborts. The course is checked again on the next run.
+  def log_flag_failure(course)
+    Rails.logger.warn "MarkPurgeableCourses: failed to flag #{course.slug} as " \
+                      "purgeable: #{course.errors.full_messages.join(', ')}"
   end
 
   # True if the course still has a course wiki timeslice needing update or
