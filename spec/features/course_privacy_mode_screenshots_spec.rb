@@ -35,11 +35,15 @@ describe 'Course privacy mode screenshots', type: :feature, js: true,
     find('#course_term').set('Fall 2026')
     shoot('01_course_creator_privacy_checkbox')
 
-    find('#course_confidential').click
-    shoot('02_privacy_mode_selected')
-
     find('.course-checkbox__info').hover
-    shoot('04_privacy_mode_info_tooltip')
+    shoot('02_privacy_mode_info_tooltip')
+
+    find('#course_confidential').click
+    # Clicking leaves the checkbox focused, which also shows the tooltip.
+    # Blur it and move the pointer away so this shot shows the form itself.
+    page.execute_script('document.activeElement.blur()')
+    find('#course_title').hover
+    shoot('03_privacy_mode_selected')
   end
 
   it 'captures a privacy-mode course page as its instructor' do
@@ -53,6 +57,6 @@ describe 'Course privacy mode screenshots', type: :feature, js: true,
                           real_name: 'Jane Q. Instructor')
     visit "/courses/#{course.slug}"
     expect(page).to have_content obfuscated_title
-    shoot('03_privacy_mode_course_page')
+    shoot('04_privacy_mode_course_page')
   end
 end
