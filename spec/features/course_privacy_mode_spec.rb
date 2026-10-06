@@ -25,6 +25,14 @@ describe 'Course privacy mode', type: :feature, js: true do
       expect(page).to have_content 'Create a New Course'
     end
 
+    it 'explains the privacy checkbox in a tooltip that describes it' do
+      checkbox = find('#course_confidential')
+      expect(checkbox['aria-describedby']).to eq('course_confidential_tooltip')
+      expect(page).to have_css('#course_confidential_tooltip[role="tooltip"]', visible: :hidden)
+      find('.course-checkbox__info').hover
+      expect(page).to have_css('#course_confidential_tooltip', visible: :visible)
+    end
+
     it 'creates an obfuscated course when the privacy checkbox is ticked' do
       find('#course_title').set('Introduction to Biology')
       find('#course_school').set('State University')

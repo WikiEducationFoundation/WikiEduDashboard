@@ -179,6 +179,7 @@ const CourseForm = (props) => {
         updateCourseProps={props.updateCourseProps}
         checked={!!props.course.confidential}
         text={I18n.t('courses.creator.course_confidential')}
+        tooltipText={I18n.t('courses.creator.course_confidential_info')}
       />
     );
   }

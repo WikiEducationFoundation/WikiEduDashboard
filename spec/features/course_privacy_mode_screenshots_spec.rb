@@ -37,6 +37,9 @@ describe 'Course privacy mode screenshots', type: :feature, js: true,
 
     find('#course_confidential').click
     shoot('02_privacy_mode_selected')
+
+    find('.course-checkbox__info').hover
+    shoot('04_privacy_mode_info_tooltip')
   end
 
   it 'captures a privacy-mode course page as its instructor' do

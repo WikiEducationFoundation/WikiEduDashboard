@@ -755,6 +755,7 @@ en:
       course_private: Private program (viewable only by admins and facilitators)
       confidential_url_note: "A URL that does not include the institution and title will be generated upon course creation."
       course_confidential: "Make institution, title and instructor confidential"
+      course_confidential_info: "Use this option if you don't want your participation with Wiki Education to be easily searchable. Your course URL will not include your institution or course title, but the course page and your username will still be public; take care to avoid identifying content in your course description."
       course_ta_support: Course will have additional instructors or TAs
       course_school: Course school
       course_subject: Course subject
