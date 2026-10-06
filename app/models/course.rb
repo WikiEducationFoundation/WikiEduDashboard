@@ -610,6 +610,10 @@ class Course < ApplicationRecord
     flags && flags[:declined].present?
   end
 
+  def metadata_locked?
+    flags[:purgeable].present? || flags[:finalized].present?
+  end
+
   def clear_declined_if_submitted
     return unless submitted? && flags && flags[:declined]
     flags.delete(:declined)
