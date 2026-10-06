@@ -91,6 +91,28 @@ wizard-width = 860px
         position absolute;
         bottom 25px;
         right 21px;
+      // The Next button sits over the bottom-right corner of the form, where
+      // the checkbox rows end. Keep their labels clear of it so a long label
+      // wraps instead of running underneath the button.
+      .course-checkbox > label
+        padding-right 100px
+      .course-checkbox__info
+        height 16px
+        width 16px
+        margin-left 5px
+        vertical-align text-bottom
+      // Checkbox rows sit at the bottom of the form, so their tooltips open
+      // upward rather than over the Next button and past the panel's edge.
+      .course-checkbox.tooltip-trigger .tooltip,
+      .course-checkbox.tooltip-trigger:hover .tooltip,
+      .course-checkbox.tooltip-trigger:focus-within .tooltip
+        top auto
+        bottom 100%
+        &:before
+          top auto
+          bottom -6px
+          border-bottom 0
+          border-top 6px solid manatee
       p
         text-align left
       textarea
@@ -119,6 +141,10 @@ wizard-width = 860px
 
     .tempEduCourseIdText
       margin-top: 60px
+      // The slug preview has no spaces, so without these a long one keeps its
+      // flex item from shrinking and runs into the next column.
+      min-width 0
+      overflow-wrap anywhere
 
     .wizard__panel__options
       padding 20px 0

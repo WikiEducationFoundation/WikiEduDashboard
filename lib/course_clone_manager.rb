@@ -11,11 +11,13 @@ class CourseCloneManager
   end
 
   def clone!
-    @clone = @course.dup
+    # An ordinary re-clone collides on the clone's slug and gets the pending
+    # clone back (see the rescue below). A privacy-mode clone draws a fresh
+    # number each time, so nothing collides; look for its pending clone instead.
+    pending_clone = pending_confidential_clone
+    return pending_clone if pending_clone
 
-    set_courses_wikis
-    set_placeholder_start_and_end_dates
-    sanitize_clone_info
+    build_and_save_clone
     update_title_and_slug
     duplicate_timeline
     set_instructor
@@ -48,18 +50,50 @@ class CourseCloneManager
     @clone.timeline_end = today
   end
 
+  # Everything up to and including the first save is rebuilt from a fresh #dup
+  # on each attempt, so a rolled-back attempt leaves no stale in-memory state
+  # (built join records, the inverse has_one) behind. Losing the race for the
+  # privacy-mode sequence re-rolls it and retries, as
+  # CourseCreationManager#save_course does; any other collision is left to
+  # #clone!, which treats it as an incomplete clone of the same course.
+  def build_and_save_clone
+    attempts = 0
+    begin
+      @clone = @course.dup
+      set_courses_wikis
+      set_placeholder_start_and_end_dates
+      sanitize_clone_info
+    rescue ActiveRecord::RecordNotUnique
+      raise unless @course.confidential?
+      raise unless (attempts += 1) < ObfuscateCourseIdentity::MAX_ATTEMPTS
+      @confidential_identity = nil
+      retry
+    end
+  end
+
   def sanitize_clone_info
     @clone.term = "CLONED FROM #{@course.term}"
     @clone.cloned_status = Course::ClonedStatus::PENDING
+    apply_confidential_identity if @course.confidential?
     @clone.slug = course_slug(@clone)
     @clone.passcode = GeneratePasscode.call
     @clone.submitted = false
     @clone.flags = {}
     # If a legacy course is cloned, switch the type to ClassroomProgramCourse.
     @clone.type = 'ClassroomProgramCourse' if @clone.legacy?
-    @clone.save!
+    save_clone_with_confidential_detail
     @clone = Course.find(@clone.id) # Re-load the course to ensure correct course type
     @clone.update_cache_from_timeslices # Reset the stats to 0
+  end
+
+  # The clone and its ConfidentialCourseDetail have to land together: a clone
+  # left with an obfuscated title and no detail record would read as
+  # non-confidential, dropping the guards and losing the real values.
+  def save_clone_with_confidential_detail
+    Course.transaction do
+      @clone.save!
+      clone_confidential_detail
+    end
   end
 
   def update_title_and_slug
@@ -179,5 +213,36 @@ class CourseCloneManager
 
   def course_slug(course)
     "#{course.school}/#{course.title}_(#{course.term})".tr(' ', '_')
+  end
+
+  # A clone of a privacy-mode course inherits the obfuscated title through
+  # #dup, which would give two courses the same privacy-mode number. Re-roll it
+  # so the clone gets its own, and carry the real values over.
+  def confidential_identity
+    detail = @course.confidential_course_detail
+    @confidential_identity ||= ObfuscateCourseIdentity.new({ title: detail.real_title,
+                                                             school: detail.real_school })
+  end
+
+  def apply_confidential_identity
+    @clone.title = confidential_identity.course_params[:title]
+    @clone.school = confidential_identity.course_params[:school]
+  end
+
+  # Matches what the slug collision matches for an ordinary course: the same
+  # title and school (here, the real ones) with the cloned-from term.
+  def pending_confidential_clone
+    return unless @course.confidential?
+    detail = @course.confidential_course_detail
+    Course.joins(:confidential_course_detail)
+          .where(term: "CLONED FROM #{@course.term}",
+                 confidential_course_details: { real_title: detail.real_title,
+                                                real_school: detail.real_school })
+          .first
+  end
+
+  def clone_confidential_detail
+    return unless @course.confidential?
+    ConfidentialCourseDetail.create!(course: @clone, **confidential_identity.detail_attributes)
   end
 end

@@ -82,6 +82,8 @@ class Course < ApplicationRecord
            foreign_key: 'project_id',
            dependent: :destroy
   has_one :course_stat, class_name: 'CourseStat', dependent: :destroy
+  # Not destroyed with the course: see #retire_confidential_course_detail.
+  has_one :confidential_course_detail, dependent: nil
   has_many :retention_stats, dependent: :destroy
 
   #########################
@@ -284,6 +286,7 @@ class Course < ApplicationRecord
   before_save :check_course_times
   before_save :set_needs_update_for_timeslice
   after_create :ensure_home_wiki_in_courses_wikis
+  before_destroy :retire_confidential_course_detail
 
   ####################
   # Instance methods #
@@ -303,6 +306,22 @@ class Course < ApplicationRecord
   # Overridden for some course types
   def passcode_required?
     true
+  end
+
+  # Privacy mode: `title` and `school` hold obfuscated stand-ins and the real
+  # values live in the admin-only ConfidentialCourseDetail. Derived from the
+  # record rather than stored as a column of its own, so the two cannot drift
+  # apart. Distinct from `private`, which hides the course from non-participants.
+  def confidential?
+    confidential_course_detail.present?
+  end
+
+  # Privacy-mode numbers are allocated one past the highest in use, so deleting
+  # the record would hand this course's number — and its on-wiki page title — to
+  # the next privacy-mode course. The record stays behind with the real values
+  # cleared, holding the number.
+  def retire_confidential_course_detail
+    confidential_course_detail&.update!(real_title: nil, real_school: nil)
   end
 
   def approved?
