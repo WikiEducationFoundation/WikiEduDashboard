@@ -215,6 +215,9 @@ describe CourseCloneManager do
     end
 
     before do
+      # What a privacy-mode course actually stores: the stand-ins, not the real values.
+      source.update!(title: obfuscated_title(7), school: obfuscated_school,
+                     slug: obfuscated_slug('Term', sequence: 7))
       create(:confidential_course_detail, course: source, sequence: 7,
                                           real_title: 'Introduction to Biology',
                                           real_school: 'State University')
@@ -237,6 +240,15 @@ describe CourseCloneManager do
 
     it 'leaves the clone in privacy mode' do
       expect(clone).to be_confidential
+    end
+
+    # An ordinary re-clone collides on the clone's slug and gets the pending
+    # clone back. A privacy-mode clone has a fresh number, so nothing collides.
+    it 'returns the pending clone when the course is cloned again' do
+      again = described_class.new(course: source, user: User.find(1),
+                                  clone_assignments: false).clone!
+      expect(again.id).to eq(clone.id)
+      expect(Course.where.not(id: 1).count).to eq(1)
     end
 
     it 'does not persist a clone without its detail record' do

@@ -76,6 +76,24 @@ describe CourseCreationManager do
         expect(second).to be_persisted
       end
 
+      it 'does not reuse the number of a deleted privacy-mode course' do
+        deleted = manager.create
+        deleted.destroy
+        second = described_class.new(course_params, { language: 'en', project: 'wikipedia' },
+                                     nil, nil, nil, instructor, nil, confidential: true).create
+        expect(second.slug).not_to eq(deleted.slug)
+      end
+
+      # Nothing stops an ordinary course from being created with a stand-in title
+      # and school, and its slug would otherwise fail the duplicate check for
+      # every privacy-mode course that drew that number.
+      it 'skips a number whose stand-in title an ordinary course already holds' do
+        create(:course, title: obfuscated_title, school: obfuscated_school, term: 'Fall 2026',
+                        slug: obfuscated_slug('Fall 2026'))
+        expect(manager).to be_valid
+        expect(manager.create.slug).to eq(obfuscated_slug('Fall 2026', sequence: 2))
+      end
+
       it 'retries with a fresh sequence when another course takes the one it picked' do
         # Simulate losing the race: the first sequence is taken between the time
         # it is allocated and the time the course is saved.

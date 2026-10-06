@@ -11,6 +11,12 @@ class CourseCloneManager
   end
 
   def clone!
+    # An ordinary re-clone collides on the clone's slug and gets the pending
+    # clone back (see the rescue below). A privacy-mode clone draws a fresh
+    # number each time, so nothing collides; look for its pending clone instead.
+    pending_clone = pending_confidential_clone
+    return pending_clone if pending_clone
+
     build_and_save_clone
     update_title_and_slug
     duplicate_timeline
@@ -68,7 +74,7 @@ class CourseCloneManager
   def sanitize_clone_info
     @clone.term = "CLONED FROM #{@course.term}"
     @clone.cloned_status = Course::ClonedStatus::PENDING
-    @clone.title = confidential_identity.course_params[:title] if @course.confidential?
+    apply_confidential_identity if @course.confidential?
     @clone.slug = course_slug(@clone)
     @clone.passcode = GeneratePasscode.call
     @clone.submitted = false
@@ -216,6 +222,23 @@ class CourseCloneManager
     detail = @course.confidential_course_detail
     @confidential_identity ||= ObfuscateCourseIdentity.new({ title: detail.real_title,
                                                              school: detail.real_school })
+  end
+
+  def apply_confidential_identity
+    @clone.title = confidential_identity.course_params[:title]
+    @clone.school = confidential_identity.course_params[:school]
+  end
+
+  # Matches what the slug collision matches for an ordinary course: the same
+  # title and school (here, the real ones) with the cloned-from term.
+  def pending_confidential_clone
+    return unless @course.confidential?
+    detail = @course.confidential_course_detail
+    Course.joins(:confidential_course_detail)
+          .where(term: "CLONED FROM #{@course.term}",
+                 confidential_course_details: { real_title: detail.real_title,
+                                                real_school: detail.real_school })
+          .first
   end
 
   def clone_confidential_detail

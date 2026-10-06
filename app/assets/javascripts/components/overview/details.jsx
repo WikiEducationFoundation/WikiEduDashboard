@@ -117,7 +117,7 @@ const Details = createReactClass({
     if (!this.props.editable) { return false; }
     // A privacy-mode course's title and school are obfuscated stand-ins that
     // its slug — already published on-wiki — was built from. Admins change the
-    // real values through the privacy-mode panel instead.
+    // real values through ConfidentialCourseDetailsController instead.
     if (this.props.course.confidential) { return false; }
     if (this.props.current_user.admin) { return true; }
     // On the Wiki Ed dashboard, only admins may rename courses.

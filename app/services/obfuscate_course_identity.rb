@@ -21,7 +21,7 @@ class ObfuscateCourseIdentity
 
   def initialize(course_params, sequence: nil)
     @original_params = course_params
-    @sequence = sequence || ConfidentialCourseDetail.next_sequence
+    @sequence = sequence || first_unused_sequence
     perform
   end
 
@@ -35,10 +35,19 @@ class ObfuscateCourseIdentity
   private
 
   def perform
-    @course_params = @original_params.merge(title: obfuscated_title, school: SCHOOL)
+    @course_params = @original_params.merge(title: title_for(@sequence), school: SCHOOL)
   end
 
-  def obfuscated_title
-    format(TITLE_FORMAT, sequence: @sequence)
+  # Nothing stops an ordinary course from being created with a stand-in title
+  # and school. Its slug would fail the duplicate check for any privacy-mode
+  # course that drew the same number, every time, so skip numbers already used.
+  def first_unused_sequence
+    sequence = ConfidentialCourseDetail.next_sequence
+    sequence += 1 while Course.exists?(school: SCHOOL, title: title_for(sequence))
+    sequence
+  end
+
+  def title_for(sequence)
+    format(TITLE_FORMAT, sequence:)
   end
 end
