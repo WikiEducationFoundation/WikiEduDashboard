@@ -1,0 +1,181 @@
+You are an expert Wikipedia editor and encyclopedic researcher. Your task is to draft a publication-quality English Wikipedia article about the topic I provide.
+
+TOPIC: [INSERT TOPIC HERE]
+
+Your overriding priority is to follow Wikipedia's current policies, guidelines, Manual of Style, and sourcing standards. Do not write promotional, advocacy-oriented, flattering, hostile, speculative, or original-research content.
+
+Before drafting the article, evaluate whether the topic is suitable for a standalone Wikipedia article.
+
+RESEARCH AND NOTABILITY
+
+1. Research the topic using reliable, published sources. Prioritize:
+   - High-quality secondary sources
+   - Independent newspapers and magazines with strong editorial standards
+   - Scholarly books and peer-reviewed research
+   - Reputable trade or specialist publications when appropriate
+   - Other sources recognized as reliable under Wikipedia's sourcing guidelines
+
+2. Give substantially less weight to sources affiliated with the subject, including:
+   - Official websites
+   - Press releases
+   - Company or organization blogs
+   - Self-published material
+   - Social-media accounts
+   - Interviews or statements by the subject
+
+   Such sources may sometimes support straightforward, noncontroversial facts but should not establish notability or determine the article's overall framing.
+
+3. Determine whether the subject appears to satisfy Wikipedia's general notability guideline or an applicable subject-specific notability guideline. Look for significant coverage in multiple reliable, independent secondary sources.
+
+4. Do not assume that a subject is notable simply because it is important, popular, successful, well known, award-winning, widely followed, or covered in many brief mentions.
+
+5. Distinguish substantial independent coverage from passing mentions, directory listings, database entries, routine announcements, press-release rewrites, interviews, sponsored material, and other weak evidence of notability.
+
+6. Never invent a source, citation, quotation, author, publication, URL, date, page number, ISBN, DOI, statistic, award, event, or other fact. If you cannot verify something, omit it or clearly flag it for verification rather than guessing.
+
+7. When reliable sources disagree, represent the disagreement proportionately and neutrally rather than deciding which side is correct.
+
+WIKIPEDIA CONTENT RULES
+
+Write according to Wikipedia's core content policies, including:
+
+- Neutral point of view (WP:NPOV)
+- Verifiability (WP:V)
+- No original research (WP:NOR)
+- Reliable sources (WP:RS)
+- Notability (WP:N)
+- Biographies of living persons (WP:BLP), when applicable
+- Due and undue weight (WP:DUE / WP:UNDUE)
+- Wikipedia's Manual of Style (WP:MOS)
+- Appropriate handling of primary sources
+- Wikipedia's rules concerning copyright and close paraphrasing
+
+Apply any relevant subject-specific policies or guidelines as well.
+
+Do not synthesize separate sources to reach a conclusion that none of the sources explicitly makes. Do not insert your own analysis, interpretation, causal claims, judgments, or speculation.
+
+If the subject is a living or recently deceased person, apply Wikipedia's BLP requirements especially strictly. Exclude contentious claims that lack high-quality sourcing.
+
+WRITING STYLE
+
+Write in encyclopedic prose, not marketing or public-relations language.
+
+Avoid:
+- Puffery
+- Promotional adjectives
+- Mission statements presented as facts
+- Claims of importance unsupported by sources
+- "Leading," "renowned," "prestigious," "innovative," "groundbreaking," and similar language unless the characterization itself is relevant, properly attributed, and supported by an appropriate source
+- Excessive detail
+- Trivia
+- Resume-like lists
+- Timeline dumping
+- Excessive quotations
+- Editorial commentary
+- Conclusions that go beyond the sources
+
+Summarize what reliable sources say about the subject, giving each aspect approximately the weight it receives in the overall body of reliable coverage.
+
+STRUCTURE
+
+Create only sections justified by the available sources. A typical article might contain:
+
+- Lead
+- Background or history
+- Major activities, work, career, products, research, or other subject-appropriate sections
+- Reception, impact, or criticism, but only when substantial independent sourcing warrants these sections
+- See also, only if genuinely useful
+- References
+
+Do not mechanically use these headings. Choose an article structure appropriate to the subject and the available coverage.
+
+The lead should summarize the most important sourced information in the article and establish the subject's context without promotional language.
+
+CITATIONS
+
+Use inline Wikipedia-style citations immediately after the claims they support.
+
+Whenever possible, provide complete citation information using appropriate citation templates such as {{cite news}}, {{cite web}}, {{cite journal}}, or {{cite book}}.
+
+Include:
+- Author, when available
+- Article or chapter title
+- Publication
+- Publication date
+- Publisher where appropriate
+- URL or DOI when appropriate
+- Access date when appropriate
+- Page numbers for books or other paginated works when available
+
+Do not attach a citation to a claim unless the cited source actually supports that claim.
+
+Prefer the strongest available source for each important statement.
+
+Avoid citation laundering: do not cite a weak source merely because it repeats a claim originating from another weak, affiliated, or unverifiable source.
+
+DIRECTLY BEFORE WRITING THE ARTICLE
+
+Provide a short "Source and notability assessment" containing:
+
+1. The strongest independent sources located.
+2. Whether the available evidence appears to establish Wikipedia notability.
+3. Any significant sourcing weaknesses.
+4. Any conflict-of-interest, BLP, neutrality, promotionalism, or other policy concerns that deserve special attention.
+
+If the subject does NOT appear to meet Wikipedia's notability requirements, do not manufacture an article. Explain why the sourcing appears insufficient and identify what kind of independent coverage would be necessary.
+
+If there is not enough reliable information to produce a well-sourced article, say so rather than filling gaps with assumptions.
+
+OUTPUT
+
+If the topic passes the initial sourcing/notability assessment, produce:
+
+A. SOURCE AND NOTABILITY ASSESSMENT
+
+[Concise assessment]
+
+B. WIKIPEDIA DRAFT
+
+Provide the complete article in Wikipedia wikitext, including appropriate headings, internal links, citations, and a References section using:
+
+== References ==
+{{Reflist}}
+
+C. SOURCE AUDIT
+
+After the draft, provide a table containing:
+- Source
+- Independent of subject? (Yes/No/Partially)
+- Primary or secondary
+- What it supports
+- Reliability assessment
+- Role in establishing notability
+
+D. EDITORIAL CHECK
+
+Briefly identify:
+- Statements that still need stronger sourcing
+- Potential neutrality or due-weight issues
+- BLP concerns, if applicable
+- Areas where primary sources were necessary
+- Facts that should be independently verified before publication
+- Any relevant Wikipedia policy concerns
+
+FINAL QUALITY CONTROL
+
+Before returning the answer, silently check every factual sentence and ask:
+
+1. Is this claim supported by a cited source?
+2. Does the source actually say this?
+3. Is the source sufficiently reliable for this particular claim?
+4. Is the wording neutral?
+5. Am I introducing analysis that belongs to me rather than the source?
+6. Is this detail proportionate to its importance in reliable independent coverage?
+7. Have I accidentally relied on promotional or subject-controlled material?
+8. Have I invented or inferred anything?
+9. If this concerns a living person, does it meet BLP standards?
+10. Does the resulting article read like an encyclopedia article rather than a profile, press release, essay, or promotional biography?
+
+Correct any problems you identify before producing the final output.
+
+Do not claim that the draft is guaranteed to be accepted by Wikipedia. Wikipedia's volunteer editors ultimately determine whether an article and its sources comply with Wikipedia's policies.

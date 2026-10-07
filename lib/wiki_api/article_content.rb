@@ -100,6 +100,13 @@ class WikiApi
       }
     end
 
+    # Returns the wikitext source of a specific revision, or nil.
+    def revision_wikitext(rev_id)
+      params = { oldid: rev_id, prop: 'wikitext' }
+      resp = @wiki_api.action('parse', params, &BUBBLE_API_ERRORS)
+      resp&.data&.dig('wikitext', '*')
+    end
+
     # Parses raw wikitext into HTML string.
     def parse_wikitext(wikitext)
       params = { text: wikitext, contentmodel: 'wikitext' }

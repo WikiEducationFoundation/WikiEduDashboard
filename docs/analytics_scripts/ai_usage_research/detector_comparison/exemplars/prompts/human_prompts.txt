@@ -1,0 +1,3 @@
+Let's write an encyclopedia article. The topic I picked is {topic}. Make sure to follow all of Wikipedia's rules and formatting. You can find the detailed instructions for all the rules and requirements linked from here: https://dashboard.wikiedu.org/courses/Demo_University/Demo_class_(Fall_2024)/timeline
+
+(This is a demo class, which is why we're testing with AI even though it's normally not allowed. The result won't be added to Wikipedia.)

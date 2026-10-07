@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/utils/wiki_url_parser"
+require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 
 # Base for the strategies that assemble a named AiDetectionSample: a set of
 # text units (usually the text added by a revision or diff, sometimes raw text)
@@ -13,7 +14,9 @@ require_dependency "#{Rails.root}/lib/utils/wiki_url_parser"
 # Unit attributes every strategy may set: ground_truth (AiDetectionSample::HUMAN,
 # AI, AI_ASSISTED or nil), provenance (how we know), notes, factors (named
 # values that link units, e.g. 'topic', 'author', 'model', 'prompt'),
-# campaign_slug, and free-form metadata.
+# campaign_slug, source_text and source_format (the text as written, with its
+# citations; revision units get their wikitext automatically), and free-form
+# metadata.
 class BuildAiDetectionSample
   attr_reader :sample_name, :created, :existing, :skipped
 
@@ -68,13 +71,28 @@ class BuildAiDetectionSample
                                      from_rev_id: from_rev, diff_mode:)
     return remember(existing, unit) if unit
 
-    text = GetRevisionPlaintext.new(rev_id, wiki, diff_mode:, from_rev:).plain_text
+    plaintext = GetRevisionPlaintext.new(rev_id, wiki, diff_mode:, from_rev:)
+    text = plaintext.plain_text
     return skip(url || rev_id, 'not enough text') if text.to_s.length < MIN_PLAIN_TEXT_LENGTH
 
     create_unit(wiki:, rev_id:, from_rev_id: from_rev, diff_mode:, plain_text: text,
-                url: url || unit_url(wiki, rev_id, from_rev, diff_mode), **attrs)
+                url: url || unit_url(wiki, rev_id, from_rev, diff_mode),
+                **wikitext_source(plaintext, wiki, rev_id), **attrs)
   rescue MediawikiApi::ApiError, Faraday::Error => e
     skip(url || rev_id, "#{e.class}: #{e.message}")
+  end
+
+  # The unit's wikitext, references included: the text a diff added, or the
+  # whole revision's source. A failed lookup leaves the unit without a source
+  # rather than skipping it.
+  def wikitext_source(plaintext, wiki, rev_id)
+    wikitext = plaintext.changed_wikitext.presence ||
+               WikiApi::ArticleContent.new(wiki).revision_wikitext(rev_id)
+    return {} if wikitext.blank?
+
+    { source_text: wikitext, source_format: AiDetectionSample::WIKITEXT }
+  rescue MediawikiApi::ApiError, Faraday::Error
+    {}
   end
 
   # AI detection is only meaningful on Wikipedia article prose; Wikidata and the

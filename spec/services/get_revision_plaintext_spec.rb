@@ -94,6 +94,7 @@ describe GetRevisionPlaintext do
       expect(service.plain_text).not_to include(
         'Third places are important'
       )
+      expect(service.changed_wikitext).to include('Scholars have noted')
     end
   end
 

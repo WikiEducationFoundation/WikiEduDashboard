@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_15_220000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_07_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -42,6 +42,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_15_220000) do
     t.text "metadata"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "source_text", size: :medium
+    t.string "source_format"
     t.index ["sample_name", "text_sha256"], name: "ai_detection_samples_by_text"
     t.index ["sample_name"], name: "index_ai_detection_samples_on_sample_name"
   end
