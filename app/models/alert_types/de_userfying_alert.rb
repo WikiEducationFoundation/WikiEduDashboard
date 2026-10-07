@@ -21,7 +21,7 @@
 #
 
 # Alert for when a new user move a sandbox into mainspace on Wikipedia,
-# the edits are automatically tagged de-userfying.
+# the edits are automatically tagged 'new user move into mainspace'.
 class DeUserfyingAlert < Alert
   def main_subject
     "#{user.username} moved article #{details[:title]}#{ai_alerts_tag} from sandbox into mainspace"
