@@ -172,9 +172,11 @@ their output stays outside the repo (`~/detector_exemplars/` by convention).
   from the base prompts: requested length, web access, a human-written or ChatGPT-written
   prompt, or Wiki Education's three-turn assignment flow (bibliography, outline of changes
   to the article as it stood before the student's term, draft) in its own training-module
-  wording. Every call is stored as JSON with its prompts and raw replies, so runs resume
-  where they stopped; `--assemble` extracts the draft a student would paste (dropping chat
-  framing, advice, reference lists and markup) into the builder CSV.
+  wording. Prompts written outside the script are kept verbatim in `exemplars/prompts/`:
+  `human_prompts.txt` (separated by `===` lines, rotated across topics) and
+  `chatgpt_prompt.txt`. Every call is stored as JSON with its prompts and raw replies, so
+  runs resume where they stopped; `--assemble` extracts the draft a student would paste
+  (dropping chat framing, advice, reference lists and markup) into the builder CSV.
 - `collect_agpedia.py` collects Agpedia articles (agent-written, CC0) as full-article and
   lead units pinned to a revision, skipping articles with direct operator edits, and
   archives each revision's markdown and rendered page.

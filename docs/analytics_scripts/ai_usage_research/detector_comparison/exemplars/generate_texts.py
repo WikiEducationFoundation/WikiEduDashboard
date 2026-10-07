@@ -47,6 +47,10 @@ from bs4 import BeautifulSoup
 
 SYSTEM_PROMPT = 'You are a helpful assistant.'
 
+# Prompts that come from outside this script: Sage's human-written prompts and the prompt
+# ChatGPT wrote on request, kept verbatim.
+PROMPTS_DIR = Path(__file__).resolve().parent / 'prompts'
+
 # Research instrument: keep the wording fixed once a run has started. {topic} and {length} are
 # filled in by plain replacement, so templates may contain other braces.
 PROMPTS = {
@@ -105,7 +109,7 @@ CONDITIONS = {
     # that writes a high-quality Wikipedia article for me on a specified topic and follows all of
     # Wikipedia's rules", kept verbatim in the template file.
     'chatgpt_prompt_web': dict(strategy='chatgpt_prompt', origin='chatgpt', length=None, tools=True,
-                               template_file='~/detector_exemplars/chatgpt_prompt.txt'),
+                               template_file='chatgpt_prompt.txt'),
 }
 
 # vendor, tier, era (the free-ChatGPT period an open model stands in for), runner, options
@@ -378,13 +382,13 @@ def build_turns(condition, topic, index, human_prompts, prior_dir):
         length = spec['length'] if '{length}' in template else None
         return [fill(template, topic['topic'], length)], {'human_prompt': number + 1, 'requested_length': length}
     if spec.get('template_file'):
-        return [fill(Path(spec['template_file']).expanduser().read_text().strip(), topic['topic'], None)], {}
+        return [fill((PROMPTS_DIR / spec['template_file']).read_text().strip(), topic['topic'], None)], {}
     return [fill(PROMPTS[spec['strategy']], topic['topic'], spec['length'])], {}
 
 
 def load_human_prompts(path):
     """Prompts separated by lines containing only ===, with {topic} and optionally {length}."""
-    if not path:
+    if not path or not path.expanduser().exists():
         return []
     blocks = re.split(r'^===\s*$', path.expanduser().read_text(), flags=re.M)
     return [block.strip() for block in blocks if block.strip()]
@@ -604,7 +608,8 @@ def main():
     parser.add_argument('--topics', type=Path, help='CSV with a topic column')
     parser.add_argument('--models', default=','.join(MODELS), help='comma-separated model keys')
     parser.add_argument('--conditions', default='one_line,detailed', help=f'comma-separated: {", ".join(CONDITIONS)}')
-    parser.add_argument('--human-prompts', type=Path, help='file of human-written prompts separated by === lines')
+    parser.add_argument('--human-prompts', type=Path, default=PROMPTS_DIR / 'human_prompts.txt',
+                        help='file of human-written prompts separated by === lines')
     parser.add_argument('--prior-articles', type=Path, default=Path('~/detector_exemplars/prior_articles'),
                         help='cache of pre-student article texts for the assignment flow')
     parser.add_argument('--limit', type=int, help='stop after this many new texts')
@@ -625,7 +630,7 @@ def main():
         parser.error(f'unknown condition(s): {", ".join(unknown)}')
     human_prompts = load_human_prompts(args.human_prompts)
     if any(CONDITIONS[c]['origin'] == 'human' for c in conditions) and not human_prompts:
-        parser.error('human-written conditions need --human-prompts')
+        parser.error(f'no human-written prompts in {args.human_prompts}')
     generate(args.store.expanduser(), topics, models, conditions, args.limit, human_prompts,
              args.prior_articles.expanduser())
 
