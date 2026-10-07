@@ -160,6 +160,38 @@ factors so recall can be reported per cell: `model` (frontier, free tier, older)
 `topic` shared with a known-human unit so the pair controls for subject. Keep Originality
 to a subset of exemplars; Pangram can run on all of them.
 
+### Building exemplars (`exemplars/`)
+
+These scripts run on a workstation and write CSVs for `BuildAiDetectionSampleFromRows`;
+their output stays outside the repo (`~/detector_exemplars/` by convention).
+
+- `generate_texts.py` generates texts per (model, condition, topic) through tools already
+  installed locally: Claude Code, Codex, Antigravity or the Gemini API, and Ollama for
+  open-weight models. Each tool's own system prompt is replaced with a neutral one, and
+  tools are off except in the web conditions. `CONDITIONS` changes one thing at a time
+  from the base prompts: requested length, web access, a human-written or ChatGPT-written
+  prompt, or Wiki Education's three-turn assignment flow (bibliography, outline of changes
+  to the article as it stood before the student's term, draft) in its own training-module
+  wording. Every call is stored as JSON with its prompts and raw replies, so runs resume
+  where they stopped; `--assemble` extracts the draft a student would paste (dropping chat
+  framing, advice, reference lists and markup) into the builder CSV.
+- `collect_agpedia.py` collects Agpedia articles (agent-written, CC0) as full-article and
+  lead units pinned to a revision, skipping articles with direct operator edits, and
+  archives each revision's markdown and rendered page.
+- `source_texts.py` writes the source texts for those units (the model's whole reply, or
+  the Agpedia markdown) for `backfill_source_text.rb`.
+
+### Open Pangram (`analysis/score_open_pangram.py`)
+
+Scores unit texts offline with Pangram's open EditLens models (RoBERTa-large and a
+Llama 3.2 3B adapter), for research only: they are licensed CC BY-NC-SA and Pangram says
+not to use them to enforce AI policy in education. It imports EditLens's text cleaning from
+a local clone of https://github.com/pangramlabs/EditLens rather than copying that code
+here, scores long texts in windows, and writes rows in the export's format (`--merge-with`
+adds them to an export for `analyze.py`). On 900 texts from EditLens's own validation and
+test splits it reproduces Pangram's published results (human vs AI-generated macro F1
+0.995 for RoBERTa against 0.997 reported).
+
 ## 4. Analyze
 
 ```sh
