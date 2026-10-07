@@ -19,6 +19,13 @@ an exported CSV.
 - **Sample**: a named set of text units in `ai_detection_samples`, each holding the
   exact text sent to detectors and where it came from (wiki, revision, diff, term), or
   just the text for units that did not come from a wiki revision.
+- **Source text**: the unit's text as written, before it was cleaned for the detectors,
+  with its citations and references, for later analysis such as claim verification.
+  `source_format` says what it is: `wikitext` (revision units get it automatically: the
+  wikitext a diff added, or the whole revision's), `markdown` (Agpedia), or `model_reply`
+  (a model's whole reply, from which the cleaned text was extracted). Rows can carry
+  `source_text` and `source_format` columns. Units built before October 2026 were
+  backfilled with `backfill_source_text.rb`.
 - **Ground truth and provenance**: `ground_truth` is what we know about how the text was
   produced (`human`, `ai`, `ai_assisted`, or blank for unknown); `provenance` is how we
   know it (`pre_llm_term`, `staff_confirmed`, `experiment`, `synthetic`, `self_report`, or
@@ -132,7 +139,9 @@ ExportAiDetectionComparison.new(sample_names: %w[terms_2021_2025_march recent_20
 One row per unit and detector, with the unit's identity and ground truth followed by
 the shared summary keys. Rows imported from the March CSV carry their summary
 directly; failed calls appear with an `error` column and no scores. Copy the file to
-your machine for analysis.
+your machine for analysis. `include_text: true` adds `plain_text`, `source_format` and
+`source_text` columns; they are large and repeat on every detector row, so they are
+left out by default.
 
 ## Exemplars and challenge cases
 

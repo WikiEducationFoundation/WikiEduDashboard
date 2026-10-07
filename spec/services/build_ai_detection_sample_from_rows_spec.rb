@@ -6,10 +6,12 @@ describe BuildAiDetectionSampleFromRows do
   let(:text) { (['Prose added to the article during the course.'] * 60).join(' ') }
   let(:diff_url) { 'https://en.wikipedia.org/w/index.php?diff=1016458317&oldid=998714259' }
   let(:enwiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+  let(:wikitext) { 'Prose added to the article.<ref>{{cite book |last=Smith |year=2020}}</ref>' }
 
   before do
     allow(GetRevisionPlaintext).to receive(:new)
-      .and_return(instance_double(GetRevisionPlaintext, plain_text: text))
+      .and_return(instance_double(GetRevisionPlaintext, plain_text: text,
+                                  changed_wikitext: wikitext))
   end
 
   it 'creates a unit per URL with the added text and the given attributes' do
@@ -29,7 +31,8 @@ describe BuildAiDetectionSampleFromRows do
                                     diff_mode: true, url: diff_url,
                                     ground_truth: 'human', provenance: 'pre_llm_term',
                                     notes: 'bibliography page',
-                                    campaign_slug: 'spring_2021', plain_text: text)
+                                    campaign_slug: 'spring_2021', plain_text: text,
+                                    source_text: wikitext, source_format: 'wikitext')
     expect(unit.factors).to eq('topic' => 'Bees')
     expect(unit.metadata).to eq('character_sum' => 4000)
   end
@@ -46,6 +49,42 @@ describe BuildAiDetectionSampleFromRows do
     expect(unit).to have_attributes(rev_id: nil, wiki_id: nil, url: 'https://example.org/generated/1',
                                     ground_truth: 'ai', provenance: 'synthetic', plain_text: text)
     expect(unit.factors).to eq('model' => 'gpt-5', 'prompt' => 'naive')
+  end
+
+  it 'keeps the source text and format a text row carries' do
+    reply = "Here is your article.\n\n```wikitext\n#{text}<ref>Smith 2020</ref>\n```"
+    row = { text:, source_text: reply, source_format: 'model_reply' }
+    builder = described_class.new(sample_name: 'synthetic', rows: [row])
+
+    expect(builder.created.first)
+      .to have_attributes(source_text: reply, source_format: 'model_reply')
+  end
+
+  it "stores a whole revision's wikitext, which the plaintext service does not compute" do
+    allow(GetRevisionPlaintext).to receive(:new)
+      .and_return(instance_double(GetRevisionPlaintext, plain_text: text, changed_wikitext: nil))
+    content = instance_double(WikiApi::ArticleContent, revision_wikitext: wikitext)
+    allow(WikiApi::ArticleContent).to receive(:new).with(enwiki).and_return(content)
+
+    described_class.new(sample_name: 'march',
+                        rows: [{ url: 'https://en.wikipedia.org/w/index.php?oldid=1009773007' }])
+
+    expect(content).to have_received(:revision_wikitext).with(1009773007)
+    expect(AiDetectionSample.last).to have_attributes(source_text: wikitext,
+                                                      source_format: 'wikitext')
+  end
+
+  it 'keeps a revision unit without a source when its wikitext cannot be fetched' do
+    allow(GetRevisionPlaintext).to receive(:new)
+      .and_return(instance_double(GetRevisionPlaintext, plain_text: text, changed_wikitext: nil))
+    content = instance_double(WikiApi::ArticleContent)
+    allow(content).to receive(:revision_wikitext).and_raise(MediawikiApi::ApiError.new(nil))
+    allow(WikiApi::ArticleContent).to receive(:new).and_return(content)
+
+    builder = described_class.new(sample_name: 'march', rows: [{ url: diff_url }])
+
+    expect(builder.created.first).to have_attributes(plain_text: text, source_text: nil,
+                                                     source_format: nil)
   end
 
   it 'does not add the same text twice to a sample' do
@@ -140,9 +179,11 @@ describe BuildAiDetectionSampleFromRows do
     it 'reads text units with per-row attributes and factor_ columns' do
       path = Rails.root.join('tmp/exemplars_spec.csv')
       CSV.open(path, 'w') do |csv|
-        csv << %w[text ground_truth provenance notes factor_topic factor_model factor_prompt source]
-        csv << [text, 'ai', 'synthetic', 'naive prompt', 'Bees', 'gpt-5', 'naive', 'generated']
-        csv << ["#{text} again", '', '', '', 'Bees', '', '', 'copied']
+        csv << %w[text ground_truth provenance notes factor_topic factor_model factor_prompt source
+                  source_text source_format]
+        csv << [text, 'ai', 'synthetic', 'naive prompt', 'Bees', 'gpt-5', 'naive', 'generated',
+                "## Bees\n#{text}", 'model_reply']
+        csv << ["#{text} again", '', '', '', 'Bees', '', '', 'copied', '', '']
       end
 
       builder = described_class.from_csv(sample_name: 'exemplars', path:,
@@ -150,12 +191,14 @@ describe BuildAiDetectionSampleFromRows do
 
       generated, copied = builder.created
       expect(generated).to have_attributes(ground_truth: 'ai', provenance: 'synthetic',
-                                           notes: 'naive prompt', rev_id: nil)
+                                           notes: 'naive prompt', rev_id: nil,
+                                           source_text: "## Bees\n#{text}",
+                                           source_format: 'model_reply')
       expect(generated.factors).to eq('topic' => 'Bees', 'model' => 'gpt-5', 'prompt' => 'naive')
       expect(generated.metadata).to eq('source' => 'generated',
                                        'imported_from' => 'exemplars_spec.csv')
       expect(copied).to have_attributes(ground_truth: 'ai_assisted', provenance: 'experiment',
-                                        notes: nil)
+                                        notes: nil, source_text: nil)
       expect(copied.factors).to eq('topic' => 'Bees')
     ensure
       FileUtils.rm_f(path)

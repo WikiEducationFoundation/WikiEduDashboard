@@ -4,7 +4,9 @@ require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 require_dependency "#{Rails.root}/lib/wiki_api/diff_wikitext_extractor"
 
 class GetRevisionPlaintext
-  attr_reader :plain_text, :article_title
+  # changed_wikitext is the wikitext added in a diff (nil for a whole revision),
+  # with the references that plain_text drops.
+  attr_reader :plain_text, :article_title, :changed_wikitext
 
   def initialize(mw_rev_id, wiki, diff_mode: true, from_rev: nil)
     @wiki = wiki

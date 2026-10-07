@@ -3,19 +3,20 @@
 # Builds a sample from rows of plain hashes, or from a CSV: each row names a
 # unit either by a diff/revision URL or by its text, plus any of the unit
 # attributes (ground_truth, provenance, notes, factors, campaign_slug,
-# metadata). This is the general entry point for hand-curated sets, synthetic
-# exemplars, and text collected ad hoc from any source; fetching and
-# preprocessing from a particular source stays outside the Dashboard.
+# source_text and source_format, metadata). This is the general entry point for
+# hand-curated sets, synthetic exemplars, and text collected ad hoc from any
+# source; fetching and preprocessing from a particular source stays outside the
+# Dashboard.
 class BuildAiDetectionSampleFromRows < BuildAiDetectionSample
-  UNIT_COLUMNS = %w[ground_truth provenance notes campaign_slug].freeze
+  UNIT_COLUMNS = %w[ground_truth provenance notes campaign_slug source_text source_format].freeze
   FACTOR_PREFIX = 'factor_'
 
   # CSV conventions: url_column names a diff or revision URL, text_column holds
   # the text itself (used when present). Columns named ground_truth,
-  # provenance, notes and campaign_slug become unit attributes; columns
-  # prefixed factor_ become factors (factor_topic → 'topic'); everything else
-  # is kept as metadata. ground_truth and provenance given here apply to rows
-  # that do not set their own.
+  # provenance, notes, campaign_slug, source_text and source_format become unit
+  # attributes; columns prefixed factor_ become factors (factor_topic → 'topic');
+  # everything else is kept as metadata. ground_truth and provenance given here
+  # apply to rows that do not set their own.
   def self.from_csv(sample_name:, path:, url_column: 'url', text_column: 'text',
                     ground_truth: nil, provenance: nil, verbose: false)
     defaults = { ground_truth:, provenance: }
