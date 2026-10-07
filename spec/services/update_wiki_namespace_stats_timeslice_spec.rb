@@ -70,10 +70,8 @@ describe UpdateWikiNamespaceStatsTimeslice do
   end
 
   context 'for reference_count and view_count' do
-    let(:article) { create(:article, namespace: file_ns, wiki: enwiki) }
     before do
-      create(:course_wiki_namespaces, courses_wikis: course.courses_wikis.find_by(wiki: enwiki),
-                                    namespace: 0)
+      create(:course_wiki_namespaces, courses_wikis: enwiki_course_wiki,namespace: 0)
       # counted for views: 8 days * 100
       add_ac(first_revision: 8.days.ago, average_views: 100, references_count: 5)
       # NULL average_views: no views, but still counted as edited, refs counted

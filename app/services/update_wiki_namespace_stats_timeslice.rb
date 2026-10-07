@@ -84,8 +84,8 @@ class UpdateWikiNamespaceStatsTimeslice
 
   # Returns { [wiki_id, namespace] => articles stats }
   def articles_courses_stats
-    view_sum_sql = Arel.sql('SUM(FLOOR(DATEDIFF(UTC_TIMESTAMP(), articles_courses.first_revision) ' \
-                          '* articles_courses.average_views))')
+    view_sum_sql = Arel.sql('SUM(FLOOR(DATEDIFF(UTC_TIMESTAMP(), ' \
+                          'articles_courses.first_revision) * articles_courses.average_views))')
     tracked_articles_courses
       .group('articles.wiki_id', 'articles.namespace')
       .pluck('articles.wiki_id', 'articles.namespace', 'COUNT(articles_courses.id)',
