@@ -43,6 +43,7 @@ fa:
       مقدار را کاهش یا افزایش دهید.
   application:
     cancel: انصراف
+    close: بستن
     cookie_consent_acknowledge: متوجه هستم
     cookie_consent_see_more: مشاهدهٔ بیشتر
     create_accounts: ایجاد حساب‌های ویکی‌پدیا

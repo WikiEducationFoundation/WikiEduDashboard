@@ -159,6 +159,8 @@ sms:
     edit_description: Muuʹtt deskriipt
     edit_template: Muuʹtt maall
   instructor_view:
+    assignments_table:
+      article_name: Nõmm
     bad_work:
       learn_more_button: Lââʹssteâđ
   metrics:
