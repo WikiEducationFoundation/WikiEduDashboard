@@ -613,6 +613,10 @@ Rails.application.routes.draw do
     get ':experiment_slug/instructor_optin' => 'instructor_opt_in#show'
     post ':experiment_slug/instructor_optin/opt_in' => 'instructor_opt_in#opt_in'
     post ':experiment_slug/instructor_optin/opt_out' => 'instructor_opt_in#opt_out'
+
+    # Admin page for opting a student out of one experiment by username.
+    get ':experiment_slug/student_opt_out' => 'student_opt_out#show'
+    post ':experiment_slug/student_opt_out' => 'student_opt_out#opt_out'
   end
 
   resources :admin

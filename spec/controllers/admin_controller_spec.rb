@@ -13,6 +13,20 @@ describe AdminController, type: :request do
       expect(response.status).to eq(200)
     end
 
+    it 'links to experiment opt-out pages on the Wiki Education Dashboard' do
+      allow(Features).to receive(:wiki_ed?).and_return(true)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      get '/admin'
+      expect(response.body).to include('/student_opt_out')
+    end
+
+    it 'omits experiment opt-out links on Programs & Events' do
+      allow(Features).to receive(:wiki_ed?).and_return(false)
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+      get '/admin'
+      expect(response.body).not_to include('/student_opt_out')
+    end
+
     it 'redirects for non-admins' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       get '/admin'
