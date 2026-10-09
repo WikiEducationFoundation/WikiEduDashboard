@@ -59,6 +59,11 @@ describe 'course overview page', type: :feature, js: true do
         expect(page).to have_content 'This Week' # page has loaded
         expect(page).not_to have_content 'Schedule Data Update'
       end
+
+      it 'shows the finalized notice' do
+        expect(page).to have_content 'has been finalized'
+        expect(page).not_to have_content 'will soon be finalized'
+      end
     end
 
     context 'when the course is purgeable' do
@@ -70,6 +75,11 @@ describe 'course overview page', type: :feature, js: true do
       it 'does not show the "Needs Update" button, even for admin' do
         expect(page).to have_content 'This Week' # page has loaded
         expect(page).not_to have_content 'Schedule Data Update'
+      end
+
+      it 'shows the purgeable notice' do
+        expect(page).to have_content 'will soon be finalized'
+        expect(page).not_to have_content 'has been finalized'
       end
     end
 
