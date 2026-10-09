@@ -12,12 +12,14 @@ const SiteNoticeForm = (props) => {
   }, [props.currentSiteNotice]);
 
   // Grow the textarea to fit its content, so the whole notice is always visible.
+  // The popover keeps the form mounted while hidden, where scrollHeight is 0,
+  // so measure again each time it opens.
   useLayoutEffect(() => {
     const textarea = textareaRef.current;
-    if (!textarea) { return; }
+    if (!textarea || !props.isOpen) { return; }
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight + 2}px`;
-  }, [siteNotice]);
+  }, [siteNotice, props.isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
