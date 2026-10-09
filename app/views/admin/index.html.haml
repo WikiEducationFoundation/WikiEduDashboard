@@ -57,6 +57,10 @@
           %a{href: '/training_module_drafts'} Training module composer
         %li
           %a{href: '/update_username'} Update username
+        - @opt_in_experiments.each do |experiment|
+          %li
+            %a{href: "/experiments/#{experiment.slug}/student_opt_out"}
+              Experiment opt-out (#{experiment.slug})
         %li
           %a{href: '/usage'} Usage stats
         %li

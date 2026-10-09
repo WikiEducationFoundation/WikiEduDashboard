@@ -1,0 +1,27 @@
+- content_for :before_title, "Experiment opt-out — "
+.container
+  %h1 Experiment opt-out: #{@experiment.slug}
+  = form_with url: "/experiments/#{@experiment.slug}/student_opt_out", method: :post do
+    = label_tag :username, 'Username'
+    = text_field_tag :username, params[:username]
+    = submit_tag 'Opt out', class: 'button dark', id: 'student_opt_out'
+
+  - if params[:username].present?
+    - if @user.nil?
+      %p= t('update_username.not_found')
+    - elsif @participations.empty?
+      %p This user is not enrolled as a student in any course covered by this experiment, so there is nothing to opt out of.
+    - else
+      %h2= @user.username
+      %table.table.table--striped
+        %thead
+          %tr
+            %th Course
+            %th Status
+            %th Script installed
+        %tbody
+          - @participations.each do |courses_user, record|
+            %tr
+              %td= link_to courses_user.course.title, course_slug_path(courses_user.course.slug)
+              %td= { 'opted_in' => 'Opted in', 'opted_out' => 'Opted out' }[record&.status] || 'Undecided'
+              %td= record&.userscript_installed_at

@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/experiments/opt_in_experiment"
+
 # Controller admin panel
 class AdminController < ApplicationController
   def index
     check_user_auth
+    @opt_in_experiments = OptInExperiment.active
   end
 
   private
