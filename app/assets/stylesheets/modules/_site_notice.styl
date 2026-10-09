@@ -1,0 +1,62 @@
+// Site notice banner (app/views/shared/_flash.html.haml) and its editor on
+// the Settings page.
+
+// The notice is admin-authored HTML on the dark .notification background, so
+// links need the banner's text color instead of the default link color.
+.notification.sitenotice
+  a
+    color #fff
+    text-decoration underline
+    &:hover,
+    &:focus,
+    &:active,
+    &:visited
+      color #fff
+    &:hover
+      text-decoration-thickness 2px
+
+.site-notice-form
+  // Popover cells default to nowrap; the help text and preview need to wrap.
+  white-space normal
+
+  label
+    display block
+    font-weight 600
+    margin-bottom 6px
+
+  textarea
+    width 100%
+    min-height 100px
+    box-sizing border-box
+    font-family monospace
+    font-size 14px
+    line-height 1.5
+    resize none
+    overflow hidden
+
+  .button
+    margin-top 10px
+
+.site-notice-form__help
+  font-size 13px
+  color $text_med
+  margin 6px 0 16px
+  line-height 1.5
+  p
+    margin 0 0 4px
+  ul
+    margin 0
+    padding-left 20px
+    list-style disc
+  code
+    font-size 12px
+    background athens
+    padding 1px 4px
+
+.site-notice-preview__heading
+  font-weight 600
+  margin-bottom 6px
+
+.site-notice-preview__empty
+  font-size 13px
+  color $text_med

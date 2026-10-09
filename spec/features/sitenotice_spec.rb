@@ -33,5 +33,13 @@ describe 'sitenotice', type: :feature, js: true do
       visit root_path
       expect(first('.notification', minimum: 0)).to be_nil
     end
+
+    it 'previews the notice as rendered HTML before it is enabled' do
+      click_button 'Update Site Notice'
+      fill_in('site_notice', with: 'See the <a href="https://example.org">status page</a>.')
+      within('.site-notice-preview .notification.sitenotice') do
+        expect(page).to have_link('status page', href: 'https://example.org')
+      end
+    end
   end
 end

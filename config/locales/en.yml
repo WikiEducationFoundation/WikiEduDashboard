@@ -1539,7 +1539,12 @@ en:
         course_creation_settings: Course creation
         default_campaign_setting: Default Campaign
         site_notice_setting: Site Notice
+        site_notice_message: Message
         site_notice_preview: Live Preview
+      site_notice_help:
+        intro: The notice is HTML, shown in a banner at the top of every page. Line breaks typed here are ignored, so use tags to format it.
+        link: Link
+        line_break: Line break
       buttons:
         add_admin_button: Add Admin
         add_special_user_button: Add Special User

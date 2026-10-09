@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import SiteNoticePreview from './site_notice_preview';
-import TextAreaInput from '../../common/text_area_input';
 
 const SiteNoticeForm = (props) => {
   const [siteNotice, setSiteNotice] = useState(props.currentSiteNotice?.message || '');
+  const textareaRef = useRef(null);
   const dispatch = useDispatch();
 
   useEffect(() => {
     setSiteNotice(props.currentSiteNotice?.message || '');
   }, [props.currentSiteNotice]);
 
-  const handleChange = (key, value) => {
-    setSiteNotice(value);
-  };
+  // Grow the textarea to fit its content, so the whole notice is always visible.
+  useLayoutEffect(() => {
+    const textarea = textareaRef.current;
+    if (!textarea) { return; }
+    textarea.style.height = 'auto';
+    textarea.style.height = `${textarea.scrollHeight + 2}px`;
+  }, [siteNotice]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,24 +28,33 @@ const SiteNoticeForm = (props) => {
   return (
     <tr>
       <td>
-        <form onSubmit={handleSubmit}>
-          <TextAreaInput
+        <form className="site-notice-form" onSubmit={handleSubmit}>
+          <label htmlFor="site_notice">
+            {I18n.t('settings.common_settings_components.headings.site_notice_message')}
+          </label>
+          <textarea
             id="site_notice"
-            editable={true}
+            ref={textareaRef}
             value={siteNotice}
-            onChange={handleChange}
+            onChange={e => setSiteNotice(e.target.value)}
             placeholder="Enter site notice"
-            autoExpand={true}
-            rows="8"
-            wysiwyg={false}
-            value_key="site_notice"
-            maxLength="255"
+            rows="4"
           />
+          <div className="site-notice-form__help">
+            <p>{I18n.t('settings.common_settings_components.site_notice_help.intro')}</p>
+            <ul>
+              <li>
+                {I18n.t('settings.common_settings_components.site_notice_help.link')}:{' '}
+                <code>{'<a href="https://example.org">link text</a>'}</code>
+              </li>
+              <li>
+                {I18n.t('settings.common_settings_components.site_notice_help.line_break')}:{' '}
+                <code>{'<br>'}</code>
+              </li>
+            </ul>
+          </div>
 
-          <SiteNoticePreview
-            message={siteNotice}
-            enabled={!!props.currentStatus}
-          />
+          <SiteNoticePreview message={siteNotice} />
           <button className="button border" type="submit" value="Submit">{I18n.t('application.submit')}</button>
         </form>
       </td>
