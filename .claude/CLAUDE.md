@@ -97,6 +97,13 @@ When user-facing text is needed but the operator hasn't supplied it yet, leave a
 inventing copy — invented text must never ship. Use this exact marker everywhere
 (greppable as `[PLACEHOLDER`) so pending copy is trivial to find and fill in.
 
+## Translations
+
+Add strings to `config/locales/en.yml` only (other locales come from
+translatewiki.net). JS reads them from an export that `yarn start` doesn't
+refresh; after editing `en.yml`, run `bundle exec i18n export -c config/i18n-js.yml`.
+Details: `docs/i18n.md`.
+
 ## WikiApi usage
 
 Use `WikiApi.new(wiki)` for MediaWiki API calls. The standard public methods
