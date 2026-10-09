@@ -1,10 +1,10 @@
 - content_for :before_title, "Experiment opt-out — "
 .container
   %h1 Experiment opt-out: #{@experiment.slug}
-  = form_with url: "/experiments/#{@experiment.slug}/student_opt_out", method: :post do
+  = form_with url: "/experiments/#{@experiment.slug}/student_opt_out", method: :get do
     = label_tag :username, 'Username'
     = text_field_tag :username, params[:username]
-    = submit_tag 'Opt out', class: 'button dark', id: 'student_opt_out'
+    = submit_tag 'Look up', class: 'button', id: 'student_lookup', name: nil
 
   - if params[:username].present?
     - if @user.nil?
@@ -25,3 +25,7 @@
               %td= link_to courses_user.course.title, course_slug_path(courses_user.course.slug)
               %td= { 'opted_in' => 'Opted in', 'opted_out' => 'Opted out' }[record&.status] || 'Undecided'
               %td= record&.userscript_installed_at
+      - if @opt_out_pending
+        = form_with url: "/experiments/#{@experiment.slug}/student_opt_out", method: :post do
+          = hidden_field_tag :username, @user.username, id: nil
+          = submit_tag 'Opt out', class: 'button dark', id: 'student_opt_out'

@@ -50,6 +50,20 @@ describe Experiments::StudentOptOutController, type: :controller do
                                              undecided_enrollment => nil)
     end
 
+    it 'offers the opt-out button only after a lookup' do
+      get :show, params: { experiment_slug: slug }
+      expect(response.body).not_to include('id="student_opt_out"')
+
+      get :show, params: { experiment_slug: slug, username: 'Some Student' }
+      expect(response.body).to include('id="student_opt_out"')
+    end
+
+    it 'hides the opt-out button when there is nothing left to opt out of' do
+      experiment.opt_out_student(student)
+      get :show, params: { experiment_slug: slug, username: 'Some Student' }
+      expect(response.body).not_to include('id="student_opt_out"')
+    end
+
     it 'leaves the user unassigned for an unknown username' do
       get :show, params: { experiment_slug: slug, username: 'Nobody' }
       expect(assigns(:user)).to be_nil
@@ -65,6 +79,12 @@ describe Experiments::StudentOptOutController, type: :controller do
       expect { get :show, params: { experiment_slug: 'not_a_thing' } }
         .to raise_error(ActionController::RoutingError)
     end
+
+    it 'raises a routing error outside the Wiki Education Dashboard' do
+      allow(Features).to receive(:wiki_ed?).and_return(false)
+      expect { get :show, params: { experiment_slug: slug } }
+        .to raise_error(ActionController::RoutingError)
+    end
   end
 
   describe 'POST #opt_out' do
@@ -73,6 +93,7 @@ describe Experiments::StudentOptOutController, type: :controller do
       expect(opt_in_record.reload.opted_out?).to be true
       expect(experiment.participation(undecided_enrollment).opted_out?).to be true
       expect(experiment.participation(other_term_enrollment)).to be_nil
+      expect(flash[:notice]).to be_present
       expect(response).to redirect_to("/experiments/#{slug}/student_opt_out?username=Some+Student")
     end
 

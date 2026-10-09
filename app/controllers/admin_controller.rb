@@ -6,7 +6,8 @@ require_dependency "#{Rails.root}/lib/experiments/opt_in_experiment"
 class AdminController < ApplicationController
   def index
     check_user_auth
-    @opt_in_experiments = OptInExperiment.active
+    # Opt-in experiments only run on the Wiki Education Dashboard.
+    @opt_in_experiments = Features.wiki_ed? ? OptInExperiment.active : []
   end
 
   private
