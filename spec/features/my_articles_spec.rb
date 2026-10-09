@@ -39,6 +39,16 @@ flags: { available_article: false })
     expect(student.assignments.where(flags: { available_article: true }).count).to eq(1)
   end
 
+  it 'does not show the assign, review and find buttons when the course metadata is locked' do
+    course.update(flags: { finalized: true })
+    visit "/courses/#{course.slug}"
+    expect(page).to have_content 'My Articles'
+
+    within '.my-articles-header' do
+      expect(page).not_to have_css('.assign-button')
+    end
+  end
+
   it 'lets a student choose a second article' do
     create(:assignment, course:, article_title: 'Shiba_Inu', user: student, role: ASSIGNED,
 flags: { available_article: false })
