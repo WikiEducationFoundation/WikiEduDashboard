@@ -49,6 +49,13 @@ describe 'course overview page', type: :feature, js: true do
       expect(page).to have_content 'Schedule Data Update'
     end
 
+    it 'offers the overview and articles CSVs in the stats download modal' do
+      click_button 'Download stats'
+      expect(page).to have_css('a[href^="/course_students_csv"]')
+      expect(page).to have_css('a[href^="/course_csv"]')
+      expect(page).to have_css('a[href^="/course_articles_csv"]')
+    end
+
     context 'when the course is finalized' do
       before do
         course.update(flags: { finalized: true })
@@ -63,6 +70,13 @@ describe 'course overview page', type: :feature, js: true do
       it 'shows the finalized notice' do
         expect(page).to have_content 'has been finalized'
         expect(page).not_to have_content 'will soon be finalized'
+      end
+
+      it 'does not offer the overview and articles CSVs in the stats download modal' do
+        click_button 'Download stats'
+        expect(page).to have_css('a[href^="/course_students_csv"]') # modal has opened
+        expect(page).not_to have_css('a[href^="/course_csv"]')
+        expect(page).not_to have_css('a[href^="/course_articles_csv"]')
       end
     end
 
