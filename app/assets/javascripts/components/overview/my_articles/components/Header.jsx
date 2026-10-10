@@ -46,9 +46,9 @@ export const Header = ({
         unassigned={reviewable}
         wikidataLabels={wikidataLabels}
       />
-      <Link to={`/courses/${course.slug}/article_finder`}>
+      {!course.metadata_locked && (<Link to={`/courses/${course.slug}/article_finder`}>
         <button className="button border small assign-button link">{ArticleUtils.I18n('find', course.home_wiki.project)}</button>
-      </Link>
+      </Link>)}
     </div>
   </div>
 );

@@ -71,13 +71,13 @@ export const AvailableArticle = ({ assignment, current_user, course, selectable 
 
   let actionSelect;
   let actionRemove;
-  if (current_user.isStudent && selectable) {
+  if (!course.metadata_locked && current_user.isStudent && selectable) {
     actionSelect = (
       <button className="button dark" onClick={onSelectHandler}>{I18n.t('assignments.select')}</button>
     );
   }
 
-  if (current_user.isAdvancedRole) {
+  if (!course.metadata_locked && current_user.isAdvancedRole) {
     actionRemove = (
       <button className="button dark" onClick={onRemoveHandler}>{I18n.t('assignments.remove')}</button>
     );

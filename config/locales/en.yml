@@ -820,10 +820,6 @@ en:
       included.
     data_revisions_info: Revision data includes revision count of the course, revision id, article id, which pages are new and pageviews totals.
     data_download_info: Download data in CSV format.
-    data_download_warning: >
-      This course is not up to date within the new system yet. Stats may be incomplete.
-      Before downloading them, please schedule a data update for this course and wait for
-      it to finish. If this is an on-going course, please wait until the current update is complete.
     data_overview: Overview data
     data_overview_info: Overview data provides cumulative statistics for the whole project.
     data_edits: Edits data
@@ -881,6 +877,7 @@ en:
     features_feedback: "Automated Suggestions:"
     feedback: Feedback
     feedback_loading: Please wait while suggestions are Loading...
+    finalized_notice: This course has been finalized. Its data will no longer be updated, and it can no longer be modified.
     gradeables_none: This course has no gradeable assignments.
     home_wiki: Home Wiki
     multi_wiki: Tracked Wikis
@@ -977,6 +974,7 @@ en:
     please_log_in: "Please log in."
     private: Private
     published: "Your course has been published! Students may enroll in the course by visiting the following URL:"
+    purgeable_notice: This course will soon be finalized. It can no longer be modified, and its data will not be updated again. If you have questions, please use the 'Report a problem' link to let us know.
     rating_feedback: "Predicted rating for the article is:"
     requested_accounts: Requested accounts
     requested_accounts_alert:
@@ -1231,6 +1229,8 @@ en:
     leave_course: Leave program
     milestones_none: This project does not currently have any milestones.
     not_permitted: You are not permitted to edit this program.
+    finalized_notice: This program or event has been finalized. Its data will no longer be updated, and it can no longer be modified.
+    purgeable_notice: This program or event will soon be finalized. It can no longer be modified, and its data will not be updated again. If you have questions, please use the 'Report a problem' link to let us know.
     published: "This project has been published! Editors may enroll by visiting the following URL:"
     request_accounts: Request accounts
     revisions_none: This project has no recent editing activity.

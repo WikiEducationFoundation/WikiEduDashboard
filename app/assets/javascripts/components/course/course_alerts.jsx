@@ -163,6 +163,19 @@ const CourseAlerts = ({
         );
       }
 
+      // //////////////////////////////////////
+      // Finalized and purgeable notifications /
+      // //////////////////////////////////////
+      if (course.flags && course.flags.finalized) {
+        newAlerts.push(
+          <CourseAlert key="course_finalized" message={CourseUtils.i18n('finalized_notice', course.string_prefix)} />
+        );
+      } else if (course.flags && course.flags.purgeable) {
+        newAlerts.push(
+          <CourseAlert key="course_purgeable" message={CourseUtils.i18n('purgeable_notice', course.string_prefix)} />
+        );
+      }
+
       // //////////////////////////
       // Experiment notifications /
       // //////////////////////////

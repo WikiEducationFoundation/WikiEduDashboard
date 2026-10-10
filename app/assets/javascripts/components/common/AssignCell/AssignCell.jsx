@@ -51,7 +51,7 @@ export const AssignCell = (props) => {
   let isCurrentUser;
   if (student) { isCurrentUser = current_user.id === student.id; }
   const instructorOrAdmin = current_user.isInstructor || current_user.admin;
-  const permitted = (isCurrentUser || instructorOrAdmin) && editable;
+  const permitted = (isCurrentUser || instructorOrAdmin) && editable && !course.metadata_locked;
 
   return (
     <div className="inline-button-peer">

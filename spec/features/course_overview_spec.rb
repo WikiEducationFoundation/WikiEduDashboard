@@ -49,6 +49,54 @@ describe 'course overview page', type: :feature, js: true do
       expect(page).to have_content 'Schedule Data Update'
     end
 
+    it 'offers the overview and articles CSVs in the stats download modal' do
+      click_button 'Download stats'
+      expect(page).to have_css('a[href^="/course_students_csv"]')
+      expect(page).to have_css('a[href^="/course_csv"]')
+      expect(page).to have_css('a[href^="/course_articles_csv"]')
+    end
+
+    context 'when the course is finalized' do
+      before do
+        course.update(flags: { finalized: true })
+        visit "/courses/#{course.slug}"
+      end
+
+      it 'does not show the "Needs Update" button, even for admin' do
+        expect(page).to have_content 'This Week' # page has loaded
+        expect(page).not_to have_content 'Schedule Data Update'
+      end
+
+      it 'shows the finalized notice' do
+        expect(page).to have_content 'has been finalized'
+        expect(page).not_to have_content 'will soon be finalized'
+      end
+
+      it 'does not offer the overview and articles CSVs in the stats download modal' do
+        click_button 'Download stats'
+        expect(page).to have_css('a[href^="/course_students_csv"]') # modal has opened
+        expect(page).not_to have_css('a[href^="/course_csv"]')
+        expect(page).not_to have_css('a[href^="/course_articles_csv"]')
+      end
+    end
+
+    context 'when the course is purgeable' do
+      before do
+        course.update(flags: { purgeable: true })
+        visit "/courses/#{course.slug}"
+      end
+
+      it 'does not show the "Needs Update" button, even for admin' do
+        expect(page).to have_content 'This Week' # page has loaded
+        expect(page).not_to have_content 'Schedule Data Update'
+      end
+
+      it 'shows the purgeable notice' do
+        expect(page).to have_content 'will soon be finalized'
+        expect(page).not_to have_content 'has been finalized'
+      end
+    end
+
     context 'when update is scheduled' do
       before do
         course.update(needs_update: true)
