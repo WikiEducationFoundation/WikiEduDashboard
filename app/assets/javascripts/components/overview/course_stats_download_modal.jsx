@@ -35,11 +35,6 @@ const CourseStatsDownloadModal = ({ course }) => {
     );
   }
 
-  let warning;
-  if (!course.timeslice_update_ran) {
-    warning = <div className="warning">{I18n.t('courses.data_download_warning')}</div>;
-  }
-
   // The overview and articles CSVs are built from the course's timeslices,
   // which are deleted for courses with metadata locked.
   let overviewLink;
@@ -69,7 +64,6 @@ const CourseStatsDownloadModal = ({ course }) => {
     <div className="basic-modal course-stats-download-modal">
       <button onClick={hideStats} className="pull-right article-viewer-button icon-close" />
       <h2>{I18n.t('courses.data_download_info')}</h2>
-      {warning}
       <hr />
       {overviewLink}
       <p>
