@@ -63,7 +63,7 @@ export const Actions = ({
   return (
     <section className="actions">
       {actions}
-      <RemoveButton key="remove-button" assignment={assignment} unassign={unassign} />
+      {!course.metadata_locked && <RemoveButton key="remove-button" assignment={assignment} unassign={unassign} />}
     </section>
   );
 };

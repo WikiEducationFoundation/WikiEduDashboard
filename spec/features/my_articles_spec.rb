@@ -49,6 +49,25 @@ flags: { available_article: false })
     end
   end
 
+  it 'shows the remove button on an assigned article' do
+    create(:assignment, course:, article_title: 'Shiba_Inu', user: student, role: ASSIGNED,
+flags: { available_article: false })
+    visit "/courses/#{course.slug}"
+    expect(page).to have_content "Articles I'm updating"
+
+    expect(page).to have_button 'Remove'
+  end
+
+  it 'does not show the remove button on an assigned article when the course metadata is locked' do
+    create(:assignment, course:, article_title: 'Shiba_Inu', user: student, role: ASSIGNED,
+flags: { available_article: false })
+    course.update(flags: { finalized: true })
+    visit "/courses/#{course.slug}"
+    expect(page).to have_content "Articles I'm updating"
+
+    expect(page).not_to have_button 'Remove'
+  end
+
   it 'lets a student choose a second article' do
     create(:assignment, course:, article_title: 'Shiba_Inu', user: student, role: ASSIGNED,
 flags: { available_article: false })
