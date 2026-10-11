@@ -9,7 +9,6 @@
   vertical-align middle
 
   &:hover
-    animation ring 2s ease-in-out
     border none
     opacity 1
 
@@ -23,10 +22,15 @@ nav.top-nav .top-nav__login-links .downloads-bell
   width 35px
   height 55px
   padding 0
-  background-image url('../images/notifications-bell.svg')
+  background-image url('../images/download-tray.svg')
   background-position center
   background-repeat no-repeat
   background-size 20px
+
+// The hamburger menu is dark, so it gets the white icon at full strength.
+.hamburger_menu_wrapper .bm-menu .downloads-bell
+  background-image url('../images/download-tray_white.svg')
+  opacity 1
 
 .pop--downloads
   width 480px

@@ -85,6 +85,47 @@ describe TrainingController, type: :request do
         expect(session[:training_return_to]).not_to eq('https://evil.example.com/')
       end
     end
+
+    # A slide-less in-app exercise has no training page: its Start button
+    # would only reload the page, so links to it go on to the exercise.
+    context 'for a slide-less in-app exercise' do
+      let(:module_id) { 'fact-verification-exercise' }
+
+      it 'redirects to the exercise entry' do
+        subject
+        expect(response).to redirect_to('/verify_claim')
+      end
+
+      context 'when the link came from one of several courses' do
+        let(:course) { create(:course, slug: 'School/Course_(2026)') }
+        let(:request_params) { super().merge(return_to: "/courses/#{course.slug}/assignments") }
+
+        before do
+          create(:courses_user, course:, user:)
+          create(:courses_user, course: create(:course, slug: 'School/Other_(2026)'), user:)
+          login_as user
+        end
+
+        it 'lands on that course\'s exercise' do
+          subject
+          follow_redirect!
+          expect(response).to redirect_to("/courses/#{course.slug}/verify_claim")
+        end
+      end
+
+      context 'when the exercise path would leave the site' do
+        before do
+          mod = TrainingModule.find_by(slug: module_id)
+          mod.update(settings: mod.settings.merge('exercise_path' => '/evil.example.com'))
+        end
+
+        it 'refuses to redirect' do
+          subject
+          expect(response).not_to have_http_status(:redirect)
+          expect(response.location).to be_nil
+        end
+      end
+    end
   end
 
   describe 'add_library_breadcrumbs' do

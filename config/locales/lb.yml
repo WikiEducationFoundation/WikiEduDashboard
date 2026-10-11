@@ -22,6 +22,7 @@ lb:
   application:
     back: Zeréck
     cancel: Ofbriechen
+    close: Zoumaachen
     next: Nächst
     cookie_consent_acknowledge: Ech verstinn
     cookie_consent_see_more: Fir méi ze wëssen.
@@ -263,6 +264,8 @@ lb:
       entfernt.
     course_removed_but_not_deleted: „%{title}“ gouf aus „%{campaign_title}“ entfernt,
       mee nach net geläscht, well et nach Deel vun anere Kampagnen ass
+    data_download_generating: De Fichier gëtt elo generéiert. Dir kritt Bescheed gesot,
+      soubal e prett ass, fir erofgelueden ze ginn.
     data_articles: Geännert Säiten
     data_wikidata: Wikidata-Statistiken
     default_passcode: Standard-Passcode
@@ -705,6 +708,8 @@ lb:
     exercise_sandbox: Übungssandkaul
     take_your_time: Huelt Iech wgl. Zäit!
     close: ZOUMAACHEN
+    article_title_input:
+      modal_title: Wat fir een Artikel hutt Dir geännert?
   claim_verification:
     no_articles: Keng Artikelen disponibel
     step_heading: 'Schrëtt %{number}: %{name}'
@@ -905,6 +910,9 @@ lb:
   lms_integration:
     time_ago: viru(n) %{time_ago}
     my_account_link: 'Äre Kont:'
+  lti_integrations:
+    course: Cours
+    installed: Installéiert
   lti:
     beta_feedback:
       link: Feedback schécken

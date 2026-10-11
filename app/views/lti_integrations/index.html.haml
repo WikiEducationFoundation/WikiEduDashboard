@@ -1,0 +1,21 @@
+- content_for :before_title, "#{t('lti_integrations.title')} — "
+
+%header.main-page
+  .container
+    %h1= t('lti_integrations.title')
+
+.container.lti-integrations
+  %table.table.table--striped
+    %thead
+      %tr
+        %th= t('lti_integrations.course')
+        %th= t('lti_integrations.instructor')
+        %th= t('lti_integrations.lms_course')
+        %th= t('lti_integrations.lms_instance')
+        %th= t('lti_integrations.lti_version')
+        %th= t('lti_integrations.installed')
+        %th= t('lti_integrations.connected_students')
+        %th= t('lti_integrations.roster')
+    %tbody
+      - @bindings.each do |binding|
+        = render 'lti_integrations/row', binding:

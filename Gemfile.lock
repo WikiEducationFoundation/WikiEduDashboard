@@ -242,7 +242,7 @@ GEM
       addressable
       ssrf_filter (~> 1.5)
     csv (3.3.5)
-    dalli (3.2.10)
+    dalli (3.2.13)
       logger
     date (3.5.1)
     debug_inspector (1.1.0)

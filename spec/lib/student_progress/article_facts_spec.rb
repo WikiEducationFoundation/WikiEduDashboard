@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/student_progress/article_facts"
 
-describe AssignedArticleWork do
+describe StudentProgress::ArticleFacts do
   let(:course) { create(:course) }
   let(:student) { create(:user, username: 'writer') }
   let(:wiki) { course.home_wiki }
@@ -19,7 +20,8 @@ describe AssignedArticleWork do
   end
 
   def work_for(user = student)
-    described_class.new(course:, user_ids: [user.id]).articles_for(user)
+    roster = StudentProgress::Roster.new(course:, user_ids: [user.id])
+    described_class.new(roster).articles_for(user)
   end
 
   it 'lists the assigned article with a link to the live page' do
@@ -88,6 +90,17 @@ describe AssignedArticleWork do
       expect(work_for.first.stats.characters).to eq(0)
     end
 
+    it 'identifies the live article for the article viewer once it exists' do
+      assignment = assign
+      expect(work_for.first.article_id).to be_nil
+
+      article = create(:article, title: 'Chromatic_aberration', wiki:, mw_page_id: 4242)
+      assignment.update!(article:)
+      live = work_for.first
+      expect([live.article_id, live.mw_page_id]).to eq([article.id, 4242])
+      expect([live.language, live.project]).to eq([wiki.language, wiki.project])
+    end
+
     it 'sums only the timeslices this student contributed to' do
       article = create(:article, title: 'Chromatic_aberration', wiki:)
       other = create(:user, username: 'classmate')
@@ -130,13 +143,56 @@ describe AssignedArticleWork do
     assign(title: 'Mine')
     assign(user: classmate, title: 'Theirs')
 
-    work = described_class.new(course:, user_ids: [student.id, classmate.id])
+    work = described_class.new(StudentProgress::Roster.new(course:,
+                                                        user_ids: [student.id, classmate.id]))
     expect(work.articles_for(student).map(&:title)).to eq(['Mine'])
     expect(work.articles_for(classmate).map(&:title)).to eq(['Theirs'])
   end
 
+  it 'gives each of a student\'s articles its own entry' do
+    first = assign(title: 'First')
+    second = assign(title: 'Second')
+    second.update_status(AssignmentPipeline::AssignmentStatuses::BIBLIOGRAPHY_COMPLETE)
+
+    articles = work_for
+    expect(articles.map(&:assignment_id)).to eq([first.id, second.id])
+    expect(articles.map(&:status))
+      .to eq([AssignmentPipeline::AssignmentStatuses::NOT_YET_STARTED,
+              AssignmentPipeline::AssignmentStatuses::BIBLIOGRAPHY_COMPLETE])
+  end
+
+  it 'reports when the current status was set, and nil before any was' do
+    assignment = assign
+    expect(work_for.first.status_updated_at).to be_nil
+
+    assignment.update_status(AssignmentPipeline::AssignmentStatuses::BIBLIOGRAPHY_COMPLETE)
+    expect(work_for.first.status_updated_at).to be_within(1.minute).of(Time.zone.now)
+  end
+
+  it 'lists the pipeline the course\'s sandbox mode uses' do
+    assign
+    expect(work_for.first.statuses).to eq(AssignmentPipeline::PIPELINES[:assignment])
+  end
+
+  describe 'assigned_at' do
+    it 'is when the assignment was created for the student' do
+      assignment = assign
+      expect(work_for.first.assigned_at).to eq(assignment.created_at)
+    end
+
+    it 'is left out for a claimed Available Article, whose record predates the claim' do
+      assign.update!(flags: { available_article: true })
+      expect(work_for.first.assigned_at).to be_nil
+    end
+
+    it 'is left out for records from before claims were flagged' do
+      assign.update_column(:created_at, Time.zone.parse('2024-09-01'))
+      expect(work_for.first.assigned_at).to be_nil
+    end
+  end
+
   it 'is empty for a student with no assignment, and for no user at all' do
-    work = described_class.new(course:, user_ids: [student.id])
+    work = described_class.new(StudentProgress::Roster.new(course:, user_ids: [student.id]))
     expect(work.articles_for(student)).to be_empty
     expect(work.articles_for(nil)).to be_empty
   end

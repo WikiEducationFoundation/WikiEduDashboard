@@ -24,9 +24,13 @@ const DownloadsBell = () => {
     }
   };
 
+  // Shown only when there is something to show. Stays up while open, so that
+  // dismissing the last item doesn't pull the popover out from under the cursor.
+  if (items.length === 0 && !isOpen) { return null; }
+
   return (
     <li ref={containerRef} aria-describedby="downloads-notification-message" className="notifications tooltip-trigger pop__container">
-      <button type="button" className="icon icon-notifications_bell downloads-bell" onClick={togglePopover} aria-label={I18n.t('downloads.aria_label')}>
+      <button type="button" className="icon icon-download_tray downloads-bell" onClick={togglePopover} aria-label={I18n.t('downloads.aria_label')}>
         {unreadCount > 0 ? (
           <span className="bubble red">
             <span id="downloads-notification-message" className="screen-reader">{I18n.t('downloads.new_downloads')}</span>

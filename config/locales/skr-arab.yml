@@ -8,6 +8,7 @@ skr-arab:
   application:
     back: پچھوں
     cancel: منسوخ
+    close: بند کرو
     create_accounts: وکی پیڈیا دے کھاتے بݨاؤ
     dashboard: وکی ای ڈی ڈیش بورڈ
     documentation: دستاویز
@@ -112,6 +113,8 @@ skr-arab:
     review_self: مضمون تے نظرثانی کرو
     select: چݨو
     submit: جمع کرواؤ
+  assignments_tab:
+    progress: ترقی
   blocks:
     milestones:
       title: سنگ میل
@@ -124,6 +127,8 @@ skr-arab:
     campaigns: مہم
     created_at: تریخ
     course: کورس
+    all_data: یکے
+    export: ٻاہر بھیڄو
     description: تفصیل
     delete_campaign: ایݨ مہم کوں مٹاؤ
     no_passcode: پاس کوڈ کائنی
@@ -320,6 +325,8 @@ skr-arab:
     done: مکمل!
     close: بند
     loading: لوڈ تھین٘دا پئے۔۔۔
+    article_title_input:
+      verify: تصدیق کرو
   update_username:
     label: نواں ورتݨ ناں
     button: اپ ݙیٹ
@@ -354,6 +361,10 @@ skr-arab:
     userpasscode_placeholder: پاس کوڈ
   wizard:
     summary: خلاصہ
+  downloads:
+    title: ڈاؤن لوڈ
+    ready: تیار
+    download: ڈاؤن لوڈ
   article_finder:
     hide_options: اختیارات لُکاؤ
     page_assessment_class: جماعت

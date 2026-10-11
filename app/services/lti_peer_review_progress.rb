@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/peer_review_facts"
+require_dependency "#{Rails.root}/lib/student_progress/rules"
+
 # Progress on the peer-review stage for one (Course, User) — the column behind
 # LtiLineItem::PEER_REVIEW_TYPE.
 #
@@ -23,15 +26,10 @@ class LtiPeerReviewProgress
   attr_reader :score_given, :score_maximum, :comment
 
   # One assigned review as the in-Canvas views list it: which article it is of,
-  # the page it belongs on, and whether that page exists yet. Built here, from
-  # #review_statuses, so the instructor roster and the student's own panel read
-  # identical rows (the shared lti_launch/peer_reviews partial renders them).
-  ReviewRow = Struct.new(:article_title, :article_url, :review_url, :completed,
-                         keyword_init: true) do
-    def completed?
-      completed
-    end
-  end
+  # the page it belongs on, and whether it's done. Built here, so the
+  # instructor roster and the student's own panel read identical rows (the
+  # shared lti_launch/peer_reviews partial renders them).
+  ReviewRow = StudentProgress::PeerReviewFacts::Review
 
   SCORE_MAXIMUM = 1.0
   # A course with the flag unset but the column imported still expects the
@@ -40,7 +38,7 @@ class LtiPeerReviewProgress
   DEFAULT_EXPECTED = 1
 
   # `assignments`, when given, is this user's assignments in the course, already
-  # loaded by the caller (LtiProgressPreload); the reviews are picked out of them.
+  # loaded by the caller (StudentProgress::Roster); the reviews are picked out of them.
   # When nil, they are queried: the grade sync's single-user path.
   def initialize(course, user, assignments: nil)
     @course = course
@@ -86,15 +84,7 @@ class LtiPeerReviewProgress
   end
 
   def review_rows
-    @review_rows ||= review_statuses.map do |assignment, completed|
-      ReviewRow.new(
-        # Stored underscored; de-underscored for display like Article#full_title.
-        article_title: assignment.article_title.tr('_', ' '),
-        article_url: assignment.article_url,
-        review_url: "#{assignment.wiki.base_url}/wiki/#{assignment.peer_review_pagename}",
-        completed:
-      )
-    end
+    @review_rows ||= reviews.map { |review| StudentProgress::PeerReviewFacts.review_for(review) }
   end
 
   private
@@ -113,23 +103,13 @@ class LtiPeerReviewProgress
     [completed_count.to_f / @expected, SCORE_MAXIMUM].min
   end
 
-  # Either signal counts, because they fail in opposite directions and both live in
-  # `flags[:review]` under different keys:
-  #
-  #   - `:status` reaching PEER_REVIEW_COMPLETED — the student's own progress
-  #     through the review steps (AssignmentsController#update_status). Immediate,
-  #     and for an instructor-graded column it's the right trigger: the student
-  #     saying they're finished is what asks the instructor to look.
-  #   - `:review`, the review page existing. The artifact, so it catches a student
-  #     who wrote the review without clicking through the steps — but it's written
-  #     only by CheckAssignmentStatus, which runs from the constant update cycle
-  #     (lib/data_cycle/constant_update.rb), so it trails the work by up to a
-  #     cycle. On the strength of that flag alone a finished review read as "0 of
-  #     2" until the cycle caught up (operator decision 2026-08-04).
+  # Either the student marking it complete or the review page existing counts
+  # (operator decision 2026-08-04). For an instructor-graded column the student
+  # saying they're finished is the right trigger: it's what asks the instructor
+  # to look. On the page signal alone, which trails the work by up to an update
+  # cycle, a finished review read as "0 of 2" until the cycle caught up.
   def completed?(review)
-    review.status == AssignmentPipeline::ReviewStatuses::PEER_REVIEW_COMPLETED ||
-      review.peer_review_sandbox_status !=
-        AssignmentPipeline::SandboxStatuses::DOES_NOT_EXIST
+    StudentProgress::Rules.review_complete?(review)
   end
 
   def compute_comment

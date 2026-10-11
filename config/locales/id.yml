@@ -248,6 +248,7 @@ id:
     unable_to_add_week: Anda tidak dapat menambahkan minggu baru ketika waktu Anda
       penuh. Hapus setidaknya satu minggu atau mengubah tanggal tugas Anda untuk memberikan
       ruang bagi yang baru.
+    standard_block_does_not_match: Tidak cocok
   training:
     kind:
       training: Pelatihan

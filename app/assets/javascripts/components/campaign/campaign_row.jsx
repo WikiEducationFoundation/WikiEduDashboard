@@ -1,22 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { startDownload } from '../../actions/download_actions.js';
-import { addNotification } from '../../actions/notification_actions.js';
+import React from 'react';
+import useCampaignDownloadModal from '../../hooks/useCampaignDownloadModal.js';
 
 const CampaignExportModal = ({ campaign }) => {
-  const dispatch = useDispatch();
-  const [show, setShow] = useState(false);
-
-  useEffect(() => {
-    if (!show) { return; }
-
-    const handleEscape = (event) => {
-      if (event.key === 'Escape') { setShow(false); }
-    };
-
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [show]);
+  const {
+    show,
+    openModal,
+    closeModal,
+    handleDownload,
+    userSignedIn
+  } = useCampaignDownloadModal({ campaignTitle: campaign.title });
 
   const exportOptions = [
     { id: `${campaign.slug}-students`, href: `/campaigns/${campaign.slug}/students.csv`, dataLabel: I18n.t('campaign.students_small') },
@@ -27,24 +19,9 @@ const CampaignExportModal = ({ campaign }) => {
     { id: `${campaign.slug}-all`, href: `/campaigns/${campaign.slug}/all_csv`, dataLabel: I18n.t('campaign.all_data') },
   ];
 
-  const handleDownload = (option, event) => {
-    event.preventDefault();
-    dispatch(startDownload({
-      ...option,
-      label: `${campaign.title} — ${option.dataLabel}`
-    }));
-    dispatch(addNotification({
-      message: I18n.t('campaign.data_download_generating'),
-      closable: true,
-      type: 'success'
-    }));
-    setShow(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
   if (!show) {
     return (
-      <button onClick={() => setShow(true)} className="button dark small campaign-export-button">
+      <button onClick={openModal} className="button dark small campaign-export-button">
         {I18n.t('campaign.export')}
       </button>
     );
@@ -52,16 +29,29 @@ const CampaignExportModal = ({ campaign }) => {
 
   return (
     <div className="basic-modal left campaign-export-modal">
-      <button onClick={() => setShow(false)} className="pull-right button--clear small">
+      <button onClick={closeModal} className="pull-right button--clear small">
         &times;
       </button>
       <h2>{I18n.t('campaign.data_download_info')}</h2>
       <hr />
       {exportOptions.map(option => (
         <p key={option.id}>
-          <a href={option.href} onClick={(e) => handleDownload(option, e)} className="button dark button--block">
-            {option.dataLabel}
-          </a>
+          {userSignedIn ? (
+            <button
+              type="button"
+              onClick={e => handleDownload(option, e)}
+              className="button dark button--block"
+            >
+              {option.dataLabel}
+            </button>
+          ) : (
+            <a
+              href={option.href}
+              className="button dark button--block"
+            >
+              {option.dataLabel}
+            </a>
+          )}
         </p>
       ))}
     </div>

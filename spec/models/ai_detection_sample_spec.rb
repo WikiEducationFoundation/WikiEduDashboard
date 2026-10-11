@@ -26,6 +26,15 @@ describe AiDetectionSample do
     expect(unit).to be_valid
   end
 
+  it 'only accepts known source formats, with nil meaning no source text' do
+    unit = described_class.new(sample_name: 'test', plain_text: text, source_format: 'html')
+    expect(unit).not_to be_valid
+    unit.source_format = AiDetectionSample::MODEL_REPLY
+    expect(unit).to be_valid
+    unit.source_format = nil
+    expect(unit).to be_valid
+  end
+
   it 'leaves provenance free-form' do
     unit = described_class.new(sample_name: 'test', plain_text: text, provenance: 'agpedia dump')
     expect(unit).to be_valid

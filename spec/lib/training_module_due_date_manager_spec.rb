@@ -80,6 +80,34 @@ describe TrainingModuleDueDateManager do
         end
       end
     end
+
+    context 'module is on blocks in two weeks' do
+      let(:due_date) { nil }
+      let(:week2) { create(:week, course_id: course.id, order: 2) }
+
+      # Positions are within a week, so the later week's first block has the
+      # lower position.
+      before do
+        block.update!(order: 2)
+        create(:block, week_id: week2.id, order: 1, training_module_ids: ids)
+      end
+
+      it 'uses the block that comes first on the timeline' do
+        expect(subject).to eq(t_start.end_of_week(:sunday))
+      end
+    end
+
+    context 'module is on two blocks in one week, one with no position' do
+      before do
+        block.update!(order: nil)
+        create(:block, week_id: week.id, order: 1, training_module_ids: ids,
+                       due_date: t_start + 2.weeks)
+      end
+
+      it 'treats the block with no position as the first' do
+        expect(subject).to eq(due_date)
+      end
+    end
   end
 
   describe '#overdue?' do

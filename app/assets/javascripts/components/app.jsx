@@ -6,11 +6,16 @@ import { render as renderMain } from './Main';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import store from './util/create_store';
+import { resumePendingDownloads } from '../actions/download_actions.js';
 
 // The navbar is its own React element, independent of the
 // main React Router-based component tree.
 // `nav_root` is present throughout the app, via the Rails view layouts.
 const navBar = document.getElementById('nav_root');
+
+if (store) {
+  store.dispatch(resumePendingDownloads());
+}
 
 if (navBar) {
   const navRoot = createRoot(navBar); // createRoot(container!) if you use TypeScript

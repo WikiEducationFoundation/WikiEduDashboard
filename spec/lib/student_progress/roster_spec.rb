@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/student_progress/roster"
 
-describe LtiProgressPreload do
+describe StudentProgress::Roster do
   let(:course) { create(:course) }
   let(:zoe) { create(:user, username: 'Zoe') }
   let(:adam) { create(:user, username: 'Adam') }
@@ -33,6 +34,13 @@ describe LtiProgressPreload do
     expect(preload.blocks).to all(satisfy { |block| block.association(:week).loaded? })
   end
 
+  it 'puts a block with no position at the start of its week' do
+    create(:block, week: week_one, order: nil, title: 'Unpositioned', training_module_ids: [])
+    titles = preload.blocks.map(&:title)
+    expect(titles).to contain_exactly('Unpositioned', 'First', 'Second', 'Later')
+    expect(titles.last(2)).to eq(%w[Second Later])
+  end
+
   it "resolves a block's modules in the block's order" do
     later = preload.blocks.last
     expect(preload.modules_for(later)).to eq([exercise])
@@ -55,6 +63,26 @@ describe LtiProgressPreload do
     expect(zoe_assignments).to all(satisfy { |a| a.association(:wiki).loaded? })
     expect(zoe_assignments).to all(satisfy { |a| a.association(:course).loaded? })
     expect(preload.assignments_for(adam.id)).to eq([])
+  end
+
+  it 'loads the live-article timeslices with contributors for editing assignments' do
+    article = create(:article, title: 'Ada_Lovelace', wiki: course.home_wiki)
+    Assignment.find_by(user: zoe, article_title: 'Ada_Lovelace').update!(article:)
+    with_edits = ArticleCourseTimeslice.create!(course:, article:, user_ids: [zoe.id],
+                                                start: 2.days.ago, end: 1.day.ago)
+    ArticleCourseTimeslice.create!(course:, article:, user_ids: nil,
+                                   start: 1.day.ago, end: Time.zone.now)
+
+    expect(preload.timeslices_for(article.id)).to eq([with_edits])
+    expect(preload.timeslices_for(nil)).to eq([])
+  end
+
+  it 'knows which students have taken a verification claim' do
+    claim = VerificationClaim.create!(wiki: course.home_wiki, sentence: 'A claim.')
+    VerificationClaimAssignment.create!(user: adam, course:, verification_claim: claim)
+
+    expect(preload.claim_taken?(adam.id)).to be(true)
+    expect(preload.claim_taken?(zoe.id)).to be(false)
   end
 
   it 'reads the whole set in one query per table, however many users' do

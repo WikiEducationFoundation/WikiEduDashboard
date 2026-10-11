@@ -46,6 +46,7 @@ it:
   application:
     back: Indietro
     cancel: Annulla
+    close: Chiudi
     next: Successivo
     cookie_consent_acknowledge: Ho capito
     cookie_consent_see_more: Vedi altro.

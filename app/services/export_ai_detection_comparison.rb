@@ -14,20 +14,25 @@ class ExportAiDetectionComparison
   SCORE_COLUMNS = %w[score_id scored_at error].freeze
   FACTOR_PREFIX = 'factor_'
 
+  # Texts are left out by default: they are large and repeat on every detector
+  # row. include_text: true adds plain_text and source_text after the unit columns.
+  TEXT_COLUMNS = %w[plain_text source_format source_text].freeze
+
   attr_reader :rows, :factor_names
 
-  def initialize(sample_names: nil)
+  def initialize(sample_names: nil, include_text: false)
+    @include_text = include_text
     units = AiDetectionSample.includes(:wiki, :revision_ai_scores).order(:id)
     units = units.where(sample_name: sample_names) if sample_names
     @factor_names = units.flat_map { |unit| unit.factors.keys }.uniq.sort
     @rows = units.flat_map { |unit| unit_rows(unit) }
   end
 
-  # Fixed columns, then one factor_<name> column per factor present in the
-  # exported units, then the DetectorSummary keys.
+  # Fixed columns, the texts if requested, then one factor_<name> column per
+  # factor present in the exported units, then the DetectorSummary keys.
   def headers
-    UNIT_COLUMNS + factor_names.map { |name| "#{FACTOR_PREFIX}#{name}" } +
-      SCORE_COLUMNS + DetectorSummary::KEYS
+    UNIT_COLUMNS + (@include_text ? TEXT_COLUMNS : []) +
+      factor_names.map { |name| "#{FACTOR_PREFIX}#{name}" } + SCORE_COLUMNS + DetectorSummary::KEYS
   end
 
   # Returns the CSV as a string, and writes it to path when one is given.
@@ -55,7 +60,15 @@ class ExportAiDetectionComparison
       'ground_truth' => unit.ground_truth, 'provenance' => unit.provenance,
       'notes' => unit.notes, 'word_count' => unit.word_count,
       'text_sha256' => unit.text_sha256, 'metadata' => unit.metadata.to_json }
+      .merge(text_columns(unit))
       .merge(unit.factors.transform_keys { |name| "#{FACTOR_PREFIX}#{name}" })
+  end
+
+  def text_columns(unit)
+    return {} unless @include_text
+
+    { 'plain_text' => unit.plain_text, 'source_format' => unit.source_format,
+      'source_text' => unit.source_text }
   end
 
   def score_columns(score)

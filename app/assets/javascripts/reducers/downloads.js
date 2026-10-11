@@ -33,11 +33,9 @@ export const getInitialState = (storageKey = getStorageKey()) => {
     const stored = typeof localStorage !== 'undefined' ? localStorage.getItem(storageKey) : null;
     if (stored) {
       const parsed = JSON.parse(stored);
-      // Only restore downloads that are 'ready' or 'error' (not 'pending')
-      // and have not expired (> 1 week, matching CsvCleanupWorker)
-      const items = (parsed.items || []).filter(
-        item => item.status !== 'pending' && !isExpired(item)
-      );
+      // Restore downloads that have not expired (> 1 week, matching CsvCleanupWorker).
+      // 'pending' ones are kept too; resumePendingDownloads picks their polling back up.
+      const items = (parsed.items || []).filter(item => !isExpired(item));
       return {
         items,
         unreadCount: Math.min(parsed.unreadCount || 0, items.length)

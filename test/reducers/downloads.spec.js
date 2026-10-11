@@ -28,7 +28,7 @@ describe('downloads reducer', () => {
       expect(getStorageKey('alice')).toBe('wiki_edu_downloads_alice');
     });
 
-    test('restores saved ready items and unread count from scoped key', () => {
+    test('restores saved items, including pending ones, and unread count from scoped key', () => {
       const savedData = {
         items: [
           { id: '1', status: 'ready', label: 'Report', createdAt: Date.now() },
@@ -39,8 +39,7 @@ describe('downloads reducer', () => {
       localStorage.setItem('wiki_edu_downloads_user1', JSON.stringify(savedData));
 
       const state = getInitialState('wiki_edu_downloads_user1');
-      // Filters out pending downloads
-      expect(state.items).toEqual([savedData.items[0]]);
+      expect(state.items).toEqual(savedData.items);
       expect(state.unreadCount).toBe(1);
     });
 
