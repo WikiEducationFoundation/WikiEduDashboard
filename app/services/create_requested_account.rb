@@ -91,8 +91,18 @@ class CreateRequestedAccount
   end
 
   def destroy_request_if_user_exists
-    @result = { failure: failure_message(:user_exists) }
+    enrolled = enrolled_user_with_requested_username
+    details = { code: 'userexists' }
+    details[:existing_username] = enrolled.username if enrolled
+    reason = enrolled ? :user_exists_enrolled : :user_exists
+    @result = { failure: failure_message(reason, **details) }
     @requested_account.destroy
+  end
+
+  # MediaWiki capitalizes the first letter and treats underscores as spaces; the
+  # username column's collation already ignores case.
+  def enrolled_user_with_requested_username
+    @course.users.find_by(username: @username.tr('_', ' ').squish)
   end
 
   def retry_request_with_backup_account_on_en_wiki
@@ -110,19 +120,44 @@ class CreateRequestedAccount
     'captcha-createaccount-fail' => :captcha_required
   }.freeze
 
-  # The facilitator gets a readable explanation; the raw response only goes to Sentry.
+  # The facilitator gets a readable explanation that keeps the code identifying the
+  # problem. The raw response goes to Sentry, and to the facilitator only when the
+  # response matches none of the known shapes.
   def report_failure(message, messagecode)
-    reason = FAILURE_REASONS[messagecode]
-    reason ||= message.present? ? :rejected : :unexpected
-    @result = { failure: failure_message(reason, message:) }
+    reason, details = failure_reason(message, messagecode)
+    @result = { failure: failure_message(reason, **details) }
 
-    error = AccountCreationError.new("account creation failed: #{messagecode || 'no status'}")
-    Sentry.capture_exception(error, extra: { response: @response })
+    code = details[:code] || 'unexpected response'
+    Sentry.capture_exception(AccountCreationError.new("account creation failed: #{code}"),
+                             extra: { response: @response })
   end
 
-  def failure_message(reason, message: nil)
+  def failure_reason(message, messagecode)
+    if messagecode
+      details = { code: messagecode, message: message.presence || messagecode }
+      enrolled = messagecode == 'antispoof-conflict' && enrolled_user_with_requested_username
+      if enrolled
+        [:name_conflict_enrolled, details.merge(existing_username: enrolled.username)]
+      else
+        [FAILURE_REASONS[messagecode] || :rejected, details]
+      end
+    elsif (error = api_error)
+      [:api_error, { code: error['code'], message: error['info'] }]
+    else
+      [:unexpected, { response: @response.to_s }]
+    end
+  end
+
+  # A failed token request reports its error under a symbol key; an error from the
+  # createaccount request itself comes back from the API under a string key.
+  def api_error
+    error = @response[:error] || @response['error']
+    error if error.is_a?(Hash) && error['code'].present?
+  end
+
+  def failure_message(reason, **details)
     I18n.t("users.requested_account_status.#{reason}",
-           username: @username, email: @email, wiki: @wiki.domain, message:)
+           username: @username, email: @email, wiki: @wiki.domain, **details)
   end
 
   class AccountCreationError < StandardError; end
