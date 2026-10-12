@@ -515,8 +515,8 @@ EDIT_WORDS = re.compile(
     r"^(?:for|and|to|of|in)\b|\b(?:replac\w*|insert\w*|placed|position|existing|current|expan\w*|revis\w*|paragraphs?"
     r"|skeleton|selected|sandbox|subsection|section)\b", re.I)
 EDIT_NOTE_OPENING = re.compile(
-    r"\b(the (current|existing|original|supplied) (article|section|subsection|text|version)"
-    r"|this (draft|revision|addition|contribution|edit)|my (draft|revision)|nothing else in the article)\b", re.I)
+    r"\b(the (current|existing|original|supplied) (?:[\"“'‘][^\"”'’]{1,60}[\"”'’] )?(article|section|subsection|text|version)"
+    r"|this (draft|revision|addition|contribution|edit|replaces)|my (draft|revision)|nothing else in the article)\b", re.I)
 
 
 def heading(line):
