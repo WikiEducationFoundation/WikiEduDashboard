@@ -29,6 +29,7 @@ Usage:
 import argparse
 import csv
 import datetime
+import html
 import json
 import re
 import subprocess
@@ -438,11 +439,26 @@ def generate(store, topics, models, conditions, limit, human_prompts, prior_dir)
 PREAMBLE = re.compile(r"^(sure|certainly|of course|absolutely|here(?:'s| is| are)|below is)\b.*[:!.]$", re.I)
 CLOSING = re.compile(r'^(let me know|would you like|i hope|if you(?:\'d| would) like|if you can|feel free)\b', re.I)
 TRAILING_SECTIONS = re.compile(
-    r'^(references|sources|bibliography|notes|works cited|citations|further reading|external links|see also'
+    r'^(?:section \d+\s*[:.]\s*)?'
+    r'(references|sources|bibliography|notes|works cited|citations|further reading|external links|see also'
+    r'|(?:further|additional|more) information'
+    r'|(?:references|sources|citations)\s*(?:/|and|&)\s*(?:citations|notes|references|sources)\b.*'
+    r'|(?:references|sources|citations) (?:to|for) (?:check|cite|verify|use|consult|add)\b.*'
     # Advice that follows a draft in the assignment flow.
-    r'|information still needed|not yet drafted|next steps|to ?do|summary of (changes|work)\b.*'
+    r'|information still needed|not yet drafted|next steps\b.*|to ?do|summary of (changes|work)\b.*'
     r'|what (this|i) change[sd]?\b.*|before moving\b.*|notes? (for|on) \w.*|sources? (still )?needed\b.*)\s*:?$',
     re.I)
+# A note to the writer set apart on its own line: "(Note: you can copy the text below…)". Notes
+# that are article content ("Note: tetracyclines are contraindicated in infants") stay.
+NOTE_LINE = re.compile(r'^\W*note\s*:.*\b(you|your|sandbox|cop(y|ied)|paste|draft|replac\w*|verif\w*|publication'
+                       r'|citations?|sources?)\b', re.I)
+# Inline notes models leave in drafts for the writer to resolve, and placeholder lines.
+WRITER_NOTE = re.compile(r'\s*\[(?:verify|source needed|citation needed|needs? (?:a )?(?:source|citation)|todo|check)\b[^\]]*\]',
+                         re.I)
+TODO_LINE = re.compile(r'\bTODO\b')
+# Lines of a text diagram: box-drawing characters, borders and arrows with no words.
+DIAGRAM_LINE = re.compile(r'^[\s+\-=|v^<>\u2190-\u21ff\u2500-\u257f]{3,}$|^[\u2500-\u257f\u25b2-\u25bc].*|.*[\u2500-\u257f]$'
+                          r'|.*[\u2500-\u257f]{2}|.*[\u25b2-\u25bc]|.*\S {8,}\S|^\[ .* \]')
 
 
 # A cleaned text shorter than this is a refusal or a non-answer, not an article. Assignment
@@ -577,6 +593,86 @@ def strip_edit_notes(source, prior=None):
     return '\n'.join(kept)
 
 
+# With tools off, Claude sometimes wrote tool calls out as text, invented their results, and put
+# the draft in a file it said it had written. That file is the draft; the calls and the invented
+# output around them are not.
+TOOL_CALL = re.compile(r'<invoke name="([^"]+)">(.*?)</invoke>', re.S)
+TOOL_PARAMETER = re.compile(r'<parameter name="([^"]+)">(.*?)</parameter>', re.S)
+HEREDOC = re.compile(r"cat\s*>\s*(\S+)\s*<<-?\s*'?(\w+)'?\n(.*?)\n\2\b", re.S)
+DRAFT_FILE = re.compile(r'\.(wiki|wikitext|md|markdown|txt)$', re.I)
+
+
+def written_draft(reply):
+    """The drafts written to files in tool calls set out as text, last version of each file first
+    written; None when the reply has no tool calls, and '' when it has calls but no draft file."""
+    if '<invoke' not in reply:
+        return None
+    files = {}
+    for name, body in TOOL_CALL.findall(reply):
+        parameters = dict(TOOL_PARAMETER.findall(body))
+        if name == 'Write' and DRAFT_FILE.search(parameters.get('file_path', '')):
+            files[parameters['file_path']] = parameters.get('content', '')
+        for path, _marker, content in HEREDOC.findall(parameters.get('command', '')):
+            if DRAFT_FILE.search(path):
+                files[path] = content
+    return '\n\n'.join(files.values())
+
+
+LATEX_SYMBOLS = {r'\circ': '°', r'\times': '×', r'\cdot': '·', r'\approx': '≈', r'\le': '≤', r'\leq': '≤',
+                 r'\ge': '≥', r'\geq': '≥', r'\pm': '±', r'\mu': 'μ', r'\nu': 'ν', r'\lambda': 'λ', r'\bullet': '•',
+                 r'\rightarrow': '→', r'\longrightarrow': '→', r'\to': '→', r'\leftrightarrow': '↔', r'\%': '%'}
+
+
+def latex_text(math):
+    """Inline LaTeX as the characters it renders to: $4^\\circ\\text{C}$ → 4°C."""
+    for command, symbol in sorted(LATEX_SYMBOLS.items(), key=lambda item: -len(item[0])):
+        math = math.replace(command, symbol)
+    math = re.sub(r'\\(?:text|mathrm|mathit|mathbf|operatorname)\s*\{([^{}]*)\}', r'\1', math)
+    math = re.sub(r'[\^_]\{([^{}]*)\}', r'\1', math)
+    math = re.sub(r'[\^_](\S)', r'\1', math)
+    math = re.sub(r'\\[a-zA-Z]+\s*', '', math)
+    return math.replace('{', '').replace('}', '').strip()
+
+
+def inline_math(match):
+    """A $…$ span as text when it is LaTeX, left alone when the dollar signs are currency."""
+    math = match.group(1) or match.group(2)
+    if re.search(r'[\\^_{}]', math) or re.fullmatch(r'[A-Za-z][A-Za-z0-9]{0,8}', math):
+        return latex_text(math)
+    return match.group(0)
+
+
+def without_file_links(source):
+    """Wikitext with [[File:…]] and [[Image:…]] links removed, nested caption links included."""
+    out, i = [], 0
+    for match in re.finditer(r'\[\[(?:File|Image):', source, re.I):
+        if match.start() < i:
+            continue
+        depth, j = 0, match.start()
+        while j < len(source) - 1:
+            pair = source[j:j + 2]
+            depth += 1 if pair == '[[' else -1 if pair == ']]' else 0
+            j += 2 if pair in ('[[', ']]') else 1
+            if depth == 0:
+                break
+        out.append(source[i:match.start()])
+        i = j
+    out.append(source[i:])
+    return ''.join(out)
+
+
+EMPHASIS = [re.compile(r'\*\*(?=\S)(.+?)(?<=\S)\*\*'), re.compile(r'__(?=\S)(.+?)(?<=\S)__'),
+            re.compile(r'(?<![\w*])\*(?=[^\s*])(.+?)(?<=[^\s*])\*(?![\w*])'),
+            re.compile(r'(?<![\w_])_(?=[^\s_])(.+?)(?<=[^\s_])_(?![\w_])')]
+
+
+def without_emphasis(text):
+    """Markdown bold before italics, so '*a* … **P680**' and '**F_X**' come out whole."""
+    for pattern in EMPHASIS:
+        text = pattern.sub(r'\1', text)
+    return text
+
+
 def prose_words(block):
     """Rough count of article words in a block: words in sentences, after removing references,
     templates, table rows and diagram lines (box drawing, arrows), which models also put in code
@@ -608,9 +704,22 @@ def fenced_draft(markdown):
 def plain_text(markdown, prior=None):
     """Markdown or wikitext as the plain text GetRevisionPlaintext would produce once pasted."""
     lines = []
+    written = written_draft(markdown)
+    if written is not None:
+        markdown = written or TOOL_CALL.sub('', markdown)
+    # Inline code quoting markup ("written in the standard `<ref>` format") is advice, and a quoted
+    # <ref> would otherwise swallow the text up to the next real </ref>.
+    markdown = re.sub(r'`[<{\[][^`\n]{0,40}`', '', markdown)
     source = re.sub(r'<!--.*?-->', '', fenced_draft(markdown), flags=re.S)
     source = strip_framing(strip_edit_notes(source, prior))
     source = re.sub(r'<ref[^>/]*/>|<ref[^>]*>.*?</ref>', '', source, flags=re.S)
+    # Images and their captions, which GetRevisionPlaintext drops with the rest of a <figure>.
+    source = re.sub(r'<gallery\b.*?</gallery>', '', without_file_links(source), flags=re.S | re.I)
+    source = re.sub(r'\$\$(.+?)\$\$|\$([^$\n]+?)\$', inline_math, source, flags=re.S)
+    source = re.sub(r'<br\s*/?>', ' ', source)
+    # Inline HTML renders as its text (H<sub>2</sub>O → H2O); entities as their characters.
+    source = re.sub(r'</?[a-zA-Z][a-zA-Z0-9]*(?:\s[^<>]*)?/?>', '', source)
+    source = html.unescape(source).replace('\xa0', ' ')
     # Templates, innermost first so nested ones go too; infoboxes span many lines and render as
     # tables, which GetRevisionPlaintext drops.
     while re.search(r'\{\{[^{}]*\}\}', source):
@@ -618,6 +727,8 @@ def plain_text(markdown, prior=None):
     for line in source.splitlines():
         text = line.strip()
         if text.startswith(('|', '{|', '```', '![')) or re.fullmatch(r'[-*_=]{3,}', text):
+            continue
+        if DIAGRAM_LINE.match(text) or NOTE_LINE.match(text) or TODO_LINE.search(text):
             continue
         # Some replies set each line of wikitext as inline code.
         if len(text) > 1 and text[0] == text[-1] == '`':
@@ -631,8 +742,9 @@ def plain_text(markdown, prior=None):
         text = re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', text)
         text = re.sub(r'\s*\[\d+(?:[,–-]\s*\d+)*\]', '', text)
         text = text.replace("'''", '').replace("''", '')
-        text = re.sub(r'(\*\*|__|\*|_)(\S.*?\S|\S)\1', r'\2', text).strip()
-        if TRAILING_SECTIONS.match(text):
+        text = re.sub(r'`([^`\n]+)`', r'\1', text)
+        text = WRITER_NOTE.sub('', without_emphasis(text).replace('**', '')).strip()
+        if TRAILING_SECTIONS.match(re.sub(r'^\W+', '', text)):
             break
         lines.append(text)
     while lines and (not lines[0] or PREAMBLE.match(lines[0])):

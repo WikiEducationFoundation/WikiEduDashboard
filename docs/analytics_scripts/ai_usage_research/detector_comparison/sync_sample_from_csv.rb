@@ -11,7 +11,7 @@
 #
 # Units whose text is no longer in the CSV move to retired_name rather than being deleted, so
 # their scores stay attached and the old and new versions of a text can be compared. Units
-# whose text is unchanged get the CSV's current notes, factors and metadata. Texts not yet in
+# whose text is unchanged get the CSV's current notes, factors and metadata values. Texts not yet in
 # the sample are then added by the usual builder.
 
 require 'csv'
@@ -32,8 +32,10 @@ end
 
 def relabel_unit(unit, row, source)
   attrs = BuildAiDetectionSampleFromRows.send(:csv_row_to_unit, row.to_h, 'url', 'text', {}, source)
-  changes = { notes: attrs[:notes], factors: attrs[:factors],
-              metadata: attrs[:metadata].merge('imported_from' => unit.metadata['imported_from']) }
+  # Metadata merges, so keys added after the build (backfilled prompts) survive a relabel.
+  metadata = unit.metadata.merge(attrs[:metadata],
+                                 'imported_from' => unit.metadata['imported_from'])
+  changes = { notes: attrs[:notes], factors: attrs[:factors], metadata: }
   changes.reject! { |key, value| unit.public_send(key) == value }
   return false if changes.empty?
 
