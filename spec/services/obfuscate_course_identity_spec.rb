@@ -39,6 +39,13 @@ describe ObfuscateCourseIdentity do
     expect(first).not_to eq(second)
   end
 
+  it 'previews the stand-ins with a placeholder for the number' do
+    previewed = described_class.preview_attributes
+    actual = described_class.new(params, sequence: 7).course_params
+    expect(previewed[:school]).to eq(actual[:school])
+    expect(previewed[:title]).to eq(actual[:title].sub('7', '#'))
+  end
+
   it 'does not mutate the params it was given' do
     described_class.new(params)
     expect(params[:title]).to eq('Introduction to Biology')

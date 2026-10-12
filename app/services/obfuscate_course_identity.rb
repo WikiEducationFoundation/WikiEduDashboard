@@ -11,13 +11,26 @@
 class ObfuscateCourseIdentity
   SCHOOL = 'Student Program'
 
-  TITLE_FORMAT = 'Course %<sequence>d'
+  TITLE_FORMAT = 'Course %<sequence>s'
+
+  # Stands in for the sequence in the URL the course creator previews, since a
+  # course only draws its number when it is created.
+  SEQUENCE_PLACEHOLDER = '#'
 
   # How many times a caller should re-roll the sequence when another course
   # takes the one it picked before it can save.
   MAX_ATTEMPTS = 5
 
   attr_reader :course_params, :original_params, :sequence
+
+  # The stand-ins as the course creator previews them, before the number is known.
+  def self.preview_attributes
+    { title: title_for(SEQUENCE_PLACEHOLDER), school: SCHOOL }
+  end
+
+  def self.title_for(sequence)
+    format(TITLE_FORMAT, sequence:)
+  end
 
   def initialize(course_params, sequence: nil)
     @original_params = course_params
@@ -35,7 +48,7 @@ class ObfuscateCourseIdentity
   private
 
   def perform
-    @course_params = @original_params.merge(title: title_for(@sequence), school: SCHOOL)
+    @course_params = @original_params.merge(title: self.class.title_for(@sequence), school: SCHOOL)
   end
 
   # Nothing stops an ordinary course from being created with a stand-in title
@@ -43,11 +56,7 @@ class ObfuscateCourseIdentity
   # course that drew the same number, every time, so skip numbers already used.
   def first_unused_sequence
     sequence = ConfidentialCourseDetail.next_sequence
-    sequence += 1 while Course.exists?(school: SCHOOL, title: title_for(sequence))
+    sequence += 1 while Course.exists?(school: SCHOOL, title: self.class.title_for(sequence))
     sequence
-  end
-
-  def title_for(sequence)
-    format(TITLE_FORMAT, sequence:)
   end
 end

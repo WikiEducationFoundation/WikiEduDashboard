@@ -5,7 +5,7 @@
 # instead of hardcoding the stand-ins.
 module PrivacyModeHelpers
   def obfuscated_title(sequence = 1)
-    format(ObfuscateCourseIdentity::TITLE_FORMAT, sequence:)
+    ObfuscateCourseIdentity.title_for(sequence)
   end
 
   def obfuscated_school

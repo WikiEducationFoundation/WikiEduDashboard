@@ -167,9 +167,9 @@ const CourseForm = (props) => {
 
   // Privacy mode: the course page stays public, but the title, institution and
   // instructor identity become admin-only. The server replaces the submitted
-  // title and school with obfuscated stand-ins, so the slug this form previews
-  // is not the slug the course ends up with. Wiki Ed only: the P&E Dashboard
-  // has no admin workflow for the real values, and the stand-ins are English.
+  // title and school with obfuscated stand-ins, and the URL preview shows those
+  // instead. Wiki Ed only: the P&E Dashboard has no admin workflow for the real
+  // values, and the stand-ins are English.
   let confidentialCheckbox;
   if (Features.wikiEd) {
     confidentialCheckbox = (
@@ -293,17 +293,6 @@ const CourseForm = (props) => {
         {expectedStudents}
         {home_wiki}
         {multi_wiki}
-        <div className="backButtonContainer">
-          {backOrCancelButton}
-          <p className="tempEduCourseIdText">
-            {/* A privacy-mode course's URL is built server-side from obfuscated
-                values, so the School/Title preview would be wrong here. */}
-            {props.course.confidential
-              ? I18n.t('courses.creator.confidential_url_note')
-              : (props.tempCourseId || '\xa0')}
-          </p>
-        </div>
-
       </div>
       <div className="column">
         {courseLevel}
@@ -330,6 +319,10 @@ const CourseForm = (props) => {
         {taSupportCheckbox}
         {privacyCheckbox}
         {confidentialCheckbox}
+      </div>
+      <div className="wizard__form__controls">
+        {backOrCancelButton}
+        <p className="tempEduCourseIdText">{props.tempCourseId || '\xa0'}</p>
         <button
           onClick={props.next}
           id="next"

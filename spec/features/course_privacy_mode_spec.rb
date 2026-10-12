@@ -14,6 +14,9 @@ describe 'Course privacy mode', type: :feature, js: true do
 
   context 'on the Wiki Ed dashboard' do
     let(:instructor) { create(:user, permissions: User::Permissions::INSTRUCTOR) }
+    let(:preview_slug) do
+      obfuscated_slug('Fall 2026', sequence: ObfuscateCourseIdentity::SEQUENCE_PLACEHOLDER)
+    end
 
     before do
       create(:training_modules_users, user_id: instructor.id, training_module_id: 3,
@@ -37,10 +40,12 @@ describe 'Course privacy mode', type: :feature, js: true do
       find('#course_title').set('Introduction to Biology')
       find('#course_school').set('State University')
       find('#course_term').set('Fall 2026')
-      # Before the box is ticked, the form previews the identifying URL.
+      # Before the box is ticked, the form previews the identifying URL; after,
+      # the stand-in URL with a placeholder for the number it has yet to draw.
       expect(page).to have_content 'State_University/Introduction_to_Biology_(Fall_2026)'
       find('#course_confidential').click
       expect(page).not_to have_content 'State_University/Introduction_to_Biology_(Fall_2026)'
+      expect(page).to have_content preview_slug
 
       find('#course_subject').click
       within('#course_subject') { all('div', text: 'Chemistry')[2].click }
@@ -51,6 +56,7 @@ describe 'Course privacy mode', type: :feature, js: true do
       within('#course_format') { all('div', text: 'In-person')[2].click }
       find('#course_description').set('In this course, we study things.')
       click_button 'Next'
+      expect(page).to have_content preview_slug
 
       find('.course_start-datetime-control input').set('2026-09-01')
       find('div.DayPicker-Day--selected', text: '1').click

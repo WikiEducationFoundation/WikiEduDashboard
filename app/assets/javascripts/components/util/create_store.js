@@ -22,7 +22,8 @@ export const getStore = () => {
         defaultCourseType: reactRoot.getAttribute('data-default-course-type'),
         courseStringPrefix: reactRoot.getAttribute('data-course-string-prefix'),
         courseCreationNotice: reactRoot.getAttribute('data-course-creation-notice'),
-        useStartAndEndTimes: reactRoot.getAttribute('data-use-start-and-end-times') === 'true'
+        useStartAndEndTimes: reactRoot.getAttribute('data-use-start-and-end-times') === 'true',
+        confidentialStandIns: JSON.parse(reactRoot.getAttribute('data-confidential-stand-ins'))
       },
       currentUserFromHtml,
       admins

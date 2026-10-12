@@ -107,9 +107,17 @@ const CourseCreator = createReactClass({
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      tempCourseId: CourseUtils.generateTempId(nextProps.course)
+      tempCourseId: this.previewSlug(nextProps.course)
     });
     return this.handleCourse(nextProps.course, nextProps.isValid);
+  },
+
+  // A privacy-mode course's slug is built server-side from stand-ins for its
+  // title and school, plus a number it only draws when it is created. Preview
+  // that format, with a placeholder for the number, rather than the real values.
+  previewSlug(course) {
+    if (!course.confidential) { return CourseUtils.generateTempId(course); }
+    return CourseUtils.generateTempId({ ...course, ...this.props.courseCreator.confidentialStandIns });
   },
 
   campaignParam() {

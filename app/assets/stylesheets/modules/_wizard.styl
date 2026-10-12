@@ -87,15 +87,20 @@ wizard-width = 860px
       height 80%
       display inline-block
       width 100%
-      .next
-        position absolute;
-        bottom 25px;
-        right 21px;
-      // The Next button sits over the bottom-right corner of the form, where
-      // the checkbox rows end. Keep their labels clear of it so a long label
-      // wraps instead of running underneath the button.
-      .course-checkbox > label
-        padding-right 100px
+      // Back/Cancel, the URL preview and Next share one row beneath both
+      // columns, so they stay aligned however tall either column grows.
+      .wizard__form__controls
+        clear both
+        display flex
+        align-items center
+        gap 10px
+        padding-top 10px
+        .next
+          margin-left auto
+      // With the controls row after them, the grid's last-child rule no longer
+      // reaches the second column, so drop its gutter here or it wraps.
+      > .column:nth-last-child(2)
+        margin-right 0
       .course-checkbox__info
         height 16px
         width 16px
@@ -140,9 +145,9 @@ wizard-width = 860px
       margin-left 10px
 
     .tempEduCourseIdText
-      margin-top: 60px
+      margin 0
       // The slug preview has no spaces, so without these a long one keeps its
-      // flex item from shrinking and runs into the next column.
+      // flex item from shrinking and pushes the Next button out of the panel.
       min-width 0
       overflow-wrap anywhere
 
@@ -310,13 +315,6 @@ wizard-width = 860px
           margin-right 10px
   .section-header
     margin-bottom 10px
-
-.backButtonContainer
-  display flex
-  align-items flex-end
-  height 70px
-  gap 10px
-  flex-direction row
 
 p.red
   color warning !important
