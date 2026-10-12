@@ -39,6 +39,7 @@ fi:
   application:
     back: Takaisin
     cancel: Peruuta
+    close: Sulje
     next: Seuraava
     cookie_consent_acknowledge: Ymmärrän
     cookie_consent_see_more: Lisätietoa.
@@ -254,6 +255,10 @@ fi:
     review_tooltip: Tässä näytetään artikkelit, joita olet ottanut vertaisarvioitavaksi
       tai joille aiot antaa palautetta.
     select: Valitse
+  assignments_tab:
+    label: Tehtävät
+    overdue: Myöhässä
+    progress: Edistyminen
   blocks:
     milestones:
       title: Virstanpylväät
@@ -281,6 +286,8 @@ fi:
       -kampanjan?
     course_already_removed: '"%{title}" on jo poistettu "%{campaign_title}" -kapanjasta'
     course: Kurssi
+    all_data: Kaikki
+    export: Vie
     course_removed: '"%{title}" on poistettu "%{campaign_title}" -kampanjasta'
     create_campaign: Uuden kampanjan luonti
     create_my_campaign: Luo kampanja!
@@ -864,6 +871,9 @@ fi:
     kind:
       discussion: Keskustelu
     open_exercise: Aloita harjoitus
+    article_title_input:
+      modal_title: Mitä artikkelia muokkasit?
+      verify: Vahvista
   claim_verification:
     tile_revision_date: alkaen %{date}
     previous_claim: Edellinen väite
@@ -1045,6 +1055,11 @@ fi:
     header: Sisäänkirjautumisvirhe
     explanation: Sisäänkirjautumisessa tapahtui virhe. (Pahoittelut siitä, niin tapahtuu
       joskus.) Ole hyvä ja yritä uudelleen.
+  downloads:
+    title: Lataukset
+    ready: Valmis
+    retry: Tarkista uudelleen
+    no_downloads: Sinulla ei ole uusia latauksia.
   survey:
     login_message: Kiitos ajastasi. Ole hyvä ja kirjaudu ohjausnäkymään kyselyn täyttämiseksi.
     notification_explanation: Jos alla oleva kohta on valittuna, muokkaajat saavat
@@ -1096,4 +1111,7 @@ fi:
     continue: Jatka
   form_search:
     program_date: Ohjelman päivämäärä
+  lti_integrations:
+    course: Kurssi
+    installed: Asennettu
 ...
