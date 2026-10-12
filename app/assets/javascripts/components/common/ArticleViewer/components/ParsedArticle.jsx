@@ -61,29 +61,28 @@ const processAuthorshipHtml = (html) => {
 
     groups.forEach((group) => {
       const editorName = group[0].getAttribute('title');
-      const editedByText = (typeof I18n !== 'undefined' && I18n.t)
-        ? I18n.t('articles.edited_by', { author: editorName })
-        : `Edited by ${editorName}`;
-      const endEditText = (typeof I18n !== 'undefined' && I18n.t)
-        ? I18n.t('articles.end_edit')
-        : 'End edit';
+      const editedByText = I18n.t('articles.edited_by', { author: editorName });
 
+      const parent = group[0].parentNode;
       const firstSpan = group[0];
-      const startSpan = doc.createElement('span');
-      startSpan.className = 'screen-reader';
-      startSpan.textContent = ` ${editedByText} `;
-      firstSpan.parentNode.insertBefore(startSpan, firstSpan);
-
       const lastSpan = group[group.length - 1];
-      const endSpan = doc.createElement('span');
-      endSpan.className = 'screen-reader';
-      endSpan.textContent = ` ${endEditText} `;
-      lastSpan.parentNode.insertBefore(endSpan, lastSpan.nextSibling);
 
-      // Strip title attributes from individual token spans inside the group so screen readers
-      // do not announce "title" on every token span, while keeping text intact in the a11y tree.
-      group.forEach((span) => {
-        span.removeAttribute('title');
+      // Collect all child nodes between firstSpan and lastSpan (inclusive)
+      const nodesToWrap = [];
+      let current = firstSpan;
+      while (current) {
+        nodesToWrap.push(current);
+        if (current === lastSpan) break;
+        current = current.nextSibling;
+      }
+
+      const wrapper = doc.createElement('span');
+      wrapper.setAttribute('role', 'group');
+      wrapper.setAttribute('aria-label', editedByText);
+
+      parent.insertBefore(wrapper, firstSpan);
+      nodesToWrap.forEach((node) => {
+        wrapper.appendChild(node);
       });
     });
 
@@ -118,7 +117,6 @@ export const ParsedArticle = ({ html, onInnerHTMLClick, onInnerHTMLKeyDown }) =>
     />
   );
 };
-
 
 ParsedArticle.propTypes = {
   html: PropTypes.string,

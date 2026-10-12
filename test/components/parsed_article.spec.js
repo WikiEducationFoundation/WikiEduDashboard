@@ -19,13 +19,13 @@ if (typeof I18n !== 'undefined') {
 const ParsedArticle = require('../../app/assets/javascripts/components/common/ArticleViewer/components/ParsedArticle').default;
 
 describe('ParsedArticle Screen Reader Boundaries', () => {
-
-
-
   const accessibleText = (root) => {
     const parts = [];
     const walk = (node) => {
       if (node.nodeType === 1 && node.getAttribute('aria-hidden') === 'true') return;
+      if (node.nodeType === 1 && node.hasAttribute('aria-label')) {
+        parts.push(` ${node.getAttribute('aria-label')} `);
+      }
       if (node.nodeType === 3) {
         parts.push(node.nodeValue);
         return;
@@ -36,7 +36,7 @@ describe('ParsedArticle Screen Reader Boundaries', () => {
     return parts.join('').replace(/\s+/g, ' ').trim();
   };
 
-  test('groups contiguous editor highlight spans, injects boundaries, and preserves article text in accessibility tree', () => {
+  test('groups contiguous editor highlight spans into wrapper elements with accessible group announcements', () => {
     const container = document.createElement('div');
     document.body.appendChild(container);
 
@@ -61,37 +61,43 @@ describe('ParsedArticle Screen Reader Boundaries', () => {
     const parsedArticleDiv = container.querySelector('.parsed-article');
     expect(parsedArticleDiv).not.toBeNull();
 
-    // Check screen reader start/end boundary elements for UserA and UserB
-    const srSpans = parsedArticleDiv.querySelectorAll('span.screen-reader');
-    expect(srSpans.length).toBe(4);
+    // Check wrapper elements with role="group" and aria-label for UserA and UserB
+    const groupWrappers = parsedArticleDiv.querySelectorAll('span[role="group"]');
+    expect(groupWrappers.length).toBe(2);
 
-    expect(srSpans[0].textContent).toBe(' Edited by UserA ');
-    expect(srSpans[1].textContent).toBe(' End edit ');
-    expect(srSpans[2].textContent).toBe(' Edited by UserB ');
-    expect(srSpans[3].textContent).toBe(' End edit ');
+    expect(groupWrappers[0].getAttribute('aria-label')).toBe('Edited by UserA');
+    expect(groupWrappers[1].getAttribute('aria-label')).toBe('Edited by UserB');
+
+    // Confirm no stray screen-reader spans are injected
+    const srSpans = parsedArticleDiv.querySelectorAll('span.screen-reader');
+    expect(srSpans.length).toBe(0);
+
+    // Verify copy/paste textContent does not contain screen reader announcements
+    const rawText = parsedArticleDiv.textContent.replace(/\s+/g, ' ').trim();
+    expect(rawText).toBe('hello world wide web page untouched');
+    expect(rawText).not.toContain('Edited by');
+    expect(rawText).not.toContain('End edit');
 
     // Check that individual target token spans DO NOT have aria-hidden (text is NOT hidden)
-    const userASpans = parsedArticleDiv.querySelectorAll('span.user-highlight-1');
+    // and keep their native title attribute intact for mouse hovers
+    const userASpans = groupWrappers[0].querySelectorAll('span.user-highlight-1');
     expect(userASpans.length).toBe(2);
     userASpans.forEach((span) => {
       expect(span.getAttribute('aria-hidden')).toBeNull();
-      expect(span.getAttribute('role')).toBeNull();
-      expect(span.getAttribute('title')).toBeNull();
+      expect(span.getAttribute('title')).toBe('UserA');
     });
 
-    const userBSpan = parsedArticleDiv.querySelector('span.user-highlight-2');
+    const userBSpan = groupWrappers[1].querySelector('span.user-highlight-2');
     expect(userBSpan.getAttribute('aria-hidden')).toBeNull();
-    expect(userBSpan.getAttribute('role')).toBeNull();
-    expect(userBSpan.getAttribute('title')).toBeNull();
+    expect(userBSpan.getAttribute('title')).toBe('UserB');
 
-    // Verify accessible text contains BOTH the boundary announcements AND the full article text
+    // Verify accessible text contains BOTH the group announcements AND the full article text
     const spoken = accessibleText(parsedArticleDiv);
     expect(spoken).toContain('Edited by UserA');
     expect(spoken).toContain('world wide');
-    expect(spoken).toContain('End edit');
     expect(spoken).toContain('Edited by UserB');
     expect(spoken).toContain('page');
-    expect(spoken).toBe('hello Edited by UserA world wide End edit web Edited by UserB page End edit untouched');
+    expect(spoken).toBe('hello Edited by UserA world wide web Edited by UserB page untouched');
 
     document.body.removeChild(container);
   });
