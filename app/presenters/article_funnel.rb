@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/utils/due_date"
+
 #= The Assignments tab's headline for the assigned article: for each stage of
 # the writing process, how many students have reached it. A student counts once
 # any of their articles reaches a stage.
@@ -48,7 +50,7 @@ class ArticleFunnel
   def stage(key)
     reached = @cells.count { |cell| self.class.reached?(cell, key) }
     due_date = due_dates[key]
-    overdue = due_date && Time.zone.today > due_date ? @cells.size - reached : nil
+    overdue = DueDate.passed?(due_date) ? @cells.size - reached : nil
     { key:, reached:, due_date:, overdue: }.compact
   end
 

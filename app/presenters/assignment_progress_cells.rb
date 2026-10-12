@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/student_progress/article_facts"
 require_dependency "#{Rails.root}/lib/student_progress/exercise_facts"
 require_dependency "#{Rails.root}/lib/student_progress/peer_review_facts"
 require_dependency "#{Rails.root}/lib/student_progress/training_facts"
+require_dependency "#{Rails.root}/lib/utils/due_date"
 
 #= One student's cell on one Assignments-tab assignment, as a JSON-ready hash.
 # Every cell has `user_id` and a coarse `state` (complete / in_progress /
@@ -28,15 +29,11 @@ class AssignmentProgressCells
            when 'article' then article(item, user)
            when 'peer_review' then peer_review(user)
            end
-    overdue = cell[:overdue] || (cell[:state] != 'complete' && past?(item.due_date))
+    overdue = cell[:overdue] || (cell[:state] != 'complete' && DueDate.passed?(item.due_date))
     { user_id: user.id, **cell, overdue: overdue || nil }.compact
   end
 
   private
-
-  def past?(date)
-    date.present? && Time.zone.today > date
-  end
 
   def training(item, user)
     fact = @training_facts.training_for(user, item.training_module)
@@ -109,7 +106,7 @@ class AssignmentProgressCells
     { slug: mod.slug, name: mod.name, stage: @timeline.article_stage_for(mod),
       completed: fact.completed?,
       completed_at: fact.completed_at, due_date: fact.due_date,
-      overdue: (!fact.completed? && past?(fact.due_date)) || nil,
+      overdue: (!fact.completed? && DueDate.passed?(fact.due_date)) || nil,
       sandbox_url: fact.sandbox_url }.compact
   end
 

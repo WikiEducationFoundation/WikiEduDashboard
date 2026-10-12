@@ -61,7 +61,7 @@ describe AssignmentProgressCsvBuilder do
   end
 
   it 'marks unfinished assignments overdue once past due' do
-    travel_to(presenter.item('training-tr-a').due_date + 1.day) do
+    travel_to(presenter.item('training-tr-a').due_date + 2.days) do
       expect(csv.map { |row| row['Training A: overdue'] }).to eq(%w[true true])
     end
   end

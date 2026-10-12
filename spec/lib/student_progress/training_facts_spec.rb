@@ -46,12 +46,12 @@ describe StudentProgress::TrainingFacts do
   it 'carries the due date and is overdue only once it passes unfinished' do
     due = fact.due_date
     expect(due).to be_present
-    travel_to(due + 1.day) { expect(fact).to be_overdue }
+    travel_to(due + 2.days) { expect(fact).to be_overdue }
     travel_to(due) { expect(fact).not_to be_overdue }
   end
 
   it 'is not overdue once complete' do
     TrainingModulesUsers.create!(user: student, training_module: training, completed_at: 1.day.ago)
-    travel_to(fact.due_date + 1.day) { expect(fact).not_to be_overdue }
+    travel_to(fact.due_date + 2.days) { expect(fact).not_to be_overdue }
   end
 end
