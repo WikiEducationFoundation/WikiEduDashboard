@@ -186,7 +186,8 @@ their output stays outside the repo (`~/detector_exemplars/` by convention).
   lead units pinned to a revision, skipping articles with direct operator edits, and
   archives each revision's markdown and rendered page.
 - `source_texts.py` writes the source texts for those units (the model's whole reply, or
-  the Agpedia markdown) for `backfill_source_text.rb`.
+  the Agpedia markdown) for `backfill_source_text.rb`, and with `prompts` the prompts each
+  generated text came from, for `backfill_prompts_from_csv` in the same script.
 
 When a regenerated CSV changes the cleaned text or labels of a sample already built in
 production, `sync_sample_from_csv.rb` brings the sample in line: units whose text is no
@@ -203,6 +204,25 @@ here, scores long texts in windows, and writes rows in the export's format (`--m
 adds them to an export for `analyze.py`). On 900 texts from EditLens's own validation and
 test splits it reproduces Pangram's published results (human vs AI-generated macro F1
 0.995 for RoBERTa against 0.997 reported).
+
+Open Pangram scores reach the Dashboard through `ImportOfflineDetectorScores`, which takes a
+score file from `score_open_pangram.py` (or any offline detector writing the same columns)
+and stores each row against every unit with that text:
+
+```ruby
+importer = ImportOfflineDetectorScores.new(path: '/home/sage/all_units_llama_2026-10-12.csv')
+[importer.imported, importer.unmatched]
+```
+
+## The comparison page
+
+`/detector_comparison` (Wiki Education Dashboard admins) presents the known-AI samples
+(provenance `synthetic` or `agpedia`) and the human baseline texts they are paired with,
+reading the database directly, so new samples and scores appear as they are added. Each
+text has its own page with the text, Pangram's windows marked on it, every detector's
+result, the prompts and the text as written. For a new generated sample, run the source and
+prompt backfills after building it; units in samples whose names end in `_retired` are
+left out.
 
 ## 4. Analyze
 

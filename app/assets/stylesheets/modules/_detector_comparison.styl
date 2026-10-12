@@ -1,0 +1,216 @@
+// Admin AI detector comparison page (/detector_comparison).
+.detector-comparison
+  margin-top 30px
+  margin-bottom 40px
+
+  h1
+    margin-bottom 12px
+
+  section
+    margin-top 32px
+
+  tbody th
+    text-align left
+
+  &__scroll
+    overflow-x auto
+    max-width 100%
+
+  &__intro,
+  &__help
+    max-width 760px
+
+  &__help
+    color dove
+    font-size 14px
+
+  &__controls
+    display flex
+    flex-wrap wrap
+    gap 12px 24px
+    margin-bottom 8px
+
+    select
+      margin-left 6px
+
+  &__grid,
+  &__families
+    td,
+    th
+      padding 6px 8px
+      font-size 13px
+      vertical-align top
+
+    thead th
+      vertical-align bottom
+      max-width 120px
+      white-space normal
+
+    tbody th
+      font-weight 600
+      text-align left
+      min-width 150px
+
+    tbody th small
+      display block
+      font-weight normal
+      color dove
+      max-width 300px
+
+  &__families tbody th
+    min-width 240px
+
+  &__cell,
+  &__rate
+    color $text_dk
+
+  &__group-row th
+    background $bg_med
+    text-align left
+
+  &__cell,
+  &__rate
+    text-align center
+    min-width 76px
+
+  &__cell--empty
+    background $bg_light_gray
+
+  &__cell--current
+    outline 2px solid blue-violet
+    outline-offset -2px
+
+  &__cell-button
+    width 100%
+    border 0
+    background transparent
+    color inherit
+    cursor pointer
+    padding 2px 0
+
+    &[aria-pressed="true"]
+      outline 2px solid $text_dk
+
+    &:focus-visible
+      outline 2px solid $text_dk
+
+  &__cell-rate
+    display block
+    font-weight 600
+
+  &__cell-count
+    display block
+    font-size 11px
+    opacity 0.85
+
+  &__baseline-row th
+    border-bottom 2px solid $border_med
+
+  &__cell-units
+    margin-top 20px
+
+  &__verdict
+    white-space nowrap
+
+  &__chip
+    display inline-block
+    padding 1px 7px
+    border-radius 10px
+    font-size 12px
+    border 1px solid $border_med
+
+  &__chip--flagged
+    background blue-violet
+    border-color blue-violet
+    color #fff
+
+  &__chip--clear
+    background #fff
+    color $text_dk
+
+  &__score
+    margin-left 6px
+    font-size 12px
+    color dove
+
+  &__none
+    color suit
+
+  &__alert
+    font-size 12px
+    color warning
+
+  &__research
+    font-size 11px
+    font-weight normal
+    text-transform uppercase
+    letter-spacing 0.04em
+    color dove
+
+  &__references
+    list-style none
+    padding 0
+    margin 8px 0
+
+    li
+      margin 4px 0
+
+  &__facts
+    display grid
+    grid-template-columns max-content 1fr
+    gap 4px 16px
+    max-width 900px
+
+    dt
+      font-weight 600
+
+    dd
+      margin 0
+      overflow-wrap anywhere
+
+  &__detectors
+    max-width 800px
+
+    dt
+      font-weight 600
+      margin-top 10px
+
+    dd
+      margin 2px 0 0
+
+  &__text
+    white-space pre-wrap
+    max-width 800px
+    line-height 1.6
+    padding 16px
+    border 1px solid $border_lt
+    background #fff
+
+  &__window
+    padding 1px 0
+    color inherit
+
+  &__prompts
+    max-width 800px
+
+    li
+      white-space pre-wrap
+      margin-bottom 12px
+      padding 10px 12px
+      background $bg_light_gray
+      border-left 3px solid $border_med
+
+  &__source
+    white-space pre-wrap
+    max-width 900px
+    max-height 600px
+    overflow auto
+    font-size 13px
+
+  &__footer
+    margin-top 40px
+    padding-top 12px
+    border-top 1px solid $border_lt
+    color dove
+    font-size 13px
+    max-width 760px

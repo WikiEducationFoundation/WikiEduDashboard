@@ -10,12 +10,19 @@ the cleaned text. The hash is computed here exactly as the Dashboard computes it
 - Agpedia units: the pinned revision's markdown (source_format markdown) from the archive
   that collect_agpedia.py keeps; lead units get the part before the first heading.
 
+`prompts` writes text_sha256 and the prompts each generated unit was produced from, as a JSON
+list of turns, for backfill_prompts_from_csv in the same Ruby script. The assignment flow's
+outline turn quotes the whole article as it stood before the student's term; it is stored with
+{prior_article} in place of that text, and the Dashboard links to the revision instead.
+
 Usage:
     python source_texts.py generated --csv ~/detector_exemplars/generated_all_2026-10-07.csv \\
         --store ~/detector_exemplars/generated --out ~/detector_exemplars/generated_sources_2026-10.csv
     python source_texts.py agpedia --csv ~/detector_exemplars/agpedia_2026-10.csv \\
         --csv ~/detector_exemplars/agpedia_topics_2026-10-06.csv \\
         --out ~/detector_exemplars/agpedia_sources_2026-10.csv
+    python source_texts.py prompts --csv ~/detector_exemplars/generated_all_2026-10-09_v4.csv \\
+        --out ~/detector_exemplars/generated_prompts_2026-10.csv
 """
 
 import argparse
@@ -50,6 +57,24 @@ def generated_sources(rows, store):
             yield sha256(row['text']), source, 'model_reply'
 
 
+PRIOR_ARTICLE = '{prior_article}'
+
+
+def stored_prompts(record):
+    turns = list(record.get('prompts') or [record['prompt']])
+    if record.get('prior_rev_id'):
+        head, label, _article = turns[1].partition('Current article:\n\n')
+        turns[1] = head + label + PRIOR_ARTICLE
+    return turns
+
+
+def generated_prompts(rows, store):
+    for row in rows:
+        record = store / slug(row['factor_model']) / row['condition'] / f"{slug(row['factor_topic'])}.json"
+        if record.exists():
+            yield sha256(row['text']), json.dumps(stored_prompts(json.loads(record.read_text())), ensure_ascii=False)
+
+
 def lead_markdown(markdown):
     lines = []
     for line in markdown.splitlines():
@@ -72,7 +97,7 @@ def agpedia_sources(rows, archive):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('kind', choices=['generated', 'agpedia'])
+    parser.add_argument('kind', choices=['generated', 'agpedia', 'prompts'])
     parser.add_argument('--csv', action='append', required=True, help='sample CSV (repeatable)')
     parser.add_argument('--store', type=Path, default=Path('~/detector_exemplars/generated'))
     parser.add_argument('--archive', type=Path, default=Path('~/detector_exemplars/agpedia_archive'))
@@ -80,6 +105,14 @@ def main():
     args = parser.parse_args()
 
     rows = list(read_rows(args.csv))
+    if args.kind == 'prompts':
+        prompts = dict(generated_prompts(rows, args.store.expanduser()))
+        with args.out.expanduser().open('w', newline='') as handle:
+            writer = csv.writer(handle)
+            writer.writerow(['text_sha256', 'prompts'])
+            writer.writerows(prompts.items())
+        print(f'{len(prompts)} prompt lists for {len(rows)} rows written to {args.out}')
+        return
     if args.kind == 'generated':
         sources = generated_sources(rows, args.store.expanduser())
     else:
