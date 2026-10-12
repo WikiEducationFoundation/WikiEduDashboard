@@ -260,6 +260,7 @@ lb:
     confirm_course_removal: Sidd Dir sécher, datt Dir „%{title}“ aus der Campagne
       „%{campaign_title}“ eraushuele wëllt?
     course: Cours
+    export: Exportéieren
     course_removed_and_deleted: „%{title}“ gouf geläscht an aus der „%{campaign_title}“-Campagne
       entfernt.
     course_removed_but_not_deleted: „%{title}“ gouf aus „%{campaign_title}“ entfernt,
@@ -844,6 +845,8 @@ lb:
     no_notifications: Dir hutt keng nei Notifikatiounen.
     aria_label:
       bell: Notifikatiounen
+  downloads:
+    ready: Prett
   survey:
     email:
       headline: Bonjour %{username}

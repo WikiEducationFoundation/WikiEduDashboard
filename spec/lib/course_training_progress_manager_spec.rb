@@ -287,5 +287,23 @@ describe CourseTrainingProgressManager do
         expect(subject[0].due_date.to_date).to be < start + 1.week
       end
     end
+
+    context 'when an incomplete module is a slide-less in-app exercise' do
+      let(:tm_ids) { [1, TrainingModule.find_by(slug: 'fact-verification-exercise').id] }
+
+      before do
+        create_block_with_tm_ids
+      end
+
+      it 'links the exercise itself, since it has no training page' do
+        links = subject.map(&:link)
+        expect(links).to include("/courses/#{course.slug}/verify_claim")
+        expect(links).not_to include('/training/students/fact-verification-exercise')
+      end
+
+      it 'still links a training module to its training page' do
+        expect(subject.map(&:link)).to include(%r{\A/training/students/})
+      end
+    end
   end
 end
