@@ -27,6 +27,17 @@ describe 'Course privacy mode screenshots', type: :feature, js: true,
     page.save_screenshot(screenshot_dir.join("#{name}.png"))
   end
 
+  def fill_in_remaining_course_details
+    find('#course_subject').click
+    within('#course_subject') { all('div', text: 'Chemistry')[2].click }
+    find('#course_expected_students').set('24')
+    find('#course_level').click
+    within('#course_level') { all('div', text: 'Introductory')[2].click }
+    find('#course_format').click
+    within('#course_format') { all('div', text: 'In-person')[2].click }
+    find('#course_description').set('Students expand Wikipedia articles on topics from the course.')
+  end
+
   it 'captures the privacy-mode checkbox and the resulting course page' do
     click_link 'Create Course'
     expect(page).to have_content 'Create a New Course'
@@ -44,6 +55,11 @@ describe 'Course privacy mode screenshots', type: :feature, js: true,
     page.execute_script('document.activeElement.blur()')
     find('#course_title').hover
     shoot('03_privacy_mode_selected')
+
+    fill_in_remaining_course_details
+    click_button 'Next'
+    expect(page).to have_css('.course_start-datetime-control')
+    shoot('04_privacy_mode_dates_panel')
   end
 
   it 'captures a privacy-mode course page as its instructor' do
@@ -57,6 +73,6 @@ describe 'Course privacy mode screenshots', type: :feature, js: true,
                           real_name: 'Jane Q. Instructor')
     visit "/courses/#{course.slug}"
     expect(page).to have_content obfuscated_title
-    shoot('04_privacy_mode_course_page')
+    shoot('05_privacy_mode_course_page')
   end
 end
