@@ -28,10 +28,8 @@ class CreateRequestedAccount
 
   def set_result_description
     if @result[:failure]
-      formatted_failure_message = @result[:failure].sub('response: {}', '')
-                                                   .sub('https://en.wikipedia.org', '')
       @result[:result_description] = I18n.t('users.requested_account_status.failure_message',
-                                            result_description: formatted_failure_message)
+                                            result_description: @result[:failure])
     elsif @result[:success]
       @result[:result_description] = I18n.t('users.requested_account_status.success_message',
                                             result_description: @result[:success])
@@ -84,21 +82,17 @@ class CreateRequestedAccount
   ].freeze
   def handle_failed_account_creation(message, messagecode)
     if messagecode == 'userexists'
-      destroy_request_if_user_exists(message, messagecode)
+      destroy_request_if_user_exists
     elsif MESSAGE_CODES_TO_RETRY.include?(messagecode) && !@use_backup_creator
       retry_request_with_backup_account_on_en_wiki
     else
-      log_unexpected_response
+      report_failure(message, messagecode)
     end
   end
 
-  def destroy_request_if_user_exists(message, messagecode)
-    @result = { failure: "Could not create account for #{@username} / #{@email}.
-                            #{@wiki.base_url} message:
-                            #{messagecode} — #{message}" }
-
-    code = @response.dig('createaccount', 'messagecode')
-    @requested_account.destroy if code == 'userexists'
+  def destroy_request_if_user_exists
+    @result = { failure: failure_message(:user_exists) }
+    @requested_account.destroy
   end
 
   def retry_request_with_backup_account_on_en_wiki
@@ -111,13 +105,24 @@ class CreateRequestedAccount
     process_request(backup_account, creation_reason)
   end
 
-  def log_unexpected_response
-    @result = { failure: "Could not create account for #{@username} /
-                      #{@email}. #{@wiki.base_url} response: #{@response}" }
+  FAILURE_REASONS = {
+    'acct_creation_throttle_hit' => :throttled,
+    'captcha-createaccount-fail' => :captcha_required
+  }.freeze
 
-    raise AccountCreationError, 'unexpected account creation response'
-  rescue AccountCreationError => e
-    Sentry.capture_exception(e, extra: { response: @response })
+  # The facilitator gets a readable explanation; the raw response only goes to Sentry.
+  def report_failure(message, messagecode)
+    reason = FAILURE_REASONS[messagecode]
+    reason ||= message.present? ? :rejected : :unexpected
+    @result = { failure: failure_message(reason, message:) }
+
+    error = AccountCreationError.new("account creation failed: #{messagecode || 'no status'}")
+    Sentry.capture_exception(error, extra: { response: @response })
+  end
+
+  def failure_message(reason, message: nil)
+    I18n.t("users.requested_account_status.#{reason}",
+           username: @username, email: @email, wiki: @wiki.domain, message:)
   end
 
   class AccountCreationError < StandardError; end
