@@ -8,6 +8,6 @@ class DueDate
   ANYWHERE_ON_EARTH = ActiveSupport::TimeZone['International Date Line West'] # UTC−12
 
   def self.passed?(date)
-    date.present? && Time.current.in_time_zone(ANYWHERE_ON_EARTH).to_date > date
+    date.present? && ANYWHERE_ON_EARTH.today > date
   end
 end
