@@ -110,6 +110,10 @@ CONDITIONS = {
     # Wikipedia's rules", kept verbatim in the template file.
     'chatgpt_prompt_web': dict(strategy='chatgpt_prompt', origin='chatgpt', length=None, tools=True,
                                template_file='chatgpt_prompt.txt'),
+    # Not generated: assignment runs from Codex that were meant to be without web, but searched
+    # through workspace apps (see run_codex), moved here when that was found on 2026-10-08.
+    'assignment_apps_web': dict(strategy='assignment', origin='wiki_education', length=None, tools=True,
+                                observed_only=True),
 }
 
 # vendor, tier, era (the free-ChatGPT period an open model stands in for), runner, options
@@ -190,7 +194,10 @@ def run_codex(model, turns, spec, tools):
         common = ['--strict-config', '--skip-git-repo-check', '-c', f'model="{model}"',
                   '-c', f'model_instructions_file="{instructions}"',
                   '-c', f'model_reasoning_effort="{spec["effort"]}"',
-                  '-c', f'web_search="{"live" if tools else "disabled"}"']
+                  '-c', f'web_search="{"live" if tools else "disabled"}"',
+                  # Workspace apps bring their own web search and ChatGPT pages, which bypass
+                  # web_search and can leave the draft out of the reply.
+                  '-c', 'features.apps=false']
         session, outputs, searches, models = None, [], 0, []
         for i, prompt in enumerate(turns):
             output = Path(workdir, f'output{i}.txt')
@@ -470,6 +477,106 @@ def strip_framing(markdown):
     return '\n'.join(segments)
 
 
+# Sections and labels about the edit rather than part of it, which the assignment flow invites:
+# what the current article lacks, the scope of the draft, notes on what changed, checks to make
+# before publishing. A student pasting the draft into the article would leave these out; editorial
+# sentences inside the draft's own paragraphs stay.
+EDIT_NOTE_HEADING = re.compile(
+    r"(scope(?:\s*$| of (?:this|the|my)\b| note| and missing)|what(?:'s|’s| is| was)? (?:is )?(?:missing|wrong|changed|needs)"
+    r"|identify what|current (?:text|state)\b|changes made|notes? (?:on|about) (?:what )?(?:this|the) (?:draft|revision|changes?)"
+    r"|what (?:this|the) draft|.*\beditorial notes?\b|integration\b|verification notes?"
+    r"|before (?:transferring|integrating|publication|publishing|adding)|source and editing notes|sandbox note|tips\b"
+    r"|rationale(?:\s*$| for)|why (?:these|this|i)\b|source (?:and notability )?(?:assessment|audit)|notability\s*$"
+    r"|policy concerns|suggested next steps|missing from|notes? before|notes? and (?:open )?issues|open issues"
+    r"|(?:sources|references)\b.*\bdraft\b)", re.I)
+# Labels on the draft itself ("Proposed replacement: Early life", "Draft 2: new section"): the
+# label goes, and the rest stays as the heading unless it too describes the edit.
+EDIT_LABEL = re.compile(
+    r"^(?:proposed (?:draft|replacement|addition|article text|revision|text|section|changes?)"
+    r"|(?:sandbox )?draft(?: contributions?| content| for (?:the )?sandbox)?|revisions? to existing text"
+    r"|(?:new|revised) (?:sub)?section|replacement)\b[\s:—–-]*(?:(?:section\s*)?\d{1,2}\b[\s:.—–-]*)?", re.I)
+EDIT_WORDS = re.compile(
+    r"^(?:for|and|to|of|in)\b|\b(?:replac\w*|insert\w*|placed|position|existing|current|expan\w*|revis\w*|paragraphs?"
+    r"|skeleton|selected|sandbox|subsection|section)\b", re.I)
+EDIT_NOTE_OPENING = re.compile(
+    r"\b(the (current|existing|original|supplied) (article|section|subsection|text|version)"
+    r"|this (draft|revision|addition|contribution|edit)|my (draft|revision)|nothing else in the article)\b", re.I)
+
+
+def heading(line):
+    """(level, text) for a markdown, wikitext or bold-line heading; bold lines rank below the others."""
+    line = line.strip().strip('`')
+    match = re.match(r'^(#{1,6})\s+(.*)$', line) or re.match(r'^(=+)\s*(.*?)\s*=+\s*$', line)
+    if match:
+        level, text = len(match.group(1)), match.group(2)
+    else:
+        match = re.match(r'^\*\*([^*]+?)\*\*\s*:?\s*$', line)
+        if not match:
+            return None
+        level, text = 9, match.group(1)
+    text = re.sub(r"^[^\w(]+|[\s:?*]+$", '', text.replace('**', '').replace("''", ''))
+    return level, re.sub(r'^(?:[A-Z]|\d+)\.\s+', '', text)
+
+
+def relabel(line, level, text):
+    """The heading line without its edit label, or '' when nothing but the label is left."""
+    rest = re.sub(r'^\((.*)\)$|^\[(.*)\]$', r'\1\2', EDIT_LABEL.sub('', text, count=1).strip())
+    if not rest or EDIT_WORDS.search(rest):
+        return ''
+    if level == 9:
+        return f'**{rest}**'
+    marker = '=' * level if line.lstrip('`').startswith('=') else None
+    return f'{marker} {rest} {marker}' if marker else f"{'#' * level} {rest}"
+
+
+def strip_edit_notes(source, prior=None):
+    """Remove sections and labels that describe the edit, and quotes of the article being edited."""
+    normalize = lambda value: re.sub(r'\W+', ' ', value.lower()).strip()
+    prior = normalize(prior) if prior else None
+    kept, drop_level, paragraph = [], None, []
+
+    def flush():
+        text = re.sub(r'\{\{[^{}]*\}\}|<ref[^>/]*/>|<ref[^>]*>.*?</ref>', '', ' '.join(paragraph)).strip()
+        sentences = re.split(r'(?<=[.!?])\s', text)
+        words = len(text.split())
+        # A short paragraph about the edit before or between the draft's sections.
+        if not ((EDIT_NOTE_OPENING.search(sentences[0]) and words <= 120) or
+                (words <= 60 and any(EDIT_NOTE_OPENING.search(sentence) for sentence in sentences))):
+            kept.extend(paragraph)
+        paragraph.clear()
+
+    for line in source.splitlines():
+        found = heading(line)
+        if drop_level is not None and ((found and found[0] <= drop_level) or RULE.fullmatch(line)):
+            drop_level = None
+        if drop_level is not None:
+            continue
+        if found and EDIT_NOTE_HEADING.match(found[1]):
+            flush()
+            drop_level = found[0]
+            continue
+        label = re.match(r'^\*\*([^*]+?):?\*\*:?\s*\S', line.strip())
+        if label and EDIT_NOTE_HEADING.match(label.group(1)):
+            continue
+        if re.fullmatch(r'\W*(?:copy|paste)\b[^.]{0,80}\b(?:sandbox|below)\b\W*', line.strip(), flags=re.I):
+            continue
+        if found and EDIT_LABEL.match(found[1]):
+            line = relabel(line, *found)
+            if not line:
+                continue
+        if line.lstrip().startswith('>'):
+            quoted = normalize(re.sub(r'^\s*>\s*(#+\s*)?', '', line))
+            if not quoted or (prior and quoted in prior) or re.match(r'\W*(sandbox )?note\b', quoted):
+                continue
+        if not line.strip() or found:
+            flush()
+            kept.append(line)
+        else:
+            paragraph.append(line)
+    flush()
+    return '\n'.join(kept)
+
+
 def prose_words(block):
     """Rough count of article words in a block: words in sentences, after removing references,
     templates, table rows and diagram lines (box drawing, arrows), which models also put in code
@@ -498,11 +605,12 @@ def fenced_draft(markdown):
     return section.group(1) if section and len(section.group(1).split()) >= 100 else markdown
 
 
-def plain_text(markdown):
+def plain_text(markdown, prior=None):
     """Markdown or wikitext as the plain text GetRevisionPlaintext would produce once pasted."""
     lines = []
     source = re.sub(r'<!--.*?-->', '', fenced_draft(markdown), flags=re.S)
-    source = re.sub(r'<ref[^>/]*/>|<ref[^>]*>.*?</ref>', '', strip_framing(source), flags=re.S)
+    source = strip_framing(strip_edit_notes(source, prior))
+    source = re.sub(r'<ref[^>/]*/>|<ref[^>]*>.*?</ref>', '', source, flags=re.S)
     # Templates, innermost first so nested ones go too; infoboxes span many lines and render as
     # tables, which GetRevisionPlaintext drops.
     while re.search(r'\{\{[^{}]*\}\}', source):
@@ -511,11 +619,15 @@ def plain_text(markdown):
         text = line.strip()
         if text.startswith(('|', '{|', '```', '![')) or re.fullmatch(r'[-*_=]{3,}', text):
             continue
+        # Some replies set each line of wikitext as inline code.
+        if len(text) > 1 and text[0] == text[-1] == '`':
+            text = text.strip('`')
         text = re.sub(r'^#{1,6}\s*', '', text)
         text = re.sub(r'^(=+)\s*(.*?)\s*\1$', r'\2', text)
         text = re.sub(r'^\s*([-*+#:;]+|\d+\.)\s+', '', text)
         text = re.sub(r'\{\{[^{}]*\}\}', '', text)
         text = re.sub(r'\[\[(?:[^\]|]*\|)?([^\]]+)\]\]', r'\1', text)
+        text = re.sub(r'\s*(?<!\[)\[\d+\]\([^)]*\)', '', text)
         text = re.sub(r'\[([^\]]+)\]\([^)]*\)', r'\1', text)
         text = re.sub(r'\s*\[\d+(?:[,–-]\s*\d+)*\]', '', text)
         text = text.replace("'''", '').replace("''", '')
@@ -547,7 +659,11 @@ def assemble(store, out):
     for path in sorted(store.glob('*/*/*.json')):
         record = json.loads(path.read_text())
         topic = record['topic']
-        lines = plain_text(record['raw_output']).splitlines()
+        # When the reply only points to a draft written elsewhere (a ChatGPT page), the draft is
+        # the copy recovered by hand.
+        draft = (record.get('recovered_page') or {}).get('text') or record['raw_output']
+        prior = record['prompts'][1] if record.get('prior_rev_id') else None
+        lines = plain_text(draft, prior).splitlines()
         # A short leading title line naming the topic is not article prose.
         title = lines[0].strip() if lines else ''
         if topic['topic'].lower() in title.lower() and len(title.split()) <= 10 and not title.endswith('.'):
@@ -555,7 +671,8 @@ def assemble(store, out):
         text = '\n'.join(lines)
         condition = CONDITIONS[record['prompt_key']]
         floor = MIN_ASSIGNMENT_WORDS if condition['strategy'] == 'assignment' else MIN_WORDS
-        if len(text.split()) < floor:
+        declined = re.match(r"I (?:didn't|did not|haven't|have not) (?:write|written|draft|drafted)\b", text)
+        if len(text.split()) < floor or declined:
             short.append(f"{record['model']} {record['prompt_key']} {topic['topic']}: "
                          f"{len(text.split())} words: {record['raw_output'][:120]!r}")
             continue
@@ -573,6 +690,8 @@ def assemble(store, out):
             'factor_origin': condition['origin'],
             'factor_length': record.get('requested_length', condition['length']) or 'none',
             'factor_tools': 'web' if condition['tools'] else 'none',
+            'web_tool': 'codex_apps' if record.get('apps_tool_calls') else None,
+            'recovered_page': bool(record.get('recovered_page')),
             'factor_turns': len(record.get('prompts', [record['prompt']])),
             'condition': record['prompt_key'],
             'human_prompt': record.get('human_prompt'),
@@ -628,6 +747,8 @@ def main():
     unknown = [condition for condition in conditions if condition not in CONDITIONS]
     if unknown:
         parser.error(f'unknown condition(s): {", ".join(unknown)}')
+    if any(CONDITIONS[c].get('observed_only') for c in conditions):
+        parser.error('observed-only conditions hold relabelled runs and are not generated')
     human_prompts = load_human_prompts(args.human_prompts)
     if any(CONDITIONS[c]['origin'] == 'human' for c in conditions) and not human_prompts:
         parser.error(f'no human-written prompts in {args.human_prompts}')

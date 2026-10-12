@@ -176,12 +176,22 @@ their output stays outside the repo (`~/detector_exemplars/` by convention).
   `human_prompts.txt` (separated by `===` lines, rotated across topics) and
   `chatgpt_prompt.txt`. Every call is stored as JSON with its prompts and raw replies, so
   runs resume where they stopped; `--assemble` extracts the draft a student would paste
-  (dropping chat framing, advice, reference lists and markup) into the builder CSV.
+  (dropping chat framing, advice, reference lists and markup) into the builder CSV. It
+  also drops the notes models wrap around a draft about the edit itself (scope, what is
+  missing, notes before publication). Codex runs with ChatGPT workspace apps off
+  (`features.apps=false`): with them on, Codex reached the web and ChatGPT pages even with
+  web search disabled, and the runs that did so are kept apart in the observed-only
+  condition `assignment_apps_web`.
 - `collect_agpedia.py` collects Agpedia articles (agent-written, CC0) as full-article and
   lead units pinned to a revision, skipping articles with direct operator edits, and
   archives each revision's markdown and rendered page.
 - `source_texts.py` writes the source texts for those units (the model's whole reply, or
   the Agpedia markdown) for `backfill_source_text.rb`.
+
+When a regenerated CSV changes the cleaned text or labels of a sample already built in
+production, `sync_sample_from_csv.rb` brings the sample in line: units whose text is no
+longer in the CSV move to a retired sample name with their scores attached, unchanged units
+take the CSV's current notes and factors, and new texts are added by the usual builder.
 
 ### Open Pangram (`analysis/score_open_pangram.py`)
 
@@ -215,6 +225,22 @@ linking to both vendors' reports, a per-case report of challenge cases with each
 detector's verdict, a list of self-reported false positives a detector still flags (for
 a human to confirm, never taken as truth), a slope chart for `--pair-by`, a wide CSV of
 max scores, and `summary.md` with the tables.
+
+### Readout
+
+`readout.py` judges each detector by its own verdict on the human baseline and on each part
+of the October 2026 challenge set, with the Dashboard's alert rule as an extra column, exact
+95% intervals, recall at thresholds calibrated to flag a fixed share of the baseline, and the
+term samples against those thresholds. It reads Open Pangram score files directly, and
+writes markdown and JSON:
+
+```sh
+.venv/bin/python readout.py ~/detector_comparison_2026-10.csv \
+    --open-pangram ~/open_pangram_roberta.csv ~/open_pangram_llama.csv \
+    --markdown ~/detector_results/readout.md --json ~/detector_results/readout.json
+```
+
+Baseline texts that appear in more than one sample are counted once per detector.
 
 ### Cutover questions
 

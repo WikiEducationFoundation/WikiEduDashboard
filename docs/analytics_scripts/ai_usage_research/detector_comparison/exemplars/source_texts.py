@@ -6,7 +6,7 @@ backfill_source_text.rb uses to fill ai_detection_samples.source_text by matchin
 the cleaned text. The hash is computed here exactly as the Dashboard computes it.
 
 - Generated units: the model's whole final reply (source_format model_reply), from the
-  stored generation records.
+  stored generation records, or the page it wrote the draft to when the reply only points there.
 - Agpedia units: the pinned revision's markdown (source_format markdown) from the archive
   that collect_agpedia.py keeps; lead units get the part before the first heading.
 
@@ -44,7 +44,10 @@ def generated_sources(rows, store):
     for row in rows:
         record = store / slug(row['factor_model']) / row['condition'] / f"{slug(row['factor_topic'])}.json"
         if record.exists():
-            yield sha256(row['text']), json.loads(record.read_text())['raw_output'], 'model_reply'
+            data = json.loads(record.read_text())
+            # A draft the model wrote to a ChatGPT page, recovered by hand, is the text as written.
+            source = (data.get('recovered_page') or {}).get('text') or data['raw_output']
+            yield sha256(row['text']), source, 'model_reply'
 
 
 def lead_markdown(markdown):
