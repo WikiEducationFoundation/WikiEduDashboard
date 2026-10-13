@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import InstructorStats from './instructor_stats.jsx';
 import StudentStats from './student_stats.jsx';
+import ProfileDownloadButtons from './profile_download_buttons.jsx';
 
 const ContributionStats = ({ params, stats, statsGraphsData }) => {
   const [isStudent] = useState(JSON.parse(document.querySelector('#react_root')?.dataset.isstudent));
@@ -37,7 +38,14 @@ const ContributionStats = ({ params, stats, statsGraphsData }) => {
 
   return (
     <div id="statistics">
-      <h2>{I18n.t('users.contribution_statistics')}</h2>
+      <div className="user-articles__header">
+        <h2>{I18n.t('users.contribution_statistics')}</h2>
+        <ProfileDownloadButtons
+          username={params.username}
+          section="statistics"
+          data={{ username: params.username, ...stats }}
+        />
+      </div>
       {contriStats}
     </div>
   );

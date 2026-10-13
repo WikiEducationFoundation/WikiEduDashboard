@@ -47,7 +47,7 @@ const DownloadsBell = () => {
                 <span className="downloads-list__label">{item.label}</span>
                 <span className="downloads-list__status">
                   {item.status === 'ready' && (
-                    <a href={item.downloadUrl} className="downloads-list__download-button">{I18n.t('downloads.download')}</a>
+                    <a href={item.downloadUrl} download={item.filename} className="downloads-list__download-button">{I18n.t('downloads.download')}</a>
                   )}
                   {item.status === 'timeout' && (
                     <>
