@@ -249,6 +249,12 @@ describe WikiApi do
       end
     end
 
+    it 'returns nil for a page the user has edited outside mainspace' do
+      VCR.use_cassette 'wiki/title_of_article_edited_by' do
+        expect(subject.title_of_article_edited_by('Ragesoss', 'User:Ragesoss')).to be_nil
+      end
+    end
+
     it 'returns nil when the user has only edited the article before the given time' do
       VCR.use_cassette 'wiki/title_of_article_edited_by' do
         expect(subject.title_of_article_edited_by('Ragesoss', 'American Civil War',

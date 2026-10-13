@@ -42,8 +42,8 @@ class VerifyExerciseArticle
   def verify_for(course)
     wiki_api = WikiApi.new(course.home_wiki)
     title = input_title(wiki_api)
-    # A '|' would make the API check several titles at once.
-    return if title.blank? || title.include?('|')
+    # A '|', or a leading U+001F, would make the API check several titles at once.
+    return if title.blank? || title.match?(/[|\x1f]/)
 
     title = wiki_api.title_of_article_edited_by(@username, title, since: course.start)
     return unless title

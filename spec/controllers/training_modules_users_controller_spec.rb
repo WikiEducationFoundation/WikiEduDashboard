@@ -383,6 +383,18 @@ describe TrainingModulesUsersController, type: :request do
       end
     end
 
+    context 'when an escaped title would query several pages' do
+      before do
+        expect_any_instance_of(WikiApi).not_to receive(:title_of_article_edited_by)
+        post '/training_modules_users/verify_exercise_article.json',
+             params: params.merge(article_title: '%1FSelfie%1FOctopus'), as: :json
+      end
+
+      it 'returns not_found status' do
+        expect(response.parsed_body['status']).to eq('not_found')
+      end
+    end
+
     context 'when verifying from the training slides' do
       let(:params) { { module_id: training_module.slug, article_title: 'Selfie' } }
       let(:ended_course) do
