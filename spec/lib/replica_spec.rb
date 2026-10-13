@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/replica"
+require "#{Rails.root}/lib/errors/update_service_error_helper"
 
 describe Replica do
   let(:en_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
@@ -303,6 +304,183 @@ describe Replica do
       expect_any_instance_of(described_class).not_to receive(:log_error)
       expect(subject).to be_empty
     end
+
+    describe 'rate limiting (429)' do
+      before do
+        allow_any_instance_of(described_class).to receive(:sleep)
+        # Zero jitter keeps the delay assertions below exact; jitter has its own test.
+        allow_any_instance_of(described_class).to receive(:retry_jitter).and_return(0)
+      end
+
+      it 'raises Replica::RateLimitedError carrying status, body, and retry_after_seconds' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429,
+                     body: 'You are making too many requests.',
+                     headers: { 'Retry-After' => '30' })
+
+        expect { subject }.to raise_error(Replica::RateLimitedError) do |error|
+          expect(error.status).to eq(429)
+          expect(error.response_body).to eq('You are making too many requests.')
+          expect(error.retry_after_seconds).to eq(30)
+        end
+      end
+
+      it 'treats a Retry-After of 0 as retry-immediately, not absent' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: { 'Retry-After' => '0' })
+
+        expect { subject }.to raise_error(Replica::RateLimitedError) do |error|
+          expect(error.retry_after_seconds).to eq(0)
+        end
+      end
+
+      it 'has a nil retry_after_seconds when the header is absent' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: {})
+
+        expect { subject }.to raise_error(Replica::RateLimitedError) do |error|
+          expect(error.retry_after_seconds).to be_nil
+        end
+      end
+
+      it 'has a nil retry_after_seconds when the header is present but unparseable' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '',
+                     headers: { 'Retry-After' => 'Fri, 07 Nov 2014 23:59:59 GMT' })
+
+        expect { subject }.to raise_error(Replica::RateLimitedError) do |error|
+          expect(error.retry_after_seconds).to be_nil
+        end
+      end
+
+      it 'does not call log_error directly -- the rate-limit error propagates instead' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: {})
+        expect_any_instance_of(described_class).not_to receive(:log_error)
+        expect { subject }.to raise_error(Replica::RateLimitedError)
+      end
+
+      # These four set expectations on one explicitly-constructed instance
+      # (rather than going through the describe block's `subject`), since
+      # that's what makes `.ordered` and per-call argument matching reliable
+      # -- any_instance_of mocking does not support `.ordered`, and a second
+      # any_instance_of stub in the same example does not reliably override
+      # an earlier one for the same message.
+      it "uses each attempt's own Retry-After as its backoff delay, then succeeds" do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(
+            { status: 429, body: '', headers: { 'Retry-After' => '3' } },
+            { status: 429, body: '', headers: { 'Retry-After' => '5' } },
+            { status: 200, body: '{ "success": true, "data": [] }', headers: {} }
+          )
+        replica = described_class.new(en_wiki)
+        expect(replica).to receive(:sleep).with(3).ordered
+        expect(replica).to receive(:sleep).with(5).ordered
+
+        expect(replica.get_revisions(all_users, rev_start, rev_end)).to eq({})
+      end
+
+      it 'falls back to the default delay (5s) on every attempt when Retry-After is absent' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(
+            { status: 429, body: '', headers: {} },
+            { status: 429, body: '', headers: {} },
+            { status: 200, body: '{ "success": true, "data": [] }', headers: {} }
+          )
+        replica = described_class.new(en_wiki)
+        expect(replica).to receive(:sleep).with(5).twice
+
+        expect(replica.get_revisions(all_users, rev_start, rev_end)).to eq({})
+      end
+
+      it 'retries at most twice before giving up' do
+        stub = stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+              .to_return(status: 429, body: '', headers: {})
+
+        expect { subject }.to raise_error(Replica::RateLimitedError)
+        expect(stub).to have_been_requested.times(3) # 1 initial attempt + 2 retries
+      end
+
+      it 'ticks update_service.record_too_many_requests for each 429 observed' do
+        update_service = double('UpdateService', record_too_many_requests: nil) # rubocop:disable RSpec/VerifiedDoubles
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: {})
+        # 3 tries → 3 observed 429s, same as WikiApi
+        expect(update_service).to receive(:record_too_many_requests).exactly(3).times
+
+        replica = described_class.new(en_wiki, update_service)
+        expect { replica.get_revisions(all_users, rev_start, rev_end) }
+          .to raise_error(Replica::RateLimitedError)
+      end
+
+      it 'caps a Retry-After-driven delay to MAX_RETRY_AFTER_SECONDS on every attempt' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: { 'Retry-After' => '1000' })
+        replica = described_class.new(en_wiki)
+        expect(replica).to receive(:sleep).with(30).twice
+
+        expect { replica.get_revisions(all_users, rev_start, rev_end) }
+          .to raise_error(Replica::RateLimitedError)
+      end
+
+      it 'raises an error that callers can rescue as Replica::RequestFailedError' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: {})
+        expect { subject }.to raise_error(Replica::RequestFailedError)
+      end
+    end
+
+    describe 'storm guard for repeated failures' do
+      let(:update_service) do
+        Class.new do
+          include UpdateServiceErrorHelper
+
+          def sentry_tags
+            {}
+          end
+        end.new
+      end
+
+      before do
+        allow_any_instance_of(described_class).to receive(:sleep)
+        allow(Sentry).to receive(:capture_exception)
+      end
+
+      it 'sends only the first identical failure in an update to Sentry, counting the rest' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 500, body: '', headers: {})
+
+        2.times do
+          described_class.new(en_wiki, update_service).get_revisions(all_users, rev_start, rev_end)
+        end
+
+        expect(Sentry).to have_received(:capture_exception).once
+        expect(update_service.error_count).to eq(2)
+      end
+
+      it 'reports each different kind of failure once' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return({ status: 500, body: '' },
+                     { status: 500, body: '' },
+                     { status: 500, body: '' },
+                     { status: 503, body: '' })
+
+        2.times do
+          described_class.new(en_wiki, update_service).get_revisions(all_users, rev_start, rev_end)
+        end
+
+        expect(Sentry).to have_received(:capture_exception).twice
+      end
+
+      it 'still reports every failure when there is no update service' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 500, body: '', headers: {})
+
+        2.times { described_class.new(en_wiki).get_revisions(all_users, rev_start, rev_end) }
+
+        expect(Sentry).to have_received(:capture_exception).twice
+      end
+    end
   end
 
   describe 'post request error handling' do
@@ -351,6 +529,113 @@ describe Replica do
       stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
         .to_return(status: 200, body: '{ "success": true, "data": [] }', headers: {})
       expect(result).to be_empty
+    end
+
+    describe 'rate limiting (429)' do
+      before do
+        allow_any_instance_of(described_class).to receive(:sleep)
+        # Zero jitter keeps the delay assertions below exact; jitter has its own test.
+        allow_any_instance_of(described_class).to receive(:retry_jitter).and_return(0)
+      end
+
+      it 'raises Replica::RateLimitedError carrying status, body, and retry_after_seconds' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429,
+                     body: 'You are making too many requests.',
+                     headers: { 'Retry-After' => '30' })
+
+        expect { result }.to raise_error(Replica::RateLimitedError) do |error|
+          expect(error.status).to eq(429)
+          expect(error.response_body).to eq('You are making too many requests.')
+          expect(error.retry_after_seconds).to eq(30)
+        end
+      end
+
+      it 'treats a Retry-After of 0 as retry-immediately, not absent' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: { 'Retry-After' => '0' })
+
+        expect { result }.to raise_error(Replica::RateLimitedError) do |error|
+          expect(error.retry_after_seconds).to eq(0)
+        end
+      end
+
+      it 'has a nil retry_after_seconds when the header is absent' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: {})
+
+        expect { result }.to raise_error(Replica::RateLimitedError) do |error|
+          expect(error.retry_after_seconds).to be_nil
+        end
+      end
+
+      it 'does not call log_error directly -- the rate-limit error propagates instead' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: {})
+        expect_any_instance_of(described_class).not_to receive(:log_error)
+        expect { result }.to raise_error(Replica::RateLimitedError)
+      end
+
+      it "uses each attempt's own Retry-After as its backoff delay, then succeeds" do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(
+            { status: 429, body: '', headers: { 'Retry-After' => '3' } },
+            { status: 429, body: '', headers: { 'Retry-After' => '5' } },
+            { status: 200, body: '{ "success": true, "data": [] }', headers: {} }
+          )
+        replica = described_class.new(en_wiki)
+        expect(replica).to receive(:sleep).with(3).ordered
+        expect(replica).to receive(:sleep).with(5).ordered
+
+        expect(replica.post_existing_articles_by_title(article_titles)).to eq([])
+      end
+
+      it 'falls back to the default delay (5s) on every attempt when Retry-After is absent' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(
+            { status: 429, body: '', headers: {} },
+            { status: 429, body: '', headers: {} },
+            { status: 200, body: '{ "success": true, "data": [] }', headers: {} }
+          )
+        replica = described_class.new(en_wiki)
+        expect(replica).to receive(:sleep).with(5).twice
+
+        expect(replica.post_existing_articles_by_title(article_titles)).to eq([])
+      end
+
+      it 'retries at most twice before giving up' do
+        stub = stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+              .to_return(status: 429, body: '', headers: {})
+
+        expect { result }.to raise_error(Replica::RateLimitedError)
+        expect(stub).to have_been_requested.times(3) # 1 initial attempt + 2 retries
+      end
+
+      it 'caps a Retry-After-driven delay to MAX_RETRY_AFTER_SECONDS on every attempt' do
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: { 'Retry-After' => '1000' })
+        replica = described_class.new(en_wiki)
+        expect(replica).to receive(:sleep).with(30).twice
+
+        expect { replica.post_existing_articles_by_title(article_titles) }
+          .to raise_error(Replica::RateLimitedError)
+      end
+    end
+  end
+
+  describe 'rate-limit backoff jitter' do
+    let(:replica) { described_class.new(en_wiki) }
+    let(:error) { instance_double(Replica::RateLimitedError, retry_after_seconds: nil) }
+
+    it 'adds random jitter on top of the backoff delay' do
+      allow(replica).to receive(:rand)
+        .with(0.0..Replica::MAX_RETRY_JITTER_SECONDS).and_return(0.4)
+      expect(replica.send(:retry_delay_for, error)).to eq(5.4)
+    end
+
+    it 'keeps the jitter between 0 and MAX_RETRY_JITTER_SECONDS' do
+      jitters = Array.new(50) { replica.send(:retry_jitter) }
+      expect(jitters).to all(be_between(0.0, Replica::MAX_RETRY_JITTER_SECONDS))
     end
   end
 

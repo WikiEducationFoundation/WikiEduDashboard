@@ -121,34 +121,90 @@ class Replica # rubocop:disable Metrics/ClassLength
   def api_get(endpoint, query = '')
     tries ||= 3
     response = do_query(endpoint, query)
+    handle_replica_response(endpoint, response)
+  rescue StandardError => e
+    tries -= 1
+    retry if rate_limit_retry?(e, tries)
+    sleep 2 && retry unless tries.zero?
+    report_failure(e, { endpoint:, query:, language: @wiki.language, project: @wiki.project })
+  end
+
+  # Shared by api_get and api_post: parse a Replica response and either
+  # return its data, skip a known-benign connection failure, or raise
+  # (RateLimitedError for a 429, a generic error for anything else).
+  def handle_replica_response(endpoint, response)
     parsed = parse_replica_body(response.body)
     return parsed['data'] if parsed && parsed['success']
     return skip_replica_failure(endpoint, parsed) if replica_connection_failure?(parsed)
+    raise RateLimitedError, response if response.code == '429'
     raise "Replica #{endpoint} request failed (HTTP #{response.code})"
-  rescue StandardError => e
-    tries -= 1
-    sleep 2 && retry unless tries.zero?
-    log_error(e, update_service: @update_service,
-              sentry_extra: { endpoint:, query:,
-                              language: @wiki.language, project: @wiki.project })
+  end
+
+  # Unlike a generic error, a rate limit isn't swallowed once retries run
+  # out -- it raises, so the caller stops instead of treating a skipped
+  # fetch as "no revisions" (see PEONY-392). Counted the same way as a
+  # MediaWiki 429 (WikiApi#too_many_requests?).
+  def rate_limit_retry?(error, tries_left)
+    return false unless error.is_a?(RateLimitedError)
+    @update_service&.record_too_many_requests
+    raise error if tries_left.zero?
+    sleep retry_delay_for(error)
+    true
+  end
+
+  # Per Wikimedia's rate-limit policy: honor Retry-After when present, else
+  # back off a few seconds. Capped well below WikiApi's own cap, since this
+  # sleep blocks a Sidekiq thread and holds its unique-job lock throughout.
+  DEFAULT_RETRY_AFTER_SECONDS = 5
+  MAX_RETRY_AFTER_SECONDS = 30
+  # Many course updates on the same box hit the limit together; jitter keeps
+  # them from all retrying at the same moment and re-tripping it.
+  MAX_RETRY_JITTER_SECONDS = 1.0
+
+  def retry_delay_for(error)
+    base = (error.retry_after_seconds || DEFAULT_RETRY_AFTER_SECONDS)
+           .clamp(0, MAX_RETRY_AFTER_SECONDS)
+    base + retry_jitter
+  end
+
+  def retry_jitter
+    rand(0.0..MAX_RETRY_JITTER_SECONDS)
   end
 
   def api_post(endpoint, key, data)
     tries ||= 3
     response = do_post(endpoint, key, data)
     return if response.code == '200' && response.body.empty?
-    parsed = parse_replica_body(response.body)
-    return parsed['data'] if parsed && parsed['success']
-    return skip_replica_failure(endpoint, parsed) if replica_connection_failure?(parsed)
-    raise "Replica #{endpoint} request failed (HTTP #{response.code})"
+    handle_replica_response(endpoint, response)
   rescue StandardError => e
     tries -= 1
+    retry if rate_limit_retry?(e, tries)
     sleep 2 && retry unless tries.zero?
-    log_error(e, update_service: @update_service,
-              sentry_extra: { query: data,
-                              response_body: response&.body,
-                              language: @wiki.language,
-                              project: @wiki.project })
+    report_failure(e, post_error_extra(data, response))
+  end
+
+  # Storm guard: within one update, only the first failure of each kind
+  # (error class + message, e.g. "HTTP 500" on revisions.php) goes to Sentry;
+  # repeats are only counted. Without this, a sustained failure sends one
+  # event per request -- per chunk of users, per timeslice, per wiki.
+  # Returns nil, like log_error, so callers keep their "no data" handling.
+  def report_failure(error, sentry_extra)
+    if repeat_failure_in_this_update?(error)
+      @update_service.update_error_stats
+      Rails.logger.info "Replica failure already reported this update: #{error}"
+      return nil
+    end
+    log_error(error, update_service: @update_service, sentry_extra:)
+  end
+
+  def repeat_failure_in_this_update?(error)
+    return false unless @update_service.respond_to?(:first_replica_failure?)
+    !@update_service.first_replica_failure?("#{error.class}: #{error.message}")
+  end
+
+  def post_error_extra(data, response)
+    { query: data, response_body: response&.body,
+      language: @wiki.language, project: @wiki.project }
   end
 
   # Parse a replica response body into a Hash, or nil when there is no parseable
@@ -273,6 +329,42 @@ class Replica # rubocop:disable Metrics/ClassLength
 
   def compile_revision_ids_query(revisions)
     { revision_ids: revisions.map(&:mw_rev_id) }.to_query
+  end
+
+  # Base class for Replica failures that callers should handle (stop the
+  # course update, retry next cycle) rather than treat as "no data".
+  # Callers rescue this, not the subclasses, so more failure types can raise
+  # it later without touching every rescue site. Today only a 429 raises.
+  class RequestFailedError < StandardError
+    attr_reader :status, :response_body
+
+    def initialize(response, message = nil)
+      @status = response.code.to_i
+      @response_body = response.body
+      super(message || "Replica request failed (HTTP #{@status})")
+    end
+
+    def retry_after_seconds
+      nil
+    end
+  end
+
+  # Raised when Replica responds 429 (see PEONY-392).
+  class RateLimitedError < RequestFailedError
+    attr_reader :retry_after_seconds
+
+    def initialize(response)
+      @retry_after_seconds = parse_retry_after(response['Retry-After'])
+      super(response, "Replica rate limited (HTTP #{response.code})")
+    end
+
+    private
+
+    # Retry-After is seconds here (no evidence of the HTTP-date form).
+    def parse_retry_after(value)
+      return nil if value.nil?
+      Integer(value, exception: false)
+    end
   end
 
   # These are typical network errors that we expect to encounter.
