@@ -72,12 +72,7 @@ const API = {
   async fetchUserProfileStats(username) {
     const response = await request(`/users/${username}/stats.json`);
 
-    if (!response.ok) {
-      logErrorMessage(response);
-      const data = await response.text();
-      response.responseText = data;
-      throw response;
-    }
+    await ensureOk(response);
     return response.json();
   },
 

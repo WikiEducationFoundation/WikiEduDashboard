@@ -3,36 +3,6 @@
 module UserProfileAnalytics
   extend ActiveSupport::Concern
 
-  def course_article_data(courses_user)
-    ac_records = ArticlesCourses.tracked_for_user_and_course(courses_user.course, @user.id)
-    articles = format_articles(ac_records)
-
-    return nil unless articles.any? ||
-                      courses_user.character_sum_ms.positive? ||
-                      courses_user.references_count.positive?
-
-    {
-      course_title: courses_user.course.title,
-      course_slug: courses_user.course.slug,
-      word_count: WordCount.from_characters(courses_user.character_sum_ms),
-      references_count: courses_user.references_count,
-      articles_edited: articles.length,
-      articles:
-    }
-  end
-
-  def format_articles(ac_records)
-    ac_records.map do |ac|
-      {
-        article_id: ac.article.id,
-        title: ac.article.title,
-        url: ac.article.url,
-        word_count: WordCount.from_characters(ac.character_sum.to_i),
-        references_count: ac.references_count.to_i
-      }
-    end
-  end
-
   def max_project
     ids_array = public_courses.map(&:home_wiki_id)
     max_ids = ids_array.tally.select { |_k, v| v == ids_array.tally.values.max }.keys
@@ -51,15 +21,41 @@ module UserProfileAnalytics
   end
 
   def fetch_user_articles(course_id = nil)
-    scope = ArticlesCourses
-            .where('user_ids LIKE ?', "%- #{@user.id}\n%")
-            .joins(:article, :course)
-            .where(courses: { private: false })
-            .where(articles: { deleted: false, namespace: Article::Namespaces::MAINSPACE })
-            .includes(:article, :course, article: :wiki)
-            .order(character_sum: :desc)
-    scope = scope.where(course_id:) if course_id.present?
-    scope
+    course_ids = student_course_ids
+    course_ids &= [course_id.to_i] if course_id.present?
+    return ArticlesCourses.none if course_ids.empty?
+
+    ArticlesCourses
+      .where(course_id: course_ids)
+      .where('user_ids LIKE ?', "%- #{@user.id}\n%")
+      .joins(:article, :course)
+      .where(articles: { deleted: false, namespace: Article::Namespaces::MAINSPACE })
+      .includes(:article, :course, article: :wiki)
+  end
+
+  def fetch_user_article_stats(course_ids)
+    return {} if course_ids.empty?
+
+    ArticleCourseUserWikiTimeslice
+      .where(user_id: @user.id, course_id: course_ids)
+      .group_by { |r| [r.course_id, r.article_id] }
+      .transform_values do |rows|
+        {
+          character_sum: rows.sum { |r| r.character_sum.to_i },
+          references_count: rows.sum { |r| r.references_count.to_i },
+          new_article: rows.any?(&:new_article)
+        }
+      end
+  end
+
+  def courses_with_acuwt(course_ids)
+    return Set.new if course_ids.empty?
+
+    ArticleCourseUserWikiTimeslice
+      .where(course_id: course_ids)
+      .distinct
+      .pluck(:course_id)
+      .to_set
   end
 
   def public_courses
@@ -67,6 +63,10 @@ module UserProfileAnalytics
   end
 
   private
+
+  def student_course_ids
+    @student_course_ids ||= student_courses_users.pluck(:course_id)
+  end
 
   def student_courses_users
     @user.courses_users
@@ -77,8 +77,8 @@ module UserProfileAnalytics
 
   def student_articles_count_by_course(course_ids)
     ArticlesCourses
-      .where('user_ids LIKE ?', "%- #{@user.id}\n%")
       .where(course_id: course_ids)
+      .where('user_ids LIKE ?', "%- #{@user.id}\n%")
       .joins(:article)
       .where(articles: { deleted: false, namespace: Article::Namespaces::MAINSPACE })
       .group(:course_id)

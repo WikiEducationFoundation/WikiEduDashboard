@@ -11,6 +11,7 @@ import UserTrainingStatus from './user_training_status.jsx';
 import request, { ensureOk } from '../../utils/request';
 import UserDetails from './user_details.jsx';
 import Notifications from '../common/notifications.jsx';
+import ProfileNav from './profile_nav.jsx';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -49,6 +50,7 @@ const UserProfile = () => {
   return (
     <div className="user-profile-container">
       <Notifications />
+      <ProfileNav username={params.username} />
       <Routes>
         <Route
           index

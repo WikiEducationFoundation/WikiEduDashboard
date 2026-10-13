@@ -207,7 +207,7 @@ const ContributionStats = ({ params, stats, statsGraphsData }) => {
       )}
       {articlesByLanguage.length > 0 && filteredArticlesByLanguage.length === 0 && (
         <div className="user-articles__empty-state" style={{ marginTop: '24px' }}>
-          <p>No articles match the selected filter.</p>
+          <p>{I18n.t('user_profiles.no_articles_match')}</p>
         </div>
       )}
     </div>

@@ -58,8 +58,8 @@ const UserUploads = ({ uploads, username }) => {
   return (
     <div id="recent-uploads">
       <div className="user-articles__navigation">
-        <Link to={`/users/${username}`} className="button ghost small">
-          ← {I18n.t('users.back_to_profile') || 'Back to Profile'}
+        <Link to={`/users/${encodeURIComponent(username)}`} className="button ghost small">
+          ← {I18n.t('users.back_to_profile')}
         </Link>
       </div>
       <h3>{I18n.t('courses.user_recent_uploads')}</h3>

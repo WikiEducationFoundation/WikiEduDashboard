@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import API from '../../utils/api.js';
 import Loading from '../common/loading.jsx';
 import ProfileDownloadButtons from './profile_download_buttons.jsx';
+import { toWikiDomain } from '../../utils/wiki_utils';
 
 const columnsByMetric = {
   articles: ['article', 'language', 'type', 'view'],
@@ -104,6 +105,7 @@ const updateSearchParams = (filter, value) => {
 };
 
 const UserDetails = ({ username }) => {
+  const encodedUsername = encodeURIComponent(username);
   const { metric } = useParams();
   const [loading, setLoading] = useState(true);
   const [coursesData, setCoursesData] = useState([]);
@@ -114,7 +116,7 @@ const UserDetails = ({ username }) => {
     let cancelled = false;
     setLoading(true);
 
-    API.fetchUserArticles(username)
+    API.fetchUserArticles(encodedUsername)
       .then((data) => {
         if (cancelled) return;
         setCoursesData(data.articles_by_course || []);
@@ -128,7 +130,7 @@ const UserDetails = ({ username }) => {
     return () => {
       cancelled = true;
     };
-  }, [username]);
+  }, [encodedUsername]);
 
   const allArticles = useMemo(
     () => coursesData.flatMap(courseGroup => (courseGroup.articles || [])),
@@ -170,6 +172,20 @@ const UserDetails = ({ username }) => {
       })
       .filter(Boolean);
   }, [coursesData, wikiFilter, newnessFilter, newnessFilterEnabled]);
+
+  const contribWikiDomain = useMemo(() => {
+    if (wikiFilter && wikiFilter.project && wikiFilter.project !== 'all') {
+      return toWikiDomain(wikiFilter);
+    }
+    const firstArticle = allArticles[0];
+    if (firstArticle) {
+      return toWikiDomain({
+        language: firstArticle.wiki_language || firstArticle.language,
+        project: firstArticle.project
+      });
+    }
+    return 'en.wikipedia.org';
+  }, [wikiFilter, allArticles]);
 
   const hasAnyArticles = allArticles.length > 0;
   const hasNoFilteredResults = hasAnyArticles && filteredCoursesData.length === 0;
@@ -252,7 +268,7 @@ const UserDetails = ({ username }) => {
   return (
     <div className="user-articles">
       <div className="user-articles__navigation">
-        <Link to={`/users/${username}`} className="button ghost small">
+        <Link to={`/users/${encodedUsername}`} className="button ghost small">
           ← {I18n.t('users.back_to_profile')}
         </Link>
       </div>
@@ -315,7 +331,7 @@ const UserDetails = ({ username }) => {
           {hasNoFilteredResults ? (
             <div className="user-articles__empty-state">
               <h3>{title}</h3>
-              <p>No articles match the selected filters.</p>
+              <p>{I18n.t('user_profiles.no_articles_match')}</p>
             </div>
           ) : (
             <div className="user-articles-list">
@@ -369,7 +385,7 @@ const UserDetails = ({ username }) => {
             </div>
           )}
           <div className="user-articles__footer">
-            <a href={`https://en.wikipedia.org/wiki/Special:Contributions/${username}`} target="_blank" rel="noopener noreferrer" className="button dark">
+            <a href={`https://${contribWikiDomain}/wiki/Special:Contributions/${encodedUsername}`} target="_blank" rel="noopener noreferrer" className="button dark">
               {I18n.t('users.contributions_more')}
             </a>
           </div>

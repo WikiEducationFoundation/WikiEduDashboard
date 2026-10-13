@@ -1,38 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { addDownload, updateDownload } from '../../actions/download_actions';
-import { addNotification } from '../../actions/notification_actions';
 import { profileCsv } from '../../utils/user_profile_export';
 
 const ProfileDownloadButtons = ({ username, section, data }) => {
-  const dispatch = useDispatch();
-
   const download = (format) => {
-    const id = `user-${username}-${section}-${format}`;
-    const label = `${username} — ${I18n.t(`downloads.${format}`)}`;
-    dispatch(addDownload({ id, label, status: 'pending', createdAt: Date.now() }));
-    try {
-      const content = format === 'csv' ? profileCsv(data) : JSON.stringify(data, null, 2);
-      const mime = format === 'csv' ? 'text/csv' : 'application/json';
-      // Data URLs keep the download available in the existing persisted download list.
-      const downloadUrl = `data:${mime};charset=utf-8,${encodeURIComponent(content)}`;
-      const safeUsername = username.replace(/[^\p{L}\p{N}_-]/gu, '_');
-      const filename = `${safeUsername}_${section}.${format}`;
-      dispatch(updateDownload(id, { status: 'ready', downloadUrl, filename }));
-      dispatch(addNotification({
-        message: I18n.t('downloads.available_in_bell'),
-        type: 'success',
-        closable: true
-      }));
-    } catch {
-      dispatch(updateDownload(id, { status: 'error' }));
-      dispatch(addNotification({
-        message: `${label}: ${I18n.t('downloads.error')}`,
-        type: 'error',
-        closable: true
-      }));
-    }
+    const content = format === 'csv' ? profileCsv(data) : JSON.stringify(data, null, 2);
+    const mime = format === 'csv' ? 'text/csv;charset=utf-8;' : 'application/json;charset=utf-8;';
+    const blob = new Blob([content], { type: mime });
+    const url = URL.createObjectURL(blob);
+    const safeUsername = username.replace(/[^\p{L}\p{N}_-]/gu, '_');
+    const filename = `${safeUsername}_${section}.${format}`;
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute('download', filename);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
 
   return (

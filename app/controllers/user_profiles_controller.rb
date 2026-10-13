@@ -21,12 +21,10 @@ class UserProfilesController < ApplicationController
   def user_articles
     return render json: { error: 'User not found' }, status: :not_found unless @user
 
-    @course_id = params[:course_id]
-    @user_articles = fetch_user_articles(@course_id)
-    @user_revisions = {}
-  rescue StandardError => e
-    render json: { error: e.message, backtrace: e.backtrace.first(5) },
-           status: :internal_server_error
+    @user_articles = fetch_user_articles(params[:course_id])
+    course_ids = @user_articles.map(&:course_id).uniq
+    @user_article_stats = fetch_user_article_stats(course_ids)
+    @courses_with_acuwt = courses_with_acuwt(course_ids)
   end
 
   def show
@@ -57,7 +55,7 @@ class UserProfilesController < ApplicationController
       flash[:error] = (@user.errors.full_messages + @user_profile.errors.full_messages).join(', ')
     end
   rescue Paperclip::Errors::CommandNotFoundError
-    flash[:error] = 'Unable to process uploaded image because ImageMagick is not installed.'
+    flash[:error] = I18n.t('users.imagemagick_not_installed')
   ensure
     user_profile_redirect
   end

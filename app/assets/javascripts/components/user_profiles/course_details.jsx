@@ -34,8 +34,8 @@ const CourseDetails = ({ courses, username }) => {
   return (
     <div id="course-details">
       <div className="user-articles__navigation">
-        <Link to={`/users/${username}`} className="button ghost small">
-          ← {I18n.t('users.back_to_profile') || 'Back to Profile'}
+        <Link to={`/users/${encodeURIComponent(username)}`} className="button ghost small">
+          ← {I18n.t('users.back_to_profile')}
         </Link>
       </div>
       <h3>{I18n.t('courses.course_details')}</h3>
