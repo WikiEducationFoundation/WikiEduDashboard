@@ -3,19 +3,19 @@
 module UserProfileAnalytics
   extend ActiveSupport::Concern
 
-  def course_article_data(cu)
-    ac_records = ArticlesCourses.tracked_for_user_and_course(cu.course, @user.id)
+  def course_article_data(courses_user)
+    ac_records = ArticlesCourses.tracked_for_user_and_course(courses_user.course, @user.id)
     articles = format_articles(ac_records)
 
-    return nil unless articles.any? || 
-                      cu.character_sum_ms.positive? || 
-                      cu.references_count.positive?
+    return nil unless articles.any? ||
+                      courses_user.character_sum_ms.positive? ||
+                      courses_user.references_count.positive?
 
     {
-      course_title: cu.course.title,
-      course_slug: cu.course.slug,
-      word_count: WordCount.from_characters(cu.character_sum_ms),
-      references_count: cu.references_count,
+      course_title: courses_user.course.title,
+      course_slug: courses_user.course.slug,
+      word_count: WordCount.from_characters(courses_user.character_sum_ms),
+      references_count: courses_user.references_count,
       articles_edited: articles.length,
       articles:
     }
@@ -41,52 +41,69 @@ module UserProfileAnalytics
   end
 
   def get_articles_by_language
-    # Group the user's individual contributions by the home wiki of each course
-    # they were enrolled in as a student. This keeps the per-language totals
-    # consistent with the top-level "Words Added" / "References Added" /
-    # "Articles Edited" metrics, which are all computed per-user from
-    # CoursesUsers#character_sum_ms / #references_count and the user-filtered
-    # ArticlesCourses records.
-    courses_users = @user.courses_users
-                         .includes(course: :home_wiki)
-                         .joins(:course)
-                         .where(courses: { private: false })
-                         .where(role: CoursesUsers::Roles::STUDENT_ROLE)
-
+    courses_users = student_courses_users
     course_ids = courses_users.map(&:course_id).uniq
     return [] if course_ids.empty?
 
-    # Per-user, per-course article counts (mainspace, non-deleted), matching
-    # the scope used by IndividualStatisticsTimeslicePresenter#individual_article_count.
-    articles_count_by_course = ArticlesCourses
-                                 .where('user_ids LIKE ?', "%- #{@user.id}\n%")
-                                 .where(course_id: course_ids)
-                                 .joins(:article)
-                                 .where(articles: { deleted: false,
-                                                    namespace: Article::Namespaces::MAINSPACE })
-                                 .group(:course_id)
-                                 .count
+    articles_count_by_course = student_articles_count_by_course(course_ids)
+    grouped = group_contributions_by_language(courses_users, articles_count_by_course)
+    format_language_stats(grouped)
+  end
 
-    grouped = {}
-    courses_users.each do |cu|
-      wiki = cu.course.home_wiki
-      language = wiki&.language || 'unknown'
-      project = wiki&.project || 'unknown'
-      key = "#{language}-#{project}"
+  def fetch_user_articles(course_id = nil)
+    scope = ArticlesCourses
+            .where('user_ids LIKE ?', "%- #{@user.id}\n%")
+            .joins(:article, :course)
+            .where(courses: { private: false })
+            .where(articles: { deleted: false, namespace: Article::Namespaces::MAINSPACE })
+            .includes(:article, :course, article: :wiki)
+            .order(character_sum: :desc)
+    scope = scope.where(course_id:) if course_id.present?
+    scope
+  end
 
-      grouped[key] ||= {
-        language:,
-        project:,
-        character_sum: 0,
-        references_count: 0,
-        article_count: 0
-      }
+  def public_courses
+    @user.courses.nonprivate
+  end
 
+  private
+
+  def student_courses_users
+    @user.courses_users
+         .includes(course: :home_wiki)
+         .joins(:course)
+         .where(courses: { private: false }, role: CoursesUsers::Roles::STUDENT_ROLE)
+  end
+
+  def student_articles_count_by_course(course_ids)
+    ArticlesCourses
+      .where('user_ids LIKE ?', "%- #{@user.id}\n%")
+      .where(course_id: course_ids)
+      .joins(:article)
+      .where(articles: { deleted: false, namespace: Article::Namespaces::MAINSPACE })
+      .group(:course_id)
+      .count
+  end
+
+  def group_contributions_by_language(courses_users, articles_count_by_course)
+    courses_users.each_with_object({}) do |cu, grouped|
+      key, lang_data = init_language_bucket(cu)
+      grouped[key] ||= lang_data
       grouped[key][:character_sum] += cu.character_sum_ms.to_i
       grouped[key][:references_count] += cu.references_count.to_i
       grouped[key][:article_count] += articles_count_by_course[cu.course_id].to_i
     end
+  end
 
+  def init_language_bucket(courses_user)
+    wiki = courses_user.course.home_wiki
+    language = wiki&.language || 'unknown'
+    project = wiki&.project || 'unknown'
+    ["#{language}-#{project}", { language:, project:, character_sum: 0,
+                                 references_count: 0, article_count: 0 }]
+  end
+
+  def format_language_stats(grouped)
     grouped.values.map do |v|
       {
         language: v[:language],
@@ -96,54 +113,5 @@ module UserProfileAnalytics
         article_count: v[:article_count]
       }
     end.sort_by { |v| -v[:word_count] }
-  end
-
-  def public_courses
-    @user.courses.nonprivate
-  end
-
-  private
-
-  def require_write_permissions
-    return if current_user == @user
-    raise ActionController::InvalidAuthenticityToken, 'Unauthorized'
-  end
-
-  def require_email_preferences_token
-    return if @user_profile.email_preferences_token == params[:token]
-    raise ActionController::InvalidAuthenticityToken, 'Unauthorized'
-  end
-
-  def user_profile_params
-    params.require(:user_profile).permit(:bio, :image, :location, :institution, :image_file_link)
-  end
-
-  def user_email_params
-    params.require(:email).permit(:email)
-  end
-
-  def email_must_be_present_for_instructors
-    return unless current_user.active_course_instructor?
-    submitted_email = user_email_params[:email].to_s.strip
-
-    return if submitted_email.present?
-
-    @user.errors.add(:email, :blank, message: I18n.t('users.email_required_instructor'))
-    flash[:error] = I18n.t('users.email_required_instructor')
-  end
-
-  def user_profile_redirect
-    redirect_to controller: 'user_profiles', action: 'show', username: @user.username
-  end
-
-  def set_user
-    # Per MediaWiki convention, underscores in username urls represent spaces
-    username = CGI.unescape(params[:username]).tr('_', ' ')
-    @user = User.find_by(username:)
-  end
-
-  def set_user_profile
-    @user_profile = @user.user_profile
-    @user_profile = @user.create_user_profile if @user_profile.nil?
   end
 end

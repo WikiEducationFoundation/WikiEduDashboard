@@ -76,6 +76,8 @@ Rails.application.routes.draw do
            as: 'delete_profile_image', constraints: { username: /[^\/]+/ }
     get 'users/:username/update_email_preferences' => 'user_profiles#update_email_preferences',
         constraints: { username: /[^\/]+/ }
+    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences',
+        constraints: { username: /.*/ }
     get 'users/:username/stats/:metric' => 'user_profiles#show',
         constraints: { username: /[^\/]+/, metric: /[^\/]+/ }
     get 'users/:username/:profile_section' => 'user_profiles#show',

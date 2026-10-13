@@ -176,7 +176,7 @@ const ContributionStats = ({ params, stats, statsGraphsData }) => {
       {/* Stats by Language/Project */}
       {filteredArticlesByLanguage.length > 0 && (
         <div className="user-articles__header" style={{ marginTop: '30px' }}>
-          <h5 className="user_stats__title">{I18n.t('users.contributions_by_language')}</h5>
+          <h3 className="user_stats__title">{I18n.t('users.contributions_by_language')}</h3>
         </div>
       )}
       {filteredArticlesByLanguage.length > 0 && (

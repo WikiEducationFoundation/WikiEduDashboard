@@ -59,9 +59,10 @@ describe UserProfilesController, type: :request do
                               role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       end
 
-      it 'displays the profile navbar' do
+      it 'renders the profile react root with instructor flags' do
         get route, params: { username: user.username }
-        expect(response).to render_template(partial: '_profile_nav')
+        expect(response.body).to include("id='react_root'")
+        expect(response.body).to include('&quot;instructor&quot;: true')
       end
     end
 
@@ -74,9 +75,10 @@ describe UserProfilesController, type: :request do
                               role: CoursesUsers::Roles::STUDENT_ROLE)
       end
 
-      it 'displays the profile navbar' do
+      it 'renders the profile react root with student flags' do
         get route, params: { username: user.username }
-        expect(response).to render_template(partial: '_profile_nav')
+        expect(response.body).to include("id='react_root'")
+        expect(response.body).to include('&quot;student&quot;: true')
       end
     end
 
@@ -84,9 +86,10 @@ describe UserProfilesController, type: :request do
       let(:course) { create(:course) }
       let(:user) { create(:user) }
 
-      it 'does not display the profile navbar' do
+      it 'does not render react root and shows no course message' do
         get route, params: { username: user.username }
-        expect(response).not_to render_template(partial: '_profile_nav')
+        expect(response.body).not_to include("id='react_root'")
+        expect(response.body).to include(I18n.t('courses.nocourse'))
       end
     end
   end
@@ -200,9 +203,10 @@ describe UserProfilesController, type: :request do
 
       it 'shows a helpful message when ImageMagick is missing' do
         file = fixture_file_upload('wiki-logo.png', 'image/png')
+        error_msg = 'Could not run the `identify` command. Please install ImageMagick.'
         allow_any_instance_of(UserProfile)
           .to receive(:update)
-          .and_raise(Paperclip::Errors::CommandNotFoundError.new('Could not run the `identify` command. Please install ImageMagick.'))
+          .and_raise(Paperclip::Errors::CommandNotFoundError.new(error_msg))
 
         post route, params: { username: user.username,
                               email: { email: user.email },

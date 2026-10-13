@@ -69,9 +69,10 @@ describe 'user profile pages', type: :feature, js: true do
 
     it 'shows training status (to that user)' do
       login_as user
-      visit "/users/#{user.username}"
+      visit "/users/#{user.username}/training"
       expect(page).to have_content TrainingModule.first.name
       expect(page).to have_content 'Completed at'
+      expect(page).to have_link('Back to Profile', href: "/users/#{user.username}")
     end
   end
 end

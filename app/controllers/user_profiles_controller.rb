@@ -2,6 +2,7 @@
 
 class UserProfilesController < ApplicationController
   include UserProfileAnalytics
+  include UserProfileCallbacks
   respond_to :html, :json
 
   before_action :set_user
@@ -20,23 +21,12 @@ class UserProfilesController < ApplicationController
   def user_articles
     return render json: { error: 'User not found' }, status: :not_found unless @user
 
-    begin
-      @user_articles = ArticlesCourses
-                        .where('user_ids LIKE ?', "%- #{@user.id}\n%")
-                        .joins(:article, :course)
-                        .where(courses: { private: false })
-                        .where(articles: { deleted: false, namespace: Article::Namespaces::MAINSPACE })
-                        .includes(:article, :course)
-                        .includes(article: :wiki)
-                        .order(character_sum: :desc)
-
-      @course_id = params[:course_id]
-      @user_articles = @user_articles.where(course_id: @course_id) if @course_id.present?
-
-      @user_revisions = {}
-    rescue StandardError => e
-      render json: { error: e.message, backtrace: e.backtrace.first(5) }, status: :internal_server_error
-    end
+    @course_id = params[:course_id]
+    @user_articles = fetch_user_articles(@course_id)
+    @user_revisions = {}
+  rescue StandardError => e
+    render json: { error: e.message, backtrace: e.backtrace.first(5) },
+           status: :internal_server_error
   end
 
   def show

@@ -64,7 +64,7 @@ const UserProfile = () => {
         />
         <Route
           path="training"
-          element={<UserTrainingStatus trainingModules={userTrainingStatus} />}
+          element={<UserTrainingStatus trainingModules={userTrainingStatus} username={params.username} />}
         />
         <Route
           path="stats/:metric"
