@@ -50,6 +50,17 @@ class UpdateTimeslicesCourseUser
       add_user_ids_legacy(user_ids)
       update_created_at_for_users(user_ids)
     end
+  rescue Replica::RequestFailedError
+    keep_unprocessed_users_new(user_ids)
+    raise
+  end
+
+  # The stopped update is logged with this run's start time, which the next update
+  # uses to find new users; move unprocessed users past it so they're not skipped.
+  def keep_unprocessed_users_new(user_ids)
+    @course.courses_users.where(user_id: user_ids)
+           .where('courses_users.created_at >= ?', @course_update_start)
+           .update_all(created_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
   end
 
   # Update created_at field for courses users to prevent re-marking them as newly added
@@ -75,10 +86,7 @@ class UpdateTimeslicesCourseUser
       @course.wikis.each do |wiki|
         fetch_and_create_acuwt_for_new_user(wiki, user)
       rescue Replica::RequestFailedError
-        # Unlike the StandardError case below, don't swallow this and move to
-        # the next user -- that would just re-hit the same rate limit once
-        # per remaining new student. Let it propagate so the whole course
-        # update stops (see UpdateCourseStats).
+        # Don't move on to the next user; stop the whole update (see UpdateCourseStats).
         raise
       rescue StandardError => e
         failed = true

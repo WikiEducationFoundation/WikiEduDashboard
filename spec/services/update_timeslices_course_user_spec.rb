@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
+require "#{Rails.root}/lib/data_cycle/update_logger"
 
 describe UpdateTimeslicesCourseUser do
   before { stub_const('TimesliceManager::TIMESLICE_DURATION', 86400) }
@@ -324,6 +325,25 @@ describe UpdateTimeslicesCourseUser do
         .to be >= course.last_update_start_time
       expect(CoursesUsers.find_by(course:, user: user3).created_at)
         .to be >= course.last_update_start_time
+    end
+
+    it 'keeps unprocessed users new for the update after the stopped one' do
+      JoinCourse.new(course:, user: user3, role: CoursesUsers::Roles::STUDENT_ROLE)
+      fake_response = double('response', code: '429', body: 'rate limited') # rubocop:disable RSpec/VerifiedDoubles
+      allow(fake_response).to receive(:[]).with('Retry-After').and_return(nil)
+      allow_any_instance_of(CourseRevisionUpdater).to receive(:fetch_revisions_for_new_users)
+        .and_raise(Replica::RateLimitedError.new(fake_response))
+      stopped_update_start = 2.seconds.ago
+
+      expect { described_class.new(course).run }.to raise_error(Replica::RateLimitedError)
+
+      # UpdateCourseStats still logs the stopped update with its own start time,
+      # and the next update only treats users added since then as new.
+      UpdateLogger.update_course(course, 'start_time' => stopped_update_start.to_datetime,
+                                         'end_time' => Time.zone.now.to_datetime)
+      next_new_users = course.reload.students
+                             .where('courses_users.created_at >= ?', course.last_update_start_time)
+      expect(next_new_users).to include(user2, user3)
     end
   end
 end
