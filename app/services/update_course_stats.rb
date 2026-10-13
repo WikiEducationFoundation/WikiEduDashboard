@@ -38,12 +38,7 @@ class UpdateCourseStats
 
   private
 
-  # A Replica rate limit can surface from any step that touches Replica
-  # (new-student revision fetches, article status syncing, the timeslice
-  # fetch loop itself) -- wrapping the whole update, rather than just the
-  # timeslice step, stops the course and reports once no matter which step
-  # hit it, instead of leaking through as a per-item retry storm or an
-  # unrelated-looking crash of the whole update (see PEONY-392).
+  # Any step can hit a Replica failure, so stop the whole update and report once.
   def perform_update
     import_uploads
     update_categories
@@ -62,23 +57,19 @@ class UpdateCourseStats
     report_replica_failure(e)
   end
 
-  # Each 429 is already counted by Replica (record_too_many_requests), so this
-  # only adds the one error for the stopped update.
+  # Replica already counts each 429; this adds one error for the stopped update.
   def report_replica_failure(error)
     update_error_stats
-    rate_limited = error.is_a?(Replica::RateLimitedError)
+    kind = error.is_a?(Replica::RateLimitedError) ? 'rate-limited' : 'request-failed'
     Sentry.capture_message(
-      "Replica #{rate_limited ? 'rate-limited' : 'request failed'}: " \
-      "update stopped for #{@course.slug}",
+      "Replica #{kind}: update stopped for #{@course.slug}",
       level: 'warning',
-      fingerprint: [rate_limited ? 'replica-rate-limited' : 'replica-request-failed'],
+      fingerprint: ["replica-#{kind}"],
       tags: sentry_tags.merge(http_status: error.status),
       extra: { retry_after_seconds: error.retry_after_seconds,
                response_body: error.response_body.to_s.first(500) }
     )
-    # Still log this as a completed (if cut short) update, the same as any
-    # other recoverable error, so a rate-limited course is visible in
-    # update_logs rather than only in unfinished_update_logs.
+    # Log it as a (shortened) finished update so it shows in update_logs.
     log_end_of_update
   end
 
@@ -147,16 +138,20 @@ class UpdateCourseStats
 
   def log_end_of_update
     @end_time = Time.zone.now.to_datetime
-    UpdateLogger.update_course(@course,
-                               'start_time' => @start_time,
-                               'end_time' => @end_time,
-                               'sentry_tag_uuid' => sentry_tag_uuid,
-                               'error_count' => error_count,
-                               'reference_counter_403_count' => reference_counter_403_count,
-                               'too_many_requests_count' => too_many_requests_count,
-                               'processed' => @processed,
-                               'reprocessed' => @reprocessed,
-                               'reaggregated' => @reaggregated)
+    UpdateLogger.update_course(@course, end_of_update_log)
+  end
+
+  # Omit nil timeslice counts so Course#timeslice_update_ran? stays accurate.
+  def end_of_update_log
+    { 'start_time' => @start_time,
+      'end_time' => @end_time,
+      'sentry_tag_uuid' => sentry_tag_uuid,
+      'error_count' => error_count,
+      'reference_counter_403_count' => reference_counter_403_count,
+      'too_many_requests_count' => too_many_requests_count,
+      'processed' => @processed,
+      'reprocessed' => @reprocessed,
+      'reaggregated' => @reaggregated }.compact
   end
 
   def wikidata

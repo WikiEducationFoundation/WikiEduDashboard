@@ -61,6 +61,23 @@ describe UpdateCourseStats do
     end
   end
 
+  context 'when a Replica failure stops the update before the timeslice step' do
+    before do
+      allow(Sentry).to receive(:capture_message)
+      fake_response = double('response', code: '429', body: '') # rubocop:disable RSpec/VerifiedDoubles
+      allow(fake_response).to receive(:[]).with('Retry-After').and_return(nil)
+      allow_any_instance_of(described_class).to receive(:update_articles)
+        .and_raise(Replica::RateLimitedError.new(fake_response))
+    end
+
+    it 'logs the update without timeslice counts, so it does not count as a timeslice update' do
+      subject
+      update_log = course.reload.flags['update_logs'].values.last
+      expect(update_log).not_to have_key('processed')
+      expect(course.timeslice_update_ran?).to be(false)
+    end
+  end
+
   context 'when there are revisions' do
     before do
       stub_wiki_validation
