@@ -11,6 +11,7 @@ require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
+require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/app/services/update_course_wiki_timeslices"
 
 #= Updates stats for a specific course. This includes importing data (revisions, uploads,
@@ -20,7 +21,7 @@ class UpdateCourseStats
   include UpdateServiceErrorHelper
   include CourseQueueSorting
 
-  def initialize(course, sidekiq_status_logger: nil) # rubocop:disable Metrics/MethodLength
+  def initialize(course, sidekiq_status_logger: nil)
     sidekiq_status_logger.pause_until_no_backup unless sidekiq_status_logger.nil?
     @course = course
     # If the upate was explicitly requested by a user,
@@ -32,6 +33,18 @@ class UpdateCourseStats
 
     @start_time = Time.zone.now.to_datetime
     UpdateLogger.update_course_with_unfinished_update(@course, 'start_time' => @start_time)
+    perform_update
+  end
+
+  private
+
+  # A Replica rate limit can surface from any step that touches Replica
+  # (new-student revision fetches, article status syncing, the timeslice
+  # fetch loop itself) -- wrapping the whole update, rather than just the
+  # timeslice step, stops the course and reports once no matter which step
+  # hit it, instead of leaking through as a per-item retry storm or an
+  # unrelated-looking crash of the whole update (see PEONY-392).
+  def perform_update
     import_uploads
     update_categories
     update_articles
@@ -45,9 +58,29 @@ class UpdateCourseStats
     # to calculate new article stats for each namespace.
     update_wiki_namespace_stats
     log_end_of_update
+  rescue Replica::RequestFailedError => e
+    report_replica_failure(e)
   end
 
-  private
+  # Each 429 is already counted by Replica (record_too_many_requests), so this
+  # only adds the one error for the stopped update.
+  def report_replica_failure(error)
+    update_error_stats
+    rate_limited = error.is_a?(Replica::RateLimitedError)
+    Sentry.capture_message(
+      "Replica #{rate_limited ? 'rate-limited' : 'request failed'}: " \
+      "update stopped for #{@course.slug}",
+      level: 'warning',
+      fingerprint: [rate_limited ? 'replica-rate-limited' : 'replica-request-failed'],
+      tags: sentry_tags.merge(http_status: error.status),
+      extra: { retry_after_seconds: error.retry_after_seconds,
+               response_body: error.response_body.to_s.first(500) }
+    )
+    # Still log this as a completed (if cut short) update, the same as any
+    # other recoverable error, so a rate-limited course is visible in
+    # update_logs rather than only in unfinished_update_logs.
+    log_end_of_update
+  end
 
   def import_uploads
     @debugger.log_update_progress :start

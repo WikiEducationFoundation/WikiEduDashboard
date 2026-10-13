@@ -187,6 +187,30 @@ describe UpdateCourseStats do
       travel_back
     end
 
+    it 'stops the whole course update on a Replica rate limit, reports once, ' \
+       'and leaves already-processed data untouched' do
+      allow(Sentry).to receive(:capture_message)
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+        .to_return(status: 429, headers: { 'Retry-After' => '1' }, body: '')
+
+      VCR.use_cassette 'course_update/replica' do
+        subject
+      end
+
+      # One clean course-level report, not one per timeslice or per student.
+      expect(Sentry).to have_received(:capture_message).once
+        .with(a_string_matching(/rate-limited/),
+              hash_including(tags: { update_service_id: subject.sentry_tag_uuid,
+                                     course: course.slug, http_status: 429 }))
+
+      # Visible in the same operational stats as a MediaWiki 429 would be.
+      expect(course.flags['update_logs'][1]['error_count']).to eq(1)
+
+      # No article/course caches were written from a rate-limited, incomplete fetch.
+      expect(course.character_sum).to eq(0)
+      expect(course.revision_count).to eq(0)
+    end
+
     it 'tracks update errors properly in Replica' do
       allow(Sentry).to receive(:capture_exception)
 
