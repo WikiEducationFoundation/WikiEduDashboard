@@ -72,7 +72,7 @@ class UserProfilesController < ApplicationController
                                               courses_list: @courses_list)
     @user_uploads = CommonsUpload.where(user_id: @user.id).order(uploaded_at: :desc).first(20)
     @max_project = max_project
-    
+
     # Get articles by language/project for stats
     @articles_by_language = get_articles_by_language
   end

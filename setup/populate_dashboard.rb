@@ -85,10 +85,10 @@ def populate_dashboard
     'https://dashboard.wikiedu.org/courses/University_of_Washington/Geographies_of_Energy_and_Sustainability_(Winter_2026)',
     'https://dashboard.wikiedu.org/courses/University_of_Washington/Geographies_of_Energy_and_Sustainability_(Winter_2026)',
     'https://dashboard.wikiedu.org/courses/College_of_Wooster/Modern_Brazil_(Spring_2025)',
-    'https://dashboard.wikiedu.org/courses/Iowa_State_University/Micro_3020H_Biology_of_Microorganisms_(Spring_2026)', 
+    'https://dashboard.wikiedu.org/courses/Iowa_State_University/Micro_3020H_Biology_of_Microorganisms_(Spring_2026)',
     'https://dashboard.wikiedu.org/courses/Western_Michigan_University_Homer_Stryker_MD_School_of_Medicine/MEDU_9320-WikiProject_Medical_Translation-Spanish_(April_6,_2026)',
     'https://dashboard.wikiedu.org/courses/UCSB/Holocaust_and_other_genocides_in_European_history_(Winter_2026)',
-    
+
 
 
 
