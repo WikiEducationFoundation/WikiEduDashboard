@@ -16,16 +16,42 @@ describe DetectorComparisonController, type: :request do
       expect(response.body).to include('react_root')
     end
 
-    it 'serves the comparison data' do
+    it 'serves the page introduction and the size of each dataset for the index' do
       get '/detector_comparison.json'
+      expect(response.parsed_body['intro']).to include('preamble_html', 'views')
+      expect(response.parsed_body['counts']).to eq('topics' => 4, 'known_human' => 1)
+    end
+
+    it 'serves the 16-topic data with the page introduction' do
+      get '/detector_comparison/topics.json'
+      expect(response.parsed_body['intro']).to include('views')
       ids = response.parsed_body['units'].map { |unit| unit['id'] }
-      expect(ids).to contain_exactly(generated.id, human.id)
+      expect(ids).to contain_exactly(generated.id, human.id, agpedia_article.id,
+                                     article_after_term.id)
+    end
+
+    it 'serves the known-human data with the page introduction' do
+      get '/detector_comparison/known_human.json'
+      expect(response.parsed_body['intro']).to include('views')
+      expect(response.parsed_body['units'].map { |unit| unit['id'] }).to eq([human.id])
+    end
+
+    it 'serves the page shell for each dataset' do
+      %w[/detector_comparison/topics /detector_comparison/known_human].each do |path|
+        get path
+        expect(response.body).to include('react_root')
+      end
     end
 
     it 'serves a unit in full, and the page shell for its URL' do
       get "/detector_comparison/units/#{generated.id}.json"
       expect(response.parsed_body['text']).to eq(generated_text)
       get "/detector_comparison/units/#{generated.id}"
+      expect(response.body).to include('react_root')
+    end
+
+    it 'serves the page shell for a topic' do
+      get "/detector_comparison/topics/#{ERB::Util.url_encode("Marsy's Law")}"
       expect(response.body).to include('react_root')
     end
 

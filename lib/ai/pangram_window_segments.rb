@@ -2,10 +2,12 @@
 
 # Cuts a text at the boundaries of Pangram's windows, so a page can shade each
 # window where it falls. Pangram reports each window's character offsets in
-# the text it was sent. When the last window ends at the text's end, the
-# offsets map straight onto the text. Otherwise Pangram measured a slightly
-# different text (it may normalize whitespace), so the offsets are scaled to
-# the text's length, moved to the nearest space, and marked approximate.
+# the text it was sent; for multi-window texts they fall at sentence ends and
+# map straight onto the stored text. A text Pangram scored as one window often
+# reports an end a little short of the text's end (checked on 1,914 Pangram 4
+# results, October 2026), so a lone window covers the whole text. Offsets past
+# the text's end would mean Pangram measured a different text: they are scaled
+# to the text's length, moved to the nearest space, and marked approximate.
 class PangramWindowSegments
   SNAP_DISTANCE = 30
 
@@ -46,6 +48,7 @@ class PangramWindowSegments
   end
 
   def offset(index)
+    return lone_window_offset(index) if @windows.one?
     return [index, @text.length].min unless approximate_mapping?
     return @text.length if index >= last_end
 
@@ -53,8 +56,12 @@ class PangramWindowSegments
   end
 
   def approximate_mapping?
-    @approximate_mapping = last_end != @text.length if @approximate_mapping.nil?
+    @approximate_mapping = last_end > @text.length if @approximate_mapping.nil?
     @approximate_mapping
+  end
+
+  def lone_window_offset(index)
+    index.zero? ? 0 : @text.length
   end
 
   def snap(index)

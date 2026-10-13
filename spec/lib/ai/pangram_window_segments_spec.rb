@@ -18,14 +18,22 @@ describe PangramWindowSegments do
     expect(segments.approximate?).to be(false)
   end
 
-  it 'leaves text outside every window unmarked' do
-    segments = described_class.new(text, [window(4, 14)])
+  it 'leaves text after the last of several windows unmarked' do
+    segments = described_class.new(text, [window(0, 8), window(8, 14)])
 
-    expect(segments.parts.map { |part| part[:window] }).to eq([nil, 0])
+    expect(segments.parts.map { |part| part[:window] }).to eq([0, 1, nil])
+    expect(segments.approximate?).to be(false)
   end
 
-  it 'scales offsets to a text of a different length and moves cuts to a space' do
-    segments = described_class.new(text, [window(0, 12), window(12, 40)])
+  it 'stretches a lone window that ends short over the whole text' do
+    segments = described_class.new(text, [window(0, 40)])
+
+    expect(segments.parts).to eq([{ text:, window: 0 }])
+    expect(segments.approximate?).to be(false)
+  end
+
+  it 'scales offsets that run past the text and moves cuts to a space' do
+    segments = described_class.new(text, [window(0, 30), window(30, 80)])
 
     expect(segments.approximate?).to be(true)
     expect(segments.parts.map { |part| part[:text] }.join).to eq(text)

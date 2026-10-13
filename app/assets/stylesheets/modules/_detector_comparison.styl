@@ -24,17 +24,7 @@
     color dove
     font-size 14px
 
-  &__controls
-    display flex
-    flex-wrap wrap
-    gap 12px 24px
-    margin-bottom 8px
-
-    select
-      margin-left 6px
-
-  &__grid,
-  &__families
+  &__groups
     td,
     th
       padding 6px 8px
@@ -49,7 +39,7 @@
     tbody th
       font-weight 600
       text-align left
-      min-width 150px
+      min-width 220px
 
     tbody th small
       display block
@@ -57,42 +47,212 @@
       color dove
       max-width 300px
 
-  &__families tbody th
-    min-width 240px
-
-  &__cell,
   &__rate
+    text-align center
+    min-width 76px
     color $text_dk
 
   &__group-row th
     background $bg_med
     text-align left
+    font-weight 600
 
-  &__cell,
-  &__rate
+  &__group-detail
+    font-weight normal
+    color dove
+
+  // A column per topic and a row per model and condition; each cell is a small
+  // bar chart, so 16 topic columns fit inside the page container.
+  &__topic-matrix
+    position relative
+
+  // Its own table styles rather than .table, whose padding and full width
+  // would push the topic columns out of the container.
+  // Fills the container: a fixed label column, and the topic columns share the rest.
+  &__topic-grid
+    width 100%
+    table-layout fixed
+    border-collapse collapse
+    background #fff
+    border 1px solid $border_lt
+
+    td,
+    th
+      padding 2px 3px
+      font-size 12px
+      border-bottom 1px solid $border_lt
+
+    thead th
+      background $bg_light_gray
+
+    tbody th
+      font-weight normal
+      text-align left
+      min-width 140px
+      max-width 180px
+      white-space normal
+
+  &__corner
+    width 170px
+    vertical-align bottom
+    text-align left
+
+  // A text's own page shows one topic's column at its natural width.
+  &__topic-grid--compact
+    width auto
+    table-layout auto
+
+    .detector-comparison__bars
+      width 64px
+
+  &__topic-head
+    height 150px
+    vertical-align bottom
+    text-align left
+
+    span
+      display inline-block
+      writing-mode vertical-rl
+      transform rotate(180deg)
+      white-space nowrap
+      font-weight 600
+
+  &__cell
     text-align center
-    min-width 76px
+    vertical-align middle
 
   &__cell--empty
     background $bg_light_gray
 
   &__cell--current
-    outline 2px solid blue-violet
+    outline 2px solid $text_dk
     outline-offset -2px
 
-  &__cell-button
-    width 100%
-    border 0
-    background transparent
-    color inherit
-    cursor pointer
-    padding 2px 0
+  &__cell-link
+    display block
+    padding 2px
+    border-radius 2px
+    line-height 0
 
-    &[aria-pressed="true"]
-      outline 2px solid $text_dk
-
+    &:hover,
     &:focus-visible
       outline 2px solid $text_dk
+
+  &__bars
+    display block
+    width 100%
+    max-width 120px
+    height 40px
+    margin 0 auto
+
+  &__bars-track
+    fill #f2f2f5
+
+  &__cell--average,
+  &__topic-head--average
+    background $bg_light_gray
+    border-right 2px solid $border_med
+
+  &__filters
+    display grid
+    grid-template-columns repeat(auto-fit, minmax(190px, 1fr))
+    gap 12px 20px
+    margin 8px 0 16px
+    padding 12px 14px
+    background #fff
+    border 1px solid $border_lt
+
+  &__filter
+    border 0
+    padding 0
+    margin 0
+    min-width 0
+
+    legend
+      font-weight 600
+      font-size 13px
+      margin-bottom 2px
+      padding 0
+      border 0
+
+  &__filter-actions
+    display flex
+    gap 10px
+    margin-bottom 4px
+
+    button
+      border 0
+      background none
+      padding 0
+      font-size 12px
+      color blue-violet
+      text-decoration underline
+      cursor pointer
+
+  &__filter-heading
+    font-size 11px
+    text-transform uppercase
+    letter-spacing 0.04em
+    color dove
+    margin 6px 0 2px
+
+  &__filter-option
+    display flex
+    align-items center
+    gap 6px
+    font-size 13px
+    font-weight normal
+    margin 2px 0
+    cursor pointer
+
+    input
+      margin 0
+
+  &__summary-heading
+    display inline
+    font-size 20px
+
+  &__legend
+    display flex
+    flex-wrap wrap
+    align-items center
+    gap 6px 16px
+    margin 8px 0 12px
+    font-size 13px
+
+  &__legend-item
+    display inline-flex
+    align-items center
+    gap 6px
+
+  &__legend-note
+    color dove
+    flex-basis 100%
+
+  &__tooltip
+    position absolute
+    z-index 10
+    pointer-events none
+    min-width 220px
+    padding 8px 10px
+    background #fff
+    border 1px solid $border_med
+    border-radius 4px
+    box-shadow 0 2px 8px rgba(0, 0, 0, 0.15)
+    font-size 12px
+
+  &__tooltip-title
+    font-weight 600
+
+  &__tooltip-meta
+    color dove
+    margin-bottom 4px
+
+  &__tooltip-row
+    display grid
+    grid-template-columns 10px 1fr auto
+    align-items center
+    gap 6px
 
   &__cell-rate
     display block
@@ -102,12 +262,6 @@
     display block
     font-size 11px
     opacity 0.85
-
-  &__baseline-row th
-    border-bottom 2px solid $border_med
-
-  &__cell-units
-    margin-top 20px
 
   &__verdict
     white-space nowrap
@@ -146,14 +300,6 @@
     text-transform uppercase
     letter-spacing 0.04em
     color dove
-
-  &__references
-    list-style none
-    padding 0
-    margin 8px 0
-
-    li
-      margin 4px 0
 
   &__facts
     display grid
@@ -214,3 +360,222 @@
     color dove
     font-size 13px
     max-width 760px
+
+  &__preamble
+    max-width 760px
+
+  // Curated views: a list of cards, each a headline that sets the table, then the operator's
+  // gloss. The whole card is the click target, so it looks and behaves like one.
+  &__views
+    list-style none
+    padding 0
+    margin 24px 0 8px
+    max-width 820px
+    display flex
+    flex-direction column
+    gap 14px
+
+  &__view
+    position relative
+    padding 14px 18px 10px
+    background #fff
+    border 1px solid $border_med
+    border-left 4px solid $border_med
+    border-radius 4px
+    cursor pointer
+    transition border-color 0.15s, box-shadow 0.15s, background-color 0.15s
+
+    &:hover,
+    &:focus-within
+      border-color blue-violet
+      background-color #f7f6fd
+      box-shadow 0 2px 8px rgba(82, 72, 175, 0.18)
+
+    &:hover .detector-comparison__view-button,
+    &:focus-within .detector-comparison__view-button
+      text-decoration underline
+
+  &__view-heading
+    margin 0 0 6px
+    font-size 18px
+
+  &__view-button
+    color blue-violet
+    text-decoration none
+
+    &:focus-visible
+      outline 2px solid $text_dk
+      outline-offset 2px
+
+  &__view-description
+    p
+      margin 0 0 8px
+
+  &__view-cue
+    margin 0
+    font-size 12px
+    font-weight 600
+    text-transform uppercase
+    letter-spacing 0.04em
+    color blue-violet
+
+  // The conclusion the table is showing, above the table.
+  &__active-view
+    max-width 820px
+    margin 8px 0 16px
+    padding 14px 18px
+    background #f7f6fd
+    border 1px solid blue-violet
+    border-left 4px solid blue-violet
+    border-radius 4px
+
+    .detector-comparison__view-cue
+      margin-bottom 4px
+
+  &__filter-panel
+    margin 8px 0 12px
+
+    summary
+      cursor pointer
+      font-weight 600
+      color blue-violet
+
+    .detector-comparison__filters
+      margin-top 8px
+
+  &__filter--inline
+    display flex
+    flex-wrap wrap
+    align-items center
+    gap 4px 16px
+    margin 12px 0
+
+    legend
+      float left
+      margin-right 8px
+
+  &__topic-head a
+    color inherit
+    text-decoration none
+
+    &:hover,
+    &:focus-visible
+      color blue-violet
+      text-decoration underline
+
+  &__topic-link
+    margin-top 24px
+    font-weight 600
+
+  &__explanations
+    max-width 820px
+
+    h3
+      margin-top 20px
+
+  &__placeholder
+    font-style italic
+    color blue-violet
+
+  &__explanations
+    details
+      margin 6px 0 4px
+
+      summary
+        cursor pointer
+        color blue-violet
+
+  &__ladder
+    th,
+    td
+      font-size 13px
+      vertical-align top
+      text-align left
+
+  &__dagger
+    margin-left 2px
+    text-decoration none
+
+  // The switch between the two datasets' pages.
+  &__dataset-nav
+    display flex
+    gap 4px
+    margin 8px 0 4px
+    padding 0
+    background none
+    border-bottom 1px solid $border_med
+
+  &__dataset-tab
+    padding 8px 14px
+    margin-bottom -1px
+    border-bottom 3px solid transparent
+    color blue-violet
+    text-decoration none
+
+    &:hover
+      background-color #f7f6fd
+
+  &__dataset-tab--current
+    border-bottom-color blue-violet
+    color $text_dk
+    font-weight 600
+
+  // The index's way into each dataset.
+  &__dataset-cards
+    list-style none
+    padding 0
+    margin 12px 0
+    display grid
+    grid-template-columns repeat(auto-fit, minmax(260px, 1fr))
+    gap 14px
+    max-width 820px
+
+  &__dataset-card
+    padding 14px 18px
+    background #fff
+    border 1px solid $border_med
+    border-radius 4px
+
+    h3
+      margin 0 0 6px
+      font-size 18px
+
+    p
+      margin 0 0 6px
+
+  // The known-human page's tables.
+  &__baseline-summary,
+  &__baseline-texts
+    td,
+    th
+      padding 6px 8px
+      font-size 13px
+
+    thead th
+      vertical-align bottom
+
+    tbody th
+      font-weight normal
+      text-align left
+
+  &__baseline-score
+    font-variant-numeric tabular-nums
+    white-space nowrap
+
+  &__sort
+    border 0
+    background none
+    padding 0
+    font inherit
+    font-weight 600
+    color blue-violet
+    text-align left
+    cursor pointer
+
+    &[aria-pressed="true"]
+      color $text_dk
+      text-decoration underline
+
+    &:focus-visible
+      outline 2px solid $text_dk
+      outline-offset 2px

@@ -4,17 +4,19 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import {
-  APPROXIMATE_HIGHLIGHT, CONDITIONS, DETECTORS, HIGHLIGHT_HELP, MODELS, SOURCE_FORMATS
+  APPROXIMATE_HIGHLIGHT, CONDITIONS, DETECTORS, HIGHLIGHT_HELP, MODELS, REFERENCE_ROWS, SOURCE_FORMATS
 } from './descriptions';
-import { fetchOverview, fetchUnit, formatScore, isGenerated, shade, topicOfPair } from './data';
+import { datasetPath, fetchOverview, fetchUnit, formatScore, isGenerated, shade, topicOfPair } from './data';
 import VerdictChip from './verdict_chip';
-import VerdictMatrix from './verdict_matrix';
-import { AuthorshipNote } from './overview';
+import { topicPath } from './topic_matrix';
+import AuthorshipNote from './authorship_note';
 
 const PRIOR_ARTICLE = '{prior_article}';
 
 const unitTitle = (unit, topic) => {
-  if (unit.ground_truth === 'human') return `Student text: ${topic || unit.sample}`;
+  const version = REFERENCE_ROWS.find(row => row.version && row.version === unit.factors.version);
+  if (version) return `${unit.factors.topic}: ${version.label}`;
+  if (unit.ground_truth === 'human') return `Student's additions: ${topic || unit.sample}`;
   if (unit.provenance === 'agpedia') return `Agpedia: ${unit.factors.topic}${unit.factors.excerpt === 'lead' ? ' (lead)' : ''}`;
   const model = MODELS[unit.factors.model]?.label || unit.factors.model;
   const condition = CONDITIONS[unit.metadata.condition]?.label || unit.metadata.condition;
@@ -23,7 +25,7 @@ const unitTitle = (unit, topic) => {
 
 const FACT_LABELS = [
   ['sample', 'Sample'], ['words', 'Words'], ['runner', 'Generated with'], ['tool_version', 'Tool version'],
-  ['generated_at', 'Generated'], ['web_searches', 'Web searches'], ['web_fetches', 'Pages fetched'],
+  ['generated_at', 'Generated'], ['rev_timestamp', 'Revision date'], ['fetched_at', 'Collected'], ['web_searches', 'Web searches'], ['web_fetches', 'Pages fetched'],
   ['prior_overlap', 'Copied from the prior article'], ['human_prompt', 'Human prompt'],
   ['agpedia_operators', 'Agpedia operators'], ['agpedia_agents', 'Agpedia agents'], ['agpedia_rev_date', 'Agpedia revision date'],
 ];
@@ -70,7 +72,7 @@ const Results = ({ scores }) => (
             ) : (
               <>
                 <td>
-                  <VerdictChip verdict={{ flagged: score.summary.label === 'AI', label: score.summary.label }} />
+                  <VerdictChip verdict={{ flagged: score.flagged, label: score.summary.label }} />
                   {score.summary.vendor === 'pangram' && score.summary.max_score > 0.9 && <span className="detector-comparison__alert"> would alert</span>}
                 </td>
                 <td>{scoreCells(score)}</td>
@@ -175,7 +177,6 @@ const UnitPage = () => {
   const pangramScores = unit.scores.filter(score => score.windows?.length);
   const highlightWindows = unit.highlight && unit.scores.find(score => score.check_type === unit.highlight.check_type)?.windows;
   const blocks = unit.scores.filter(score => score.blocks?.length);
-  const pair = overview && unit.metadata.paired_unit_id && overview.units.find(other => other.id === Number(unit.metadata.paired_unit_id));
 
   return (
     <div className="container detector-comparison">
@@ -219,11 +220,10 @@ const UnitPage = () => {
       )}
 
       {overview && topic && overview.units.some(other => isGenerated(other) && other.factors.topic === topic) && (
-        <section>
-          <h2>Other versions of {topic}</h2>
-          {pair && <p><Link to={`/detector_comparison/units/${pair.id}`}>The student text this topic came from</Link> <VerdictChip verdict={pair.scores['Pangram 4'] && { flagged: pair.scores['Pangram 4'].flagged, label: pair.scores['Pangram 4'].label }} /></p>}
-          <VerdictMatrix key={topic} units={overview.units} initialTopic={topic} currentUnitId={unit.id} />
-        </section>
+        <p className="detector-comparison__topic-link"><Link to={topicPath(topic)}>Every text on {topic}</Link></p>
+      )}
+      {unit.datasets?.includes('known_human') && (
+        <p className="detector-comparison__topic-link"><Link to={datasetPath('known_human')}>Every known-human text</Link></p>
       )}
 
       <AuthorshipNote />

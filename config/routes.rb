@@ -637,7 +637,10 @@ Rails.application.routes.draw do
 
   # AI detector comparison data (admins, Wiki Ed only)
   get 'detector_comparison' => 'detector_comparison#index'
+  get 'detector_comparison/topics' => 'detector_comparison#topics'
+  get 'detector_comparison/known_human' => 'detector_comparison#known_human'
   get 'detector_comparison/units/:id' => 'detector_comparison#unit'
+  get 'detector_comparison/topics/:topic' => 'detector_comparison#topic'
 
   # AI tools for admins
   get 'ai_tools' => 'ai_tools#show'

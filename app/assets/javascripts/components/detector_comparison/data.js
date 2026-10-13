@@ -1,19 +1,35 @@
 import request, { ensureOk } from '../../utils/request';
-import { DETECTOR_ORDER, MODELS, CONDITION_ORDER } from './descriptions';
+import { DETECTOR_ORDER, MODELS, CONDITION_ORDER, REFERENCE_ROWS } from './descriptions';
 
 export const ALERT_KEY = 'Pangram 4 alert';
 
-// The overview data is large and the same for every view, so it is fetched once per page load.
-let overviewPromise = null;
-export const fetchOverview = () => {
-  if (!overviewPromise) {
-    overviewPromise = request('/detector_comparison.json')
-      .then(response => ensureOk(response, 'detector comparison'))
+// Detectors drawn as bars in each grid cell, in a fixed order, each with a fixed color from the
+// validated categorical palette (dataviz reference palette, slots 1–5).
+export const BAR_DETECTORS = [
+  { key: 'Pangram 4', id: 'p4', color: '#2a78d6' },
+  { key: 'Originality AI Allowance 40', id: 'a40', color: '#eb6834' },
+  { key: 'Originality AI Allowance 15', id: 'a15', color: '#1baf7a' },
+  { key: 'Open Pangram EditLens Llama', id: 'opl', color: '#eda100' },
+  { key: 'Open Pangram EditLens RoBERTa', id: 'opr', color: '#e87ba4' },
+];
+
+export const INDEX_PATH = '/detector_comparison';
+export const datasetPath = key => `${INDEX_PATH}/${key === 'known_human' ? 'known_human' : 'topics'}`;
+
+// Each dataset's data is large and the same for every view, so it is fetched once per page load.
+const fetched = {};
+const fetchOnce = (url, what) => {
+  if (!fetched[url]) {
+    fetched[url] = request(url)
+      .then(response => ensureOk(response, what))
       .then(response => response.json())
-      .catch((error) => { overviewPromise = null; throw error; });
+      .catch((error) => { delete fetched[url]; throw error; });
   }
-  return overviewPromise;
+  return fetched[url];
 };
+export const fetchIndex = () => fetchOnce(`${INDEX_PATH}.json`, 'detector comparison');
+export const fetchOverview = () => fetchOnce(`${datasetPath('topics')}.json`, 'detector comparison topics');
+export const fetchKnownHuman = () => fetchOnce(`${datasetPath('known_human')}.json`, 'detector comparison known human');
 
 export const fetchUnit = id => request(`/detector_comparison/units/${id}.json`)
   .then(response => ensureOk(response, 'detector comparison unit'))
@@ -55,6 +71,15 @@ export const topicsIn = units => [...new Set(units.map(unit => unit.factors.topi
 export const isGenerated = unit => unit.provenance === 'synthetic';
 export const isAgpedia = unit => unit.provenance === 'agpedia';
 export const isHuman = unit => unit.ground_truth === 'human';
+
+// Which reference row a text belongs to (see REFERENCE_ROWS), or null for a generated text.
+export const referenceKey = (unit, pairedIds) => {
+  if (isAgpedia(unit)) return 'reference:agpedia';
+  if (pairedIds.has(unit.id)) return 'reference:human';
+  const row = REFERENCE_ROWS.find(reference => reference.version && reference.version === unit.factors.version);
+  return row ? row.key : null;
+};
+export const pairedIdsOf = units => new Set(units.map(unit => unit.paired_unit_id).filter(Boolean));
 
 // The topic of a paired human text, taken from the generated texts that point to it.
 export const topicOfPair = (units, id) => units.find(unit => unit.paired_unit_id === id)?.factors.topic;

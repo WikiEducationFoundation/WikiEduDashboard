@@ -37,6 +37,36 @@ RSpec.shared_context 'detector comparison data' do
                               plain_text: "Retired #{generated_text}", ground_truth: 'ai',
                               provenance: 'synthetic')
   end
+  let!(:agpedia_article) do
+    AiDetectionSample.create!(sample_name: 'agpedia_topics_2026_10',
+                              plain_text: "Agpedia #{generated_text}",
+                              ground_truth: 'ai', provenance: 'agpedia',
+                              factors: { 'topic' => 'Glacial stream', 'excerpt' => 'full',
+                                         'model' => 'claude-sonnet-5-5' })
+  end
+  let!(:agpedia_lead) do
+    AiDetectionSample.create!(sample_name: 'agpedia_topics_leads_2026_10',
+                              plain_text: "Lead #{generated_text}",
+                              ground_truth: 'ai', provenance: 'agpedia',
+                              factors: { 'topic' => 'Glacial stream', 'excerpt' => 'lead' })
+  end
+  let!(:other_agpedia) do
+    AiDetectionSample.create!(sample_name: 'agpedia_2026_10', plain_text: "Other #{generated_text}",
+                              ground_truth: 'ai', provenance: 'agpedia',
+                              factors: { 'topic' => 'ai-agent', 'excerpt' => 'full' })
+  end
+  let!(:article_after_term) do
+    AiDetectionSample.create!(sample_name: 'topic_articles_2026_10',
+                              plain_text: "Whole article #{human_text}",
+                              ground_truth: 'human', provenance: 'pre_llm_revision',
+                              factors: { 'topic' => 'Glacial stream', 'version' => 'after_term' })
+  end
+  let!(:other_article) do
+    AiDetectionSample.create!(sample_name: 'topic_articles_2026_10',
+                              plain_text: "Another article #{human_text}",
+                              provenance: 'current_revision',
+                              factors: { 'topic' => 'Rooibos', 'version' => 'today' })
+  end
   let!(:repeated_baseline) do
     AiDetectionSample.create!(sample_name: 'originality_2026_09', plain_text: human_text,
                               ground_truth: 'human', provenance: 'pre_llm_term')

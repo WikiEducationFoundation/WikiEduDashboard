@@ -33,8 +33,18 @@ describe DescribeDetectorComparisonUnit do
     expect(highlight[:parts].map { |part| part[:text] }.join).to eq(generated_text)
   end
 
-  it 'describes only units the page lists' do
+  it 'describes only units the page lists, naming the datasets that list them' do
     expect { described_class.new(retired.id) }.to raise_error(ActiveRecord::RecordNotFound)
-    expect(described_class.new(human.id).result[:ground_truth]).to eq('human')
+    expect { described_class.new(other_agpedia.id) }.to raise_error(ActiveRecord::RecordNotFound)
+    expect { described_class.new(repeated_baseline.id) }.to raise_error(ActiveRecord::RecordNotFound)
+    expect(result[:datasets]).to eq(['topics'])
+    expect(described_class.new(human.id).result[:datasets]).to eq(%w[topics known_human])
+  end
+
+  it 'marks each verdict that found AI' do
+    scores = result[:scores].index_by { |score| score[:check_type] }
+
+    expect(scores['Pangram 4']).to include(flagged: true)
+    expect(described_class.new(human.id).result[:scores].first).to include(flagged: false)
   end
 end

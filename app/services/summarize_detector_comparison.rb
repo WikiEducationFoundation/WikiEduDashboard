@@ -1,31 +1,39 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/app/services/export_ai_detection_comparison"
+require_dependency "#{Rails.root}/app/services/collect_detector_comparison_scores"
 
-# The data behind the admin detector comparison page: every unit of the
-# known-AI samples (generated and Agpedia texts) and the human texts they are
-# paired with, each with every detector's verdict and scores, plus each
-# detector's verdicts on the pre-ChatGPT human baseline. Texts are left out;
-# DescribeDetectorComparisonUnit serves one unit in full. Cached until a unit
-# or a comparison score changes.
+# The data behind the admin detector comparison page: the texts generated on
+# the challenge topics, the Agpedia article on each of those topics, the
+# student text each topic came from, and each topic's whole article before and
+# after the student's term and today, each with every detector's verdict and
+# scores. Texts are left out; DescribeDetectorComparisonUnit serves one unit in
+# full. Cached until a unit or a comparison score changes.
 class SummarizeDetectorComparison
-  PROVENANCES = [AiDetectionSample::SYNTHETIC, 'agpedia'].freeze
+  AGPEDIA = 'agpedia'
+  # Whole-article revisions of the challenge topics (exemplars/topic_article_versions.py).
+  ARTICLE_VERSIONS = %w[pre_llm_revision current_revision].freeze
+  # Codex runs that reached the web through ChatGPT workspace apps although web
+  # search was off: kept in the samples, left off the page.
+  EXCLUDED_CONDITIONS = %w[assignment_apps_web].freeze
   RETIRED_SAMPLES = '%_retired'
   # The Dashboard's alert rule: any Pangram window scoring above this.
   ALERT_THRESHOLD = 0.9
+  # Verdict labels that clear a text. Any other label counts as a detection: AI, Pangram's
+  # Mixed, and Open Pangram's AI-edited levels.
+  HUMAN_LABELS = %w[Human Original].freeze
   UNIT_COLUMNS = %i[id sample_name ground_truth provenance url word_count text_sha256 factors
                     metadata].freeze
 
   attr_reader :result
 
-  def self.page_units
-    AiDetectionSample.where(provenance: PROVENANCES)
-                     .where.not('sample_name LIKE ?', RETIRED_SAMPLES)
+  # Texts in samples still in use, of one provenance.
+  def self.current_units(provenance)
+    AiDetectionSample.where(provenance:).where.not('sample_name LIKE ?', RETIRED_SAMPLES)
   end
 
-  def self.baseline_units
-    AiDetectionSample.where(ground_truth: AiDetectionSample::HUMAN,
-                            provenance: AiDetectionSample::PRE_LLM_TERM)
+  def self.flagged?(label)
+    label.present? && HUMAN_LABELS.exclude?(label)
   end
 
   # Verdict and scores of one stored row, or nil for a failed call.
@@ -33,7 +41,7 @@ class SummarizeDetectorComparison
     return if score.avg_ai_likelihood.nil?
 
     summary = ExportAiDetectionComparison.summary_for(score)
-    row = { label: summary['label'], flagged: summary['label'] == 'AI',
+    row = { label: summary['label'], flagged: flagged?(summary['label']),
             max: summary['max_score'], mean: summary['mean_window_score'],
             document: summary['document_score'], windows: summary['window_count'] }
     return row unless score.check_type.start_with?('Pangram')
@@ -45,20 +53,63 @@ class SummarizeDetectorComparison
     @result = Rails.cache.fetch(cache_key) { build }
   end
 
+  def unit_ids
+    @result[:units].map { |unit| unit[:id] }
+  end
+
   private
 
   def cache_key
     scores = RevisionAiScore.where.not(sample_id: nil)
-    ['detector_comparison', AiDetectionSample.count, AiDetectionSample.maximum(:updated_at),
+    # Bump the version when the result's shape changes, so a deploy doesn't serve an old shape.
+    ['detector_comparison/v6', AiDetectionSample.count, AiDetectionSample.maximum(:updated_at),
      scores.count, scores.maximum(:updated_at)]
   end
 
   def build
-    units = load(self.class.page_units)
-    paired_ids = units.filter_map { |unit| unit.metadata['paired_unit_id'].presence&.to_i }
-    pairs = load(self.class.baseline_units.where(id: paired_ids.uniq))
-    { units: (units + pairs).map { |unit| unit_row(unit) },
-      baseline: baseline, generated_at: Time.zone.now }
+    generated = load(self.class.current_units(AiDetectionSample::SYNTHETIC))
+                .reject { |unit| EXCLUDED_CONDITIONS.include?(unit.metadata['condition']) }
+    units = generated + agpedia_articles(generated) + topic_articles(generated) +
+            paired_texts(generated)
+    @scores = CollectDetectorComparisonScores.new(units).result
+    { units: units.map { |unit| unit_row(unit) }, prompts: prompts(generated),
+      generated_at: Time.zone.now }
+  end
+
+  # The prompts each strategy sent, as stored with one of its texts, with the topic's name
+  # replaced by {topic}. Strategies whose texts have no stored prompts are left out.
+  def prompts(generated)
+    generated.group_by { |unit| unit.metadata['condition'] }.filter_map do |condition, units|
+      unit = units.find { |candidate| candidate.metadata['prompts'].present? }
+      next unless condition && unit
+
+      [condition, with_topic_placeholder(unit.metadata['prompts'], unit.factors['topic'].to_s)]
+    end.to_h
+  end
+
+  # Whole Agpedia articles on the generated texts' topics; leads and other articles are left out.
+  def agpedia_articles(generated)
+    topics = generated.to_set { |unit| unit.factors['topic'] }
+    load(self.class.current_units(AGPEDIA)).select do |unit|
+      unit.factors['excerpt'] == 'full' && topics.include?(unit.factors['topic'])
+    end
+  end
+
+  # Each topic's article before and after the student's term and today.
+  def topic_articles(generated)
+    topics = generated.to_set { |unit| unit.factors['topic'] }
+    load(self.class.current_units(ARTICLE_VERSIONS))
+      .select { |unit| topics.include?(unit.factors['topic']) }
+  end
+
+  # The student texts the topics were taken from.
+  def paired_texts(generated)
+    ids = generated.filter_map { |unit| unit.metadata['paired_unit_id'].presence&.to_i }
+    load(AiDetectionSample.where(id: ids.uniq))
+  end
+
+  def with_topic_placeholder(turns, topic)
+    topic.empty? ? turns : turns.map { |turn| turn.gsub(topic, '{topic}') }
   end
 
   def load(scope)
@@ -74,27 +125,6 @@ class SummarizeDetectorComparison
   end
 
   def scores(unit)
-    unit.revision_ai_scores.to_h { |score| [score.check_type, self.class.score_row(score)] }.compact
-  end
-
-  # Each detector's verdicts on the baseline, counting each text once: some
-  # samples repeat baseline texts.
-  def baseline
-    rows = load(self.class.baseline_units).flat_map do |unit|
-      unit.revision_ai_scores.filter_map do |score|
-        row = self.class.score_row(score)
-        [unit.text_sha256, score.check_type, row] if row
-      end
-    end
-    rows.uniq { |sha, check_type, _row| [sha, check_type] }
-        .group_by { |_sha, check_type, _row| check_type }
-        .transform_values { |group| tally(group.map(&:last)) }
-  end
-
-  def tally(rows)
-    counts = { texts: rows.size, flagged: rows.count { |row| row[:flagged] } }
-    return counts unless rows.first.key?(:alert)
-
-    counts.merge(alerts: rows.count { |row| row[:alert] })
+    @scores[unit.id].to_h { |score| [score.check_type, self.class.score_row(score)] }.compact
   end
 end

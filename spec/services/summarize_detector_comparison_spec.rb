@@ -8,12 +8,29 @@ describe SummarizeDetectorComparison do
   let(:result) { described_class.new.result }
   let(:units) { result[:units].index_by { |unit| unit[:id] } }
 
-  it 'lists the known-AI units and their paired human texts, not retired units' do
-    expect(units.keys).to contain_exactly(generated.id, human.id)
+  it 'leaves out the runs that browsed through workspace apps' do
+    apps = AiDetectionSample.create!(
+      sample_name: 'generated_stratified_2026_10', plain_text: "Apps #{generated_text}",
+      ground_truth: 'ai', provenance: 'synthetic',
+      factors: { 'model' => 'gpt-6-astra', 'topic' => 'Glacial stream' },
+      metadata: { 'condition' => 'assignment_apps_web' }
+    )
+    expect(units.keys).not_to include(apps.id)
+  end
+
+  it 'lists generated texts, the Agpedia article on their topics and the paired human texts' do
+    expect(units.keys).to contain_exactly(generated.id, human.id, agpedia_article.id,
+                                          article_after_term.id)
     expect(units[generated.id]).to include(sample: 'generated_stratified_2026_10',
                                            condition: 'assignment', paired_unit_id: human.id,
                                            words: generated.word_count)
     expect(units[generated.id][:factors]).to include('model' => 'gpt-6-astra')
+  end
+
+  it "lists each strategy's prompts with the topic's name as a placeholder" do
+    expect(result[:prompts]['assignment']).to eq(['Assigned article: {topic}',
+                                                  "Current article:\n\n{prior_article}",
+                                                  'Start drafting your contributions'])
   end
 
   it 'gives each detector its verdict and scores, with the alert rule for Pangram' do
@@ -21,14 +38,29 @@ describe SummarizeDetectorComparison do
 
     expect(scores.keys).to contain_exactly('Pangram 4', 'Originality AI Allowance 40',
                                            'Open Pangram EditLens Llama')
-    expect(scores['Pangram 4']).to include(label: 'Mixed', flagged: false, alert: true, max: 0.95)
-    expect(scores['Originality AI Allowance 40']).to include(label: 'AI', flagged: true,
-                                                             document: 0.99)
+    expect(scores['Pangram 4']).to include(label: 'Mixed', alert: true, max: 0.95)
+    expect(scores['Originality AI Allowance 40']).to include(label: 'AI', document: 0.99)
     expect(scores['Originality AI Allowance 40']).not_to have_key(:alert)
-    expect(scores['Open Pangram EditLens Llama']).to include(label: 'AI-edited 1', flagged: false)
+    expect(scores['Open Pangram EditLens Llama']).to include(label: 'AI-edited 1')
   end
 
-  it 'counts each baseline text once per detector' do
-    expect(result[:baseline]['Pangram 4']).to eq(texts: 1, flagged: 0, alerts: 0)
+  it 'counts any verdict short of human as a detection' do
+    scores = units[generated.id][:scores]
+
+    expect(scores.values.pluck(:flagged)).to all(be(true))
+    expect(units[human.id][:scores]['Pangram 4']).to include(label: 'Human', flagged: false)
+  end
+
+  it "counts a detector's result on an identical copy of a text" do
+    repeated_baseline.revision_ai_scores.create!(
+      check_type: 'Originality AI Allowance 40', check_origin: 'detector_comparison',
+      avg_ai_likelihood: 0.0, max_ai_likelihood: 0.1,
+      details: { 'results' => { 'ai' => originality_ai_result.merge(
+        'classification' => { 'AI' => 0, 'Original' => 1 },
+        'confidence' => { 'AI' => 0.01, 'Original' => 0.99 }
+      ) } }
+    )
+    expect(units[human.id][:scores]['Originality AI Allowance 40'])
+      .to include(label: 'Original', flagged: false)
   end
 end
