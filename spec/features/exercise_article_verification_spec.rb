@@ -97,6 +97,36 @@ describe 'verifying the article for an article_title_input exercise', type: :fea
     expect(page).not_to have_button 'Submit Article'
   end
 
+  it 'offers Submit Article instead of Mark Complete before the article is verified' do
+    instructor = create(:user, username: 'Instructor', permissions: User::Permissions::INSTRUCTOR)
+    create(:courses_user, course:, user: instructor, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    create(:training_modules_users, user: instructor, training_module:,
+                                    completed_at: Time.zone.now)
+    stub_token_request
+    login_as instructor
+
+    visit "/courses/#{course.slug}"
+
+    within('.my-exercises') do
+      expect(page).to have_button 'Submit Article'
+      expect(page).not_to have_button 'Mark Complete'
+    end
+  end
+
+  it 'offers Mark Complete again after a verified exercise is marked incomplete' do
+    tmu = create(:training_modules_users, user: student, training_module:,
+                                          completed_at: Time.zone.now)
+    tmu.store_exercise_article_title('Marie Curie', course.id)
+    tmu.mark_completion(false, course.id)
+    tmu.save
+    login_as student
+    visit "/courses/#{course.slug}/timeline"
+
+    click_button 'Mark Complete'
+
+    expect(page).to have_content 'Status: Complete!'
+  end
+
   it 'shows instructors the verified article in the student drawer' do
     tmu = create(:training_modules_users, user: student, training_module:,
                                           completed_at: Time.zone.now)

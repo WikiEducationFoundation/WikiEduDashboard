@@ -17,8 +17,8 @@ import {
 } from '~/app/assets/javascripts/actions/exercises_actions';
 
 export const ModuleStatus = ({
-  block_id, course, deadline_status, due_date, exercise_url, flags, kind, module_progress,
-  progressClass, slug, complete, fetchExercises, incomplete
+  article_title_input, block_id, course, deadline_status, due_date, exercise_url, flags, kind,
+  module_progress, progressClass, slug, complete, fetchExercises, incomplete
 }) => {
   const isTrainingModule = kind === TRAINING_MODULE_KIND;
   const isExercise = kind === EXERCISE_KIND;
@@ -29,6 +29,7 @@ export const ModuleStatus = ({
   if (isTrainingModule || isExercise) {
     const button = (
       <ExerciseButton
+        article_title_input={article_title_input}
         block_id={block_id}
         course={course}
         exercise_url={exercise_url}
@@ -54,6 +55,7 @@ export const ModuleStatus = ({
 };
 
 ModuleStatus.propTypes = {
+  article_title_input: PropTypes.bool,
   block_id: PropTypes.number.isRequired,
   course: PropTypes.shape({
     id: PropTypes.number.isRequired
