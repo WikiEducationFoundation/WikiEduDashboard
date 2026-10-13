@@ -71,12 +71,7 @@ class UpdateCourseWikiTimeslices
       # that were not fully reprocessed in this cycle.
       reaggregate_timeslices_from_acuwt(wiki) if @course.use_acuwt?
     end
-    # Replica's rate limit isn't per-wiki, so there's no point continuing to
-    # the next wiki if one hits it -- it would just hit the same limit again.
-    # Let Replica::RequestFailedError propagate (the rescue blocks below have
-    # already flagged whatever timeslice was mid-flight for retry next
-    # cycle); UpdateCourseStats stops the whole course update and reports it
-    # once, the same way regardless of which Replica call hit the limit.
+    # Replica::RequestFailedError propagates to UpdateCourseStats, which stops the update.
   end
 
   def fetch_data_and_process_timeslices(wiki, first_start, latest_start)
@@ -157,10 +152,7 @@ class UpdateCourseWikiTimeslices
     reprocessed_dates = handle_timeslice(wiki, t.start, t.end, only_new: false)
     @reprocessed_timeslices[wiki.id] += reprocessed_dates
   rescue Replica::RequestFailedError
-    # Unlike the StandardError case below, explicitly re-flag needs_update
-    # rather than relying on it already being true from this loop's own
-    # query (`.needs_update`) -- the point under rescue here, not a
-    # byproduct of how we got the record.
+    # Re-flag explicitly rather than rely on the flag still being set.
     t.update(needs_update: true) # No effect if t has split
     raise
   rescue StandardError => e

@@ -21,10 +21,7 @@ class ArticleImporter
     import_articles_from_replica_data(articles_data)
   end
 
-  # This runs outside any course update, so there's no course-level rescue to
-  # catch a rate limit -- treat it like any other failed chunk (a nil
-  # result) instead of aborting whatever job called this (e.g. an alert
-  # monitor importing one article).
+  # Used outside course updates, so treat a Replica failure as a failed (nil) chunk.
   def fetch_existing_articles_by_id(some_article_ids)
     Replica.new(@wiki).get_existing_articles_by_id(some_article_ids)
   rescue Replica::RequestFailedError

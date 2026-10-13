@@ -73,6 +73,32 @@ describe UpdateCourseWikiTimeslices do
     end
 
     context 'when there are revisions' do
+      # Regression test for PEONY-392: a rate-limited fetch used to come back
+      # empty and overwrite correct timeslice data with fewer revisions.
+      it 'keeps already-imported timeslice data when Replica rate-limits a later update' do
+        VCR.use_cassette 'course_wiki_timeslices_update' do
+          described_class.new(course, UpdateDebugger.new(course)).run(all_time: false)
+        end
+        imported = course.course_wiki_timeslices.order(:wiki_id, :start)
+                         .pluck(:wiki_id, :start, :revision_count, :mw_rev_count,
+                                :character_sum, :last_mw_rev_datetime)
+        expect(imported.sum { |row| row[2] }).to be_positive
+
+        allow_any_instance_of(Replica).to receive(:sleep)
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: {})
+        next_update = described_class.new(course.reload, UpdateDebugger.new(course))
+        VCR.use_cassette 'course_wiki_timeslices_update' do
+          expect { next_update.run(all_time: false) }.to raise_error(Replica::RateLimitedError)
+        end
+
+        after_rate_limit = course.course_wiki_timeslices.order(:wiki_id, :start)
+                                 .pluck(:wiki_id, :start, :revision_count, :mw_rev_count,
+                                        :character_sum, :last_mw_rev_datetime)
+        expect(after_rate_limit).to eq(imported)
+        expect(course.course_wiki_timeslices.where(needs_update: true)).to exist
+      end
+
       it 'updates article course timeslices caches' do
         VCR.use_cassette 'course_wiki_timeslices_update' do
           subject
