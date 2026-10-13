@@ -8,6 +8,11 @@ describe 'AI detector comparison page', type: :feature, js: true do
   let(:admin) { create(:admin) }
   let(:generated_cell) { "a[aria-label^='GPT-6 Astra, Assignment, Glacial stream']" }
 
+  # Earlier specs can leave the window another size, such as 1920x1920. In a window that tall
+  # the page ends before the ladder section can scroll up to the navbar, so use the suite's
+  # default size (rails_helper.rb).
+  before { page.current_window.resize_to(1200, 1200) }
+
   # The site scrolls smoothly, so wait for the element to arrive just below the fixed navbar.
   def scrolled_to?(id)
     50.times.any? do
