@@ -1589,7 +1589,7 @@ es:
     aria_label:
       bell: Notificaciones
   downloads:
-    available_in_bell: Tu archivo está listo. Ve a las notificaciones de la campana para descargarlo.
+    available_in_bell: Tu archivo está listo. Ve a la notificación de descarga.
     title: Descargas
     none: Aún no tienes descargas.
     generating: Generando…
@@ -1602,6 +1602,8 @@ es:
     new_downloads: Tienes nuevas descargas.
     no_downloads: No tienes nuevas descargas.
     aria_label: Descargas
+    csv: 'Descargar CSV'
+    json: 'Descargar JSON'
   survey:
     login_message: Gracias por tu tiempo. Inicia sesión en tu panel de Wiki Ed para
       participar en la encuesta.

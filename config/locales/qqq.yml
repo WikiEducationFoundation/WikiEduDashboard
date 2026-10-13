@@ -930,7 +930,7 @@ qqq:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
   downloads:
-    available_in_bell: Notification message informing the user that their downloaded file is ready in the bell notification panel
+    available_in_bell: Notification message informing the user that their downloaded file is ready in the download notification
     title: |-
       Header for the downloads notification panel
       {{Identical|Downloads}}
@@ -956,6 +956,8 @@ qqq:
     aria_label: |-
       Accessibility label for the downloads icon in the navigation bar
       {{Identical|Downloads}}
+    csv: Button label to download data as a CSV file
+    json: Button label to download data as a JSON file
   survey:
     login_message: Message prompting user to log in before taking a survey. (Wiki
       Ed only)
@@ -1064,7 +1066,4 @@ qqq:
       {{Identical|Details}}
     see_more: Link text to navigate to a more detailed view of a metric in the user
       stats table
-  downloads:
-    csv: Button label to download data as a CSV file
-    json: Button label to download data as a JSON file
 ...
