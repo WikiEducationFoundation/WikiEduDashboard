@@ -15,12 +15,20 @@ class ArticleImporter
     article_ids = ids.map { |id| { 'mw_page_id' => id } }
     articles_data = []
     article_ids.each_slice(40) do |some_article_ids|
-      some_article_data = Replica.new(@wiki).get_existing_articles_by_id some_article_ids
-      next if some_article_data.nil?
-      articles_data += some_article_data
+      articles_data += fetch_existing_articles_by_id(some_article_ids) || []
     end
     return if articles_data.empty?
     import_articles_from_replica_data(articles_data)
+  end
+
+  # This runs outside any course update, so there's no course-level rescue to
+  # catch a rate limit -- treat it like any other failed chunk (a nil
+  # result) instead of aborting whatever job called this (e.g. an alert
+  # monitor importing one article).
+  def fetch_existing_articles_by_id(some_article_ids)
+    Replica.new(@wiki).get_existing_articles_by_id(some_article_ids)
+  rescue Replica::RequestFailedError
+    nil
   end
 
   def import_articles_by_title(titles)
