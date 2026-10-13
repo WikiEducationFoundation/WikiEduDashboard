@@ -124,14 +124,12 @@ class Replica # rubocop:disable Metrics/ClassLength
     handle_replica_response(endpoint, response)
   rescue StandardError => e
     tries -= 1
-    retry if rate_limit_retry?(e, tries)
+    retry if back_off_if_rate_limited(e, tries)
     sleep 2 && retry unless tries.zero?
     report_failure(e, { endpoint:, query:, language: @wiki.language, project: @wiki.project })
   end
 
-  # Shared by api_get and api_post: parse a Replica response and either
-  # return its data, skip a known-benign connection failure, or raise
-  # (RateLimitedError for a 429, a generic error for anything else).
+  # Returns the response data, skips a known per-wiki failure, or raises.
   def handle_replica_response(endpoint, response)
     parsed = parse_replica_body(response.body)
     return parsed['data'] if parsed && parsed['success']
@@ -140,11 +138,9 @@ class Replica # rubocop:disable Metrics/ClassLength
     raise "Replica #{endpoint} request failed (HTTP #{response.code})"
   end
 
-  # Unlike a generic error, a rate limit isn't swallowed once retries run
-  # out -- it raises, so the caller stops instead of treating a skipped
-  # fetch as "no revisions" (see PEONY-392). Counted the same way as a
-  # MediaWiki 429 (WikiApi#too_many_requests?).
-  def rate_limit_retry?(error, tries_left)
+  # On a 429, back off and return true to retry, or raise once out of tries,
+  # so callers stop instead of treating the fetch as "no revisions" (PEONY-392).
+  def back_off_if_rate_limited(error, tries_left)
     return false unless error.is_a?(RateLimitedError)
     @update_service&.record_too_many_requests
     raise error if tries_left.zero?
@@ -152,13 +148,10 @@ class Replica # rubocop:disable Metrics/ClassLength
     true
   end
 
-  # Per Wikimedia's rate-limit policy: honor Retry-After when present, else
-  # back off a few seconds. Capped well below WikiApi's own cap, since this
-  # sleep blocks a Sidekiq thread and holds its unique-job lock throughout.
+  # Honor Retry-After, else wait a few seconds. Capped low since this blocks a Sidekiq thread.
   DEFAULT_RETRY_AFTER_SECONDS = 5
   MAX_RETRY_AFTER_SECONDS = 30
-  # Many course updates on the same box hit the limit together; jitter keeps
-  # them from all retrying at the same moment and re-tripping it.
+  # Keeps many rate-limited updates from retrying at the same moment.
   MAX_RETRY_JITTER_SECONDS = 1.0
 
   def retry_delay_for(error)
@@ -178,16 +171,13 @@ class Replica # rubocop:disable Metrics/ClassLength
     handle_replica_response(endpoint, response)
   rescue StandardError => e
     tries -= 1
-    retry if rate_limit_retry?(e, tries)
+    retry if back_off_if_rate_limited(e, tries)
     sleep 2 && retry unless tries.zero?
     report_failure(e, post_error_extra(data, response))
   end
 
-  # Storm guard: within one update, only the first failure of each kind
-  # (error class + message, e.g. "HTTP 500" on revisions.php) goes to Sentry;
-  # repeats are only counted. Without this, a sustained failure sends one
-  # event per request -- per chunk of users, per timeslice, per wiki.
-  # Returns nil, like log_error, so callers keep their "no data" handling.
+  # Within one update, only the first failure of each kind goes to Sentry; repeats
+  # are only counted. Returns nil, like log_error.
   def report_failure(error, sentry_extra)
     if repeat_failure_in_this_update?(error)
       @update_service.update_error_stats
@@ -331,10 +321,8 @@ class Replica # rubocop:disable Metrics/ClassLength
     { revision_ids: revisions.map(&:mw_rev_id) }.to_query
   end
 
-  # Base class for Replica failures that callers should handle (stop the
-  # course update, retry next cycle) rather than treat as "no data".
-  # Callers rescue this, not the subclasses, so more failure types can raise
-  # it later without touching every rescue site. Today only a 429 raises.
+  # Replica failures that should stop a course update. Callers rescue this base
+  # class; currently only RateLimitedError is raised.
   class RequestFailedError < StandardError
     attr_reader :status, :response_body
 
