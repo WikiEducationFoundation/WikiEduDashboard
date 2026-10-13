@@ -57,9 +57,9 @@ class UpdateCourseStats
     report_replica_failure(e)
   end
 
-  # Replica already counts each 429; this adds one error for the stopped update.
+  # The stopped update is left as unfinished (not logged in update_logs), so the
+  # next update's cutoffs still point at the last complete update.
   def report_replica_failure(error)
-    update_error_stats
     kind = error.is_a?(Replica::RateLimitedError) ? 'rate-limited' : 'request-failed'
     Sentry.capture_message(
       "Replica #{kind}: update stopped for #{@course.slug}",
@@ -69,8 +69,6 @@ class UpdateCourseStats
       extra: { retry_after_seconds: error.retry_after_seconds,
                response_body: error.response_body.to_s.first(500) }
     )
-    # Log it as a (shortened) finished update so it shows in update_logs.
-    log_end_of_update
   end
 
   def import_uploads
@@ -138,20 +136,16 @@ class UpdateCourseStats
 
   def log_end_of_update
     @end_time = Time.zone.now.to_datetime
-    UpdateLogger.update_course(@course, end_of_update_log)
-  end
-
-  # Omit nil timeslice counts so Course#timeslice_update_ran? stays accurate.
-  def end_of_update_log
-    { 'start_time' => @start_time,
-      'end_time' => @end_time,
-      'sentry_tag_uuid' => sentry_tag_uuid,
-      'error_count' => error_count,
-      'reference_counter_403_count' => reference_counter_403_count,
-      'too_many_requests_count' => too_many_requests_count,
-      'processed' => @processed,
-      'reprocessed' => @reprocessed,
-      'reaggregated' => @reaggregated }.compact
+    UpdateLogger.update_course(@course,
+                               'start_time' => @start_time,
+                               'end_time' => @end_time,
+                               'sentry_tag_uuid' => sentry_tag_uuid,
+                               'error_count' => error_count,
+                               'reference_counter_403_count' => reference_counter_403_count,
+                               'too_many_requests_count' => too_many_requests_count,
+                               'processed' => @processed,
+                               'reprocessed' => @reprocessed,
+                               'reaggregated' => @reaggregated)
   end
 
   def wikidata

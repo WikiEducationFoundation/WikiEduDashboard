@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
+require "#{Rails.root}/lib/data_cycle/update_logger"
 
 describe UpdateCourseStats do
   before do
@@ -58,23 +59,6 @@ describe UpdateCourseStats do
       expect(update_log['processed']).to eq(5)
       expect(update_log['reprocessed']).to eq(2)
       expect(update_log['reaggregated']).to eq(3)
-    end
-  end
-
-  context 'when a Replica failure stops the update before the timeslice step' do
-    before do
-      allow(Sentry).to receive(:capture_message)
-      fake_response = double('response', code: '429', body: '') # rubocop:disable RSpec/VerifiedDoubles
-      allow(fake_response).to receive(:[]).with('Retry-After').and_return(nil)
-      allow_any_instance_of(described_class).to receive(:update_articles)
-        .and_raise(Replica::RateLimitedError.new(fake_response))
-    end
-
-    it 'logs the update without timeslice counts, so it does not count as a timeslice update' do
-      subject
-      update_log = course.reload.flags['update_logs'].values.last
-      expect(update_log).not_to have_key('processed')
-      expect(course.timeslice_update_ran?).to be(false)
     end
   end
 
@@ -220,8 +204,10 @@ describe UpdateCourseStats do
               hash_including(tags: { update_service_id: subject.sentry_tag_uuid,
                                      course: course.slug, http_status: 429 }))
 
-      # Visible in the same operational stats as a MediaWiki 429 would be.
-      expect(course.flags['update_logs'][1]['error_count']).to eq(1)
+      # Left as an unfinished update, not logged as a finished one.
+      course.reload
+      expect(course.flags['update_logs']).to be_blank
+      expect(course.flags['unfinished_update_logs'].values.last['start_time']).to eq(date)
 
       # No article/course caches were written from a rate-limited, incomplete fetch.
       expect(course.character_sum).to eq(0)
@@ -314,6 +300,79 @@ describe UpdateCourseStats do
         expect_any_instance_of(described_class).not_to receive(:update_article_status)
         subject
       end
+    end
+  end
+
+  # A stopped update must not move the cutoffs the next update relies on
+  # (last_update_start_time for new students, last_update_end_time for caches).
+  context 'when a Replica failure stops the update' do
+    let(:course) { create(:course, start: '2018-11-24', end: '2018-11-30') }
+    let(:rate_limited) do
+      response = double('response', code: '429', body: '') # rubocop:disable RSpec/VerifiedDoubles
+      allow(response).to receive(:[]).with('Retry-After').and_return(nil)
+      Replica::RateLimitedError.new(response)
+    end
+
+    before do
+      allow(Sentry).to receive(:capture_message)
+      allow_any_instance_of(described_class).to receive(:import_uploads)
+      allow_any_instance_of(described_class).to receive(:update_categories)
+      # The previous, complete update.
+      UpdateLogger.update_course(course, 'start_time' => 2.hours.ago.to_datetime,
+                                         'end_time' => (2.hours.ago + 1.minute).to_datetime)
+      # A student who joined after that update started.
+      create(:courses_user, course:, user:, role: CoursesUsers::Roles::STUDENT_ROLE,
+                            created_at: 1.hour.ago)
+    end
+
+    after { travel_back }
+
+    # Replica only raises after its backoff sleeps, so time passes first.
+    def raise_rate_limited
+      travel 10.seconds
+      raise rate_limited
+    end
+
+    def new_users_for_next_update
+      course.reload.students.where('courses_users.created_at >= ?', course.last_update_start_time)
+    end
+
+    it 'keeps the student new when the failure hits while processing new users' do
+      allow_any_instance_of(described_class).to receive(:update_articles)
+      allow_any_instance_of(RevisionDataManager).to receive(:fetch_revision_data_for_users) do
+        raise_rate_limited
+      end
+
+      described_class.new(course)
+
+      expect(Sentry).to have_received(:capture_message).with(/rate-limited/, anything)
+      expect(new_users_for_next_update).to include(user)
+    end
+
+    it 'keeps the student new when the failure hits during article status sync' do
+      allow_any_instance_of(described_class).to receive(:update_articles) { raise_rate_limited }
+
+      described_class.new(course)
+
+      expect(Sentry).to have_received(:capture_message).with(/rate-limited/, anything)
+      expect(new_users_for_next_update).to include(user)
+    end
+
+    it 'refreshes ArticlesCourses caches next time for timeslices written before the failure' do
+      article = create(:article)
+      create(:articles_course, course:, article:)
+      act = create(:article_course_timeslice, course:, article:,
+                                              start: '2018-11-24', end: '2018-11-25',
+                                              character_sum: 0)
+      allow_any_instance_of(described_class).to receive(:update_articles)
+      allow_any_instance_of(UpdateCourseWikiTimeslices).to receive(:run) do
+        act.update(character_sum: 123) # written by the stopped update
+        raise_rate_limited
+      end
+
+      described_class.new(course)
+
+      expect(ArticlesCourses.articles_courses_to_update(course.reload)).to include(article.id)
     end
   end
 end
