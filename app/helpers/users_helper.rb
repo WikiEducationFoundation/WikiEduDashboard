@@ -25,6 +25,6 @@ module UsersHelper
   private
 
   def contribution_link_redirect(courses_user)
-    Features.wiki_ed? ? courses_user.contribution_url : courses_user.global_contribution_url
+ Features.wiki_ed? ? courses_user.contribution_url : courses_user.global_contribution_url
   end
 end

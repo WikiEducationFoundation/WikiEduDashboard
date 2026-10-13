@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
-const CourseDetails = ({ courses }) => {
+const CourseDetails = ({ courses, username }) => {
   const labelKey = Features.wikiEd ? 'courses.view_page' : 'courses_generic.view_page';
   const elements = courses.map((course) => {
     return (
@@ -32,6 +33,11 @@ const CourseDetails = ({ courses }) => {
 
   return (
     <div id="course-details">
+      <div className="user-articles__navigation">
+        <Link to={`/users/${username}`} className="button ghost small">
+          ← {I18n.t('users.back_to_profile') || 'Back to Profile'}
+        </Link>
+      </div>
       <h3>{I18n.t('courses.course_details')}</h3>
       {elements}
     </div>
@@ -39,7 +45,8 @@ const CourseDetails = ({ courses }) => {
 };
 
 CourseDetails.propTypes = {
-  courses: PropTypes.array
+  courses: PropTypes.array,
+  username: PropTypes.string
 };
 
 export default CourseDetails;

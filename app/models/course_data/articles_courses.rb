@@ -53,7 +53,14 @@ class ArticlesCourses < ApplicationRecord
 
   # Search by course and user.
   def self.search_by_course_and_user(course, user_id)
-    ArticlesCourses.where(course:).where('user_ids LIKE ?', "%- #{user_id}\n%")
+    where(course:).where('user_ids LIKE ?', "%- #{user_id}\n%")
+  end
+
+  def self.tracked_for_user_and_course(course, user_id)
+    search_by_course_and_user(course, user_id)
+      .joins(:article)
+      .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
+      .includes(:article)
   end
 
   # Calculate articles courses that need a cache update. For courses with a huge number

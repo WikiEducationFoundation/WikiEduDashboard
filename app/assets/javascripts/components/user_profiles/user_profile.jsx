@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Routes, Route, useParams } from 'react-router-dom';
 import ContributionStats from './contribution_stats.jsx';
 import CourseDetails from './course_details.jsx';
 import UserUploads from './user_uploads.jsx';
@@ -8,7 +9,7 @@ import { fetchUserTrainingStatus } from '../../actions/training_status_actions';
 import Loading from '../common/loading.jsx';
 import UserTrainingStatus from './user_training_status.jsx';
 import request, { ensureOk } from '../../utils/request';
-import { useParams } from 'react-router-dom';
+import UserDetails from './user_details.jsx';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const UserProfile = () => {
   const username = encodeURIComponent(params.username);
 
   const getData = () => {
-    const statsdataUrl = `/stats_graphs.json?username=${username}`;
+    const statsdataUrl = `/users/${username}/stats_graphs.json`;
     request(statsdataUrl)
       .then(resp => ensureOk(resp))
       .then(resp => resp.json())
@@ -45,11 +46,29 @@ const UserProfile = () => {
   }
 
   return (
-    <div>
-      <ContributionStats params={params} stats={stats} statsGraphsData={statsGraphsData} />
-      <CourseDetails courses={stats.courses_details} />
-      <UserUploads uploads={stats.user_recent_uploads} />
-      <UserTrainingStatus trainingModules={userTrainingStatus} />
+    <div className="user-profile-container">
+      <Routes>
+        <Route
+          index
+          element={<ContributionStats params={params} stats={stats} statsGraphsData={statsGraphsData} />}
+        />
+        <Route
+          path="course-details"
+          element={<CourseDetails courses={stats.courses_details} username={params.username} />}
+        />
+        <Route
+          path="uploads"
+          element={<UserUploads uploads={stats.user_recent_uploads} username={params.username} />}
+        />
+        <Route
+          path="training"
+          element={<UserTrainingStatus trainingModules={userTrainingStatus} />}
+        />
+        <Route
+          path="stats/:metric"
+          element={<UserDetails username={params.username} />}
+        />
+      </Routes>
     </div>
   );
 };

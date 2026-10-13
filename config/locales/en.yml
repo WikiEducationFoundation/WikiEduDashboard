@@ -287,6 +287,8 @@ en:
     permalink: Permalink
     previous: Previous
     article_title: Article Title
+    language: Language
+    project: Project
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by enrolled editors between the start and end dates
     cross_wiki_tracking: >
@@ -1311,6 +1313,7 @@ en:
     articles_created_wikidata: Items Created
     articles_created_generic: Pages Created
     articles_created_generic_wikidata: Items Created
+    article_count: Articles
     articles_edited: Articles Edited
     articles_edited_wikidata: Items Edited
     articles_edited_generic: Pages Edited
@@ -2006,6 +2009,8 @@ en:
     wiki_big: Wiki
 
   users:
+    back_to_profile: Back to Profile
+    back_to_stats: "Back to Stats"
     already_enrolled: That user is already enrolled!
     assign_articles: Assign Articles
     assign_articles_wikidata: Assign Items
@@ -2029,6 +2034,7 @@ en:
     contributions_history_full: View full contribution history
     contributions_more: View More Contributions
     contribution_statistics: Contribution Statistics
+    contributions_by_language: Contributions by Language/Project
     course_passcode: "Passcode:"
     editors: Editors
     edits: edits
@@ -2142,6 +2148,22 @@ en:
     email_required_instructor: "Is required for current instructors. You may remove your email address after current courses have ended."
     email_invalid: "Invalid: Please enter a valid email"
   user_profiles:
+    detailed_impact: "Detailed Impact"
+    words_added_per_article: "Words Added per Article"
+    references_added_per_article: "References Added per Article"
+    articles_edited_detail: "Articles Edited"
+    no_articles_edited: "This user has no data to display in this section yet."
+    summary_articles: "Articles"
+    summary_words: "Words"
+    summary_references: "References"
+    type: "Type"
+    status_new: "New"
+    status_edited: "Edited"
+    language_not_available: "N/A"
+    column_metric: "Metric"
+    column_value: "Value"
+    column_details: "Details"
+    see_more: "See more ↗"
     student_impact: Total impact made by %{username} as a student
     instructor_impact: Total impact made by %{username} as an instructor
     instructors_student_impact: Total impact made by %{username}'s students
@@ -2457,6 +2479,10 @@ en:
 
   tagged_courses:
     download_csv: 'Download CSV'
+
+  downloads:
+    csv: 'Download CSV'
+    json: 'Download JSON'
 
   weekday_picker:
     aria:

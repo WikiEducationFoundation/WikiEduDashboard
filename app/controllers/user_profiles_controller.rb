@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class UserProfilesController < ApplicationController
+  include UserProfileAnalytics
   respond_to :html, :json
 
   before_action :set_user
@@ -16,11 +17,33 @@ class UserProfilesController < ApplicationController
     render json: data, status: :ok
   end
 
+  def user_articles
+    return render json: { error: 'User not found' }, status: :not_found unless @user
+
+    begin
+      @user_articles = ArticlesCourses
+                        .where('user_ids LIKE ?', "%- #{@user.id}\n%")
+                        .joins(:article, :course)
+                        .where(courses: { private: false })
+                        .where(articles: { deleted: false, namespace: Article::Namespaces::MAINSPACE })
+                        .includes(:article, :course)
+                        .includes(article: :wiki)
+                        .order(character_sum: :desc)
+
+      @course_id = params[:course_id]
+      @user_articles = @user_articles.where(course_id: @course_id) if @course_id.present?
+
+      @user_revisions = {}
+    rescue StandardError => e
+      render json: { error: e.message, backtrace: e.backtrace.first(5) }, status: :internal_server_error
+    end
+  end
+
   def show
     if @user
       @last_courses_user = @user.courses_users.includes(:course)
                                 .where(courses: { private: false }).last
-      @user_profile = UserProfile.new(user_id: @user.id)
+      @user_profile = @user.user_profile || UserProfile.new(user_id: @user.id)
     else
       flash[:notice] = 'User not found'
       redirect_to controller: 'dashboard', action: 'index'
@@ -28,7 +51,7 @@ class UserProfilesController < ApplicationController
   end
 
   def update
-    if params[:user_profile][:image] || params[:user_profile][:image_file_link]
+    if params[:user_profile][:image].present? || params[:user_profile][:image_file_link].present?
       @user_profile.image.destroy
       @user_profile.image_file_link = nil
     end
@@ -43,6 +66,9 @@ class UserProfilesController < ApplicationController
     else
       flash[:error] = (@user.errors.full_messages + @user_profile.errors.full_messages).join(', ')
     end
+  rescue Paperclip::Errors::CommandNotFoundError
+    flash[:error] = 'Unable to process uploaded image because ImageMagick is not installed.'
+  ensure
     user_profile_redirect
   end
 
@@ -56,6 +82,9 @@ class UserProfilesController < ApplicationController
                                               courses_list: @courses_list)
     @user_uploads = CommonsUpload.where(user_id: @user.id).order(uploaded_at: :desc).first(20)
     @max_project = max_project
+    
+    # Get articles by language/project for stats
+    @articles_by_language = get_articles_by_language
   end
 
   def stats_graphs
@@ -79,60 +108,5 @@ class UserProfilesController < ApplicationController
     redirect_to controller: 'user_profiles', action: 'show', username: @user.username
   end
 
-  def max_project
-    ids_array = public_courses.map(&:home_wiki_id)
-    max_ids = ids_array.tally.select { |_k, v| v == ids_array.tally.values.max }.keys
-    projects = Wiki.where(id: max_ids).map(&:project)
-    return projects.include?('wikipedia') ? 'wikipedia' : projects[0]
-  end
-
   private
-
-  def public_courses
-    @user.courses.nonprivate
-  end
-
-  def require_write_permissions
-    return if current_user == @user
-    raise ActionController::InvalidAuthenticityToken, 'Unauthorized'
-  end
-
-  def require_email_preferences_token
-    return if @user_profile.email_preferences_token == params[:token]
-    raise ActionController::InvalidAuthenticityToken, 'Unauthorized'
-  end
-
-  def user_profile_params
-    params.require(:user_profile).permit(:bio, :image, :location, :institution, :image_file_link)
-  end
-
-  def user_email_params
-    params.require(:email).permit(:email)
-  end
-
-  def email_must_be_present_for_instructors
-    return unless current_user.active_course_instructor?
-    submitted_email = user_email_params[:email].to_s.strip
-
-    return if submitted_email.present?
-
-    @user.errors.add(:email, :blank, message: I18n.t('users.email_required_instructor'))
-    flash[:error] = I18n.t('users.email_required_instructor')
-  end
-
-  def user_profile_redirect
-    return redirect_to controller: 'user_profiles', action: 'show'
-  end
-
-  def set_user
-    # Per MediaWiki convention, underscores in username urls represent spaces
-    username = CGI.unescape(params[:username]).tr('_', ' ')
-    @user = User.find_by(username:)
-  end
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_user_profile
-    @user_profile = @user.user_profile
-    @user_profile = @user.create_user_profile if @user_profile.nil?
-  end
 end

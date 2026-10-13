@@ -3,16 +3,26 @@
 	border 1px solid $border_lt
 
 #profile
-	margin 0 auto
+	margin 20px auto
 	position relative
 	overflow hidden
 	width 100%
+	max-width 1000px
 	border 1px solid #808080
+	// border-radius 12px
 	background-color #575d99
-	display block
+	display flex
+	flex-direction row
+	align-items stretch
 	color #f8f8ff
 	font-size 20px
-	padding-bottom 10px
+	min-height 300px
+
+	form
+		width 100%
+		display flex
+		flex-direction row
+		align-items stretch
 
 	#disclaimer
 		display none
@@ -28,120 +38,186 @@
 				color #fff
 
 	#profile_left
-		width 15%
-		float left
+		width 250px
+		flex-shrink 0
+		display flex
+		flex-direction column
+		align-items center
+		justify-content center
+		padding 20px
+		background-color rgba(0, 0, 0, 0.1)
+		border-right 1px solid rgba(255, 255, 255, 0.1)
 
 		.rails_editable-input
 			background-color #e7e7e7
-			max-width 150% !important
-			margin-left 1%
-			margin-top 5px
-			border-radius 5px
+			width 100% !important
+			max-width 400px
+			margin 10px 0
+			// border-radius 5px
 			display none
+			text-align center
 
 		#user_image
+			margin-bottom 15px
 			img
 				max-height 150px
 				border-radius 100%
 				max-width 150px
-				border 1px solid transparent
+				border 2px solid #fff
 				margin-top 10px
-				float right
 				width auto
 				height auto
 
 		#remove_link
-			font-size 10px
+			font-size 12px
+			margin-bottom 10px
 
 	#profile_right
-		width 85%
-		float right
+		flex-grow 1
+		display flex
+		flex-direction column
+		align-items flex-start
+		padding 30px 40px
 	  .header
-			height: 40px;
+			width 100%
+			display flex
+			flex-direction row
+			justify-content space-between
+			align-items center
+			margin-bottom 20px
 
 			#user_name
-				float left
-				padding-top 8px
+				padding 0
+				margin 0
+				text-align left
 
 				h1, p
 					color #fff
 					font-size 1.25em
 					font-weight 700
-					margin 0 auto
-					text-decoration underline
+					margin 0
+					font-size 32px
+					text-decoration none
+					color #fff
+					display inline-block
+					border-bottom none
 
 			#edit_profile
+				margin 0
 				.controls
-					padding 2px
+					padding 0
 					position relative
+					display flex
+					justify-content flex-end
 
 		#details
 			width 100%
+			display flex
+			flex-direction column
+			align-items flex-start
 
 			#details_left
-				float left
-				width 40%
+				width 100%
+				display flex
+				flex-direction column
+				align-items center
 
 				#user_bio
-					float left
-					width 100% !important
+					width 100%
+					display flex
+					flex-direction column
+					align-items center
 
 					.rails_editable-input
 						height 100px !important
-						width 95% !important
+						width 100% !important
+						max-width 500px
 						font-weight 500
 						background-color #e7e7e7
-						font-size: 13px;
+						font-size: 14px;
 						color #000
-						border-radius 5px
-						margin-left 2%
+						// border-radius 8px
+						margin 10px 0
+						padding 10px
 						display none
 
 					p
-						font-size 13px
-						font-weight 600
-						display inline-block
-						line-height 1.8
-						padding-left  3%
-						width 85%
-						text-decoration none
+						font-size 18px
+						font-weight 400
+						display block
+						line-height 1.4
+						width 100%
+						text-align left
+						margin 0
+						color rgba(255, 255, 255, 0.9)
 
 			#details_right
-				float right
-				width 60%
+				width 100%
+				display flex
+				flex-direction row
+				flex-wrap wrap
+				align-items center
+				margin-top 30px
+				gap 20px
 
 				.section
-					width 95%
-					padding-left 3%
-					border-left 2px solid #fff
+					margin-bottom 5px
+					padding 0
+					border-left none
+					border-top none
+					display flex
+					flex-direction row
+					align-items center
+					background rgba(255, 255, 255, 0.05)
+					padding 8px 15px
+					// border-radius 20px
+
+					&.info-pill
+						display none
+						// Show if it has content (marked by HAML)
+						&.has-content
+							display flex
+						// Show if we are editing (to allow adding new data)
+						.rails_editable-editing &
+							display flex
 
 					.rails_editable-field
-						display inline
+						display inline-block
+						text-align left
 
 						.rails_editable-input
-							height 40px !important
-							width 50% !important
+							height 35px !important
+							width 200px !important
 							background-color #e7e7e7
-							border-radius 5px
+							// border-radius 5px
 							color #000
+							margin 0 10px
 							display none
 					p
-						font-size 18px
-						padding-left 1%
-						display inline
+						font-size 14px
+						display inline-block
+						text-align left
+						margin 0
 
 					#icon
-						font-weight 900
-						display inline
+						display inline-block
+						margin-right 8px
+						text-align left
+						opacity 0.8
 
 						img
 							max-width 20px
 							max-height 20px
 
 #profile_user_contributions
-  a.contribution_link
-	  color #f8f8ff
+	a.contribution_link
+		color #f8f8ff
 
+.rails_editable-editing .info-pill
+	display flex !important
+
+.rails_editable-editing .rails_editable-input
+	display block !important
 
 #profile_details
 	padding-left 5%
@@ -161,19 +237,919 @@
 			.user_stats
 				.stat-display
 					.button
-						border-radius 10px
+						// border-radius 10px
 						padding 3px 0 8px
 				#visualizations
 					height 400px
 					width 800px
 
 	#course-details
-		padding-top 30px
+		padding 40px 5%
+		max-width 1200px
+		margin 0 auto
 
 	#training-status
-		padding-top 30px
+		padding 40px 5%
+		max-width 1200px
+		margin 0 auto
 
-// making user profile pages responsive
+// Dashboard & Cards Styling
+.user-profile-container
+	padding 40px 5%
+	max-width 1200px
+	margin 0 auto
+	background-color #f9f9fb
+	min-height 100vh
+
+.profile-dashboard
+	display flex
+	justify-content center
+	padding 20px 0
+	max-width 980px
+	margin 0 auto
+	min-height auto
+
+	> .profile-card
+		width 100%
+		max-width 900px
+
+	.profile-card--featured
+		padding 40px
+		display flex
+		flex-direction column
+		justify-content center
+
+	.profile-card:not(.profile-card--featured)
+		min-height 0
+
+@media only screen and (max-width: 1024px)
+	.profile-dashboard
+		grid-template-columns 1fr 1fr
+		
+		.profile-card--featured
+			grid-column 1 / 3
+			grid-row auto
+			min-height auto
+
+.profile-card
+	background #ffffff
+	// border-radius 16px
+	box-shadow 0 2px 4px rgba(0,0,0,0.1)
+	padding 32px 28px
+	display flex
+	flex-direction column
+	transition all 0.2s ease
+	border none
+	height 100%
+	position relative
+	overflow hidden
+	text-align center
+
+	&:hover
+		transform none
+		box-shadow 0 4px 8px rgba(0,0,0,0.12)
+
+	&--featured
+		text-align left
+		padding 40px 32px
+		background linear-gradient(135deg, #fafbfc 0%, #ffffff 100%)
+		box-shadow 0 4px 16px rgba(87, 93, 153, 0.1)
+		border 1px solid #f0f0f5
+
+		&:hover
+			box-shadow 0 8px 24px rgba(87, 93, 153, 0.15)
+			border-color #e5e5f0
+
+		&__stats-grid
+			display grid !important
+			grid-template-columns repeat(2, 1fr) !important
+			gap 32px !important
+
+		&__stat
+			display flex !important
+			flex-direction column !important
+			gap 24px !important
+
+		&__label
+			margin-bottom 16px !important
+
+		&__value
+			margin-top 16px !important
+
+		&__footer
+			margin-top 32px !important
+
+		&__button
+			margin-top 16px !important
+
+	&__summary
+		display flex
+		flex-direction column
+		gap 20px
+		width 100%
+
+	&__body
+		flex-grow 1
+		display flex
+		flex-direction column
+		justify-content center
+		align-items center
+
+	&--featured &__body
+		align-items flex-start
+		text-align left
+
+	&__footer
+		margin-top 32px !important
+
+	&__button
+		margin-top 16px !important
+
+	&__header
+		display none
+
+	&--featured &__header
+		display block
+		font-size 18px
+		margin-bottom 32px
+		color #575d99
+		font-weight 500
+		border-bottom 2px solid #e5e5f0
+		padding-bottom 16px
+
+.course-articles-group
+	.profile-card__header
+		display flex
+		align-items center
+		justify-content center
+		margin-bottom 24px
+		padding-bottom 0
+		border-bottom none
+
+	.course-articles-group &__header
+		display flex
+		align-items center
+		justify-content center
+		margin-bottom 24px
+		padding-bottom 0
+		border-bottom none
+
+	&__stats-grid
+		display grid
+		grid-template-columns 1fr 1fr
+		gap 24px 20px
+		padding 0
+		width 100%
+
+	&--featured &__stats-grid
+		display grid
+		grid-template-columns 1fr 1fr
+		gap 32px 40px
+
+	&__stat
+		display flex !important
+		flex-direction column !important
+		gap 8px
+		align-items center
+		width 100%
+
+	&--featured &__stat
+		align-items flex-start !important
+		flex-direction column !important
+		gap 12px
+		padding 12px 0 !important
+		width 100%
+		display flex !important
+
+	&__list-header
+		display flex
+		flex-direction column
+		gap 12px
+		align-items center
+		padding 16px 0 20px 0
+		margin-bottom 16px
+		border-bottom 2px solid #f0f0f5
+
+	&--featured &__list-header
+		display flex
+		flex-direction column
+		gap 8px
+		align-items flex-start
+		border-bottom none
+		padding 0
+		padding-bottom 0
+		margin-bottom 0
+
+	&__value
+		display block
+		font-size 56px
+		font-weight 700
+		color #575d99
+		line-height 0.9
+		margin 0
+
+	&--featured &__value
+		font-size 68px
+		font-weight 700
+		color #575d99
+		line-height 1
+		letter-spacing -1px
+
+	&__label
+		display block
+		font-size 11px
+		color #91919a
+		text-transform uppercase
+		letter-spacing 2px
+		margin-top 0
+		font-weight 600
+		line-height 1.2
+
+	&--featured &__label
+		font-size 12px
+		color #666
+		font-weight 500
+		letter-spacing 1px
+
+	&__list
+		list-style none
+		padding 0
+		margin 0
+		border-top none
+		padding-top 12px
+		display flex
+		flex-direction column
+		gap 10px
+		align-items flex-start
+		width 100%
+		flex-grow 1
+
+	&--featured &__list
+		align-items flex-start
+		gap 8px
+		padding-top 0
+
+	&__list-item
+		font-size 14px
+		color #424242
+		padding 8px 0
+		white-space normal
+		word-wrap break-word
+		overflow visible
+		text-overflow initial
+		position relative
+		padding-left 0
+		line-height 1.6
+		max-width 100%
+		display block
+		&:before
+			content ''
+
+	&__list-more
+		display none
+
+	&__progress-bar
+		width 100%
+		height 8px
+		background #edeff5
+		// border-radius 4px
+		margin-top 12px
+		overflow hidden
+
+	&__progress-fill
+		height 100%
+		background linear-gradient(90deg, #575d99, #7b83cc)
+		// border-radius 4px
+		transition width 1.5s ease-in-out
+
+	&__footer
+		margin-top auto
+		padding-top 20px
+		display flex
+		justify-content center
+		border-top 1px solid #f0f0f5
+		.button
+			border none
+			color #91919a
+			background transparent
+			padding 0
+			font-size 13px
+			text-transform none
+			font-weight 600
+
+			&:hover
+				background-color transparent
+				color #575d99
+				text-decoration none
+
+	&--featured &__footer
+		margin-top 32px
+		padding-top 0
+		border-top none
+		justify-content flex-start
+
+		.button
+			color #575d99
+			font-size 14px
+			font-weight 500
+
+			&:hover
+				color #3d3d5c
+
+.user-articles__header
+	display flex
+	align-items center
+	justify-content space-between
+	gap 16px
+	margin-bottom 24px
+
+	h3
+		margin 0
+
+.user-articles__downloads
+	display flex
+	gap 12px
+	flex-wrap wrap
+
+.user-articles__empty-state
+	background #fff
+	border 1px solid #d8dbea
+	box-shadow 0 2px 4px rgba(0,0,0,0.08)
+	padding 40px 24px
+	text-align center
+
+	h3
+		margin 0 0 16px
+
+	p
+		margin 0
+		font-size 16px
+		color #6f7488
+
+.user-articles-list
+	display flex
+	flex-direction column
+	gap 24px
+
+.user-details-course
+	background #fff
+	border 1px solid #d8dbea
+	box-shadow 0 2px 4px rgba(0,0,0,0.08)
+	padding 24px
+
+.user-details-course__header
+	display flex
+	align-items flex-start
+	justify-content space-between
+	gap 20px
+	margin-bottom 12px
+
+	h4
+		margin 0 0 8px
+		font-size 32px
+		font-weight 400
+		color #575d99
+
+	p
+		margin 0
+		color #6f7488
+		font-size 15px
+
+	strong
+		display inline-block
+		font-size 30px
+		line-height 1
+		font-weight 700
+		color #3f466b
+		margin-left 6px
+
+.user-details-course__stats
+	display grid
+	grid-template-columns repeat(3, minmax(0, 1fr))
+	gap 16px
+	margin-bottom 20px
+
+.user-details-course__stat
+	background #f7f8fc
+	border 1px solid #e4e7f2
+	padding 16px
+
+.user-details-course__stat-label
+	display block
+	font-size 12px
+	text-transform uppercase
+	letter-spacing 1px
+	color #8c90a3
+	margin-bottom 8px
+
+.user-details-course__stat-value
+	display block
+	font-size 28px
+	font-weight 600
+	color #3f466b
+
+.user-details-table-wrap
+	overflow-x auto
+
+.user-details-table
+	min-width 720px
+
+	thead tr th
+		white-space nowrap
+		text-align left
+		padding 14px 20px
+		vertical-align middle
+
+	thead tr th.table-link-cell
+		text-align center
+
+	thead tr th.user-details-table__value
+		text-align center
+
+	tbody tr td
+		&:not(.table-link-cell)
+			color #4d536d
+			text-align left
+			
+		&.user-details-table__value
+			text-align center
+			font-weight 600
+			color #4a4f9b
+			font-size 16px
+			vertical-align middle
+
+		&.user-details-table__title
+			text-align left
+
+	.table-link-cell
+		text-align center
+		vertical-align middle
+		width 1%
+		white-space nowrap
+
+		a
+			color #4a4f9b
+			border 1px solid #c5c8de
+			padding 6px 14px
+			text-align center
+			display inline-block
+			font-weight 500
+			font-size 13px
+			line-height 1.2
+			white-space nowrap
+			background-color #fff
+			transition all 0.2s ease
+			box-shadow 0 1px 2px rgba(0,0,0,0.04)
+
+			&:hover
+				background-color #4a4f9b
+				color #fff
+				border-color #4a4f9b
+				text-decoration none
+				box-shadow 0 2px 6px rgba(74,79,155,0.25)
+
+.user-details-table__title
+	font-weight 600
+	color #575d99
+	text-align left
+
+.user-articles__footer
+	margin-top 24px
+	display flex
+	justify-content center
+
+@media only screen and (max-width: 919px)
+	.user-articles__header
+		flex-direction column
+		align-items stretch
+
+	.user-articles__downloads
+		justify-content center
+
+	.user-details-course
+		padding 18px
+
+	.user-details-course__header
+		flex-direction column
+		align-items stretch
+
+	.user-details-course__stats
+		grid-template-columns 1fr
+
+// User Stats Styling
+.user_stats
+	margin 40px 0
+	clear both
+
+	&__title
+		margin-bottom 24px
+		color #575d99
+		font-size 18px
+		font-weight 500
+		width 100%
+
+	&__grid
+		display grid
+		grid-template-columns repeat(2, 1fr)
+		gap 16px
+		width 100%
+		max-width 900px
+		margin 0 auto
+
+		@media only screen and (max-width: 768px)
+			grid-template-columns 1fr
+
+			// Center the last item if there's an odd number of cards
+			.profile-card__stat:last-child:nth-child(odd)
+				grid-column 1 / -1
+
+.user-stats-table__wrap
+	width 100%
+	background #fff
+	border 1px solid #d8dbea
+	box-shadow 0 2px 6px rgba(0,0,0,0.06)
+	
+	overflow hidden
+	margin 0 auto
+	max-width 100%
+
+.user-stats-table
+	width 100%
+	border-collapse collapse
+
+	thead
+		background-color #f2f3fb
+		tr
+			display grid
+			grid-template-columns 1.8fr 1.4fr 1fr
+			align-items center
+
+		th
+			text-align center
+			padding 16px 20px
+			font-size 14px
+			font-weight 600
+			color #4d536d
+			text-transform uppercase
+			letter-spacing 0.5px
+			display flex
+			align-items center
+			justify-content center
+
+		th:last-child
+			justify-content center
+
+	tbody tr
+		border-top 1px solid #e4e7f2
+		display grid
+		grid-template-columns 1.8fr 1.4fr 1fr
+		align-items stretch
+
+		&:hover
+			background-color #fafbff
+
+	td
+		padding 18px 20px
+		font-size 15px
+		color #3f466b
+		display flex
+		flex-direction column
+		justify-content center
+		gap 8px
+		align-items center
+
+	&__metric
+		font-weight 500
+		display flex
+		flex-direction column
+		align-items center
+		width 100%
+
+	&__value
+		font-size 18px
+		font-weight 600
+		color #575d99
+		gap 4px
+		align-items center
+		
+		> span:first-child
+			font-size 28px
+			font-weight 700
+			color #4a4f9b
+			line-height 1.1
+			letter-spacing 0.2px
+
+	&__helper
+		display flex
+		flex-direction column
+		font-size 12px
+		color #6f7488
+		gap 2px
+		margin-top 4px
+
+		strong
+			font-size 14px
+			color #3f466b
+
+	&__action
+		display flex
+		justify-content center
+		align-items center
+		width 100%
+		padding-top 8px
+		padding-bottom 8px
+		
+		&-inner
+			display flex
+			justify-content center
+			align-items center
+			width 100%
+
+		.button
+			min-width 150px
+			display inline-flex
+			justify-content center
+			align-items center
+
+@media only screen and (max-width: 768px)
+	.user-stats-table
+		thead
+			display none
+
+		tbody tr
+			display flex
+			flex-direction column
+			align-items center
+
+		td
+			padding 12px 16px
+			border-top none
+			align-items center
+
+		.user-stats-table__action
+			text-align center
+
+.profile-card__stat
+	padding 32px 24px
+	text-align center
+	background #ffffff
+	text-decoration none
+	color inherit
+	transition all 0.2s ease
+	cursor pointer
+	box-shadow 0 2px 4px rgba(0,0,0,0.1)
+	position relative
+	display flex
+	flex-direction column
+	justify-content center
+	align-items center
+	height auto
+	min-height 180px
+	gap 16px
+
+	&:hover
+		transform translateY(-2px)
+		box-shadow 0 4px 12px rgba(87, 93, 153, 0.15)
+
+	&.clickable-stat:hover
+		background #fafbfc
+
+.profile-card__label
+	font-size 14px
+	color #575d99
+	display block
+	margin-bottom 8px
+	font-weight 500
+	text-transform uppercase
+	letter-spacing 0.5px
+
+.profile-card__value
+	color #676EB4
+	display block
+	font-size 40px
+	font-weight 700
+	line-height 1.2
+	margin-bottom 8px
+
+.profile-card__link
+	font-size 13px
+	color #91919a
+	margin-top 32px !important
+	display block
+	font-weight 500
+	transition color 0.2s
+
+	.profile-card__stat:hover &
+		color #575d99
+
+// Tooltip styling for uploads card
+.profile-card__stat
+	.tooltip
+		display flex
+		flex-direction column
+		align-items center
+		justify-content center
+		text-align center
+		margin-top 12px
+
+		h4
+			margin 0
+			font-size 20px
+			font-weight 600
+			color #575d99
+
+		p
+			margin 8px 0 0 0
+			font-size 13px
+			color #666
+			line-height 1.4
+
+// User details and subpages styling
+.user-articles
+	max-width 1200px
+	margin 0 auto
+	padding 16px 5% 40px
+	width 100%
+
+	&__navigation
+		margin-bottom 24px
+		display flex
+		justify-content center
+		gap 12px
+		flex-wrap wrap
+		width 100%
+
+	h3
+		text-align center
+		font-size 24px
+		color #575d99
+		margin-bottom 40px
+		font-weight 500
+
+	.user-articles-list
+		display flex
+		flex-direction column
+		align-items stretch
+		gap 30px
+		width 100%
+		
+		> *
+			width 100%
+			max-width 100%
+			margin 0
+
+	.empty-state
+		text-align center
+		color #666
+		font-size 16px
+		padding 60px 20px
+
+.course-articles-group.profile-card
+	width 100%
+	max-width 100%
+	text-align center
+
+	.profile-card__header
+		display flex
+		align-items center
+		justify-content center
+		margin-bottom 24px
+		padding-bottom 0
+		border-bottom none
+
+		h4
+			text-align center
+			margin 0
+
+	.profile-card__stats-grid
+		justify-content center
+
+	.profile-card__stats-grid--single-card
+		grid-template-columns 1fr
+		gap 16px
+
+	.profile-card__stats-grid--single-card
+		display grid
+		grid-template-columns repeat(3, 1fr)
+		gap 24px
+		width 100%
+
+	.profile-card__list
+		display flex
+		flex-direction column
+		align-items center
+		padding-top 20px
+		gap 16px
+
+	.profile-card__list-item
+		flex-direction column
+		gap 12px
+		padding 16px 0
+		border-bottom 1px solid #f0f0f5
+		
+		&:last-child
+			border-bottom none
+
+		a.button
+			margin-top 12px
+
+// Navigation buttons styling
+#statistics
+	.button.ghost.small
+		color #575d99
+		border 2px solid #575d99
+		padding 8px 16px
+		font-weight 500
+		font-size 13px
+		
+		&:hover
+			background-color #575d99
+			color #ffffff
+
+.user-articles
+	.button.ghost.small
+		color #575d99
+		border 2px solid #575d99
+		padding 8px 16px
+		font-weight 500
+		font-size 13px
+		
+		&:hover
+			background-color #575d99
+			color #ffffff
+
+// Responsive Design
+@media only screen and (max-width: 1024px)
+	.profile-dashboard
+		grid-template-columns 1fr 1fr
+		
+		.profile-card--featured
+			grid-column 1 / 3
+			grid-row auto
+			min-height auto
+			padding 32px 24px
+
+		.profile-card:not(.profile-card--featured)
+			grid-column span 1
+
+@media only screen and (max-width: 768px)
+	.profile-dashboard
+		grid-template-columns 1fr
+		gap 20px
+		padding 0
+		
+		.profile-card--featured
+			grid-column 1
+			padding 32px 20px
+		
+		.profile-card:not(.profile-card--featured)
+			grid-column span 1
+			
+	.profile-card
+		padding 24px 16px
+		
+		&--featured &__stats-grid
+			grid-template-columns 1fr 1fr
+			
+		&--featured &__value
+			font-size 42px
+
+		&__value
+			font-size 40px
+
+.course-articles-group
+	width 100%
+	max-width 100%
+	text-align center
+
+	&__header
+		justify-content center !important
+
+	h4
+		text-align center
+
+	.profile-card__stats-grid
+		justify-content center
+
+	.profile-card__stat
+		align-items center
+		flex-direction column !important
+		display flex !important
+
+	.profile-card__list
+		display flex
+		flex-direction column
+		align-items center
+		padding-top 20px
+
+	.profile-card__list-item
+		justify-content center !important
+		flex-direction column
+		gap 12px
+
+	.button
+		margin-left 0 !important
+		margin-top 12px
 @media only screen and (max-width: 500px)
 	#profile
 		padding unset
@@ -224,6 +1200,9 @@
 						p
 							font-size 10px
 
+	.profile-dashboard
+		grid-template-columns 1fr
+
 html
 	scroll-behavior smooth
 	overflow scroll
@@ -233,3 +1212,31 @@ html
 	position sticky
 	top 50px
 	z-index 10
+
+.back-button-wrapper
+	margin-bottom 24px
+
+.back-button
+	display inline-flex
+	align-items center
+	transition transform 0.2s ease
+	font-weight 600
+	gap 8px
+	
+	&:hover
+		transform translateX(-5px)
+		text-decoration none
+
+.icon-left_arrow
+	background url("../images/left_arrow_icons.svg") center no-repeat
+	background-size 16px
+	padding 10px
+	display inline-block
+	vertical-align middle
+
+.user-articles__filters
+	.sort-container
+		position relative
+		top 0
+		right auto
+		float none

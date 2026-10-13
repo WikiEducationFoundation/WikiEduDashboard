@@ -62,7 +62,7 @@ const routes = () => {
         <Route path="/recent-activity/*" element={<RecentActivityHandler />} />
         <Route path="/courses/:course_school/:course_title/*" element={<Course />} />
         <Route path="/course_creator" element={<ConnectedCourseCreator />} />
-        <Route path="/users/:username" element={<UserProfile />} />
+        <Route path="/users/:username/*" element={<UserProfile />} />
         <Route path="/alerts_list" element={<AdminAlerts />} />
         <Route path="/ai_edit_alerts_stats/:campaign_slug" element={<AlertsStats />} />
         <Route path="/claim_verification" element={<ClaimVerificationAdmin />} />
