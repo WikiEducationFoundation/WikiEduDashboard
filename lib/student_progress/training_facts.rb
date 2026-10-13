@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/student_progress/rules"
 require_dependency "#{Rails.root}/lib/student_progress/timeline"
+require_dependency "#{Rails.root}/lib/utils/due_date"
 
 module StudentProgress
   # Each roster student's progress on each training-kind module on the
@@ -35,7 +36,7 @@ module StudentProgress
       complete = Rules.training_complete?(tmu)
       Training.new(training_module:, completed_at: complete ? tmu.completed_at : nil,
                    slide_progress: slide_progress(tmu, training_module), due_date:,
-                   overdue: !complete && due_date.present? && Time.zone.today > due_date)
+                   overdue: !complete && DueDate.passed?(due_date))
     end
 
     private

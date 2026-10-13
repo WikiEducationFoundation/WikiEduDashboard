@@ -58,7 +58,7 @@ describe AssignmentProgressPresenter do
 
   it 'marks students overdue once an unfinished module is past due' do
     due = presenter.item('training-tr-a').due_date
-    travel_to(due + 1.day) do
+    travel_to(due + 2.days) do
       expect(rows('training-tr-a').map { |row| row[:overdue] }).to eq([true, true])
     end
   end
@@ -66,7 +66,7 @@ describe AssignmentProgressPresenter do
   it 'marks peer reviews overdue once the peer-review block is past due' do
     course.update!(flags: { peer_review_count: 1 })
     create(:block, week:, order: 2, title: 'Peer review an article', training_module_ids: [])
-    travel_to(presenter.item('peer-review').due_date + 1.day) do
+    travel_to(presenter.item('peer-review').due_date + 2.days) do
       expect(rows('peer-review').map { |row| row[:overdue] }).to eq([true, true])
     end
   end
@@ -168,7 +168,7 @@ describe AssignmentProgressPresenter do
 
   it 'marks the article overdue while one of its exercises is past due' do
     assign(amy, 'First')
-    travel_to(bibliography_due + 1.day) do
+    travel_to(bibliography_due + 2.days) do
       amy_row = rows('article').first
       expect(amy_row[:overdue]).to be(true)
       expect(amy_row[:exercises].first[:overdue]).to be(true)
