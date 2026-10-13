@@ -87,10 +87,10 @@ class WikiApi
     response&.status == 200 ? response.data : nil
   end
 
-  # Returns the title of the article, following a redirect from the given title,
-  # if it is in mainspace and the user has edited it (since the given time, if
-  # any), or nil otherwise.
-  def title_of_article_edited_by(username, title, since: nil)
+  # Returns the title and namespace of the page, following a redirect from the
+  # given title, if the user has edited it (since the given time, if any), or
+  # nil otherwise.
+  def page_edited_by(username, title, since: nil)
     query_params = { prop: 'revisions',
                      titles: title,
                      redirects: 'true',
@@ -100,8 +100,8 @@ class WikiApi
     # Revisions are listed newest first, so rvend is the oldest one included.
     query_params[:rvend] = since.utc.iso8601 if since
     page = query(query_params)&.data&.dig('pages')&.values&.first
-    return unless page&.dig('ns') == Article::Namespaces::MAINSPACE
-    page['title'] if page['revisions'].present?
+    return unless page&.dig('revisions').present?
+    { title: page['title'], namespace: page['ns'] }
   end
 
   # Returns the title of the page the given revision belongs to, or of the page

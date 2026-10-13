@@ -75,7 +75,7 @@ const TrainingSlideHandler = () => {
   // useState for fastTrainingAlertHandler function
   const [isShown, setIsShown] = useState(false);
 
-  const verifyArticle = (block_id, module_id, article_title) => dispatch(verifyExerciseArticle(block_id, module_id, article_title));
+  const verifyArticle = (block_id, module_id, article_title, confirmed) => dispatch(verifyExerciseArticle(block_id, module_id, article_title, confirmed));
 
   const setSlideCompleted_FC = (slideId) => {
     const userId = __guard__(document.getElementById('main'), x => x.getAttribute('data-user-id'));

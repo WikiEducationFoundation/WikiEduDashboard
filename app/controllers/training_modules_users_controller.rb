@@ -27,13 +27,9 @@ class TrainingModulesUsersController < ApplicationController
     set_training_module_user
     verification = VerifyExerciseArticle.new(training_module_user: @training_module_user,
                                              title: params[:article_title],
-                                             courses: courses_for_exercise_article)
-    if verification.verified?
-      render json: { status: 'verified', article_title: verification.article_title }
-    else
-      render json: { status: 'not_found', message: t('training.article_title_input.not_found') },
-             status: :unprocessable_entity
-    end
+                                             courses: courses_for_exercise_article,
+                                             confirmed: confirmed_outside_mainspace?)
+    render_article_verification(verification)
   end
 
   def mark_exercise_complete
@@ -102,6 +98,25 @@ class TrainingModulesUsersController < ApplicationController
     render json: { status: 'not_found',
                    message: 'This training module does not take an article title.' },
            status: :not_found
+  end
+
+  def render_article_verification(verification)
+    if verification.verified?
+      render json: { status: 'verified', article_title: verification.article_title }
+    elsif verification.needs_confirmation?
+      render json: { status: 'confirm', article_title: verification.article_title,
+                     article_url: verification.article_url,
+                     message: t('training.article_title_input.not_mainspace') }
+    else
+      render json: { status: 'not_found', message: t('training.article_title_input.not_found') },
+             status: :unprocessable_entity
+    end
+  end
+
+  # The student has seen the warning that the page they named isn't a
+  # mainspace article, and is submitting it anyway.
+  def confirmed_outside_mainspace?
+    ActiveModel::Type::Boolean.new.cast(params[:confirmed]) || false
   end
 
   # Verifying from a course timeline covers just that course. From the training

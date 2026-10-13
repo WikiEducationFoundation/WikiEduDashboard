@@ -18,8 +18,9 @@ describe 'verifying the article for an article_title_input exercise', type: :fea
     create(:block, week:, training_module_ids: [training_module.id])
     course.campaigns << Campaign.first
     course.users << student
-    allow_any_instance_of(WikiApi).to receive(:title_of_article_edited_by)
-      .with('Ragesock', 'Marie Curie', since: anything).and_return(edited_title)
+    allow_any_instance_of(WikiApi).to receive(:page_edited_by)
+      .with('Ragesock', 'Marie Curie', since: anything)
+      .and_return(title: edited_title, namespace: Article::Namespaces::MAINSPACE)
   end
 
   after do
@@ -38,6 +39,33 @@ describe 'verifying the article for an article_title_input exercise', type: :fea
     click_button 'Verify'
 
     expect(page).to have_link 'Marie Curie', href: 'https://en.wikipedia.org/wiki/Marie_Curie'
+  end
+
+  it 'asks a student to confirm a page outside mainspace before recording it' do
+    allow_any_instance_of(WikiApi).to receive(:page_edited_by)
+      .with('Ragesock', 'User:Ragesock/sandbox', since: anything)
+      .and_return(title: 'User:Ragesock/sandbox', namespace: 2)
+    create(:training_modules_users, user: student, training_module:,
+                                    completed_at: Time.zone.now)
+    login_as student
+    visit "/courses/#{course.slug}/timeline"
+
+    click_button 'Submit Article'
+    fill_in placeholder: /Marie Curie/, with: 'https://en.wikipedia.org/wiki/User:Ragesock/sandbox'
+    click_button 'Verify'
+
+    expect(page).to have_content I18n.t('training.article_title_input.not_mainspace')
+    expect(page).to have_link 'User:Ragesock/sandbox'
+    expect(TrainingModulesUsers.find_by(user: student, training_module:)
+                               .exercise_article_title(course.id)).to be_nil
+
+    click_button 'Submit anyway'
+
+    expect(page).to have_link 'User:Ragesock/sandbox',
+                              href: 'https://en.wikipedia.org/wiki/User:Ragesock/sandbox'
+    expect(TrainingModulesUsers.find_by(user: student, training_module:)
+                               .exercise_article_title(course.id))
+      .to eq('User:Ragesock/sandbox')
   end
 
   it 'lets a student verify from the last training slide' do

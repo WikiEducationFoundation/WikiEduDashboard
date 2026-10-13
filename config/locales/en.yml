@@ -1819,6 +1819,8 @@ en:
       checking: "Checking..."
       verify: "Verify"
       not_found: "We could not find your edit on that article. Please check the article name and try again."
+      not_mainspace: "This is not a live article from Wikipedia mainspace. Are you sure you want to submit it for this exercise?"
+      submit_anyway: "Submit anyway"
 
   claim_verification:
     pick_instructions: Click a highlighted claim to see the citation details.

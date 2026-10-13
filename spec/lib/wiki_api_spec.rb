@@ -225,40 +225,41 @@ describe WikiApi do
     end
   end
 
-  describe '#title_of_article_edited_by' do
+  describe '#page_edited_by' do
     let(:wiki) { Wiki.find_by(language: 'en', project: 'wikipedia') }
     let(:subject) { described_class.new(wiki) }
 
-    it 'returns the title of an article the user has edited' do
-      VCR.use_cassette 'wiki/title_of_article_edited_by' do
-        expect(subject.title_of_article_edited_by('Ragesoss', 'American Civil War'))
-          .to eq('American Civil War')
+    it 'returns the title and namespace of an article the user has edited' do
+      VCR.use_cassette 'wiki/page_edited_by' do
+        expect(subject.page_edited_by('Ragesoss', 'American Civil War'))
+          .to eq(title: 'American Civil War', namespace: 0)
       end
     end
 
     it 'follows a redirect to the article the user edited' do
-      VCR.use_cassette 'wiki/title_of_article_edited_by' do
-        expect(subject.title_of_article_edited_by('Ragesoss', 'US Civil War'))
-          .to eq('American Civil War')
+      VCR.use_cassette 'wiki/page_edited_by' do
+        expect(subject.page_edited_by('Ragesoss', 'US Civil War'))
+          .to eq(title: 'American Civil War', namespace: 0)
       end
     end
 
     it 'returns nil when the user has not edited the article' do
-      VCR.use_cassette 'wiki/title_of_article_edited_by' do
-        expect(subject.title_of_article_edited_by('Ragesoss', 'Ada Lovelace')).to be_nil
+      VCR.use_cassette 'wiki/page_edited_by' do
+        expect(subject.page_edited_by('Ragesoss', 'Ada Lovelace')).to be_nil
       end
     end
 
-    it 'returns nil for a page the user has edited outside mainspace' do
-      VCR.use_cassette 'wiki/title_of_article_edited_by' do
-        expect(subject.title_of_article_edited_by('Ragesoss', 'User:Ragesoss')).to be_nil
+    it 'returns a page the user has edited outside mainspace, with its namespace' do
+      VCR.use_cassette 'wiki/page_edited_by' do
+        expect(subject.page_edited_by('Ragesoss', 'User:Ragesoss'))
+          .to eq(title: 'User:Ragesoss', namespace: 2)
       end
     end
 
     it 'returns nil when the user has only edited the article before the given time' do
-      VCR.use_cassette 'wiki/title_of_article_edited_by' do
-        expect(subject.title_of_article_edited_by('Ragesoss', 'American Civil War',
-                                                  since: Time.zone.parse('2026-01-01')))
+      VCR.use_cassette 'wiki/page_edited_by' do
+        expect(subject.page_edited_by('Ragesoss', 'American Civil War',
+                                      since: Time.zone.parse('2026-01-01')))
           .to be_nil
       end
     end
