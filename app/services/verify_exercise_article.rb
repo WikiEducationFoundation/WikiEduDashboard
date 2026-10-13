@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/utils/article_title_input_parser"
+
 # For an exercise with the article_title_input setting, checks that the student
 # has edited the article they name since each course started, and for each
 # course where they have, records the article and marks the exercise complete.
@@ -20,7 +22,7 @@ class VerifyExerciseArticle
   def initialize(training_module_user:, title:, courses:)
     @training_module_user = training_module_user
     @username = training_module_user.user.username
-    @title = title.to_s.strip
+    @input = ArticleTitleInputParser.new(title)
     @courses = courses
     @verified_courses = []
     perform
@@ -33,17 +35,27 @@ class VerifyExerciseArticle
   private
 
   def perform
-    # A '|' would make the API check several titles at once.
-    return if @title.empty? || @title.include?('|')
-
-    @courses.each do |course|
-      title = WikiApi.new(course.home_wiki)
-                     .title_of_article_edited_by(@username, @title, since: course.start)
-      next unless title
-      @article_title = title
-      @verified_courses << course
-      @training_module_user.store_exercise_article_title(title, course.id)
-    end
+    @courses.each { |course| verify_for(course) }
     @training_module_user.save if verified?
+  end
+
+  def verify_for(course)
+    wiki_api = WikiApi.new(course.home_wiki)
+    title = input_title(wiki_api)
+    # A '|' would make the API check several titles at once.
+    return if title.blank? || title.include?('|')
+
+    title = wiki_api.title_of_article_edited_by(@username, title, since: course.start)
+    return unless title
+    @article_title = title
+    @verified_courses << course
+    @training_module_user.store_exercise_article_title(title, course.id)
+  end
+
+  # Links to a revision or page by id carry no title, so the wiki looks it up.
+  def input_title(wiki_api)
+    return @input.title if @input.title
+    return unless @input.revision_id || @input.page_id
+    wiki_api.page_title(revision_id: @input.revision_id, page_id: @input.page_id)
   end
 end

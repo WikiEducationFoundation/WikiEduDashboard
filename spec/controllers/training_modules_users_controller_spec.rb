@@ -324,6 +324,53 @@ describe TrainingModulesUsersController, type: :request do
       end
     end
 
+    context 'when the student gives an edit URL of the article' do
+      let(:url) { 'https://en.wikipedia.org/w/index.php?title=Selfie&action=edit' }
+
+      before do
+        expect_any_instance_of(WikiApi).to receive(:title_of_article_edited_by)
+          .with('Ragesock', 'Selfie', since: course.start).and_return('Selfie')
+        post '/training_modules_users/verify_exercise_article.json',
+             params: params.merge(article_title: url), as: :json
+      end
+
+      it 'checks the article named in the URL' do
+        expect(response.parsed_body['status']).to eq('verified')
+      end
+    end
+
+    context 'when the student gives a diff URL with no title' do
+      let(:url) { 'https://en.wikipedia.org/w/index.php?diff=123456' }
+
+      before do
+        expect_any_instance_of(WikiApi).to receive(:page_title)
+          .with(revision_id: 123456, page_id: nil).and_return('Selfie')
+        expect_any_instance_of(WikiApi).to receive(:title_of_article_edited_by)
+          .with('Ragesock', 'Selfie', since: course.start).and_return('Selfie')
+        post '/training_modules_users/verify_exercise_article.json',
+             params: params.merge(article_title: url), as: :json
+      end
+
+      it 'checks the article the revision belongs to' do
+        expect(response.parsed_body['status']).to eq('verified')
+      end
+    end
+
+    context 'when the revision in a diff URL does not exist' do
+      let(:url) { 'https://en.wikipedia.org/w/index.php?diff=123456' }
+
+      before do
+        allow_any_instance_of(WikiApi).to receive(:page_title).and_return(nil)
+        expect_any_instance_of(WikiApi).not_to receive(:title_of_article_edited_by)
+        post '/training_modules_users/verify_exercise_article.json',
+             params: params.merge(article_title: url), as: :json
+      end
+
+      it 'returns not_found status' do
+        expect(response.parsed_body['status']).to eq('not_found')
+      end
+    end
+
     context 'when the title would query several pages' do
       before do
         expect_any_instance_of(WikiApi).not_to receive(:title_of_article_edited_by)

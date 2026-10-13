@@ -19,7 +19,7 @@ describe 'verifying the article for an article_title_input exercise', type: :fea
     course.campaigns << Campaign.first
     course.users << student
     allow_any_instance_of(WikiApi).to receive(:title_of_article_edited_by)
-      .and_return(edited_title)
+      .with('Ragesock', 'Marie Curie', since: anything).and_return(edited_title)
   end
 
   after do
@@ -33,7 +33,8 @@ describe 'verifying the article for an article_title_input exercise', type: :fea
     visit "/courses/#{course.slug}/timeline"
 
     click_button 'Submit Article'
-    fill_in placeholder: /Marie Curie/, with: 'https://en.wikipedia.org/wiki/Marie_Curie'
+    fill_in placeholder: /Marie Curie/,
+            with: 'https://en.wikipedia.org/w/index.php?title=Marie_Curie&action=edit'
     click_button 'Verify'
 
     expect(page).to have_link 'Marie Curie', href: 'https://en.wikipedia.org/wiki/Marie_Curie'

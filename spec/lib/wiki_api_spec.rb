@@ -258,6 +258,35 @@ describe WikiApi do
     end
   end
 
+  describe '#page_title' do
+    let(:wiki) { Wiki.find_by(language: 'en', project: 'wikipedia') }
+    let(:subject) { described_class.new(wiki) }
+
+    it 'returns the title of the page a revision belongs to' do
+      VCR.use_cassette 'wiki/page_title' do
+        expect(subject.page_title(revision_id: 1315039613)).to eq('List of hystricids')
+      end
+    end
+
+    it 'returns the title of the page with a page id' do
+      VCR.use_cassette 'wiki/page_title' do
+        expect(subject.page_title(page_id: 20408)).to eq('Marie Curie')
+      end
+    end
+
+    it 'returns nil for a revision that does not exist' do
+      VCR.use_cassette 'wiki/page_title' do
+        expect(subject.page_title(revision_id: 99999999999)).to be_nil
+      end
+    end
+
+    it 'returns nil for a page id that does not exist' do
+      VCR.use_cassette 'wiki/page_title' do
+        expect(subject.page_title(page_id: 99999999999)).to be_nil
+      end
+    end
+  end
+
   describe '#fetch_all' do
     it 'returns the same data as a single complete query would' do
       VCR.use_cassette 'wiki/continue_response' do

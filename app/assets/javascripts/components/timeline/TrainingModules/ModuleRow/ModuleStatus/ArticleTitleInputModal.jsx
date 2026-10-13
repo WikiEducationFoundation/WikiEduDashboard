@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const parseArticleTitle = (input) => {
-  const urlMatch = input.match(/\/wiki\/([^#?]+)/);
-  if (urlMatch) return decodeURIComponent(urlMatch[1].replace(/_/g, ' '));
-  return input.trim();
-};
-
 const ArticleTitleInputModal = ({ block_id, module_id, verifyArticle, onVerified, onClose }) => {
   const [inputValue, setInputValue] = useState('');
   const [status, setStatus] = useState('idle'); // idle | loading | error | success
   const [errorMessage, setErrorMessage] = useState('');
 
+  // The server works out the article from a title or any kind of wiki URL.
   const handleSubmit = () => {
-    const articleTitle = parseArticleTitle(inputValue);
-    if (!articleTitle) return;
+    const articleInput = inputValue.trim();
+    if (!articleInput) return;
     setStatus('loading');
-    verifyArticle(block_id, module_id, articleTitle)
+    verifyArticle(block_id, module_id, articleInput)
       .then((resp) => {
         if (resp.status === 'verified') {
           setStatus('success');
-          setTimeout(() => onVerified(articleTitle), 1500);
+          setTimeout(() => onVerified(resp.article_title), 1500);
         } else {
           setStatus('error');
           setErrorMessage(resp.message);

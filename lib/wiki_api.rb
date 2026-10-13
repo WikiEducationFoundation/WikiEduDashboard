@@ -102,6 +102,13 @@ class WikiApi
     page['title'] if page&.dig('revisions').present?
   end
 
+  # Returns the title of the page the given revision belongs to, or of the page
+  # with the given id, or nil if there is no such revision or page.
+  def page_title(revision_id: nil, page_id: nil)
+    query_params = revision_id ? { revids: revision_id } : { pageids: page_id }
+    query(query_params)&.data&.dig('pages')&.values&.first&.dig('title')
+  end
+
   def get_article_rating(titles)
     titles = [titles] unless titles.is_a?(Array)
     titles = titles.sort_by(&:downcase)
