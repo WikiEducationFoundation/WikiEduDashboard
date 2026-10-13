@@ -930,6 +930,7 @@ qqq:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
   downloads:
+    available_in_bell: Notification message informing the user that their downloaded file is ready in the bell notification panel
     title: |-
       Header for the downloads notification panel
       {{Identical|Downloads}}

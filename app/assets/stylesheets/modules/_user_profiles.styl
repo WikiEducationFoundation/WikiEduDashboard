@@ -1240,3 +1240,27 @@ html
 		top 0
 		right auto
 		float none
+
+.user-articles__header
+	display flex
+	align-items center
+	justify-content space-between
+	gap 16px
+	margin-bottom 24px
+
+	h2, h3
+		margin 0
+
+.user-articles__downloads
+	display flex
+	gap 12px
+	flex-wrap wrap
+
+@media only screen and (max-width: 919px)
+	.user-articles__header
+		flex-direction column
+		align-items stretch
+
+	.user-articles__downloads
+		justify-content center
+

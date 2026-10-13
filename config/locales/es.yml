@@ -1589,6 +1589,7 @@ es:
     aria_label:
       bell: Notificaciones
   downloads:
+    available_in_bell: Tu archivo está listo. Ve a las notificaciones de la campana para descargarlo.
     title: Descargas
     none: Aún no tienes descargas.
     generating: Generando…

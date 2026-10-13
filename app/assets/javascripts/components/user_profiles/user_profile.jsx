@@ -10,6 +10,7 @@ import Loading from '../common/loading.jsx';
 import UserTrainingStatus from './user_training_status.jsx';
 import request, { ensureOk } from '../../utils/request';
 import UserDetails from './user_details.jsx';
+import Notifications from '../common/notifications.jsx';
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -47,6 +48,7 @@ const UserProfile = () => {
 
   return (
     <div className="user-profile-container">
+      <Notifications />
       <Routes>
         <Route
           index

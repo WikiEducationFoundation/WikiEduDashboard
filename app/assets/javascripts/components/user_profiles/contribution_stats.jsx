@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import InstructorStats from './instructor_stats.jsx';
 import StudentStats from './student_stats.jsx';
 import DropdownSortSelect from '../common/dropdown_sort_select';
+import ProfileDownloadButtons from './profile_download_buttons.jsx';
 
 const defaultParams = {
   wiki: 'all'
@@ -141,21 +142,15 @@ const ContributionStats = ({ params, stats, statsGraphsData }) => {
     }
   }, [wikiFilter, wikiOptions]);
 
-  const downloadCsvLabel = I18n.t('downloads.csv');
-  const downloadJsonLabel = I18n.t('downloads.json');
-
   return (
     <div id="statistics">
       <div className="user-articles__header">
         <h2>{I18n.t('users.contribution_statistics')}</h2>
-        <div className="user-articles__downloads">
-          <button type="button" className="button border ghost small">
-            {downloadCsvLabel}
-          </button>
-          <button type="button" className="button border ghost small">
-            {downloadJsonLabel}
-          </button>
-        </div>
+        <ProfileDownloadButtons
+          username={params.username}
+          section="statistics"
+          data={{ username: params.username, ...stats, articles_by_language: filteredArticlesByLanguage }}
+        />
       </div>
       {showWikiFilter && (
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '12px', marginBottom: '24px' }}>

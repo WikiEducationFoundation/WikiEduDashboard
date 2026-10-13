@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
 import API from '../../utils/api.js';
 import Loading from '../common/loading.jsx';
+import ProfileDownloadButtons from './profile_download_buttons.jsx';
 
 const columnsByMetric = {
   articles: ['article', 'language', 'type', 'view'],
@@ -264,14 +265,11 @@ const UserDetails = ({ username }) => {
         <>
           <div className="user-articles__header">
             <h3>{title}</h3>
-            <div className="user-articles__downloads">
-              <button type="button" className="button border ghost small">
-                {I18n.t('downloads.csv')}
-              </button>
-              <button type="button" className="button border ghost small">
-                {I18n.t('downloads.json')}
-              </button>
-            </div>
+            <ProfileDownloadButtons
+              username={username}
+              section={metric || 'articles'}
+              data={{ username, articles_by_course: filteredCoursesData }}
+            />
           </div>
           {showFilters && (
             <div
