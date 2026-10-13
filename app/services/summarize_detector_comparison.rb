@@ -67,7 +67,7 @@ class SummarizeDetectorComparison
   end
 
   def build
-    generated = load(self.class.current_units(AiDetectionSample::SYNTHETIC))
+    generated = load_units(self.class.current_units(AiDetectionSample::SYNTHETIC))
                 .reject { |unit| EXCLUDED_CONDITIONS.include?(unit.metadata['condition']) }
     units = generated + agpedia_articles(generated) + topic_articles(generated) +
             paired_texts(generated)
@@ -90,7 +90,7 @@ class SummarizeDetectorComparison
   # Whole Agpedia articles on the generated texts' topics; leads and other articles are left out.
   def agpedia_articles(generated)
     topics = generated.to_set { |unit| unit.factors['topic'] }
-    load(self.class.current_units(AGPEDIA)).select do |unit|
+    load_units(self.class.current_units(AGPEDIA)).select do |unit|
       unit.factors['excerpt'] == 'full' && topics.include?(unit.factors['topic'])
     end
   end
@@ -98,21 +98,21 @@ class SummarizeDetectorComparison
   # Each topic's article before and after the student's term and today.
   def topic_articles(generated)
     topics = generated.to_set { |unit| unit.factors['topic'] }
-    load(self.class.current_units(ARTICLE_VERSIONS))
+    load_units(self.class.current_units(ARTICLE_VERSIONS))
       .select { |unit| topics.include?(unit.factors['topic']) }
   end
 
   # The student texts the topics were taken from.
   def paired_texts(generated)
     ids = generated.filter_map { |unit| unit.metadata['paired_unit_id'].presence&.to_i }
-    load(AiDetectionSample.where(id: ids.uniq))
+    load_units(AiDetectionSample.where(id: ids.uniq))
   end
 
   def with_topic_placeholder(turns, topic)
     topic.empty? ? turns : turns.map { |turn| turn.gsub(topic, '{topic}') }
   end
 
-  def load(scope)
+  def load_units(scope)
     scope.select(UNIT_COLUMNS).includes(:revision_ai_scores).to_a
   end
 
