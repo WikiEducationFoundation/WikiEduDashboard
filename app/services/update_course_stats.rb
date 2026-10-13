@@ -11,6 +11,7 @@ require_dependency "#{Rails.root}/lib/importers/average_views_importer"
 require_dependency "#{Rails.root}/lib/errors/update_service_error_helper"
 require_dependency "#{Rails.root}/lib/data_cycle/course_queue_sorting"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
+require_dependency "#{Rails.root}/lib/replica"
 require_dependency "#{Rails.root}/app/services/update_course_wiki_timeslices"
 
 #= Updates stats for a specific course. This includes importing data (revisions, uploads,
@@ -20,7 +21,7 @@ class UpdateCourseStats
   include UpdateServiceErrorHelper
   include CourseQueueSorting
 
-  def initialize(course, sidekiq_status_logger: nil) # rubocop:disable Metrics/MethodLength
+  def initialize(course, sidekiq_status_logger: nil)
     sidekiq_status_logger.pause_until_no_backup unless sidekiq_status_logger.nil?
     @course = course
     # If the upate was explicitly requested by a user,
@@ -32,6 +33,13 @@ class UpdateCourseStats
 
     @start_time = Time.zone.now.to_datetime
     UpdateLogger.update_course_with_unfinished_update(@course, 'start_time' => @start_time)
+    perform_update
+  end
+
+  private
+
+  # Any step can hit a Replica failure, so stop the whole update and report once.
+  def perform_update
     import_uploads
     update_categories
     update_articles
@@ -45,9 +53,23 @@ class UpdateCourseStats
     # to calculate new article stats for each namespace.
     update_wiki_namespace_stats
     log_end_of_update
+  rescue Replica::RequestFailedError => e
+    report_replica_failure(e)
   end
 
-  private
+  # The stopped update is left as unfinished (not logged in update_logs), so the
+  # next update's cutoffs still point at the last complete update.
+  def report_replica_failure(error)
+    kind = error.is_a?(Replica::RateLimitedError) ? 'rate-limited' : 'request-failed'
+    Sentry.capture_message(
+      "Replica #{kind}: update stopped for #{@course.slug}",
+      level: 'warning',
+      fingerprint: ["replica-#{kind}"],
+      tags: sentry_tags.merge(http_status: error.status),
+      extra: { retry_after_seconds: error.retry_after_seconds,
+               response_body: error.response_body.to_s.first(500) }
+    )
+  end
 
   def import_uploads
     @debugger.log_update_progress :start

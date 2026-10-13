@@ -304,5 +304,26 @@ describe UpdateTimeslicesCourseUser do
       expect(CoursesUsers.find_by(course:, user: user3).created_at)
         .to be < course.last_update_start_time
     end
+
+    it 'stops immediately, without touching remaining users, on a Replica rate limit' do
+      JoinCourse.new(course:, user: user3, role: CoursesUsers::Roles::STUDENT_ROLE)
+      fake_response = double('response', code: '429', body: 'rate limited') # rubocop:disable RSpec/VerifiedDoubles
+      allow(fake_response).to receive(:[]).with('Retry-After').and_return(nil)
+      allow_any_instance_of(CourseRevisionUpdater)
+        .to receive(:fetch_revisions_for_new_users) do |_updater, _wiki, users, _ts_start, _ts_end|
+        raise Replica::RateLimitedError, fake_response if users.first.id == user2.id
+        []
+      end
+
+      expect { described_class.new(course).run }.to raise_error(Replica::RateLimitedError)
+
+      # Neither the rate-limited user nor the one after them (never reached)
+      # was marked processed -- both are retried on the next update, instead
+      # of user3 being silently skipped the way a swallowed error would.
+      expect(CoursesUsers.find_by(course:, user: user2).created_at)
+        .to be >= course.last_update_start_time
+      expect(CoursesUsers.find_by(course:, user: user3).created_at)
+        .to be >= course.last_update_start_time
+    end
   end
 end
