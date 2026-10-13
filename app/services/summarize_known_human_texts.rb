@@ -38,9 +38,7 @@ class SummarizeKnownHumanTexts
   private
 
   def cache_key
-    scores = RevisionAiScore.where.not(sample_id: nil)
-    ['detector_comparison/known_human/v2', AiDetectionSample.count,
-     AiDetectionSample.maximum(:updated_at), scores.count, scores.maximum(:updated_at)]
+    ['detector_comparison/known_human/v2', *SummarizeDetectorComparison.data_version]
   end
 
   def build

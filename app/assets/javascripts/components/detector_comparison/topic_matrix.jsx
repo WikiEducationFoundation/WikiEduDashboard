@@ -9,7 +9,7 @@ import {
 import {
   BAR_DETECTORS, conditionsIn, formatScore, isGenerated, modelsIn, pairedIdsOf, referenceKey, topicOfPair, topicsIn, verdictFor
 } from './data';
-import { averageValues, BarLegend, MiniBars, Tooltip, unitValues, useCellTooltip, valuesLabel } from './bars';
+import { AverageBars, averageValues, BarLegend, MiniBars, Tooltip, unitValues, useCellTooltip, valuesLabel } from './bars';
 import { useSelection } from './selection';
 
 const AVERAGE = 'average';
@@ -126,25 +126,22 @@ const groupRows = (rows, groupBy) => {
 const Grid = ({ rowGroups, columns, detectors, columnTitles }) => {
   const { hover, show, hide } = useCellTooltip();
 
-  const averageCell = (column, label, meta, inCell) => {
+  const averageCell = (column, label, inCell) => {
     if (!inCell.length) return <td key={column} className="detector-comparison__cell detector-comparison__cell--empty" />;
-    const values = averageValues(inCell, detectors);
     return (
       <td key={column} className={`detector-comparison__cell${column === AVERAGE ? ' detector-comparison__cell--average' : ''}`}>
-        <span className="detector-comparison__cell-link" onMouseEnter={event => show(event, label, meta, values)} onMouseLeave={hide}>
-          <MiniBars values={values} />
-        </span>
+        <AverageBars
+          values={averageValues(inCell, detectors)} title={label} place={column === AVERAGE ? AVERAGE_LABEL : column}
+          count={inCell.length} show={show} hide={hide}
+        />
       </td>
     );
   };
 
   const renderCell = (row, column) => {
     const label = row.reference ? modelLabel(row.model) : `${modelLabel(row.model)}, ${conditionLabel(row.condition)}`;
-    if (column === AVERAGE) return averageCell(column, label, `${AVERAGE_LABEL} · ${row.units.length} texts`, row.units);
-    if (row.average) {
-      const inCell = row.unitsFor(column);
-      return averageCell(column, label, `${column} · ${inCell.length} texts`, inCell);
-    }
+    if (column === AVERAGE) return averageCell(column, label, row.units);
+    if (row.average) return averageCell(column, label, row.unitsFor(column));
     const unit = row.unitFor(column);
     if (!unit) return <td key={column} className="detector-comparison__cell detector-comparison__cell--empty" />;
     const values = unitValues(unit, detectors);

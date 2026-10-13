@@ -4,7 +4,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { AVERAGE_MODELS, AVERAGE_ROW, CONDITIONS, DEFAULT_SELECTION, DETECTORS, MODELS, REFERENCE_ROWS } from './descriptions';
 import { BAR_DETECTORS, conditionsIn, datasetPath, fetchOverview, isGenerated, modelsIn } from './data';
-import { averageValues, BarLegend, MiniBars, Tooltip, unitValues, useCellTooltip, valuesLabel } from './bars';
+import { AverageBars, averageValues, BarLegend, MiniBars, Tooltip, unitValues, useCellTooltip, valuesLabel } from './bars';
 import { conditionLabel, modelLabel, referenceRows } from './topic_matrix';
 import AuthorshipNote from './authorship_note';
 
@@ -57,12 +57,12 @@ const TopicPage = () => {
   const averageCell = (condition) => {
     const inCell = texts.generated.filter(unit => AVERAGE_MODELS.includes(unit.factors.model) && unit.condition === condition);
     if (!inCell.length) return <td key={AVERAGE} className="detector-comparison__cell detector-comparison__cell--empty" />;
-    const values = averageValues(inCell, detectors);
     return (
       <td key={AVERAGE} className="detector-comparison__cell detector-comparison__cell--average">
-        <span className="detector-comparison__cell-link" onMouseEnter={event => show(event, `${AVERAGE_ROW.label}, ${conditionLabel(condition)}`, `${inCell.length} texts`, values)} onMouseLeave={hide}>
-          <MiniBars values={values} />
-        </span>
+        <AverageBars
+          values={averageValues(inCell, detectors)} title={`${AVERAGE_ROW.label}, ${conditionLabel(condition)}`}
+          count={inCell.length} show={show} hide={hide}
+        />
       </td>
     );
   };

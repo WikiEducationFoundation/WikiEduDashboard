@@ -24,7 +24,8 @@ class CollectDetectorComparisonScores
   end
 
   def copies_by_text
-    AiDetectionSample.where(text_sha256: @units.map(&:text_sha256).compact.uniq)
+    AiDetectionSample.select(:id, :text_sha256)
+                     .where(text_sha256: @units.map(&:text_sha256).compact.uniq)
                      .where.not(id: @units.map(&:id))
                      .where.not('sample_name LIKE ?', SummarizeDetectorComparison::RETIRED_SAMPLES)
                      .includes(:revision_ai_scores)

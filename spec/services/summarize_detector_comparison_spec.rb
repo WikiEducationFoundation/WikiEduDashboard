@@ -63,4 +63,19 @@ describe SummarizeDetectorComparison do
     expect(units[human.id][:scores]['Originality AI Allowance 40'])
       .to include(label: 'Original', flagged: false)
   end
+
+  it 'rebuilds when a score changes within the same second as the newest change' do
+    allow(Rails).to receive(:cache).and_return(ActiveSupport::Cache::MemoryStore.new)
+    moment = Time.zone.parse('2026-10-13 12:00:00.1')
+    AiDetectionSample.update_all(updated_at: moment)
+    RevisionAiScore.update_all(updated_at: moment)
+    described_class.new
+    pangram = generated.revision_ai_scores.find_by(check_type: 'Pangram 4')
+    travel_to(moment + 0.5.seconds, with_usec: true) do
+      pangram.update!(details: pangram.details.merge('prediction_short' => 'AI'))
+    end
+
+    rebuilt = described_class.new.result[:units].find { |unit| unit[:id] == generated.id }
+    expect(rebuilt[:scores]['Pangram 4']).to include(label: 'AI')
+  end
 end

@@ -17,6 +17,22 @@ describe 'AI detector comparison page', type: :feature, js: true do
     end
   end
 
+  # A conclusion whose description links to a section of the 16-topic page's explanations.
+  def with_ladder_link_view
+    content = Rails.root.join('tmp/detector_comparison_feature_spec.yml')
+    File.write(content, <<~YAML)
+      views:
+        - key: one
+          title: First view
+          description: See [the ladder](/detector_comparison/topics#open-weight-ladder).
+          selection: { detectors: [a40], topics: all }
+    YAML
+    stub_const('RenderDetectorComparisonIntro::CONTENT_PATH', content)
+    yield
+  ensure
+    FileUtils.rm_f(content)
+  end
+
   describe 'as an admin' do
     before { login_as(admin) }
 
@@ -119,21 +135,33 @@ describe 'AI detector comparison page', type: :feature, js: true do
     end
 
     it 'follows a link in a view description to a section of the explanations' do
-      content = Rails.root.join('tmp/detector_comparison_feature_spec.yml')
-      File.write(content, <<~YAML)
-        views:
-          - key: one
-            title: First view
-            description: See [the ladder](/detector_comparison/topics#open-weight-ladder).
-            selection: { detectors: [a40], topics: all }
-      YAML
-      stub_const('RenderDetectorComparisonIntro::CONTENT_PATH', content)
-      visit '/detector_comparison'
-      click_link 'the ladder'
-      expect(page).to have_current_path('/detector_comparison/topics')
-      expect(scrolled_to?('open-weight-ladder')).to be(true)
-    ensure
-      FileUtils.rm_f(content)
+      with_ladder_link_view do
+        visit '/detector_comparison'
+        click_link 'the ladder'
+        expect(page).to have_current_path('/detector_comparison/topics')
+        expect(scrolled_to?('open-weight-ladder')).to be(true)
+      end
+    end
+
+    it "keeps a view's selection when its description links to a section of the same page" do
+      with_ladder_link_view do
+        visit '/detector_comparison'
+        first('.detector-comparison__view-cue').click
+        within('.detector-comparison__active-view') { click_link 'the ladder' }
+        expect(page).to have_current_path(/detectors=a40/)
+        expect(page).to have_css '.detector-comparison__active-view', text: 'First view'
+        expect(scrolled_to?('open-weight-ladder')).to be(true)
+      end
+    end
+
+    it 'gives every cell a label with its verdicts, and shows an average on focus' do
+      visit '/detector_comparison/topics?models=gpt-6-astra|average:models&strategies=assignment'
+      expect(page).to have_css "#{generated_cell}[aria-label*='A40 0.990, AI']"
+      average = find("[role='img'][aria-label^='Average across current models, Assignment, " \
+                     "Average, all topics, 1 texts: P4 mean']")
+      expect(average[:'aria-label']).to include('1 of 1 flagged')
+      average.execute_script('this.focus()')
+      expect(page).to have_css '.detector-comparison__tooltip', text: '1 of 1 flagged'
     end
 
     it 'shows every text on a topic' do

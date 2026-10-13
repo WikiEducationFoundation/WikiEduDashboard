@@ -47,11 +47,16 @@ export const MiniBars = ({ values }) => {
 
 MiniBars.propTypes = { values: PropTypes.array.isRequired };
 
-export const valuesLabel = values => values.map(value => `${DETECTORS[value.key]?.short || value.key} ${formatScore(value.score)}`).join('; ');
+// What a bar shows, in words: the score and verdict, or the mean and how many texts were flagged.
+const valueText = (value, separator = ' · ') => {
+  if (!hasScore(value)) return 'not scored';
+  return value.n !== undefined
+    ? `mean ${formatScore(value.score)}${separator}${value.k} of ${value.n} flagged`
+    : `${formatScore(value.score)}${separator}${value.label || '?'}`;
+};
 
-const valueText = value => (value.n !== undefined
-  ? `mean ${formatScore(value.score)} · ${value.k} of ${value.n} flagged`
-  : `${formatScore(value.score)} · ${value.label || '?'}`);
+// A cell's bars for screen readers, which can't see whether a bar is solid or faded.
+export const valuesLabel = values => values.map(value => `${DETECTORS[value.key]?.short || value.key} ${valueText(value, ', ')}`).join('; ');
 
 export const BarLegend = ({ detectors }) => (
   <div className="detector-comparison__legend">
@@ -63,6 +68,7 @@ export const BarLegend = ({ detectors }) => (
     ))}
     <span className="detector-comparison__legend-note">
       Bar height: the detector&apos;s whole-text AI score, 0 to 1. Solid: its verdict found AI. Faded: it called the text human. No bar: not scored.
+      Averages are always solid; hover over or focus on one to see how many texts each detector flagged.
     </span>
   </div>
 );
@@ -79,7 +85,7 @@ export const Tooltip = ({ hover }) => {
         <div key={value.key} className="detector-comparison__tooltip-row">
           <svg width="10" height="10" aria-hidden="true"><rect width="10" height="10" rx="2" fill={value.color} /></svg>
           <span>{DETECTORS[value.key]?.short || value.key}</span>
-          <span>{hasScore(value) ? valueText(value) : 'not scored'}</span>
+          <span>{valueText(value)}</span>
         </div>
       ))}
     </div>
@@ -97,4 +103,31 @@ export const useCellTooltip = () => {
     setHover({ title, meta, values, x: cell.right - box.left + 6, y: cell.top - box.top });
   };
   return { hover, show, hide: () => setHover(null) };
+};
+
+// A cell averaged over several texts. Unlike a single text's cell it is not a link, so it takes
+// focus itself to show its tooltip, and its label carries what the bars and the tooltip show.
+export const AverageBars = ({ values, title, place, count, show, hide }) => {
+  const texts = `${count} texts`;
+  const enter = event => show(event, title, [place, texts].filter(Boolean).join(' · '), values);
+  return (
+    <span
+      className="detector-comparison__cell-link" role="img"
+      // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex -- focus shows the tooltip, as on single-text cells
+      tabIndex={0}
+      aria-label={`${[title, place, texts].filter(Boolean).join(', ')}: ${valuesLabel(values)}`}
+      onMouseEnter={enter} onFocus={enter} onMouseLeave={hide} onBlur={hide}
+    >
+      <MiniBars values={values} />
+    </span>
+  );
+};
+
+AverageBars.propTypes = {
+  values: PropTypes.array.isRequired,
+  title: PropTypes.string.isRequired,
+  place: PropTypes.string,
+  count: PropTypes.number.isRequired,
+  show: PropTypes.func.isRequired,
+  hide: PropTypes.func.isRequired,
 };

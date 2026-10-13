@@ -119,8 +119,8 @@ const Explanations = ({ prompts = {}, children }) => (
       </li>
       <li>
         <strong>Averages</strong>: cells in the &quot;Average across current models&quot; rows, and in the &quot;Average, all
-        topics&quot; column, show each detector&apos;s mean score over several texts, always as solid bars. Hover over one to
-        see how many of those texts the detector flagged. The model averages cover {AVERAGE_MODELS.length} current models
+        topics&quot; column, show each detector&apos;s mean score over several texts, always as solid bars. Hover over or focus
+        on one to see how many of those texts the detector flagged. The model averages cover {AVERAGE_MODELS.length} current models
         ({AVERAGE_MODELS.map(model => MODELS[model]?.label || model).join(', ')}), the ones with texts for every strategy, so
         each row averages the same models.
       </li>
@@ -226,9 +226,8 @@ const Explanations = ({ prompts = {}, children }) => (
     <h3>Gaps in the data</h3>
     <ul>
       <li>
-        Originality.ai scored every strategy except the 250- and 1,000-word prompts, the open-weight ladder (Allowance 40
-        only), the Agpedia articles and the Wikipedia article versions. It has not scored the 250- and 1,000-word prompts or
-        two of the students&apos; additions, so its bars are missing there.
+        Originality.ai scored every text except those from the 250- and 1,000-word prompts, where its bars are missing, and
+        scored the open-weight ladder with Allowance 40 only.
       </li>
       <li>
         A few model and strategy combinations have fewer than 16 texts, where replies that declined to write an article, or

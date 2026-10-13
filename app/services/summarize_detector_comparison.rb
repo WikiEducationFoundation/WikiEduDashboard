@@ -49,6 +49,14 @@ class SummarizeDetectorComparison
     row.merge(alert: summary['max_score'].to_f > ALERT_THRESHOLD)
   end
 
+  # Changes whenever a unit or a comparison score is added, removed or updated. Times keep their
+  # microseconds: a cache key would otherwise round them to the second.
+  def self.data_version
+    scores = RevisionAiScore.where.not(sample_id: nil)
+    [AiDetectionSample.count, AiDetectionSample.maximum(:updated_at)&.iso8601(6),
+     scores.count, scores.maximum(:updated_at)&.iso8601(6)]
+  end
+
   def initialize
     @result = Rails.cache.fetch(cache_key) { build }
   end
@@ -60,10 +68,8 @@ class SummarizeDetectorComparison
   private
 
   def cache_key
-    scores = RevisionAiScore.where.not(sample_id: nil)
     # Bump the version when the result's shape changes, so a deploy doesn't serve an old shape.
-    ['detector_comparison/v6', AiDetectionSample.count, AiDetectionSample.maximum(:updated_at),
-     scores.count, scores.maximum(:updated_at)]
+    ['detector_comparison/v6', *self.class.data_version]
   end
 
   def build
