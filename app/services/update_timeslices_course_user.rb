@@ -5,6 +5,7 @@ require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 require_dependency "#{Rails.root}/lib/course_revision_updater"
+require_dependency "#{Rails.root}/lib/replica"
 
 class UpdateTimeslicesCourseUser
   def initialize(course, update_service: nil)
@@ -73,6 +74,12 @@ class UpdateTimeslicesCourseUser
       failed = false
       @course.wikis.each do |wiki|
         fetch_and_create_acuwt_for_new_user(wiki, user)
+      rescue Replica::RequestFailedError
+        # Unlike the StandardError case below, don't swallow this and move to
+        # the next user -- that would just re-hit the same rate limit once
+        # per remaining new student. Let it propagate so the whole course
+        # update stops (see UpdateCourseStats).
+        raise
       rescue StandardError => e
         failed = true
         log_user_processing_error(e, user_id, wiki.id)
