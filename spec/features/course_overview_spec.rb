@@ -95,6 +95,21 @@ describe 'course overview page', type: :feature, js: true do
         expect(page).to have_content 'will soon be finalized'
         expect(page).not_to have_content 'has been finalized'
       end
+
+      it 'points Wiki Ed users to the Get Help button' do
+        expect(page).to have_content "please use the 'Get Help' button"
+      end
+
+      context 'on Programs & Events Dashboard' do
+        before do
+          allow(Features).to receive(:wiki_ed?).and_return(false)
+          visit "/courses/#{course.slug}"
+        end
+
+        it 'points users to the Report a problem link' do
+          expect(page).to have_content "please use the 'Report a problem' link"
+        end
+      end
     end
 
     context 'when update is scheduled' do
