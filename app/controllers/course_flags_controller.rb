@@ -4,7 +4,7 @@
 class CourseFlagsController < ApplicationController
   respond_to :html
   before_action :require_admin_permissions
-  before_action :set_course, only: %i[show update]
+  before_action :set_course, only: %i[show update enqueue_update]
 
   MANAGEABLE_FLAGS = %i[use_acuwt very_long_update debug_updates].freeze
 
@@ -25,7 +25,27 @@ class CourseFlagsController < ApplicationController
                 notice: "Flags updated for course #{@course.slug}"
   end
 
+  # Marks a single timeslice as needs_update, so the course gets queued for a
+  # non-full update. Unlike a full update, that populates average pageviews.
+  def enqueue_update
+    return redirect_to(course_flags_path, flash: { error: 'Course not found' }) if @course.nil?
+    timeslice = timeslice_to_enqueue
+    if timeslice.nil?
+      flash[:error] = "No timeslices found for course #{@course.slug}"
+    else
+      timeslice.update(needs_update: true)
+      flash[:notice] = "Update enqueued for course #{@course.slug}"
+    end
+    redirect_to course_flags_show_path(course_id: @course.id)
+  end
+
   private
+
+  # Prefer a timeslice without revisions to avoid reprocessing them unnecessarily
+  def timeslice_to_enqueue
+    timeslices = @course.course_wiki_timeslices.order(:start)
+    timeslices.find_by(revision_count: 0) || timeslices.last
+  end
 
   def set_course
     return unless params[:course_id].present?

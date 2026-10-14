@@ -49,3 +49,12 @@
 
       %button{type: 'submit'}
         %div.button.dark Update flags
+
+    %div#enqueue-update
+      %hr
+      %h2 Enqueue update
+    %form#enqueue-update-form{action: '/course_flags/enqueue_update', method: 'post'}
+      %input{name: "authenticity_token", type: "hidden", value: form_authenticity_token}
+      %input{type: "hidden", name: "course_id", value: @course.id}
+      %button{type: 'submit'}
+        %div.button.dark Enqueue update

@@ -133,6 +133,7 @@ Rails.application.routes.draw do
   get 'course_flags' => 'course_flags#index'
   get 'course_flags/show' => 'course_flags#show'
   post 'course_flags/update' => 'course_flags#update'
+  post 'course_flags/enqueue_update' => 'course_flags#enqueue_update'
 
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
