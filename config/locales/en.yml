@@ -2075,6 +2075,14 @@ en:
     requested_account_status:
       success_message: "Success: %{result_description}"
       failure_message: "Failure: %{result_description}"
+      user_exists: "%{wiki} already has an account named %{username}, so the request for %{email} was removed (%{code}). The participant can sign in with that account or request a different username."
+      user_exists_enrolled: "%{wiki} already has an account named %{existing_username}, and that user is already enrolled in this course, so the request for %{email} was removed (%{code})."
+      name_conflict_enrolled: "%{wiki} did not create the account for %{username} (%{email}): %{message} (%{code}). %{existing_username} is already enrolled in this course, so the participant may already have an account."
+      throttled: "Account creation is being rate limited right now, so the account for %{username} (%{email}) was not created (%{code}). This happens when many accounts are created in a short time. The request was kept. Wait a few minutes before trying again."
+      captcha_required: "%{wiki} asked for a CAPTCHA before creating the account for %{username} (%{email}), which the Dashboard cannot answer (%{code}). This happens when many accounts are created in a short time. The request was kept. Wait a few minutes before trying again."
+      rejected: "%{wiki} did not create the account for %{username} (%{email}): %{message} (%{code})"
+      api_error: "%{wiki} returned an error while creating the account for %{username} (%{email}): %{message} (%{code}). The request was kept."
+      unexpected: "%{wiki} returned an unexpected response while creating the account for %{username} (%{email}): %{response}. The request was kept and the problem has been reported."
     revision_characters_and_views: "Chars Added: %{characters}, Views: %{views}"
     revisions_doc: >
       The estimated number of edits made by this editor in the past 7 days,
