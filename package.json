@@ -107,11 +107,11 @@
     "test": "jest",
     "lint": "eslint 'app/assets/javascripts/**/*.{jsx,js}'",
     "lint-non-build": "eslint 'test/**/*.{jsx,js}' '*.js'",
-    "start": "node prepare.js && webpack serve --env development --client-overlay --client-progress --progress",
-    "start:no-lint": "node prepare.js && webpack serve --env development --env DISABLE_ESLINT --client-overlay --client-progress --progress",
+    "start": "node init && node prepare.js && webpack serve --env development --client-overlay --client-progress --progress",
+    "start:no-lint": "node init && node prepare.js && webpack serve --env development --env DISABLE_ESLINT --client-overlay --client-progress --progress",
     "hot": "node prepare.js && webpack serve --env development --env DISABLE_ESLINT --env memory --client-overlay --client-progress --progress",
     "coverage": "node prepare.js && webpack build --env development --env coverage --node-env test",
-    "build": "node prepare.js && webpack build --env production --node-env production",
+    "build": "node init && node prepare.js && webpack build --env production --node-env production",
     "analyze": "node prepare.js && webpack build --env production --node-env production --progress --env analyze"
   },
   "engines": {
