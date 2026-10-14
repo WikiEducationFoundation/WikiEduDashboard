@@ -52,6 +52,42 @@ describe CoursesController, type: :request do
     end
   end
 
+  describe '#articles' do
+    let(:course) { create(:course, slug: slug_params) }
+
+    before do
+      stub_const('CoursesController::DEFAULT_ARTICLES_LIMIT', 2)
+      stub_const('CoursesController::MAX_ARTICLES_LIMIT', 3)
+      create_list(:article, 4).each do |article|
+        create(:articles_course, course_id: course.id, article_id: article.id)
+      end
+    end
+
+    def article_count(params = {})
+      get "/courses/#{course.slug}/articles.json", params: params
+      expect(response.status).to eq(200)
+      JSON.parse(response.body)['course']['articles'].length
+    end
+
+    it 'returns as many articles as the limit asks for' do
+      expect(article_count(limit: 3)).to eq(3)
+    end
+
+    it 'returns the default number of articles without a limit' do
+      expect(article_count).to eq(2)
+    end
+
+    it 'caps the limit' do
+      expect(article_count(limit: 100)).to eq(3)
+    end
+
+    it 'falls back to the default for a limit that is not a positive number' do
+      expect(article_count(limit: 0)).to eq(2)
+      expect(article_count(limit: -1)).to eq(2)
+      expect(article_count(limit: 'all')).to eq(2)
+    end
+  end
+
   describe '#destroy' do
     let!(:course)           { create(:course, submitted: true, slug: slug_params) }
     let!(:user)             { create(:test_user) }
