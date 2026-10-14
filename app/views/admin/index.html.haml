@@ -22,6 +22,9 @@
           %a{href: '/revision_ai_scores_stats'} AI checks over time
         %li
           %a{href: '/ai_tools'} AI detectors comparison tool
+        - if Features.wiki_ed?
+          %li
+            %a{href: '/detector_comparison'} AI detector comparison data
         %li
           %a{href: '/claim_verification'} Claim verification
 

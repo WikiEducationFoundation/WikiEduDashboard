@@ -8,6 +8,7 @@
 #   backfill_sources_from_csv('/home/sage/generated_sources_2026-10.csv')
 #   backfill_sources_from_csv('/home/sage/agpedia_sources_2026-10.csv')
 #   backfill_wikitext_sources(verbose: true)
+#   backfill_prompts_from_csv('/home/sage/generated_prompts_2026-10.csv')
 #
 # The CSVs come from exemplars/source_texts.py. Each row names units by the SHA-256 of their
 # plain_text, so it fills every unit with that text, in any sample. Wikipedia units get their
@@ -25,6 +26,22 @@ def backfill_sources_from_csv(path)
                                            updated_at: Time.zone.now)
   end
   puts "#{filled} units filled from #{File.basename(path)}"
+end
+
+# Generated units also carry the prompts they were produced from, as metadata['prompts'] (a list
+# of turns), from `source_texts.py prompts`. Units that already have prompts are left alone.
+def backfill_prompts_from_csv(path)
+  filled = 0
+  CSV.foreach(path, headers: true) do |row|
+    prompts = JSON.parse(row['prompts'])
+    AiDetectionSample.where(text_sha256: row['text_sha256']).find_each do |unit|
+      next if unit.metadata['prompts'].present?
+
+      unit.update!(metadata: unit.metadata.merge('prompts' => prompts))
+      filled += 1
+    end
+  end
+  puts "#{filled} units given prompts from #{File.basename(path)}"
 end
 
 def backfill_wikitext_sources(sample_names: nil, verbose: false)

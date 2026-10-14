@@ -27,6 +27,7 @@ const ActiveCoursesHandler = lazy(() => import('../active_courses/active_courses
 const CoursesByWikiHandler = lazy(() => import('../courses_by_wiki/courses_by_wiki_handler.jsx'));
 const RevisionAiScoresStats = lazy(() => import('../revision_ai_scores/revision_ai_scores_stats.jsx'));
 const ClaimVerificationAdmin = lazy(() => import('../claim_verification/claim_verification_admin.jsx'));
+const DetectorComparison = lazy(() => import('../detector_comparison/detector_comparison.jsx'));
 const SystemStatsHandler = lazy(() => import('../system_stats/system_stats_handler.jsx'));
 
 const routes = () => {
@@ -66,6 +67,7 @@ const routes = () => {
         <Route path="/alerts_list" element={<AdminAlerts />} />
         <Route path="/ai_edit_alerts_stats/:campaign_slug" element={<AlertsStats />} />
         <Route path="/claim_verification" element={<ClaimVerificationAdmin />} />
+        <Route path="/detector_comparison/*" element={<DetectorComparison />} />
         <Route path="/settings" element={<SettingsHandler />} />
         <Route path="/article_finder" element={<ArticleFinder />} />
         <Route path="/training/*" element={<TrainingApp />} />

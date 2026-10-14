@@ -635,6 +635,13 @@ Rails.application.routes.draw do
   get 'claim_verification/status' => 'claim_verification#status'
   post 'claim_verification/harvest' => 'claim_verification#harvest'
 
+  # AI detector comparison data (admins, Wiki Ed only)
+  get 'detector_comparison' => 'detector_comparison#index'
+  get 'detector_comparison/topics' => 'detector_comparison#topics'
+  get 'detector_comparison/known_human' => 'detector_comparison#known_human'
+  get 'detector_comparison/units/:id' => 'detector_comparison#unit'
+  get 'detector_comparison/topics/:topic' => 'detector_comparison#topic'
+
   # AI tools for admins
   get 'ai_tools' => 'ai_tools#show'
   post 'ai_tools/compare_ai_detectors' => 'ai_tools#compare_ai_detectors'
