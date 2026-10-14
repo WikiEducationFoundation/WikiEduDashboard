@@ -10,14 +10,14 @@ Sage Ross (`ragesoss`). Our main venue for collaboration is Slack; ask Sage (sag
 ## Quick start guide
 
 * Set up a dev environment. Follow the [setup docs](docs/setup.md). Try the automatic scripts, and report any problems that force you to use the manual instructions. For Windows, use WSL 2 (not RubyInstaller or RailsInstaller).
-* Explore the issues, choose one to work on, and leave a comment. Work on only one issue at a time. We do not assign issues, but if it looks like someone else is working on one you are interested, give them a ping to ask if they are still active on it.
+* Explore the issues, choose one to work on, and leave a comment. Work on only one issue at a time. We do not assign issues, but if it looks like someone else is working on one you are interested in, give them a ping to ask if they are still active on it.
 * Open a Pull Request.
   * Mark it as a draft if you know it is not ready to merge. A reviewer may mark your PR as draft if it requires changes; you should mark it as ready for review if you've completed those changes.
   * Small change sets are preferred; the fewer lines changed per PR, the easier it is to think about, provide feedback on, and review.
-  * Make sure only changes related to the main issue are included; unrelated changes (including whitespace and formatting changes to that don't affect functionality) can be made in a separate PR.
+  * Make sure only changes related to the main issue are included; unrelated changes (including whitespace and formatting changes that don't affect functionality) can be made in a separate PR.
   * Include before/after screenshots or videos, if applicable.
   * Curate the commits in your git branch. (`git commit --amend` and `git force-push` are your friends!) If you have many commits, consider squashing them into one or a few commits with well-written commit messages, or recreating the final version in a clean branch. Each commit should stand on its own as a step towards the complete PR.
-  * Close your pull request if you are no longer want to work on it.
+  * Close your pull request if you no longer want to work on it.
 * If you are stuck, ask on Slack.
 * If you are here because you want to apply for Google Summer of Code or Outreachy, read the [students and interns doc](docs/students_and_interns.md) too.
 
@@ -31,7 +31,7 @@ organize problems by their importance (not how complex they will be to fix):
 * [bug](https://github.com/WikiEducationFoundation/WikiEduDashboard/labels/bug) - These are bugs that should definitely be fixed. They may not require immediate attention, but they significantly affect some aspects of dashboard functionality.
 * [high-importance bug](https://github.com/WikiEducationFoundation/WikiEduDashboard/labels/high-importance%20bug) - These are big problems. They should be fixed as soon as possible.
 
-Possible improvements that are not bugs per-se — mostly ones that are independent, rather than complex feature requests — are also tracked:
+Possible improvements that are not bugs per se — mostly ones that are independent, rather than complex feature requests — are also tracked:
 * [enhancement](https://github.com/WikiEducationFoundation/WikiEduDashboard/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aopen+label%3Aenhancement) - User-facing improvements that address some usability or functionality need
 * [code quality](https://github.com/WikiEducationFoundation/WikiEduDashboard/issues?q=is%3Aissue+is%3Aopen+label%3A%22code+quality%22) - Developer-facing improvements that make the dashboard easier to work with or otherwise improve the quality of the code-base.
 
@@ -52,7 +52,7 @@ This project adheres as strictly as possible to the community [Ruby Style Guide]
 
 The project has a mix of templating and compiled languages, including haml for Rails templates, and a mix of pure javascript and jsx for the frontend, and Stylus for stylesheets.
 
-All javascript and jsx files must pass eslint.
+All JavaScript and JSX files must pass ESLint.
 
 #### Tests
 Please see the more complete document on [testing](docs/testing.md). Pull requests should be passing for both the Ruby test suite (`rake spec`) and the javascript test suite (`npm test`). Ideally, pull requests should include new tests for any new features, as well.
@@ -90,7 +90,7 @@ Also, ensure that the corresponding schema.rb changes only reflect the new migra
 - Fill out all the sections of the PR template.
 
 ### After opening a PR
-- Check the travis-ci continuous integration build once it completes. This usually takes about 30 minutes, and if any tests fail you can find details in the build log.
+- Check the GitHub Actions continuous integration workflow once it completes. This usually takes about 30 minutes, and if any tests fail you can find details in the workflow log.
 - If the build failed:
   - Fix whatever caused it to fail if you can.
   - Ask for help if you cannot fix it. If a pull request build is failing but you have not asked for help, we will assume that you have seen the errors and are still working on them.
