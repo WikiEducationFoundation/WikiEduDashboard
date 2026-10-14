@@ -8,7 +8,6 @@
 /vendor/*
 .nyc_output
 .idea/
-.vscode/
 /dump.rdb
 /public/skins
 /tmp_build
@@ -74,3 +73,4 @@ stats.json
 docs/analytics_scripts/**/*.csv
 # pangram_cutover.py imports analyze.py, so running it compiles a cache there.
 docs/analytics_scripts/**/__pycache__/
+config.bat
