@@ -38,6 +38,8 @@ describe CourseCloneManager do
     create(:week, id: 2, course_id: 1, order: 2)
     create(:week, id: 3, course_id: 1, order: 3)
     create(:tag, course_id: 1, key: 'tricky_topic_areas', tag: 'no_medical_topics')
+    create(:tag, course_id: 1, key: 'sandboxes', tag: 'no_sandboxes')
+    create(:tag, course_id: 1, key: 'working_in_groups', tag: 'working_individually')
     create(:tag, course_id: 1, tag: 'arbitrary_tag')
   end
 
@@ -102,10 +104,12 @@ describe CourseCloneManager do
       expect(tags).to include('returning_instructor')
     end
 
-    it 'carries over tricky_topic_areas tag, but not others' do
-      tags = clone.tags.pluck(:tag)
-      expect(tags).to include('no_medical_topics')
-      expect(tags).not_to include('arbitrary_tag')
+    it 'carries over the wizard tags under their keys, but not others' do
+      carried = clone.tags.where.not(key: 'course_creator').pluck(:key, :tag)
+      expect(carried).to include(%w[tricky_topic_areas no_medical_topics],
+                                 %w[sandboxes no_sandboxes],
+                                 %w[working_in_groups working_individually])
+      expect(carried.map(&:last)).not_to include('arbitrary_tag')
     end
 
     it 'marks the cloned status as PENDING' do

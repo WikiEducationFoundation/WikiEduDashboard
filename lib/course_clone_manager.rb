@@ -127,13 +127,15 @@ class CourseCloneManager
                    real_name: @user.real_name)
   end
 
+  # Wizard answers the clone keeps, by the key the wizard stores each tag
+  # under: `sandboxes` holds `yes_sandboxes` or `no_sandboxes`, and
+  # `working_in_groups` holds `working_individually` or `working_in_groups`.
+  # Whether a clone should keep the assignment-type tag under `index`, such as
+  # `research_write_assignment`, is an open question (#7073).
   TAG_KEYS_TO_CARRY_OVER = %w[
     tricky_topic_areas
-    working_individually
     working_in_groups
-    research_write_assignment
-    yes_sandboxes
-    no_sandboxes
+    sandboxes
   ].freeze
   def tag_course
     tag_manager = TagManager.new(@clone)
