@@ -37,6 +37,8 @@ describe 'Detailed course overview stats', type: :feature, js: true do
     expect(page.find('#tab-1')).to have_content('en.wikipedia.org - Mainspace')
     expect(page.find('#tab-2')).to have_content('www.wikidata.org')
 
+    page.find('.wikidata-stats-toggle').click
+
     # Default tab's content matches first course_stat object's stats
     expect(page.find('.tab.active')).to have_content('en.wikibooks.org - Cookbook')
     expect(page.find('.content-container .title')).to have_content('en.wikibooks.org - Cookbook')

@@ -1306,6 +1306,7 @@ en:
     enqueued_update: This program has been added to the update queue.
     first_update: Estimated start of statistics update
     activity: Recent Activity
+    data_wikidata: Wikidata stats
     are_trained: are up-to-date with training
     articles_created: Articles Created
     articles_created_wikidata: Items Created
