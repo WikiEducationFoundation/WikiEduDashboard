@@ -64,11 +64,35 @@ describe IndividualStatisticsTimeslicePresenter do
         expect(subject.individual_article_count).to eq(1)
       end
 
+      it 'counts articles without loading ArticlesCourses records' do
+        instantiated = []
+        callback = ->(*, payload) { instantiated << payload[:class_name] }
+        ActiveSupport::Notifications.subscribed(callback, 'instantiation.active_record') do
+          subject
+        end
+        expect(instantiated).not_to include('ArticlesCourses')
+      end
+
       it 'does not double count upload stats' do
         expect(course1.uploads.count).to eq(1)
         expect(course2.uploads.count).to eq(1)
         expect(subject.individual_upload_count).to eq(1)
         expect(subject.individual_upload_usage_count).to eq(1)
+      end
+    end
+
+    context 'when a user edited several articles, one of them deleted' do
+      before do
+        create(:courses_user, user_id: user.id, course_id: course1.id)
+        live_articles = create_list(:article, 2)
+        deleted_article = create(:article, deleted: true)
+        (live_articles + [deleted_article]).each do |a|
+          create(:articles_course, article: a, course: course1, user_ids: [user.id])
+        end
+      end
+
+      it 'counts only the distinct live articles' do
+        expect(subject.individual_article_count).to eq(2)
       end
     end
   end
