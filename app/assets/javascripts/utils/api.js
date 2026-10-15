@@ -70,7 +70,14 @@ const API = {
   },
 
   async fetchUserProfileStats(username) {
-    const response = await request(`/user_stats.json?username=${username}`);
+    const response = await request(`/users/${username}/stats.json`);
+
+    await ensureOk(response);
+    return response.json();
+  },
+
+  async fetchUserArticles(username) {
+    const response = await request(`/users/${username}/user_articles.json`);
 
     await ensureOk(response);
     return response.json();
