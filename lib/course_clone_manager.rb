@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/tag_manager"
+require_dependency "#{Rails.root}/lib/wizard_tag_writer"
 
 #= Procedures for creating a duplicate of an existing course for reuse
 class CourseCloneManager
@@ -128,23 +129,33 @@ class CourseCloneManager
   end
 
   # Wizard answers the clone keeps, by the key the wizard stores each tag
-  # under: `sandboxes` holds `yes_sandboxes` or `no_sandboxes`, and
-  # `working_in_groups` holds `working_individually` or `working_in_groups`.
-  # Whether a clone should keep the assignment-type tag under `index`, such as
-  # `research_write_assignment`, is an open question (#7073).
+  # under: `index` holds the assignment type, such as
+  # `research_write_assignment`, which gates the course advice emails;
+  # `sandboxes` holds `yes_sandboxes` or `no_sandboxes`; `working_in_groups`
+  # holds `working_individually` or `working_in_groups`.
   TAG_KEYS_TO_CARRY_OVER = %w[
+    index
     tricky_topic_areas
     working_in_groups
     sandboxes
+    instructor_learner
   ].freeze
   def tag_course
     tag_manager = TagManager.new(@clone)
     tag_manager.initial_tags(creator: @user)
     tag_manager.add(tag: 'cloned')
     @course.tags.each do |tag|
-      next unless TAG_KEYS_TO_CARRY_OVER.include?(tag.key)
+      next unless carry_over?(tag)
       tag_manager.add(tag: tag.tag, key: tag.key)
     end
+  end
+
+  # A panel that allows several answers at once, such as the subject-specific
+  # resources, keys each answer `<panel>-<answer>`.
+  def carry_over?(tag)
+    return false if tag.key.nil?
+    return true if TAG_KEYS_TO_CARRY_OVER.include?(tag.key)
+    WizardTagWriter::NONEXCLUSIVE_KEYS.any? { |panel| tag.key.start_with?("#{panel}-") }
   end
 
   FLAGS_TO_CARRY_OVER = [
