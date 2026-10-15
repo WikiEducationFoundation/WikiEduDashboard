@@ -55,18 +55,21 @@ class DetectorComparisonController < ApplicationController
   private
 
   # A published file, gzipped when the browser takes it. Only units the page lists have one.
+  # It is read from the publication's own directory, so a publication that lands mid-request
+  # can't pair one publication's ETag with another's content.
   def send_published(name)
-    file = PublishDetectorComparison.published_file(name)
+    file = PublishDetectorComparison.published_file(name)&.realpath
     raise ActionController::RoutingError, 'Not Found' unless file
 
     response.headers['Vary'] = 'Accept-Encoding'
-    return unless stale?(etag: file.realpath.to_s, last_modified: file.mtime)
+    return unless stale?(etag: file.to_s, last_modified: file.mtime)
 
+    filename = file.basename.to_s
     if request.headers['Accept-Encoding'].to_s.include?('gzip')
       response.headers['Content-Encoding'] = 'gzip'
       file = "#{file}.gz"
     end
-    send_file file, type: 'application/json', disposition: 'inline'
+    send_file file, type: 'application/json', disposition: 'inline', filename:
   end
 
   def require_wiki_ed

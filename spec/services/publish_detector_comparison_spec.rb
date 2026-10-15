@@ -46,4 +46,12 @@ describe PublishDetectorComparison do
     unit = published_json('topics')['units'].find { |row| row['id'] == generated.id }
     expect(unit['scores']).not_to have_key('Pangram 4')
   end
+
+  it 'keeps serving the previous publication when a publication fails partway' do
+    first = described_class.new
+    allow(DescribeDetectorComparisonUnit).to receive(:new).and_raise('unit failed')
+
+    expect { travel_to(1.minute.from_now) { described_class.new } }.to raise_error('unit failed')
+    expect(described_class.published_file('topics').realpath.dirname).to eq(first.path.realpath)
+  end
 end

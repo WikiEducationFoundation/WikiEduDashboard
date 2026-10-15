@@ -31,10 +31,6 @@ class SummarizeKnownHumanTexts
     @result = build
   end
 
-  def unit_ids
-    @result[:units].map { |unit| unit[:id] }
-  end
-
   private
 
   def build

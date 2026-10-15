@@ -42,6 +42,7 @@ describe DetectorComparisonController, type: :request do
       get '/detector_comparison/topics.json', headers: { 'Accept-Encoding' => 'gzip, br' }
       expect(response.headers['Content-Encoding']).to eq('gzip')
       expect(response.headers['Vary']).to include('Accept-Encoding')
+      expect(response.headers['Content-Disposition']).to include('filename="topics.json"')
       units = JSON.parse(ActiveSupport::Gzip.decompress(response.body))['units']
       expect(units.size).to eq(4)
     end
