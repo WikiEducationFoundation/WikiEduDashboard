@@ -3,37 +3,58 @@
 require 'rails_helper'
 
 describe DetectorComparisonController, type: :request do
-  include_context 'detector comparison data'
+  include_context 'published detector comparison data'
 
   let(:admin) { create(:admin) }
   let(:user) { create(:user) }
 
   context 'as an admin' do
-    before { login_as admin }
+    before do
+      login_as admin
+      PublishDetectorComparison.new
+    end
 
     it 'renders the page shell' do
       get '/detector_comparison'
       expect(response.body).to include('react_root')
     end
 
-    it 'serves the page introduction and the size of each dataset for the index' do
+    it 'serves the page introduction and the size of each published dataset for the index' do
       get '/detector_comparison.json'
       expect(response.parsed_body['intro']).to include('preamble_html', 'views')
       expect(response.parsed_body['counts']).to eq('topics' => 4, 'known_human' => 1)
+      expect(response.parsed_body['published_at']).to be_present
     end
 
-    it 'serves the 16-topic data with the page introduction' do
+    it 'serves the published 16-topic data' do
       get '/detector_comparison/topics.json'
-      expect(response.parsed_body['intro']).to include('views')
       ids = response.parsed_body['units'].map { |unit| unit['id'] }
       expect(ids).to contain_exactly(generated.id, human.id, agpedia_article.id,
                                      article_after_term.id)
     end
 
-    it 'serves the known-human data with the page introduction' do
+    it 'serves the published known-human data' do
       get '/detector_comparison/known_human.json'
-      expect(response.parsed_body['intro']).to include('views')
       expect(response.parsed_body['units'].map { |unit| unit['id'] }).to eq([human.id])
+    end
+
+    it 'sends the gzipped copy to a browser that takes gzip' do
+      get '/detector_comparison/topics.json', headers: { 'Accept-Encoding' => 'gzip, br' }
+      expect(response.headers['Content-Encoding']).to eq('gzip')
+      expect(response.headers['Vary']).to include('Accept-Encoding')
+      units = JSON.parse(ActiveSupport::Gzip.decompress(response.body))['units']
+      expect(units.size).to eq(4)
+    end
+
+    it 'answers a repeat request with not modified until the next publication' do
+      get "/detector_comparison/units/#{generated.id}.json"
+      etag = response.headers['ETag']
+      get "/detector_comparison/units/#{generated.id}.json", headers: { 'If-None-Match' => etag }
+      expect(response).to have_http_status(:not_modified)
+
+      travel_to(1.minute.from_now) { PublishDetectorComparison.new }
+      get "/detector_comparison/units/#{generated.id}.json", headers: { 'If-None-Match' => etag }
+      expect(response).to have_http_status(:ok)
     end
 
     it 'serves the page shell for each dataset' do
@@ -58,6 +79,16 @@ describe DetectorComparisonController, type: :request do
     it 'is not found for a unit the page does not list' do
       get "/detector_comparison/units/#{retired.id}.json"
       expect(response).to have_http_status(:not_found)
+      get '/detector_comparison/units/..%2Fmanifest.json'
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it 'has no data before the first publication' do
+      FileUtils.rm_rf(snapshot_root)
+      get '/detector_comparison/topics.json'
+      expect(response).to have_http_status(:not_found)
+      get '/detector_comparison.json'
+      expect(response.parsed_body).to include('counts' => nil)
     end
 
     it 'does not exist on the Programs & Events Dashboard' do

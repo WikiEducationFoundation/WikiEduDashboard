@@ -3,7 +3,7 @@
 # The operator-written part of the admin detector comparison page: the preamble
 # and the curated views, from config/detector_comparison_page.yml, with their
 # Markdown rendered to HTML. Read on each request, so edits show up on deploy
-# without touching the cached comparison data.
+# without publishing the comparison data again.
 class RenderDetectorComparisonIntro
   CONTENT_PATH = Rails.root.join('config/detector_comparison_page.yml')
   # The table a view's selection applies to: 'topics' or 'known_human'.
