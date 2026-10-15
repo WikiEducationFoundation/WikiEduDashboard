@@ -38,6 +38,11 @@ describe CourseCloneManager do
     create(:week, id: 2, course_id: 1, order: 2)
     create(:week, id: 3, course_id: 1, order: 3)
     create(:tag, course_id: 1, key: 'tricky_topic_areas', tag: 'no_medical_topics')
+    create(:tag, course_id: 1, key: 'sandboxes', tag: 'no_sandboxes')
+    create(:tag, course_id: 1, key: 'working_in_groups', tag: 'working_individually')
+    create(:tag, course_id: 1, key: 'index', tag: 'research_write_assignment')
+    create(:tag, course_id: 1, key: 'instructor_learner', tag: 'instructor_learner')
+    create(:tag, course_id: 1, key: 'topics-biographies', tag: 'biographies')
     create(:tag, course_id: 1, tag: 'arbitrary_tag')
   end
 
@@ -102,10 +107,22 @@ describe CourseCloneManager do
       expect(tags).to include('returning_instructor')
     end
 
-    it 'carries over tricky_topic_areas tag, but not others' do
-      tags = clone.tags.pluck(:tag)
-      expect(tags).to include('no_medical_topics')
-      expect(tags).not_to include('arbitrary_tag')
+    it 'carries over the wizard tags under their keys, but not others' do
+      carried = clone.tags.where.not(key: 'course_creator').pluck(:key, :tag)
+      expect(carried).to include(%w[tricky_topic_areas no_medical_topics],
+                                 %w[sandboxes no_sandboxes],
+                                 %w[working_in_groups working_individually],
+                                 %w[index research_write_assignment],
+                                 %w[instructor_learner instructor_learner],
+                                 %w[topics-biographies biographies])
+      expect(carried.map(&:last)).not_to include('arbitrary_tag')
+    end
+
+    it 'lets a clone of a research-write course schedule the advice emails' do
+      allow(CourseAdviceEmailWorker).to receive(:schedule_email)
+      ScheduleCourseAdviceEmails.new(clone).schedule_emails
+      expect(CourseAdviceEmailWorker).to have_received(:schedule_email)
+        .with(hash_including(course: clone, subject: 'biographies'))
     end
 
     it 'marks the cloned status as PENDING' do
