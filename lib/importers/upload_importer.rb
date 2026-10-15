@@ -83,9 +83,7 @@ class UploadImporter
                                file_name:,
                                user_id: user.id)
     upload.save unless CommonsUpload.exists?(id)
-  # FIXME: Workaround for four-byte unicode characters in file titles,
-  # until we fix the database to handle them.
-  # https://github.com/WikiEducationFoundation/WikiEduDashboard/issues/1744
+  # Workaround for four-byte unicode characters in file titles.
   rescue ActiveRecord::StatementInvalid => e
     Sentry.capture_exception e
     save_upload_with_invalid_characters(upload)
