@@ -8,7 +8,7 @@ require_dependency "#{Rails.root}/app/services/collect_detector_comparison_score
 # student text each topic came from, and each topic's whole article before and
 # after the student's term and today, each with every detector's verdict and
 # scores. Texts are left out; DescribeDetectorComparisonUnit serves one unit in
-# full. Cached until a unit or a comparison score changes.
+# full. Built when PublishDetectorComparison publishes the page's data.
 class SummarizeDetectorComparison
   AGPEDIA = 'agpedia'
   # Whole-article revisions of the challenge topics (exemplars/topic_article_versions.py).
@@ -49,28 +49,11 @@ class SummarizeDetectorComparison
     row.merge(alert: summary['max_score'].to_f > ALERT_THRESHOLD)
   end
 
-  # Changes whenever a unit or a comparison score is added, removed or updated. Times keep their
-  # microseconds: a cache key would otherwise round them to the second.
-  def self.data_version
-    scores = RevisionAiScore.where.not(sample_id: nil)
-    [AiDetectionSample.count, AiDetectionSample.maximum(:updated_at)&.iso8601(6),
-     scores.count, scores.maximum(:updated_at)&.iso8601(6)]
-  end
-
   def initialize
-    @result = Rails.cache.fetch(cache_key) { build }
-  end
-
-  def unit_ids
-    @result[:units].map { |unit| unit[:id] }
+    @result = build
   end
 
   private
-
-  def cache_key
-    # Bump the version when the result's shape changes, so a deploy doesn't serve an old shape.
-    ['detector_comparison/v6', *self.class.data_version]
-  end
 
   def build
     generated = load_units(self.class.current_units(AiDetectionSample::SYNTHETIC))

@@ -6,7 +6,7 @@ import { Link, useParams } from 'react-router-dom';
 import {
   APPROXIMATE_HIGHLIGHT, CONDITIONS, DETECTORS, HIGHLIGHT_HELP, MODELS, REFERENCE_ROWS, SOURCE_FORMATS
 } from './descriptions';
-import { datasetPath, fetchOverview, fetchUnit, formatScore, isGenerated, shade, topicOfPair } from './data';
+import { datasetPath, fetchUnit, formatScore, shade } from './data';
 import VerdictChip from './verdict_chip';
 import { topicPath } from './topic_matrix';
 import AuthorshipNote from './authorship_note';
@@ -158,22 +158,18 @@ Prompts.propTypes = { prompts: PropTypes.array.isRequired, priorArticleUrl: Prop
 const UnitPage = () => {
   const { id } = useParams();
   const [unit, setUnit] = useState(null);
-  const [overview, setOverview] = useState(null);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
     setUnit(null);
     setFailed(false);
     fetchUnit(id).then(setUnit).catch(() => setFailed(true));
-    fetchOverview().then(setOverview).catch(() => {});
     window.scrollTo(0, 0);
   }, [id]);
 
   if (failed) return <div className="container detector-comparison"><p>This text could not be loaded.</p></div>;
   if (!unit) return <div className="container detector-comparison"><p>Loading…</p></div>;
 
-  const pairTopic = overview && topicOfPair(overview.units, unit.id);
-  const topic = unit.factors.topic || pairTopic;
   const pangramScores = unit.scores.filter(score => score.windows?.length);
   const highlightWindows = unit.highlight && unit.scores.find(score => score.check_type === unit.highlight.check_type)?.windows;
   const blocks = unit.scores.filter(score => score.blocks?.length);
@@ -181,7 +177,7 @@ const UnitPage = () => {
   return (
     <div className="container detector-comparison">
       <p><Link to="/detector_comparison">← AI detector comparison</Link></p>
-      <h1>{unitTitle(unit, pairTopic)}</h1>
+      <h1>{unitTitle(unit, unit.pair_topic)}</h1>
       <Facts unit={unit} />
 
       <section>
@@ -219,8 +215,8 @@ const UnitPage = () => {
         </section>
       )}
 
-      {overview && topic && overview.units.some(other => isGenerated(other) && other.factors.topic === topic) && (
-        <p className="detector-comparison__topic-link"><Link to={topicPath(topic)}>Every text on {topic}</Link></p>
+      {unit.topic_page && (
+        <p className="detector-comparison__topic-link"><Link to={topicPath(unit.topic_page)}>Every text on {unit.topic_page}</Link></p>
       )}
       {unit.datasets?.includes('known_human') && (
         <p className="detector-comparison__topic-link"><Link to={datasetPath('known_human')}>Every known-human text</Link></p>

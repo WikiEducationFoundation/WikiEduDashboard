@@ -5,7 +5,13 @@ require 'rails_helper'
 describe DescribeDetectorComparisonUnit do
   include_context 'detector comparison data'
 
-  let(:result) { described_class.new(generated.id).result }
+  let(:topics) { SummarizeDetectorComparison.new.result }
+  let(:known_human) { SummarizeKnownHumanTexts.new.result }
+  let(:result) { describe_unit(generated) }
+
+  def describe_unit(unit)
+    described_class.new(unit.id, topics:, known_human:).result
+  end
 
   it 'includes the text, the text as written, the prompts and the prior article link' do
     expect(result[:text]).to eq(generated_text)
@@ -34,17 +40,23 @@ describe DescribeDetectorComparisonUnit do
   end
 
   it 'describes only units the page lists, naming the datasets that list them' do
-    expect { described_class.new(retired.id) }.to raise_error(ActiveRecord::RecordNotFound)
-    expect { described_class.new(other_agpedia.id) }.to raise_error(ActiveRecord::RecordNotFound)
-    expect { described_class.new(repeated_baseline.id) }.to raise_error(ActiveRecord::RecordNotFound)
+    [retired, other_agpedia, repeated_baseline].each do |unit|
+      expect { describe_unit(unit) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
     expect(result[:datasets]).to eq(['topics'])
-    expect(described_class.new(human.id).result[:datasets]).to eq(%w[topics known_human])
+    expect(describe_unit(human)[:datasets]).to eq(%w[topics known_human])
   end
 
   it 'marks each verdict that found AI' do
     scores = result[:scores].index_by { |score| score[:check_type] }
 
     expect(scores['Pangram 4']).to include(flagged: true)
-    expect(described_class.new(human.id).result[:scores].first).to include(flagged: false)
+    expect(describe_unit(human)[:scores].first).to include(flagged: false)
+  end
+
+  it 'names the topic page that lists the text, through its pair for a student text' do
+    expect(result).to include(pair_topic: nil, topic_page: 'Glacial stream')
+    expect(describe_unit(human)).to include(pair_topic: 'Glacial stream',
+                                            topic_page: 'Glacial stream')
   end
 end

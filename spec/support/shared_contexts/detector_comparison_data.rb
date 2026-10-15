@@ -125,3 +125,16 @@ RSpec.shared_context 'detector comparison data' do
     end
   end
 end
+
+# The same data, with PublishDetectorComparison writing into a directory of the
+# spec's own, so a spec never touches a development publication. Specs publish
+# when they need to.
+RSpec.shared_context 'published detector comparison data' do
+  include_context 'detector comparison data'
+
+  let(:snapshot_root) { Pathname(Dir.mktmpdir('detector_comparison')) }
+
+  before { allow(PublishDetectorComparison).to receive(:root).and_return(snapshot_root) }
+
+  after { FileUtils.rm_rf(snapshot_root) }
+end

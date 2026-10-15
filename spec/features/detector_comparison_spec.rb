@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 describe 'AI detector comparison page', type: :feature, js: true do
-  include_context 'detector comparison data'
+  include_context 'published detector comparison data'
 
   let(:admin) { create(:admin) }
   let(:generated_cell) { "a[aria-label^='GPT-6 Astra, Assignment, Glacial stream']" }
@@ -11,7 +11,10 @@ describe 'AI detector comparison page', type: :feature, js: true do
   # Earlier specs can leave the window another size, such as 1920x1920. In a window that tall
   # the page ends before the ladder section can scroll up to the navbar, so use the suite's
   # default size (rails_helper.rb).
-  before { page.current_window.resize_to(1200, 1200) }
+  before do
+    page.current_window.resize_to(1200, 1200)
+    PublishDetectorComparison.new
+  end
 
   # The site scrolls smoothly, so wait for the element to arrive just below the fixed navbar.
   def scrolled_to?(id)
@@ -181,6 +184,7 @@ describe 'AI detector comparison page', type: :feature, js: true do
     it 'opens the paired student text' do
       visit "/detector_comparison/units/#{human.id}"
       expect(page).to have_content "Student's additions: Glacial stream"
+      expect(page).to have_link 'Every text on Glacial stream'
     end
   end
 

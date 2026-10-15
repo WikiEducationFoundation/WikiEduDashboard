@@ -10,7 +10,7 @@ require_dependency "#{Rails.root}/app/services/collect_detector_comparison_score
 # is judged on the same texts, and so are redirect pages, whose text is template
 # boilerplate rather than writing (an article a student created can be a
 # redirect by the end of the course). Grow the set by adding a baseline sample
-# to SAMPLES. Cached until a unit or a comparison score changes.
+# to SAMPLES. Built when PublishDetectorComparison publishes the page's data.
 class SummarizeKnownHumanTexts
   SAMPLES = %w[terms_2021_2025_march terms_baseline_extra].freeze
   WIKI_URL = 'https://en.wikipedia.org/%'
@@ -28,18 +28,10 @@ class SummarizeKnownHumanTexts
   end
 
   def initialize
-    @result = Rails.cache.fetch(cache_key) { build }
-  end
-
-  def unit_ids
-    @result[:units].map { |unit| unit[:id] }
+    @result = build
   end
 
   private
-
-  def cache_key
-    ['detector_comparison/known_human/v2', *SummarizeDetectorComparison.data_version]
-  end
 
   def build
     units = self.class.units.select(UNIT_COLUMNS).includes(:revision_ai_scores).order(:id).to_a

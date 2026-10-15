@@ -217,12 +217,23 @@ importer = ImportOfflineDetectorScores.new(path: '/home/sage/all_units_llama_202
 ## The comparison page
 
 `/detector_comparison` (Wiki Education Dashboard admins) presents the known-AI samples
-(provenance `synthetic` or `agpedia`) and the human baseline texts they are paired with,
-reading the database directly, so new samples and scores appear as they are added. Each
-text has its own page with the text, Pangram's windows marked on it, every detector's
+(provenance `synthetic` or `agpedia`) and the human baseline texts they are paired with.
+Each text has its own page with the text, Pangram's windows marked on it, every detector's
 result, the prompts and the text as written. For a new generated sample, run the source and
 prompt backfills after building it; units in samples whose names end in `_retired` are
 left out.
+
+The page serves a published snapshot, not the database: new samples and scores appear
+only after publishing, in a Rails console (about 15 seconds for ~1,800 texts):
+
+```ruby
+PublishDetectorComparison.new.counts
+```
+
+Each publication is a directory under `detector_comparison_snapshots/` (a shared directory
+on the server), and `current` points to the newest; the last three are kept. The
+introduction and conclusions in `config/detector_comparison_page.yml` are read on each
+request, so they change on deploy without publishing.
 
 ## 4. Analyze
 

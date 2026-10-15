@@ -28,8 +28,11 @@ const fetchOnce = (url, what) => {
   return fetched[url];
 };
 export const fetchIndex = () => fetchOnce(`${INDEX_PATH}.json`, 'detector comparison');
-export const fetchOverview = () => fetchOnce(`${datasetPath('topics')}.json`, 'detector comparison topics');
-export const fetchKnownHuman = () => fetchOnce(`${datasetPath('known_human')}.json`, 'detector comparison known human');
+// A dataset is a published snapshot; the operator's introduction, which its views come from, is
+// served live with the index.
+const withIntro = dataset => Promise.all([dataset, fetchIndex()]).then(([data, index]) => ({ ...data, intro: index.intro }));
+export const fetchOverview = () => withIntro(fetchOnce(`${datasetPath('topics')}.json`, 'detector comparison topics'));
+export const fetchKnownHuman = () => withIntro(fetchOnce(`${datasetPath('known_human')}.json`, 'detector comparison known human'));
 
 export const fetchUnit = id => request(`/detector_comparison/units/${id}.json`)
   .then(response => ensureOk(response, 'detector comparison unit'))
