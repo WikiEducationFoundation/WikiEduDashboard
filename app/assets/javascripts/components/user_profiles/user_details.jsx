@@ -152,6 +152,7 @@ const UserDetails = ({ username }) => {
 
   const filteredCoursesData = useMemo(() => {
     const activeNewnessFilter = newnessFilterEnabled ? newnessFilter : 'both';
+    const isFiltered = wikiFilter.project !== 'all' || activeNewnessFilter !== 'both';
 
     return coursesData
       .map((courseGroup) => {
@@ -164,9 +165,9 @@ const UserDetails = ({ username }) => {
         const summary = summarizeArticles(filteredArticles);
         return {
           ...courseGroup,
-          word_count: summary.word_count,
-          references_count: summary.references_count,
-          articles_edited: summary.articles_edited,
+          word_count: isFiltered ? summary.word_count : courseGroup.word_count,
+          references_count: isFiltered ? summary.references_count : courseGroup.references_count,
+          articles_edited: filteredArticles.length,
           articles: filteredArticles,
         };
       })
@@ -244,8 +245,8 @@ const UserDetails = ({ username }) => {
       return <td className="user-details-table__value">{article.language || article.wiki_language || I18n.t('user_profiles.language_not_available')}</td>;
     }
 
-    if (column === 'words') return <td className="user-details-table__value">{article.word_count || 0}</td>;
-    if (column === 'references') return <td className="user-details-table__value">{article.references_count || 0}</td>;
+    if (column === 'words') return <td className="user-details-table__value">{article.word_count != null ? article.word_count : '-'}</td>;
+    if (column === 'references') return <td className="user-details-table__value">{article.references_count != null ? article.references_count : '-'}</td>;
     if (column === 'type') {
       return (
         <td className="user-details-table__value">

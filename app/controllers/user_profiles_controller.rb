@@ -25,6 +25,9 @@ class UserProfilesController < ApplicationController
     course_ids = @user_articles.map(&:course_id).uniq
     @user_article_stats = fetch_user_article_stats(course_ids)
     @courses_with_acuwt = courses_with_acuwt(course_ids)
+    @courses_users = @user.courses_users.where(course_id: course_ids,
+                                               role: CoursesUsers::Roles::STUDENT_ROLE)
+                          .index_by(&:course_id)
   end
 
   def show

@@ -26,6 +26,7 @@ module UserProfileAnalytics
     return ArticlesCourses.none if course_ids.empty?
 
     ArticlesCourses
+      .tracked
       .where(course_id: course_ids)
       .where('user_ids LIKE ?', "%- #{@user.id}\n%")
       .joins(:article, :course)
@@ -77,6 +78,7 @@ module UserProfileAnalytics
 
   def student_articles_count_by_course(course_ids)
     ArticlesCourses
+      .tracked
       .where(course_id: course_ids)
       .where('user_ids LIKE ?', "%- #{@user.id}\n%")
       .joins(:article)

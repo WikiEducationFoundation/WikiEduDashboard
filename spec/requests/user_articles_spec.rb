@@ -104,21 +104,83 @@ describe 'User articles and language statistics', type: :request do
     end
 
     context 'without ACUWT data (legacy fallback)' do
-      before do
-        create(:courses_user, user: student, course:, role: CoursesUsers::Roles::STUDENT_ROLE,
-                              character_sum_ms: 500, references_count: 2)
-        create(:articles_course, course:, article:, character_sum: 500,
-                                 references_count: 2, new_article: true,
-                                 user_ids: [student.id])
+      context 'when the user is the sole editor of the article' do
+        before do
+          create(:courses_user, user: student, course:, role: CoursesUsers::Roles::STUDENT_ROLE,
+                                character_sum_ms: 500, references_count: 2)
+          create(:articles_course, course:, article:, character_sum: 500,
+                                   references_count: 2, new_article: true,
+                                   user_ids: [student.id])
+        end
+
+        it 'attributes ArticlesCourses stats directly to the user' do
+          data = json_for('/users/StudentA/user_articles.json')
+          course_data = data['articles_by_course'].first
+          article_data = course_data['articles'].first
+
+          expect(article_data['word_count']).to eq(WordCount.from_characters(500))
+          expect(article_data['references_count']).to eq(2)
+          expect(article_data['new_article']).to be(true)
+          expect(course_data['word_count']).to eq(WordCount.from_characters(500))
+          expect(course_data['references_count']).to eq(2)
+        end
       end
 
-      it 'falls back to ArticlesCourses stats when no ACUWT rows exist' do
-        data = json_for('/users/StudentA/user_articles.json')
-        article_data = data['articles_by_course'].first['articles'].first
+      context 'when multiple users edited the article (shared article)' do
+        before do
+          create(:courses_user, user: student, course:, role: CoursesUsers::Roles::STUDENT_ROLE,
+                                character_sum_ms: 300, references_count: 1)
+          create(:courses_user, user: partner, course:, role: CoursesUsers::Roles::STUDENT_ROLE,
+                                character_sum_ms: 2700, references_count: 9)
+          create(:articles_course, course:, article:, character_sum: 3000,
+                                   references_count: 10, new_article: true,
+                                   user_ids: [student.id, partner.id])
+        end
 
-        expect(article_data['word_count']).to eq(WordCount.from_characters(500))
-        expect(article_data['references_count']).to eq(2)
-        expect(article_data['new_article']).to be(true)
+        it 'takes course header totals from CoursesUsers and leaves shared article stats blank' do
+          data_a = json_for('/users/StudentA/user_articles.json')
+          course_a = data_a['articles_by_course'].first
+          article_a = course_a['articles'].first
+
+          expect(course_a['word_count']).to eq(WordCount.from_characters(300))
+          expect(course_a['references_count']).to eq(1)
+          expect(article_a['word_count']).to be_nil
+          expect(article_a['references_count']).to be_nil
+          expect(article_a['new_article']).to be(false)
+
+          data_b = json_for('/users/StudentB/user_articles.json')
+          course_b = data_b['articles_by_course'].first
+          article_b = course_b['articles'].first
+
+          expect(course_b['word_count']).to eq(WordCount.from_characters(2700))
+          expect(course_b['references_count']).to eq(9)
+          expect(article_b['word_count']).to be_nil
+          expect(article_b['references_count']).to be_nil
+          expect(article_b['new_article']).to be(false)
+        end
+      end
+
+      context 'with an untracked article' do
+        let(:untracked_article) { create(:article, title: 'Untracked_article') }
+
+        before do
+          create(:courses_user, user: student, course:, role: CoursesUsers::Roles::STUDENT_ROLE,
+                                character_sum_ms: 500, references_count: 2)
+          create(:articles_course, course:, article:, character_sum: 500,
+                                   references_count: 2, user_ids: [student.id])
+          create(:articles_course, course:, article: untracked_article, character_sum: 1200,
+                                   tracked: false, user_ids: [student.id])
+        end
+
+        it 'excludes untracked articles from user articles' do
+          data = json_for('/users/StudentA/user_articles.json')
+          course_data = data['articles_by_course'].first
+          titles = course_data['articles'].pluck('title')
+
+          expect(titles).to include('Shared_article')
+          expect(titles).not_to include('Untracked_article')
+          expect(course_data['articles_edited']).to eq(1)
+        end
       end
     end
   end

@@ -17,9 +17,16 @@ json.articles_by_course articles_by_course.map do |_course_id, article_courses|
       refs_count = 0
       is_new = false
     else
-      char_sum = article_course.character_sum.to_i
-      refs_count = article_course.references_count.to_i
-      is_new = article_course.new_article
+      user_ids = article_course.user_ids&.compact&.map(&:to_i) || []
+      if user_ids == [@user.id]
+        char_sum = article_course.character_sum.to_i
+        refs_count = article_course.references_count.to_i
+        is_new = article_course.new_article
+      else
+        char_sum = nil
+        refs_count = nil
+        is_new = false
+      end
     end
 
     article = article_course.article
@@ -27,7 +34,7 @@ json.articles_by_course articles_by_course.map do |_course_id, article_courses|
       article_id: article.id,
       title: article.title,
       url: article.url,
-      word_count: WordCount.from_characters(char_sum),
+      word_count: char_sum ? WordCount.from_characters(char_sum) : nil,
       character_sum: char_sum,
       references_count: refs_count,
       new_article: is_new,
@@ -37,9 +44,18 @@ json.articles_by_course articles_by_course.map do |_course_id, article_courses|
     }
   end
 
-  articles_data.sort_by! { |a| -a[:character_sum] }
-  course_char_sum = articles_data.sum { |a| a[:character_sum] }
-  course_refs_count = articles_data.sum { |a| a[:references_count] }
+  articles_data.sort_by! { |a| -(a[:character_sum] || 0) }
+  courses_user = @courses_users&.dig(course.id)
+  course_char_sum = if courses_user
+                      courses_user.character_sum_ms.to_i
+                    else
+                      articles_data.sum { |a| a[:character_sum].to_i }
+                    end
+  course_refs_count = if courses_user
+                        courses_user.references_count.to_i
+                      else
+                        articles_data.sum { |a| a[:references_count].to_i }
+                      end
 
   json.course_id course.id
   json.course_title course.title
