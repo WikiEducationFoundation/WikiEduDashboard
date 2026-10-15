@@ -52,10 +52,8 @@ const articlesByCourse = [
   }
 ];
 
-// Returns the header total shown for each course, keyed by course title. The
-// newness filter is chosen in its select, since it is only offered once the
-// articles have loaded.
-const courseTotalsAt = async (search, newness) => {
+// Returns the header total shown for each course, keyed by course title.
+const courseTotalsAt = async (search) => {
   window.history.replaceState(null, '', `/users/StudentA/stats/words${search}`);
   const container = document.createElement('div');
   document.body.appendChild(container);
@@ -69,13 +67,6 @@ const courseTotalsAt = async (search, newness) => {
       </MemoryRouter>
     );
   });
-  if (newness) {
-    const select = container.querySelector('option[value="new"]').parentElement;
-    act(() => {
-      select.value = newness;
-      select.dispatchEvent(new Event('change', { bubbles: true }));
-    });
-  }
   const totals = {};
   container.querySelectorAll('.user-details-course').forEach((section) => {
     const title = section.querySelector('h4').textContent;
@@ -104,11 +95,29 @@ describe('UserDetails course totals', () => {
   });
 
   test('sums the visible articles when the filter hides some of them', async () => {
-    expect(await courseTotalsAt('', 'new')).toEqual({ 'Group course': '30' });
+    expect(await courseTotalsAt('?newness=new')).toEqual({ 'Group course': '30' });
   });
 
   test('shows no total when a visible article has no figures of its own', async () => {
-    expect(await courseTotalsAt('', 'existing'))
+    expect(await courseTotalsAt('?newness=existing'))
       .toEqual({ 'Group course': '-', 'Spanish course': '20' });
+  });
+});
+
+describe('UserDetails newness filter from the URL', () => {
+  afterEach(() => {
+    window.history.replaceState(null, '', '/');
+  });
+
+  test('is kept once the articles load', async () => {
+    API.fetchUserArticles.mockResolvedValue({ articles_by_course: articlesByCourse });
+    await courseTotalsAt('?newness=new');
+    expect(window.location.search).toBe('?newness=new');
+  });
+
+  test('is cleared once the articles load if they are all existing ones', async () => {
+    API.fetchUserArticles.mockResolvedValue({ articles_by_course: [articlesByCourse[1]] });
+    expect(await courseTotalsAt('?newness=new')).toEqual({ 'Spanish course': '20' });
+    expect(window.location.search).toBe('');
   });
 });

@@ -140,11 +140,13 @@ const UserDetails = ({ username }) => {
   );
 
   useEffect(() => {
+    // Until the articles load, there is nothing to tell whether the filter applies.
+    if (loading) return;
     if (!newnessFilterEnabled && newnessFilter !== 'both') {
       setNewnessFilter('both');
       updateSearchParams('newness', 'both');
     }
-  }, [newnessFilterEnabled, newnessFilter]);
+  }, [loading, newnessFilterEnabled, newnessFilter]);
 
   const filteredCoursesData = useMemo(() => {
     const activeNewnessFilter = newnessFilterEnabled ? newnessFilter : 'both';
