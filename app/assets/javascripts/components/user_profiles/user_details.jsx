@@ -77,16 +77,12 @@ const getWikiOptions = (articles) => {
   return options.sort((a, b) => a.label.localeCompare(b.label));
 };
 
-const summarizeArticles = (articles) => {
-  return articles.reduce((totals, article) => ({
-    word_count: totals.word_count + (Number(article.word_count) || 0),
-    references_count: totals.references_count + (Number(article.references_count) || 0),
-    articles_edited: totals.articles_edited + 1,
-  }), {
-    word_count: 0,
-    references_count: 0,
-    articles_edited: 0,
-  });
+// Totals a stat over the listed articles, or returns null if any of them lacks it,
+// so that a partial sum is never shown as a course total. Shared articles on
+// legacy-path courses have no per-user figures.
+const sumArticleStat = (articles, key) => {
+  if (articles.some(article => article[key] == null)) return null;
+  return articles.reduce((total, article) => total + Number(article[key]), 0);
 };
 
 const updateSearchParams = (filter, value) => {
@@ -144,29 +140,32 @@ const UserDetails = ({ username }) => {
   );
 
   useEffect(() => {
+    // Until the articles load, there is nothing to tell whether the filter applies.
+    if (loading) return;
     if (!newnessFilterEnabled && newnessFilter !== 'both') {
       setNewnessFilter('both');
       updateSearchParams('newness', 'both');
     }
-  }, [newnessFilterEnabled, newnessFilter]);
+  }, [loading, newnessFilterEnabled, newnessFilter]);
 
   const filteredCoursesData = useMemo(() => {
     const activeNewnessFilter = newnessFilterEnabled ? newnessFilter : 'both';
-    const isFiltered = wikiFilter.project !== 'all' || activeNewnessFilter !== 'both';
 
     return coursesData
       .map((courseGroup) => {
-        const filteredArticles = (courseGroup.articles || []).filter((article) => {
+        const articles = courseGroup.articles || [];
+        const filteredArticles = articles.filter((article) => {
           return matchesWikiFilter(article, wikiFilter) && matchesNewnessFilter(article, activeNewnessFilter);
         });
 
         if (filteredArticles.length === 0) return null;
 
-        const summary = summarizeArticles(filteredArticles);
+        // The server's course totals stand unless the filters hide some of its articles.
+        const isFiltered = filteredArticles.length < articles.length;
         return {
           ...courseGroup,
-          word_count: isFiltered ? summary.word_count : courseGroup.word_count,
-          references_count: isFiltered ? summary.references_count : courseGroup.references_count,
+          word_count: isFiltered ? sumArticleStat(filteredArticles, 'word_count') : courseGroup.word_count,
+          references_count: isFiltered ? sumArticleStat(filteredArticles, 'references_count') : courseGroup.references_count,
           articles_edited: filteredArticles.length,
           articles: filteredArticles,
         };
@@ -344,8 +343,8 @@ const UserDetails = ({ username }) => {
                       <p>
                         {summaryLabel}: {' '}
                         <strong>
-                          {metric === 'words' && (courseGroup.word_count || 0)}
-                          {metric === 'references' && (courseGroup.references_count || 0)}
+                          {metric === 'words' && (courseGroup.word_count != null ? courseGroup.word_count : '-')}
+                          {metric === 'references' && (courseGroup.references_count != null ? courseGroup.references_count : '-')}
                           {metric !== 'words' && metric !== 'references' && (courseGroup.articles_edited || 0)}
                         </strong>
                       </p>
