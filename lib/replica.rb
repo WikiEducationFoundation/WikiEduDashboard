@@ -277,7 +277,7 @@ class Replica # rubocop:disable Metrics/ClassLength
   # with underscores.
   #
   # See https://quarry.wmcloud.org/query/4031 to look up database name for a wiki
-  # Or check the table here: https://db-names.toolcloud.org/
+  # Or check the table here: https://db-names.toolforge.org/
   #
   # Here are some of the naming exceptions that we must special-case:
   SPECIAL_DB_NAMES = { 'www.wikidata.org' => 'wikidatawiki',
