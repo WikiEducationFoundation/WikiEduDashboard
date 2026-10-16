@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/analytics/timeslice_edit_counts"
+require_dependency "#{Rails.root}/lib/analytics/csv_edit_counts"
 
 class PerWikiCourseStats
   def initialize(course)
@@ -28,6 +28,6 @@ class PerWikiCourseStats
   private
 
   def edits_by_wiki
-    @edits_by_wiki ||= TimesliceEditCounts.by_wiki(@course)
+    @edits_by_wiki ||= CsvEditCounts.by_wiki(@course)
   end
 end

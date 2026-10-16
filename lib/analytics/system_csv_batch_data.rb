@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/analytics/timeslice_edit_counts"
+require_dependency "#{Rails.root}/lib/analytics/csv_edit_counts"
 
 # Loads the per-course data that SystemCsvBuilder needs for one batch of
 # courses, with one query per kind of data rather than per course.
@@ -34,7 +34,7 @@ class SystemCsvBatchData
   def fetch_revision_counts(course_ids)
     return {} if course_ids.empty?
 
-    TimesliceEditCounts.by_course_and_namespace(course_ids)
+    CsvEditCounts.by_course_and_namespace(course_ids)
   end
 
   def fetch_new_editor_counts(course_ids)

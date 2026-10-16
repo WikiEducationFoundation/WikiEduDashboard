@@ -3,7 +3,7 @@
 require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
-require_dependency "#{Rails.root}/lib/analytics/timeslice_edit_counts"
+require_dependency "#{Rails.root}/lib/analytics/csv_edit_counts"
 require "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 
 class CampaignCsvBuilder
@@ -55,7 +55,7 @@ class CampaignCsvBuilder
   def revision_counts
     return @revision_counts if @revision_counts
 
-    @revision_counts = TimesliceEditCounts.by_course_and_namespace(course_ids)
+    @revision_counts = CsvEditCounts.by_course_and_namespace(course_ids)
   end
 
   def new_editor_counts
