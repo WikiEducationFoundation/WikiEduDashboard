@@ -41,6 +41,7 @@ export default class ArticleUtils {
     14: 'category',
     104: 'page',
     108: 'book',
+    250: 'page',
     110: 'wikijunior',
     114: 'translation',
     118: 'draft',
