@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/analytics/timeslice_edit_counts"
+
 # Loads the per-course data that SystemCsvBuilder needs for one batch of
 # courses, with one query per kind of data rather than per course.
 class SystemCsvBatchData
@@ -35,18 +37,7 @@ class SystemCsvBatchData
   def fetch_revision_counts(course_ids)
     return {} if course_ids.empty?
 
-    namespaces = [
-      Article::Namespaces::MAINSPACE,
-      Article::Namespaces::TALK,
-      Article::Namespaces::USER
-    ]
-    ArticleCourseTimeslice
-      .where(tracked: true, course_id: course_ids)
-      .select(:revision_count, :course_id)
-      .joins(:article)
-      .where(articles: { namespace: namespaces })
-      .group(:course_id, :namespace)
-      .sum(:revision_count)
+    TimesliceEditCounts.by_course_and_namespace(course_ids)
   end
 
   def fetch_new_editor_counts(course_ids)

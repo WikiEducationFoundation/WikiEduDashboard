@@ -3,6 +3,7 @@
 require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/per_wiki_course_stats"
 require_dependency "#{Rails.root}/lib/analytics/retained_new_editors_stats"
+require_dependency "#{Rails.root}/lib/analytics/timeslice_edit_counts"
 
 class CourseCsvBuilder
   def initialize(course, per_wiki: false, tag: nil, revision: nil, new_editors: nil, home_wiki: nil) # rubocop:disable Metrics/ParameterLists
@@ -105,11 +106,8 @@ class CourseCsvBuilder
   def revisions_by_namespace(namespace)
     return @revisions[[@course.id, namespace]] if @revisions
 
-    @course.scoped_article_timeslices
-           .where(tracked: true)
-           .joins(:article)
-           .where(articles: { namespace: })
-           .sum(:revision_count)
+    @revisions_by_namespace ||= TimesliceEditCounts.by_namespace(@course)
+    @revisions_by_namespace.fetch(namespace, 0)
   end
 
   def training_completion_rate

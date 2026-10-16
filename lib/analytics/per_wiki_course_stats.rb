@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/analytics/timeslice_edit_counts"
+
 class PerWikiCourseStats
   def initialize(course)
     @course = course
@@ -17,13 +19,15 @@ class PerWikiCourseStats
 
   def wiki_stats(wiki)
     {
-      "#{wiki.domain}_edits" => @course.scoped_article_timeslices
-                                       .where(tracked: true)
-                                       .joins(:article)
-                                       .where(articles: { wiki: })
-                                       .sum(:revision_count),
+      "#{wiki.domain}_edits" => edits_by_wiki.fetch(wiki.id, 0),
       "#{wiki.domain}_articles_edited" => @course.articles.where(wiki:).count,
       "#{wiki.domain}_articles_created" => @course.new_articles_on(wiki).count
     }
+  end
+
+  private
+
+  def edits_by_wiki
+    @edits_by_wiki ||= TimesliceEditCounts.by_wiki(@course)
   end
 end
