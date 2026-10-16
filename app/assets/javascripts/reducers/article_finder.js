@@ -4,7 +4,7 @@ import { sortByKey } from '../utils/model_utils';
 import { LiftwingWeights } from '../utils/article_finder_language_mappings.js';
 import { UPDATE_FINDER_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE,
   RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT,
-  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH, CLEAR_RESULTS } from '../constants';
+  RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, INITIATE_SEARCH, END_SEARCH, CLEAR_RESULTS } from '../constants';
 
 const initialState = {
   articles: {},
@@ -78,6 +78,25 @@ export default function articleFinder(state = initialState, action) {
         lastRelevanceIndex: 0,
       };
     }
+    case END_SEARCH: {
+      // No more data is coming, whether or not every request returned any.
+      // Articles short of the final state are ones whose data never arrived, so
+      // move them on: their rows then report the missing value instead of
+      // showing a placeholder indefinitely.
+      const newStateArticles = {};
+      forEach(state.articles, (article, title) => {
+        newStateArticles[title] = article.fetchState === 'PAGEVIEWS_RECEIVED'
+          ? article
+          : { ...article, fetchState: 'PAGEVIEWS_RECEIVED' };
+      });
+
+      return {
+        ...state,
+        articles: newStateArticles,
+        loading: false,
+        fetchState: 'PAGEVIEWS_RECEIVED',
+      };
+    }
     case RECEIVE_CATEGORY_RESULTS: {
       const newStateArticles = { ...state.articles };
       action.data.query.categorymembers.forEach((data, i) => {
@@ -142,10 +161,18 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_ARTICLE_PAGEVIEWS: {
       const newStateArticles = cloneDeep(state.articles);
-      forEach(action.data, (article) => {
-        const averagePageviews = Math.round((reduce(article.pageviews, (result, value) => { return result + value; }, 0) / Object.values(article.pageviews).length) * 100) / 100;
-        newStateArticles[article.title].pageviews = averagePageviews;
-        newStateArticles[article.title].fetchState = 'PAGEVIEWS_RECEIVED';
+      forEach(action.data, (page) => {
+        // The article may be gone by the time its data lands, because a new
+        // search or a change of wiki has emptied the results, or because
+        // MediaWiki normalized the title we asked about into another form.
+        const article = newStateArticles[page.title];
+        if (!article) { return; }
+
+        // A page the API has no view data for comes back without the property.
+        const dailyViews = Object.values(page.pageviews || {});
+        const total = reduce(dailyViews, (result, value) => { return result + value; }, 0);
+        article.pageviews = dailyViews.length ? Math.round((total / dailyViews.length) * 100) / 100 : 0;
+        article.fetchState = 'PAGEVIEWS_RECEIVED';
       });
 
       return {
@@ -156,11 +183,12 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_ARTICLE_PAGEASSESSMENT: {
       const newStateArticles = cloneDeep(state.articles);
-      forEach(action.data, (article) => {
-        const grade = extractClassGrade(article.pageassessments);
+      forEach(action.data, (page) => {
+        const article = newStateArticles[page.title];
+        if (!article) { return; }
 
-        newStateArticles[article.title].grade = grade;
-        newStateArticles[article.title].fetchState = 'PAGEASSESSMENT_RECEIVED';
+        article.grade = extractClassGrade(page.pageassessments);
+        article.fetchState = 'PAGEASSESSMENT_RECEIVED';
       });
 
       return {
@@ -171,9 +199,13 @@ export default function articleFinder(state = initialState, action) {
     }
     case RECEIVE_ARTICLE_REVISION: {
       const newStateArticles = cloneDeep(state.articles);
-      forEach(action.data, (value) => {
-        newStateArticles[value.title].revid = value.revisions[0].revid;
-        newStateArticles[value.title].fetchState = 'REVISION_RECEIVED';
+      forEach(action.data, (page) => {
+        const article = newStateArticles[page.title];
+        // A page deleted since the search comes back with no revisions at all.
+        if (!article || !page.revisions?.length) { return; }
+
+        article.revid = page.revisions[0].revid;
+        article.fetchState = 'REVISION_RECEIVED';
       });
       return {
         ...state,
@@ -184,10 +216,12 @@ export default function articleFinder(state = initialState, action) {
     case RECEIVE_ARTICLE_REVISIONSCORE: {
       const newStateArticles = cloneDeep(state.articles);
       forEach(action.data.data, (scores, revid) => {
+        const article = find(newStateArticles, { revid: parseInt(revid) });
+        if (!article) { return; }
+
         const revScore = reduce(LiftwingWeights[`${action.data.project === 'wikidata' ? 'wikidata' : action.data.language}`], (result, value, key) => {
           return result + (value * scores[`${action.data.project === 'wikidata' ? 'itemquality' : 'articlequality'}`].score.probability[key]);
         }, 0);
-        const article = find(newStateArticles, { revid: parseInt(revid) });
         article.revScore = Math.round(revScore * 100) / 100;
         article.fetchState = 'REVISIONSCORE_RECEIVED';
       });
