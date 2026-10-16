@@ -70,6 +70,31 @@ describe CourseArticlesCsvBuilder do
     end
   end
 
+  context 'for a finalized course' do
+    let(:rows) { CSV.parse(subject, headers: true) }
+
+    before do
+      ArticleCourseTimeslice.where(course:).delete_all
+      course.update(flags: { finalized: true })
+      create(:articles_course, course:, article:, character_sum: 20, references_count: 3,
+                               new_article: true, user_ids: [user.id, another_user.id])
+      create(:articles_course, course:, article: article2, tracked: false)
+    end
+
+    it 'builds the rows from articles_courses, leaving edit_count blank' do
+      row = rows.find { |r| r['title'] == 'First_Article' }
+      expect(row['characters_added']).to eq('20')
+      expect(row['references_added']).to eq('3')
+      expect(row['new']).to eq('true')
+      expect(row['usernames']).to include('Absa')
+      expect(row['edit_count']).to be_nil
+    end
+
+    it 'excludes untracked articles' do
+      expect(rows.map { |r| r['title'] }).to eq(['First_Article'])
+    end
+  end
+
   it 'handles missing Article records gracefully' do
     article.destroy
     expect(subject).not_to include('First_Article')
