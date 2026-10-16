@@ -107,9 +107,17 @@ const CourseCreator = createReactClass({
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.setState({
-      tempCourseId: CourseUtils.generateTempId(nextProps.course)
+      tempCourseId: this.previewSlug(nextProps.course)
     });
     return this.handleCourse(nextProps.course, nextProps.isValid);
+  },
+
+  // A privacy-mode course's slug is built server-side from stand-ins for its
+  // title and school, plus a number it only draws when it is created. Preview
+  // that format, with a placeholder for the number, rather than the real values.
+  previewSlug(course) {
+    if (!course.confidential) { return CourseUtils.generateTempId(course); }
+    return CourseUtils.generateTempId({ ...course, ...this.props.courseCreator.confidentialStandIns });
   },
 
   campaignParam() {
@@ -129,6 +137,15 @@ const CourseCreator = createReactClass({
         CourseUtils.i18n('creator.checking_for_uniqueness', this.state.course_string_prefix),
         true
       );
+      // A privacy-mode course's slug is built server-side from obfuscated
+      // values, so the School/Title slug this form can predict is not the one
+      // the course will get. Checking it would test the wrong slug. The
+      // validation must run after the setState above has landed: React batches
+      // it within this handler, and handleCourse bails out unless it sees
+      // isSubmitting. The slug check below is asynchronous, so it never hits this.
+      if (this.props.course.confidential) {
+        return this.setState({ isSubmitting: true }, () => this.props.setValid('exists'));
+      }
       return this.props.checkCourseSlug(CourseUtils.generateTempId(this.props.course));
     }
   },

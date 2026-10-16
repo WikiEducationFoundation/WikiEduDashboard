@@ -274,6 +274,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_120000) do
     t.index ["user_id"], name: "index_commons_uploads_on_user_id"
   end
 
+  create_table "confidential_course_details", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "sequence", null: false
+    t.string "real_title"
+    t.string "real_school"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_confidential_course_details_on_course_id", unique: true
+    t.index ["sequence"], name: "index_confidential_course_details_on_sequence", unique: true
+  end
+
   create_table "course_stats", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "stats_hash"
     t.integer "course_id"

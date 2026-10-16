@@ -149,11 +149,25 @@ class CoursesPresenter
   end
 
   def search_courses(q)
-    courses.joins(:instructors).includes(:instructors).where(
-      'lower(title) like ? OR lower(school) like ? ' \
-      'OR lower(term) like ? OR lower(username) like ?',
-      "%#{q}%", "%#{q}%", "%#{q}%", "%#{q}%"
-    ).distinct.paginate(page: @page, per_page: 25)
+    scope = courses.joins(:instructors).includes(:instructors)
+    scope = scope.left_joins(:confidential_course_detail) if admin_search?
+    scope.where(search_conditions, q: "%#{q}%").distinct.paginate(page: @page, per_page: 25)
+  end
+
+  # A privacy-mode course's real title and institution live in
+  # ConfidentialCourseDetail, not on the course, so an ordinary search cannot
+  # match them — which is the point. Admins do need to find a course by its real
+  # name, so their search reaches into the detail record as well.
+  def admin_search?
+    @current_user&.admin? || false
+  end
+
+  def search_conditions
+    conditions = 'lower(title) like :q OR lower(school) like :q ' \
+                 'OR lower(term) like :q OR lower(username) like :q'
+    return conditions unless admin_search?
+    conditions + ' OR lower(confidential_course_details.real_title) like :q' \
+                 ' OR lower(confidential_course_details.real_school) like :q'
   end
 
   def school_options

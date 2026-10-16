@@ -87,10 +87,37 @@ wizard-width = 860px
       height 80%
       display inline-block
       width 100%
-      .next
-        position absolute;
-        bottom 25px;
-        right 21px;
+      // Back/Cancel, the URL preview and Next share one row beneath both
+      // columns, so they stay aligned however tall either column grows.
+      .wizard__form__controls
+        clear both
+        display flex
+        align-items center
+        gap 10px
+        padding-top 10px
+        .next
+          margin-left auto
+      // With the controls row after them, the grid's last-child rule no longer
+      // reaches the second column, so drop its gutter here or it wraps.
+      > .column:nth-last-child(2)
+        margin-right 0
+      .course-checkbox__info
+        height 16px
+        width 16px
+        margin-left 5px
+        vertical-align text-bottom
+      // Checkbox rows sit at the bottom of the form, so their tooltips open
+      // upward rather than over the Next button and past the panel's edge.
+      .course-checkbox.tooltip-trigger .tooltip,
+      .course-checkbox.tooltip-trigger:hover .tooltip,
+      .course-checkbox.tooltip-trigger:focus-within .tooltip
+        top auto
+        bottom 100%
+        &:before
+          top auto
+          bottom -6px
+          border-bottom 0
+          border-top 6px solid manatee
       p
         text-align left
       textarea
@@ -118,7 +145,11 @@ wizard-width = 860px
       margin-left 10px
 
     .tempEduCourseIdText
-      margin-top: 60px
+      margin 0
+      // The slug preview has no spaces, so without these a long one keeps its
+      // flex item from shrinking and pushes the Next button out of the panel.
+      min-width 0
+      overflow-wrap anywhere
 
     .wizard__panel__options
       padding 20px 0
@@ -284,13 +315,6 @@ wizard-width = 860px
           margin-right 10px
   .section-header
     margin-bottom 10px
-
-.backButtonContainer
-  display flex
-  align-items flex-end
-  height 70px
-  gap 10px
-  flex-direction row
 
 p.red
   color warning !important

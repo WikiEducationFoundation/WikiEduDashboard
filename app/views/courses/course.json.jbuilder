@@ -12,6 +12,15 @@ json.course do
             :closed?, :training_library_slug, :peer_review_count, :needs_update,
             :update_until, :withdrawn, :created_at)
 
+  json.confidential @course.confidential?
+  # Privacy mode: the real title and institution are admin-only. Everyone else
+  # gets the obfuscated values already stored on the course.
+  if @course.confidential? && current_user&.admin?
+    detail = @course.confidential_course_detail
+    json.real_title detail.real_title
+    json.real_school detail.real_school
+  end
+
   json.wikis @course.wikis, :language, :project
   json.namespaces format_wiki_namespaces(@course.course_wiki_namespaces)
   json.timeslice_update_ran @course.timeslice_update_ran?
