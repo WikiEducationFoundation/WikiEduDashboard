@@ -33,7 +33,7 @@ const RandomPeerAssignButton = ({
     confirmInitiate({ confirmMessage, onConfirm });
   };
 
-  if (!current_user.isAdvancedRole) {
+  if (course.metadata_locked || !current_user.isAdvancedRole) {
     return <div />;
   }
 

@@ -134,9 +134,11 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
         </div>
       ));
     }
-    // If the course is ended, show the 'needs update' button.
-    // Admins can also schedule a full update for any course.
-    if (CourseDateUtils.isEnded(course) || user.admin) {
+    // The button for scheduling a full update is shown as follows:
+    // Only for admins until the course ends.
+    // For admins and users with a role in the course once the course has ended.
+    // Never if the course metadata is locked.
+    if (!course.metadata_locked && (CourseDateUtils.isEnded(course) || user.admin)) {
       const label = course.needs_update ? I18n.t('courses.update_scheduled_label') : I18n.t('courses.needs_update');
       const className = course.needs_update ? 'button disabled' : 'button';
       controls.push((

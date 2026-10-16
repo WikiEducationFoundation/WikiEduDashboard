@@ -137,4 +137,23 @@ describe 'Students Page', type: :feature, js: true do
       end
     end
   end
+
+  describe 'enrollment button' do
+    let(:admin) { create(:admin) }
+    let(:enroll_button) { "button[aria-label='Enroll Button']" }
+
+    before { login_as admin }
+
+    it 'is shown to an admin' do
+      js_visit "/courses/#{@course.slug}/students/overview"
+      expect(page).to have_css(enroll_button)
+    end
+
+    it 'is hidden, even for an admin, when the course metadata is locked' do
+      @course.update(flags: { finalized: true })
+      js_visit "/courses/#{@course.slug}/students/overview"
+      expect(page).to have_css('table.users') # page has loaded
+      expect(page).not_to have_css(enroll_button)
+    end
+  end
 end

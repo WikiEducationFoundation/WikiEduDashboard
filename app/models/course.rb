@@ -646,6 +646,10 @@ class Course < ApplicationRecord
     flags && flags[:declined].present?
   end
 
+  def metadata_locked?
+    flags[:purgeable].present? || flags[:finalized].present?
+  end
+
   def clear_declined_if_submitted
     return unless submitted? && flags && flags[:declined]
     flags.delete(:declined)
@@ -685,14 +689,6 @@ class Course < ApplicationRecord
   # last_update_start_time for why coercion is needed.
   def last_update_end_time
     time_from_last_update_log('end_time')
-  end
-
-  # Determines if at least one timeslice update ran for the course based on the
-  # 'processed' field into update_logs flag.
-  def timeslice_update_ran?
-    update_logs = flags['update_logs']
-    return false unless update_logs
-    update_logs.values.any? { |f| f.key?('processed') }
   end
 
   # Overridden for ClassroomProgramCourse

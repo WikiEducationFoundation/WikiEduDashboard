@@ -101,9 +101,10 @@ const EnrollButton = ({ users, userRole, course, current_user, allowed, inline }
     return `/courses/${course_school}/${course_title}`;
   };
 
-  // Disable the button for courses controlled by Wikimedia Event Center
-  // except for the Facilitator role
-  if (course.flags.event_sync && userRole !== INSTRUCTOR_ROLE) { return null; }
+  // Disable the button for:
+  // - Courses controlled by Wikimedia Event Center except for the Facilitator role.
+  // - Courses with metadata locked.
+  if (course.metadata_locked || (course.flags.event_sync && userRole !== INSTRUCTOR_ROLE)) { return null; }
 
   const usersList = users.map((user) => {
     let removeButton;

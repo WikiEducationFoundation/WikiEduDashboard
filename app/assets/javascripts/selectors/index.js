@@ -360,7 +360,7 @@ export const firstValidationErrorMessage = createSelector(
 
 export const editPermissions = createSelector(
   [getCourse, getCurrentUser], (course, user) => {
-    if (!user.isAdvancedRole) { return false; }
+    if (course.metadata_locked || !user.isAdvancedRole) { return false; }
     return user.isAdmin || !course.closed;
   }
 );
