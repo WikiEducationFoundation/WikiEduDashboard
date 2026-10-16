@@ -11,6 +11,36 @@
     = link_to survey_results_path(format: 'csv'), class: 'download-button' do
       %span Download Survey Results CSV
 
+    %h2.survey__duration-stats Completion Time Statistics
+    %table.table.survey__duration-stats__table
+      %tbody
+        %tr
+          %td.survey__duration-stats__label Average
+          %td= average_duration(@survey)
+        %tr
+          %td.survey__duration-stats__label Median
+          %td= median_duration(@survey)
+        %tr
+          %td.survey__duration-stats__label Fastest
+          %td= fastest_duration(@survey)
+        %tr
+          %td.survey__duration-stats__label Slowest
+          %td= slowest_duration(@survey)
+        %tr
+          %td.survey__duration-stats__label Completion Rate
+          %td= completion_rate(@survey)
+
+    - distribution = duration_distribution(@survey)
+    - unless distribution.empty?
+      %h2 Time Distribution
+      - max_count = [distribution.values.max, 1].max
+      .duration-distribution
+        - distribution.each do |bucket, count|
+          .distribution-row
+            %span.distribution-row__label= bucket
+            .distribution-bar{style: "width: #{(count.to_f / max_count * 200).to_i}px; min-width: #{count > 0 ? 4 : 0}px;"}
+            %span.distribution-row__count= count
+
   .results
     - @surveys_question_groups.each_with_index do |group, index|
       = render partial: "question_group", locals: question_group_locals(group, index, @surveys_question_groups.length, is_results_view: true)
