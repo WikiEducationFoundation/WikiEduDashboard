@@ -55,6 +55,30 @@ describe TimesliceEditCounts do
       expect(described_class.by_course_and_namespace([course.id, other_course.id]))
         .to eq([course.id, 0] => 3, [course.id, 1] => 5, [other_course.id, 0] => 4)
     end
+
+    it 'only counts scoped articles for article scoped courses' do
+      scoped_course = create(:article_scoped_program)
+      scoped = article('Scoped')
+      create(:assignment, course: scoped_course, article: scoped, article_title: scoped.title)
+      create(:articles_course, course: scoped_course, article: scoped)
+      add_edits(scoped_course, scoped, 3)
+      add_edits(scoped_course, article('Unscoped'), 4)
+      add_edits(course, article('Main'), 5)
+
+      expect(described_class.by_course_and_namespace([scoped_course.id, course.id]))
+        .to eq([scoped_course.id, 0] => 3, [course.id, 0] => 5)
+    end
+
+    it 'only counts scoped articles for courses with the article_scoped flag' do
+      course.update(flags: { article_scoped: true })
+      scoped = article('Scoped')
+      create(:assignment, course:, article: scoped, article_title: scoped.title)
+      create(:articles_course, course:, article: scoped)
+      add_edits(course, scoped, 3)
+      add_edits(course, article('Unscoped'), 4)
+
+      expect(described_class.by_course_and_namespace([course.id])).to eq([course.id, 0] => 3)
+    end
   end
 
   describe '.by_wiki' do
