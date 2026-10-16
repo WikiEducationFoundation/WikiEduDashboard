@@ -92,6 +92,21 @@ describe UploadImporter do
     end
   end
 
+  describe '.import_uploads' do
+    let(:user) { create(:user) }
+
+    it 'only imports the files that are not saved yet' do
+      create(:commons_upload, id: 1, user:)
+      files = [1, 2].map do |id|
+        { 'user' => user.username, 'title' => "File:#{id}.jpg", 'pageid' => id }
+      end
+      expect(described_class).to receive(:import_upload).once.and_call_original
+
+      described_class.import_uploads(files)
+      expect(CommonsUpload.pluck(:id)).to contain_exactly(1, 2)
+    end
+  end
+
   describe '.import_upload' do
     let(:user) { create(:user) }
 

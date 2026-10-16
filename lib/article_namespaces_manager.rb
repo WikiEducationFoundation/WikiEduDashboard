@@ -114,9 +114,8 @@ class ArticleNamespacesManager
   end
 
   def articles_in_tracked_namespaces(article_batch)
-    @course.tracked_namespaces.flat_map do |wiki_ns|
-      article_batch.where(wiki_id: wiki_ns[:wiki].id, namespace: wiki_ns[:namespace])
-    end
+    tracked = @course.tracked_namespaces.map { |wiki_ns| [wiki_ns[:wiki].id, wiki_ns[:namespace]] }
+    article_batch.select { |article| tracked.include?([article.wiki_id, article.namespace]) }
   end
 
   # Articles that have an article course record that was created *after* some of its article
