@@ -31,7 +31,8 @@ describe CourseStatistics do
       references_count: id, start: 1.month.ago, end: 1.month.ago + 1.day)
 
       # Update caches
-      CoursesUsers.find_by(course_id: id, user_id: id).update_cache_from_timeslices
+      CoursesUsers.find_by(course_id: id, user_id: id)
+                  .update_cache_from_timeslices(WordCount.excluded_wiki_ids)
       Course.find(id).update_cache_from_timeslices
     end
   end

@@ -352,17 +352,18 @@ class Course < ApplicationRecord
   end
 
   def tracked_namespaces
-    courses_wikis.map do |course_wiki|
-      wiki = course_wiki.wiki
-      wiki_namespaces = course_wiki.course_wiki_namespaces
-      if wiki_namespaces.empty?
-        { wiki:, namespace: 0 }
-      else
-        wiki_namespaces.map do |wiki_ns|
-          { wiki:, namespace: wiki_ns.namespace }
+    @tracked_namespaces ||=
+      courses_wikis.includes(:wiki, :course_wiki_namespaces).map do |course_wiki|
+        wiki = course_wiki.wiki
+        wiki_namespaces = course_wiki.course_wiki_namespaces
+        if wiki_namespaces.empty?
+          { wiki:, namespace: 0 }
+        else
+          wiki_namespaces.map do |wiki_ns|
+            { wiki:, namespace: wiki_ns.namespace }
+          end
         end
-      end
-    end.flatten
+      end.flatten
   end
 
   # Returns true if the course only tracks specific assigned/category articles.
@@ -493,6 +494,19 @@ class Course < ApplicationRecord
 
   def uploads_in_use
     uploads.where('usage_count > 0')
+  end
+
+  def upload_counts_by_user
+    @upload_counts_by_user ||= uploads.group('commons_uploads.user_id').count
+  end
+
+  def first_assigned_titles_by_user
+    @first_assigned_titles_by_user ||= assignments.order(:id).group_by(&:user_id)
+                                                  .transform_values { |a| a.first.article_title }
+  end
+
+  def revision_stat_timeslice
+    @revision_stat_timeslice ||= RevisionStatTimeslice.new(self)
   end
 
   def word_count
