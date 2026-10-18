@@ -6,20 +6,34 @@ import PropTypes from 'prop-types';
 import { formatDateWithTime } from '../../utils/date_utils';
 import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
+// Default aspect used when we have neither a loaded image nor cached thumb
+// dimensions. Without this the gallery tile collapses to its text width and
+// filenames end up stacked on a single horizontal line.
+const FALLBACK_WIDTH = 320;
+const FALLBACK_HEIGHT = 240;
+const MISSING_IMAGE_PLACEHOLDER = '/assets/images/deleted_image.svg';
+
+const parseDimension = (value) => {
+  const parsed = parseInt(value);
+  return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
+};
+
 const Upload = ({ upload, view, linkUsername }) => {
-  const [width, setWidth] = useState(null);
-  const [height, setHeight] = useState(null);
+  const initialWidth = parseDimension(upload.thumbwidth);
+  const initialHeight = parseDimension(upload.thumbheight);
+  const [width, setWidth] = useState(initialWidth);
+  const [height, setHeight] = useState(initialHeight);
   const [isUploadViewerOpen, setIsUploadViewerOpen] = useState(false);
   const [imageFile, setImageFile] = useState(null);
 
   useEffect(() => {
     updateImageFile();
-  }, []);
+  }, [upload.thumburl, upload.deleted]);
 
   const updateImageFile = () => {
     let file = upload.thumburl;
-    if (upload.deleted) {
-      file = '/assets/images/deleted_image.svg';
+    if (upload.deleted || !file) {
+      file = MISSING_IMAGE_PLACEHOLDER;
     }
     setImageFile(file);
     setImageDimensions(file);
@@ -27,11 +41,20 @@ const Upload = ({ upload, view, linkUsername }) => {
 
   const setImageDimensions = (file) => {
     const img = new Image();
-    img.src = file;
     img.onload = function () {
       setWidth(this.width);
       setHeight(this.height);
     };
+    img.onerror = () => {
+      // Swap to the placeholder so the visible <img> does not show a broken
+      // icon, and make sure the tile still reserves space in the gallery.
+      setImageFile(MISSING_IMAGE_PLACEHOLDER);
+      if (!parseDimension(upload.thumbwidth) || !parseDimension(upload.thumbheight)) {
+        setWidth(FALLBACK_WIDTH);
+        setHeight(FALLBACK_HEIGHT);
+      }
+    };
+    img.src = file;
   };
 
   const toggleUploadViewer = () => {

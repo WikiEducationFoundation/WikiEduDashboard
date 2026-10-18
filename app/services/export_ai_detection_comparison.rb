@@ -20,6 +20,17 @@ class ExportAiDetectionComparison
 
   attr_reader :rows, :factor_names
 
+  # The DetectorSummary of a scored row: stored with imported rows, parsed from
+  # the raw response otherwise. Empty for a detector with no parser.
+  def self.summary_for(score)
+    return score.details['summary'] if score.details['summary']
+
+    parser_class = AiDetector.parser_class_for(score.check_type)
+    return {} unless parser_class
+
+    parser_class.new(score.check_type, score.details).summary
+  end
+
   def initialize(sample_names: nil, include_text: false)
     @include_text = include_text
     units = AiDetectionSample.includes(:wiki, :revision_ai_scores).order(:id)
@@ -76,15 +87,6 @@ class ExportAiDetectionComparison
                 'check_type' => score.check_type }
     return columns.merge('error' => score.details['message']) if score.avg_ai_likelihood.nil?
 
-    columns.merge(summary_for(score))
-  end
-
-  def summary_for(score)
-    return score.details['summary'] if score.details['summary']
-
-    parser_class = AiDetector.parser_class_for(score.check_type)
-    return {} unless parser_class
-
-    parser_class.new(score.check_type, score.details).summary
+    columns.merge(self.class.summary_for(score))
   end
 end

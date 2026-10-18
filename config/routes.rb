@@ -64,12 +64,30 @@ Rails.application.routes.draw do
 
   #UserProfilesController
   controller :user_profiles do
-    get 'users/:username/taught_courses_articles' => 'user_profiles#taught_courses_articles', constraints: { username: /.*/ }
+    get 'users/:username/taught_courses_articles' => 'user_profiles#taught_courses_articles',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    get 'users/:username/user_articles' => 'user_profiles#user_articles',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    get 'users/:username/stats' => 'user_profiles#stats',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    get 'users/:username/stats_graphs' => 'user_profiles#stats_graphs',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    delete 'users/:username/profile_image' => 'user_profiles#delete_profile_image',
+           as: 'delete_profile_image', constraints: { username: /[^\/]+/ }
+    get 'users/:username/update_email_preferences' => 'user_profiles#update_email_preferences',
+        constraints: { username: /[^\/]+/ }
+    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences',
+        constraints: { username: /.*/ }
+    get 'users/:username/stats/:metric' => 'user_profiles#show',
+        constraints: { username: /[^\/]+/, metric: /[^\/]+/ }
+    get 'users/:username/:profile_section' => 'user_profiles#show',
+        constraints: {
+          username: /[^\/]+/,
+          profile_section: /course-details|uploads|training/
+        }
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
-    get 'user_stats' => 'user_profiles#stats'
-    get 'stats_graphs' => 'user_profiles#stats_graphs'
-    delete 'profile_image' => 'user_profiles#delete_profile_image', as: 'delete_profile_image', constraints: { username: /.*/ }
-    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences', constraints: { username: /.*/ }
+    post 'users/update' => 'user_profiles#update', as: 'update_user_profile'
+    patch 'users/update' => 'user_profiles#update'
     post 'users/update/:username' => 'user_profiles#update' , constraints: { username: /.*/ }
   end
 
@@ -634,6 +652,13 @@ Rails.application.routes.draw do
   get 'claim_verification' => 'claim_verification#index'
   get 'claim_verification/status' => 'claim_verification#status'
   post 'claim_verification/harvest' => 'claim_verification#harvest'
+
+  # AI detector comparison data (admins, Wiki Ed only)
+  get 'detector_comparison' => 'detector_comparison#index'
+  get 'detector_comparison/topics' => 'detector_comparison#topics'
+  get 'detector_comparison/known_human' => 'detector_comparison#known_human'
+  get 'detector_comparison/units/:id' => 'detector_comparison#unit'
+  get 'detector_comparison/topics/:topic' => 'detector_comparison#topic'
 
   # AI tools for admins
   get 'ai_tools' => 'ai_tools#show'

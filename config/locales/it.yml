@@ -1004,6 +1004,8 @@ it:
     kind:
       discussion: Discussione
     loading: Caricamento…
+    article_title_input:
+      submit_anyway: Invia comunque
   claim_verification:
     form:
       source_access_options:

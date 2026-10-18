@@ -73,6 +73,32 @@ describe UpdateCourseWikiTimeslices do
     end
 
     context 'when there are revisions' do
+      # Regression test for PEONY-392: a rate-limited fetch used to come back
+      # empty and overwrite correct timeslice data with fewer revisions.
+      it 'keeps already-imported timeslice data when Replica rate-limits a later update' do
+        VCR.use_cassette 'course_wiki_timeslices_update' do
+          described_class.new(course, UpdateDebugger.new(course)).run(all_time: false)
+        end
+        imported = course.course_wiki_timeslices.order(:wiki_id, :start)
+                         .pluck(:wiki_id, :start, :revision_count, :mw_rev_count,
+                                :character_sum, :last_mw_rev_datetime)
+        expect(imported.sum { |row| row[2] }).to be_positive
+
+        allow_any_instance_of(Replica).to receive(:sleep)
+        stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+          .to_return(status: 429, body: '', headers: {})
+        next_update = described_class.new(course.reload, UpdateDebugger.new(course))
+        VCR.use_cassette 'course_wiki_timeslices_update' do
+          expect { next_update.run(all_time: false) }.to raise_error(Replica::RateLimitedError)
+        end
+
+        after_rate_limit = course.course_wiki_timeslices.order(:wiki_id, :start)
+                                 .pluck(:wiki_id, :start, :revision_count, :mw_rev_count,
+                                        :character_sum, :last_mw_rev_datetime)
+        expect(after_rate_limit).to eq(imported)
+        expect(course.course_wiki_timeslices.where(needs_update: true)).to exist
+      end
+
       it 'updates article course timeslices caches' do
         VCR.use_cassette 'course_wiki_timeslices_update' do
           subject
@@ -193,6 +219,86 @@ describe UpdateCourseWikiTimeslices do
         cuw_timeslice = course.course_user_wiki_timeslices
                               .where(wiki: wikidata, start: '2018-11-24')
         expect(cuw_timeslice.size).to eq(0)
+      end
+
+      it 'stops the whole course update after one Replica rate-limit error, ' \
+         'instead of retrying every remaining timeslice into the same storm' do
+        # UpdateCourseWikiTimeslices itself doesn't catch or report this --
+        # UpdateCourseStats does, once, no matter which Replica-touching step
+        # of the course update hit the limit (see its own spec). Here we only
+        # confirm the error propagates instead of being swallowed, and that
+        # the one timeslice mid-flight is left flagged for retry.
+        allow(Sentry).to receive(:capture_message)
+        fake_response = double('response', code: '429', body: 'rate limited') # rubocop:disable RSpec/VerifiedDoubles
+        allow(fake_response).to receive(:[]).with('Retry-After').and_return(nil)
+        allow(CourseWikiTimeslice).to receive(:update_course_wiki_timeslices)
+          .and_raise(Replica::RateLimitedError.new(fake_response))
+
+        expect do
+          VCR.use_cassette 'course_wiki_timeslices_update' do
+            subject
+          end
+        end.to raise_error(Replica::RateLimitedError)
+
+        expect(Sentry).not_to have_received(:capture_message)
+
+        # Exactly the one timeslice being processed when the limit hit is
+        # flagged for retry next cycle -- not every timeslice that would,
+        # under the old behavior, have gone on to hit the same rate limit.
+        flagged = course.course_wiki_timeslices.where(needs_update: true)
+        expect(flagged.count).to eq(1)
+
+        # Every course_user_wiki_timeslice remains untouched (none rolled
+        # back, because none were ever attempted after the first failure).
+        expect(course.course_user_wiki_timeslices.count).to eq(0)
+      end
+
+      it 'flags a split timeslice\'s new halves for retry, not the parent ' \
+         'row a rate-limit error finds already replaced by them' do
+        stub_const('SplitTimeslice::REVISION_THRESHOLD', 10)
+        allow(Sentry).to receive(:capture_message)
+        fake_response = double('response', code: '429', body: 'rate limited') # rubocop:disable RSpec/VerifiedDoubles
+        allow(fake_response).to receive(:[]).with('Retry-After').and_return(nil)
+        # Only wikidata's revision count (27, over the stubbed threshold)
+        # triggers a split; raise only for it, so enwiki's timeslices
+        # process normally first and the split is already in place by the
+        # time the rate limit hits.
+        allow(CourseWikiTimeslice).to receive(:update_course_wiki_timeslices)
+          .and_wrap_original do |original, *args|
+          raise Replica::RateLimitedError.new(fake_response) if args[1] == wikidata
+
+          original.call(*args)
+        end
+
+        expect do
+          VCR.use_cassette 'course_wiki_timeslices_update' do
+            subject
+          end
+        end.to raise_error(Replica::RateLimitedError)
+
+        # UpdateCourseStats reports this once, one level up (see its own spec).
+        expect(Sentry).not_to have_received(:capture_message)
+
+        # The whole-day parent timeslice was deleted by the split before the
+        # rate limit ever hit -- t.update(needs_update: true) on that stale
+        # record is a silent no-op, not an error.
+        parent = course.course_wiki_timeslices.where(wiki: wikidata, start: '2018-11-24 00:00:00',
+                                                      end: '2018-11-25 00:00:00')
+        expect(parent.count).to eq(0)
+
+        # Its replacement leaves, created with needs_update already true,
+        # carry the actual retry signal instead.
+        leaves = course.course_wiki_timeslices.where(wiki: wikidata)
+                       .where('start >= ? AND start < ?',
+                              '2018-11-24 00:00:00', '2018-11-25 00:00:00')
+        expect(leaves.count).to be > 1
+        expect(leaves.pluck(:needs_update)).to all(eq(true))
+
+        # The course-level abort stopped before reaching wikidata's later
+        # days -- they were never attempted, so they're untouched.
+        later_days = course.course_wiki_timeslices.where(wiki: wikidata)
+                           .where('start >= ?', '2018-11-25 00:00:00')
+        expect(later_days.pluck(:needs_update)).to all(eq(false))
       end
 
       it 'fetches revisions up to end date' do

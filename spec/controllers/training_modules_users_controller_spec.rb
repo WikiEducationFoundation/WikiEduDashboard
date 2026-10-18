@@ -271,18 +271,20 @@ describe TrainingModulesUsersController, type: :request do
     end
     let(:tmu) { TrainingModulesUsers.find_by(user:, training_module:) }
     let(:edited_title) { 'Selfie' }
+    let(:edited_namespace) { Article::Namespaces::MAINSPACE }
 
     before do
       create(:courses_user, course:, user:, role: CoursesUsers::Roles::STUDENT_ROLE)
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      allow_any_instance_of(WikiApi).to receive(:title_of_article_edited_by)
-        .and_return(edited_title)
+      allow_any_instance_of(WikiApi).to receive(:page_edited_by)
+        .and_return(edited_title && { title: edited_title, namespace: edited_namespace })
     end
 
     context 'when the user has edited the article since the course started' do
       before do
-        expect_any_instance_of(WikiApi).to receive(:title_of_article_edited_by)
-          .with('Ragesock', 'Selfie', since: course.start).and_return('Selfie')
+        expect_any_instance_of(WikiApi).to receive(:page_edited_by)
+          .with('Ragesock', 'Selfie', since: course.start)
+          .and_return(title: 'Selfie', namespace: 0)
         post '/training_modules_users/verify_exercise_article.json', params:, as: :json
       end
 
@@ -324,11 +326,115 @@ describe TrainingModulesUsersController, type: :request do
       end
     end
 
+    context 'when the student edited a page outside mainspace' do
+      let(:edited_title) { 'User:Ragesock/sandbox' }
+      let(:edited_namespace) { 2 }
+
+      before do
+        post '/training_modules_users/verify_exercise_article.json',
+             params: params.merge(article_title: 'User:Ragesock/sandbox'), as: :json
+      end
+
+      it 'asks the student to confirm the page' do
+        expect(response.parsed_body).to include(
+          'status' => 'confirm',
+          'article_title' => 'User:Ragesock/sandbox',
+          'article_url' => 'https://en.wikipedia.org/wiki/User%3ARagesock%2Fsandbox',
+          'message' => I18n.t('training.article_title_input.not_mainspace')
+        )
+      end
+
+      it 'does not record anything yet' do
+        expect(tmu.flags).to eq({})
+      end
+    end
+
+    context 'when the student confirms a page outside mainspace' do
+      let(:edited_title) { 'User:Ragesock/sandbox' }
+      let(:edited_namespace) { 2 }
+
+      before do
+        post '/training_modules_users/verify_exercise_article.json',
+             params: params.merge(article_title: 'User:Ragesock/sandbox', confirmed: true),
+             as: :json
+      end
+
+      it 'returns verified status' do
+        expect(response.parsed_body['status']).to eq('verified')
+      end
+
+      it 'records the page and marks the exercise complete for the course' do
+        expect(tmu.flags[course.id]).to eq(marked_complete: true,
+                                           exercise_article_title: 'User:Ragesock/sandbox')
+      end
+    end
+
+    context 'when the student gives an edit URL of the article' do
+      let(:url) { 'https://en.wikipedia.org/w/index.php?title=Selfie&action=edit' }
+
+      before do
+        expect_any_instance_of(WikiApi).to receive(:page_edited_by)
+          .with('Ragesock', 'Selfie', since: course.start)
+          .and_return(title: 'Selfie', namespace: 0)
+        post '/training_modules_users/verify_exercise_article.json',
+             params: params.merge(article_title: url), as: :json
+      end
+
+      it 'checks the article named in the URL' do
+        expect(response.parsed_body['status']).to eq('verified')
+      end
+    end
+
+    context 'when the student gives a diff URL with no title' do
+      let(:url) { 'https://en.wikipedia.org/w/index.php?diff=123456' }
+
+      before do
+        expect_any_instance_of(WikiApi).to receive(:page_title)
+          .with(revision_id: 123456, page_id: nil).and_return('Selfie')
+        expect_any_instance_of(WikiApi).to receive(:page_edited_by)
+          .with('Ragesock', 'Selfie', since: course.start)
+          .and_return(title: 'Selfie', namespace: 0)
+        post '/training_modules_users/verify_exercise_article.json',
+             params: params.merge(article_title: url), as: :json
+      end
+
+      it 'checks the article the revision belongs to' do
+        expect(response.parsed_body['status']).to eq('verified')
+      end
+    end
+
+    context 'when the revision in a diff URL does not exist' do
+      let(:url) { 'https://en.wikipedia.org/w/index.php?diff=123456' }
+
+      before do
+        allow_any_instance_of(WikiApi).to receive(:page_title).and_return(nil)
+        expect_any_instance_of(WikiApi).not_to receive(:page_edited_by)
+        post '/training_modules_users/verify_exercise_article.json',
+             params: params.merge(article_title: url), as: :json
+      end
+
+      it 'returns not_found status' do
+        expect(response.parsed_body['status']).to eq('not_found')
+      end
+    end
+
     context 'when the title would query several pages' do
       before do
-        expect_any_instance_of(WikiApi).not_to receive(:title_of_article_edited_by)
+        expect_any_instance_of(WikiApi).not_to receive(:page_edited_by)
         post '/training_modules_users/verify_exercise_article.json',
              params: params.merge(article_title: 'Selfie|Octopus'), as: :json
+      end
+
+      it 'returns not_found status' do
+        expect(response.parsed_body['status']).to eq('not_found')
+      end
+    end
+
+    context 'when an escaped title would query several pages' do
+      before do
+        expect_any_instance_of(WikiApi).not_to receive(:page_edited_by)
+        post '/training_modules_users/verify_exercise_article.json',
+             params: params.merge(article_title: '%1FSelfie%1FOctopus'), as: :json
       end
 
       it 'returns not_found status' do

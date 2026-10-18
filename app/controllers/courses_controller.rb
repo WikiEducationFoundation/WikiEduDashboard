@@ -503,8 +503,16 @@ class CoursesController < ApplicationController
     params.require(:course).permit(:role_description)[:role_description]
   end
 
+  # How many articles articles.json returns. The frontend asks for 500 and
+  # adds 500 each time the user wants more; a request without a limit used
+  # to load every article of the course, which is enough to exhaust a web
+  # worker's memory on a large course.
+  DEFAULT_ARTICLES_LIMIT = 500
+  MAX_ARTICLES_LIMIT = 5000
   def set_limit
-    @limit = params[:limit]
+    limit = params[:limit].to_i
+    limit = DEFAULT_ARTICLES_LIMIT unless limit.positive?
+    @limit = [limit, MAX_ARTICLES_LIMIT].min
   end
 
   # If the user could make an edit to the course, this verifies that
