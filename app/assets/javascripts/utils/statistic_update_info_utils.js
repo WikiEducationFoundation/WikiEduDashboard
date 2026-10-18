@@ -110,7 +110,7 @@ const getLastUpdateSummary = (course) => {
   }
 };
 
-const getTotaUpdatesMessage = (course) => {
+const getTotalUpdatesMessage= (course) => {
   if (!course.flags.update_logs) {
     return `${I18n.t('metrics.total_updates')}: 0.`;
   }
