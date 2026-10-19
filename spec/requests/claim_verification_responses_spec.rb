@@ -152,6 +152,8 @@ describe 'Claim verification responses', type: :request do
       expect(submitted.first['answers']['verdict']).to eq('partial_support')
       expect(submitted.first['claim']['sentence']).to eq(claim.sentence)
       expect(response.parsed_body['pending'].first['username']).to eq('Slowpoke')
+      # A pending claim comes with its source too, for the grader.
+      expect(response.parsed_body['pending'].first['claim']['cite_text']).to eq('Riedman 1990')
     end
 
     # Answers are checked against the claim as the student saw it — the

@@ -5,8 +5,7 @@ import { format } from 'date-fns';
 
 import Loading from '@components/common/loading.jsx';
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
-import ClaimAndSource from './ClaimAndSource.jsx';
-import ResponseSummary from './ResponseSummary.jsx';
+import ClaimResponse from './ClaimResponse.jsx';
 
 const formatDate = isoDate => format(new Date(isoDate), 'MMM do, yyyy');
 
@@ -35,9 +34,10 @@ PendingClaim.propTypes = {
 };
 
 /*
-  The instructor view of student submissions, at /verify_claim/responses
-  (linked from the timeline module row and from each student's exercise
-  listing): every submitted response as a card — the student, then their claim
+  Every student's submissions on one page, at /verify_claim/responses, where
+  the course has no Assignments tab to grade them in one student at a time
+  (see ResponsesPage, which otherwise forwards there): every submitted
+  response as a card — the student, then their claim
   and its cited source exactly as the student saw them (so each answer can be
   checked against the citation and the source itself), then their answers
   rendered with the same question wording the student saw — followed by
@@ -107,13 +107,7 @@ const InstructorResponses = ({ course }) => {
                       { date: formatDate(response.created_at) })}
             </span>
           </header>
-          <ClaimAndSource claim={response.claim} headingLevel={3} />
-          <section className="cv-response-card__answers">
-            <h3 className="claim-verification-exercise__label">
-              {I18n.t('claim_verification.form.submitted_heading')}
-            </h3>
-            <ResponseSummary form={data.form} response={response} />
-          </section>
+          <ClaimResponse form={data.form} response={response} headingLevel={3} />
         </article>
       ))}
 

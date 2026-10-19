@@ -66,7 +66,7 @@ ClaimAndSource.propTypes = {
     source_url: PropTypes.string,
     article_url: PropTypes.string,
   }).isRequired,
-  headingLevel: PropTypes.oneOf([2, 3, 4]),
+  headingLevel: PropTypes.oneOf([2, 3, 4, 5]),
 };
 
 export default ClaimAndSource;
