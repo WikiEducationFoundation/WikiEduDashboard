@@ -10,8 +10,11 @@ describe 'Claim verification responses', type: :request do
   let(:course) { create(:course, slug: 'School/Claims_2024', home_wiki: wiki) }
   let(:student) { create(:user, username: 'Otterfan') }
   let(:claim) do
-    VerificationClaim.create!(wiki:, article_title: 'Sea_otter',
+    VerificationClaim.create!(wiki:, article_title: 'Sea_otter', mw_rev_id: 777,
+                              ref_id: 'cite_note-1',
                               sentence: 'Sea otters use rocks as tools.',
+                              context: 'Sea otters use rocks as tools. They eat urchins.',
+                              cite_text: 'Riedman 1990',
                               source_url: 'https://example.com/otters')
   end
 
@@ -149,6 +152,21 @@ describe 'Claim verification responses', type: :request do
       expect(submitted.first['answers']['verdict']).to eq('partial_support')
       expect(submitted.first['claim']['sentence']).to eq(claim.sentence)
       expect(response.parsed_body['pending'].first['username']).to eq('Slowpoke')
+    end
+
+    # Answers are checked against the claim as the student saw it — the
+    # citation (which the source questions are answered from alone), the
+    # paragraph around the claim, and the article at the flagged revision.
+    it 'carries each response\'s claim as the student saw it' do
+      login_as instructor
+      get "/courses/#{course.slug}/verify_claim/responses.json"
+      expect(response.parsed_body['responses'].first['claim']).to include(
+        'cite_text' => 'Riedman 1990',
+        'context' => 'Sea otters use rocks as tools. They eat urchins.',
+        'source_url' => 'https://example.com/otters',
+        'article_url' => 'https://en.wikipedia.org/w/index.php?oldid=777#cite_note-1',
+        'article_title' => 'Sea otter'
+      )
     end
 
     # The instructor view renders each response as the questions the student

@@ -233,6 +233,7 @@ describe 'Claim verification exercise', type: :feature, js: true do
     click_button I18n.t('claim_verification.form.submitted_heading'), wait: 10
     within '.cv-response-pop' do
       expect(page).to have_content(sentence)
+      expect(page).to have_content('Riedman & Estes 1990')
       expect(page).to have_content(
         I18n.t('claim_verification.form.verdict_options.mostly_supports')
       )
@@ -278,6 +279,15 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_content(I18n.t('claim_verification.responses.heading'), wait: 20)
     expect(page).to have_content('Otterfan')
     expect(page).to have_content(sentence)
+    # The card shows the claim's citation and source as the student saw them,
+    # so the answers can be checked against them.
+    within '.cv-response-card', match: :first do
+      expect(page).to have_content('Riedman & Estes 1990')
+      expect(page).to have_link(I18n.t('claim_verification.source_url'),
+                                href: 'https://example.com/otters')
+      expect(page).to have_link(I18n.t('claim_verification.find_in_article'),
+                                href: %r{/w/index\.php\?oldid=#{flagged_rev}#cite_note-1})
+    end
     expect(page).to have_content(I18n.t('claim_verification.form.verdict_options.contradicted'))
     expect(page).to have_content('The source says the opposite.')
     expect(page).to have_content(I18n.t('claim_verification.responses.pending_heading'))

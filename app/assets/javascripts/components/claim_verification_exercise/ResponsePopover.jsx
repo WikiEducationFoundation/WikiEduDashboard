@@ -5,14 +5,16 @@ import { useSelector } from 'react-redux';
 import Popover from '@components/common/popover.jsx';
 import useOutsideClick from '~/app/assets/javascripts/hooks/useOutsideClick';
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
+import ClaimAndSource from './ClaimAndSource.jsx';
 import ResponseSummary from './ResponseSummary.jsx';
 
 /*
   "Submitted response" popover on a student's exercise row (Students tab
-  drawer): shows that student's verification-form answers in place, with no
-  navigation away from the tab. The answers are fetched lazily on first open,
-  through the same viewer-scoped endpoint as the submissions page — staff can
-  read any student's, a student their own.
+  drawer): shows that student's claim, its cited source and their
+  verification-form answers in place, with no navigation away from the tab. The
+  answers are fetched lazily on first open, through the same viewer-scoped
+  endpoint as the submissions page — staff can read any student's, a student
+  their own.
 
   Open state is local rather than useExpandablePopover's: that hook shares the
   single global ui.openKey that the surrounding student drawer also uses, so
@@ -44,7 +46,7 @@ const ResponsePopover = ({ student }) => {
   } else {
     contents = responses.map(response => (
       <div className="cv-response-pop__item" key={response.id}>
-        <blockquote>{response.claim.sentence}</blockquote>
+        <ClaimAndSource claim={response.claim} headingLevel={4} />
         <ResponseSummary form={data.form} response={response} />
       </div>
     ));
