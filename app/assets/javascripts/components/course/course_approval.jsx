@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback } from 'react';
 
 import { connect } from 'react-redux';
 import { difference, uniq } from 'lodash-es';
@@ -80,26 +80,24 @@ const CourseApproval = (props) => {
     };
   };
 
-  const setWikiExpertOptions = () => {
+  const setWikiExpertOptions = useMemo(() => {
     const wikiExperts = props.wikiEdStaff.filter(user => user.role === 'wikipedia_expert');
-    const options = wikiExperts.map((user) => {
-      return {
+    const options = wikiExperts.map((user) => ({
         value: user.username,
         label: `${user.username} (${user.realname})`
-      };
-    });
+    }));
     return options;
-  };
+  },[props.wikiEdStaff]);
 
-  const handleWikiExpertChange = (selectedOption) => {
+  const handleWikiExpertChange = useCallback((selectedOption) => {
     return setSelectedWikiExpert(selectedOption);
-  };
+},[]);
 
-  const handleCampaignsChange = (selectedOptions) => {
+  const handleCampaignsChange = useCallback((selectedOptions) => {
     return setSelectedCampaigns(selectedOptions);
-  };
+  },[]);
 
-  const handleTagChange = (selectedOption) => {
+  const handleTagChange = useCallback((selectedOption) => {
     if (!selectedOption) {
       return setSelectedTags(null);
     }
@@ -111,11 +109,11 @@ const CourseApproval = (props) => {
       setCreatedTagOption([selectedOption]);
     }
     setSelectedTags(selectedOption);
-  };
+  },[]);
 
-  const handleSalesforceIdChange = (key, value) => {
+  const handleSalesforceIdChange = useCallback((key, value) => {
     return setSalesforceId(value);
-  };
+  },[]);
 
 
   const submitWikiEdStaff = (programManager, wikiExpert) => {
@@ -227,14 +225,22 @@ const CourseApproval = (props) => {
   const programManager = props.wikiEdStaff.length > 0 ? setProgramManager() : null;
   const wikiExpertOptions = props.wikiEdStaff.length > 0 ? setWikiExpertOptions() : [];
 
-  const campaignOptions = props.allCampaigns.map((campaign) => {
-      return { value: campaign.title, label: campaign.title };
-  });
+  const campaignOptions = useMemo(()=>{
+  return props.allCampaigns.map((campaign) =>({
+      value: campaign.title,
+      label: campaign.title
+  }));
+  }, [props.allCampaigns]);
 
-  const allTagOptions = uniq(props.allTags).map((tag) => {
-    return { label: tag, value: tag };
-  });
-  const tagOptions = [...createdTagOption, ...allTagOptions];
+  const allTagOptions = useMemo(()=>{
+  return uniq(props.allTags).map((tag) => ({
+     label: tag,
+     value: tag
+  }));
+},[props.allTags])
+  const tagOptions = useMemo(()=>{
+    return [...createdTagOption, ...allTagOptions]
+  },[createdTagOption,allTagOptions])
 
 
   const programManagerSelector = (
@@ -245,6 +251,7 @@ const CourseApproval = (props) => {
       <div className="group-right">
         <Select
           id={'program_manager'}
+          inputId='program_manager'
           value={programManager}
           onChange={null}
           options={[]}
@@ -264,6 +271,7 @@ const CourseApproval = (props) => {
       <div className="group-right">
         <Select
           id={'wiki_expert'}
+          inputId='wiki_expert'
           value={wikiExpertOptions.empty ? null : selectedWikiExpert}
           onChange={handleWikiExpertChange}
           options={wikiExpertOptions}
@@ -283,6 +291,7 @@ const CourseApproval = (props) => {
       <div className="group-right">
         <CreatableSelect
           id={'tags'}
+          inputId='tags'
           value={selectedTags}
           placeholder={I18n.t('courses.tag_select')}
           onChange={handleTagChange}
@@ -304,6 +313,7 @@ const CourseApproval = (props) => {
       <div className="group-right">
         <Select
           id={'campaign'}
+          inputId='campaign'
           value={campaignOptions.empty ? null : selectedCampaigns}
           placeholder={I18n.t('courses.campaign_select')}
           onChange={handleCampaignsChange}
