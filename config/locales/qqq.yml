@@ -870,6 +870,47 @@ qqq:
       visitor: '{{Identical|Visitor}}'
       student: '{{Identical|Student}}'
       instructor: '{{Identical|Instructor}}'
+  user_profiles:
+    detailed_impact: Heading for the detailed impact section of a user's profile
+    words_added_per_article: Heading for the per-article breakdown of words added
+      by a user
+    references_added_per_article: Heading for the per-article breakdown of references
+      added by a user
+    articles_edited_detail: Heading for the detailed list of articles edited by a
+      user
+    no_articles_edited: Empty-state message shown when a user has no article contributions
+      to display in the detail view
+    summary_articles: |-
+      Summary label for the number of articles edited in a course group
+      {{Identical|Articles}}
+    summary_words: |-
+      Summary label for the number of words added in a course group
+      {{Identical|Words}}
+    summary_references: |-
+      Summary label for the number of references added in a course group
+      {{Identical|References}}
+    type: |-
+      Table header for the type of article contribution (new vs edited)
+      {{Identical|Type}}
+    status_new: |-
+      Badge indicating the article was newly created by the user
+      {{Identical|New}}
+    status_edited: |-
+      Badge indicating the article was edited (not created) by the user
+      {{Identical|Edited}}
+    language_not_available: Placeholder shown when the language of a contribution
+      is unknown
+    column_metric: |-
+      Table header for the metric name column in the user stats table
+      {{Identical|Metric}}
+    column_value: |-
+      Table header for the metric value column in the user stats table
+      {{Identical|Value}}
+    column_details: |-
+      Table header for the details/link column in the user stats table
+      {{Identical|Details}}
+    see_more: Link text to navigate to a more detailed view of a metric in the user
+      stats table
   wiki_edits:
     notify_overdue:
       confirm: Confirmation message explaning that talk page notification will be
@@ -930,7 +971,8 @@ qqq:
     header: Message indicating a 500 internal server error.
     explanation: Explanation of what to do after encountering this error.
   downloads:
-    available_in_bell: Notification message informing the user that their downloaded file is ready in the download notification
+    available_in_bell: Notification message informing the user that their downloaded
+      file is ready in the download notification
     title: |-
       Header for the downloads notification panel
       {{Identical|Downloads}}
@@ -1025,45 +1067,4 @@ qqq:
     advanced_search: Label for advanced search toggle
     clear: Label for clear search button
     program_date: Label for program date
-  user_profiles:
-    detailed_impact: Heading for the detailed impact section of a user's profile
-    words_added_per_article: Heading for the per-article breakdown of words added
-      by a user
-    references_added_per_article: Heading for the per-article breakdown of references
-      added by a user
-    articles_edited_detail: Heading for the detailed list of articles edited by a
-      user
-    no_articles_edited: Empty-state message shown when a user has no article contributions
-      to display in the detail view
-    summary_articles: |-
-      Summary label for the number of articles edited in a course group
-      {{Identical|Articles}}
-    summary_words: |-
-      Summary label for the number of words added in a course group
-      {{Identical|Words}}
-    summary_references: |-
-      Summary label for the number of references added in a course group
-      {{Identical|References}}
-    type: |-
-      Table header for the type of article contribution (new vs edited)
-      {{Identical|Type}}
-    status_new: |-
-      Badge indicating the article was newly created by the user
-      {{Identical|New}}
-    status_edited: |-
-      Badge indicating the article was edited (not created) by the user
-      {{Identical|Edited}}
-    language_not_available: Placeholder shown when the language of a contribution
-      is unknown
-    column_metric: |-
-      Table header for the metric name column in the user stats table
-      {{Identical|Metric}}
-    column_value: |-
-      Table header for the metric value column in the user stats table
-      {{Identical|Value}}
-    column_details: |-
-      Table header for the details/link column in the user stats table
-      {{Identical|Details}}
-    see_more: Link text to navigate to a more detailed view of a metric in the user
-      stats table
 ...

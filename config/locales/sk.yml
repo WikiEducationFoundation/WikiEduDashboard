@@ -268,6 +268,8 @@ sk:
     permalink: Trvalý odkaz
     previous: Predchádzajúci
     article_title: Názov článku
+    language: Jazyk
+    project: Projekt
     assigned_to: 'Priradené k:'
     character_doc: Počet znakov pridaných do článkov editormi počas prebiehania kurzu
     cross_wiki_tracking: Nižšie sú uvedené stránky v hlavnom mennom priestore upravené
@@ -1353,6 +1355,7 @@ sk:
     articles_created_wikidata: Vytvorené položky
     articles_created_generic: Vytvorené stránky
     articles_created_generic_wikidata: Vytvorené položky
+    article_count: Články
     articles_edited: Upravené stránky
     articles_edited_wikidata: Upravené položky
     articles_edited_generic: Upravené stránky
@@ -1838,6 +1841,9 @@ sk:
     close: ZAVRIEŤ
     loading: Načítava sa…
     wiki_source: wiki zdroj
+    article_title_input:
+      success: Skvelá práca! Vaša úprava bola overená.
+      submit_anyway: Odoslať aj tak
   claim_verification:
     pick_instructions: Kliknutím na zvýraznené tvrdenie zobrazíte podrobnosti o citácii.
     revision_notice: Toto je článok v stave k %{date}, keď boli tvrdenia pridané.
@@ -2012,6 +2018,8 @@ sk:
     view_commons: Zobraziť na Commons
     wiki_big: Wiki
   users:
+    back_to_profile: Späť na profil
+    back_to_stats: Späť na štatistiky
     already_enrolled: Tento používateľ je už zapísaný!
     assign_articles: Priradiť články
     assign_articles_wikidata: Priradiť položky
@@ -2032,6 +2040,7 @@ sk:
     contributions_history_full: Zobraziť úplnú históriu príspevkov
     contributions_more: Zobraziť ďalšie príspevky
     contribution_statistics: Štatistiky príspevkov
+    contributions_by_language: Príspevky podľa jazyka/projektu
     course_passcode: 'Prístupový kód:'
     editors: Redaktori
     edits: úprav
@@ -2154,6 +2163,21 @@ sk:
       adresu môžete odstrániť po skončení aktuálnych kurzov.
     email_invalid: 'Neplatné: Zadajte platný e-mail'
   user_profiles:
+    detailed_impact: Podrobný dopad
+    articles_edited_detail: Upravené stránky
+    no_articles_edited: Pre tohto používateľa nie je možné v tejto sekcii nič zobraziť.
+    no_articles_match: Vybraným filtrom nezodpovedajú žiadne články.
+    summary_articles: Články
+    summary_words: Slová
+    summary_references: Referencie
+    type: Typ
+    status_new: Nové
+    status_edited: Upravené
+    language_not_available: Nedostupné
+    column_metric: Metrika
+    column_value: Hodnota
+    column_details: Podrobnosti
+    see_more: Zobraziť viac ↗
     student_impact: Celkový dosah, ktorý dosiahol %{username} ako študent
     instructor_impact: Celkový dosah, ktorý dosiahol %{username} ako inštruktor
     instructors_student_impact: Celkový dosah, ktorý dosiahli študenti používateľa
@@ -2257,6 +2281,10 @@ sk:
     no_notifications: Nemáte žiadne nové upozornenia.
     aria_label:
       bell: Upozornenia
+  downloads:
+    available_in_bell: Váš súbor je pripravený. Prejdite na upozornenie na sťahovanie.
+    csv: Stiahnuť CSV
+    json: Stiahnuť JSON
   survey:
     login_message: Ďakujeme za váš čas. Prihláste sa na nástenku a vyplňte prieskum.
     notification_explanation: Ak je nižšie začiarknuté, používatelia budú okrem zobrazenia

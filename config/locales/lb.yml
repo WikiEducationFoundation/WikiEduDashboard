@@ -147,6 +147,8 @@ lb:
     next: Nächst
     previous: Vireg
     article_title: Titel vum Artikel
+    language: Sprooch
+    project: Projet
     deleted: (geläscht)
     edited: Geännert Artikelen
     edited_by: 'Geännert vum:'
@@ -530,6 +532,7 @@ lb:
     last_update: Lescht Aktualiséierung vun de Statistiken
     next_update: Nächst erwaart Aktualiséierung
     activity: Rezent Aktivitéit
+    article_count: Artikelen
     articles_edited: Geännert Artikelen
     bytes_added: Byte derbäigesat
     characters: Buschtawen
@@ -749,6 +752,8 @@ lb:
     view_commons: Op Commons weisen
     wiki_big: Wiki
   users:
+    back_to_profile: Zeréck op de Profil
+    back_to_stats: Zeréck op d'Statistiken
     already_enrolled: Dee Benotzer ass schonn ageschriwwen!
     assign_articles_done: Fäerdeg
     assigned: Assignéiert Artikelen
@@ -756,6 +761,7 @@ lb:
     contributions_history_full: Déi komplett Lëscht vun de Versiounen weisen
     contributions_more: Méi Kontributioune weisen
     contribution_statistics: Kontributiounsstatistiken
+    contributions_by_language: Kontributiounen no Sprooch/Projet
     course_passcode: 'Passcode:'
     editors: Auteuren
     edits: Ännerungen
@@ -805,6 +811,21 @@ lb:
       wiki_ed_staff: Mataarbechter vu Wiki Education
     email_invalid: 'Ongülteg: Gitt wgl. eng gülteg E-Mail an'
   user_profiles:
+    detailed_impact: Detailléierten Impakt
+    words_added_per_article: Wierder pro Artikel derbäigesat
+    references_added_per_article: Referenze pro Artikel derbäigesat
+    articles_edited_detail: Geännert Artikelen
+    no_articles_edited: Fir dëse Benotzer gëtt et nach keng Donnéeën, fir an dësem
+      Abschnitt unzeweisen.
+    summary_articles: Artikelen
+    summary_words: Wierder
+    summary_references: Referenzen
+    type: Typ
+    status_new: Nei
+    status_edited: Geännert
+    column_value: Wäert
+    column_details: Detailer
+    see_more: Méi gesinn ↗
     student_impact: Gesamtimpakt duerch %{username} als Student
     instructor_impact: Gesamtimpakt duerch %{username} als Instrukter
     instructors_student_impact: Gesamtimpakt duerch Studente vum %{username}
@@ -847,6 +868,8 @@ lb:
       bell: Notifikatiounen
   downloads:
     ready: Prett
+    csv: CSV eroflueden
+    json: JSON eroflueden
   survey:
     email:
       headline: Bonjour %{username}
