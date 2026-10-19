@@ -12,7 +12,7 @@ const CampaignOresPlot = (props) => {
   const [filePath, setFilePath] = useState(null);
 
   useEffect(() => {
-     // This clears Rails parts of the previous pages, when changing Campagn tabs
+     // This clears Rails parts of the previous pages, when changing “Campaign tabs
      if (document.getElementById('users')) {
       document.getElementById('users').innerHTML = '';
     }
