@@ -1,5 +1,5 @@
 import '../testHelper';
-import { getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment, nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs } from '../../app/assets/javascripts/utils/statistic_update_info_utils';
+import { getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment, nextUpdateExpected, getLastUpdateSummary, getTotalUpdatesMessage, getUpdateLogs } from '../../app/assets/javascripts/utils/statistic_update_info_utils';
 
 describe('firstUpdateTime', () => {
   test(
@@ -373,7 +373,7 @@ describe('getLastUpdateSummary', () => {
   );
 });
 
-describe('getTotaUpdatesMessage', () => {
+describe('getTotalUpdatesMessage', () => {
   test(
     'returns a total update message, based on last update data',
     () => {
@@ -427,7 +427,7 @@ describe('getTotaUpdatesMessage', () => {
         }
       };
 
-      const result = getTotaUpdatesMessage(course);
+      const result = getTotalUpdatesMessage(course);
       expect(result).toBe('Total number of updates till now: 272.');
     }
   );
@@ -451,7 +451,7 @@ describe('getTotaUpdatesMessage', () => {
         updates: { average_delay: null, last_update: null }
       };
 
-      const result = getTotaUpdatesMessage(course);
+      const result = getTotalUpdatesMessage(course);
       expect(result).toBe('Total number of updates till now: 0.');
     }
   );
