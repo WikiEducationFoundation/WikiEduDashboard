@@ -39,7 +39,7 @@ describe('campaigns reducer', () => {
     expect(newState.isLoaded).toBe(true);
   });
 
-  test('should receives and return  course campaigns and update initial course campaigns with RECEIVE_COURSE_CAMPAIGNS', () => {
+  test('should receive and return  course campaigns and update initial course campaigns with RECEIVE_COURSE_CAMPAIGNS', () => {
     const initialState = {
       campaigns: [{ id: 3, slug: 'third_campaign', description: 'first description' }],
       all_campaigns: [],
@@ -57,7 +57,7 @@ describe('campaigns reducer', () => {
     expect(newState.isLoaded).toBe(true);
   });
 
-  test('should receives all campaigns with RECEIVE_ALL_CAMPAIGNS and set all_campaigns_loaded to true', () => {
+  test('should receive all campaigns with RECEIVE_ALL_CAMPAIGNS and set all_campaigns_loaded to true', () => {
     const initialState = { campaigns: [], all_campaigns: [], all_campaigns_loaded: false };
     deepFreeze(initialState);
 

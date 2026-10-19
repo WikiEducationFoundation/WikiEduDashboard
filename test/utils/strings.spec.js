@@ -21,7 +21,7 @@ describe('strings', () => {
   });
 
   describe('capitalize', () => {
-    test('upcases the first constter of a string', () => {
+    test('upcasupcases the first character of a stringes the first constter of a string', () => {
       const testString = 'abCDE fg';
       const capitalizedString = capitalize(testString);
       expect(capitalizedString).toBe('AbCDE fg');
