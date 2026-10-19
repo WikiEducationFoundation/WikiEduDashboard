@@ -43,6 +43,12 @@ describe CourseCloneManager do
     create(:tag, course_id: 1, key: 'index', tag: 'research_write_assignment')
     create(:tag, course_id: 1, key: 'instructor_learner', tag: 'instructor_learner')
     create(:tag, course_id: 1, key: 'topics-biographies', tag: 'biographies')
+    # Wizard answers outside the list, which must stay with the original: the
+    # research experiment consent, the mentorship request, and a key that only
+    # looks like a `topics-` answer.
+    create(:tag, course_id: 1, key: 'fall_2026_research_optin', tag: 'fall_2026_research_opted_in')
+    create(:tag, course_id: 1, key: 'mentoring', tag: 'mentor_requested')
+    create(:tag, course_id: 1, key: 'topicsfoo', tag: 'foo')
     create(:tag, course_id: 1, tag: 'arbitrary_tag')
   end
 
@@ -116,6 +122,10 @@ describe CourseCloneManager do
                                  %w[instructor_learner instructor_learner],
                                  %w[topics-biographies biographies])
       expect(carried.map(&:last)).not_to include('arbitrary_tag')
+      expect(carried.map(&:first))
+        .not_to include('fall_2026_research_optin', 'mentoring', 'topicsfoo')
+      expect(clone.tags.where(key: 'course_creator').count).to eq(1)
+      expect(clone.tags.where(tag: 'cloned').count).to eq(1)
     end
 
     it 'lets a clone of a research-write course schedule the advice emails' do
