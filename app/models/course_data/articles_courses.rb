@@ -104,9 +104,7 @@ class ArticlesCourses < ApplicationRecord
 
     # Add new ArticlesCourses
     article_ids_without_ac = revision_article_ids - course_article_ids
-    tracked_wiki_ids = course.wikis.pluck(:id)
-    new_article_ids = Article.where(id: article_ids_without_ac, wiki_id: tracked_wiki_ids)
-                             .pluck(:id)
+    new_article_ids = Article.where(id: article_ids_without_ac, wiki: course.wikis).pluck(:id)
     create_records_and_mark_acuwt(course, new_article_ids)
   end
 
