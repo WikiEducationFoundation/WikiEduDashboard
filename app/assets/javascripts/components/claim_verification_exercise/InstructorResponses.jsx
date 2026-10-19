@@ -61,7 +61,7 @@ const InstructorResponses = ({ course }) => {
   if (failed) {
     return (
       <div className="container narrow claim-verification-responses">
-        <p role="alert">{I18n.t('claim_verification.form.submit_failed')}</p>
+        <p role="alert">{I18n.t('system_stats.errors.fetch_failed')}</p>
       </div>
     );
   }

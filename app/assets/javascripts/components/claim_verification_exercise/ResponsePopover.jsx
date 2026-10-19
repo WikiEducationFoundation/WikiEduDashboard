@@ -38,7 +38,7 @@ const ResponsePopover = ({ student }) => {
 
   let contents;
   if (failed) {
-    contents = <p role="alert">{I18n.t('claim_verification.form.submit_failed')}</p>;
+    contents = <p role="alert">{I18n.t('system_stats.errors.fetch_failed')}</p>;
   } else if (!responses) {
     contents = <p>{I18n.t('claim_verification.admin.loading')}</p>;
   } else if (!responses.length) {

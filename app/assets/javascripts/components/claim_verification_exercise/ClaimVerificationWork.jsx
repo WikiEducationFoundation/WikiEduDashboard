@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { format } from 'date-fns';
 
 import Loading from '@components/common/loading.jsx';
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
+import { formatDate } from '@components/assignments_tab/assignmentHelpers';
 import ClaimAndSource from './ClaimAndSource.jsx';
 import ClaimResponse from './ClaimResponse.jsx';
-
-const formatDate = isoDate => format(new Date(isoDate), 'MMM do, yyyy');
 
 /*
   One student's fact-verification work, in the Assignments tab grader: each
@@ -30,7 +28,7 @@ const ClaimVerificationWork = ({ username }) => {
       .catch(() => setFailed(true));
   }, [courseSlug]);
 
-  if (failed) { return <p role="alert">{I18n.t('claim_verification.form.submit_failed')}</p>; }
+  if (failed) { return <p role="alert">{I18n.t('system_stats.errors.fetch_failed')}</p>; }
   if (!data) { return <Loading />; }
 
   const responses = data.responses.filter(response => response.username === username);
