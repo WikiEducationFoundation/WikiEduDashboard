@@ -7,9 +7,8 @@ function ArticleFinderSearchBar({ value, onChange, onSearch, disabled, wiki }) {
   const [suggestions, setSuggestions] = useState([]);
   const [isAutocompleteLoading, setAutocompleteLoading] = useState(false);
   const searchInputRef = useRef(null);
-  // Numbers each suggestions request so that only the most recent one is
-  // allowed to set the suggestions. Without it a slow request can land after a
-  // quicker later one and replace newer suggestions with older ones.
+  // Only the most recent suggestions request may set the suggestions; a slow
+  // one must not land after a quicker later one and replace its results.
   const currentRequest = useRef(0);
 
   // The wiki is read as two values rather than as the object, so that the
@@ -46,17 +45,16 @@ function ArticleFinderSearchBar({ value, onChange, onSearch, disabled, wiki }) {
     setSuggestions(results);
   }, 500), [language, project]);
 
-  // Called wherever the suggestions on their way have become irrelevant: the
-  // search box was emptied, a search was run, or the wiki changed. Bumping the
-  // request number is what makes a request already in flight discard itself.
+  // Bumping the request number is what makes a request already in flight
+  // discard its own result.
   const discardPendingSuggestions = useCallback(() => {
     requestSuggestions.cancel();
     currentRequest.current += 1;
     setAutocompleteLoading(false);
   }, [requestSuggestions]);
 
-  // Picking a different wiki replaces the debounced function above, which is
-  // the point at which anything outstanding belongs to the previous wiki.
+  // Picking a different wiki rebuilds the debounced function, and anything
+  // still outstanding at that point belongs to the previous wiki.
   useEffect(() => {
     return () => {
       discardPendingSuggestions();

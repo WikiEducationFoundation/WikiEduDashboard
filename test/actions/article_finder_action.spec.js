@@ -1,82 +1,206 @@
 import '../testHelper';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import reducer from '../../app/assets/javascripts/reducers';
 import * as utils from '../../app/assets/javascripts/utils/article_finder_utils';
-import { fetchKeywordResults } from '../../app/assets/javascripts/actions/article_finder_action';
+import { fetchKeywordResults, fetchCategoryResults, clearResults } from '../../app/assets/javascripts/actions/article_finder_action';
 import { API_FAIL, END_SEARCH } from '../../app/assets/javascripts/constants';
 
-// The later rounds of requests in a search are fire-and-forget, so give their
-// promise chains a chance to settle before asserting.
+// The later rounds of a search are fire-and-forget, so give their promise
+// chains a chance to settle before asserting.
 const flushPromises = async () => {
-  for (let i = 0; i < 20; i += 1) {
+  for (let i = 0; i < 30; i += 1) {
     await Promise.resolve();
   }
 };
 
 // Spanish Wikipedia has neither page assessments nor completeness scores, so a
-// search there is just the keyword query followed by page views. That keeps
-// these tests to the two rounds of requests they are about.
+// search there is the keyword or category query followed by page views.
 const wiki = { language: 'es', project: 'wikipedia' };
 
-// Enough results to be split into more than one page views request, which are
-// chunked five at a time.
-const tenResults = Array.from({ length: 10 }, (_, i) => ({
-  pageid: i + 1,
+// Ten results are split into two page views requests, which are chunked five
+// at a time.
+const results = (prefix, firstId = 1) => Array.from({ length: 10 }, (_, i) => ({
+  pageid: firstId + i,
   ns: 0,
-  title: `Article ${i + 1}`
+  title: `${prefix} ${i + 1}`
 }));
 
-const dispatchedTypes = dispatch => dispatch.mock.calls.map(([action]) => action.type);
-const countOf = (dispatch, type) => dispatchedTypes(dispatch).filter(t => t === type).length;
+const pageviewsFor = articles => ({
+  query: {
+    pages: Object.fromEntries(articles.map(article => [
+      article.pageid,
+      { pageid: article.pageid, title: article.title, pageviews: { '2026-10-01': 5 } }
+    ]))
+  }
+});
 
-describe('fetchKeywordResults', () => {
-  let dispatch;
-  const getState = () => ({ articleFinder: { sort: { sortKey: null, key: null } } });
+// A promise whose outcome the test decides.
+const deferred = () => {
+  let resolve;
+  let reject;
+  const promise = new Promise((res, rej) => { resolve = res; reject = rej; });
+  return { promise, resolve, reject };
+};
+
+describe('article finder searches', () => {
+  let store;
+  let dispatched;
 
   beforeEach(() => {
-    dispatch = jest.fn();
+    dispatched = [];
+    const record = () => next => (action) => {
+      dispatched.push(action.type);
+      return next(action);
+    };
+    store = createStore(reducer, applyMiddleware(thunk, record));
   });
 
   afterEach(() => {
     if (utils.queryUrl.restore) utils.queryUrl.restore();
   });
 
-  test('ends the search when the keyword query fails', async () => {
-    sinon.stub(utils, 'queryUrl').rejects(new Error('network unavailable'));
+  const finder = () => store.getState().articleFinder;
+  const countOf = type => dispatched.filter(t => t === type).length;
 
-    await fetchKeywordResults('climate', wiki)(dispatch, getState);
-    await flushPromises();
-
-    // Without this the loading indicators run and the search button stays
-    // disabled until the page is reloaded.
-    expect(dispatchedTypes(dispatch)).toContain(END_SEARCH);
-    expect(countOf(dispatch, API_FAIL)).toBe(1);
-  });
-
-  test('reports a failed round of requests once, not once per request', async () => {
-    sinon.stub(utils, 'queryUrl').callsFake((url, query) => {
-      if (query.list === 'search') {
-        return Promise.resolve({ query: { search: tenResults } });
-      }
-      return Promise.reject(new Error('page views unavailable'));
+  describe('when the first query fails', () => {
+    beforeEach(() => {
+      sinon.stub(utils, 'queryUrl').rejects(new Error('network unavailable'));
     });
 
-    await fetchKeywordResults('climate', wiki)(dispatch, getState);
-    await flushPromises();
+    it('ends a keyword search with nothing to show', async () => {
+      await store.dispatch(fetchKeywordResults('climate', wiki));
+      await flushPromises();
 
-    expect(countOf(dispatch, API_FAIL)).toBe(1);
-  });
-
-  test('ends the search once the page views have been requested', async () => {
-    sinon.stub(utils, 'queryUrl').callsFake((url, query) => {
-      if (query.list === 'search') {
-        return Promise.resolve({ query: { search: tenResults } });
-      }
-      return Promise.resolve({ query: { pages: {} } });
+      expect(finder().loading).toBe(false);
+      expect(finder().searchFailed).toBe(true);
+      expect(countOf(API_FAIL)).toBe(1);
+      expect(countOf(END_SEARCH)).toBe(1);
     });
 
-    await fetchKeywordResults('climate', wiki)(dispatch, getState);
+    it('ends a category search with nothing to show', async () => {
+      await store.dispatch(fetchCategoryResults('Climate', wiki));
+      await flushPromises();
+
+      expect(finder().loading).toBe(false);
+      expect(finder().searchFailed).toBe(true);
+      expect(countOf(API_FAIL)).toBe(1);
+      expect(countOf(END_SEARCH)).toBe(1);
+    });
+  });
+
+  describe('when a later round fails', () => {
+    beforeEach(() => {
+      sinon.stub(utils, 'queryUrl').callsFake((url, query) => {
+        if (query.list === 'search') {
+          return Promise.resolve({ query: { search: results('Article') } });
+        }
+        return Promise.reject(new Error('page views unavailable'));
+      });
+    });
+
+    it('reports the round once, not once per request', async () => {
+      await store.dispatch(fetchKeywordResults('climate', wiki));
+      await flushPromises();
+
+      expect(countOf(API_FAIL)).toBe(1);
+    });
+
+    it('still finishes the search, which did find articles', async () => {
+      await store.dispatch(fetchKeywordResults('climate', wiki));
+      await flushPromises();
+
+      expect(finder().fetchState).toBe('PAGEVIEWS_RECEIVED');
+      expect(finder().searchFailed).toBe(false);
+      expect(Object.keys(finder().articles)).toHaveLength(10);
+    });
+  });
+
+  it('finishes a search once its page views have arrived', async () => {
+    const articles = results('Article');
+    sinon.stub(utils, 'queryUrl').callsFake((url, query) => {
+      if (query.list === 'search') {
+        return Promise.resolve({ query: { search: articles } });
+      }
+      return Promise.resolve(pageviewsFor(articles.filter(a => query.pageids.includes(a.pageid))));
+    });
+
+    await store.dispatch(fetchKeywordResults('climate', wiki));
     await flushPromises();
 
-    expect(dispatchedTypes(dispatch)).toContain(END_SEARCH);
-    expect(countOf(dispatch, API_FAIL)).toBe(0);
+    expect(countOf(END_SEARCH)).toBe(1);
+    expect(countOf(API_FAIL)).toBe(0);
+    expect(finder().articles['Article 1'].pageviews).toBe(5);
+  });
+
+  // A search the user abandons, by changing wiki or searching again, keeps
+  // running. Whatever it dispatches after that must not touch the search that
+  // replaced it.
+  describe('a search abandoned by a wiki change', () => {
+    let alphaKeyword;
+    let alphaPageviews;
+    let betaKeyword;
+    let betaPageviews;
+
+    beforeEach(() => {
+      alphaKeyword = deferred();
+      alphaPageviews = deferred();
+      betaKeyword = deferred();
+      betaPageviews = deferred();
+      sinon.stub(utils, 'queryUrl').callsFake((url, query) => {
+        if (query.list === 'search') {
+          return query.srsearch === 'alpha' ? alphaKeyword.promise : betaKeyword.promise;
+        }
+        // Alpha's articles have ids below 100, beta's above.
+        return Number(query.pageids.split('|')[0]) < 100 ? alphaPageviews.promise : betaPageviews.promise;
+      });
+    });
+
+    const alpha = results('Alpha', 1);
+    const beta = results('Beta', 101);
+
+    it('does not add its results to the cleared store', async () => {
+      store.dispatch(fetchKeywordResults('alpha', wiki));
+      await flushPromises();
+      store.dispatch(clearResults());
+
+      alphaKeyword.resolve({ query: { search: alpha } });
+      await flushPromises();
+
+      expect(finder().articles).toEqual({});
+      expect(finder().loading).toBe(false);
+    });
+
+    it('does not end the search that replaced it while its query is pending', async () => {
+      store.dispatch(fetchKeywordResults('alpha', wiki));
+      alphaKeyword.resolve({ query: { search: alpha } });
+      await flushPromises();
+      store.dispatch(clearResults());
+      store.dispatch(fetchKeywordResults('beta', wiki));
+      await flushPromises();
+      expect(finder().loading).toBe(true);
+
+      alphaPageviews.resolve(pageviewsFor(alpha));
+      await flushPromises();
+
+      expect(finder().loading).toBe(true);
+    });
+
+    it('does not move the new search\'s articles on before their data arrives', async () => {
+      store.dispatch(fetchKeywordResults('alpha', wiki));
+      alphaKeyword.resolve({ query: { search: alpha } });
+      await flushPromises();
+      store.dispatch(clearResults());
+      store.dispatch(fetchKeywordResults('beta', wiki));
+      betaKeyword.resolve({ query: { search: beta } });
+      await flushPromises();
+      expect(finder().articles['Beta 1'].fetchState).toBe('TITLE_RECEIVED');
+
+      alphaPageviews.resolve(pageviewsFor(alpha));
+      await flushPromises();
+
+      expect(finder().articles['Beta 1'].fetchState).toBe('TITLE_RECEIVED');
+      expect(finder().fetchState).toBe('TITLE_RECEIVED');
+    });
   });
 });

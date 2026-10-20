@@ -23,10 +23,19 @@ const liftWingApiBase = (language, project) => {
 
 const limit = promiseLimit(10);
 
-// Each round of a search is split into one request per chunk of articles, and
-// one upstream problem usually fails every chunk at once. Reporting only the
-// first failure keeps a bad search to a single error notification rather than
-// one per chunk.
+// Returns a dispatch that only delivers while the search it was made for is
+// still the current one. A new search, or clearing the results, gives the
+// store a new searchId; whatever the earlier search's requests still dispatch
+// after that is dropped instead of being applied to the wrong search.
+const restrictToCurrentSearch = (dispatch, getState) => {
+  const { searchId } = getState().articleFinder;
+  return (action) => {
+    if (getState().articleFinder.searchId === searchId) { dispatch(action); }
+  };
+};
+
+// One upstream problem usually fails every chunk of a round at once, so a
+// round reports only its first failure rather than one per chunk.
 const reportFailures = (dispatch, failures) => {
   if (!failures.length) { return; }
   dispatch({ type: API_FAIL, data: failures[0] });
@@ -63,7 +72,8 @@ export const fetchCategoryResults = (category, wiki, cmcontinue = '', continueRe
       }
     });
   }
-  return getDataForCategory(`Category:${category}`, wiki, cmcontinue, 0, dispatch, getState);
+  const dispatchForSearch = restrictToCurrentSearch(dispatch, getState);
+  return getDataForCategory(`Category:${category}`, wiki, cmcontinue, 0, dispatchForSearch, getState);
 };
 
 const getDataForCategory = (category, wiki, cmcontinue, namespace = 0, dispatch, getState) => {
@@ -84,11 +94,9 @@ const getDataForCategory = (category, wiki, cmcontinue, namespace = 0, dispatch,
     fetchPageAssessment(data, wiki, dispatch, getState);
   })
   .catch((error) => {
-    // Without any titles there is nothing further to request, so the search
-    // ends here. END_SEARCH is what stops the loading indicators and
-    // re-enables the search button.
+    // Without titles there is nothing further to request.
     dispatch({ type: API_FAIL, data: error });
-    dispatch({ type: END_SEARCH });
+    dispatch({ type: END_SEARCH, failed: true });
   });
 };
 
@@ -139,7 +147,6 @@ const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
       initial: true,
       desc,
     });
-    // Page views are the last thing a search asks for.
     dispatch({ type: END_SEARCH });
   });
 };
@@ -259,23 +266,24 @@ export const fetchKeywordResults = (keyword, wiki, offset = 0, continueResults =
       }
     });
   }
+  const dispatchForSearch = restrictToCurrentSearch(dispatch, getState);
   const query = keywordQueryGenerator(keyword, offset);
   return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
   .then((data) => {
-    dispatch({
+    dispatchForSearch({
       type: RECEIVE_KEYWORD_RESULTS,
       data,
     });
     return data.query.search;
   })
   .then((articles) => {
-    if (wiki.project === 'wikidata') fetchWikidataLabels(articles, dispatch);
-    return fetchPageAssessment(articles, wiki, dispatch, getState);
+    if (wiki.project === 'wikidata') fetchWikidataLabels(articles, dispatchForSearch);
+    return fetchPageAssessment(articles, wiki, dispatchForSearch, getState);
   })
   .catch((error) => {
-    // See the matching case in getDataForCategory.
-    dispatch({ type: API_FAIL, data: error });
-    dispatch({ type: END_SEARCH });
+    // Without titles there is nothing further to request.
+    dispatchForSearch({ type: API_FAIL, data: error });
+    dispatchForSearch({ type: END_SEARCH, failed: true });
   });
 };
 

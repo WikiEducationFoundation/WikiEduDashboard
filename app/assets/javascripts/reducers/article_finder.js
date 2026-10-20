@@ -14,6 +14,14 @@ const initialState = {
   article_quality: 100,
   loading: false,
   fetchState: 'PAGEVIEWS_RECEIVED',
+  // Identifies the current search. Requests from an earlier search can still
+  // be in flight after a new one starts or the results are cleared, so the
+  // actions compare this with the id they began under and drop anything that
+  // no longer belongs. It only ever increases, so an id is never reused.
+  searchId: 0,
+  // True when the search ended because its first query failed, which leaves
+  // nothing to show, as opposed to a search that found no articles.
+  searchFailed: false,
   sort: {
     sortKey: null,
     key: null,
@@ -60,7 +68,7 @@ export default function articleFinder(state = initialState, action) {
       };
     }
     case CLEAR_FINDER_STATE: {
-      return { ...initialState };
+      return { ...initialState, searchId: state.searchId + 1 };
     }
     case INITIATE_SEARCH: {
       return {
@@ -76,13 +84,14 @@ export default function articleFinder(state = initialState, action) {
         },
         fetchState: 'ARTICLES_LOADING',
         lastRelevanceIndex: 0,
+        searchId: state.searchId + 1,
+        searchFailed: false,
       };
     }
     case END_SEARCH: {
-      // No more data is coming, whether or not every request returned any.
-      // Articles short of the final state are ones whose data never arrived, so
-      // move them on: their rows then report the missing value instead of
-      // showing a placeholder indefinitely.
+      // No more data is coming. Articles still short of the final state are
+      // ones whose data never arrived; moving them on lets their rows report
+      // the missing value instead of showing a placeholder indefinitely.
       const newStateArticles = {};
       forEach(state.articles, (article, title) => {
         newStateArticles[title] = article.fetchState === 'PAGEVIEWS_RECEIVED'
@@ -95,6 +104,7 @@ export default function articleFinder(state = initialState, action) {
         articles: newStateArticles,
         loading: false,
         fetchState: 'PAGEVIEWS_RECEIVED',
+        searchFailed: Boolean(action.failed),
       };
     }
     case RECEIVE_CATEGORY_RESULTS: {
@@ -162,9 +172,8 @@ export default function articleFinder(state = initialState, action) {
     case RECEIVE_ARTICLE_PAGEVIEWS: {
       const newStateArticles = cloneDeep(state.articles);
       forEach(action.data, (page) => {
-        // The article may be gone by the time its data lands, because a new
-        // search or a change of wiki has emptied the results, or because
-        // MediaWiki normalized the title we asked about into another form.
+        // MediaWiki may have normalized the title into another form than the
+        // one that was asked about, in which case there is nothing to update.
         const article = newStateArticles[page.title];
         if (!article) { return; }
 
@@ -245,6 +254,8 @@ export default function articleFinder(state = initialState, action) {
         offset: 0,
         cmcontinue: '',
         lastRelevanceIndex: 0,
+        searchId: state.searchId + 1,
+        searchFailed: false,
       };
     }
     default:

@@ -108,6 +108,24 @@ describe('ArticleFinderSearchBar autocomplete', () => {
     expect(suggestionsShown()).toEqual(['Paris']);
   });
 
+  test('drops suggestions still on their way when the wiki changes', async () => {
+    let finishRequest;
+    fetchArticleAutocompleteResults
+      .mockImplementationOnce(() => new Promise((resolve) => { finishRequest = resolve; }));
+
+    render(EN_WIKI);
+    await type('par');
+    expect(fetchArticleAutocompleteResults).toHaveBeenCalledTimes(1);
+
+    // The request to English Wikipedia is still in flight when the wiki changes.
+    render(FR_WIKI);
+    await act(async () => {
+      finishRequest(['Parrot']);
+    });
+
+    expect(suggestionsShown()).toEqual([]);
+  });
+
   test('drops suggestions still on their way when the box is emptied', async () => {
     render(EN_WIKI);
     enter('par');

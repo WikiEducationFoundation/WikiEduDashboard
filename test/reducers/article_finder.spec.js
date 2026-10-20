@@ -1,6 +1,9 @@
 import deepFreeze from 'deep-freeze';
 import articleFinder from '../../app/assets/javascripts/reducers/article_finder';
 import {
+  INITIATE_SEARCH,
+  CLEAR_RESULTS,
+  CLEAR_FINDER_STATE,
   END_SEARCH,
   RECEIVE_ARTICLE_PAGEVIEWS,
   RECEIVE_ARTICLE_PAGEASSESSMENT,
@@ -152,6 +155,33 @@ describe('article finder reducer', () => {
 
       const { articles } = articleFinder(state, { type: END_SEARCH });
       expect(articles['Climate change']).toEqual(state.articles['Climate change']);
+    });
+
+    test('records that the search ended because its first query failed', () => {
+      const state = searching({});
+
+      expect(articleFinder(state, { type: END_SEARCH, failed: true }).searchFailed).toBe(true);
+      expect(articleFinder(state, { type: END_SEARCH }).searchFailed).toBe(false);
+    });
+  });
+
+  describe('telling searches apart', () => {
+    const state = deepFreeze({ ...searching({}), searchId: 4, searchFailed: true });
+
+    test('a new search gets a new id and a clean slate', () => {
+      const newState = articleFinder(state, { type: INITIATE_SEARCH });
+      expect(newState.searchId).toBe(5);
+      expect(newState.searchFailed).toBe(false);
+    });
+
+    test('clearing the results also moves on to a new id', () => {
+      const newState = articleFinder(state, { type: CLEAR_RESULTS });
+      expect(newState.searchId).toBe(5);
+      expect(newState.searchFailed).toBe(false);
+    });
+
+    test('resetting the finder never reuses an id', () => {
+      expect(articleFinder(state, { type: CLEAR_FINDER_STATE }).searchId).toBe(5);
     });
   });
 });
