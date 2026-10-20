@@ -40,6 +40,39 @@ describe CoursesPresenter do
     end
   end
 
+  describe 'the article pages' do
+    let(:campaign) { create(:campaign) }
+    let(:course) { create(:course) }
+    let(:private_course) { create(:course, slug: 'Private/Course_(term)', private: true) }
+    let(:page) { nil }
+    let(:presenter) do
+      described_class.new(current_user: nil, campaign_param: campaign.slug, page:)
+    end
+
+    before do
+      create(:campaigns_course, campaign:, course:)
+      create(:campaigns_course, campaign:, course: private_course)
+      create(:articles_course, course:, article: create(:article), tracked: true)
+      create(:articles_course, course: private_course, article: create(:article, title: 'Hidden'),
+                               tracked: true)
+    end
+
+    it 'counts the articles of the courses it lists, so a private course adds no page' do
+      expect(presenter.campaign_articles_count).to eq(1)
+    end
+
+    it 'reads the count from the cache' do
+      original_cache = Rails.cache
+      Rails.cache = ActiveSupport::Cache::MemoryStore.new
+      begin
+        Rails.cache.write(campaign.articles_count_cache_key, 42)
+        expect(presenter.campaign_articles_count).to eq(42)
+      ensure
+        Rails.cache = original_cache
+      end
+    end
+  end
+
   describe '#user_courses' do
     subject { described_class.new(current_user: user, campaign_param: campaign).user_courses }
 

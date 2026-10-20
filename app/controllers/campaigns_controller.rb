@@ -246,6 +246,7 @@ class CampaignsController < ApplicationController
   def refresh_stats
     set_campaign
     @campaign.clear_course_sums_cache
+    @campaign.clear_articles_count_cache
 
     flash[:notice] = t('campaign.refresh_campaign_stats')
     redirect_to overview_campaign_path(@campaign.slug)

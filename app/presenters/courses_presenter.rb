@@ -110,8 +110,14 @@ class CoursesPresenter
     @too_many ||= campaign_articles_count > ARTICLE_LIMIT
   end
 
+  # Counted over the courses the listing shows, so private courses do not
+  # add pages. Cached for a day: it only moves when a course updates, and
+  # a crawler spreads its requests over every campaign.
   def campaign_articles_count
-    @campaign_articles_count ||= campaign.articles_courses.where(tracked: true).count
+    @campaign_articles_count ||= Rails.cache.fetch(campaign.articles_count_cache_key,
+                                                   expires_in: 1.day) do
+      ArticlesCourses.where(course_id: course_ids_and_slugs.map(&:id), tracked: true).count
+    end
   end
 
   def tag_articles
