@@ -2006,6 +2006,7 @@ en:
     views_per_day: Views per day
     view_commons: View on Commons
     wiki_big: Wiki
+    credit_unavailable: Credit unavailable
 
   users:
     already_enrolled: That user is already enrolled!

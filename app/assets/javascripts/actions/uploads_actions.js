@@ -62,12 +62,14 @@ const fetchUploadMetadata = (uploads) => {
 export const setUploadMetadata = uploadsList => (dispatch) => {
   const list = uploadsList.filter(upload => !upload.fetchState);
   if (list.length === 0) { return; }
+  const requestedIds = list.map(upload => upload.id);
   const promises = chunk(list, 25).map(uploads => fetchUploadMetadata(uploads));
   return (
     Promise.all(promises)
       .then(resp => dispatch({
         type: SET_UPLOAD_METADATA,
         data: resp,
+        requestedIds,
       }))
       .catch(resp => dispatch({
         type: API_FAIL,

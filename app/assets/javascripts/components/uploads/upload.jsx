@@ -112,7 +112,7 @@ const Upload = ({ upload, view, linkUsername }) => {
         <td className="desktop-only-tc">{uploader}</td>
         <td className="desktop-only-tc">{upload.usage_count}</td>
         <td className="desktop-only-tc">{formatDateWithTime(upload.uploaded_at)}</td>
-        <td className="desktop-only-tc">{<span dangerouslySetInnerHTML={{ __html: upload.credit }} /> || <img className="credit-loading" src={'/assets/images/loader.gif'} alt="loading credits" />}</td>
+        <td className="desktop-only-tc">{upload.fetchState === 'failed' ? <span className="credit-unavailable">{I18n.t('uploads.credit_unavailable')}</span> : <span dangerouslySetInnerHTML={{ __html: upload.credit }} /> || <img className="credit-loading" src={'/assets/images/loader.gif'} alt="loading credits" />}</td>
       </tr>
     );
   } else if (view === GALLERY_VIEW) {
