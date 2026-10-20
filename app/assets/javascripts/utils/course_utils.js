@@ -333,7 +333,7 @@ export default class CourseUtils {
   // By the end of 2019, we should hopefully be able to remove this method
   // assuming messages are now serialized as a hash in the DB.
   static formatOnboardingAlertMessage(message) {
-    // Split on main categories and remove an empy array position that will
+    // Split on main categories and remove an empty array position that will
     // appear at the very end.
     // e.g. [ 'HEARD FROM:\nassociation (name)', 'WHY HERE:\nteach', ... ]
     const categories = message.split('\n\n').slice(0, -1);
