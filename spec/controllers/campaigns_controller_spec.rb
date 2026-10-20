@@ -476,6 +476,23 @@ describe CampaignsController, type: :request do
           expect(response.status).to eq(404)
         end
       end
+
+      context 'past the last page served' do
+        it 'returns a 404 before counting the articles' do
+          expect(CoursesPresenter).not_to receive(:new)
+          get "/campaigns/#{campaign.slug}/articles?page=201"
+          expect(response.status).to eq(404)
+        end
+
+        it 'still serves the last page, saying the list goes on in the CSV' do
+          allow_any_instance_of(CoursesPresenter).to receive(:campaign_articles_count)
+            .and_return(5001)
+          get "/campaigns/#{campaign.slug}/articles?page=200"
+          expect(response.status).to eq(200)
+          expect(response.body).to include('Only the first 5000 articles are listed.')
+          expect(response.body).to include("/campaigns/#{campaign.slug}/articles_csv.csv")
+        end
+      end
     end
   end
 

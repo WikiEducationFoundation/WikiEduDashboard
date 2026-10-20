@@ -62,6 +62,11 @@ class CoursesPresenter
   end
 
   PER_PAGE = 25
+  # Pages past this are not served: an OFFSET reads and discards every row
+  # before it, and the CSV download already holds the whole list.
+  MAX_ARTICLE_PAGE = 200
+  MAX_LISTED_ARTICLES = MAX_ARTICLE_PAGE * PER_PAGE
+
   # Returns a scoped query for ranked articles_courses using a deferred join via RankedArticlesCoursesQuery # rubocop:disable Layout/LineLength
   def articles_courses_scope
     return @articles_courses_scope unless @articles_courses_scope.nil?
@@ -89,9 +94,17 @@ class CoursesPresenter
 
   # Create paginated collection for articles_courses data
   def paginated_articles_courses
-    WillPaginate::Collection.create(current_page, PER_PAGE, campaign_articles_count) do |pager|
+    total = listed_count(campaign_articles_count)
+    WillPaginate::Collection.create(current_page, PER_PAGE, total) do |pager|
       pager.replace(articles_courses_scope)
     end
+  end
+
+  # The last page that is served lists the end of what is served, not of
+  # the articles; the view says so and points to the CSV.
+  def articles_list_truncated?
+    return false if current_page < MAX_ARTICLE_PAGE
+    (@tag ? tag_articles_count : campaign_articles_count) > MAX_LISTED_ARTICLES
   end
 
   # Current page number with fallback to 1
@@ -121,10 +134,22 @@ class CoursesPresenter
   end
 
   def tag_articles
+    tag_articles_scope.paginate(page: current_page, per_page: PER_PAGE,
+                                total_entries: listed_count(tag_articles_count))
+  end
+
+  def tag_articles_scope
     ArticlesCourses.tracked.includes(article: :wiki)
                    .includes(:course).where(courses: { private: false })
                    .where(course: @courses_list)
-                   .paginate(page: @page, per_page: 25)
+  end
+
+  def tag_articles_count
+    @tag_articles_count ||= tag_articles_scope.count
+  end
+
+  def listed_count(count)
+    [count, MAX_LISTED_ARTICLES].min
   end
 
   def can_remove_course?

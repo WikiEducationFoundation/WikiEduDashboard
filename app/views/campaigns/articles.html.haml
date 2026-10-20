@@ -25,6 +25,13 @@
           %option{rel: 'asc', value: 'course_title'}
             = t("#{@presenter.course_string_prefix}.courses")
 
+    - if @presenter.articles_list_truncated?
+      %p.notice
+        = t('campaign.articles_truncated_html',
+            count: CoursesPresenter::MAX_LISTED_ARTICLES,
+            csv_link: link_to(t('campaign.articles_truncated_csv'),
+                              "/campaigns/#{@campaign.slug}/articles_csv.csv"))
+
     %table.table.table--hoverable.table--sortable.table-responsive
       %thead
         %tr
