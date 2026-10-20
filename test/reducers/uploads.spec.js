@@ -49,9 +49,8 @@ describe('uploads reducer', () => {
       expect(newState.uploads[0].fetchState).toBe('failed');
       expect(newState.uploads[1].fetchState).toBeUndefined();
     });
-  });
 
-      it('marks only the uploads from a failed batch when another batch succeeds', () => {
+    it('marks only the uploads from a failed batch when another batch succeeds', () => {
       const state = stateWith([{ id: 1 }, { id: 2 }]);
       const action = {
         type: SET_UPLOAD_METADATA,
@@ -65,4 +64,5 @@ describe('uploads reducer', () => {
       expect(newState.uploads[0].credit).toBe('Example credit');
       expect(newState.uploads[1].fetchState).toBe('failed');
     });
+  });
 });
