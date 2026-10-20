@@ -93,6 +93,16 @@ describe CourseArticlesCsvBuilder do
     it 'excludes untracked articles' do
       expect(rows.map { |r| r['title'] }).to eq(['First_Article'])
     end
+
+    it 'builds the rows of deleted articles from their kept timeslices' do
+      deleted_article = create(:article, title: 'Deleted_Article', deleted: true)
+      create(:article_course_timeslice, course:, article: deleted_article, user_ids: [user.id],
+             start: course.start, end: course.start + 1.day, revision_count: 6,
+             character_sum: 30)
+      row = rows.find { |r| r['title'] == 'Deleted_Article' }
+      expect(row['edit_count']).to eq('6')
+      expect(row['deleted']).to eq('true')
+    end
   end
 
   it 'handles missing Article records gracefully' do
