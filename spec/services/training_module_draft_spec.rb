@@ -192,6 +192,12 @@ describe TrainingModuleDraft do
       expect(draft.slides.map { |s| s['id'] }).to eq([9101, nil, nil])
     end
 
+    it 'keeps the original slug of a copied slide' do
+      draft = described_class.new(slug: 'ponds', name: 'Ponds', module_id: 91, source:,
+                                  slides: [{ 'id' => 9101, 'slug' => 'renamed' }]).save
+      expect(draft.slides.first['slug']).to eq('pond-intro')
+    end
+
     it 'round-trips the source through the draft file' do
       described_class.new(slug: 'ponds', name: 'Ponds', module_id: 91, source:).save
       expect(described_class.find('ponds').source.slide_ids).to eq([9101])

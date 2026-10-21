@@ -77,16 +77,16 @@ describe 'Training Module Composer', type: :feature, js: true do
 
       expect(page).to have_content('Slides (3)')
       expect(page).to have_content("#{content_path}/modules/ponds.yml")
-      expect(page).to have_button('Export patch', disabled: true)
+      expect(page).to have_button('Export zip', disabled: true)
       expect(page).not_to have_css('.training_module_composer__sidebar__collision')
 
-      # An existing slide keeps its slug when its title changes.
+      # A copied slide keeps its slug, even when its title changes.
       fill_in 'Slide title', with: 'Welcome to ponds'
-      expect(page).to have_field('Slide slug', with: 'pond-intro')
+      expect(page).to have_field('Slide slug', with: 'pond-intro', readonly: true)
       click_button 'Save draft'
       expect(page).to have_content('Draft saved.')
       expect(page).to have_content("#{ponds_slides_path}/9101-pond-intro.yml")
-      expect(page).to have_link('Export patch')
+      expect(page).to have_link('Export zip')
       expect(page).to be_axe_clean
 
       # A changed file that also changed on disk since the copy is flagged.
@@ -96,9 +96,8 @@ describe 'Training Module Composer', type: :feature, js: true do
         expect(page).to have_content('changed since copy')
       end
 
-      # A slide that another module also lists can't be renamed.
+      # A slide that another module also lists says so.
       click_button 'What is a wetland?'
-      expect(page).to have_field('Slide slug', with: 'what-is-a-wetland', readonly: true)
       expect(page).to have_content('Also used in: wetlands')
     end
   end

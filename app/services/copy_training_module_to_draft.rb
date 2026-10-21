@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/training/training_content_files"
 
 # Starts a TrainingModuleDraft from an existing yml-backed training module, so
 # that an update to it can be prepared in the composer. The draft records the
-# files it was copied from, and exports as a patch against them.
+# files it was copied from, and exports only what changed in them.
 class CopyTrainingModuleToDraft
   attr_reader :draft
 

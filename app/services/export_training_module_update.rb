@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 
+require 'zip'
 require_dependency "#{Rails.root}/lib/training/training_content_files"
 require_dependency "#{Rails.root}/lib/training/training_yaml_editor"
 
 # Works out the file changes that turn an update draft's source module (see
-# CopyTrainingModuleToDraft) into the draft, and exports them as a git patch.
+# CopyTrainingModuleToDraft) into the draft, and exports the new and changed
+# files as a zip laid out like ExportTrainingModuleDraft's, ready to unpack
+# over `training_content/wiki_ed/`. A zip can't delete files, so removed
+# slides only show up in #change_list.
 #
 # Only the values the composer edits are rewritten; other fields (quizzes,
 # translations, settings) and the formatting of untouched values stay as they
 # are. New slides get the next free ids in the module's range and go in the
-# module's slide directory. A slide that another module also lists keeps its
-# slug, and its file isn't deleted when it's removed from this module.
+# module's slide directory. A removed slide's file is only deleted if no other
+# module lists it.
 class ExportTrainingModuleUpdate
   # Paths mapped to their new text, or to nil for deletion.
   attr_reader :changed_files
@@ -26,13 +30,17 @@ class ExportTrainingModuleUpdate
   end
 
   def filename
-    "#{@source.module_slug}-update-#{Time.current.strftime('%Y%m%d')}.patch"
+    "#{@source.module_slug}-update-#{Time.current.strftime('%Y%m%d')}.zip"
   end
 
-  def patch(author_name:, author_email:)
-    BuildGitPatch.new(base_files: @source.files, changed_files:,
-                      message: "Update #{@source.module_slug} training module",
-                      author_name:, author_email:).patch
+  def zip_bytes
+    buffer = Zip::OutputStream.write_buffer do |zip|
+      changed_files.compact.each do |path, text|
+        zip.put_next_entry(path.delete_prefix("#{content_path}/"))
+        zip.write(text)
+      end
+    end
+    buffer.string
   end
 
   # [{ 'path', 'status' }] where status is 'added', 'modified', or 'deleted'.
@@ -63,7 +71,7 @@ class ExportTrainingModuleUpdate
     %w[name description estimated_ttc].each do |key|
       set_if_changed(editor, key, @draft.public_send(key))
     end
-    slugs = @draft.slides.map { |slide| export_slug(slide) }
+    slugs = @draft.slides.map { |slide| slug_for(slide) }
     unless slugs == (editor.data['slides'] || []).pluck('slug')
       editor.set('slides', slugs.map { |slug| { 'slug' => slug } },
                  text: slide_list_text(editor.original_text('slides')))
@@ -75,10 +83,7 @@ class ExportTrainingModuleUpdate
     editor = TrainingYamlEditor.new(@source.files[original['path']])
     set_if_changed(editor, 'title', slide['title'])
     set_if_changed(editor, 'content', slide['content'])
-    directory, filename = File.split(original['path'])
-    path = File.join(directory, "#{filename[/\A\d+-/]}#{export_slug(slide)}.yml")
-    files[original['path']] = nil if path != original['path']
-    files[path] = editor.to_s
+    files[original['path']] = editor.to_s
   end
 
   def new_slide_file(slide, index, files)
@@ -102,11 +107,10 @@ class ExportTrainingModuleUpdate
     slide['id'] && @source.slide(slide['id'])
   end
 
-  # The composer doesn't offer renaming a shared slide, since the other
-  # modules that list it would lose it.
-  def export_slug(slide)
-    original = original_for(slide)
-    original && shared?(original['slug']) ? original['slug'] : slide['slug']
+  # A copied slide keeps its slug (see TrainingModuleDraft): a renamed file
+  # would leave the old one behind, with the same id.
+  def slug_for(slide)
+    original_for(slide)&.fetch('slug') || slide['slug']
   end
 
   def shared?(slide_slug)
@@ -141,21 +145,22 @@ class ExportTrainingModuleUpdate
   end
 
   def slide_list_line(slide, items, template, id)
-    slug = export_slug(slide)
-    original_slug = original_for(slide)&.fetch('slug')
-    line = items[original_slug]
-    return line.sub(/slug:\s*\S+/, "slug: #{slug}") if line && slug != original_slug
+    line = items[original_for(slide)&.fetch('slug')]
     return line if line
     indent = template ? template[SLIDE_LIST_ITEM, 1] : '  '
     comment = template&.match(/#(\s*)\d+\s*\z/) ? " ##{Regexp.last_match(1)}#{id}" : ''
-    "#{indent}- slug: #{slug}#{comment}\n"
+    "#{indent}- slug: #{slug_for(slide)}#{comment}\n"
   end
 
   def new_slide_directory
     own_slide = @source.slides.find { |slide| slide['id'] / 100 == @draft.module_id }
     return File.dirname(own_slide['path']) if own_slide
-    slides_root = TrainingContentFiles.relative_path(File.join(TrainingBase.base_path, 'slides'))
-    File.join(slides_root, "#{@draft.module_id}-#{@source.module_slug}")
+    File.join(content_path, 'slides', "#{@draft.module_id}-#{@source.module_slug}")
+  end
+
+  # Where training content lives, relative to the repository root.
+  def content_path
+    TrainingContentFiles.relative_path(TrainingBase.base_path)
   end
 
   # Slide ids are module_id * 100 + n by convention, so new slides continue

@@ -302,16 +302,15 @@ RSpec.describe TrainingModuleDraftsController, type: :controller do
       describe '#export' do
         before { CopyTrainingModuleToDraft.new('ponds') }
 
-        it 'returns a patch attachment' do
+        it 'returns a zip of the changed files' do
           draft = TrainingModuleDraft.find('ponds')
           draft.name = 'Ponds and pools'
           draft.save
           get :export, params: { slug: 'ponds' }
           expect(response).to have_http_status(:ok)
-          expect(response.headers['Content-Type']).to eq('text/x-patch')
+          expect(response.headers['Content-Type']).to eq('application/zip')
           expect(response.headers['Content-Disposition']).to include('ponds-update-')
-          expect(response.body).to include("From: #{admin.username} <#{admin.email}>")
-          expect(response.body).to include("+name: Ponds and pools\n")
+          expect(response.body[0, 2]).to eq('PK') # Zip magic number
         end
 
         it 'returns 422 when there is nothing to export' do

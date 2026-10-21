@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'zip'
 
 describe ExportTrainingModuleUpdate do
   include_context 'training content fixture'
@@ -81,15 +82,8 @@ describe ExportTrainingModuleUpdate do
     expect(changed_files[module_path]).not_to include('what-is-a-wetland')
   end
 
-  it 'renames the file of a slide whose slug changed' do
+  it 'keeps the slug and file of a copied slide' do
     slide('pond-intro')['slug'] = 'about-ponds'
-    expect(changed_files).to include(intro_path => nil)
-    expect(changed_files["#{ponds_slides_path}/9101-about-ponds.yml"]).to eq(pond_intro_text)
-    expect(changed_files[module_path]).to include('  - slug: about-ponds # 9101')
-  end
-
-  it 'does not rename a slide that another module lists' do
-    slide('what-is-a-wetland')['slug'] = 'wetlands-defined'
     expect(changed_files).to eq({})
   end
 
@@ -105,32 +99,37 @@ describe ExportTrainingModuleUpdate do
     )
   end
 
-  describe '#patch' do
-    let(:patch) do
+  describe '#zip_bytes' do
+    let(:entries) do
       slide('pond-intro')['content'] = "Ponds are small.\n\nThey hold rain.\n"
       draft.slides.reject! { |s| s['slug'] == 'pond-quiz' }
       draft.slides << { 'slug' => 'pond-end', 'title' => 'The end', 'content' => "Bye\n" }
-      described_class.new(draft).patch(author_name: 'Pat Admin', author_email: 'pat@example.org')
+      read_zip(described_class.new(draft).zip_bytes)
     end
 
-    it 'is an email that git am turns into a commit by the drafting admin' do
-      expect(patch).to include('From: Pat Admin <pat@example.org>')
-      expect(patch).to include('Subject: [PATCH] Update ponds training module')
-    end
-
-    it 'applies to the copied files and produces the draft' do
-      Dir.mktmpdir do |dir|
-        draft.source.files.each do |path, text|
-          FileUtils.mkdir_p(File.dirname(File.join(dir, path)))
-          File.write(File.join(dir, path), text)
+    def read_zip(bytes)
+      entries = {}
+      Zip::InputStream.open(StringIO.new(bytes)) do |io|
+        while (entry = io.get_next_entry)
+          entries[entry.name] = io.read.force_encoding('UTF-8')
         end
-        _, error, status = Open3.capture3('git', 'apply', chdir: dir, stdin_data: patch)
-        expect(status).to be_success, error
-        expect(File.read(File.join(dir, intro_path))).to include('They hold rain.')
-        expect(File.exist?(File.join(dir, quiz_path))).to be(false)
-        expect(File.read(File.join(dir, "#{ponds_slides_path}/9104-pond-end.yml")))
-          .to eq("title: The end\nid: 9104\ncontent: |\n  Bye\n")
       end
+      entries
+    end
+
+    it 'holds only the new and changed files, laid out like training_content/wiki_ed' do
+      expect(entries.keys).to contain_exactly(
+        'modules/ponds.yml', 'slides/91-ponds/9101-pond-intro.yml',
+        'slides/91-ponds/9104-pond-end.yml'
+      )
+    end
+
+    it 'holds the full new text of each file' do
+      expect(entries['slides/91-ponds/9101-pond-intro.yml'])
+        .to eq(pond_intro_text.sub('They hold water.', 'They hold rain.'))
+      expect(entries['slides/91-ponds/9104-pond-end.yml'])
+        .to eq("title: The end\nid: 9104\ncontent: |\n  Bye\n")
+      expect(entries['modules/ponds.yml']).not_to include('pond-quiz')
     end
   end
 end

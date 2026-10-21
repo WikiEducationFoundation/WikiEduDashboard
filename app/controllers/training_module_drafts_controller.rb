@@ -117,9 +117,8 @@ class TrainingModuleDraftsController < ApplicationController
       return render json: { error: 'The draft has no changes to export.' },
                     status: :unprocessable_content
     end
-    patch = export.patch(author_name: current_user.real_name.presence || current_user.username,
-                         author_email: current_user.email)
-    send_data patch, type: 'text/x-patch', filename: export.filename, disposition: 'attachment'
+    send_data export.zip_bytes, type: 'application/zip', filename: export.filename,
+                                disposition: 'attachment'
   end
 
   def draft_json(draft)

@@ -134,8 +134,8 @@ const DraftComposer = () => {
   const isUpdate = Boolean(draft.source);
   const sourceSlides = new Map((draft.source?.slides || []).map(s => [s.id, s]));
   const changes = draft.source?.changes || [];
-  // A file that changed on disk since the copy only matters if the patch
-  // touches it; untouched files keep their newer version.
+  // A file that changed on disk since the copy only matters if the export
+  // includes it; files left out keep their newer version.
   const stalePaths = new Set(draft.source?.stale_paths || []);
 
   const effectiveSlugs = draft.slides.map(s => (s.slug || slugifyTitle(s.title)));
@@ -187,9 +187,9 @@ const DraftComposer = () => {
             Preview
           </button>
           {isUpdate && changes.length === 0 ? (
-            <button type="button" className="button" disabled>Export patch</button>
+            <button type="button" className="button" disabled>Export zip</button>
           ) : (
-            <a className="button" href={exportUrl(slug)}>{isUpdate ? 'Export patch' : 'Export zip'}</a>
+            <a className="button" href={exportUrl(slug)}>Export zip</a>
           )}
         </div>
         {isUpdate && (

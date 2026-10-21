@@ -36,8 +36,8 @@ class TrainingModuleDraftSource
     slides.pluck('id')
   end
 
-  # Snapshot files that have since changed or disappeared on disk, which means
-  # the exported patch might not apply cleanly.
+  # Snapshot files that have since changed or disappeared on disk. Exporting
+  # such a file would undo those changes, unless they're merged by hand.
   def stale_paths
     files.filter_map do |path, text|
       current = Rails.root.join(path)

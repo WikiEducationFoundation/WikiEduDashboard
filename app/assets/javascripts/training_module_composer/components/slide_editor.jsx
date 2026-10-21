@@ -17,20 +17,21 @@ const collisionMessage = (collision, slug) => {
   return null;
 };
 
-// In an update draft, a slide copied from the module keeps its file (renamed
-// if its slug changes), and a new slide's id is assigned at export.
-const slideFilePrefix = ({ index, moduleId, isUpdate, sourceSlide }) => {
-  if (sourceSlide) return sourceSlide.filename.match(/^\d+/)[0];
-  if (isUpdate || !moduleId) return '—';
-  return String(moduleId * 100 + index + 1).padStart(4, '0');
+// In an update draft, a slide copied from the module keeps its file, and a
+// new slide's id is assigned at export.
+const slideFilename = ({ index, moduleId, isUpdate, sourceSlide, slug }) => {
+  if (sourceSlide) return sourceSlide.filename;
+  const id = isUpdate || !moduleId ? '—' : String(moduleId * 100 + index + 1).padStart(4, '0');
+  return `${id}-${slug || 'slug'}.yml`;
 };
 
 const SlideEditor = ({ slide, index, moduleId, isUpdate, sourceSlide, onChange, collision }) => {
   const derivedSlug = useMemo(() => slugifyTitle(slide.title), [slide.title]);
   const effectiveSlug = slide.slug || derivedSlug;
   const previewHtml = useMemo(() => md.render(slide.content || ''), [slide.content]);
-  const filename = `${slideFilePrefix({ index, moduleId, isUpdate, sourceSlide })}-${effectiveSlug || 'slug'}.yml`;
-  // Renaming a slide that other modules also list would break those modules.
+  const filename = slideFilename({ index, moduleId, isUpdate, sourceSlide, slug: effectiveSlug });
+  // A copied slide keeps its slug: the exported zip can't remove the file a
+  // rename would leave behind.
   const sharedWith = sourceSlide?.shared_with || [];
   const preservedKeys = sourceSlide?.preserved_keys || [];
   const [cheatsheetOpen, setCheatsheetOpen] = useState(false);
@@ -60,8 +61,7 @@ const SlideEditor = ({ slide, index, moduleId, isUpdate, sourceSlide, onChange, 
   const handleTitleChange = (event) => {
     const newTitle = event.target.value;
     // If the slug hasn't been customized (matches old derivedSlug), follow the
-    // title — unless the slide already exists in the codebase, where a slug
-    // change renames its file.
+    // title — unless the slide was copied from the module, which keeps its slug.
     const nextSlug = (!sourceSlide && (!slide.slug || slide.slug === slugifyTitle(slide.title)))
       ? slugifyTitle(newTitle)
       : slide.slug;
@@ -89,7 +89,7 @@ const SlideEditor = ({ slide, index, moduleId, isUpdate, sourceSlide, onChange, 
             value={slide.slug || ''}
             placeholder={derivedSlug}
             onChange={e => onChange({ slug: e.target.value })}
-            readOnly={sharedWith.length > 0}
+            readOnly={Boolean(sourceSlide)}
           />
           {collision ? (
             <small className="training_module_composer__collision">

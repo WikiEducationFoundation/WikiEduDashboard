@@ -8,7 +8,8 @@
 #
 # A draft copied from an existing module (see CopyTrainingModuleToDraft) is an
 # update draft: it carries a `source` snapshot of the module's files, keeps the
-# module's id, and its slides keep the ids of the slides they were copied from.
+# module's id, and its slides keep the ids and slugs of the slides they were
+# copied from.
 #
 # Unlike TrainingModule, drafts are never loaded into the database.
 class TrainingModuleDraft
@@ -95,7 +96,7 @@ class TrainingModuleDraft
     self.class.validate_slug!(slug)
     ensure_directory
     assign_module_id unless update?
-    drop_unknown_slide_ids
+    reconcile_slides_with_source
     File.write(path, to_yaml_body)
     @updated_at = File.mtime(path)
     self
@@ -174,10 +175,15 @@ class TrainingModuleDraft
   end
 
   # Only a slide copied from the source module has an id, and only one slide
-  # can stand for each original. Any other slide is new.
-  def drop_unknown_slide_ids
+  # can stand for each original; any other slide is new. A copied slide keeps
+  # its slug: renaming its file would leave the old file, with the same id,
+  # behind in the exported zip's destination.
+  def reconcile_slides_with_source
     unclaimed = update? ? source.slide_ids.to_set : Set.new
-    slides.each { |slide| slide.delete('id') unless unclaimed.delete?(slide['id']) }
+    slides.each do |slide|
+      next slide.delete('id') unless unclaimed.delete?(slide['id'])
+      slide['slug'] = source.slide(slide['id'])['slug']
+    end
   end
 
   def validate_slide_slug!(slug)

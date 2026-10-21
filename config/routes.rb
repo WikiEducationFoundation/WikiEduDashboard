@@ -479,7 +479,7 @@ Rails.application.routes.draw do
 
   # Training module composer (admin-only): compose new training modules as
   # yml-file drafts, then export as a zip of production-layout files. Drafts
-  # copied from an existing module export as a git patch instead.
+  # copied from an existing module export only the files that changed.
   get 'training_module_drafts' => 'training_module_drafts#index'
   post 'training_module_drafts' => 'training_module_drafts#create'
   # Static subpaths must come before the :slug-parameterized routes so they
