@@ -1,6 +1,7 @@
 import { safeDecodeURIComponent } from './strings';
 import { find } from 'lodash-es';
 import ArrayUtils from './array_utils';
+import { ASSIGNED_ROLE } from '../constants/assignments';
 
 export default class CourseUtils {
   // Given a course object with title, school and term properties,
@@ -363,6 +364,26 @@ export default class CourseUtils {
       return title.split(':')[1];
     }
     return title;
+  }
+
+  // Finds the classmate's assignment whose sandbox draft is the page in
+  // `parsedInput` (the output of articleFromTitleInput), so that pasting a
+  // classmate's sandbox URL or title can add a peer review of their article.
+  // Assignments belonging to `userId` don't count; you can't review your own.
+  static assignmentForSandbox(parsedInput, assignments, userId) {
+    const normalize = title => title.replace(/_/g, ' ').trim().replace(/^user:/i, 'User:');
+    const inputTitle = normalize(parsedInput.title || '');
+    if (!inputTitle) { return undefined; }
+
+    return assignments.find((assignment) => {
+      if (assignment.role !== ASSIGNED_ROLE || !assignment.sandbox_url) { return false; }
+      if (!assignment.user_id || assignment.user_id === userId) { return false; }
+      const sandbox = this.articleFromTitleInput(assignment.sandbox_url);
+      if (normalize(sandbox.title) !== inputTitle) { return false; }
+      // A pasted URL names its wiki, which has to be the sandbox's wiki.
+      if (parsedInput.language && parsedInput.language !== sandbox.language) { return false; }
+      return !parsedInput.project || parsedInput.project === sandbox.project;
+    });
   }
 }
 

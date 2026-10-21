@@ -550,3 +550,44 @@ describe('courseUtils.formattedArticleTitle', () => {
     );
   });
 });
+
+describe('courseUtils.assignmentForSandbox', () => {
+  const classmateDraft = {
+    id: 1, role: 0, user_id: 2, article_id: null, article_title: 'The Teaching of Love',
+    sandbox_url: 'https://en.wikipedia.org/wiki/User:Classmate/The_Teaching_of_Love'
+  };
+  const ownDraft = {
+    id: 2, role: 0, user_id: 3, article_id: null, article_title: 'River Pond',
+    sandbox_url: 'https://en.wikipedia.org/wiki/User:Student/River_Pond'
+  };
+  const classmateReview = {
+    id: 3, role: 1, user_id: 4, article_id: null, article_title: 'The Teaching of Love',
+    sandbox_url: 'https://en.wikipedia.org/wiki/User:Classmate/The_Teaching_of_Love'
+  };
+  const assignments = [classmateReview, classmateDraft, ownDraft];
+  const find = input => courseUtils.assignmentForSandbox(
+    courseUtils.articleFromTitleInput(input), assignments, 3
+  );
+
+  test('finds the classmate assignment for a pasted sandbox URL', () => {
+    expect(find('https://en.wikipedia.org/wiki/User:Classmate/The_Teaching_of_Love')).toBe(classmateDraft);
+  });
+
+  test('finds it from a sandbox title, with spaces or underscores', () => {
+    expect(find('User:Classmate/The Teaching of Love')).toBe(classmateDraft);
+    expect(find('user:Classmate/The_Teaching_of_Love')).toBe(classmateDraft);
+  });
+
+  test('ignores the student\'s own sandbox', () => {
+    expect(find('User:Student/River_Pond')).toBeUndefined();
+  });
+
+  test('ignores a sandbox URL on a different wiki', () => {
+    expect(find('https://es.wikipedia.org/wiki/User:Classmate/The_Teaching_of_Love')).toBeUndefined();
+  });
+
+  test('ignores pages that are not anyone\'s sandbox', () => {
+    expect(find('User:Classmate/sandbox')).toBeUndefined();
+    expect(find('The Teaching of Love')).toBeUndefined();
+  });
+});

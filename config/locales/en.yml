@@ -435,6 +435,10 @@ en:
     add_placeholder: Enter an article title or URL
     assign_self: Assign myself an article
     invalid_mainspace_article: This must be a valid mainspace article.
+    invalid_title_format: '"%{title}" is not a valid title format.'
+    not_mainspace_article: "%{title} is not a mainspace article (only regular article pages are allowed)"
+    unable_to_verify_article: Unable to verify article
+    wiki_api_unreachable: Unable to reach the Wiki API.
     assign_self_wikidata: Assign myself an item
     assign_tooltip: An assigned article is one that you plan to create or improve.
     assign_tooltip_wikidata: An assigned item is one that you plan to create or improve.
@@ -483,7 +487,9 @@ en:
       limit_exceeded_wikidata: Each student is already reviewing at least %{maximum} item(s).
     remove: Remove
     reviewers: Reviewer(s)
+    review_classmate_draft: "(%{username}'s sandbox draft)"
     review_other: Assign/remove a peer review
+    review_sandbox_not_found: "%{title} isn't for a classmate's assigned article."
     review_self: Review an article
     review_self_wikidata: Review an item
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
