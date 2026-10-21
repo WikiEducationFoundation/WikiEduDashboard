@@ -22,6 +22,7 @@ class Users::EnrollmentController < ApplicationController
   #################
   def add
     set_course_and_user
+    ensure_management_role_is_authorized { return }
     ensure_user_exists { return }
     set_real_name
     @result = JoinCourse.new(course: @course,
@@ -105,6 +106,7 @@ class Users::EnrollmentController < ApplicationController
     set_course_and_user
     return if @user.nil?
 
+    ensure_management_role_is_authorized { return }
     ensure_role_is_authorized { return }
     ensure_course_user_exists { return }
 
@@ -115,6 +117,24 @@ class Users::EnrollmentController < ApplicationController
 
     render 'users', formats: :json
     update_course_page_and_assignment_talk_templates
+  end
+
+  # Both of these roles carry course-management rights: User::EDITING_ROLES
+  # makes can_edit? true for either, which is what gates editing and deleting
+  # the course. Adding an instructor is how a course gets a TA or
+  # co-instructor, so instructors may do it. Students may not grant or remove
+  # either role, to any account, as that would be a privilege escalation.
+  # Admins are allowed through as elsewhere, which covers Wiki Ed staff.
+  MANAGEMENT_ROLES = [CoursesUsers::Roles::INSTRUCTOR_ROLE,
+                      CoursesUsers::Roles::WIKI_ED_STAFF_ROLE].freeze
+
+  def ensure_management_role_is_authorized
+    return unless MANAGEMENT_ROLES.include?(enroll_params[:role].to_i)
+    return if current_user.admin? || current_user.instructor?(@course)
+
+    render json: { message: I18n.t('courses.error.management_role_not_authorized') },
+           status: :unauthorized
+    yield
   end
 
   # For events controlled by Event Center, only non-student roles

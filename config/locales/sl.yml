@@ -197,6 +197,7 @@ sl:
       '?': brez ocene — članek, ki še ni ocenjen po lestvici kakovosti Wikipedije
       does_not_exist: Ta članek v Wikipediji ne obstaja
     see_more: Več o tem
+    search: Preiščite Wikipedijo za članek
     show_cumulative_changes: Prikaži kumulativne spremembe
     show_current_version: Prikaži trenutno različico
     title: Naslov
@@ -687,6 +688,7 @@ sl:
     average_views: Povprečno ogledov na dan
     category_search: Poišči po kategorijah
     fetching_pageviews: Pridobivanje ogledov strani
+    hide_options: Skrij možnosti
     keyword_search: Iskanje po ključni besedi
     minimum_views_label: Minimum ogledov
     more_results: Več zadetkov
@@ -700,4 +702,7 @@ sl:
     continue: Nadaljuj
     completion_time: Čas dokončanja
     view: Ogled
+  lti:
+    assignment_view:
+      hide: Skrij
 ...

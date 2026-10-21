@@ -990,6 +990,41 @@ describe Course, type: :model do
     end
   end
 
+  describe '.needs_partial_update' do
+    let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
+    let(:course) { create(:course) }
+
+    it 'includes a course with a course wiki timeslice needing update' do
+      create(:course_wiki_timeslice, course:, wiki: enwiki, needs_update: true)
+      expect(described_class.needs_partial_update).to include(course)
+    end
+
+    it 'includes a course with a course wiki timeslice needing reaggregation' do
+      create(:course_wiki_timeslice, course:, wiki: enwiki, needs_reaggregation: true)
+      expect(described_class.needs_partial_update).to include(course)
+    end
+
+    it 'includes a course with an ACUWT needing update' do
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki,
+                                                  article_id: 1, user_id: 1, needs_update: true)
+      expect(described_class.needs_partial_update).to include(course)
+    end
+
+    it 'excludes a course whose timeslices are all up to date' do
+      create(:course_wiki_timeslice, course:, wiki: enwiki, needs_update: false)
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki,
+                                                  article_id: 1, user_id: 1, needs_update: false)
+      expect(described_class.needs_partial_update).not_to include(course)
+    end
+
+    it 'returns a course only once when both CWT and ACUWT need update' do
+      create(:course_wiki_timeslice, course:, wiki: enwiki, needs_update: true)
+      create(:article_course_user_wiki_timeslice, course:, wiki: enwiki,
+                                                  article_id: 1, user_id: 1, needs_update: true)
+      expect(described_class.needs_partial_update.to_a.count(course)).to eq(1)
+    end
+  end
+
   # Mirrors the client-side term inference in inferDefaultCampaign.js. Course
   # eligibility for an opt-in research experiment is derived from this, so the
   # month boundaries matter (see Fall2026ResearchExperiment#eligible_course?).
@@ -1024,6 +1059,37 @@ describe Course, type: :model do
 
     it 'infers the following spring from a December start' do
       expect(build(:course, start: Date.new(2026, 12, 1)).inferred_term).to eq('spring_2027')
+    end
+  end
+
+  describe '#add_flag' do
+    let(:course) { create(:course, flags: { existing: true }) }
+
+    it 'keeps flags written by another process since the course was loaded' do
+      stale_copy = Course.find(course.id)
+      course.add_flag(key: :event_sync, value: 4563)
+      stale_copy.add_flag(key: :first_update, value: { queue_name: 'medium_update' })
+      expect(course.reload.flags).to include(existing: true,
+                                             event_sync: 4563,
+                                             first_update: { queue_name: 'medium_update' })
+    end
+
+    it 'returns false and writes nothing when the course is invalid' do
+      allow(course).to receive(:valid?).and_return(false)
+      expect(course.add_flag(key: :event_sync, value: 4563)).to be(false)
+      expect(course.reload.flags).not_to have_key(:event_sync)
+    end
+  end
+
+  describe '#remove_flag' do
+    let(:course) { create(:course, flags: { event_sync: 4563 }) }
+
+    it 'removes only the given flag, keeping flags written by another process' do
+      stale_copy = Course.find(course.id)
+      course.add_flag(key: :longest_update, value: 3)
+      stale_copy.remove_flag(:event_sync)
+      expect(course.reload.flags).to include(longest_update: 3)
+      expect(course.flags).not_to have_key(:event_sync)
     end
   end
 end

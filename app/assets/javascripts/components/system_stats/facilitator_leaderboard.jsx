@@ -108,6 +108,10 @@ const FacilitatorLeaderboard = () => {
                 {I18n.t('system_stats.kpis.new_editors')}
                 <SortIndicator field="newEditors" sortField={sortField} sortOrder={sortOrder} />
               </th>
+              <th className={`sortable${sortField === 'retainedNewEditors' ? ` ${sortOrder}` : ''}`} onClick={() => handleSort('retainedNewEditors')}>
+                {I18n.t('system_stats.facilitators.retained_new_editors')}
+                <SortIndicator field="retainedNewEditors" sortField={sortField} sortOrder={sortOrder} />
+              </th>
               <th className={`sortable${sortField === 'activeInYear' ? ` ${sortOrder}` : ''}`} onClick={() => handleSort('activeInYear')}>
                 {I18n.t('system_stats.facilitators.active_in_year')}
                 <SortIndicator field="activeInYear" sortField={sortField} sortOrder={sortOrder} />
@@ -117,7 +121,7 @@ const FacilitatorLeaderboard = () => {
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan="7" className="system-stats__table-empty">{I18n.t('system_stats.loading.facilitators')}</td>
+                <td colSpan="8" className="system-stats__table-empty">{I18n.t('system_stats.loading.facilitators')}</td>
               </tr>
             ) : paginatedFacilitators.length > 0 ? (
               paginatedFacilitators.map(f => (
@@ -128,12 +132,13 @@ const FacilitatorLeaderboard = () => {
                   <td>{f.edits.toLocaleString()}</td>
                   <td>{f.students}</td>
                   <td>{f.newEditors}</td>
+                  <td>{f.retainedNewEditors}</td>
                   <td>{I18n.t(f.activeInYear ? 'system_stats.facilitators.yes' : 'system_stats.facilitators.no')}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="7" className="system-stats__table-empty">{I18n.t('system_stats.empty.no_facilitators')}</td>
+                <td colSpan="8" className="system-stats__table-empty">{I18n.t('system_stats.empty.no_facilitators')}</td>
               </tr>
             )}
           </tbody>

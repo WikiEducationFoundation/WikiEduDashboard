@@ -13,6 +13,7 @@
 # Author: Ebraminio
 # Author: FarsiNevis
 # Author: GMozafarian
+# Author: Hanooz
 # Author: Jeeputer
 # Author: LProfo
 # Author: Ladsgroup
@@ -42,6 +43,7 @@ fa:
       مقدار را کاهش یا افزایش دهید.
   application:
     cancel: انصراف
+    close: بستن
     cookie_consent_acknowledge: متوجه هستم
     cookie_consent_see_more: مشاهدهٔ بیشتر
     create_accounts: ایجاد حساب‌های ویکی‌پدیا
@@ -319,6 +321,9 @@ fa:
     end: پایان
     enroll: نام‌نویسی
     enrollment: نام‌نویسی
+    event_center_link: صفحهٔ مرکز رویداد
+    view_event_center_page: مشاهدهٔ صفحه
+    go_to_event_center: برای ثبت نام به مرکز رویداد بروید
     error:
       exists: آن دوره از پیش وجود داشت! لطفاً با عنوان، مدرسه/دانشگاه و ترم تحصیلی
         دیگری مجدداً امتحان کنید.
@@ -403,6 +408,7 @@ fa:
     training_overdue: پودمان آموزشی «%{title}» برای این دوره اختصاص داده شده است و
       در %{date} تنظیم شده بود.
     unsubmitted: دوره‌های ثبت‌نشده
+    unsubmitted_show_all: نمایش همه
     untrained: آموزش‌ندیده
     update_stats: روزآمدسازی آمارها
     uploads_none: این کلاس در زمینهٔ تصاویر یا دیگر رسانه‌ها، هیچگونه مشارکتی در ویکی‌انبار
@@ -561,6 +567,7 @@ fa:
     active_jobs: کارهای فعال
     default: پیش‌فرض
     no_info: اطلاعاتی در دسترس نیست.
+    report_csv_description: صف مشخص برای تولید گزارش‌های CSV درخواستی کاربر.
     size: اندازه
     status: وضعیت
   tasks:

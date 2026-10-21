@@ -139,6 +139,15 @@ describe SystemStatUpdateWorker do
       expect(stat.new_editors_count_with_preregistration).to eq(2)
     end
 
+    it 'counts retained new editors' do
+      cu = CoursesUsers.find_by(course: active_course, user: new_editor)
+      cu.update!(retained_after_course: true)
+
+      described_class.new.perform
+      stat = SystemStat.find_by(snapshot_date: Time.zone.today)
+      expect(stat.retained_new_editors_count).to eq(1)
+    end
+
     it 'counts active facilitators' do
       described_class.new.perform
       stat = SystemStat.find_by(snapshot_date: Time.zone.today)
@@ -147,6 +156,9 @@ describe SystemStatUpdateWorker do
     end
 
     it 'generates wiki_stats breakdown' do
+      cu = CoursesUsers.find_by(course: active_course, user: new_editor)
+      cu.update!(retained_after_course: true)
+
       described_class.new.perform
       stat = SystemStat.find_by(snapshot_date: Time.zone.today)
 
@@ -156,6 +168,7 @@ describe SystemStatUpdateWorker do
       expect(wiki_entry['edits']).to eq(800)
       expect(wiki_entry['programs']).to eq(2)
       expect(wiki_entry['new_editors_with_preregistration']).to eq(2)
+      expect(wiki_entry['retained_editors']).to eq(1)
     end
 
     it 'upserts when run twice on the same day' do

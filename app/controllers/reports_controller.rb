@@ -11,13 +11,13 @@ class ReportsController < ApplicationController
   include CourseHelper
   before_action :require_signed_in,
                 only: %i[campaign_instructors_csv campaign_courses_csv campaign_articles_csv
-                         campaign_students_csv campaign_wikidata_csv course_csv
+                         campaign_students_csv campaign_all_csv campaign_wikidata_csv course_csv
                          course_uploads_csv course_students_csv course_articles_csv
                          course_wikidata_csv course_retention_csv all_courses_and_instructors_csv
                          system_csv system_daily_stats_csv]
   before_action :set_campaign, only: %i[campaign_courses_csv campaign_articles_csv
-                                        campaign_students_csv campaign_instructors_csv
-                                        campaign_wikidata_csv]
+                                        campaign_students_csv campaign_all_csv
+                                        campaign_instructors_csv campaign_wikidata_csv]
   before_action :set_course, only: %i[course_csv course_uploads_csv
                                       course_students_csv course_articles_csv
                                       course_wikidata_csv course_retention_csv]
@@ -63,6 +63,16 @@ class ReportsController < ApplicationController
     csv_of('campaign_articles')
   end
 
+  def campaign_all_csv
+    filename = build_filename('campaign_all')
+    if ReportCsvStore.exists?(filename)
+      render_ready_report(filename)
+    else
+      enqueue_campaign_all_jobs(filename)
+      render_generating_report
+    end
+  end
+
   def campaign_wikidata_csv
     csv_of('campaign_wikidata')
   end
@@ -95,7 +105,7 @@ class ReportsController < ApplicationController
     filename = "all-courses-and-instructors-#{Time.zone.today}.csv"
 
     if ReportCsvStore.exists?(filename)
-      redirect_to ReportCsvStore.url_for(filename), allow_other_host: true
+      render_ready_report(filename)
     else
       ReportCsvWorker.generate_csv(
         source: nil,
@@ -103,7 +113,7 @@ class ReportsController < ApplicationController
         type: 'all_courses_and_instructors',
         include_course: nil
       )
-      render plain: 'This file is being generated. Please try again shortly.', status: :ok
+      render_generating_report
     end
   end
 
@@ -159,22 +169,63 @@ class ReportsController < ApplicationController
   def csv_of(type)
     filename = build_filename(type)
     if ReportCsvStore.exists?(filename)
-      redirect_to ReportCsvStore.url_for(filename), allow_other_host: true
+      render_ready_report(filename)
     else
       ReportCsvWorker.generate_csv(source: @course || @campaign, filename:, type:,
                                    include_course: csv_params[:course])
+      render_generating_report
+    end
+  end
+
+  def render_ready_report(filename)
+    if json_request?
+      render json: { status: 'ready', url: ReportCsvStore.url_for(filename) }
+    else
+      redirect_to ReportCsvStore.url_for(filename), allow_other_host: true
+    end
+  end
+
+  def render_generating_report
+    if json_request?
+      render json: { status: 'generating' }, status: :accepted
+    else
       render plain: 'This file is being generated. Please try again shortly.', status: :ok
     end
   end
 
+  def json_request?
+    request.format.json? || request.headers['Accept']&.include?('application/json')
+  end
+
+  def enqueue_campaign_all_jobs(filename)
+    enqueue_constituent_csv('campaign_students')
+    enqueue_constituent_csv('campaign_students', with_course: true)
+    enqueue_constituent_csv('campaign_instructors', with_course: true)
+    enqueue_constituent_csv('campaign_courses')
+    enqueue_constituent_csv('campaign_articles')
+    ReportCsvWorker.generate_csv(
+      source: @campaign, filename:, type: 'campaign_all', include_course: nil
+    )
+  end
+
+  def enqueue_constituent_csv(type, with_course: false)
+    constituent_name = build_filename(type, with_course:)
+    return if ReportCsvStore.exists?(constituent_name)
+
+    ReportCsvWorker.generate_csv(
+      source: @campaign, filename: constituent_name, type:, include_course: with_course
+    )
+  end
+
   # Builds the filename for a report of the given type, based on wether @course is defined
   # or @campaign is defined
-  def build_filename(type)
+  def build_filename(type, with_course: nil)
     # Filename does not have to contain '/' char because it's interpreted as a route
     return "#{@course.slug}-#{type}-#{Time.zone.today}.csv".tr('/', '-') if course_report?(type)
+    return ReportCsvWorker.campaign_zip_name(@campaign) if type == 'campaign_all'
 
-    include_course_segment = csv_params[:course] ? '-with_courses' : ''
-    "#{@campaign.slug}-#{type}#{include_course_segment}-#{Time.zone.today}.csv".tr('/', '-')
+    include_courses = with_course.nil? ? csv_params[:course] : with_course
+    ReportCsvWorker.campaign_csv_name(@campaign, type, course: include_courses)
   end
 
   def csv_params

@@ -80,6 +80,17 @@ describe 'Claim verification exercise', type: :request do
       expect(steps.pluck('id')).to include('evaluate_source', 'find_source', 'verify')
     end
 
+    # Options the exercise no longer offers still go out, labelled and apart from
+    # the offered ones, so a response recorded with one reads back correctly.
+    it 'sends retired options labelled, separately from the offered ones' do
+      get "/courses/#{course.slug}/verify_claim/state"
+      questions = response.parsed_body['form']['steps'].flat_map { |step| step['questions'] }
+      verdict = questions.find { |question| question['id'] == 'verdict' }
+      expect(verdict['options'].pluck('value')).not_to include('mostly_supports')
+      expect(verdict['retired_options'].pluck('value')).to include('mostly_supports')
+      expect(verdict['retired_options'].pluck('label')).to all(start_with('Mostly'))
+    end
+
     it 'is open to any signed-in user, even one not enrolled in the course' do
       outsider = create(:user, username: 'Outsider', onboarded: true)
       login_as outsider
@@ -148,6 +159,13 @@ describe 'Claim verification exercise', type: :request do
       get '/verify_claim'
       expect(response.body).to include("/courses/#{course.slug}/verify_claim")
       expect(response.body).to include("/courses/#{other.slug}/verify_claim")
+    end
+
+    it 'redirects to the return_to course when the student has several courses' do
+      other = create(:course, slug: 'Школа/Курс_(2026)', subject: 'History', home_wiki: wiki)
+      create(:courses_user, course: other, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
+      get '/verify_claim', params: { return_to: "/courses/#{other.slug}/home" }
+      expect(response).to redirect_to("/courses/#{other.slug}/verify_claim")
     end
   end
 end

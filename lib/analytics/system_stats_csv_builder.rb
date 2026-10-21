@@ -14,6 +14,7 @@ class SystemStatsCsvBuilder
     active_programs_count
     archived_programs_count
     new_editors_count_with_preregistration
+    retained_new_editors_count
     active_facilitators_count
   ].freeze
 

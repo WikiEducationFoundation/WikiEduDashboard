@@ -100,6 +100,22 @@ module RequestHelpers
     stub_list_users_query
   end
 
+  def stub_account_creation_failure_rejected(wiki: nil)
+    # Stub out the creation of accounts at Wikipedia
+    # First the request for edit tokens for a user
+    stub_account_creation_token_request(wiki:)
+
+    # Then the account creation request itself
+    failure = '{"createaccount":{"status":"FAIL",
+                                 "messagecode":"invalidemailaddress",
+                                 "message":"The email address cannot be accepted."}}'
+    stub_request(:post, /.*wikipedia.*/)
+      .to_return(status: 200, body: failure, headers: {})
+
+    # After account creation, stub the query for user info for UserImporter
+    stub_list_users_query
+  end
+
   def stub_account_creation_failure_throttle(wiki: nil)
     # Stub out the creation of accounts at Wikipedia
     # First the request for edit tokens for a user

@@ -1,0 +1,9 @@
+- # Shown in-frame when a legacy (LTI 1.1) launch reaches a deep-linking
+- # placement. Deep linking is 1.3-only (see LtiDeepLinking#render_deep_link_legacy),
+- # and a blank 403 inside Canvas's picker modal would explain nothing. One word
+- # from the existing picker refusal is all it says: this path is defensive (a
+- # 1.1 install gets no import placement), so it carries no copy of its own. The
+- # 403 status is kept so the refusal stays visible as one.
+.lti-iframe__landing
+  = image_tag '/assets/images/wiki-logo.png', alt: 'Wiki Education Dashboard', class: 'lti-iframe__logo'
+  %h1.lti-iframe__title= t('lti.deep_link.unavailable_header')

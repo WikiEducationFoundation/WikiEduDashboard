@@ -60,7 +60,6 @@ describe SystemMetrics do
       expect(service.get_queue_status('long_update', 12.hours)).to eq('Normal')
       expect(service.get_queue_status('daily_update', 12.hours)).to eq('Normal')
       expect(service.get_queue_status('constant_update', 12.minutes)).to eq('Normal')
-      expect(service.get_queue_status('acuwt_update', 12.hours)).to eq('Normal')
       expect(service.get_queue_status('default', 0)).to eq('Normal')
       expect(service.get_queue_status('report_csv', 5.minutes)).to eq('Normal')
     end
@@ -71,7 +70,6 @@ describe SystemMetrics do
       expect(service.get_queue_status('long_update', 26.hours)).to eq('Backlogged')
       expect(service.get_queue_status('daily_update', 26.hours)).to eq('Backlogged')
       expect(service.get_queue_status('constant_update', 16.minutes)).to eq('Backlogged')
-      expect(service.get_queue_status('acuwt_update', 26.hours)).to eq('Backlogged')
       expect(service.get_queue_status('default', 2)).to eq('Backlogged')
       expect(service.get_queue_status('report_csv', 1.hour)).to eq('Backlogged')
     end

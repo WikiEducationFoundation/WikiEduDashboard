@@ -4,6 +4,7 @@ import {
   FETCH_TICKETS,
   FILTER_TICKETS,
   MESSAGE_KIND_REPLY,
+  RECEIVE_TICKET,
   RECEIVE_TICKETS,
   SELECT_TICKET,
   SET_MESSAGES_TO_READ,
@@ -100,7 +101,12 @@ export const readAllMessages = ticket => async (dispatch) => {
   dispatch({ type: SET_MESSAGES_TO_READ, data: json });
 };
 
-const fetchSomeTickets = async (dispatch, page, searchQuery, batchSize = 100) => {
+// Each fetchTickets call supersedes any still in flight. Without this, batches
+// from an earlier fetch (e.g. the initial load) land after a search has reset
+// the list, mixing stale tickets into the results and duplicating rows.
+let latestFetchId = 0;
+
+const fetchSomeTickets = async (dispatch, page, searchQuery, fetchId, batchSize = 100) => {
   const offset = batchSize * page;
   let paramsObj = { limit: batchSize, offset };
   // Initial display => TicketDispenser
@@ -114,19 +120,23 @@ const fetchSomeTickets = async (dispatch, page, searchQuery, batchSize = 100) =>
   const response = await request(`${path}?${url_query}`);
 
   return response.json().then(({ tickets }) => {
+    if (fetchId !== latestFetchId) return;
     dispatch({ type: RECEIVE_TICKETS, data: tickets });
   });
 };
 
 // Fetch as many tickets as possible
 export const fetchTickets = (searchQuery = {}) => async (dispatch) => {
+  latestFetchId += 1;
+  const fetchId = latestFetchId;
   dispatch({ type: FETCH_TICKETS });
 
   const batches = Array.from({ length: 10 }, (_el, index) => index);
   // Ensures that each promise will run sequentially
   return batches.reduce(async (previousPromise, batch) => {
     await previousPromise;
-    return fetchSomeTickets(dispatch, batch, searchQuery);
+    if (fetchId !== latestFetchId) return;
+    return fetchSomeTickets(dispatch, batch, searchQuery, fetchId);
   }, Promise.resolve());
 };
 
@@ -135,7 +145,7 @@ export const selectTicket = ticket => ({ type: SELECT_TICKET, ticket });
 export const fetchTicket = id => async (dispatch) => {
   const response = await request(`/td/tickets/${id}`);
   const data = await response.json();
-  dispatch(selectTicket(data.ticket));
+  dispatch({ type: RECEIVE_TICKET, ticket: data.ticket });
 };
 
 export const sortTickets = key => ({ type: SORT_TICKETS, key });

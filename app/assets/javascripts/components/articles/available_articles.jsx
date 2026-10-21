@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import AssignCell from '@components/common/AssignCell/AssignCell.jsx';
 import ConnectedAvailableArticle from './available_article.jsx';
+import CopyAvailableArticles from './copy_available_articles.jsx';
 import AvailableArticlesList from '../articles/available_articles_list.jsx';
 import MyArticlesContainer from '../overview/my_articles/containers';
 import { ASSIGNED_ROLE } from '../../constants';
@@ -25,6 +26,7 @@ const AvailableArticles = (props) => {
   }, []);
 
   let assignCell;
+  let copyCell;
   let availableArticles;
   let elements = [];
   let findingArticlesTraining;
@@ -81,6 +83,12 @@ const AvailableArticles = (props) => {
         prefix={I18n.t('users.my_assigned')}
       />
     );
+    // Same gate as the add control inside AssignCell
+    if (current_user.isInstructor || current_user.admin) {
+      copyCell = (
+        <CopyAvailableArticles course={course} course_id={course_id} current_user={current_user} />
+      );
+    }
   }
 
   const showAvailableArticles = elements.length > 0 || current_user.isAdvancedRole;
@@ -92,6 +100,7 @@ const AvailableArticles = (props) => {
           <div className="section-header__actions">
             {findingArticlesTraining}
             {assignCell}
+            {copyCell}
             <Link to={`/courses/${course_id}/article_finder`}><button className="button border small ml2">{ArticleUtils.I18n('find', project)}</button></Link>
           </div>
         </div>

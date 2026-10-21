@@ -94,6 +94,12 @@ class AssignmentPipeline
     @assignment.flags.dig(@key, :status) || @all_statuses.first
   end
 
+  # When the current status was set; nil if it never has been. Earlier
+  # statuses' times aren't kept.
+  def status_updated_at
+    @assignment.flags.dig(@key, :updated_at)
+  end
+
   def update_status(new_status)
     return unless @all_statuses.include?(new_status)
     @assignment.flags[@key] = {} unless @assignment.flags[@key]

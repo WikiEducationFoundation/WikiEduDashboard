@@ -3,6 +3,11 @@ require 'rails_helper'
 
 describe 'Course creation for Article Scoped Programs', type: :feature, js: true do
   before do
+    stub_browser_wiki_search(
+      'en.wikipedia.org|14|intitle:Earth ' => ['Category:Earth sciences'],
+      'en.wikipedia.org|14|intitle:Apple Inc. ' => ['Category:Apple Inc.'],
+      'en.wikipedia.org|10|intitle:Earth ' => ['Template:Earth mass']
+    )
     TrainingModule.load_all
     stub_oauth_edit
 

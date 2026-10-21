@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require_dependency "#{Rails.root}/lib/tag_manager"
+require_dependency "#{Rails.root}/lib/wizard_tag_writer"
 
 #= Procedures for creating a duplicate of an existing course for reuse
 class CourseCloneManager
@@ -70,15 +71,7 @@ class CourseCloneManager
   end
 
   def copy_assignments
-    @course.assignments.where(user_id: nil).each do |assignment|
-      Assignment.create(
-        role: 0,
-        article_title: assignment.article_title,
-        article_id: assignment.article_id,
-        wiki_id: assignment.wiki_id,
-        course_id: @clone.id
-      )
-    end
+    CopyAvailableArticles.new(source: @course, target: @clone)
   end
 
   def duplicate_timeline
@@ -135,22 +128,34 @@ class CourseCloneManager
                    real_name: @user.real_name)
   end
 
+  # Wizard answers the clone keeps, by the key the wizard stores each tag
+  # under: `index` holds the assignment type, such as
+  # `research_write_assignment`, which gates the course advice emails;
+  # `sandboxes` holds `yes_sandboxes` or `no_sandboxes`; `working_in_groups`
+  # holds `working_individually` or `working_in_groups`.
   TAG_KEYS_TO_CARRY_OVER = %w[
+    index
     tricky_topic_areas
-    working_individually
     working_in_groups
-    research_write_assignment
-    yes_sandboxes
-    no_sandboxes
+    sandboxes
+    instructor_learner
   ].freeze
   def tag_course
     tag_manager = TagManager.new(@clone)
     tag_manager.initial_tags(creator: @user)
     tag_manager.add(tag: 'cloned')
     @course.tags.each do |tag|
-      next unless TAG_KEYS_TO_CARRY_OVER.include?(tag.key)
+      next unless carry_over?(tag)
       tag_manager.add(tag: tag.tag, key: tag.key)
     end
+  end
+
+  # A panel that allows several answers at once, such as the subject-specific
+  # resources, keys each answer `<panel>-<answer>`.
+  def carry_over?(tag)
+    return false if tag.key.nil?
+    return true if TAG_KEYS_TO_CARRY_OVER.include?(tag.key)
+    WizardTagWriter::NONEXCLUSIVE_KEYS.any? { |panel| tag.key.start_with?("#{panel}-") }
   end
 
   FLAGS_TO_CARRY_OVER = [
@@ -165,6 +170,9 @@ class CourseCloneManager
       next unless @course.flags.key? flag_key
       @clone.flags[flag_key] = @course.flags[flag_key]
     end
+    # A clone is a new course, so it uses the ACUWT update path even when the
+    # course it was cloned from does not.
+    @clone.flags[:use_acuwt] = true
     @clone.save
   end
 

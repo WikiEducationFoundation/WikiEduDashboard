@@ -29,6 +29,7 @@
 # the Dashboard's own views show) and nothing in Canvas.
 #
 # A binding without a stored serviceKey, or without a bound course, is a no-op.
+# So is a legacy (LTI 1.1) binding: no line-item service, nothing to discover.
 class SyncLtiLineItems
   # How long a pending reservation may stay unbound before it's judged
   # abandoned. The deep-link form auto-submits within seconds and the
@@ -48,7 +49,7 @@ class SyncLtiLineItems
   private
 
   def perform
-    return if @binding.course.nil?
+    return if @binding.course.nil? || @binding.legacy?
     return if @binding.ltiaas_service_credentials.blank?
 
     @service = LtiServiceSession.new(@binding)

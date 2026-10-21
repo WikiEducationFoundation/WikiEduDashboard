@@ -125,6 +125,12 @@ describe ClaimVerification::ExerciseForm do
         .to include(/not an accepted answer for verdict/)
     end
 
+    # An answer the exercise used to offer stays valid, so a response recorded
+    # with it can still be edited and re-saved.
+    it 'accepts a retired option as an answer' do
+      expect(form.errors_in(complete_answers.merge('verdict' => 'mostly_supports'))).to be_empty
+    end
+
     it 'does not require a question the path never asked' do
       answers = complete_answers.except('verdict').merge('source_access' => 'nonexistent')
       expect(form.errors_in(answers)).to be_empty
@@ -145,8 +151,12 @@ describe ClaimVerification::ExerciseForm do
         'steps' => [
           { 'id' => 'pick',
             'questions' => [{ 'id' => 'colour', 'type' => 'choice', 'required' => true,
-                              'options' => %w[red blue] }] },
+                              'options' => %w[red blue], 'retired_options' => %w[green] },
+                            { 'id' => 'pick_another', 'type' => 'prompt',
+                              'action' => 'choose_different_claim',
+                              'visible_when' => { 'colour' => ['blue'] } }] },
           { 'id' => 'explain', 'visible_when' => { 'colour' => ['red'] },
+            'illustration' => 'colour_wheel',
             'questions' => [{ 'id' => 'shade', 'type' => 'text' }] },
           { 'id' => 'note', 'visible_when' => { 'colour' => true },
             'questions' => [{ 'id' => 'why', 'type' => 'text' }] }
@@ -164,8 +174,32 @@ describe ClaimVerification::ExerciseForm do
     end
 
     it 'validates a choice against the options the declaration gives it' do
-      expect(form.errors_in('colour' => 'green'))
+      expect(form.errors_in('colour' => 'purple'))
         .to include(/not an accepted answer for colour/)
+    end
+
+    it 'accepts a retired option without offering it' do
+      expect(form.errors_in('colour' => 'green')).to be_empty
+      expect(form.questions.first.options).not_to include('green')
+      expect(form.questions.first.retired_options).to eq(['green'])
+    end
+
+    # An option's description is looked up from the copy alongside its label,
+    # and is simply absent from options the copy says nothing more about.
+    it 'labels an option with a description only when the copy provides one' do
+      copy = { colour_options: { red: 'Red', blue: 'Blue' },
+               colour_option_descriptions: { red: 'Like a fire engine' } }
+      I18n.backend.store_translations(:en, claim_verification: { form: copy })
+      labels = form.questions.first.option_labels
+      expect(labels.find { |option| option[:value] == 'red' })
+        .to eq(value: 'red', label: 'Red', description: 'Like a fire engine')
+      expect(labels.find { |option| option[:value] == 'blue' }).to eq(value: 'blue', label: 'Blue')
+    end
+
+    # The SPA knows which illustration components exist; the declaration just
+    # names one, and most steps name none.
+    it 'passes a step\'s illustration through as declared' do
+      expect(form.steps.map(&:illustration)).to eq([nil, 'colour_wheel', nil])
     end
 
     it 'gates a step on the answer the declaration names' do
@@ -181,7 +215,24 @@ describe ClaimVerification::ExerciseForm do
     end
 
     it 'opens a step gated on `true` on any answer, not a named one' do
-      expect(form.applicable_questions('colour' => 'blue').map(&:id)).to eq(%w[colour why])
+      expect(form.applicable_questions('colour' => 'blue').map(&:id))
+        .to eq(%w[colour pick_another why])
+    end
+
+    # A prompt sits among the questions and is gated like one, but takes no
+    # answer: nothing to permit, store or require.
+    it 'shows a prompt on the answer that opens it, but never stores anything for it' do
+      expect(form.applicable_questions('colour' => 'red').map(&:id)).not_to include('pick_another')
+      expect(form.answer_keys).not_to include('pick_another')
+      expect(form.applicable_answers('colour' => 'blue', 'pick_another' => 'yes'))
+        .to eq('colour' => 'blue')
+      expect(form.errors_in('colour' => 'blue')).to be_empty
+    end
+
+    it 'names the action a prompt performs' do
+      prompt = form.questions.find { |question| question.id == 'pick_another' }
+      expect(prompt.action).to eq('choose_different_claim')
+      expect(prompt).not_to be_answerable
     end
   end
 end

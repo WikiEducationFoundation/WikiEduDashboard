@@ -53,7 +53,6 @@ const TrainingModulesViewMode = (props) => {
         block_modules={partitioned.discussions}
         block={block}
         editable={props.editable}
-        header={length > 1 && 'Discussion'}
         key="discussion-modules"
         trainingLibrarySlug={props.trainingLibrarySlug}
         isStudent={props.isStudent}

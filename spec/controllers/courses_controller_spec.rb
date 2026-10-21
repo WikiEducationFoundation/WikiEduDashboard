@@ -52,6 +52,42 @@ describe CoursesController, type: :request do
     end
   end
 
+  describe '#articles' do
+    let(:course) { create(:course, slug: slug_params) }
+
+    before do
+      stub_const('CoursesController::DEFAULT_ARTICLES_LIMIT', 2)
+      stub_const('CoursesController::MAX_ARTICLES_LIMIT', 3)
+      create_list(:article, 4).each do |article|
+        create(:articles_course, course_id: course.id, article_id: article.id)
+      end
+    end
+
+    def article_count(params = {})
+      get "/courses/#{course.slug}/articles.json", params: params
+      expect(response.status).to eq(200)
+      JSON.parse(response.body)['course']['articles'].length
+    end
+
+    it 'returns as many articles as the limit asks for' do
+      expect(article_count(limit: 3)).to eq(3)
+    end
+
+    it 'returns the default number of articles without a limit' do
+      expect(article_count).to eq(2)
+    end
+
+    it 'caps the limit' do
+      expect(article_count(limit: 100)).to eq(3)
+    end
+
+    it 'falls back to the default for a limit that is not a positive number' do
+      expect(article_count(limit: 0)).to eq(2)
+      expect(article_count(limit: -1)).to eq(2)
+      expect(article_count(limit: 'all')).to eq(2)
+    end
+  end
+
   describe '#destroy' do
     let!(:course)           { create(:course, submitted: true, slug: slug_params) }
     let!(:user)             { create(:test_user) }
@@ -111,6 +147,17 @@ describe CoursesController, type: :request do
         expect(Course.find_by(slug: course.slug)).to be_nil
       end
     end
+
+    context 'when the course is linked to a Wikimedia Event Registration event' do
+      before { course.update!(flags: { event_sync: 4296 }) }
+
+      it 'refuses to delete the course' do
+        expect(DeleteCourseWorker).not_to receive(:schedule_deletion)
+        delete "/courses/#{course.slug}", params: { id: "#{course.slug}.json" }, as: :json
+        expect(response).to have_http_status(:conflict)
+        expect(Course.find_by(slug: course.slug)).to be_present
+      end
+    end
   end
 
   describe '#update' do
@@ -145,6 +192,25 @@ describe CoursesController, type: :request do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
+    end
+
+    context 'when the course is linked to a Wikimedia Event Registration event' do
+      before { course.update!(flags: { event_sync: 4296 }) }
+
+      it 'refuses to change the slug' do
+        params = { id: course.slug, course: course_params }
+        put "/courses/#{course.slug}", params: params, as: :json
+        expect(response).to have_http_status(:conflict)
+        expect(course.reload.slug).to eq(slug_params)
+        expect(course.description).not_to eq('New description')
+      end
+
+      it 'still saves other changes when the slug is unchanged' do
+        params = { id: course.slug, course: { description: 'New description' } }
+        put "/courses/#{course.slug}", params: params, as: :json
+        expect(response).to have_http_status(:ok)
+        expect(course.reload.description).to eq('New description')
+      end
     end
 
     it 'does not post the details to the announcement page or the userpage' do
@@ -399,6 +465,11 @@ describe CoursesController, type: :request do
         it 'sets passcode correctly' do
           post '/courses', params: { course: course_params }, as: :json
           expect(Course.last.passcode).to eq('passcode')
+        end
+
+        it 'uses the ACUWT update path' do
+          post '/courses', params: { course: course_params }, as: :json
+          expect(Course.last.use_acuwt?).to eq(true)
         end
       end
 

@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/links"
+require_dependency "#{Rails.root}/lib/student_progress/timeline"
+
 # Assembles a student's progress overview for the in-Canvas nav-item launch:
 # their assigned articles (mirroring "My Articles"), rolled-up training and
 # exercise completion, and the single most-urgent next step. The next step is
@@ -17,9 +20,14 @@ class StudentStatusContext
 
   attr_reader :course, :user
 
-  def initialize(course:, user:)
+  # `preload` is a StudentProgress::Roster covering this user, shared across a
+  # roster's students so the course structure and each student's completions and
+  # assignments are fetched once for the class. Without one, the same data is
+  # loaded for this one user.
+  def initialize(course:, user:, preload: nil)
     @course = course
     @user = user
+    @preload = preload || StudentProgress::Roster.new(course:, user_ids: [user.id])
   end
 
   def articles
@@ -27,8 +35,8 @@ class StudentStatusContext
   end
 
   def training_items
-    @training_items ||= LtiTrainingProgress.new(@course, @user).module_statuses
-                                           .map { |mod, done| training_item(mod, done) }
+    @training_items ||= training_progress.module_statuses
+                                         .map { |mod, done| training_item(mod, done) }
   end
 
   def exercise_items
@@ -62,8 +70,17 @@ class StudentStatusContext
 
   private
 
+  def training_progress
+    LtiTrainingProgress.new(@course, @user, training_modules: @preload.training_modules,
+                                            completions:)
+  end
+
+  def completions
+    @preload.completions_for(@user.id)
+  end
+
   def assignments
-    @assignments ||= @user.assignments.where(course: @course).includes(:article).to_a
+    @preload.assignments_for(@user.id)
   end
 
   def article_row(assignment)
@@ -83,31 +100,32 @@ class StudentStatusContext
   end
 
   def exercise_blocks
-    @exercise_blocks ||= @course.blocks.includes(:week).to_a
-                                .select { |block| block.training_modules.any?(&:exercise?) }
-                                .sort_by { |block| [block.week.order, block.order] }
+    timeline.exercise_blocks
+  end
+
+  def timeline
+    @timeline ||= StudentProgress::Timeline.new(@preload)
   end
 
   def exercise_done?(block)
-    LtiBlockProgress.new(block, @user).score_given >= 1.0
+    LtiBlockProgress.new(block, @user, completions:,
+                                       training_modules: @preload.modules_for(block))
+                    .score_given >= 1.0
   end
 
   def exercise_url(block)
-    mod = block.training_modules.detect(&:exercise?)
+    mod = @preload.modules_for(block).detect(&:exercise?)
     return if mod.nil?
-    return "/courses/#{@course.slug}/#{mod.exercise_path}" if mod.exercise_path.present?
 
-    training_url(mod)
+    StudentProgress::Links.exercise_url(@course, mod)
   end
 
   def training_url(mod)
-    "/training/#{@course.training_library_slug}/#{mod.slug}" \
-      "?return_to=#{CGI.escape("/courses/#{@course.slug}")}"
+    StudentProgress::Links.training_url(@course, mod)
   end
 
   def block_due_date(mod)
-    block = @course.blocks.detect { |candidate| candidate.training_module_ids.include?(mod.id) }
-    block&.calculated_due_date
+    timeline.due_date_for(mod)
   end
 
   # Once trainings/exercises are done, the remaining work is the student's

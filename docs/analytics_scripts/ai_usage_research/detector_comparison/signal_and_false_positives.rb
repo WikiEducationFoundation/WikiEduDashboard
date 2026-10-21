@@ -2,7 +2,9 @@
 # Find latest student revision of each, get plaintext, then run it through
 # all 4 models and document signal from each.
 
-require_relative "./cumulative_diff"
+# Historical one-off from March 2026; superseded by the AiDetectionSample services
+# (see README.md in this directory). CumulativeDiff now lives in lib/.
+require_dependency "#{Rails.root}/lib/cumulative_diff"
 
 terms = %w[spring_2021 fall_2021 spring_2022 fall_2022 spring_2023 fall_2023 spring_2024 fall_2024 spring_2025 fall_2025]
 campaigns = terms.map { |term| Campaign.find_by_slug term }

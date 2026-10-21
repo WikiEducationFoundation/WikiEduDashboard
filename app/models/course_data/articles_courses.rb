@@ -21,6 +21,7 @@
 
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/cumulative_diff_url_builder"
+require_dependency "#{Rails.root}/lib/articles_courses_cache_manager"
 
 #= ArticlesCourses is a join model between Article and Course.
 #= It represents a mainspace Wikipedia article that has been worked on by a
@@ -28,10 +29,6 @@ require_dependency "#{Rails.root}/lib/cumulative_diff_url_builder"
 class ArticlesCourses < ApplicationRecord
   belongs_to :article
   belongs_to :course
-
-  has_many :article_course_timeslices, lambda { |articles_courses|
-                                         where article: articles_courses.article
-                                       }, through: :course
 
   scope :live, -> { joins(:article).where(articles: { deleted: false }).distinct }
   scope :new_article, -> { where(new_article: true) }
@@ -50,23 +47,15 @@ class ArticlesCourses < ApplicationRecord
     CumulativeDiffUrlBuilder.new(self).url
   end
 
-  def update_cache_from_timeslices
-    self.character_sum = article_course_timeslices.sum(&:character_sum)
-    self.references_count = article_course_timeslices.sum(&:references_count)
-    self.user_ids = article_course_timeslices.sum([], &:user_ids).uniq
-    self.new_article = article_course_timeslices.any?(&:new_article)
-    self.first_revision = article_course_timeslices.minimum(:first_revision)
-    save
-  end
-
   #################
   # Class methods #
   #################
 
   # Search by course and user.
   def self.search_by_course_and_user(course, user_id)
-    ArticlesCourses.where(course:).where('user_ids LIKE ?', "%- #{user_id}\n%")
+    where(course:).where('user_ids LIKE ?', "%- #{user_id}\n%")
   end
+
 
   # Calculate articles courses that need a cache update. For courses with a huge number
   # of articles, updating all caches in every update can be heavy. In order to
@@ -87,12 +76,13 @@ class ArticlesCourses < ApplicationRecord
   end
 
   def self.update_required_caches_from_timeslices(course)
-    ArticlesCourses.where(article_id: articles_courses_to_update(course))
-                   .find_each(&:update_cache_from_timeslices)
+    update_all_caches_from_timeslices(
+      where(course:, article_id: articles_courses_to_update(course))
+    )
   end
 
   def self.update_all_caches_from_timeslices(articles_courses)
-    articles_courses.find_each(&:update_cache_from_timeslices)
+    ArticlesCoursesCacheManager.new(articles_courses).update_caches_from_timeslices
   end
 
   # Creates missing ArticlesCourses records for the given course revisions whose

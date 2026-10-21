@@ -13,7 +13,8 @@ require_dependency "#{Rails.root}/lib/claim_verification/rollout_list"
 # Every one of those scopes is first narrowed to the curated rollout list
 # (config/claim_verification_rollout.yml) when one is configured, so
 # prioritization only ever reorders approved revisions and can never reach past
-# them. That list is temporary; with it absent or empty this serves the whole
+# them; claims curated out individually are left out of the counts too. The
+# revision list is temporary; with it absent or empty this serves the whole
 # pool, which is the behavior to expect once the rollout gate comes off.
 class RelevantClaimRevisionsForCourse
   Tile = Struct.new(:article, :mw_rev_id, :claim_count, :mw_rev_timestamp,

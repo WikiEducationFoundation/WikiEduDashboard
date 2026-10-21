@@ -55,6 +55,17 @@ describe SyncLtiLineItems do
       expect(WebMock).not_to have_requested(:post, %r{/api/lineitems})
     end
 
+    # No line-item service under LTI 1.1: nothing is discovered, and no AGS call
+    # is made even though the binding has credentials and a bound course.
+    it 'is a no-op for a legacy (LTI 1.1) binding' do
+      binding.update!(lti_version: '1.2.0')
+      stub_line_item_list(
+        [{ 'id' => 'https://lms.example.com/li/setup', 'tag' => LtiLineItem::SETUP_TYPE }]
+      )
+      expect { described_class.new(binding) }.not_to change(LtiLineItem, :count)
+      expect(WebMock).not_to have_requested(:get, %r{/api/lineitems})
+    end
+
     it 'discovers imported columns of every type by tag and binds local rows' do
       stub_line_item_list(
         [{ 'id' => 'https://lms.example.com/li/setup', 'tag' => LtiLineItem::SETUP_TYPE },

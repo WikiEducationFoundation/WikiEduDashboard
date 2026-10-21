@@ -18,12 +18,6 @@ module LtiLaunchSession
     # response to render prettily inside its iframe (this path skips the
     # allow_iframe after_action, so X-Frame-Options stays put — deliberately).
     rescue_from LtiSession::UnsupportedLmsError, with: :render_unsupported_lms
-    # Any LTIAAS refusal or outage mid-launch — most commonly an expired ltik
-    # on a stale Canvas tab. Unrescued, these 500 with the default
-    # X-Frame-Options, which the Canvas iframe shows as a blank "refused to
-    # connect"; render a friendly in-frame page instead. (The anonymous
-    # launch's landing already degrades on these — see anonymous_lti_session —
-    # so this covers the signed-in and picker paths.)
     rescue_from LtiaasClient::LtiaasClientError, LtiaasClient::LtiaasTransientError,
                 with: :render_ltiaas_error
   end
@@ -32,13 +26,24 @@ module LtiLaunchSession
 
   # Every launch-flow entry point — nav launch, anonymous launch, deep-link
   # picker, grade-sync trigger — builds its session here, so this is the one
-  # place the platform gate has to hold.
+  # place the platform gate and the legacy-launch gate have to hold.
+  #
+  # The legacy gate comes first: a launch kind the deployment hasn't opted into
+  # is refused whatever platform it names. Under 1.1 the platform gate then
+  # matters more, not less — a consumer key works from whatever LMS its holder
+  # pastes it into, so SUPPORTED_LMS_FAMILY is the only thing keeping this
+  # Canvas-only.
   def build_lti_session(ltik)
-    session = LtiSession.new(ENV['LTIAAS_DOMAIN'], ENV['LTIAAS_API_KEY'], ltik)
+    session = LtiSession.for_ltik(ltik)
+    if session.legacy? && !Features.lti_legacy_launches?
+      raise LtiSession::LegacyLaunchesDisabledError,
+            "LTI #{session.lti_version} launch while legacy launches are disabled"
+    end
     return session if session.supported_lms?
 
     raise LtiSession::UnsupportedLmsError,
-          "launch from unsupported LMS family #{session.lms_family.inspect}"
+          "launch from unsupported LMS family #{session.lms_family.inspect} " \
+          "(LTI #{session.lti_version}, platform id #{session.lms_id.inspect})"
   end
 
   # False means the launch authenticated fine but its LMS identity can't be
@@ -85,6 +90,7 @@ module LtiLaunchSession
   # relaunches don't enqueue redundant syncs.
   def schedule_first_link_grade_push(context)
     return unless @binding.course && context.previous_changes.key?('user_id')
+    return if @binding.legacy? # no gradebook to push to under LTI 1.1
 
     LtiGradeSyncWorker.perform_async(@binding.id)
   end
@@ -170,23 +176,18 @@ module LtiLaunchSession
     render 'lti_launch/enrollment_error', status: :forbidden
   end
 
-  # The tool is registered per-platform, so this should only ever fire if a
-  # non-Canvas platform was registered against the LTIAAS tenant — worth
-  # reporting rather than silently refusing.
+  # Under LTI 1.3 the tool is registered per-platform, so this should only ever
+  # fire if a non-Canvas platform was registered against the LTIAAS tenant.
+  # Under LTI 1.1 anyone holding a valid consumer key can launch, so it is also
+  # the gate that keeps 1.1 Canvas-only. Either way it's worth reporting rather
+  # than silently refusing.
   def render_unsupported_lms(error)
     Sentry.capture_exception(error)
     head :forbidden
   end
 
-  # Diagnostic, off unless LTI_LAUNCH_DEBUG is set. Logs the launch idtoken's
-  # top-level keys, the full `custom` object (Canvas ids + our resource
-  # marker — not PII), and the AGS service keys + lineItemId value (never the
-  # serviceKey value). Confirms what a deep-link-created resource link's
-  # launch actually carries on staging.
+  # See LogLtiLaunchClaims.
   def log_launch_claims
-    idt = @lti_session.idtoken
-    ags = idt.dig('services', 'assignmentAndGrades') || {}
-    Rails.logger.warn("[LTI launch] top=#{idt.keys.inspect} custom=#{idt['custom'].inspect} " \
-                      "ags_keys=#{ags.keys.inspect} lineItemId=#{ags['lineItemId'].inspect}")
+    LogLtiLaunchClaims.call(@lti_session)
   end
 end

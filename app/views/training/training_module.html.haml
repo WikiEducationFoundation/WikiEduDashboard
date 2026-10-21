@@ -5,9 +5,14 @@
   .training__intro
     .training-intro__header
       %h1= @pres.training_module.translated_name
+      -# On the Programs & Events Dashboard the module description is imported
+      -# from a Meta wiki page that anyone may edit, and Redcarpet passes raw
+      -# HTML in the source straight through, so the rendered markup is
+      -# sanitized before it is emitted. See the matching client-side
+      -# sanitizing in app/assets/javascripts/utils/markdown_it.js.
       - markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, lax_spacing: true)
       - html = markdown.render(@pres.training_module.translated_description)
-      = raw html
+      = sanitize html
     .training-intro__cta-container
       %small.block-element.capitalize{ class: @pres.progress_manager.assignment_status_css_class }
         = @pres.progress_manager.assignment_status

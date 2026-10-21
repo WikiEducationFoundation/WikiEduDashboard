@@ -67,7 +67,7 @@ ne:
     training: तालिम
     change: परिवर्तन गर्नुहोस्
     details: विवरणहरू
-    confirm: हुन्छ
+    confirm: ठीक छ
     opt_in: हो
     opt_out: होइन
     opt_yes: छ
@@ -330,7 +330,7 @@ ne:
     data_students: सम्पादक डेटा
     data_uploads: कमन्समा अपलोड गरिएको डेटा
     delete_course: पाठ्यक्रम मेट्नुहोस्
-    delete_suggestion: हटाउने
+    delete_suggestion: मेटाउनुहोस्
     dismiss_survey: खारेज गर्नुहोस्
     download_stats_data: डाउनलोड तथ्याङ्क
     duration: पाठ्यक्रम अवधि
@@ -533,6 +533,7 @@ ne:
     user: युजरस्पेस
     user_char_added: युजरस्पेसमा थपिएका अक्षरहरू
     project: परियोजना
+    mediaWiki: मिडियाविकि
     template: ढाँचा
     help: सहयोग
     category: श्रेणी

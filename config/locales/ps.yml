@@ -436,6 +436,8 @@ ps:
   settings:
     categories:
       users: کارنان
+  status:
+    status: دريځ
   timeline:
     add_week: اوونۍ ورگډول
     block_in_class: په ټولگي کې

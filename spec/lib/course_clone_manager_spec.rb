@@ -38,6 +38,17 @@ describe CourseCloneManager do
     create(:week, id: 2, course_id: 1, order: 2)
     create(:week, id: 3, course_id: 1, order: 3)
     create(:tag, course_id: 1, key: 'tricky_topic_areas', tag: 'no_medical_topics')
+    create(:tag, course_id: 1, key: 'sandboxes', tag: 'no_sandboxes')
+    create(:tag, course_id: 1, key: 'working_in_groups', tag: 'working_individually')
+    create(:tag, course_id: 1, key: 'index', tag: 'research_write_assignment')
+    create(:tag, course_id: 1, key: 'instructor_learner', tag: 'instructor_learner')
+    create(:tag, course_id: 1, key: 'topics-biographies', tag: 'biographies')
+    # Wizard answers outside the list, which must stay with the original: the
+    # research experiment consent, the mentorship request, and a key that only
+    # looks like a `topics-` answer.
+    create(:tag, course_id: 1, key: 'fall_2026_research_optin', tag: 'fall_2026_research_opted_in')
+    create(:tag, course_id: 1, key: 'mentoring', tag: 'mentor_requested')
+    create(:tag, course_id: 1, key: 'topicsfoo', tag: 'foo')
     create(:tag, course_id: 1, tag: 'arbitrary_tag')
   end
 
@@ -102,10 +113,26 @@ describe CourseCloneManager do
       expect(tags).to include('returning_instructor')
     end
 
-    it 'carries over tricky_topic_areas tag, but not others' do
-      tags = clone.tags.pluck(:tag)
-      expect(tags).to include('no_medical_topics')
-      expect(tags).not_to include('arbitrary_tag')
+    it 'carries over the wizard tags under their keys, but not others' do
+      carried = clone.tags.where.not(key: 'course_creator').pluck(:key, :tag)
+      expect(carried).to include(%w[tricky_topic_areas no_medical_topics],
+                                 %w[sandboxes no_sandboxes],
+                                 %w[working_in_groups working_individually],
+                                 %w[index research_write_assignment],
+                                 %w[instructor_learner instructor_learner],
+                                 %w[topics-biographies biographies])
+      expect(carried.map(&:last)).not_to include('arbitrary_tag')
+      expect(carried.map(&:first))
+        .not_to include('fall_2026_research_optin', 'mentoring', 'topicsfoo')
+      expect(clone.tags.where(key: 'course_creator').count).to eq(1)
+      expect(clone.tags.where(tag: 'cloned').count).to eq(1)
+    end
+
+    it 'lets a clone of a research-write course schedule the advice emails' do
+      allow(CourseAdviceEmailWorker).to receive(:schedule_email)
+      ScheduleCourseAdviceEmails.new(clone).schedule_emails
+      expect(CourseAdviceEmailWorker).to have_received(:schedule_email)
+        .with(hash_including(course: clone, subject: 'biographies'))
     end
 
     it 'marks the cloned status as PENDING' do
@@ -113,7 +140,11 @@ describe CourseCloneManager do
     end
 
     it 'only carries over specific course flags' do
-      expect(clone.flags).to eq({ peer_review_count: 3 })
+      expect(clone.flags).to eq({ peer_review_count: 3, use_acuwt: true })
+    end
+
+    it 'uses the ACUWT update path' do
+      expect(clone.use_acuwt?).to eq(true)
     end
   end
 
@@ -181,6 +212,26 @@ describe CourseCloneManager do
 
     it 'carries wikis over to clone' do
       expect(clone.wikis.include?(wikidata)).to be true
+    end
+  end
+  context 'when clone_assignments is true' do
+    before do
+      create(:assignment, course_id: 1, user_id: nil, role: 0, wiki_id: 1,
+                          article_title: 'Available_one', flags: { available_article: true })
+      create(:assignment, course_id: 1, user_id: 2, role: 0, wiki_id: 1,
+                          article_title: 'Claimed_one')
+      described_class.new(course: Course.find(1), user: User.find(1),
+                          clone_assignments: true).clone!
+    end
+
+    it 'copies the available articles as available articles' do
+      copied = clone.assignments.find_by(article_title: 'Available_one')
+      expect(copied.user_id).to be_nil
+      expect(copied.flags[:available_article]).to be(true)
+    end
+
+    it 'does not copy articles assigned to students' do
+      expect(clone.assignments.where(article_title: 'Claimed_one')).to be_empty
     end
   end
 end

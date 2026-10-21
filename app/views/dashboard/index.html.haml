@@ -10,8 +10,9 @@
 
   - # Show submitted/pending courses (for admins)
   - if @pres.submitted.any?
-    #submitted-list.expanded
-      %h2{onclick: "toggleAccordian('submitted-list')"}
+    - # Collapsed state is remembered in a cookie set by accordian.js
+    #submitted-list{class: cookies['submitted-list-collapsed'] ? 'collapsed' : 'expanded'}
+      %h2{onclick: "toggleAccordian('submitted-list', { remember: true })"}
         = t("courses.submitted_and_pending_heading") + " (#{@pres.submitted.count})"
         = hot_javascript_tag 'accordian'
         .submitted.icon.icon-arrow

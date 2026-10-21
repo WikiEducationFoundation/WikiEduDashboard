@@ -38,5 +38,7 @@ json.tickets do
     end
     json.subject ticket.subject
     json.sender_email ticket.sender_email
+    json.created_at ticket.created_at
+    json.updated_at ticket.updated_at
   end
 end

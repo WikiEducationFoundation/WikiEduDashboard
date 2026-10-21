@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
+require "#{Rails.root}/lib/data_cycle/update_logger"
 
 describe UpdateCourseStats do
   before do
@@ -114,7 +115,10 @@ describe UpdateCourseStats do
       # The course user caches were updated
       # All the revisions were done in mainspace = 0,
       # except for one revision in mainspace = 120, which is ommited
-      expect(course_user.character_sum_ms).to eq(7991)
+      # This course tracks both en.wikipedia and wikidata. Character sums cover
+      # en.wikipedia only: of the 7991 characters added, 7867 were wikidata
+      # bytes, which are excluded. See WordCount::EXCLUDED_PROJECTS.
+      expect(course_user.character_sum_ms).to eq(124)
       expect(course_user.character_sum_us).to eq(0)
       expect(course_user.character_sum_draft).to eq(0)
       expect(course_user.references_count).to eq(-2)
@@ -130,7 +134,9 @@ describe UpdateCourseStats do
 
       # Check caches for course
       # Course caches were updated
-      expect(course.character_sum).to eq(7991)
+      # Character sums exclude the 7867 wikidata characters; revision counts
+      # still include all 27 wikidata edits alongside the 2 en.wikipedia ones.
+      expect(course.character_sum).to eq(124)
       expect(course.references_count).to eq(-2)
       expect(course.revision_count).to eq(29)
       # TODO: view_sum is miscalculated due to a DISTINCT. See issue #5911
@@ -180,6 +186,32 @@ describe UpdateCourseStats do
 
     after do
       travel_back
+    end
+
+    it 'stops the whole course update on a Replica rate limit, reports once, ' \
+       'and leaves already-processed data untouched' do
+      allow(Sentry).to receive(:capture_message)
+      stub_request(:any, %r{#{Replica::REPLICA_TOOL_URL}.*})
+        .to_return(status: 429, headers: { 'Retry-After' => '1' }, body: '')
+
+      VCR.use_cassette 'course_update/replica' do
+        subject
+      end
+
+      # One clean course-level report, not one per timeslice or per student.
+      expect(Sentry).to have_received(:capture_message).once
+        .with(a_string_matching(/rate-limited/),
+              hash_including(tags: { update_service_id: subject.sentry_tag_uuid,
+                                     course: course.slug, http_status: 429 }))
+
+      # Left as an unfinished update, not logged as a finished one.
+      course.reload
+      expect(course.flags['update_logs']).to be_blank
+      expect(course.flags['unfinished_update_logs'].values.last['start_time']).to eq(date)
+
+      # No article/course caches were written from a rate-limited, incomplete fetch.
+      expect(course.character_sum).to eq(0)
+      expect(course.revision_count).to eq(0)
     end
 
     it 'tracks update errors properly in Replica' do
@@ -268,6 +300,79 @@ describe UpdateCourseStats do
         expect_any_instance_of(described_class).not_to receive(:update_article_status)
         subject
       end
+    end
+  end
+
+  # A stopped update must not move the cutoffs the next update relies on
+  # (last_update_start_time for new students, last_update_end_time for caches).
+  context 'when a Replica failure stops the update' do
+    let(:course) { create(:course, start: '2018-11-24', end: '2018-11-30') }
+    let(:rate_limited) do
+      response = double('response', code: '429', body: '') # rubocop:disable RSpec/VerifiedDoubles
+      allow(response).to receive(:[]).with('Retry-After').and_return(nil)
+      Replica::RateLimitedError.new(response)
+    end
+
+    before do
+      allow(Sentry).to receive(:capture_message)
+      allow_any_instance_of(described_class).to receive(:import_uploads)
+      allow_any_instance_of(described_class).to receive(:update_categories)
+      # The previous, complete update.
+      UpdateLogger.update_course(course, 'start_time' => 2.hours.ago.to_datetime,
+                                         'end_time' => (2.hours.ago + 1.minute).to_datetime)
+      # A student who joined after that update started.
+      create(:courses_user, course:, user:, role: CoursesUsers::Roles::STUDENT_ROLE,
+                            created_at: 1.hour.ago)
+    end
+
+    after { travel_back }
+
+    # Replica only raises after its backoff sleeps, so time passes first.
+    def raise_rate_limited
+      travel 10.seconds
+      raise rate_limited
+    end
+
+    def new_users_for_next_update
+      course.reload.students.where('courses_users.created_at >= ?', course.last_update_start_time)
+    end
+
+    it 'keeps the student new when the failure hits while processing new users' do
+      allow_any_instance_of(described_class).to receive(:update_articles)
+      allow_any_instance_of(RevisionDataManager).to receive(:fetch_revision_data_for_users) do
+        raise_rate_limited
+      end
+
+      described_class.new(course)
+
+      expect(Sentry).to have_received(:capture_message).with(/rate-limited/, anything)
+      expect(new_users_for_next_update).to include(user)
+    end
+
+    it 'keeps the student new when the failure hits during article status sync' do
+      allow_any_instance_of(described_class).to receive(:update_articles) { raise_rate_limited }
+
+      described_class.new(course)
+
+      expect(Sentry).to have_received(:capture_message).with(/rate-limited/, anything)
+      expect(new_users_for_next_update).to include(user)
+    end
+
+    it 'refreshes ArticlesCourses caches next time for timeslices written before the failure' do
+      article = create(:article)
+      create(:articles_course, course:, article:)
+      act = create(:article_course_timeslice, course:, article:,
+                                              start: '2018-11-24', end: '2018-11-25',
+                                              character_sum: 0)
+      allow_any_instance_of(described_class).to receive(:update_articles)
+      allow_any_instance_of(UpdateCourseWikiTimeslices).to receive(:run) do
+        act.update(character_sum: 123) # written by the stopped update
+        raise_rate_limited
+      end
+
+      described_class.new(course)
+
+      expect(ArticlesCourses.articles_courses_to_update(course.reload)).to include(article.id)
     end
   end
 end

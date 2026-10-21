@@ -39,12 +39,17 @@ export const missingRequired = (form, answers) => (
     .map(question => question.id)
 );
 
-// How to show one stored answer: a choice's option label, or the text as typed.
-// Falls back to the raw value so an answer whose option has since been renamed
-// still displays instead of vanishing.
+// A choice question's options no longer offered but still on record, so an
+// older response's answer can be read back (and shown while being edited).
+export const retiredOptions = question => question.retired_options || [];
+
+// How to show one stored answer: a choice's option label — offered or retired —
+// or the text as typed. Falls back to the raw value so an answer whose option
+// has since been renamed still displays instead of vanishing.
 const displayValue = (question, value) => {
   if (question.type !== 'choice') { return value; }
-  return question.options.find(option => option.value === value)?.label || value;
+  return [...question.options, ...retiredOptions(question)]
+    .find(option => option.value === value)?.label || value;
 };
 
 /*
@@ -66,11 +71,20 @@ export const answeredQuestions = (form, answers = {}) => (
 
 const questionPropType = PropTypes.shape({
   id: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['choice', 'text']).isRequired,
+  // A prompt is a sentence in the flow of questions, not a question: no answer.
+  type: PropTypes.oneOf(['choice', 'text', 'prompt']).isRequired,
   label: PropTypes.string,
+  // A prompt's button action, by name (see ACTIONS in VerificationForm.jsx).
+  action: PropTypes.string,
   required: PropTypes.bool,
   visible_when: PropTypes.object,
   options: PropTypes.arrayOf(PropTypes.shape({
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string,
+    // When this option is the right answer; shown in the form only.
+    description: PropTypes.string,
+  })),
+  retired_options: PropTypes.arrayOf(PropTypes.shape({
     value: PropTypes.string.isRequired,
     label: PropTypes.string,
   })),
@@ -81,6 +95,8 @@ export const formPropType = PropTypes.shape({
     id: PropTypes.string.isRequired,
     heading: PropTypes.string,
     instructions: PropTypes.string,
+    // Name of a component shown between the instructions and the questions.
+    illustration: PropTypes.string,
     visible_when: PropTypes.object,
     questions: PropTypes.arrayOf(questionPropType).isRequired,
   })).isRequired,

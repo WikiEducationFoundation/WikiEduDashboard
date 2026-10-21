@@ -11,7 +11,7 @@ These are notes about how we set up object storage for storing reports CSV files
 * Grant anonymous GetObject access to that container, with no ListBucket access. This allows every user to download their report while preventing them from seeing all the existing reports.
 
 ### Set up ENV vars
-* Use the container name and S3-compatible aws credentials to set the following env vars on the corresponding server.
+* Use the container name and S3-compatible aws credentials to set the following env vars on the corresponding servers (for example: peony-web for serving the downloads and peony-sidekiq-medium for generating them).
 
 ```
 # Credentials for storing CSV exports in S3-compatible object storage.

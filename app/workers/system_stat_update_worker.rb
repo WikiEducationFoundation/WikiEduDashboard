@@ -35,10 +35,22 @@ class SystemStatUpdateWorker
       archived_programs_count: courses.archived.count,
       new_editors_count: compute_new_editors_count,
       new_editors_count_with_preregistration: compute_new_editors_count_with_preregistration,
+      retained_new_editors_count: compute_retained_new_editors_count,
       active_facilitators_count: compute_active_facilitators_count,
       total_characters_added: courses.sum(:character_sum),
       wiki_stats: compute_wiki_stats(courses)
     }
+  end
+
+  def compute_retained_new_editors_count
+    CoursesUsers
+      .joins(:course, :user)
+      .where(courses: { private: false },
+             role: CoursesUsers::Roles::STUDENT_ROLE,
+             retained_after_course: true)
+      .where(NewEditorDateConditions::DURING_PROGRAM)
+      .distinct
+      .count('users.id')
   end
 
   # New editors (original definition): students who registered their
@@ -75,24 +87,31 @@ class SystemStatUpdateWorker
   # Uses string keys for consistent serialization round-tripping.
   def compute_wiki_stats(courses)
     wiki_data = fetch_wiki_aggregates(courses)
-    new_editors_with_prereg_by_wiki = compute_new_editors_with_preregistration_by_wiki
+    editors = compute_new_editors_with_preregistration_by_wiki
+    retained = compute_retained_editors_by_wiki
+    wikis_by_id = Wiki.where(id: wiki_data.map { |wd| wd[0] }).index_by(&:id)
 
-    wiki_ids = wiki_data.map { |wd| wd[0] }
-    wikis_by_id = Wiki.where(id: wiki_ids).index_by(&:id)
+    wiki_data.each_with_object({}) do |row, stats|
+      entry = build_wiki_entry(row, wikis_by_id, editors, retained)
+      stats[entry[:domain]] = entry[:data] if entry
+    end
+  end
 
-    wiki_stats = {}
-    wiki_data.each do |wiki_id, edits, programs, articles_created|
-      wiki = wikis_by_id[wiki_id]
-      next unless wiki
+  def build_wiki_entry(row, wikis_by_id, editors, retained)
+    wiki_id, edits, programs, articles_created = row
+    wiki = wikis_by_id[wiki_id]
+    return nil unless wiki
 
-      wiki_stats[wiki.domain] = {
+    {
+      domain: wiki.domain,
+      data: {
         'edits' => edits.to_i,
         'programs' => programs.to_i,
         'articles_created' => articles_created.to_i,
-        'new_editors_with_preregistration' => new_editors_with_prereg_by_wiki[wiki_id] || 0
+        'new_editors_with_preregistration' => editors[wiki_id] || 0,
+        'retained_editors' => retained[wiki_id] || 0
       }
-    end
-    wiki_stats
+    }
   end
 
   def fetch_wiki_aggregates(courses)
@@ -108,6 +127,18 @@ class SystemStatUpdateWorker
   def compute_new_editors_with_preregistration_by_wiki
     new_editor_base_scope
       .where(NewEditorDateConditions::WITH_PREREGISTRATION)
+      .group('courses.home_wiki_id')
+      .distinct
+      .count('users.id')
+  end
+
+  def compute_retained_editors_by_wiki
+    CoursesUsers
+      .joins(:course, :user)
+      .where(courses: { private: false },
+             role: CoursesUsers::Roles::STUDENT_ROLE,
+             retained_after_course: true)
+      .where(NewEditorDateConditions::DURING_PROGRAM)
       .group('courses.home_wiki_id')
       .distinct
       .count('users.id')

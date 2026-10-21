@@ -40,6 +40,11 @@ describe ReportCsvStore do
       described_class.exists?('report.csv')
     end
 
+    it 'delegates read to the store' do
+      expect(store).to receive(:read).with('report.csv')
+      described_class.read('report.csv')
+    end
+
     it 'delegates write to the store' do
       expect(store).to receive(:write).with('report.csv', 'data')
       described_class.write('report.csv', 'data')

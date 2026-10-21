@@ -7,6 +7,14 @@ describe 'Tracked categories and templates', js: true do
   let(:user) { create(:user) }
 
   before do
+    stub_browser_wiki_search(
+      'en.wikipedia.org|14|intitle:Earth ' => ['Category:Earth sciences'],
+      'en.wikipedia.org|14|intitle:Apple Inc. ' => ['Category:Apple Inc.'],
+      'fr.wikipedia.org|14|intitle:Matériel Apple ' => ['Catégorie:Matériel Apple'],
+      'en.wikipedia.org|10|intitle:Earth ' => ['Template:Earth mass'],
+      'en.wikipedia.org|10|intitle:Apple Inc. ' => ['Template:Apple Inc.'],
+      'fr.wikipedia.org|10|intitle:Palette Apple ' => ['Modèle:Palette Apple']
+    )
     JoinCourse.new(course:, user:, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
     login_as user
     stub_oauth_edit

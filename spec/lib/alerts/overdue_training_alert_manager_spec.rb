@@ -25,7 +25,7 @@ describe OverdueTrainingAlertManager do
   end
 
   context 'when training is overdue' do
-    let(:due_date) { 1.day.ago }
+    let(:due_date) { 2.days.ago }
 
     it 'creates an alert' do
       expect(OverdueTrainingAlert.count).to eq(0)
@@ -42,7 +42,7 @@ describe OverdueTrainingAlertManager do
   end
 
   context 'when training is not actually a training' do
-    let(:exercise_due_date) { 1.day.ago }
+    let(:exercise_due_date) { 2.days.ago }
     let(:due_date) { 1.day.from_now }
 
     it 'does not create an alert' do
@@ -86,7 +86,7 @@ describe OverdueTrainingAlertManager do
 
   context 'when the course was already underway before this feature launched' do
     let(:start_date) { '2018-05-01'.to_date }
-    let(:due_date) { 1.day.ago }
+    let(:due_date) { 2.days.ago }
 
     it 'does not create an alert' do
       expect(OverdueTrainingAlert.count).to eq(0)

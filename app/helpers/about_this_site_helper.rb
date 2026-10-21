@@ -4,6 +4,7 @@
 module AboutThisSiteHelper
   ACCESSIBILITY_REPORT_PATH = "#{Rails.root}/docs/vpat.md"
   CANVAS_INTEGRATION_GUIDE_PATH = "#{Rails.root}/docs/canvas_integration_guide.md"
+  CANVAS_INSTRUCTOR_GUIDE_PATH = "#{Rails.root}/docs/canvas_instructor_install.md"
   HECVAT_PATH = "#{Rails.root}/docs/hecvat.md"
 
   # Renders the canonical VPAT Markdown file to HTML for the public
@@ -17,6 +18,12 @@ module AboutThisSiteHelper
   # /lti/guide, same single-source-of-truth pattern as the VPAT above.
   def canvas_integration_guide_html
     render_doc_markdown(CANVAS_INTEGRATION_GUIDE_PATH)
+  end
+
+  # The instructor-facing install page at /lti/guide/instructors (docs/
+  # Markdown with screenshots under app/assets/images/canvas_guide/).
+  def canvas_instructor_guide_html
+    render_doc_markdown(CANVAS_INSTRUCTOR_GUIDE_PATH)
   end
 
   # Renders the public HECVAT response (docs/ Markdown) to HTML for /hecvat,

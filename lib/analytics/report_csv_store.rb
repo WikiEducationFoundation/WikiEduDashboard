@@ -21,6 +21,10 @@ class ReportCsvStore
     store.exists?(filename)
   end
 
+  def self.read(filename)
+    store.read(filename)
+  end
+
   def self.write(filename, data)
     store.write(filename, data)
   end

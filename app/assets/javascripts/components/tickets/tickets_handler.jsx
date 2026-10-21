@@ -79,6 +79,11 @@ const TicketsHandler = () => {
       desktop_only: false,
       sortable: true
     },
+    created_at: {
+      label: 'Created',
+      desktop_only: false,
+      sortable: true
+    },
     status: {
       label: 'Status',
       desktop_only: false,

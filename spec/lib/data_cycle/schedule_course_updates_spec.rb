@@ -61,10 +61,40 @@ describe ScheduleCourseUpdates do
 
     it 'reports logs to sentry even when it errors out' do
       allow(Sentry).to receive(:capture_message)
-      expect(CourseDataUpdateWorker).to receive(:update_course)
-        .and_raise(StandardError)
+      # Raising outside the per-course loop, which swallows its own errors.
+      expect(Sidekiq::WorkSet).to receive(:new).and_raise(StandardError)
       expect { described_class.new }.to raise_error(StandardError)
       expect(Sentry).to have_received(:capture_message)
+        .with('Schedule course updates failed.', any_args)
+    end
+  end
+
+  describe 'when one course cannot be enqueued' do
+    let!(:failing) do
+      create(:course, start: 1.day.ago, end: 2.months.from_now, slug: 'Bad/Course')
+    end
+    let!(:other) do
+      create(:course, start: 1.day.ago, end: 2.months.from_now, slug: 'Good/Course')
+    end
+
+    before do
+      allow(Sentry).to receive(:capture_exception)
+      allow(CourseDataUpdateWorker).to receive(:update_course) do |course_id:, **|
+        raise StandardError, 'dirty flags' if course_id == failing.id
+      end
+    end
+
+    it 'still enqueues the other courses' do
+      described_class.new
+      expect(CourseDataUpdateWorker).to have_received(:update_course)
+        .with(course_id: other.id, queue: anything)
+    end
+
+    it 'reports the failing course to sentry' do
+      described_class.new
+      expect(Sentry).to have_received(:capture_exception)
+        .with(instance_of(StandardError),
+              extra: hash_including(course_id: failing.id, slug: 'Bad/Course'))
     end
   end
 
@@ -103,6 +133,26 @@ describe ScheduleCourseUpdates do
         expect(job.args).to eq [Course.first.id]
         expect(Sidekiq::Queue.new(very_long_queue).size).to eq(1)
       end
+    end
+  end
+
+  describe 'writing first update flags' do
+    let!(:course) do
+      create(:course, start: 1.day.ago, end: 2.months.from_now, slug: 'New/Course')
+    end
+
+    it 'keeps a flag another process wrote after the course was loaded' do
+      # The scheduler loads every course before its loop starts. Here another
+      # process (the Event Center link) writes to the same flags column in the
+      # gap between that load and the first_update write.
+      allow(CourseDataUpdateWorker).to receive(:update_course) do |course_id:, **|
+        Course.find(course_id).add_flag(key: :event_sync, value: 4563)
+      end
+
+      described_class.new
+
+      expect(course.reload.flags[:event_sync]).to eq(4563)
+      expect(course.flags[:first_update]).to include(queue_name: 'medium_update')
     end
   end
 end

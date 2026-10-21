@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -10,6 +10,8 @@ import SalesforceLink from './salesforce_link.jsx';
 import CourseStatsDownloadModal from './course_stats_download_modal.jsx';
 import EmbedStatsButton from './embed_stats_button.jsx';
 import CloneCourseButton from './clone_course_button.jsx';
+import StudentViewToggle from '../course/student_view_toggle.jsx';
+import { getCanViewAsStudent, getIsViewingAsStudent } from '../../selectors';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
 import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse, removeAndDeleteCourse } from '../../actions/course_actions';
 import { STUDENT_ROLE, ONLINE_VOLUNTEER_ROLE } from '../../constants/user_roles';
@@ -19,6 +21,8 @@ import NotifyInstructorsButton from './notify_instructors_button.jsx';
 
 const AvailableActions = ({ course, current_user, updateCourse, courseCreationNotice }) => {
   const dispatch = useDispatch();
+  const canViewAsStudent = useSelector(getCanViewAsStudent);
+  const isViewingAsStudent = useSelector(getIsViewingAsStudent);
 
   const join = (role = null) => {
     const enrollURL = course.enroll_url;
@@ -113,9 +117,18 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
     }
     // If course is not published, show the 'delete' button to instructors and admins.
     if ((user.isAdvancedRole || user.admin) && (!course.published || !Features.wikiEd)) {
+      // Deleting a course that is linked to a Wikimedia Event Registration event
+      // would break registration for that event, so the server refuses it.
+      const linkedToEvent = Boolean(course.flags.event_sync);
+      let deleteTitle;
+      if (linkedToEvent) {
+        deleteTitle = I18n.t('courses.error.event_sync_delete');
+      } else if (Features.wikiEd) {
+        deleteTitle = I18n.t('courses.delete_course_instructions');
+      }
       controls.push((
-        <div title={Features.wikiEd ? I18n.t('courses.delete_course_instructions') : undefined} key="delete" className="available-action">
-          <button className="button danger" onClick={deleteCourseFunc}>
+        <div title={deleteTitle} key="delete" className="available-action">
+          <button className={linkedToEvent ? 'button danger disabled' : 'button danger'} onClick={deleteCourseFunc} disabled={linkedToEvent}>
             {CourseUtils.i18n('delete_course', course.string_prefix)}
           </button>
         </div>
@@ -191,6 +204,13 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
   if (user.admin && Features.wikiEd) {
     controls.push((
       <div key="notify_instructors" className="available-action"><NotifyInstructorsButton courseId={course.id} courseTitle={course.title} /></div>
+    ));
+  }
+
+  // Student view is switched on here; while it's on, the switch is in the course nav.
+  if (canViewAsStudent && !isViewingAsStudent) {
+    controls.push((
+      <div key="student_view" className="available-action"><StudentViewToggle courseSlug={course.slug} /></div>
     ));
   }
 

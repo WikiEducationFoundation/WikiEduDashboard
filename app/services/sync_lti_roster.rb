@@ -24,7 +24,9 @@
 #     per-member clothes (see #check_total_failure!).
 #
 # A binding without a stored serviceKey is a no-op (we haven't seen a
-# launch from this Canvas course yet, so we don't have credentials).
+# launch from this Canvas course yet, so we don't have credentials). So is a
+# legacy (LTI 1.1) binding: there is no roster service under 1.1, and its
+# students are enrolled by their own launches instead.
 class SyncLtiRoster
   # Same aborting tier as grade sync. Order matters at the rescue site:
   # LtiaasRateLimitError and LtiaasAuthError are LtiaasClientError subclasses.
@@ -56,6 +58,7 @@ class SyncLtiRoster
   private
 
   def perform
+    return if @binding.legacy?
     return if @binding.ltiaas_service_credentials.blank?
 
     service = LtiServiceSession.new(@binding)

@@ -1,16 +1,18 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/claim_verification/claim_citation_extractor"
+require_dependency "#{Rails.root}/lib/claim_verification/rollout_list"
 require_dependency "#{Rails.root}/lib/claim_verification/sentence_highlighter"
 
 # Renders an article at the exact revision a mainspace AiEditAlert flagged and
 # wraps — in a `cv-claim` span — only the cited sentences that were *added* in
-# that revision (the pre-harvested pool claims for this article+revision), so the
-# ArticleViewer can highlight them and let the student take one on. The full
-# revision is rendered (not the diff) so MediaWiki's real citation markers and
-# sentence positions are present; each highlighted span carries the stored
-# VerificationClaim's id and display data, so the client never re-derives them.
-# If a sentence can't be located we fall back to tagging its `[n]` marker.
+# that revision (the pre-harvested pool claims for this article+revision, less
+# any curated out via the rollout config), so the ArticleViewer can highlight
+# them and let the student take one on. The full revision is rendered (not the
+# diff) so MediaWiki's real citation markers and sentence positions are present;
+# each highlighted span carries the stored VerificationClaim's id and display
+# data, so the client never re-derives them. If a sentence can't be located we
+# fall back to tagging its `[n]` marker.
 class AnnotateRevisionClaims
   attr_reader :html, :mw_rev_id
 
@@ -125,12 +127,21 @@ class AnnotateRevisionClaims
   end
 
   # The pool claims added in this revision, keyed by normalized sentence (first
-  # wins when a sentence carries more than one citation).
+  # wins when a sentence carries more than one citation), minus the claims
+  # curated out of the exercise. The exclusion removes every pool row for an
+  # excluded claim's sentence (see RolloutList.without_excluded), so excluding
+  # the row the student sees can't just promote the sentence's next row — a
+  # different citation for the same text.
   def harvested_claims
-    @harvested_claims ||= VerificationClaim.where(article_id: @article.id, mw_rev_id: @mw_rev_id)
-                                           .order(:id).each_with_object({}) do |claim, map|
+    @harvested_claims ||= ClaimVerification::RolloutList.without_excluded(pool_claims)
+                                                        .order(:id)
+                                                        .each_with_object({}) do |claim, map|
       map[normalize(claim.sentence)] ||= claim
     end
+  end
+
+  def pool_claims
+    VerificationClaim.where(article_id: @article.id, mw_rev_id: @mw_rev_id)
   end
 
   def normalize(text)

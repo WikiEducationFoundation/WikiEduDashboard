@@ -5,7 +5,7 @@ import InputHOC from '../high_order/input_hoc.jsx';
 import Select from 'react-select';
 import selectStyles from '../../styles/single_select';
 
-const KINDS = [
+export const KINDS = [
   I18n.t('timeline.block_in_class'),
   I18n.t('timeline.block_assignment'),
   I18n.t('timeline.block_milestone'),

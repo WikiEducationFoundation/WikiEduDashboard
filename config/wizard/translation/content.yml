@@ -18,6 +18,7 @@ translation_essentials:
     weight: 3
     blocks:
       -
+        id: introduction
         title: Introduction to the Wikipedia project
         kind: 0 # In class
         content: |
@@ -41,6 +42,7 @@ translation_essentials:
           </ul>
 
       -
+        id: practicing_the_basics_ungraded
         if: ungraded_training
         title: Practicing the basics
         kind: 1
@@ -67,6 +69,7 @@ translation_essentials:
             </ul>
 
       -
+        id: practicing_the_basics_graded
         if: graded_training
         title: Practicing the basics
         kind: 1
@@ -94,6 +97,7 @@ translation_explore_to_find_articles:
     weight: 3
     blocks:
       -
+        id: choose_an_article_explore
         title: Choose an article
         kind: 0
         content: |
@@ -103,6 +107,7 @@ translation_explore_to_find_articles:
           </ul>
 
       -
+        id: begin_translating_explore
         title: Begin translating
         kind: 1
         content: |
@@ -122,6 +127,7 @@ translation_choose_articles_from_list:
     weight: 3
     blocks:
       -
+        id: choose_an_article_from_list
         title: Choose an article
         kind: 0
         content: |
@@ -135,6 +141,7 @@ translation_choose_articles_from_list:
             <li><a href="https://dashboard.wikiedu.org/training/students/sandboxes">Sandboxes and Mainspace</a></li>
           </ul>
       -
+        id: begin_translating_from_list
         title: Begin translating
         kind: 1
         content: |
@@ -148,6 +155,7 @@ translation_core:
     weight: 6
     blocks:
       - # Week three in-class WITHOUT fact-checking assignment
+        id: in_class_translation
         if: no_fact_checking
         title: Translation
         kind: 0
@@ -156,6 +164,7 @@ translation_core:
             <li>Be ready to discuss your progress translating your article.</li>
           </ul>
       - # Week three assignment WITHOUT fact-checking assignment
+        id: assignment_translation
         if: no_fact_checking
         title: Translation
         kind: 1
@@ -164,6 +173,7 @@ translation_core:
             <li>Continue to translate your work.</li>
           </ul>
       - # Week three in-class WITH fact-checking assignment
+        id: in_class_translation_with_fact_checking
         if: fact_checking
         title: Translation
         kind: 0
@@ -177,6 +187,7 @@ translation_core:
           <p>Handouts: <a href="https://commons.wikimedia.org/wiki/File:Citing_your_sources.pdf">Citing Sources</a> and <a href="https://commons.wikimedia.org/wiki/File:Avoiding_plagiarism.pdf">Avoid Plagiarism</a></p>
 
       - # Week three assignment WITH fact-checking assignment
+        id: assignment_translation_and_fact_checking
         if: fact_checking
         title: Translation and fact-checking
         kind: 1
@@ -192,6 +203,7 @@ translation_core:
     weight: 6
     blocks:
       -
+        id: in_class_publish_your_work
         title: Publish your work
         kind: 0
         content: |
@@ -199,6 +211,7 @@ translation_core:
             <li>Discussion of fact-checking translated work, finding English-language sources.</li>
           </ul>
       -
+        id: assignment_publish_your_work
         title: Publish your work
         kind: 1
         content: |
@@ -216,6 +229,7 @@ translation_core:
     weight: 1
     blocks:
       -
+        id: revise_and_review
         title: Revise and review
         kind: 0
         content: |
@@ -223,6 +237,7 @@ translation_core:
             <li>Individual presentations about your translation process, how you selected your articles, and your observations about how this differs from a traditional translation assignment.</li>
           </ul>
       -
+        id: milestone_final_translation
         title: Final translation
         kind: 2 # Milestone
         graded: true

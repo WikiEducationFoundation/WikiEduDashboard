@@ -38,6 +38,9 @@ smn:
     print: Printtii
   home:
     log_in: Čáládât siisâ Wikipedia peht
+  system_stats:
+    pagination:
+      previous: Oovdeb
   articles:
     articles: Artikkâleh
     next: Čuávuvâš
@@ -103,6 +106,9 @@ smn:
   editable:
     cancel: Jooskâ
     save: Vuorkkii
+  instructor_view:
+    assignments_table:
+      article_name: Nommâ
   metrics:
     activity: Vorâs nubástusah
     close_modal: Toopâ
@@ -141,6 +147,7 @@ smn:
     view: Čääiti
     next: Čuávuvâš sijđo
     page: Sijđo
+    previous: < Oovdeb
     kind:
       discussion: Savâstâllâm
   update_username:
@@ -156,6 +163,7 @@ smn:
     recent_revisions: Vorâs nubástusah
     username: Kevtteenommâ
     username_placeholder: Kevtteenommâ
+    useremail_placeholder: Čääli šleđgâpostâčujottâs
   wizard:
     read_more: Čääiti lase
   article_finder:

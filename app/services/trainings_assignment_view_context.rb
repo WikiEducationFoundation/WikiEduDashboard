@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/training_module_due_date_manager"
 require_dependency "#{Rails.root}/lib/training_progress_manager"
+require_dependency "#{Rails.root}/lib/student_progress/links"
+require_dependency "#{Rails.root}/lib/student_progress/timeline"
+require_dependency "#{Rails.root}/lib/student_progress/rules"
 
 # Bundles the data for the in-Canvas assignment view of the rolled-up
 # "Wikipedia trainings" (TrainingProgress) gradebook column. Instructors
@@ -59,15 +61,9 @@ class TrainingsAssignmentViewContext
     @line_item.label
   end
 
-  # One row per linked student, for the instructor roster. Completed counts come
-  # from one grouped query (not an LtiTrainingProgress per student).
+  # One row per linked student, for the instructor roster.
   def roster
-    completed = roster_completed_counts
-    total = training_module_ids.size
-    student_contexts.map do |context|
-      Row.new(name: context.user.username,
-              completed_count: completed[context.user_id] || 0, total_count: total)
-    end
+    student_contexts.map { |context| row_for(context.user, name: context.user.username) }
   end
 
   # The launching student's own row.
@@ -99,40 +95,40 @@ class TrainingsAssignmentViewContext
   private
 
   def viewer_progress
-    @viewer_progress ||= LtiTrainingProgress.new(@course, @user)
+    @viewer_progress ||= progress_for(@user)
   end
 
-  # One grouped query: per-module completion counts across the binding's
-  # connected students (for module_stats).
+  # Counts come from LtiTrainingProgress over the roster's preloaded completions,
+  # the same calculation as the pushed score, without a query per student.
+  def progress_for(user)
+    LtiTrainingProgress.new(@course, user, training_modules: progress_roster.training_modules,
+                                           completions: progress_roster.completions_for(user&.id))
+  end
+
+  # Per-module completion counts across the binding's connected students (for
+  # module_stats).
   def completion_counts
-    TrainingModulesUsers
-      .where(training_module_id: training_module_ids, user_id: student_contexts.map(&:user_id))
-      .where.not(completed_at: nil)
-      .group(:training_module_id).count
+    student_contexts.each_with_object(Hash.new(0)) do |context, counts|
+      progress_roster.completions_for(context.user_id).each do |module_id, tmu|
+        counts[module_id] += 1 if StudentProgress::Rules.training_complete?(tmu)
+      end
+    end
   end
 
-  # One grouped query: completed-training count per roster student (for the
-  # instructor roster) — the batched equivalent of an LtiTrainingProgress each.
-  def roster_completed_counts
-    TrainingModulesUsers
-      .where(training_module_id: training_module_ids, user_id: student_contexts.map(&:user_id))
-      .where.not(completed_at: nil)
-      .group(:user_id).count
-  end
-
-  # The course's training-kind module ids (user-independent); memoized so the
-  # two grouped counts above and the roster total share one derivation.
-  def training_module_ids
-    @training_module_ids ||= viewer_progress.training_modules.map(&:id)
+  # Everything the rows read, loaded once for the roster plus the viewer.
+  def progress_roster
+    @progress_roster ||= StudentProgress::Roster.new(
+      course: @course, user_ids: student_contexts.map(&:user_id) + [@user&.id]
+    )
   end
 
   def module_due_date(mod)
-    TrainingModuleDueDateManager.new(course: @course, training_module: mod, user: nil)
-                                .computed_due_date
+    @timeline ||= StudentProgress::Timeline.new(progress_roster)
+    @timeline.due_date_for(mod)
   end
 
   # Same sources as the Students-tab drawer (TrainingStatusController):
-  # due date from the module's timeline block, status strings from
+  # due date from the module's first timeline block, status strings from
   # TrainingProgressManager.
   def viewer_module_row(mod)
     due_date = module_due_date(mod)
@@ -143,16 +139,12 @@ class TrainingsAssignmentViewContext
                   training_url: training_url(mod))
   end
 
-  # return_to sends the end-of-training "return" to the course home page —
-  # by default it uses the referer, which for these links would be the LTI
-  # iframe launch URL.
   def training_url(mod)
-    "/training/#{@course.training_library_slug}/#{mod.slug}" \
-      "?return_to=#{CGI.escape("/courses/#{@course.slug}")}"
+    StudentProgress::Links.training_url(@course, mod)
   end
 
   def row_for(user, name:)
-    progress = LtiTrainingProgress.new(@course, user)
+    progress = progress_for(user)
     Row.new(name:, completed_count: progress.completed_count,
             total_count: progress.total_count)
   end

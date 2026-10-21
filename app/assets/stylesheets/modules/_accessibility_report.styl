@@ -48,6 +48,17 @@
     padding 1px 4px
     border-radius 3px
 
+  // Screenshots on the illustrated instructor page (/lti/guide/instructors):
+  // never wider than the column, framed so a light Canvas capture doesn't
+  // bleed into the page.
+  img
+    display block
+    max-width 100%
+    height auto
+    margin 0.75em 0 1.25em
+    border 1px solid $border_lt
+    border-radius 3px
+
   // Blockquotes carry the notices on these pages — the draft banner and the
   // AI-disclosure on /lti/guide. Unstyled they render as ordinary indented prose,
   // which is exactly what a disclosure must not do: the reader skims past it as

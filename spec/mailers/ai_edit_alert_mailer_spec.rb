@@ -102,4 +102,16 @@ describe AiEditAlertMailer do
         .to change { ActionMailer::Base.deliveries.count }.by(1)
     end
   end
+
+  describe '.email for a non-classroom course' do
+    let(:course) { create(:fellows_cohort) }
+
+    it 'renders the Scholars & Scientists email template' do
+      alert = build_alert('Artwork title')
+      alert.save!
+      email = described_class.email(alert)
+      expect(email.body.encoded).to include('Your next steps')
+      expect(email.body.encoded).to include(alert.followup_link)
+    end
+  end
 end

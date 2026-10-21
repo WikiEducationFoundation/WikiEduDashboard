@@ -517,6 +517,12 @@ describe 'the course page', type: :feature, js: true do
         expect(page).to be_axe_clean
       end
     end
+
+    it 'shows a translated empty-state message when the course has no alerts' do
+      js_visit "/courses/#{slug}/activity/alerts"
+      expect(page).to have_content I18n.t('alerts.no_data')
+      expect(page).not_to have_content 'missing'
+    end
   end
 
   describe 'resources view' do

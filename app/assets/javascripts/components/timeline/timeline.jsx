@@ -11,6 +11,7 @@ import Loading from '../common/loading.jsx';
 import CourseLink from '../common/course_link.jsx';
 import Affix from '../common/affix.jsx';
 import EditableRedux from '../high_order/editable_redux';
+import SandboxModeSwitcher from './SandboxModeSwitcher.jsx';
 
 import CourseUtils from '../../utils/course_utils.js';
 import CourseDateUtils from '../../utils/course_date_utils.js';
@@ -261,6 +262,7 @@ const Timeline = createReactClass({
               weeksBeforeTimeline={weeksBeforeTimeline}
               trainingLibrarySlug={this.props.course.training_library_slug}
               current_user={this.props.current_user}
+              course={this.props.course}
               noMeetingDays={CourseDateUtils.noMeetingDays(this.props.course)}
               moveBlock={this._moveBlock}
             />
@@ -428,6 +430,20 @@ const Timeline = createReactClass({
       );
     }
 
+    // Switching sandbox mode rewrites the course flag, the tag and several
+    // blocks at once, so it lives with the other whole-timeline controls
+    // rather than in any one week.
+    let sandboxModeSwitcher;
+    if (this.props.edit_permissions && this.props.current_user
+        && this.props.current_user.isAdmin
+        && this.props.course.type === 'ClassroomProgramCourse') {
+      sandboxModeSwitcher = (
+        <section className="timeline-ctas float-container">
+          <SandboxModeSwitcher course={this.props.course} />
+        </section>
+      );
+    }
+
     const sidebar = this.props.course.id ? (
       <div className="timeline__week-nav">
         <Affix offset={100}>
@@ -440,6 +456,7 @@ const Timeline = createReactClass({
             {editWeekTitles}
             {titlesActionButtons}
           </section>
+          {sandboxModeSwitcher}
           <section className="timeline-ctas float-container">
             {restartTimeline}
           </section>

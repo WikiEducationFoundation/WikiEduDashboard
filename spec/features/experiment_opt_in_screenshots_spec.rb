@@ -151,6 +151,24 @@ describe 'Research experiment opt-in screenshots', type: :feature, js: true,
     shoot_page('02b_student_consent_in_context')
   end
 
+  it 'captures the install step in context, with the nav still reachable' do
+    join_participating_course
+    stub_common_js ''
+    visit "/courses/#{course.slug}"
+    expect(page).to have_css('.experiment-opt-in__panel')
+    click_button 'I consent'
+    expect(page).to have_css('.experiment-opt-in__snippet')
+    shoot_page('03c_student_install_in_context')
+
+    # Get Help stays usable, and its dropdown opens over the overlay.
+    click_button 'Get Help'
+    expect(page).to have_css('.pop.open')
+    shoot_page('03d_student_install_get_help_open')
+
+    page.current_window.resize_to(400, 900)
+    shoot_page('03e_student_install_narrow')
+  end
+
   it 'captures the cleared course page once the script is verified on-wiki' do
     join_participating_course
     stub_common_js ''

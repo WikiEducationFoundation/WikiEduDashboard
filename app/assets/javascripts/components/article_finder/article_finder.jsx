@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import InputRange from 'react-input-range';
 import { includes, map, find } from 'lodash-es';
-import qs from 'query-string';
+import { parse } from '~/app/assets/javascripts/utils/query_string';
 import SelectedWikiOption from '../common/selected_wiki_option';
 import { compose } from 'redux';
 import withRouter from '../util/withRouter';
@@ -44,7 +44,7 @@ const ArticleFinder = (props) => {
   }, []);
 
   const getParamsURL = () => {
-    const query = qs.parse(window.location.search);
+    const query = parse(window.location.search);
     const entries = Object.entries(query);
     entries.map(([key, val]) => {
       val = (key === 'article_quality') ? parseInt(val) : val;

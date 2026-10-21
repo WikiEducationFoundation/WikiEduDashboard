@@ -49,6 +49,7 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
     # We must convert known feature flags to symbols because Course model
     # readers (e.g. peer_review_count) look for symbol keys.
     symbolize_feature_flags(copied_data['flags'])
+    force_use_acuwt(copied_data['flags'])
     # Create the course
     @course = Course.create!(copied_data)
   end
@@ -88,6 +89,13 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
         flags_hash[key.to_sym] = flags_hash.delete(key)
       end
     end
+  end
+
+  # The copy is a new course on this server, so it uses the ACUWT update path
+  # regardless of what the source server had set.
+  def force_use_acuwt(flags_hash)
+    flags_hash.delete('use_acuwt')
+    flags_hash[:use_acuwt] = true
   end
 
   def add_tracked_wikis

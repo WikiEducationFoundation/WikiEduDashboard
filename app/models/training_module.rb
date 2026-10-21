@@ -164,10 +164,21 @@ class TrainingModule < ApplicationRecord
     settings['preload']
   end
 
+  def article_title_input
+    settings['article_title_input']
+  end
+
   # For an in-app exercise: the course-relative path it launches (eg
   # 'verify_claim'), rather than an external sandbox.
   def exercise_path
     settings['exercise_path']
+  end
+
+  # Whether the module has a training page to send people to. A slide-less
+  # in-app exercise (eg fact verification) doesn't: its page would offer a
+  # Start button with no slide to start on.
+  def training_page?
+    slide_slugs.present? || exercise_path.blank?
   end
 
   # Returns the first library that has a category including the module slug.

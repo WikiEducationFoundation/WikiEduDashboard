@@ -34,8 +34,8 @@ const PeerReviewChecklist = () => {
           <dd><input type="checkbox" /> Is everything in the article relevant to the article topic? Is there anything that distracted you?</dd>
           <dd><input type="checkbox" /> Is the article neutral? Are there any claims, or frames, that appear heavily biased toward a particular position?</dd>
           <dd><input type="checkbox" /> Are there viewpoints that are overrepresented, or underrepresented?</dd>
-          <dd><input type="checkbox" /> Check the citations. Do the links work? Does the source support the claims in the article?</dd>
-          <dd><input type="checkbox" /> Is each fact supported by an appropriate, reliable reference? Where does the information come from? Are these neutral sources? If biased, is that bias noted?</dd>
+          <dd><input type="checkbox" /> Check the citations. Do the links work? Do the sources support the specific claims in the article?</dd>
+          <dd><input type="checkbox" /> Where does the information come from? Is each fact supported by an appropriate, reliable reference? Are these neutral sources? If biased, is that bias noted?</dd>
           <dd><input type="checkbox" /> Is any information out of date? Is anything missing that should be added?</dd>
         </dl>
         {button}

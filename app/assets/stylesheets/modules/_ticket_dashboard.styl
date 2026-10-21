@@ -3,8 +3,40 @@
   top 55px
   z-index 2
 .ticket-dashboard
-  td.sender
-    word-break break-all
+  // Fixed column widths keep the row layout stable regardless of content
+  // length; Subject takes whatever width is left over.
+  table.tickets
+    table-layout fixed
+    th, td
+      padding-left 12px
+      padding-right 12px
+    th.sender
+      width 14%
+    th.course_title
+      width 16%
+    th.created_at
+      width 110px
+    th.status
+      width 150px
+    th.owner
+      width 205px
+    th.actions
+      width 85px
+    td.created-at
+      white-space nowrap
+    td.actions .button
+      font-size 13px
+      padding 4px 12px
+    // Long text is clipped rather than growing the row without limit; the
+    // full text stays in the DOM (and in the title tooltip).
+    .clamp
+      display -webkit-box
+      -webkit-box-orient vertical
+      -webkit-line-clamp 2
+      overflow hidden
+      overflow-wrap anywhere
+    td.subject .clamp
+      -webkit-line-clamp 3
   .reply-header
     h3.subject
       color $text

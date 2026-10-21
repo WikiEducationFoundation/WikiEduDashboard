@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/training_module_due_date_manager"
+require_dependency "#{Rails.root}/lib/utils/due_date"
 
 class TrainingProgressManager
   def initialize(user, training_module, training_module_user: nil)
@@ -38,7 +39,7 @@ class TrainingProgressManager
   # where modules could belong to any number of courses
   def assignment_status_css_class
     return 'completed' if module_completed?
-    overall_due_date.present? && overall_due_date < Time.zone.today ? 'overdue' : nil
+    DueDate.passed?(overall_due_date) ? 'overdue' : nil
   end
   alias assignment_deadline_status assignment_status_css_class
 
@@ -51,11 +52,12 @@ class TrainingProgressManager
 
   # This is shown for the logged in user where the module is listed
   def assignment_status
-    return unless @training_module.training?
-    if due_date_manager.blocks_with_module_assigned(@training_module).any?
-      parenthetical = I18n.t('training_status.due', due_date: overall_due_date)
-      assingment_status = module_completed? ? I18n.t('training_status.completed') : parenthetical
-      return I18n.t('training_status.assignment_status', status: assingment_status)
+    if @training_module.training?
+      if due_date_manager.blocks_with_module_assigned(@training_module).any?
+        parenthetical = I18n.t('training_status.due', due_date: overall_due_date)
+        assingment_status = module_completed? ? I18n.t('training_status.completed') : parenthetical
+        return I18n.t('training_status.assignment_status', status: assingment_status)
+      end
     end
     return I18n.t('training_status.completed') if module_completed?
   end

@@ -112,6 +112,15 @@ describe FacilitatorStatUpdateWorker do
       expect(stat.new_editors_count_with_preregistration).to eq(2)
     end
 
+    it 'counts retained new editors' do
+      cu = CoursesUsers.find_by(course: course1, user: new_student)
+      cu.update!(retained_after_course: true)
+
+      described_class.new.perform
+      stat = FacilitatorStat.find_by(user_id: instructor.id, snapshot_date: Time.zone.today)
+      expect(stat.retained_new_editors_count).to eq(1)
+    end
+
     it 'marks facilitator as active in last year' do
       described_class.new.perform
       stat = FacilitatorStat.find_by(user_id: instructor.id, snapshot_date: Time.zone.today)

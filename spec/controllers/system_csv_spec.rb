@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe ReportsController, '#system_csv', type: :request do
+describe ReportsController, '#system_csv', :report_csv_files, type: :request do
   let(:admin) { create(:admin) }
   let(:user) { create(:user) }
   let(:en_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
@@ -18,10 +18,6 @@ describe ReportsController, '#system_csv', type: :request do
 
   before do
     stub_wiki_validation
-  end
-
-  after do
-    FileUtils.remove_dir('public/system/analytics') if File.directory?('public/system/analytics')
   end
 
   context 'when not signed in' do

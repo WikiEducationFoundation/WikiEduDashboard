@@ -8,7 +8,7 @@ import { startOfDay, endOfDay, isValid, isAfter, parseISO, getHours, getMinutes,
 import InputHOC from '../high_order/input_hoc.jsx';
 import Conditional from '../high_order/conditional.jsx';
 import CourseDateUtils from '../../utils/course_date_utils.js';
-import { formatDateWithoutTime, toDate } from '../../utils/date_utils.js';
+import { formatDateWithoutTime, toDate, getUTCDate } from '../../utils/date_utils.js';
 import { onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 const DatePicker = createReactClass({
@@ -45,7 +45,9 @@ const DatePicker = createReactClass({
 
   getInitialState() {
     if (this.props.value) {
-      const dateObj = toDate(this.props.value);
+      const parsed = toDate(this.props.value);
+      const dateOnlyString = typeof this.props.value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(this.props.value);
+      const dateObj = (this.props.showTime || dateOnlyString) ? parsed : getUTCDate(parsed);
       return {
         value: formatDateWithoutTime(dateObj),
         hour: getHours(dateObj),
@@ -68,7 +70,7 @@ const DatePicker = createReactClass({
    * @return {null}
    */
   onChangeHandler() {
-    const e = { target: { value: formatISO(this.getDate()) } };
+    const e = { target: { value: this.getISOValue() } };
     this.props.onChange(e);
   },
 
@@ -80,6 +82,14 @@ const DatePicker = createReactClass({
     let dateObj = toDate(this.state.value);
     dateObj = setHours(dateObj, this.state.hour);
     return setMinutes(dateObj, this.state.minute);
+  },
+
+  getISOValue() {
+    const d = this.getDate();
+    if (this.props.showTime) {
+      return formatISO(d);
+    }
+    return new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), d.getHours(), d.getMinutes())).toISOString();
   },
 
   getFormattedDate() {
@@ -331,7 +341,7 @@ const DatePicker = createReactClass({
       return (
         <div className={`form-group datetime-control ${this.props.id}-datetime-control ${inputClass}`}>
           <span className={`form-group date-picker--form-group ${inputClass}`}>
-            <label htmlFor={this.props.id}className={labelClass}>{label}</label>
+            <label htmlFor={this.props.id} className={labelClass}>{label}</label>
             {dateInput}
           </span>
           {this.props.showTime ? timeControlNode : null}

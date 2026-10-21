@@ -1,7 +1,7 @@
 import { forEach } from 'lodash-es';
 import { ensureOk } from './request';
 import fetchJsonp from 'fetch-jsonp';
-import { stringify } from 'query-string';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 import { toWikiDomain } from './wiki_utils';
 
 export const queryUrl = async (url, query = {}) => {

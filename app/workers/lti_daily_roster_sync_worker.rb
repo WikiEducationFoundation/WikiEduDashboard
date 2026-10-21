@@ -4,7 +4,8 @@
 # for every active LtiCourseBinding. "Active" means the bound Dashboard
 # course's end date is in the recent past or future — we keep syncing for
 # a 30-day grace period after course end so late-dropping students and
-# late-grade pushes can still reconcile.
+# late-grade pushes can still reconcile. 1.3 bindings only, selected by
+# version: a legacy (LTI 1.1) binding has no roster service.
 class LtiDailyRosterSyncWorker
   include Sidekiq::Worker
   sidekiq_options lock: :until_executed, queue: 'medium_update'
@@ -15,6 +16,7 @@ class LtiDailyRosterSyncWorker
     return unless Features.canvas_integration?
 
     LtiCourseBinding
+      .lti_1_3
       .joins(:course)
       .where('courses.end >= ?', Date.current - GRACE_PERIOD)
       .where.not(ltiaas_service_credentials: nil)

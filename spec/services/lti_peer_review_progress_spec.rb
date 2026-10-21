@@ -155,4 +155,35 @@ describe LtiPeerReviewProgress do
 
     expect(described_class.new(course, student).signature).not_to eq(before)
   end
+
+  # The rows both in-Canvas views render: the instructor roster and the
+  # student's own panel read these rather than building their own.
+  it 'builds one display row per assigned review' do
+    expect_reviews(2)
+    assign_review('Ada_Lovelace', page: true)
+    assign_review('Grace_Hopper')
+
+    rows = described_class.new(course, student).review_rows
+    expect(rows.map(&:article_title)).to eq(['Ada Lovelace', 'Grace Hopper'])
+    expect(rows.map(&:completed?)).to eq([true, false])
+    expect(rows.first.article_url).to end_with('/wiki/Ada_Lovelace')
+    expect(rows.first.review_url).to include('/wiki/User:reviewer/Ada_Lovelace')
+                                 .and end_with('reviewer_Peer_Review')
+  end
+
+  # A roster loads every student's assignments in one query and hands each
+  # student theirs; the reviews are picked out here, with no query of their own.
+  it 'picks the reviews out of preloaded assignments' do
+    expect_reviews(2)
+    review = assign_review('First', page: true)
+    editing = Assignment.create!(course:, user: student, wiki: course.home_wiki,
+                                 role: Assignment::Roles::ASSIGNED_ROLE, article_title: 'Own')
+    allow(Assignment).to receive(:where).and_call_original
+
+    progress = described_class.new(course, student, assignments: [editing, review])
+
+    expect(progress.completed_count).to eq(1)
+    expect(progress.review_rows.map(&:article_title)).to eq(['First'])
+    expect(Assignment).not_to have_received(:where)
+  end
 end

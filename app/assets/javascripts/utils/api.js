@@ -1,10 +1,11 @@
 import { capitalize } from './strings';
 import logErrorMessage from './log_error_message';
 import request, { ensureOk } from './request';
-import { stringify } from 'query-string';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 import Rails from '@rails/ujs';
 import { toWikiDomain } from './wiki_utils';
 import { formatCategoryName } from '../components/util/scoping_methods';
+import { studentViewQuery } from './student_view';
 
 const SentryLogger = {};
 
@@ -69,7 +70,14 @@ const API = {
   },
 
   async fetchUserProfileStats(username) {
-    const response = await request(`/user_stats.json?username=${username}`);
+    const response = await request(`/users/${username}/stats.json`);
+
+    await ensureOk(response);
+    return response.json();
+  },
+
+  async fetchUserArticles(username) {
+    const response = await request(`/users/${username}/user_articles.json`);
 
     await ensureOk(response);
     return response.json();
@@ -149,8 +157,28 @@ const API = {
     return response.json();
   },
 
+  // Reports how many Available Articles a copy from another course would add,
+  // without changing anything.
+  async previewCopyAvailableArticles(opts) {
+    const queryString = stringify(opts);
+    const response = await request(`/copy_available_articles/preview.json?${queryString}`);
+
+    await ensureOk(response);
+    return response.json();
+  },
+
+  async copyAvailableArticles(opts) {
+    const queryString = stringify(opts);
+    const response = await request(`/copy_available_articles.json?${queryString}`, {
+      method: 'POST'
+    });
+
+    await ensureOk(response);
+    return response.json();
+  },
+
   fetch(courseId, endpoint) {
-    return request(`/courses/${courseId}/${endpoint}.json`, {
+    return request(`/courses/${courseId}/${endpoint}.json${studentViewQuery(endpoint)}`, {
       credentials: "include"
     })
       .then(res => {

@@ -7,6 +7,11 @@
 .container
   %section#courses
     .section-header
+      %p.unsubmitted-courses__scope
+        - if @show_all
+          %a{href: unsubmitted_courses_path}= t('courses.unsubmitted_show_recent')
+        - else
+          %a{href: unsubmitted_courses_path(all: true)}= t('courses.unsubmitted_show_all')
       .sort-select
         %select.sorts{:rel => "courses", 'aria-label': t('application.sort')}
           %option{:rel => "asc", :value => "title"}= t("courses.title")

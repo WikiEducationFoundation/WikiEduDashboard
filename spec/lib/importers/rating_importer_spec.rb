@@ -32,7 +32,32 @@ describe RatingImporter do
     end
   end
 
-  describe '.update_all_ratings and .update_new_ratings' do
+  describe '.update_outdated_ratings' do
+    it 'only fetches ratings for articles with no rating or a stale one' do
+      course = create(:course,
+                      id: 1,
+                      title: 'Basket Weaving',
+                      start: '2015-01-01'.to_date,
+                      end: '2030-05-01'.to_date)
+      fresh = create(:article, title: 'Selfie', namespace: 0,
+                               rating_updated_at: 1.day.ago)
+      stale = create(:article, title: 'Six Flags AstroWorld', namespace: 0,
+                               rating_updated_at: 2.weeks.ago)
+      never_rated = create(:article, title: 'Wikipedia', namespace: 0,
+                                     rating_updated_at: nil)
+      course.articles << [fresh, stale, never_rated]
+
+      requested_titles = []
+      allow(described_class).to receive(:update_ratings) do |article_groups|
+        requested_titles = article_groups.flat_map { |articles| articles.map(&:title) }
+      end
+
+      described_class.update_outdated_ratings
+      expect(requested_titles).to contain_exactly('Six_Flags_AstroWorld', 'Wikipedia')
+    end
+  end
+
+  describe '.update_outdated_ratings and .update_new_ratings' do
     it 'gets latest ratings for articles' do
       VCR.use_cassette 'article/update_ratings' do
         course = create(:course,
@@ -60,7 +85,7 @@ describe RatingImporter do
                           title: 'A Clash of Kings',
                           namespace: 0)
         course.articles << article2
-        described_class.update_all_ratings
+        described_class.update_outdated_ratings
         expect(possible_ratings).to include Article.find(2).rating
       end
     end

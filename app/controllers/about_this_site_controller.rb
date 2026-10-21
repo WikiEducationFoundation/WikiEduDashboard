@@ -20,6 +20,12 @@ class AboutThisSiteController < ApplicationController
     raise ActionController::RoutingError, 'Not Found' unless Features.wiki_ed?
   end
 
+  # The instructor-facing companion to the guide at /lti/guide/instructors:
+  # the LTI 1.1 course-level install a teacher can do without an admin.
+  def canvas_instructor_guide
+    raise ActionController::RoutingError, 'Not Found' unless Features.wiki_ed?
+  end
+
   # Public HECVAT (security/privacy assessment) for the Canvas integration,
   # published alongside the VPAT. Wiki-Ed-only, same as the VPAT.
   def hecvat

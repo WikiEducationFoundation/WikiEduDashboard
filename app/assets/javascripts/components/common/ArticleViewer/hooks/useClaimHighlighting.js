@@ -7,6 +7,7 @@ import ClaimLegend from '@components/common/ArticleViewer/claim_verification/Cla
 // Helpers
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
 import formatRevisionDate from '~/app/assets/javascripts/utils/format_revision_date';
+import { isStudentViewActive } from '~/app/assets/javascripts/utils/student_view';
 import { stepHeading } from '@components/claim_verification_exercise/steps';
 
 /*
@@ -173,12 +174,17 @@ const useClaimHighlighting = ({ article, course, revisionId, isOpen, onTaken }) 
       })
       .catch((error) => {
         setTaking(false);
-        // 403 means the user isn't enrolled in this course; any other failure is
-        // unexpected, so reuse the app's generic error copy. Shown inline in the
-        // panel, since the page-level notification banner sits behind the viewer.
-        const message = error.status === 403
-          ? I18n.t('claim_verification.take_not_enrolled')
-          : I18n.t('error_500.explanation');
+        // In an instructor's "View as student", the take is blocked before it's
+        // sent. Otherwise 403 means the user isn't enrolled in this course; any
+        // other failure is unexpected, so reuse the app's generic error copy.
+        // Shown inline in the panel, since the page-level notification banner
+        // sits behind the viewer.
+        let message = I18n.t('error_500.explanation');
+        if (isStudentViewActive()) {
+          message = I18n.t('courses.student_view_action_blocked');
+        } else if (error.status === 403) {
+          message = I18n.t('claim_verification.take_not_enrolled');
+        }
         setTakeError(message);
       });
   };

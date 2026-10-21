@@ -25,8 +25,20 @@ class TrainingModulesUsers < ApplicationRecord
     training_progress_manager.slide_further_than_previous?(slide_slug, last_slide_completed)
   end
 
+  # Keeps any other per-course flags, such as the exercise article title.
   def mark_completion(value = true, course_id = nil)
-    flags[course_id] = { marked_complete: value }
+    flags[course_id] = (flags[course_id] || {}).merge(marked_complete: value)
+  end
+
+  # For article_title_input exercises, the title is only stored once the
+  # student's edit to it has been verified, which also completes the exercise.
+  def store_exercise_article_title(title, course_id)
+    flags[course_id] = (flags[course_id] || {}).merge(marked_complete: true,
+                                                      exercise_article_title: title)
+  end
+
+  def exercise_article_title(course_id)
+    flags.dig(course_id, :exercise_article_title)
   end
 
   # This is only used on Wiki Education Dashboard

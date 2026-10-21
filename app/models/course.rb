@@ -82,6 +82,7 @@ class Course < ApplicationRecord
            foreign_key: 'project_id',
            dependent: :destroy
   has_one :course_stat, class_name: 'CourseStat', dependent: :destroy
+  has_many :retention_stats, dependent: :destroy
 
   #########################
   # Activity by the users #
@@ -123,6 +124,7 @@ class Course < ApplicationRecord
   has_many :article_course_timeslices
   has_many :course_user_wiki_timeslices
   has_many :course_wiki_timeslices
+  has_many :article_course_user_wiki_timeslices
 
   has_many :sandboxes, lambda {
     distinct.sandbox
@@ -206,10 +208,18 @@ class Course < ApplicationRecord
     where('courses.end <= ?', Time.zone.now - UPDATE_LENGTH)
   }
 
+  # A course needs a partial update if any of its timeslices still needs work:
+  # a course wiki timeslice flagged needs_update or needs_reaggregation, or an
+  # article-course-user-wiki timeslice flagged needs_update. This mirrors the
+  # "pending work" check in MarkPurgeableCourses, so a course is never protected
+  # from purging while being ineligible for the update that would clear the flag.
   scope :needs_partial_update, lambda {
-    joins(:course_wiki_timeslices)
-      .where(course_wiki_timeslices: { needs_update: true })
-      .distinct
+    cwt_course_ids = CourseWikiTimeslice.where(needs_update: true)
+                                        .or(CourseWikiTimeslice.where(needs_reaggregation: true))
+                                        .select(:course_id)
+    acuwt_course_ids = ArticleCourseUserWikiTimeslice.where(needs_update: true)
+                                                     .distinct.select(:course_id)
+    where(id: cwt_course_ids).or(where(id: acuwt_course_ids))
   }
 
   scope :current_or_set_to_full_update, -> { current.or(where(needs_update: true)) }
@@ -494,9 +504,25 @@ class Course < ApplicationRecord
     word_count / user_count
   end
 
+  # Flags live in one serialized column, so every save rewrites the whole hash.
+  # A stale Course object that sets one flag and saves silently drops any flag
+  # another process wrote in the meantime; that is how an Event Center link can
+  # vanish minutes after it was confirmed (T437639). These two methods reload
+  # under a row lock before writing, so a single-flag change never clobbers the
+  # rest. They return the result of `save`, and raise if the receiver has
+  # unsaved changes, because `with_lock` refuses to reload over them.
   def add_flag(key:, value: true)
-    flags[key] = value
-    save
+    with_lock do
+      flags[key] = value
+      save
+    end
+  end
+
+  def remove_flag(key)
+    with_lock do
+      flags.delete(key)
+      save
+    end
   end
 
   # Overridden for some course types
@@ -581,6 +607,33 @@ class Course < ApplicationRecord
     flags[:retain_available_articles].present?
   end
 
+  # True once MarkPurgeableCourses has flagged this course for timeslice purging
+  # (it ended long ago and has no pending timeslice work).
+  def purgeable?
+    flags[:purgeable].present?
+  end
+
+  # True once course's timeslice records were deleted and the course doesn't allow
+  # new metadata updates.
+  def finalized?
+    flags[:finalized].present?
+  end
+
+  # An unfinished update log more recent than this is treated as a possibly
+  # running update; an older one is stale (left behind by a deploy or restart
+  # mid-update), since real updates usually take hours, not weeks.
+  RUNNING_UPDATE_WINDOW = 14.days
+
+  # True if an update might currently be running: there is an unfinished update
+  # log whose start time is within RUNNING_UPDATE_WINDOW.
+  def update_possibly_running?
+    unfinished = flags['unfinished_update_logs']
+    return false if unfinished.blank?
+
+    cutoff = RUNNING_UPDATE_WINDOW.ago.to_f
+    unfinished.values.any? { |log| log['start_time'].to_f > cutoff }
+  end
+
   def disable_student_emails?
     flags[:disable_student_emails].present?
   end
@@ -644,6 +697,12 @@ class Course < ApplicationRecord
 
   # Overridden for ClassroomProgramCourse
   def progress_tracker_enabled?
+    false
+  end
+
+  # The instructor-facing Assignments tab. Overridden for ClassroomProgramCourse
+  # and FellowsCohort.
+  def assignments_tab_enabled?
     false
   end
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_07_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -19,6 +19,33 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["courses_id"], name: "index_admin_course_notes_on_courses_id"
+  end
+
+  create_table "ai_detection_samples", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "sample_name", null: false
+    t.integer "wiki_id"
+    t.integer "rev_id"
+    t.integer "from_rev_id"
+    t.boolean "diff_mode", default: true, null: false
+    t.string "url"
+    t.integer "article_id"
+    t.integer "course_id"
+    t.string "campaign_slug"
+    t.integer "namespace"
+    t.string "ground_truth"
+    t.string "provenance"
+    t.text "notes"
+    t.text "factors"
+    t.text "plain_text", size: :medium
+    t.string "text_sha256", limit: 64
+    t.integer "word_count"
+    t.text "metadata"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "source_text", size: :medium
+    t.string "source_format"
+    t.index ["sample_name", "text_sha256"], name: "ai_detection_samples_by_text"
+    t.index ["sample_name"], name: "index_ai_detection_samples_on_sample_name"
   end
 
   create_table "alerts", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -80,6 +107,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.index ["course_id", "article_id", "user_id", "wiki_id", "start", "end"], name: "index_acuwt_unique", unique: true
     t.index ["course_id", "user_id"], name: "index_acuwt_on_course_id_and_user_id"
     t.index ["course_id", "wiki_id"], name: "index_acuwt_on_course_id_and_wiki_id"
+    t.index ["needs_update", "course_id"], name: "index_acuwt_on_needs_update_and_course_id"
   end
 
   create_table "articles", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -359,6 +387,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.string "role_description"
     t.integer "total_uploads"
     t.integer "references_count", default: 0
+    t.boolean "retained_after_course"
+    t.datetime "retained_after_course_checked_at"
     t.index ["course_id", "user_id", "role"], name: "index_courses_users_on_course_id_and_user_id_and_role", unique: true
     t.index ["course_id"], name: "index_courses_users_on_course_id"
     t.index ["user_id"], name: "index_courses_users_on_user_id"
@@ -393,6 +423,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.integer "total_edits", default: 0
     t.integer "new_editors_count", default: 0
     t.integer "new_editors_count_with_preregistration", default: 0
+    t.integer "retained_new_editors_count", default: 0
     t.integer "total_students_count", default: 0
     t.bigint "total_characters_added", default: 0
     t.boolean "active_in_last_year", default: false
@@ -414,6 +445,21 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.text "body"
     t.integer "user_id"
     t.datetime "created_at", precision: nil
+  end
+
+  create_table "lti_consumer_keys", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "key", null: false
+    t.text "secret", null: false
+    t.integer "course_id", null: false
+    t.integer "user_id", null: false
+    t.string "lms_instance_guid"
+    t.datetime "activated_at"
+    t.datetime "last_launch_at"
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id"], name: "index_lti_consumer_keys_on_course_id"
+    t.index ["key"], name: "index_lti_consumer_keys_on_key", unique: true
   end
 
   create_table "lti_contexts", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -449,10 +495,28 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.datetime "last_grade_sync_at"
     t.text "last_grade_sync_error"
     t.datetime "last_grade_sync_attempt_at"
+    t.string "lti_version", default: "1.3.0", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["course_id"], name: "index_lti_course_bindings_on_course_id_unique", unique: true
     t.index ["lms_id", "lms_context_id"], name: "index_lti_course_bindings_on_lms_context", unique: true
+  end
+
+  create_table "lti_launch_nonces", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "lti_consumer_key_id", null: false
+    t.string "nonce", null: false
+    t.datetime "created_at", null: false
+    t.index ["created_at"], name: "index_lti_launch_nonces_on_created_at"
+    t.index ["lti_consumer_key_id", "nonce"], name: "index_lti_launch_nonces_on_key_and_nonce", unique: true
+  end
+
+  create_table "lti_legacy_launches", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "token", null: false
+    t.text "idtoken", null: false
+    t.datetime "expires_at", null: false
+    t.datetime "created_at", null: false
+    t.index ["expires_at"], name: "index_lti_legacy_launches_on_expires_at"
+    t.index ["token"], name: "index_lti_legacy_launches_on_token", unique: true
   end
 
   create_table "lti_line_items", id: :integer, charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
@@ -552,6 +616,22 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
+  create_table "retention_stats", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "user_id", null: false
+    t.integer "sessions_during", default: 0, null: false
+    t.integer "days_to_return"
+    t.integer "sessions_after"
+    t.integer "edits_60_90"
+    t.integer "prior_edit_count", default: 0, null: false
+    t.boolean "long_term_wikipedian", default: false, null: false
+    t.integer "prior_course_count", default: 0, null: false
+    t.datetime "computed_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["course_id", "user_id"], name: "index_retention_stats_on_course_id_and_user_id", unique: true
+  end
+
   create_table "revision_ai_scores", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "revision_id"
     t.integer "wiki_id"
@@ -568,6 +648,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.string "check_origin"
     t.integer "origin_user_id"
     t.string "url"
+    t.integer "sample_id"
+    t.index ["sample_id"], name: "index_revision_ai_scores_on_sample_id"
     t.index ["wiki_id", "revision_id"], name: "revision_ai_scores_by_wiki_rev"
   end
 
@@ -644,6 +726,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
     t.integer "archived_programs_count", default: 0
     t.integer "new_editors_count", default: 0
     t.integer "new_editors_count_with_preregistration", default: 0
+    t.integer "retained_new_editors_count", default: 0
     t.integer "active_facilitators_count", default: 0
     t.bigint "total_characters_added", default: 0
     t.text "wiki_stats"
@@ -861,6 +944,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_05_180000) do
   add_foreign_key "course_stats", "courses"
   add_foreign_key "course_wiki_namespaces", "courses_wikis", column: "courses_wikis_id", on_delete: :cascade
   add_foreign_key "facilitator_stats", "users"
+  add_foreign_key "lti_consumer_keys", "courses", on_delete: :cascade
   add_foreign_key "lti_contexts", "lti_course_bindings", on_delete: :cascade
   add_foreign_key "lti_contexts", "users", on_delete: :cascade
   add_foreign_key "lti_course_bindings", "courses", on_delete: :cascade

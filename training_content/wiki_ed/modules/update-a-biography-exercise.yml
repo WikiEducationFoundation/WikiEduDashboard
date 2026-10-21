@@ -1,5 +1,6 @@
 name: 'Exercise: Add a fact to Wikipedia'
 id: 69
+kind: 'exercise'
 description: |
   This exercise will guide you through how to add new information to an existing Wikipedia article.
 slides:
@@ -9,3 +10,5 @@ slides:
   - slug: add-missing-information # 6904
   - slug: check-your-work # 6905
   - slug: update-a-bio-complete # 6906
+settings:
+  article_title_input: true

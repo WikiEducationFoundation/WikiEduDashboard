@@ -64,12 +64,30 @@ Rails.application.routes.draw do
 
   #UserProfilesController
   controller :user_profiles do
-    get 'users/:username/taught_courses_articles' => 'user_profiles#taught_courses_articles', constraints: { username: /.*/ }
+    get 'users/:username/taught_courses_articles' => 'user_profiles#taught_courses_articles',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    get 'users/:username/user_articles' => 'user_profiles#user_articles',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    get 'users/:username/stats' => 'user_profiles#stats',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    get 'users/:username/stats_graphs' => 'user_profiles#stats_graphs',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    delete 'users/:username/profile_image' => 'user_profiles#delete_profile_image',
+           as: 'delete_profile_image', constraints: { username: /[^\/]+/ }
+    get 'users/:username/update_email_preferences' => 'user_profiles#update_email_preferences',
+        constraints: { username: /[^\/]+/ }
+    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences',
+        constraints: { username: /.*/ }
+    get 'users/:username/stats/:metric' => 'user_profiles#show',
+        constraints: { username: /[^\/]+/, metric: /[^\/]+/ }
+    get 'users/:username/:profile_section' => 'user_profiles#show',
+        constraints: {
+          username: /[^\/]+/,
+          profile_section: /course-details|uploads|training/
+        }
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
-    get 'user_stats' => 'user_profiles#stats'
-    get 'stats_graphs' => 'user_profiles#stats_graphs'
-    delete 'profile_image' => 'user_profiles#delete_profile_image', as: 'delete_profile_image', constraints: { username: /.*/ }
-    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences', constraints: { username: /.*/ }
+    post 'users/update' => 'user_profiles#update', as: 'update_user_profile'
+    patch 'users/update' => 'user_profiles#update'
     post 'users/update/:username' => 'user_profiles#update' , constraints: { username: /.*/ }
   end
 
@@ -89,6 +107,8 @@ Rails.application.routes.draw do
   patch '/assignments/:id/update_sandbox_url' => 'assignments#update_sandbox_url'
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
   post '/assignments/assign_reviewers_randomly' => 'assignments#assign_reviewers_randomly'
+  get 'copy_available_articles/preview' => 'copy_available_articles#preview'
+  post 'copy_available_articles' => 'copy_available_articles#create'
 
   get 'mass_enrollment/:course_id'  => 'mass_enrollment#index',
       constraints: { course_id: /.*/ }
@@ -222,6 +242,18 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/lms_integration_status.json' => 'lms_integration_status#show',
         constraints: { slug: /.*/ }
+    get 'courses/:slug/assignment_progress.json' => 'courses/assignment_progress#index',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/assignment_progress.csv' => 'courses/assignment_progress#csv',
+        constraints: { slug: /.*/ }
+    # The unlisted LTI 1.1 credentials page, declared before the courses#show
+    # catch-all so it wins. Nothing in the interface links to it; Wiki
+    # Education shares the URL with beta instructors who need the 1.1 path.
+    # See CourseCanvasCredentialsController.
+    get 'courses/:slug/canvas' => 'course_canvas_credentials#show',
+        constraints: { slug: /.*/ }
+    post 'courses/:slug/canvas' => 'course_canvas_credentials#create',
+         constraints: { slug: /.*/ }
     get 'courses/:school/:titleterm(/:_subpage(/:_subsubpage(/:_subsubsubpage)))' => 'courses#show',
         :as => 'show',
         constraints: {
@@ -328,6 +360,11 @@ Rails.application.routes.draw do
   get 'system_stats' => 'system_stats#index'
   get 'system_stats/wiki_trends' => 'system_stats#wiki_trends'
   get 'system_stats/facilitators' => 'system_stats#facilitators'
+  # Scholars & Scientists report cards (admin-only, Wiki Education Dashboard only)
+  get 'report_cards' => 'report_cards#index'
+  get 'report_cards/:campaign_slug' => 'report_cards#show'
+  # Courses that have installed the Canvas (LTI) integration (admin-only)
+  get 'lti_integrations' => 'lti_integrations#index'
 
   # Reports generated in background
   # Course reports
@@ -346,6 +383,7 @@ Rails.application.routes.draw do
   get 'campaigns/:slug/instructors' => 'reports#campaign_instructors_csv'
   get 'campaigns/:slug/courses' => 'reports#campaign_courses_csv'
   get 'campaigns/:slug/articles_csv' => 'reports#campaign_articles_csv'
+  get 'campaigns/:slug/all_csv' => 'reports#campaign_all_csv'
   get 'campaigns/:slug/wikidata' => 'reports#campaign_wikidata_csv'
 
   # Campaigns
@@ -407,7 +445,10 @@ Rails.application.routes.draw do
   # Wizard
   get 'wizards' => 'wizard#wizard_index'
   get 'wizards/:wizard_id' => 'wizard#wizard'
+  get 'wizards/:wizard_id/blocks' => 'wizard#wizard_blocks'
   post 'courses/:course_id/wizard/:wizard_id' => 'wizard#submit_wizard',
+       constraints: { course_id: /.*/ }
+  post 'courses/:course_id/sandbox_mode' => 'sandbox_mode#update',
        constraints: { course_id: /.*/ }
 
   # Training
@@ -417,6 +458,7 @@ Rails.application.routes.draw do
   get 'training_modules_users' => 'training_modules_users#index'
   post 'training_modules_users' => 'training_modules_users#create_or_update'
   post 'training_modules_users/exercise' => 'training_modules_users#mark_exercise_complete'
+  post 'training_modules_users/verify_exercise_article' => 'training_modules_users#verify_exercise_article'
   get 'reload_trainings' => 'training#reload'
 
   get 'training_status' => 'training_status#show'
@@ -468,6 +510,16 @@ Rails.application.routes.draw do
   # Public installation guide (a rendered docs/ Markdown page, not part of the
   # launch flow and not behind the canvas_integration feature gate).
   get 'lti/guide' => 'about_this_site#canvas_integration_guide'
+  # The short, illustrated instructor page: installing the LTI 1.1 tool in one
+  # course without an admin. Same gate and rendering as the main guide.
+  get 'lti/guide/instructors' => 'about_this_site#canvas_instructor_guide'
+  # LTI 1.1 tool configuration XML for Canvas's "By URL" install (public; gated
+  # on the legacy-launch flags inside the controller). See LtiConfigController.
+  get 'lti/legacy/config' => 'lti_config#legacy', defaults: { format: :xml }
+  # Where Canvas posts an LTI 1.1 launch. We terminate these ourselves rather
+  # than through LTIAAS, so the consumer keys are ours to issue and revoke.
+  # See LtiLegacyLaunchesController.
+  post 'lti/legacy/launch' => 'lti_legacy_launches#create'
   get 'lti' => 'lti_launch#launch'
   get 'lti/connect_course' => 'lti_launch#connect_course'
   get 'lti/assignment_view' => 'lti_launch#assignment_view'
@@ -579,6 +631,10 @@ Rails.application.routes.draw do
     get ':experiment_slug/instructor_optin' => 'instructor_opt_in#show'
     post ':experiment_slug/instructor_optin/opt_in' => 'instructor_opt_in#opt_in'
     post ':experiment_slug/instructor_optin/opt_out' => 'instructor_opt_in#opt_out'
+
+    # Admin page for opting a student out of one experiment by username.
+    get ':experiment_slug/student_opt_out' => 'student_opt_out#show'
+    post ':experiment_slug/student_opt_out' => 'student_opt_out#opt_out'
   end
 
   resources :admin
@@ -596,6 +652,13 @@ Rails.application.routes.draw do
   get 'claim_verification' => 'claim_verification#index'
   get 'claim_verification/status' => 'claim_verification#status'
   post 'claim_verification/harvest' => 'claim_verification#harvest'
+
+  # AI detector comparison data (admins, Wiki Ed only)
+  get 'detector_comparison' => 'detector_comparison#index'
+  get 'detector_comparison/topics' => 'detector_comparison#topics'
+  get 'detector_comparison/known_human' => 'detector_comparison#known_human'
+  get 'detector_comparison/units/:id' => 'detector_comparison#unit'
+  get 'detector_comparison/topics/:topic' => 'detector_comparison#topic'
 
   # AI tools for admins
   get 'ai_tools' => 'ai_tools#show'

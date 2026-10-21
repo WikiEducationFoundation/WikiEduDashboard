@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/rules"
+
 # Computes a single (Block, User) completion state for the LTIAAS grade sync.
 # A block scores 1.0/1.0 if every considered TrainingModule attached to it is
-# complete for that user; 0.0/1.0 otherwise. An exercise-kind module counts as
-# complete when `flags[course_id][:marked_complete]` is truthy.
+# complete for that user; 0.0/1.0 otherwise. What counts as complete is
+# StudentProgress::Rules.module_complete?.
 #
 # That 1.0 is NOT a grade, and since 2026-08-03 it does not reach Canvas as one.
 # Exercise work is evaluated by the instructor, so SyncLtiGrades reports a
@@ -52,13 +54,15 @@ class LtiBlockProgress
   # `completions`, when given, is this user's TrainingModulesUsers preloaded by
   # the caller and keyed by `training_module_id` — so a roster can look up
   # completion in memory instead of a per-(student, module) query. When nil,
-  # each module is looked up on demand (the single-user path).
-  def initialize(block, user, completions: nil)
+  # each module is looked up on demand (the single-user path). `training_modules`,
+  # when given, is the block's modules already resolved by the caller, sparing
+  # Block#training_modules's query per block per student.
+  def initialize(block, user, completions: nil, training_modules: nil)
     @block = block
     @user = user
     @course = block.course
     @completions = completions
-    @training_modules = block.training_modules.to_a.select(&:exercise?)
+    @training_modules = (training_modules || block.training_modules).to_a.select(&:exercise?)
     @score_maximum = SCORE_MAXIMUM
     @score_given = compute_score
   end
@@ -83,10 +87,6 @@ class LtiBlockProgress
   def module_complete?(mod)
     tmu = @completions ? @completions[mod.id] : TrainingModulesUsers.find_by(user: @user,
                                                                              training_module: mod)
-    return false unless tmu
-
-    return tmu.flags.dig(@course.id, :marked_complete) ? true : false if mod.exercise?
-
-    tmu.completed_at.present?
+    StudentProgress::Rules.module_complete?(tmu, mod, @course)
   end
 end

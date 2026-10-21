@@ -5,7 +5,7 @@ import {
   EXERCISE_COMPLETION_UPDATE, SLIDE_COMPLETED, API_FAIL
 } from '../constants';
 import request, { ensureOk } from '../utils/request';
-import { stringify } from 'query-string';
+import { stringify } from '~/app/assets/javascripts/utils/query_string';
 
 const fetchAllTrainingModulesPromise = async () => {
   const response = await request('/training_modules.json');
@@ -13,7 +13,7 @@ const fetchAllTrainingModulesPromise = async () => {
   return response.json();
 };
 
-const fetchTrainingModulePromise = async (opts) => {
+export const fetchTrainingModulePromise = async (opts) => {
   const response = await request(`/training_module.json?module_id=${opts.module_id}`);
   await ensureOk(response);
   return response.json();
@@ -76,6 +76,14 @@ const setExerciseModule = (complete = true) => (block_id, module_id) => (dispatc
 
 export const setExerciseModuleComplete = setExerciseModule();
 export const setExerciseModuleIncomplete = setExerciseModule(false);
+
+// confirmed: the student is submitting a page outside mainspace after being warned.
+export const verifyExerciseArticle = (block_id, module_id, article_title, confirmed = false) => () => {
+  return request('/training_modules_users/verify_exercise_article.json', {
+    body: JSON.stringify({ block_id, module_id, article_title, confirmed }),
+    method: 'POST'
+  }).then(resp => resp.json());
+};
 
 export const toggleMenuOpen = opts => (dispatch) => {
   return dispatch({

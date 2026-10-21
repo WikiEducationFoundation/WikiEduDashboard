@@ -7,6 +7,7 @@ import {
   CANCEL_BLOCK_EDITABLE,
   UPDATE_BLOCK,
   ADD_BLOCK,
+  ADD_WIZARD_BLOCK,
   DELETE_BLOCK,
   INSERT_BLOCK,
   UPDATE_TITLE,
@@ -69,6 +70,29 @@ const newBlock = (tempId, weekId, state) => {
     points: null
   };
 };
+
+// A block inserted from the assignment wizard's catalog. Unlike newBlock it
+// arrives pre-filled, and carries hydrated `training_modules` alongside the
+// ids: block.jsx renders the module selector from those objects, so ids alone
+// would save correctly but show the admin an empty selector.
+//
+// `order` counts the blocks already in the target week so the new block lands
+// at the end of it. A catalog entry with no kind (content.yml does not always
+// set one) becomes an In Class block, matching newBlock, so that the block type
+// selector has something to show.
+const wizardBlock = (tempId, weekId, entry, trainingModules, state) => ({
+  id: tempId,
+  is_new: true,
+  kind: entry.kind === null || entry.kind === undefined ? 0 : entry.kind,
+  title: entry.title || '',
+  content: entry.content || '',
+  week_id: weekId,
+  order: blocksInWeek(state.blocks, weekId),
+  duration: null,
+  points: entry.points,
+  training_module_ids: entry.training_module_ids || [],
+  training_modules: trainingModules
+});
 
 const weeksFromTimeline = (data) => {
   const weeks = {};
@@ -194,6 +218,13 @@ export default function timeline(state = initialState, action) {
     case ADD_BLOCK: {
       const blocks = { ...state.blocks };
       blocks[action.tempId] = newBlock(action.tempId, action.weekId, state);
+      return { ...state, blocks, editableBlockIds: [...state.editableBlockIds, action.tempId] };
+    }
+    case ADD_WIZARD_BLOCK: {
+      const blocks = { ...state.blocks };
+      blocks[action.tempId] = wizardBlock(
+        action.tempId, action.weekId, action.entry, action.trainingModules, state
+      );
       return { ...state, blocks, editableBlockIds: [...state.editableBlockIds, action.tempId] };
     }
     case DELETE_BLOCK: {

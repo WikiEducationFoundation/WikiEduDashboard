@@ -79,6 +79,7 @@ const SystemStatsHandler = () => {
       articlesImproved: 0,
       charactersAdded: 0,
       newEditors: 0,
+      retainedNewEditors: 0,
       activePrograms: 0,
       activeFacilitators: 0
     },
@@ -92,6 +93,7 @@ const SystemStatsHandler = () => {
     articlesImproved: formatHumanNumber(activeStats.kpis.articlesImproved),
     charactersAdded: formatHumanNumber(activeStats.kpis.charactersAdded),
     newEditors: formatHumanNumber(activeStats.kpis.newEditors),
+    retainedNewEditors: formatHumanNumber(activeStats.kpis.retainedNewEditors),
     activePrograms: activeStats.kpis.activePrograms,
     activeFacilitators: activeStats.kpis.activeFacilitators
   };
@@ -137,6 +139,7 @@ const SystemStatsHandler = () => {
               <OverviewStat id="articles-improved" className="stat-display__value" stat={formattedKpis.articlesImproved} statMsg={I18n.t('system_stats.kpis.articles_improved')} renderZero={true} />
               <OverviewStat id="characters-added" className="stat-display__value" stat={formattedKpis.charactersAdded} statMsg={I18n.t('system_stats.kpis.characters_added')} renderZero={true} />
               <OverviewStat id="new-editors" className="stat-display__value" stat={formattedKpis.newEditors} statMsg={I18n.t('system_stats.kpis.new_editors')} renderZero={true} />
+              <OverviewStat id="retained-new-editors" className="stat-display__value" stat={formattedKpis.retainedNewEditors} statMsg={I18n.t('system_stats.kpis.retained_new_editors')} renderZero={true} />
               <OverviewStat id="active-programs" className="stat-display__value" stat={formattedKpis.activePrograms} statMsg={I18n.t('system_stats.kpis.active_programs')} renderZero={true} />
               <OverviewStat id="active-facilitators" className="stat-display__value" stat={formattedKpis.activeFacilitators} statMsg={I18n.t('system_stats.kpis.active_facilitators')} renderZero={true} />
             </div>

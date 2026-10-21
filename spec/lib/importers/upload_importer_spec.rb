@@ -87,7 +87,7 @@ describe UploadImporter do
       VCR.use_cassette 'commons/import_urls_in_batches' do
         described_class.import_urls_in_batches([CommonsUpload.find(543972)])
         peas_photo = CommonsUpload.find(543972)
-        expect(peas_photo.thumburl[0...24]).to eq('https://upload.wikimedia')
+        expect(peas_photo.thumburl[0...23]).to eq('https://thumb.wikimedia')
       end
     end
   end

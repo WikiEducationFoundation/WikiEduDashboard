@@ -469,6 +469,169 @@ canvas_integration_enabled: 'true'
 
 in `config/application.yml`. Default is `'false'` so production stays inert until LTIAAS is registered against a live Canvas instance and the flag is flipped explicitly.
 
+## LTI 1.1 launches ("companion mode"), terminated by the Dashboard
+
+The integration also accepts LTI 1.1 launches, as a deliberately reduced
+**launch-only** mode for institutions that cannot install LTI 1.3 tools (issue
+#7026). What survives is launch, identity linking, enrollment and the in-frame
+views; there is **no roster sync, no assignment import, and no grade
+passback**, because Canvas offers no LTI 1.1 equivalent of NRPS or the Modules
+bulk deep-linking placement, and Basic Outcomes can only post a score after
+that student has launched the assignment.
+
+**LTIAAS is not involved in LTI 1.1.** We verify these launches ourselves, so
+the consumer keys are ours to issue, scope and revoke — LTIAAS offers only one
+global key and secret for every institution, with no rotation, which does not
+survive contact with a path where instructors self-install. LTIAAS still
+fronts every LTI 1.3 launch.
+
+### How a 1.1 launch arrives
+
+1. An instructor generates a consumer key and shared secret for their course
+   from the unlisted page at `/courses/<slug>/canvas`
+   (`CourseCanvasCredentialsController`), and pastes them into Canvas along
+   with the configuration URL `/lti/legacy/config.xml`.
+2. Canvas posts the OAuth 1.0a-signed launch to `/lti/legacy/launch`
+   (`LtiLegacyLaunchesController`).
+3. `VerifyLtiLegacyLaunch` checks, in order: that it is a basic LTI launch,
+   that the consumer key is one we issued and still usable, that the signature
+   verifies, that the timestamp is within five minutes, that the nonce is
+   unseen, that the launch names a Canvas instance at all, and last that the
+   key may launch from this Canvas. The pin check is last because it is
+   authorization, and the instance guid it reads means nothing until the
+   signature has proved the launch's origin. A launch with no instance guid is
+   refused rather than accepted unpinned: accepting it would activate the key
+   without a pin, leaving it usable from anywhere for good.
+4. `NormalizeLtiLegacyLaunch` turns the raw parameters into the same
+   idtoken-shaped hash LTIAAS produces for a 1.3 launch, which is stored as an
+   `LtiLegacyLaunch` row; `LtiLegacyLaunchToken` hands back a short
+   unguessable reference to it, good for 24 hours.
+5. The browser is redirected to `/lti?ltik=<that token>`, and from there the
+   flow is the ordinary one: `LtiSession.for_ltik` decodes our token instead
+   of fetching an idtoken, and nothing downstream can tell the difference.
+
+### Things that will bite you
+
+- **The signed URL must be reconstructed from configuration.** The signature
+  covers the URL Canvas posted to, so reading it off a request that has been
+  through a proxy gets a different base string and every launch fails.
+  `VerifyLtiLegacyLaunch.launch_url` is the one definition, and
+  `LtiConfigController` serves the same value in the config XML, so the URL
+  Canvas signs and the URL we verify cannot drift.
+- **ActiveRecord encryption must be configured with
+  `ActiveRecord::Encryption.configure`** in an initializer. Setting
+  `config.active_record.encryption.*` there is too late: the framework has
+  already consumed it, the keys silently never take effect, and every write to
+  an encrypted attribute raises.
+- **The launch token must stay short.** `LtiLaunchController#connect_course`
+  stashes it in the Rails session so the Wikipedia OAuth callback can return to
+  the launch, and the session is a 4 KB cookie. A token carrying the whole
+  idtoken passed every unit and request spec and then overflowed at 5879 bytes
+  against real Canvas, leaving the instructor stuck mid-OAuth. That is why the
+  token references an `LtiLegacyLaunch` row instead of containing the claims,
+  and it is why LTIAAS's own ltik is short. It also makes a launch revocable.
+- **`OAuth::RequestProxy::MockRequest` takes string keys** (`"method"`,
+  `"uri"`, `"parameters"`). Symbol keys raise an unhelpful `NoMethodError`
+  from inside the gem. That proxy is how the specs sign their fixtures.
+- **Refusals must be indistinguishable.** Telling an unknown consumer key
+  apart from a bad signature would let someone enumerate which keys exist, so
+  every refusal renders the same page with the same status. The reason goes to
+  the log, and a mistyped secret is logged rather than reported to Sentry —
+  the install guide troubleshoots exactly that, and an instructor's typo is
+  not an incident. An unknown consumer key is reported, but once per address
+  per hour (`UNKNOWN_KEY_REPORT_INTERVAL`, counted in the cache store): it is
+  the one refusal reachable with no knowledge of any key, so an unauthenticated
+  POST loop could otherwise raise a Sentry event per request. If the cache is
+  down the throttle fails open and every refusal is reported.
+
+### Keys
+
+`LtiConsumerKey` holds one install's credentials, issued for a course by its
+instructor. Two properties matter:
+
+- **Pinned at first launch** to that Canvas's `tool_consumer_instance_guid`,
+  after which the key is useless from any other Canvas.
+- **Expires unused** after `UNACTIVATED_LIFETIME`, closing the window on a
+  secret that leaked before its owner pasted it in.
+- **Deleted with its course** (a foreign key with `ON DELETE CASCADE`, as for
+  `lti_course_bindings`), so a key never outlives the course it was issued
+  for; a launch with it is then refused as an unknown key.
+- **One active key per course.** Regenerating deactivates the previous key in
+  the same transaction, which takes a row lock on the course so two
+  simultaneous regenerations cannot both read the old key and both insert.
+  MySQL has no partial unique index to enforce this at the schema level.
+
+The first launch also **binds the course**, because the key already knows
+which Dashboard course it was issued for, so the instructor never sees the
+setup picker. It does not link their Wikipedia account: that stays their own
+approval, which keeps the write-once account-to-identity map out of reach of
+anyone holding the secret first.
+
+Issue one by hand on staging with
+`LtiConsumerKey.generate_for(course:, user:)`; the secret is readable from the
+returned record. There is no staff list yet — `LtiConsumerKey.all` in a console
+is the record.
+
+### What a real Canvas 1.1 launch carries
+
+Captured 2026-09-15 from canvas.wikiedu.org, and now the specification
+`NormalizeLtiLegacyLaunch` reproduces:
+
+- **No `platform.id`.** The identity is `tool_consumer_instance_guid`, which is
+  per Canvas root account, so bindings and contexts are scoped per institution
+  even though the tool is installed per course.
+- **No `platform.url`.** The Canvas base URL is recoverable only from the
+  origin of `launch_presentation_return_url`, which is what
+  `LtiSession#platform_url` falls back to.
+- **Roles are raw**, comma-separated, unnormalized: an admin teaching a course
+  arrives as `Instructor,urn:lti:sysrole:ims/lis/SysAdmin`. The exact-match
+  `LEGACY_INSTRUCTOR_ROLES` / `LEGACY_LEARNER_ROLES` tables are what classify
+  them; the 1.3 suffix table still applies alongside.
+- **`user_id` is Canvas's 40-hex `lti_user_id`**, the same value NRPS reports
+  as `lti11LegacyUserId` under 1.3 — so a course whose institution later moves
+  to 1.3 can be re-linked by a backfill rather than a re-enrollment.
+- **`tool_consumer_info_product_family_code` is `canvas`**, so the platform
+  allowlist works unchanged. It is the only thing keeping 1.1 Canvas-only.
+- Every service is absent: no roster, no line items, no scores.
+
+Still unexercised on a real launch: a Canvas TA, whose 1.1 launch sends only
+the TA role, and a Canvas observer, which must land in `unsupported_role`.
+
+### Testing against canvas.wikiedu.org
+
+Staging (`dashboard-testing.wikiedu.org`) has `lti_legacy_launches_enabled:
+'true'` and `LTI_LAUNCH_DEBUG: '1'` set.
+
+1. Issue a key on staging for the test course (console, as above) and put it
+   in `.env.staging-tests` as `LTI11_CONSUMER_KEY` / `LTI11_SHARED_SECRET`.
+2. `bin/canvas-lti11-tool install-by-url
+   https://dashboard-testing.wikiedu.org/lti/legacy/config.xml` — installs an
+   account-level tool the way an admin would, from the Dashboard-hosted XML:
+   our own launch URL, privacy level anonymous, and a default-enabled
+   course-navigation tab labelled "wikiedu.org". `list` shows what is
+   installed; `remove` deletes it. `install` uses API placement parameters
+   instead of the XML, and `install-by-xml <file>` takes a local config for
+   validating one that is not deployed yet.
+3. Run `staging_specs/lti11_legacy_launch_spec.rb` (with
+   `LTI11_COURSE_INSTALL=<config url>` for the course-level install path) and
+   `lti11_instructor_install_screenshots_spec.rb`, **in the foreground** —
+   headless Chrome plus the spec trips the background-task memory watchdog.
+4. Read the `[LTI launch]` lines in **`/var/log/apache2/error.log`**, where
+   Passenger captures the web processes' Rails output;
+   `shared/log/staging.log` carries only Sidekiq and console output, so
+   request-time lines never appear there.
+
+The instructor self-install path (a teacher adding the tool to one course from
+Course → Settings → Apps → + App → By URL, no admin) is documented for
+instructors at `/lti/guide/instructors`
+(`docs/canvas_instructor_install.md`, screenshots under
+`app/assets/images/canvas_guide/`). Two quirks of the test Canvas build are
+worked around in the screenshot spec: its "Apps (New)" component crashes and
+remounts the settings route soon after any form change, so the dialog's fields
+are set in one DOM write; and the dialog's Submit is refused under automation
+while Canvas's API accepts the identical install, so the spec falls back to
+the API for the captures after that point.
+
 ## Institutional review: VPAT, HECVAT, and data flow
 
 Every install — the test Canvas included — goes through the same self-service
