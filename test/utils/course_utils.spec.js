@@ -591,3 +591,41 @@ describe('courseUtils.assignmentForSandbox', () => {
     expect(find('The Teaching of Love')).toBeUndefined();
   });
 });
+
+describe('courseUtils.draftForReview', () => {
+  const classmateDraft = {
+    id: 1, role: 0, user_id: 2, article_id: null, article_title: 'The Teaching of Love',
+    sandbox_url: 'https://en.wikipedia.org/wiki/User:Classmate/The_Teaching_of_Love'
+  };
+  const classmateExisting = {
+    id: 2, role: 0, user_id: 2, article_id: 10, article_title: 'Interlude',
+    sandbox_url: 'https://en.wikipedia.org/wiki/User:Classmate/Interlude'
+  };
+  const assignments = [classmateDraft, classmateExisting];
+  const review = attrs => ({ id: 3, role: 1, user_id: 3, article_id: null, ...attrs });
+
+  test('finds the classmate draft for a review of a new article', () => {
+    const reviewOfDraft = review({ article_title: 'The Teaching of Love' });
+    expect(courseUtils.draftForReview(reviewOfDraft, assignments)).toBe(classmateDraft);
+  });
+
+  test('finds no draft for a new article that no classmate is drafting', () => {
+    const reviewOfUndrafted = review({
+      article_title: 'Nobody Drafting',
+      sandbox_url: 'https://en.wikipedia.org/wiki/User:Student/Nobody_Drafting'
+    });
+    expect(courseUtils.draftForReview(reviewOfUndrafted, assignments)).toBeUndefined();
+  });
+
+  test('finds no draft for a review of an existing article', () => {
+    const reviewOfExisting = review({ article_title: 'Interlude', article_id: 10 });
+    expect(courseUtils.draftForReview(reviewOfExisting, assignments)).toBeUndefined();
+  });
+
+  test('ignores a classmate assignment on a different wiki', () => {
+    const reviewOnEswiki = review({
+      article_title: 'The Teaching of Love', language: 'es', project: 'wikipedia'
+    });
+    expect(courseUtils.draftForReview(reviewOnEswiki, assignments)).toBeUndefined();
+  });
+});

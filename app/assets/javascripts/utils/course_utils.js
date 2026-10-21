@@ -385,6 +385,22 @@ export default class CourseUtils {
       return !parsedInput.project || parsedInput.project === sandbox.project;
     });
   }
+
+  // Finds the classmate's assignment whose sandbox holds the draft that the
+  // peer review `review` is for: someone else's assignment for the same new
+  // article. A review of a new article that no classmate is drafting has no
+  // draft, so this returns undefined.
+  static draftForReview(review, assignments) {
+    if (review.article_id) { return undefined; }
+
+    return assignments.find((assignment) => {
+      if (assignment.role !== ASSIGNED_ROLE || assignment.article_id || !assignment.sandbox_url) { return false; }
+      if (!assignment.user_id || assignment.user_id === review.user_id) { return false; }
+      return assignment.article_title === review.article_title
+        && assignment.language === review.language
+        && assignment.project === review.project;
+    });
+  }
 }
 
 // these keys are to be sorted in descending order on first click

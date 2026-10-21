@@ -88,8 +88,15 @@ const reviewRowUrl = (assignment, article, role) => {
   return isReviewOfDraft(assignment, role) ? assignment.sandbox_url : article.url;
 };
 
+// A review the student already has links to the draft of the classmate whose
+// article it is. If no classmate is drafting it, it links to the article.
+const assignedReviewUrl = (review, article, role, courseAssignments) => {
+  const draft = role === REVIEWING_ROLE && CourseUtils.draftForReview(review, courseAssignments);
+  return draft ? draft.sandbox_url : article.url;
+};
+
 const AssignedAssignmentRows = ({
-  assignments = [], course, permitted, role, wikidataLabels, project, unassign // functions
+  assignments = [], courseAssignments = [], course, permitted, role, wikidataLabels, project, unassign // functions
 }) => {
   const elements = assignments.map((assignment) => {
     const article = getArticle(assignment, course, wikidataLabels);
@@ -97,7 +104,7 @@ const AssignedAssignmentRows = ({
     return (
       <tr key={assignment.id} className="assignment">
         <td>
-          <ArticleLink articleUrl={reviewRowUrl(assignment, article, role)} title={article.title} />
+          <ArticleLink articleUrl={assignedReviewUrl(assignment, article, role, courseAssignments)} title={article.title} />
           {
             permitted
             && <RemoveAssignmentButton
@@ -578,6 +585,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     assignmentRows.push(
       <AssignedAssignmentRows
         assignments={assignments}
+        courseAssignments={courseAssignments}
         key="assigned"
         unassign={unassign}
         course={course}
