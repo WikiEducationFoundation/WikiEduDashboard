@@ -79,9 +79,13 @@ const processAuthorshipHtml = (html) => {
       const wrapper = doc.createElement('span');
       wrapper.setAttribute('role', 'group');
       wrapper.setAttribute('aria-label', editedByText);
+      wrapper.setAttribute('title', editorName);
 
       parent.insertBefore(wrapper, firstSpan);
       nodesToWrap.forEach((node) => {
+        if (node.nodeType === 1) {
+          node.removeAttribute('title');
+        }
         wrapper.appendChild(node);
       });
     });
