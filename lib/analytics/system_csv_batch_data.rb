@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/analytics/csv_edit_counts"
+
 # Loads the per-course data that SystemCsvBuilder needs for one batch of
 # courses, with one query per kind of data rather than per course.
 class SystemCsvBatchData
@@ -28,25 +30,11 @@ class SystemCsvBatchData
   end
 
   # Aggregates revision counts for tracked timeslices across namespaces.
-  # Note: Follows CampaignCsvBuilder precedent by aggregating all tracked timeslices
-  # per course in a single bulk query for batch performance efficiency across large course sets.
-  # For article-scoped programs, canonical single-course CSVs filter by scoped_article_ids,
-  # but bulk exports (Campaign and System CSVs) use bulk tracked timeslices.
+  # Article-scoped programs only count their scoped articles, as in single-course CSVs.
   def fetch_revision_counts(course_ids)
     return {} if course_ids.empty?
 
-    namespaces = [
-      Article::Namespaces::MAINSPACE,
-      Article::Namespaces::TALK,
-      Article::Namespaces::USER
-    ]
-    ArticleCourseTimeslice
-      .where(tracked: true, course_id: course_ids)
-      .select(:revision_count, :course_id)
-      .joins(:article)
-      .where(articles: { namespace: namespaces })
-      .group(:course_id, :namespace)
-      .sum(:revision_count)
+    CsvEditCounts.by_course_and_namespace(course_ids)
   end
 
   def fetch_new_editor_counts(course_ids)

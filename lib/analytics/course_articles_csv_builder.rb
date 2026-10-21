@@ -9,6 +9,7 @@ class CourseArticlesCsvBuilder
     @course = course
     set_users
     set_articles_edited
+    add_articles_without_timeslices if @course.finalized?
   end
 
   def generate_csv
@@ -47,6 +48,22 @@ class CourseArticlesCsvBuilder
     end
   end
   # rubocop:enable Metrics/AbcSize
+
+  # Finalized courses keep timeslices only for deleted articles (which have no
+  # articles_courses records), so the rows of the other articles come from
+  # articles_courses, which has no edit count (left blank) and no records for articles
+  # outside the tracked namespaces.
+  def add_articles_without_timeslices
+    @course.articles_courses.where(tracked: true).includes(article: :wiki).find_each do |ac|
+      next unless ac.article
+      next if @articles_edited.key?(ac.article_id)
+
+      @articles_edited[ac.article_id] = new_article_entry(ac).merge(
+        new_article: ac.new_article, characters: ac.character_sum, revisions: nil,
+        references: ac.references_count, usernames: ac.user_ids
+      )
+    end
+  end
 
   def new_article_entry(act)
     article = act.article
