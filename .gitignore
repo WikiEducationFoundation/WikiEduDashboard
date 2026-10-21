@@ -73,5 +73,11 @@ stats.json
 # Wikipedia diff URLs with AI-detection scores, and this repo is public; the
 # scripts and their READMEs are committed, the data they read and write is not.
 docs/analytics_scripts/**/*.csv
+# Database dumps and anything else a research project reads or writes go in a
+# data/ directory next to its scripts. Query files (*.sql) are scripts and stay
+# committable; only dumps are ignored by name.
+docs/analytics_scripts/**/data/
+docs/analytics_scripts/**/*.sql.gz
+docs/analytics_scripts/**/*dump*.sql
 # pangram_cutover.py imports analyze.py, so running it compiles a cache there.
 docs/analytics_scripts/**/__pycache__/
