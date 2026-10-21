@@ -152,6 +152,10 @@ Rails.application.routes.draw do
   get 'course_flags/show' => 'course_flags#show'
   post 'course_flags/update' => 'course_flags#update'
 
+  # Purge one course's timeslices by hand (admin only)
+  get 'purge_courses' => 'purge_courses#show'
+  post 'purge_courses' => 'purge_courses#purge'
+
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
