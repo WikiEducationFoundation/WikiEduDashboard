@@ -6,6 +6,10 @@
 # the composer UI to create, edit, and export them; export produces the final
 # production-layout yml files in `training_content/wiki_ed/`.
 #
+# A draft copied from an existing module (see CopyTrainingModuleToDraft) is an
+# update draft: it carries a `source` snapshot of the module's files, keeps the
+# module's id, and its slides keep the ids of the slides they were copied from.
+#
 # Unlike TrainingModule, drafts are never loaded into the database.
 class TrainingModuleDraft
   SLUG_PATTERN = /\A[a-z0-9][a-z0-9-]*\z/
@@ -16,7 +20,8 @@ class TrainingModuleDraft
   RESERVED_SLUGS = %w[new edit index].freeze
   DIRNAME = 'training_content_drafts'
 
-  attr_accessor :slug, :name, :description, :estimated_ttc, :module_id, :slides
+  attr_accessor :slug, :name, :description, :estimated_ttc, :module_id
+  attr_reader :slides, :source
 
   def self.directory
     Rails.root.join(DIRNAME)
@@ -70,7 +75,16 @@ class TrainingModuleDraft
     @description = attrs['description']
     @estimated_ttc = attrs['estimated_ttc']
     @module_id = attrs['module_id']
-    @slides = (attrs['slides'] || []).map { |s| normalize_slide(s) }
+    self.slides = attrs['slides'] || []
+    @source = TrainingModuleDraftSource.new(attrs['source']) if attrs['source'].present?
+  end
+
+  def update?
+    source.present?
+  end
+
+  def slides=(slides)
+    @slides = slides.map { |s| normalize_slide(s) }
   end
 
   def updated_at
@@ -80,7 +94,8 @@ class TrainingModuleDraft
   def save
     self.class.validate_slug!(slug)
     ensure_directory
-    assign_module_id
+    assign_module_id unless update?
+    drop_unknown_slide_ids
     File.write(path, to_yaml_body)
     @updated_at = File.mtime(path)
     self
@@ -117,7 +132,7 @@ class TrainingModuleDraft
       'estimated_ttc' => estimated_ttc,
       'module_id' => module_id,
       'slides' => slides.map(&:dup)
-    }
+    }.merge(update? ? { 'source' => source.to_h } : {})
   end
 
   def slide_id_for(index)
@@ -151,10 +166,18 @@ class TrainingModuleDraft
     slug = slide['slug'].to_s
     validate_slide_slug!(slug)
     {
+      'id' => Integer(slide['id'], exception: false),
       'slug' => slug,
       'title' => slide['title'].to_s,
       'content' => slide['content'].to_s
-    }
+    }.compact
+  end
+
+  # Only a slide copied from the source module has an id, and only one slide
+  # can stand for each original. Any other slide is new.
+  def drop_unknown_slide_ids
+    unclaimed = update? ? source.slide_ids.to_set : Set.new
+    slides.each { |slide| slide.delete('id') unless unclaimed.delete?(slide['id']) }
   end
 
   def validate_slide_slug!(slug)

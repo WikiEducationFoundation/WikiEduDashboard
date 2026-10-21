@@ -10,6 +10,8 @@ import { slugifyTitle } from '../utils/slugify.js';
 
 const emptySlide = () => ({ slug: '', title: '', content: '' });
 
+const CHANGE_STATUS_LETTERS = { added: 'A', modified: 'M', deleted: 'D' };
+
 const DraftComposer = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
@@ -98,6 +100,7 @@ const DraftComposer = () => {
         estimated_ttc: draft.estimated_ttc,
         slug: draft.slug,
         slides: draft.slides.map(s => ({
+          id: s.id,
           slug: s.slug || slugifyTitle(s.title),
           title: s.title,
           content: s.content
@@ -126,6 +129,15 @@ const DraftComposer = () => {
   }
   if (!draft) return <div>Loading…</div>;
 
+  // An update draft's copied slides keep the slugs they already have in the
+  // codebase, so those don't count as collisions.
+  const isUpdate = Boolean(draft.source);
+  const sourceSlides = new Map((draft.source?.slides || []).map(s => [s.id, s]));
+  const changes = draft.source?.changes || [];
+  // A file that changed on disk since the copy only matters if the patch
+  // touches it; untouched files keep their newer version.
+  const stalePaths = new Set(draft.source?.stale_paths || []);
+
   const effectiveSlugs = draft.slides.map(s => (s.slug || slugifyTitle(s.title)));
   const duplicateSlugs = new Set();
   const seen = new Set();
@@ -137,7 +149,8 @@ const DraftComposer = () => {
   const collisionForSlide = (index) => {
     const s = effectiveSlugs[index];
     if (!s) return null;
-    if (existingSlugs && existingSlugs.has(s)) return 'existing';
+    const ownSlug = sourceSlides.get(draft.slides[index].id)?.slug;
+    if (existingSlugs && existingSlugs.has(s) && s !== ownSlug) return 'existing';
     if (duplicateSlugs.has(s)) return 'duplicate';
     return null;
   };
@@ -173,8 +186,17 @@ const DraftComposer = () => {
           >
             Preview
           </button>
-          <a className="button" href={exportUrl(slug)}>Export zip</a>
+          {isUpdate && changes.length === 0 ? (
+            <button type="button" className="button" disabled>Export patch</button>
+          ) : (
+            <a className="button" href={exportUrl(slug)}>{isUpdate ? 'Export patch' : 'Export zip'}</a>
+          )}
         </div>
+        {isUpdate && (
+          <p className="training_module_composer__source">
+            Updates <code>{draft.source.module_path}</code>
+          </p>
+        )}
       </header>
 
       {error && <div className="notification error">{error}</div>}
@@ -201,6 +223,25 @@ const DraftComposer = () => {
         </div>
       )}
 
+      {changes.length > 0 && (
+        <section className="training_module_composer__changes">
+          <h2>Files changed</h2>
+          <ul>
+            {changes.map(change => (
+              <li key={change.path}>
+                <code title={change.status}>{CHANGE_STATUS_LETTERS[change.status]}</code>{' '}
+                {change.path}
+                {stalePaths.has(change.path) && (
+                  <span className="training_module_composer__changes__stale">
+                    <span aria-hidden="true">⚠ </span>changed since copy
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <ModuleMetadataForm draft={draft} onChange={updateMetadata} />
 
       <div
@@ -222,7 +263,9 @@ const DraftComposer = () => {
             slide={selectedSlide}
             index={selectedIndex}
             moduleId={draft.module_id}
-            onChange={changes => updateSlide(selectedIndex, changes)}
+            isUpdate={isUpdate}
+            sourceSlide={sourceSlides.get(selectedSlide.id)}
+            onChange={slideChanges => updateSlide(selectedIndex, slideChanges)}
             collision={collisionForSlide(selectedIndex)}
           />
         ) : (
