@@ -28,6 +28,7 @@ describe('uploads reducer', () => {
       const newState = reducer(state, action);
 
       expect(newState.uploads[0].fetchState).toBe('failed');
+      expect(newState.uploads[0].credit).toBe('Not found');
     });
 
     it('sets credit and marks uploads as fetched when metadata is returned', () => {
@@ -47,6 +48,7 @@ describe('uploads reducer', () => {
       const newState = reducer(state, action);
 
       expect(newState.uploads[0].fetchState).toBe('failed');
+      expect(newState.uploads[0].credit).toBe('Not found');
       expect(newState.uploads[1].fetchState).toBeUndefined();
     });
 
@@ -63,6 +65,17 @@ describe('uploads reducer', () => {
       expect(newState.uploads[0].fetchState).toBe(true);
       expect(newState.uploads[0].credit).toBe('Example credit');
       expect(newState.uploads[1].fetchState).toBe('failed');
+      expect(newState.uploads[1].credit).toBe('Not found');
+    });
+
+    it('does not mark an already-fetched upload as failed', () => {
+      const state = stateWith([{ id: 1, fetchState: true, credit: 'Example credit' }]);
+      const action = { type: SET_UPLOAD_METADATA, data: [undefined], requestedIds: [1] };
+
+      const newState = reducer(state, action);
+
+      expect(newState.uploads[0].fetchState).toBe(true);
+      expect(newState.uploads[0].credit).toBe('Example credit');
     });
   });
 });
