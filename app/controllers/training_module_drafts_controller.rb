@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/training/training_content_files"
+
 class TrainingModuleDraftsController < ApplicationController
   before_action :require_admin_permissions
 
@@ -7,7 +9,7 @@ class TrainingModuleDraftsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        drafts = TrainingModuleDraft.all.map { |draft| summary(draft) }
+        drafts = TrainingModuleDraft.all.map { |d| TrainingModuleDraftPresenter.new(d).summary }
         render json: { drafts: drafts }
       end
     end
@@ -18,7 +20,7 @@ class TrainingModuleDraftsController < ApplicationController
       format.html { render :index }
       format.json do
         draft = TrainingModuleDraft.find(params[:slug])
-        render json: { draft: draft.to_h.merge('updated_at' => draft.updated_at) }
+        render json: { draft: draft_json(draft) }
       end
     end
   rescue TrainingModuleDraft::NotFound
@@ -36,9 +38,22 @@ class TrainingModuleDraftsController < ApplicationController
     end
     draft = TrainingModuleDraft.new(draft_params.merge(slug: slug))
     draft.save
-    render json: { draft: draft.to_h.merge('updated_at' => draft.updated_at) }, status: :created
+    render json: { draft: draft_json(draft) }, status: :created
   rescue TrainingModuleDraft::InvalidSlug => e
     render json: { error: e.message }, status: :unprocessable_content
+  end
+
+  # Starts an update draft from an existing training module.
+  def copy
+    draft = CopyTrainingModuleToDraft.new(params[:module_slug]).draft
+    render json: { draft: draft_json(draft) }, status: :created
+  rescue CopyTrainingModuleToDraft::CopyError, TrainingModuleDraft::InvalidSlug => e
+    render json: { error: e.message }, status: :unprocessable_content
+  end
+
+  def existing_modules
+    modules = Features.wiki_trainings? ? [] : TrainingContentFiles.new.modules
+    render json: { modules: }
   end
 
   def update
@@ -50,7 +65,7 @@ class TrainingModuleDraftsController < ApplicationController
     apply_updates(draft)
     draft.save
     draft.rename!(rename_to) if rename_to
-    render json: { draft: draft.to_h.merge('updated_at' => draft.updated_at) }
+    render json: { draft: draft_json(draft) }
   rescue TrainingModuleDraft::NotFound
     render json: { error: 'Draft not found' }, status: :not_found
   rescue TrainingModuleDraft::SlugTaken, TrainingModuleDraft::InvalidSlug => e
@@ -74,6 +89,7 @@ class TrainingModuleDraftsController < ApplicationController
 
   def export
     draft = TrainingModuleDraft.find(params[:slug])
+    return export_update(draft) if draft.update?
     export = ExportTrainingModuleDraft.new(draft)
     send_data export.zip_bytes, type: 'application/zip',
                                 filename: export.filename,
@@ -95,6 +111,20 @@ class TrainingModuleDraftsController < ApplicationController
 
   private
 
+  def export_update(draft)
+    export = ExportTrainingModuleUpdate.new(draft)
+    if export.changed_files.empty?
+      return render json: { error: 'The draft has no changes to export.' },
+                    status: :unprocessable_content
+    end
+    send_data export.zip_bytes, type: 'application/zip', filename: export.filename,
+                                disposition: 'attachment'
+  end
+
+  def draft_json(draft)
+    TrainingModuleDraftPresenter.new(draft).as_json
+  end
+
   def pending_rename(draft)
     requested = draft_params[:slug].presence
     requested if requested && requested != draft.slug
@@ -114,24 +144,15 @@ class TrainingModuleDraftsController < ApplicationController
     draft.slides = sanitized_slides if draft_params.key?(:slides)
   end
 
-  def summary(draft)
-    {
-      'slug' => draft.slug,
-      'name' => draft.name,
-      'module_id' => draft.module_id,
-      'slide_count' => draft.slides.length,
-      'updated_at' => draft.updated_at
-    }
-  end
-
   def draft_params
     params.require(:draft).permit(:slug, :name, :description, :estimated_ttc,
-                                  slides: [:slug, :title, :content])
+                                  slides: [:id, :slug, :title, :content])
   end
 
   def sanitized_slides
     (draft_params[:slides] || []).map do |slide|
       {
+        'id' => slide[:id],
         'slug' => slide[:slug].to_s.strip,
         'title' => slide[:title].to_s,
         'content' => slide[:content].to_s
