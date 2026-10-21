@@ -86,6 +86,22 @@ describe ArticleStatusManager do
           expect(assignment.reload.article_title).to eq('Audi')
         end
       end
+
+      it 'cleans its Assignment records when it is moved to the Draft namespace' do
+        article = create(:article, id: 848, mw_page_id: 848, title: 'Audi', namespace: 0,
+                         updated_at: 2.days.ago)
+        assignment = create(:assignment, article_title: 'Audi', article:, course:)
+        replica = instance_double(Replica, get_existing_articles_by_id: [
+                                    { 'page_id' => '848', 'page_title' => 'Audi',
+                                      'page_namespace' => '118' }
+                                  ])
+        allow(Replica).to receive(:new).and_return(replica)
+
+        described_class.update_article_status_for_course(course)
+        expect(article.reload.namespace).to eq(Article::Namespaces::DRAFT)
+        expect(assignment.reload.article_id).to be_nil
+        expect(assignment.article_title).to eq('Audi')
+      end
     end
 
     it 'checks an assigned article that also has timeslices only once' do
