@@ -81,3 +81,8 @@ docs/analytics_scripts/**/*.sql.gz
 docs/analytics_scripts/**/*dump*.sql
 # pangram_cutover.py imports analyze.py, so running it compiles a cache there.
 docs/analytics_scripts/**/__pycache__/
+
+# Working notes for AI coding sessions (live plans, research write-ups). Kept
+# local: they can name people and hosts, and finished ones get deleted rather
+# than archived here.
+/.claude/notes/
