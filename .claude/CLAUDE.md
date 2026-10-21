@@ -229,10 +229,11 @@ repo. Don't leave untracked files for a later session to puzzle over.
   once they've been run. One-time production fixes go in
   `docs/cleanup_scripts/`.
 - **Data never goes in the tracked tree** (`lib/`, `app/`, `config/`, `spec/`).
-  Production exports, spreadsheets, dumps and caches go in the project's
-  `data/` directory, which `.gitignore` covers, or outside the repo. Anything
-  holding student writing, names or emails goes outside the repo (for example
-  `~/<project>/`). Console scripts write to `~` by default.
+  Exports, spreadsheets, caches and intermediate results go in the project's
+  `data/` directory, which `.gitignore` covers, or outside the repo. Raw
+  production dumps, and anything else holding users' emails, real names, or
+  student writing that isn't public on a wiki, go outside the repo (for
+  example `~/<project>/`). Console scripts write to `~` by default.
 - **Ignore rules that protect data** go in the committed `.gitignore`, or in
   `.git/info/exclude` if they only matter on this machine. Never leave one as
   an uncommitted edit: workflows that switch branches stash uncommitted

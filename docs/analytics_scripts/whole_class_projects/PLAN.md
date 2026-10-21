@@ -34,9 +34,10 @@ classmates catch hallucinations and claims their sources don't support.
 
 ## Inputs
 
-- `data/dashboard-dump-2026-09-27-20:00:01.sql.gz` — raw production dump. Must
-  not be read by an LLM. Keep it until Phase 1 confirms the allowlist has
-  every needed column, then delete it (README.md step 6).
+- `dashboard-dump-2026-09-27-20:00:01.sql.gz` — raw production dump. Keep it
+  outside the repo, in `~/whole_class_projects/`. Must not be read by an LLM.
+  Keep it until Phase 1 confirms the allowlist has every needed column, then
+  delete it (README.md step 6).
 - Public MediaWiki and LiftWing APIs, for revision history, page content and
   article quality.
 
@@ -195,7 +196,7 @@ allows):
 docs/analytics_scripts/whole_class_projects/
   PLAN.md      this file (committable)
   *.rb, *.py   scripts (committable)
-  data/        dumps, sanitized DB exports, caches, CSVs (gitignored)
+  data/        sanitized DB exports, caches, CSVs (gitignored)
 ```
 
 ## Status
@@ -295,4 +296,7 @@ docs/analytics_scripts/whole_class_projects/
   - AI-style prose roughly doubles pre-2023 to 2023+ in both groups (0.27 ->
     0.55 comparison, 0.30 -> 0.71 whole-class): no sign that whole-class
     projects were protected.
+- 2026-10-21: Raw dump deleted (README.md step 6). It had been kept in
+  `data/`; the runbook now keeps dumps outside the repo. The `wcp_raw`
+  database has not been dropped yet.
 

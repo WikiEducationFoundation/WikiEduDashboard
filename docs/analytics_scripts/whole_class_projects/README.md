@@ -35,11 +35,12 @@ SQL
 
 ### 2. Load the dump
 
-From the repo root, in a terminal session of your own:
+Keep the dump outside the repo, in `~/whole_class_projects/`. From the repo
+root, in a terminal session of your own:
 
 ```bash
 read -rs WCP_DB_PASSWORD && export WCP_DB_PASSWORD
-gunzip -c docs/analytics_scripts/whole_class_projects/data/dashboard-dump-2026-09-27-20:00:01.sql.gz \
+gunzip -c ~/whole_class_projects/dashboard-dump-2026-09-27-20:00:01.sql.gz \
   | mysql --no-defaults -u wcp_sanitizer -p"$WCP_DB_PASSWORD" -h 127.0.0.1 wcp_raw
 ```
 
@@ -87,7 +88,7 @@ column the analysis needs (a missing column means re-running steps 3–4). Then:
 
 ```bash
 sudo mysql -e 'DROP DATABASE wcp_raw'
-rm docs/analytics_scripts/whole_class_projects/data/dashboard-dump-*.sql.gz
+rm ~/whole_class_projects/dashboard-dump-*.sql.gz
 ```
 
 ## Known limits of the scrubbing

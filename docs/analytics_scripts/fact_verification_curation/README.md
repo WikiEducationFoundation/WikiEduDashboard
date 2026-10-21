@@ -25,4 +25,11 @@ reviewer sees ("Claim 3 of 17") to a database id.
 The spreadsheet and the CSV stay out of the repo: the spreadsheet holds the
 reviewers' names and notes.
 
+## Not here yet
+
+The rollout config also points to this directory for how its 25 articles were
+chosen: `build_rollout_list.rb` and a write-up of the selection. Those are in
+another local checkout and haven't been committed. The script's input,
+`fv_rollout_shortlist.csv`, is data and won't be.
+
 (README written by Claude Code.)
