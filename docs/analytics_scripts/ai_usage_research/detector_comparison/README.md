@@ -216,7 +216,7 @@ importer = ImportOfflineDetectorScores.new(path: '/home/sage/all_units_llama_202
 
 ## The comparison page
 
-`/detector_comparison` (Wiki Education Dashboard admins) presents the known-AI samples
+`/detector_comparison` (public, on the Wiki Education Dashboard) presents the known-AI samples
 (provenance `synthetic` or `agpedia`) and the human baseline texts they are paired with.
 Each text has its own page with the text, Pangram's windows marked on it, every detector's
 result, the prompts and the text as written. For a new generated sample, run the source and
