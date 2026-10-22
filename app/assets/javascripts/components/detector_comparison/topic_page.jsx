@@ -1,5 +1,5 @@
 /* eslint-disable i18next/no-literal-string */
-// English-only admin research page: no i18n, by decision (see descriptions.js).
+// English-only research page: no i18n, by decision (see descriptions.js).
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { AVERAGE_MODELS, AVERAGE_ROW, CONDITIONS, DEFAULT_SELECTION, DETECTORS, MODELS, REFERENCE_ROWS } from './descriptions';

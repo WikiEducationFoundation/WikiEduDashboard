@@ -656,7 +656,7 @@ Rails.application.routes.draw do
   get 'claim_verification/status' => 'claim_verification#status'
   post 'claim_verification/harvest' => 'claim_verification#harvest'
 
-  # AI detector comparison data (admins, Wiki Ed only)
+  # AI detector comparison data (public, Wiki Ed only)
   get 'detector_comparison' => 'detector_comparison#index'
   get 'detector_comparison/topics' => 'detector_comparison#topics'
   get 'detector_comparison/known_human' => 'detector_comparison#known_human'

@@ -5,7 +5,6 @@ require 'rails_helper'
 describe 'AI detector comparison page', type: :feature, js: true do
   include_context 'published detector comparison data'
 
-  let(:admin) { create(:admin) }
   let(:generated_cell) { "a[aria-label^='GPT-6 Astra, Assignment, Glacial stream']" }
 
   # Earlier specs can leave the window another size, such as 1920x1920. In a window that tall
@@ -41,9 +40,7 @@ describe 'AI detector comparison page', type: :feature, js: true do
     FileUtils.rm_f(content)
   end
 
-  describe 'as an admin' do
-    before { login_as(admin) }
-
+  describe 'for a visitor who is not logged in' do
     it 'shows the default selection and lets the grid be filtered' do
       visit '/detector_comparison/topics'
       expect(page).to have_css 'h1', text: 'Texts on 16 topics'
@@ -188,12 +185,12 @@ describe 'AI detector comparison page', type: :feature, js: true do
     end
   end
 
-  describe 'as a non-admin' do
+  describe 'as a user who is not an admin' do
     before { login_as(create(:user)) }
 
-    it 'is not authorized' do
-      visit '/detector_comparison'
-      expect(page).not_to have_content 'AI detector comparison'
+    it 'shows the page' do
+      visit '/detector_comparison/topics'
+      expect(page).to have_css 'h1', text: 'Texts on 16 topics'
     end
   end
 end

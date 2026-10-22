@@ -5,3 +5,4 @@ User-agent: *
 Disallow: /user*
 Disallow: /stats_graphs*
 Disallow: /*.csv
+Disallow: /detector_comparison/units*
