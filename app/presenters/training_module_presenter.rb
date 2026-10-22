@@ -54,6 +54,6 @@ class TrainingModulePresenter
 
   def last_slide_completed
     return unless @user
-    training_modules_user.last_slide_completed
+    training_modules_user&.last_slide_completed
   end
 end
