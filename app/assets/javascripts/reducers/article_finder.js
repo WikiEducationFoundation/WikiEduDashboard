@@ -1,4 +1,4 @@
-import { cloneDeep, forEach, reduce, find } from 'lodash-es';
+import { cloneDeep, forEach, reduce, find, isEmpty } from 'lodash-es';
 import { extractClassGrade } from '../utils/article_finder_utils.js';
 import { sortByKey } from '../utils/model_utils';
 import { LiftwingWeights } from '../utils/article_finder_language_mappings.js';
@@ -19,8 +19,9 @@ const initialState = {
   // actions compare this with the id they began under and drop anything that
   // no longer belongs. It only ever increases, so an id is never reused.
   searchId: 0,
-  // True when the search ended because its first query failed, which leaves
-  // nothing to show, as opposed to a search that found no articles.
+  // True when a query failed and there is nothing to show, as opposed to a
+  // search that found no articles. A failed "More Results" request leaves the
+  // results already loaded in place, so it does not count.
   searchFailed: false,
   sort: {
     sortKey: null,
@@ -104,7 +105,7 @@ export default function articleFinder(state = initialState, action) {
         articles: newStateArticles,
         loading: false,
         fetchState: 'PAGEVIEWS_RECEIVED',
-        searchFailed: Boolean(action.failed),
+        searchFailed: Boolean(action.failed) && isEmpty(state.articles),
       };
     }
     case RECEIVE_CATEGORY_RESULTS: {

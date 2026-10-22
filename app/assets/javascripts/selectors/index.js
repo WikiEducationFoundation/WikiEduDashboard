@@ -247,7 +247,6 @@ export const getFilteredArticleFinder = createSelector(
 
     return pickBy(articleFinder.articles, (article) => {
       const assessment = grades && article.grade ? grades[article.grade] : null;
-      // A grade that is not one of the grades this wiki uses.
       if (article.grade && grades && !assessment) {
         return false;
       }

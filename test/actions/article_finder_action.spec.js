@@ -35,6 +35,12 @@ const pageviewsFor = articles => ({
   }
 });
 
+// The page views response for whichever of `articles` a request asked about.
+const pageviewsRequested = (query, articles) => {
+  const ids = query.pageids.split('|').map(Number);
+  return pageviewsFor(articles.filter(article => ids.includes(article.pageid)));
+};
+
 // A promise whose outcome the test decides.
 const deferred = () => {
   let resolve;
@@ -122,7 +128,7 @@ describe('article finder searches', () => {
       if (query.list === 'search') {
         return Promise.resolve({ query: { search: articles } });
       }
-      return Promise.resolve(pageviewsFor(articles.filter(a => query.pageids.includes(a.pageid))));
+      return Promise.resolve(pageviewsRequested(query, articles));
     });
 
     await store.dispatch(fetchKeywordResults('climate', wiki));
@@ -131,6 +137,53 @@ describe('article finder searches', () => {
     expect(countOf(END_SEARCH)).toBe(1);
     expect(countOf(API_FAIL)).toBe(0);
     expect(finder().articles['Article 1'].pageviews).toBe(5);
+  });
+
+  // "More Results" continues the current search rather than starting a new
+  // one, so a failure there must not throw away the page already loaded.
+  describe('when the request for more results fails', () => {
+    const firstPage = results('Article');
+
+    beforeEach(() => {
+      sinon.stub(utils, 'queryUrl').callsFake((url, query) => {
+        const nextPage = query.sroffset > 0 || query.cmcontinue;
+        if (nextPage) {
+          return Promise.reject(new Error('next page unavailable'));
+        }
+        if (query.list === 'search') {
+          return Promise.resolve({ query: { search: firstPage }, continue: { sroffset: 50 } });
+        }
+        if (query.list === 'categorymembers') {
+          return Promise.resolve({ query: { categorymembers: firstPage }, continue: { cmcontinue: 'next' } });
+        }
+        return Promise.resolve(pageviewsRequested(query, firstPage));
+      });
+    });
+
+    const expectFirstPageKept = () => {
+      expect(Object.keys(finder().articles)).toHaveLength(10);
+      expect(finder().searchFailed).toBe(false);
+      expect(finder().fetchState).toBe('PAGEVIEWS_RECEIVED');
+      expect(countOf(API_FAIL)).toBe(1);
+    };
+
+    it('keeps the keyword results already loaded', async () => {
+      await store.dispatch(fetchKeywordResults('climate', wiki));
+      await flushPromises();
+      await store.dispatch(fetchKeywordResults('climate', wiki, 50, true));
+      await flushPromises();
+
+      expectFirstPageKept();
+    });
+
+    it('keeps the category results already loaded', async () => {
+      await store.dispatch(fetchCategoryResults('Climate', wiki));
+      await flushPromises();
+      await store.dispatch(fetchCategoryResults('Climate', wiki, 'next', true));
+      await flushPromises();
+
+      expectFirstPageKept();
+    });
   });
 
   // A search the user abandons, by changing wiki or searching again, keeps

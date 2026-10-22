@@ -163,6 +163,12 @@ describe('article finder reducer', () => {
       expect(articleFinder(state, { type: END_SEARCH, failed: true }).searchFailed).toBe(true);
       expect(articleFinder(state, { type: END_SEARCH }).searchFailed).toBe(false);
     });
+
+    test('does not count a failure as the search failing when results are already loaded', () => {
+      const state = searching({ 'Climate change': titleReceived('Climate change') });
+
+      expect(articleFinder(state, { type: END_SEARCH, failed: true }).searchFailed).toBe(false);
+    });
   });
 
   describe('telling searches apart', () => {

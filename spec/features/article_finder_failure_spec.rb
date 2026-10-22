@@ -85,4 +85,23 @@ describe 'article finder when a request fails', type: :feature, js: true,
       expect(page).to have_button('Search', disabled: false)
     end
   end
+
+  context 'when asking for more results' do
+    it 'keeps the results already on the page' do
+      visit "/courses/#{course.slug}/article_finder"
+      search_for 'Selfie'
+      expect(page).to have_content 'Monkey selfie copyright dispute'
+      expect(page).to have_button('More Results')
+
+      # Only the second page of search results is blocked.
+      block_requests('*sroffset=50*')
+      click_button 'More Results', match: :first
+
+      expect(page).to have_css('.notifications .notice', count: 1, wait: 10)
+      expect(page).to have_content 'Monkey selfie copyright dispute'
+      expect(page).to have_css('#articles-fetched')
+      expect(page).to have_no_css('.loading__spinner__small')
+      expect(page).to have_button('Search', disabled: false)
+    end
+  end
 end
