@@ -28,7 +28,7 @@
     - if @presenter.articles_list_truncated?
       %p.notice
         = t('campaign.articles_truncated_html',
-            count: CoursesPresenter::MAX_LISTED_ARTICLES,
+            count: number_with_delimiter(CoursesPresenter::MAX_LISTED_ARTICLES),
             csv_link: link_to(t('campaign.articles_truncated_csv'),
                               "/campaigns/#{@campaign.slug}/articles_csv.csv"))
 

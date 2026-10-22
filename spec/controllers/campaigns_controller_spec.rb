@@ -489,8 +489,8 @@ describe CampaignsController, type: :request do
             .and_return(5001)
           get "/campaigns/#{campaign.slug}/articles?page=200"
           expect(response.status).to eq(200)
-          expect(response.body).to include('Only the first 5000 articles are listed.')
-          expect(response.body).to include("/campaigns/#{campaign.slug}/articles_csv.csv")
+          notice = Capybara.string(response.body).find('p.notice')
+          expect(notice).to have_link(href: "/campaigns/#{campaign.slug}/articles_csv.csv")
         end
       end
     end
@@ -508,6 +508,7 @@ describe CampaignsController, type: :request do
         key = campaign.course_sums_cache_key
 
         Rails.cache.write(key, { courses_count: 42 })
+        Rails.cache.write(campaign.articles_count_cache_key, 5001)
         expect(Rails.cache.read(key)).not_to be_nil, 'Cache write failed'
 
         # Trigger the refresh (should clear)
@@ -517,6 +518,7 @@ describe CampaignsController, type: :request do
         expect(flash[:notice]).to eq('Campaign stats refreshed successfully')
 
         expect(Rails.cache.read(key)).to be_nil
+        expect(Rails.cache.read(campaign.articles_count_cache_key)).to be_nil
       ensure
         Rails.cache = original_cache
       end

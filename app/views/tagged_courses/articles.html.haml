@@ -29,7 +29,7 @@
 
     - if @presenter.articles_list_truncated?
       %p.notice
-        = t('campaign.articles_truncated', count: CoursesPresenter::MAX_LISTED_ARTICLES)
+        = t('campaign.articles_truncated', count: number_with_delimiter(CoursesPresenter::MAX_LISTED_ARTICLES))
 
     %table.table.table--hoverable.table--sortable{style: 'transform: translateX(-46px); width: 111%;'}
       %thead

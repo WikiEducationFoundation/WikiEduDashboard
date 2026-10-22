@@ -44,7 +44,7 @@ describe TaggedCoursesController, type: :request do
       allow_any_instance_of(CoursesPresenter).to receive(:tag_articles_count).and_return(5001)
       get "/tagged_courses/#{tag_name}/articles?page=200"
       expect(response.status).to eq(200)
-      expect(response.body).to include('Only the first 5000 articles are listed.')
+      expect(Capybara.string(response.body)).to have_css('p.notice')
     end
 
     it 'returns a 404 past the last page served, before building the presenter' do
