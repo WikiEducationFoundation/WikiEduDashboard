@@ -93,6 +93,66 @@ describe WikiAssignmentOutput do
         expect(output).to be_nil
       end
 
+      # Editors and tools reformat templates after the dashboard posts them.
+      # MediaWiki reads each of these variations as the same template.
+      context 'when the existing template has been reformatted by an editor' do
+        let(:talk_page) do
+          "{{some template}}\n\n==Wiki Education assignment: #{course.title}==\n#{existing_tag}\n"
+        end
+        let(:output) do
+          wiki_assignment_output.build_assignment_page_content(assignments_tag, talk_page)
+        end
+
+        context 'with the first letter of the template name capitalized' do
+          let(:existing_tag) { assignments_tag.sub('{{dashboard', '{{Dashboard') }
+
+          it 'replaces it instead of adding a second one' do
+            expect(output.scan('.wikiedu.org assignment').size).to eq(1)
+            expect(output).to include(assignments_tag)
+          end
+        end
+
+        context 'with the spaces around pipes and equals signs removed' do
+          let(:existing_tag) { assignments_tag.gsub(' | ', '|').gsub(' = ', '=') }
+
+          it 'replaces it instead of adding a second one' do
+            expect(output.scan('.wikiedu.org assignment').size).to eq(1)
+            expect(output).to include(assignments_tag)
+          end
+        end
+
+        context 'with spaces instead of underscores in the course page name' do
+          let(:existing_tag) do
+            assignments_tag.sub(course.wiki_title, course.wiki_title.tr('_', ' '))
+          end
+
+          it 'replaces it instead of adding a second one' do
+            expect(output.scan('.wikiedu.org assignment').size).to eq(1)
+            expect(output).to include(assignments_tag)
+          end
+
+          it 'removes it when the new tag is blank' do
+            output = wiki_assignment_output.build_assignment_page_content('', talk_page)
+            expect(output).not_to include('.wikiedu.org assignment')
+            expect(output).not_to include('==Wiki Education assignment:')
+            expect(output).to include('{{some template}}')
+          end
+        end
+      end
+
+      context 'when another course with a longer page name has tagged the page' do
+        let(:other_tag) do
+          assignments_tag.sub(course.wiki_title, "#{course.wiki_title}_(Section_2)")
+        end
+        let(:talk_page) { "{{some template}}\n\n== A section ==\n#{other_tag}\n" }
+
+        it 'leaves that tag alone and adds this course\'s tag' do
+          output = wiki_assignment_output.build_assignment_page_content(assignments_tag, talk_page)
+          expect(output).to include(other_tag)
+          expect(output).to include(assignments_tag)
+        end
+      end
+
       context 'when the assignment is being removed so the new tag is blank' do
         let(:title) { 'South_Efate_language' }
         let(:talk_title) { 'Talk:South_Efate_language' }
