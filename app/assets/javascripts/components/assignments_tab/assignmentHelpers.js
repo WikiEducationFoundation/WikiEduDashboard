@@ -126,3 +126,10 @@ export const neighbors = (students, username) => {
     next: students[index + 1] || null,
   };
 };
+
+// The fact-verification exercise, which is done at its in-app page
+// (/courses/<slug>/verify_claim) and so is graded from the responses
+// submitted there rather than from a sandbox.
+export const isClaimVerification = item => (
+  item.kind === 'exercise' && Boolean(item.exercise_url?.endsWith('/verify_claim'))
+);

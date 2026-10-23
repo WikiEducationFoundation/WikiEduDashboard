@@ -1,5 +1,5 @@
-// Text for the admin detector comparison page. Not translated: the page is an
-// English-only internal research view. Written by Claude Code at Sage Ross's
+// Text for the detector comparison page. Not translated: the page is an
+// English-only research page. Written by Claude Code at Sage Ross's
 // direction (2026-10-12); the page says so in its footer note.
 
 export const AUTHORSHIP_NOTE = 'The explanatory text on this page was written by Claude Code, an AI assistant, from the generation scripts and the comparison data, at the direction of Wiki Education.';

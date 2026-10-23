@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# The operator-written part of the admin detector comparison page: the preamble
+# The operator-written part of the detector comparison page: the preamble
 # and the curated views, from config/detector_comparison_page.yml, with their
 # Markdown rendered to HTML. Read on each request, so edits show up on deploy
 # without publishing the comparison data again.

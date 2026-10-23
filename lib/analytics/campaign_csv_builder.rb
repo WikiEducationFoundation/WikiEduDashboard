@@ -3,6 +3,7 @@
 require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/course_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/course_articles_csv_builder"
+require_dependency "#{Rails.root}/lib/analytics/csv_edit_counts"
 require "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 
 class CampaignCsvBuilder
@@ -54,15 +55,7 @@ class CampaignCsvBuilder
   def revision_counts
     return @revision_counts if @revision_counts
 
-    namespaces = [Article::Namespaces::MAINSPACE, Article::Namespaces::TALK, Article::Namespaces::USER]
-
-    @revision_counts = ArticleCourseTimeslice
-                       .where(tracked: true, course_id: course_ids)
-                       .select(:revision_count, :course_id)
-                       .joins(:article)
-                       .where(articles: { namespace: namespaces })
-                       .group(:course_id, :namespace)
-                       .sum(:revision_count)
+    @revision_counts = CsvEditCounts.by_course_and_namespace(course_ids)
   end
 
   def new_editor_counts

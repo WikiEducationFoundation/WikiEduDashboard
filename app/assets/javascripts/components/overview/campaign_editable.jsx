@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select';
 
@@ -28,26 +28,26 @@ const CampaignEditable = ({ course_id }) => {
   };
   const { isOpen, ref, open } = useExpandablePopover(getKey);
 
-  const handleChangeCampaign = useCallback((values) => {
+  const handleChangeCampaign = (values) => {
     if (values.length > 0) {
       setSelectedCampaigns(values);
     } else {
       setSelectedCampaigns([]);
     }
-  }, []);
+  };
 
-  const openPopover = useCallback((e) => {
+  const openPopover = (e) => {
     if (!isOpen && campaignSelectRef.current) {
       campaignSelectRef.current.focus();
     }
     return open(e);
-  }, [isOpen, campaignSelectRef, open]);
+  };
 
-  const removeCampaignHandler = useCallback((campaignId) => {
+  const removeCampaignHandler = (campaignId) => {
     dispatch(removeCampaign(course_id, campaignId));
-  },[dispatch, course_id]);
+  };
 
-  const addCampaignHandler = useCallback(() => {
+  const addCampaignHandler = () => {
     // After adding the campaign, request users so that any defaults are
     // immediately propagated.
 
@@ -72,12 +72,11 @@ const CampaignEditable = ({ course_id }) => {
       setSelectedCampaigns(updatedSelectedCampaigns);
       dispatch(fetchUsers(course_id));
     });
-  }, [selectedCampaigns,dispatch,course_id,campaigns]);
+  };
 
   // In editable mode we'll show a list of campaigns and a remove button plus a selector to add new campaigns
 
-  const campaignList = useMemo(()=>{
-  campaigns.map((campaign) => {
+  const campaignList = campaigns.map((campaign) => {
     const removeButton = (
       <button className="button border plus" aria-label="Remove campaign" onClick={() => removeCampaignHandler(campaign.title)}>-</button>
     );
@@ -87,17 +86,12 @@ const CampaignEditable = ({ course_id }) => {
       </tr>
     );
   });
-},[campaigns,removeCampaignHandler])
-   let campaignSelect;
-   const campaignOptions = useMemo(()=>{
-    if(!availableCampaigns || availableCampaigns.length === 0) return [];
-   return availableCampaigns.map((campaign) => ({
-      label: campaign,
-      value: campaign
-   }))
-  },[availableCampaigns])
 
+  let campaignSelect;
   if (availableCampaigns.length > 0) {
+    const campaignOptions = availableCampaigns.map((campaign) => {
+      return { label: campaign, value: campaign };
+    });
     let addCampaignButtonDisabled = true;
     if (selectedCampaigns.length > 0) {
       addCampaignButtonDisabled = false;
@@ -109,8 +103,6 @@ const CampaignEditable = ({ course_id }) => {
             <Select
               className="fixed-width"
               ref={campaignSelectRef}
-              id='campaign_select'
-              inputId='campaign_select'
               name="campaign"
               value={selectedCampaigns}
               placeholder={I18n.t('courses.campaign_select')}

@@ -3,12 +3,32 @@
 # Export driver: phpyaml
 # Author: Rachitrali
 # Author: Saraiki
+# Author: Tauqeerkhansurani
 ---
 skr-arab:
+  number:
+    human:
+      decimal_units:
+        format: '%n%u'
+        units:
+          thousand: K
+          million: M
+          billion: B
+          trillion: T
+          quadrillion: Q
+  accessibility:
+    number_field: ایہ ہک نمبر آلا کھیت ہے۔ بوہتے براؤزراں ولوں ݙکھائے ون٘ڄݨ آلے بٹݨ
+      ان پٹ کوں ودھیسن تے گھٹیسن۔
   application:
     back: پچھوں
     cancel: منسوخ
     close: بند کرو
+    next: اڳلا
+    skip_to_main_content: مرکزی مواد تے ون٘ڄو
+    cookie_consent: ایہ سائٹ تساکوں لاگ ان رکھݨ کیتے کوکیز ورتیندی ہے تے تہاݙے وکیپیڈیا
+      کھاتے نال ڳن٘ڈھل معلومات محفوظ کریندی ہے۔
+    cookie_consent_acknowledge: میں سمجھ ڳیا
+    cookie_consent_see_more: ٻیا ݙیکھو
     create_accounts: وکی پیڈیا دے کھاتے بݨاؤ
     dashboard: وکی ای ڈی ڈیش بورڈ
     documentation: دستاویز
@@ -16,6 +36,10 @@ skr-arab:
     explore: پھرولو
     field_required: ایں خانے دی لوڑ ہے
     field_invalid_characters: ایں خانے وچ غلط حرف ہن۔
+    field_invalid_term: مدت وچ سال شامل ہووݨا چاہیدا ہے (جیویں، "بہار 2025")۔
+    field_invalid_date: ایں کھیت وچ YYYY-MM-DD شکل دی تاریخ ہووݨی چاہیدی ہے۔
+    field_invalid_date_time: اختتام شروع توں بعد ہووݨا چاہیدا ہے۔ (گھنٹے 0 توں 23
+      تئیں ویندن۔)
     greeting2: ست بسم اللہ!
     greeting_extended: وکی پیڈیا وچ ست بسم اللہ
     greeting: سلام!
@@ -25,11 +49,23 @@ skr-arab:
     log_in: لاگ ان تھیوو
     log_out: لاگ آؤٹ
     my_dashboard: میݙا ڈیش بورڈ
+    okay: ٹھیک ہے
     recent_activity: حالیہ سرگرمی
     report_problem: مسئلے دی رپورٹ کرو
     request_account: کھاتے دی ارداس
+    request_account_create: کھاتہ بݨاؤ
     search: سوال پُچھو
+    search_results:
+      one: '%{count} ''%{search_terms}'' کیتے نتیجہ'
+      other: '%{count} ''%{search_terms}'' کیتے نتائج'
+    no_results: '''%{query}'' کیتے کوئی نتیجہ نئیں ملیا۔'
+    show_current_revision: موجودہ ورشن ݙیکھو
+    show_last_revision: آخری وار تبدیل تھیا ورشن ݙیکھو
+    font_label: فونٹ
+    font_sans: سینز
+    font_serif: سیرف
     sign_up_extended: وکی پیڈیا نال نواں کھاتہ بݨاؤ
+    sign_up_wikipedia: یا وکیپیڈیا تے سائن اپ کرو
     sign_up_log_in_extended: وکی پیڈیا نال
     sign_up: کھاتہ بناؤ
     submit: جمع کرواؤ
@@ -37,364 +73,2822 @@ skr-arab:
     change: تبدیل کرو
     details: تفصیلات
     confirm: ٹھیک ہے
+    confirm_generic: کیا تساں واقعی ایہ کرݨ چاہندے ہو؟
     opt_in: جیا
     opt_out: کو
     opt_yes: جیا
     opt_no: کو
     print: چھاپو
+    sort: چھانٹ
+  article_statuses:
+    not_yet_started: شروعات
+    in_progress: سینڈ باکس وچ کم
+    ready_for_review: مسودہ ودھاوݨ
+    ready_for_mainspace: کم مین سپیس وچ گھن ون٘ڄو
+    assignment_completed: اسمائنمنٹ مکمل قرار ݙتی ڳئی
+    reading_the_article: مضمون پڑھݨ
+    providing_feedback: رائے ݙیندے پئے
+    post_to_talk: ڳالھ صفحے تے پوسٹ کریندے پئے
+    peer_review_completed: جائزہ مکمل تھی ڳیا
   dashboard:
     create_note: آپݨاں پہلا کورس بݨاوݨ کیتے کورس بݨاؤ تے کلک کرو۔
+    create_preparation_note: شروع کرݨ توں پہلے آپݨا تعلیمی کیلنڈر کول رکھو؛ اسائنمنٹ
+      ڈیزائن ٹول تہاݙی کلاس دیاں ملاقاتاں دیاں تاریخاں — سکول دیاں چھٹیاں تے تعطیلات
+      سمیت — ورت کے تہاݙی ٹائم لائن کوں تہاݙے چݨے ہوئے تاریخ دی حد وچ فٹ کریسی۔ یاد
+      رکھو، تساں ہمیشاں ٹائم لائن کوں آپݨیاں ضرورتاں دے مطابق تبدیل کر سڳدے ہو۔
+    explore_course_pages: کورس دے صفحے کھولو
     explore_examples: مثالاں لبھو
+    join_note: جڈاں تہاکوں تہاݙے استاد توں پاس کوڈ مل ون٘ڄے، آپݨا کورس ڳولݨ تے شامل
+      تھیوݨ کیتے "اپݨا کورس ڳولو" تے کلک کرو۔
+    no_courses_instructor: لڳدا ہے تساں کول کوئی کورس نئیں۔
+    no_courses_student: لڳدا ہے تساں ہݨے تئیں کوئی کورس نئیں جوائن کیتا۔
+    opt_out: اورینٹیشن توں باہر تھیوݨ دی درخواست
+    orientation_notice: کورس بݨاوݨ توں پہلے، آؤ اورینٹیشن وچوں گزرو تاکہ تساں شروع
+      تھیوݨ وچ مدد ملے۔ (ایہ مکمل تھیوݨ وچ تقریباً 30 منٹ لیندی ہے۔)
+    review_orientation: اورینٹیشن دا جائزہ
+    start_orientation: اورینٹیشن شروع کرو
+    blog_headline: وکی ایجوکیشن توں تازہ خبراں
+    about_programs: ایہ سائٹ پروگرامز دے ذریعے وکی سرگرمیاں کوں ٹریک کریندی ہے — انفرادی
+      تقریباں جیویں ایڈٹ-ا-تھون یا سکول کورس۔ ہر پروگرام ہک یا ٻیاں مہماں دا حصہ ہوندا
+      ہے، جیڑھے پروگرامز وچ مجموعی شماریات فراہم کریندے ہن۔
+    about_creating_programs: جے تساں کوئی اکیلا، آزاد تقریب چلا رہے ہو، تساں ہݨے ہک
+      پروگرام بݨا سڳدے ہو۔ جے تہاݙی تقریب کہیں وݙی چیز دا حصہ ہے، تاں اوندے کیتے مہم
+      ڳولو یا بݨاؤ۔ ول تساں مہم صفحے توں نواں پروگرام بݨا سڳدے ہو۔
+    tooltip:
+      alt: ٻیاں معلومات
   home:
     explore: پھرولو
     log_in: وکی پیڈیا نال لاگ ان تھیوو
     sign_up: وکی پیڈیا نال نواں کھاتہ بݨاؤ
+    registration_advice:
+      username_rules:
+        heading: صارف ناں دے اصول
+        avoid_offensive_usernames: ایسا صارف ناں نہ چݨو جیڑھا گستاخانہ، گمراہ کن،
+          خلل پاوݨ آلا، یا اشتہاری ہووے۔
+        represent_individual: صارف ناواں کوں ہک انفرادی تدوین کار دی نمائندگی کرݨی
+          چاہیدی ہے۔ سکول یا تنظیم دے ناں کوں نہ ورتو۔
+      additional_advice:
+        heading: نصیحت
+        anonymous_username_recommendation: وکی ایجوکیشن گمنام صارف ناں چݨݨ دی سفارش
+          کریندی ہے، ایسا نہ چݨو جیڑھا تہاݙا اصل ناں یا ٻئی شناختی معلومات شامل رکھدا
+          ہووے۔
+    sign_up_help: ڈیش بورڈ ورتݨ کیتے، تہاکوں وکیپیڈیا دے ذریعے سائن ان کرݨا پوسی تے
+      اونکوں تہاݙے کھاتے تئیں رسائی دی اجازت ݙیوݨی پوسی۔ تساں موجودہ وکیپیڈیا کھاتے
+      نال لاگ ان کر سڳدے ہو، یا نواں کھاتہ بݨا سڳدے ہو۔ جے تساں کھاتہ نئیں بݨا سڳدے،
+      تاں dashboard@wikiedu.org نال رابطہ کرو۔
   alerts:
+    alert_label: الرٹ
+    no_data: کوئی ڈیٹا نئیں لبھا
     ai_stats:
+      timestamp: ٹائم سٹیمپ
+      title: '%{campaign_name} کیتے اے آئی ایڈٹ الرٹس شماریات'
+      total_alerts: کل اے آئی ایڈٹ الرٹس
+      with_followup: فالو اپ نال اے آئی ایڈٹ الرٹس
+      multiple_alerts_students: ٻہوں الرٹس آلے طالب علم
+      multiple_alerts_pages: ٻہوں الرٹس آلے صفحے
+      pangram_url: Pangram یو آر ایل
+      go_to_pangram: Pangram تے ون٘ڄو
+      revision_diff: ورشن فرق
+      single_alert_view: الرٹ
+      alerts_in_mainspace: مین سپیس وچ الرٹس
+      users_involved: شامل ورتݨ والے
       total: میزان
       last_week: پچھلا ہفتہ
+      sections:
+        contents: صفحے دا مواد
+        general_stats: عام شماریات
+        name: ناواں
+        description: تفصیل
+        courses_with_ai_alerts: ٻہوں اے آئی الرٹس آلے کورس
+        recent_followup: تازہ فالو اپ آلے الرٹس
+        multiple_alerts_students: ٻہوں الرٹس آلے طالب علمّاں کیتے تازہ الرٹس
+        in_mainspace: مین سپیس وچ تازہ الرٹس
+        alerts_trend_over_time: وقت دے نال اے آئی الرٹس دے رجحان
+        descriptions:
+          courses_with_ai_alerts: کورس دی پوری مدت دوران 3 توں ٻہوں اے آئی الرٹس آلے
+            کورس (لازمی نئیں جو تازہ ہوون۔)
+          recent_followup: فالو اپ جواباں آلے الرٹس جیڑھے پچھلے 14 ݙیہاڑیاں وچ جمع
+            تھئے، فالو اپ جواب دی تاریخ دے حساب نال ترتیب ݙتے ڳئے۔
+          multiple_alerts_students: ٻہوں الرٹس آلے طالب علمّاں کیتے پچھلے 14 ݙیہاڑیاں
+            وچ بݨائے ڳئے الرٹس، بݨݨ دی تاریخ دے حساب نال ترتیب ݙتے ڳئے۔
+          in_mainspace: مین سپیس دے مضامین کیتے پچھلے 14 ݙیہاڑیاں وچ بݨائے ڳئے الرٹس،
+            بݨݨ دی تاریخ دے حساب نال ترتیب ݙتے ڳئے۔
+  ai_scores_stats:
+    title: ورشن اے آئی سکور شماریات
+    graphs:
+      daily_checks: نیم سپیس دے حساب نال روزانہ جانچ
+      avg_likelihood: روزانہ اوسط اے آئی امکان تقسیم
+      max_likelihood: روزانہ وݙا اے آئی امکان تقسیم
+      overall_avg_likelihood: مجموعی اوسط اے آئی امکان تقسیم
+      overall_max_likelihood: مجموعی وݙا اے آئی امکان تقسیم
   system_stats:
+    title: سسٹم تے فیسلیٹیٹر شماریات
     filters:
       campaign: مہم
+      home_wiki: ہوم وکی
+      start_date: شروع کرݨ دی تریخ
+      end_date: ختم کرݨ دی تریخ
       all_campaigns: ساریاں مہماں
       all_wikis: ساریاں وکیاں
+      export_csv: CSV ایکسپورٹ کرو
+      export_daily_csv: روزانہ شماریات CSV ایکسپورٹ کرو
+      course_csv_tab: کورس دی سطح دی ایکسپورٹس
+      daily_stats_tab: روزانہ سسٹم سنیپ شاٹس
+      generating: ایکسپورٹ بݨای ونج رہی ہے...
+      generation_queued: تہاݙی CSV ایکسپورٹ پس منظر وچ بݨای ونج رہی ہے۔ دوبارہ کوشش
+        کیتی ونج رہی ہے...
+      still_processing: تہاݙی CSV ایکسپورٹ ہݨے وی پس منظر وچ بݨای ونج رہی ہے۔ کرم
+        کرکے تھوڑی دیر بعد ٻیا آؤ تے ایکسپورٹ تے کلک کرو۔
+      fetch_error: CSV ایکسپورٹ نئیں بݨایا ون٘ڄ سڳیا۔ کرم کرکے ٻیا کوشش کرو۔
+      course_type: کورس دی قسم
       status: حیثیت
       all_types: ساریاں قسماں
+      all_statuses: ساریاں حالتاں
       active: فعال
+      archived: آرکائیو تھیا
+    kpis:
+      total_edits: کل تبدیلیاں
+      article_views: مضامین دے ویکھݨ
+      articles_created: بݨائے ڳئے مضامین
+      articles_improved: بہتر بݨائے ڳئے مضامین
+      characters_added: جوڑے ڳئے اکھر
+      new_editors: ناویں مدیر (60 ݙینہ پہلے دی رجسٹریشن)
+      retained_new_editors: برقرار رہݨ آلے مدیر
+      active_programs: فعّل پروگرام
+      active_facilitators: فعّل فیسلیٹیٹر
+    charts:
+      monthly_trends: مہینہ وار سرگرمی دے رجحانات
+      wiki_trends: وکی رجحانات (ٹاپ 5)
+      plot_metric: 'پلاٹ میٹرک:'
     tables:
+      wiki_breakdown: وکی شماریات دی تفصیل
       wiki: وکی
+      edits: تبدیلیاں
       programs: پروگرام
+      articles_created: بݨائے ڳئے مضامین
+      new_editors: ناویں مدیر (60 ݙینہ پہلے دی رجسٹریشن)
+      retained_new_editors: برقرار رہݨ آلے مدیر
     facilitators:
+      title: فیسلیٹیٹر لیڈر بورڈ
+      username: وزرن آلا ناں
       courses: کورسز
       active: فعال
+      students: شاگرد
+      retained_new_editors: برقرار رہݨ آلے مدیر
+      active_in_year: سال وچ فعال
       "yes": جیا
       "no": کو
     pagination:
       previous: پچھلا
       next: اڳلا
+    loading:
+      data: سرور توں ڈیٹا لوڈ تھی رہیا ہے...
+      facilitators: فیسلیٹیٹر لوڈ تھی رہین...
+      wiki_stats: وکی شماریات لوڈ تھی رہین...
+      wiki_trends: وکی رجحانات لوڈ تھی رہین...
+    empty:
+      no_trend_data: رجحان دا کوئی ڈیٹا دستیاب نئیں۔
+      no_wiki_trend_data: وکی رجحان دا کوئی ڈیٹا دستیاب نئیں۔
+      no_wiki_stats: وکی پروجیکٹ دے کوئی شماریات دستیاب نئیں۔
+      no_facilitators: کوئی فیسلیٹیٹر نئیں لبھا۔
+    errors:
+      fetch_failed: ڈیٹا لوڈ نئیں تھیا۔ کرم کرکے صفحہ ٻیا ریفریش کرو۔
   activity:
     all: سرگرمی
     edited_by: لکھݨ آلا
     label: سرگرمی
   articles:
+    articles: مضمون
+    article_not_found: ایہ مضمون ہݨے تئیں نئیں بݨایا ڳیا۔
+    article_development: (مضمون دی تیاری)
+    articles_shown: '%{total} وچوں %{count} مضامین وکھائے ونج رہین'
+    assigned: سونپیے ڳئے مضامین
+    assignments_none: ہݨے تئیں کوئی سونپیے ڳئے مضامین نئیں ہن۔
+    available: دستیاب مضامین
+    no_available: کوئی دستیاب مضامین نئیں۔
+    next: اڳلا
+    page_info: صفحہ %{current} / %{total_pages} (کل %{total} وچوں %{count})
+    permalink: مستقل ربط
+    previous: پچھلا
+    article_title: مضمون دا عنوان
+    language: زبان
+    project: منصوبہ
+    assigned_to: سونپیا ڳیا
+    character_doc: شروع تے اختتام دیاں تاریخاں دے درمیان داخل تھئے ہوئیاں ایڈیٹرز
+      ولوں مضامین وچ شامل کیتے ڳئے حروف دا جوڑ
+    cross_wiki_tracking: شروع تے اختتام دیاں تاریخاں دے درمیان تدوین کیتے ڳئے مین
+      سپیس صفحے ہیٹھ درج ہن۔ ڈیش بورڈ ایں پروگرام دے ہوم وکی توں شراکتاں کھچ لیندا
+      ہے، انہاں ٻیاں وکیاں دے نال جتھاں کوئی اسائنمنٹ یا کوئی دستیاب مضمون موجود ہے۔
     deleted: (مٹا ݙتے)
+    does_not_exist: ایہ مضمون موجود نئیں۔ ہک سینڈ باکس صفحہ بݨاؤ تے تجویزاں حاصل کرݨ
+      کیتے آپݨے آپ کوں اوندے تے سونپیو۔
+    edited: تدوین کیتے ڳئے مضامین
     edited_by: 'لکھݨ آلا:'
     edited_mobile: مقالے
+    edited_none: ہݨے تئیں کوئی تدوین کیتے ڳئے مضامین نئیں ہن۔
     filter:
       wiki_all: یکے
       new: نواں
       existing: زیر ترمیم
+      new_and_existing: نویں تے موجودہ
+      tracked: ٹریک کیتے ڳئے
+      untracked: ٹریک نہ کیتے ڳئے
+      tracked_and_untracked: ٹریک کیتے ڳئے تے ٹریک نہ کیتے ڳئے
+      wiki_label: وکی
+      newness_label: مضمون دی نئی پݨا
+      tracked_label: ٹریکنگ دی حیثیت
+    filter_text: 'چھݨال:'
+    pageviews_label: 'صفحہ نظارے:'
     cumulative: مجموعی
+    daily_avg: روزانہ اوسط
+    find: مضامین لبھو
+    how_to_find: مضمون کیویں لبھو
     hide: لُکاؤ
     history: (تاریخ)
     label: مقالے
+    loading: مضامین لوڈ تھیندے پئے ہن۔
+    mark_as_complete: مکمل دے طور تے نشان زد کرو
+    mark_as_incomplete: نامکمل دے طور تے نشان زد کرو
     new: (نواں)
+    none: ایں کورس نے ہݨے تئیں کوئی مضامین تدوین نئیں کیتے۔
+    preview: مضمون دی مختصر جھلک
+    quality_checklist: معیار دی چیک لسٹ
     rating: جماعت
+    rating_doc: وکپیڈیا تے وکی منصوبیاں ولوں ہک مضمون کوں جیہڑی درجہ بندی ݙتی ڳئی
+      اے۔ ایہ درجہ بندیاں بہوں پراݨے نسخیاں نال میل کھا سکدین ہن، تاں او صرف مضمون
+      دے پختہ ہووݨ دی ہک موٹی موٹی نشاندہی ہن۔
+    rating_docs:
+      fa: '%{class} (نمایاں مضمون) — وکپیڈیا دی سب توں وݙی درجہ بندی، نویں ایڈیٹر
+        دے مرکزی منصوبے کیتے شاید بہوں پختہ مضمون'
+      fl: '%{class} (نمایاں فہرست) — فہرستاں کیتے وکپیڈیا دی سب توں وݙی درجہ بندی'
+      a: '%{class} درجے دا — بہوں ترقی یافتہ مضمون جیہڑا نویں ایڈیٹر دے مرکزی منصوبے
+        کیتے شاید بہوں پختہ ہووے'
+      ga: '%{class} (چنڳا مضمون) — ہک چنگی طرح ترقی یافتہ مضمون جیہڑا نویں ایڈیٹر
+        دے مرکزی منصوبے کیتے شاید بہوں پختہ ہووے'
+      b: '%{class} درجے دا — ہک متوسط ترقی یافتہ مضمون'
+      c: '%{class} درجے دا — ہک درمیانی مضمون جیندے وچ بہتری دی گنجائش اے'
+      start: '%{class} درجے دا — ہک ابتدائی مضمون جیندے وچ بہتری دی بہوں گنجائش اے'
+      stub: '%{class} درجے دا — ہک مضمون دی مختصر شروعات جیندی کوں ٻیا مواد درکار
+        اے'
+      list: '%{class} درجے دا — روایتی مضمون دی بجائے ہک فہرست'
+      '?': غیر درجہ بند — ہک مضمون جیندے کوں ہݨے تئیں وکپیڈیا دے معیاری پیمانے تے
+        درجہ بندی نئیں کیتی ڳئی
+      does_not_exist: ایہ مضمون وکپیڈیا تے موجود نئیں
     see_more: ٻئے ݙیکھو
+    see_more_tooltip: شروع وچ صرف پہلے 500 تدوین کیتے ڳئے مضامین لوڈ تھیندن۔ ٻئے مضامین
+      لوڈ کرݨ کیتے کلک کرو۔
+    search: ہک مضمون کیتے وکپیڈیا تلاش کرو
+    show_cumulative_changes: مجموعی تبدیلیاں وکھاؤ
+    show_current_version: موجودہ نسخہ ݙیکھو
+    show_current_version_with_authorship_highlighting: تصنیف نگاری دی نمایاں کاری
+      نال موجودہ نسخہ
     title: عنوان
+    tracked: ٹریک کیتے ڳئے
+    tracked_doc: صرف ٹریک کیتے ڳئے مضامین ایں پروگرام دے اعداد و شمار وچ حصہ پیندن۔
+      جڈاں مضامین کوں ٹریک نہ کیتے ڳئے دے طور تے نشان زد کیتا ویندے، تاں اڳلی ڈیٹا
+      اپڈیٹ دے دوران انہاں کوں اعداد و شمار وچوں ہٹا ݙتا ویسی۔
     title_example: مضمون دا عنوان
+    tools: جائزے دے اوزار
     view: مضمون ݙیکھو
     view_all: سارے ݙیکھو
+    view_doc: پہلی تدوین توں تازہ ترین شماریاتی اپڈیٹ تئیں ہر مضمون دے اندازے مطابق
+      نظارے۔ بالکل درست تعداد ݙیکھݨ کیتے تساں pageviews.toolforge.org استعمال کر سکدے
+      ہو۔
     view_on_wiki: وکی تے ݙکھالا
+    views_added: '%{title} کیتے %{count} نویں نظارے شامل کیتے ڳئے'
+    article_size: مضمون دا حجم
+    article_size_doc: ہر تدوین دے بعد مضمون دے وکی متن دا حجم (بائٹس وچ)
+    edit_size: تدوین دا حجم
+    editor_other: ٻئے مدیر
+    scoring_status: '%{count} تدویناں کیتے نمبر لیندے پئے ہن'
     wiki: وکی
+    wp10: ساختی مکمل پن
+    wp10_doc: '''ساختی مکمل پن'' دا نمبر اے ݙسکیندا اے کہ ہک مضمون پختہ وکپیڈیا مضمون
+      دے نمونے نال کتنی حد تئیں ملدا اے۔ ایہ پرانے (~2015) مشین لرننگ تے مبنی "Objective
+      Revision Evaluation Service" تے مبنی اے۔ ایہ نمبر مضمون دے حجم، حوالہ جات تے
+      وکی ربطاں دی تعداد تے ٻئیاں بنیادی متنی خصوصیات دے بنیاد تے حساب کیتے ویندن۔
+      ہک وݙا نمبر عام طور تے اے ݙسکیندا اے کہ مضمون ہک چنڳے مضمون دی ساخت کیتے وکپیڈیا
+      دیاں روایتاں تے عمل پیا کریندا اے، پر ایہ خود مواد کوں نظر وچ نئیں رکھیندا۔'
     articles_short: مقالے
+    deleted_message: ڈیش بورڈ دے ڈیٹا دے مطابق، اے صفحہ حذف کر ݙتا ڳئے۔ (کئی صورتاں
+      وچ، صفحے دیاں منتقلیاں، تاریخ دے ادغام یا ٻئیاں کارروائیاں ہک مضمون دے غلطی
+      نال حذف شدہ ہووݨ دی فہرست وچ آوݨ دا سبب بݨ سکدین ہن۔ حذف شدہ مضامین کوں بعد
+      وچ بحال وی کیتا ونج سکدے۔ ان مضامین کیتے جیہڑے واقعی حذف نئیں کیتے ڳئے، یا بعد
+      وچ بحال کر ݙتے ڳئے ہن، ڈیش بورڈ عام طور تے ہک یا ݙو ݙینہاں وچ ایندی عکاسی کر
+      ݙیسی۔)
+    page_logs: (صفحے دے لاگز)
+    tracked_articles: ٹریک کیتے ڳئے مضامین
+    view_articles: مضامین ݙیکھو
+    no_tracked_articles: ایں زمرے وچ کوئی ٹریک کیتے ڳئے مضامین کائنی
+    not_choosen_article: تساں کم کرݨ کیتے ہک مضمون نئیں چݨیا۔ جڈاں تساں کم کرݨ کیتے
+      ہک مضمون لبھ گھنو، تاں اونوں تفویض کرݨ کیتے اوپر ݙتا ڳئے بٹݨ استعمال کرو۔
+    use_dashboard: ڈیش بورڈ کیویں استعمال کرݨے
+    evaluate_and_source: مضامین تے ذرائع دا جائزہ
   items:
+    items: آئٹم
     lexeme: مفرد لفظ
+    article_not_found: اے آئٹم ہݨے تئیں بݨایا نئیں ڳئے
+    assigned: تفویض کیتے ڳئے آئٹم
+    assignments_none: ہݨ تئیں کوئی تفویض کیتے ڳئے آئٹم کائنی
+    available: دستیاب آئٹم
+    character_doc: شروع تے اختتام دیاں تاریخاں دے درمیان داخل کیتے ڳئے مدیراں ولوں
+      آئٹماں وچ شامل کیتے ڳئے حروف دا جوڑ
+    cross_wiki_tracking: شروع تے اختتام دیاں تاریخاں دے درمیان تدوین کیتے ڳئے مین
+      سپیس صفحے ہیٹھ درج ہن۔ ڈیش بورڈ ایں پروگرام دی ہوم وکی توں شراکتاں کھنچ لیندا
+      اے، انہاں ٻئیاں وکیاں دے نال جتھاں کوئی اسائنمنٹ یا کوئی دستیاب آئٹم موجود اے۔
+    does_not_exist: اے آئٹم موجود نئیں۔ ہک سینڈ باکس صفحہ بݨاؤ تے تجویزاں حاصل کرݨ
+      کیتے خود کوں اوندے تے تفویض کرو۔
+    edited: تدوین کیتے ڳئے آئٹم
+    edited_none: ہݨ تئیں کوئی تدوین کیتے ڳئے آئٹم کائنی
+    find: آئٹم لبھو
+    how_to_find: آئٹم کیویں لبھݨے
+    preview: آئٹم دا مختصر جائزہ
+    search: وکی ڈیٹا وچ آئٹم لبھو
+    tracked_doc: صرف ٹریک کیتے ڳئے آئٹم ایں پروگرام دے شماریات وچ شامل تھیندے ہن۔
+      جڈاں آئٹم کوں ٹریک نہ کیتا ڳیا نشان لایا ویندا اے، تاں اڳلی تازہ کاری دے دوران
+      اونہاں کوں شماریات توں کڈھ ݙتا ویندا اے۔
+    view_doc: ہر آئٹم دے ݙٹھے ونڄݨ دا تخمینہ، جداں توں اونکوں پہلی واری تدوین کیتا
+      ڳیا، تازہ ترین شماریاتی تازہ کاری تئیں۔ تساں درست اعداد ویکھݨ کیتے پیج ویوز
+      ٹول فورج ورت سڳدے ہو۔
+    title_example: آئٹم دا عنوان
   articles_wikidata:
     articles_short: آئٹم
   articles_generic:
     articles_short: ورقے
   assignments:
+    article: مضمون %{title} ہݨ تساں کوں تفویض کیتا ڳیا اے۔
     article_link: مضمون
+    article_link_wikidata: آئٹم
+    blocked_assignment: '%{title} کوں تفویض نہ کیتا ونڄ سڳیا کیونکہ اوہ وکیپیڈیا کمیونٹی
+      دی وکی ایجوکیشن اسائنمنٹ بلاک لسٹ وچ اے۔'
+    already_exists: ایہ تفویض پہلے توں موجود اے!
+    title_too_large: سرخی 255 اکھراں توں ودھ نہیں ہوݨی چاہیدی۔
+    max_group_size_exceeded: '%{title} کوں پہلے توں %{current} طالب علم تفویض کیتے
+      ڳئے ہن۔ ایں کورس آستے ودھ توں ودھ گروپ سائز %{max} اے۔'
+    assignees: تفویض کیتے ڳئے
+    assign_other: مضمون تفویض کرو یا ہٹاؤ
+    assign_other_wikidata: آئٹم تفویض کرو یا ہٹاؤ
+    add_available: دستیاب مضامین شامل کرو
+    add_available_wikidata: دستیاب آئٹم شامل کرو
+    add_available_placeholder: ہر لائن تے ہک مضمون دا عنوان یا URL شامل کرو
+    add_available_placeholder_wikidata: ہر لائن تے ہک آئٹم دا عنوان یا URL شامل کرو
+    add_available_submit: مضامین شامل کرو
+    add_available_submit_wikidata: آئٹم شامل کرو
+    add_placeholder: ہک مضمون دا عنوان یا URL درج کرو
+    assign_self: خود کوں ہک مضمون تفویض کرو
+    invalid_mainspace_article: ایں ہک جائز مین اسپیس مضمون ہوݨا چاہیدے۔
+    assign_self_wikidata: خود کوں ہک آئٹم تفویض کرو
+    assign_tooltip: خود کوں ہک آئٹم تفویض کرو
+    assign_tooltip_wikidata: ہک تفویض کیتا ڳیا آئٹم او اے جیہڑا تساں بنڑاوݨ یا بہتر
+      کرݨ دا منصوبہ بنڑیندے ہو۔
+    bibliography: کتابیات
     clone: کلون
+    confirm_add_available: کیا تساں واقعی %{title} شامل کرݨا چاہندے ہو؟
+    confirm_addition: کیا تساں واقعی %{title} %{username} کوں تفویض کرݨا چاہندے ہو؟
+    confirm_deletion: کیا تساں واقعی ایں تفویض کوں حذف کرݨا چاہندے ہو؟
+    copy_available: ٻئی کورس توں درآمد کرو
+    copy_available_url_placeholder: کورس یو آر ایل
+    copy_available_select_placeholder: ہک کورس منتخب کرو
+    copy_available_include_student_assigned: تفویض کیتے ڳئے مضمون شامل کرݨے ہن؟
+    delete: ہٹاؤ تے حذف کرو
+    editors: کوں تفویض کیتا ڳیا
+    change_sandbox_url: سینڈ باکس تبدیل کرو
+    group_members: گروپ ممبراں
     label: سپرد کرو
+    label_all: سارے تفویض کرو
+    loading: تفویض لوڈ تھیندے پئین...
+    none_short: کوئی مضمون تفویض نہیں تھیا
+    none_short_wikidata: کوئی آئٹم تفویض نہیں تھیا
+    none: ایں کورس دے کوئی مضمون تفویض نہیں کیتے ڳئے۔
+    no_available: ایں کورس دے کوئی دستیاب مضمون نہیں ہن۔
     outline: خاکہ
+    peer_review_count: '%{currentCount}/%{total} منتخب کیتے ڳئے'
+    peer_review_count_tooltip: تساں کوں %{total} مضمون پیئر ریویو آستے منتخب کرݨے
+      چاہیدے ہن۔
+    peer_review_link: پیئر ریویو
+    peer_review_link_personalized: '%{username} دا پیئر ریویو'
+    random_peer_review:
+      confirm_addition: بیشتر صورتاں وچ تساں کوں ایہو اوں ویلے استعمال کرݨا چاہیدا
+        جڈاں سارے طالب علم کوں انہاں دے اصل مضمون تفویض تھی ونڄن۔ ٻئے طور تے تساں
+        اپݨے طالب علماں کوں آکھ سڳدے ہو جو ہک قطار تے کلک کرݨ توں بعد 'ہک پیئر ریویو
+        تفویض کرو/ہٹاؤ' بٹن ورت تے اپݨے جائزے آپ چݨن۔ OK ہر منتخب طالب علم آستے ودھ
+        توں ودھ %{maximum} دے نال کل %{count} اضافی پیئر ریویوز شامل کریسی، جیہڑے
+        ہم جماعتاں دے مضموناں وچوں چݨے ڳئے ہوسن۔
+      confirm_addition_wikidata: بے ترتیب پیئر ریویو تفویض کرو
+      heading: بے ترتیب پیئر ریویو تفویض کرو
+      tooltip_message: ہر طالب علم کوں بے ترتیب مضمون تفویض کریندا اے (پیئر ریویو
+        ڳݨتری کوں ودھ توں ودھ تعداد دے طور تے)۔
+      tooltip_message_wikidata: ہر طالب علم کوں بے ترتیب آئٹم تفویض کریندا اے (پیئر
+        ریویو ڳݨتری کوں ودھ توں ودھ تعداد دے طور تے)۔
+      limit_exceeded: ہر طالب علم پہلے توں گھٹ توں گھٹ %{maximum} مضمون دا جائزہ گھن
+        پیا اے۔
+      limit_exceeded_wikidata: ہر طالب علم پہلے توں گھٹ توں گھٹ %{maximum} آئٹم دا
+        جائزہ گھن پیا اے۔
     remove: ہٹاؤ
+    reviewers: جائزہ گھنݨ آلے
+    review_other: ہک پیئر ریویو تفویض کرو/ہٹاؤ
     review_self: مضمون تے نظرثانی کرو
+    review_self_wikidata: ہک آئٹم دا جائزہ گھنو
+    review_tooltip: ایہ انہاں مضموناں آستے اے جیہڑے تساں پیئر ریویو کرݨ یا رائے ݙیوݨ
+      دا منصوبہ بنڑیندے ہو۔
+    review_tooltip_wikidata: ایہ انہاں آئٹماں آستے اے جیہڑے تساں پیئر ریویو کرݨ یا
+      رائے ݙیوݨ دا منصوبہ بنڑیندے ہو۔
+    sandbox_draft_link: سینڈ باکس مسودہ
+    sandbox_redlink_info: ایہ ربط لاݪ ہے کیوں جو صفحہ ہݨ تئیں بنڑایا نہیں ڳیا۔ (اگر
+      ایہ حال وچ بنڑایا ڳیا اے تاں ڈیش بورڈ جلدی اپݨا ڈیٹا تازہ کریسی۔)
     select: چݨو
     submit: جمع کرواؤ
+    invalid_url: سینڈ باکس یو آر ایل اپڈیٹ نہیں تھی سڳدا۔ یو آر ایل %{url} ہک درست
+      وکیپیڈیا یو آر ایل نہیں اے۔
+    mismatched_wiki: سینڈ باکس یو آر ایل اپڈیٹ نہیں تھی سڳدا۔ یو آر ایل %{url} ایں
+      وکی تے نہیں اے۔
+    invalid_username: صارف ناں "%{username}" ناقص اے یا صارف ناں موجود نہیں اے۔
+    change_sandbox_instructions: ایں تفویض آستے سینڈ باکس یو آر ایل اپڈیٹ کرݨ آستے
+      ہک وکیپیڈیا صارف ناں داخل کرو۔ ایہ سینڈ باکس کوں موجودہ صارف ناں توں تہاݙے ݙتے
+      ڳئے صارف ناں تے تبدیل کریسی۔
+    username_label: وکیپیڈیا صارف ناں
+    username_placeholder: صارف ناں داخل کرو (مثال طور YourUsername)
+    username_or_url_label: وکیپیڈیا صارف ناں یا یو آر ایل
+    username_or_url_placeholder: صارف ناں یا مکمل سینڈ باکس یو آر ایل داخل کرو
+    preview_label: 'نوویں یو آر ایلز دا پیش نظارہ:'
+    sandbox_label: سینڈ باکس
+    bibliography_label: کتابیات
+    outline_label: خاکہ
+    warning_untracked_wiki: 'نوٹ کرو کہ تہاݙے چُݨیا ڳیا مضمون ہک اینجھی وکی تے اے
+      جیہڑی ایں کورس ولوں ٹریک نہیں کیتی ڳئی۔ ایں مضمون دیاں شراکتاں ٹریک کرݨ آستے،
+      ہک انسٹرکٹر کوں ہیٹھلا وکی ایں کورس وچ شامل کرݨا پئیسی: %{wiki}'
   assignments_tab:
+    label: تفویضاں
+    overdue: میعاد گزری
     progress: ترقی
+    assigned: تفویض کیتے ڳئے
+    live_article: زندہ مضمون
+    stage_assigned: مضمون تفویض تھیا
+    stage_live: ترمیم شدہ زندہ مضمون
+    view_training: تربیت ݙیکھو
   blocks:
     milestones:
       title: سنگ میل
   campaign:
+    campaign_ores_plot:
+      change_button: بناوٹی مکمل پن وچ تبدیلی
+      no_data: بناوٹی مکمل پن دا کوئی ڈیٹا دستیاب نہیں
+      graph_description_html: ایہ گراف مجموعی طور تے ݙکھیندا اے کہ مہم دے شرکا دے
+        پہلی وار انہاں وچ ترمیم کرݨ توں پہلے توں گھن تے حالیہ مہم ترامیم تئیں مضموناں
+        کتنی ترقی کیتی اے۔ <em>بناوٹی مکمل پن </em> ریٹنگ ہک مشین لرننگ منصوبے (<a
+        href="https://www.mediawiki.org/wiki/ORES/FAQ" target="_blank">ORES</a>) تے
+        مبنی اے جیہڑا ہک مضمون دی معیار ریٹنگ دا تخمینہ عبارت دی مقدار، ویکی لنکاں،
+        تصویراں تے سیکشن سرخیاں دی تعداد تے ٻیاں خصوصیات دی بنیاد تے لئیندا اے۔
+    active_campaigns: فعال مہم
+    add_organizer: منتظم شامل کرو
     alert_article: مضمون دا عنوان
+    alert_label: مہم الرٹس
+    alert_select_label: الرٹ دی قسم دے حساب نال چھݨال کرو
     alert_type: قسم
     alert_user_id: ورتݨ آلا
     all_campaigns: ساریاں مہماں
+    already_exists: اوہ مہم پہلے توں موجود اے! مہربانی کر تے ہک ٻئے عنوان یا سلگ نال
+      دوبارہ کوشش کرو۔
     campaign: مہم
     campaigns: مہم
+    campaign_deleted: مہم "%{title}" حذف تھی ڳئی اے
+    campaign_not_updated: مہم اپڈیٹ نہیں تھی سڳدی
+    campaign_updated: مہم اپڈیٹ تھی ڳئی
+    refresh_campaign_stats: مہم دے اعداد و شمار کامیابی نال تازہ تھی ڳئے
     created_at: تریخ
+    confirm_campaign_deletion: کیا تساں ایں مہم کوں حذف کرݨا چاہندے ہو جیہڑی "%{title}"
+      عنوان رکھدی اے؟ جے ہاں، تاں اڳوں ودھݨ آستے مہم دا عنوان ٹائپ کرو۔
+    confirm_campaign_deletion_failed: '"%{title}" ایں مہم دا عنوان نہیں اے۔ مہم حذف
+      نہیں تھی اے۔'
+    confirm_course_removal: کیا تساں "%{title}" کوں "%{campaign_title}" مہم توں ہٹاوݨا
+      چاہندے ہو؟
+    course_already_removed: '"%{title}" پہلے توں ہی "%{campaign_title}" مہم توں ہٹا
+      ݙتا ڳیا اے'
     course: کورس
+    course_data: کورس ڈیٹا
     all_data: یکے
     export: ٻاہر بھیڄو
+    course_removed: '"%{title}" "%{campaign_title}" مہم توں ہٹا ݙتا ڳیا اے'
+    course_removed_and_deleted: '"%{title}" حذف کر ݙتا ڳیا اے تے "%{campaign_title}"
+      مہم توں ہٹا ݙتا ڳیا اے'
+    course_removed_but_not_deleted: '"%{title}" "%{campaign_title}" توں ہٹا ݙتا ڳیا
+      اے پر ایہ حذف نہیں تھیا کیوں جو ایہ ٻیاں مہماں وچ وی موجود اے'
+    create_campaign: نویں مہم تخلیق کرو
+    create_my_campaign: میݙی مہم بݨاؤ!
+    customize_passcode: ہک ڈیفالٹ پاس کوڈ
+    data_download_info: مہم دا ڈیٹا CSVs دے طور تے ڈاؤن لوڈ کرو
+    data_download_generating: فائل تیار تھیندی پئی اے۔ جڈاں ایہ ڈاؤن لوڈ کرݨ آستے
+      تیار تھیسی، تساں کوں اطلاع ݙتی ویسی۔
+    data_courses: کورس دا جائزہ ڈیٹا
+    data_courses_info: ہر کورس/پروگرام آستے بنیادی پیمانے
+    data_articles: ترمیم کیتے ڳئے صفحات
+    data_revisions: ترمیماں دا ڈیٹا
+    data_articles_info: مہم ولوں ترمیم کیتے ڳئے ہر ٹریک کیتے ڳئے صفحے دے بارے وچ تفصیل
+    data_revisions_info: مہم دیاں ہر ٹریک کیتیاں ڳیاں ترمیماں دے بارے وچ تفصیل
+    data_instructors: انسٹرکٹرز
+    data_instructors_info: انسٹرکٹرز/سہولت کاراں تے انہاں دے کورسز/پروگراماں دی فہرست
+    data_editors_by_course: کورس دے حساب نال ترمیم کار
+    data_editors_by_course_info: داخل کیتے ڳئے ترمیم کاراں تے انہاں دے کورسز/پروگراماں
+      دی فہرست
+    data_editor_usernames: ترمیم کاراں دے صارف ناں
+    data_editor_usernames_info: ترمیم کاراں دے صارف ناواں دی فہرست، ہک لائن تے ہک
+      ناں
+    data_wikidata: ویکی ڈیٹا اعداد و شمار
+    data_wikidata_info: ترمیم دے خلاصیاں دی بنیاد تے ویکی ڈیٹا سرگرمی دی تفصیلی ٹوٹ
+    default_course_type: ڈیفالٹ کورس دی قسم
+    default_passcode: ڈیفالٹ پاس کوڈ
+    default_passcode_explanation: 'بنیادی طور تے، ایں مہم وچ نوویں پروگراماں وچ ایہ
+      ہووݨا چاہیدا اے:'
     description: تفصیل
     delete_campaign: ایݨ مہم کوں مٹاؤ
+    delete_course_tooltip: حذف کرو تے مہم توں ہٹاؤ۔
+    disable_account_requests: اکاؤنٹ دیاں درخواستاں بند کرو
+    enable_account_requests: اکاؤنٹ دیاں درخواستاں چالو کرو
+    enable_account_requests_doc: اکاؤنٹ دیاں درخواستاں آلی خصوصیت ہک تقریب آستے داخلے
+      دے لنک تے اکاؤنٹ دی درخواست دا ہک فارم جوڑیندی اے۔ جنہاں صارفین کول اجے تائیں
+      اکاؤنٹ نہیں ہن او اپݨا ای میل تے مطلوبہ صارف ناں درج کر سڳدن، تے تقریب دے سہولت
+      کار ڈیش بورڈ استعمال کر کے منگیے ڳئے اکاؤنٹ بݨا سڳدن۔ جنہاں صارفین نے اکاؤنٹ
+      منگے ہن، انہاں کوں اکاؤنٹ بݨݨ تے خودکار طور تے تقریب وچ شامل کر ݙتا ویندے۔
+    newest_campaigns: نوویاں مہماں
+    featured_campaigns: نمایاں مہماں
+    instructors_course: کورس دے حساب نال استاد
+    no_alerts: ایں مہم وچ کوئی الرٹس نہیں ہن۔
     no_passcode: پاس کوڈ کائنی
     none: کوئی وی کائنی
+    organizers: منتظم
+    organizer_added: '%{user} ہݨ "%{title}" مہم دا ہک منتظم اے'
+    organizer_removed: '%{user} کوں "%{title}" مہم دے منتظم دے طور تے ہٹا ݙتا ڳیا
+      اے'
+    pages_edited_small: ترمیم کیتے ڳئے صفحات
+    program_template: پروگرام ٹیمپلیٹ
+    program_template_tooltip: جڈاں ہک منتظم ایں مہم وچ ہک پروگرام بݨیندے، تاں ایں
+      حصے دا متن پروگرام دے صفحے تے تفصیل دے طور تے نقل کر ݙتا ویندے۔
+    random_passcode: ہک بے ترتیب پاس کوڈ
+    remove_course_tooltip: مہم توں ہٹاؤ۔
+    requested_accounts: اکاؤنٹ دی درخواست
     resolve: حل کرو
+    revision_data: ترمیماں دا ڈیٹا
+    students_small: شاگرد
+    student_course: کورس دے حساب نال شاگرد
     title: عنوان
+    too_large: ایہ مہم درخواست کیتے ڳئے ڈیٹا کوں ظاہر کرݨ آستے ٻہوں وݙی اے۔
+    too_many_articles: ایں مہم دی ترمیم کیتے ڳئے مضامین دی لسٹ ظاہر کرݨ آستے ٻہوں
+      لمبی اے۔ ترمیم کیتے ڳئے مضامین ݙیکھݨ آستے وکھرے وکھرے کورساں/پروگراماں/ایونٹاں
+      ݙیکھو۔
     slug: سلڳ
+    search_campaigns: مہماں ڳولو
+    use_start_end_dates: شروع تے ختم دیاں تاریخاں استعمال کرو
+    search: ڳولو
   categories:
+    searching_for_category: زمراں وچ ݙیندے پئے
     add_category: ونکی شامل کرو
+    add_psid: PetScan PSID شامل کرو
+    add_pileid: PagePile id شامل کرو
     add_template: سانچہ شامل کرو
     add_this_category: ایہ ونکی شامل کرو
+    add_this_psid: PetScan PSIDs شامل کرو
+    add_this_pileid: PagePile ids شامل کرو
     add_this_template: سان٘چے شامل کرو
+    import_articles_description: ہک زمرے وچ مضامین دی لسٹ وقتاً فوقتاً اپڈیٹ تھیندی
+      اے، تے اوندے شامل کرݨ دے بعد لسٹ بھرݨ توں پہلے کجھ وقت لڳ سڳدے۔
+    confirm_add_n_scoping_method: '%{n} اسکوپنگ دے طریقے شامل کرو؟'
+    depth: ذیلی زمرہ دی گہرائی
+    articles_count: مضامین دی ڳݨتری
     name: ناں
     category_name: ونکی دا ناں
+    psid_description: PetScan دے query ڈیش بورڈ دے نال ہک ویلے صرف ہک وکی تے کم کریندن۔
+      ایہ یقینی بݨاؤ جو تہاݙے PetScan query وچ صرف ہک وکی دے مضامین شامل ہوون، تے
+      ایہ ہیٹھ ݙتے ڳئے وکی سیٹ نال ملدا ہووے۔
+    pileid_name: PagePile id
+    pileid_description: ایہ یقینی بݨاؤ جو PagePile دی وکی ایں پروگرام آستے ٹریک کیتے
+      ڳئے وکیاں وچوں ہک ہووے۔
     template_name: سان٘چے دا ناں
+    none: کوئی زمرے ٹریک نہیں کیتے ویندے پئے۔
     remove: ہٹاؤ
+    tracked_categories: ٹریک کیتے ڳئے زمرے، PSID، PagePile id تے ٹیمپلیٹس
+    timestamp: آخری اپڈیٹ
+    category_error: ایں اسکوپنگ دے طریقے وچ اپڈیٹ کرݨ آستے ٻہوں ساریاں شئیاں ہن۔ مہربانی
+      کر کے نکیاں ورتݨ دی کوشش کرو۔
   courses:
+    school_system: تعلیمی نظام
+    assignment_edits_enabled: تفویض دیاں ترمیماں فعال ہن
+    assignment_edits_enabled_tooltip: جے ایہ فعال ہووے تاں ڈیش بورڈ ہر تفویض کیتے
+      ڳئے مضمون دے ڳالھ مہاڑ آلے صفحے تے ہک ٹیمپلیٹ لئیسی۔
+    accounts_generation_enabled: اکاؤنٹ دی درخواست دی تیاری فعال اے
+    accounts_generation_explanation: ایہ شرکاء کوں اپݨا ای میل پتہ تے چاہیدا یوزر
+      نیم درج کرݨ دی اجازت ݙیسی، نویں اکاؤنٹ آپ بݨاوݨ دی بجائے۔ تساں وت ایں ڈیش بورڈ
+      توں اکاؤنٹ بݨا سڳسو، تے انہاں کوں ہکو ویلے پروگرام دے شرکاء دے طور تے شامل کر
+      سڳسو۔
+    accounts_generation_confirm_message: کیا تساں اکاؤنٹ دیاں درخواستاں فعال کرݨا
+      چاہندے ہو؟
     activity: سرگرمی
+    active_courses: فعال کورسز
+    add_trainings: مہربانی کر کے شاگرداں دیاں تربیتاں کوں اپݨی تفویض دی ٹائم لائن
+      وچ شامل کرو۔ تربیتی ماڈیول تفویض کرݨا Wiki Ed دیاں بہترین عادتاں دا ہک ضروری
+      حصہ اے۔
     alerts: الرٹ
+    does_not_exist: اے آئٹم موجود نہیں۔ ہک سینڈ باکس صفحہ بݨاؤ تے تجویزاں حاصل کرݨ
+      کیتے خود کوں اوندے تے تفویض کرو۔
     all_courses: سارے کورس
+    already_enrolled: تساں پہلے توں '%{title}' دا حصہ ہو!
+    already_exists: اے ایں کورس آستے پہلے توں موجود اے!
+    archived: محفوظ کورسز
+    actions: عمل
     articles: مقالے
+    article_viewer: مضامین دی ویکھن
+    article_viewer_wikidata: آئٹماں دی ویکھن
+    articles_i_am_reviewing_wikidata: آئٹم جیہڑے میں پیئر ریویو کریندا پیاں
+    articles_i_am_reviewing: مضامین جیہڑے میں پیئر ریویو کریندا پیاں
+    articles_i_will_create: مضامین جیہڑے میں بنڑیساں
+    articles_i_will_create_wikidata: آئٹم جیہڑے میں بنڑیساں
+    articles_i_am_updating: مضامین جیہڑے میں اپڈیٹ کریندا پیاں
+    articles_i_am_updating_wikidata: آئٹم جیہڑے میں اپڈیٹ کریندا پیاں
+    add_campaign_aria_label: مہم شامل کرو بٹݨ
+    new_tag_button_aria_label: ٹیگ بنڑاؤ یا اپڈیٹ کرو بٹݨ
+    enroll_button_aria_label: انرول بٹݨ
+    assignment_headings:
+      assigned_articles: سونپے ڳئے مضامین
+      assigned_articles_wikidata: تفویض کیتے ڳئے آئٹم
+      assigned_reviews: سونپے ڳئے جائزے
+      available_articles: دستیاب مضامین
+      available_articles_wikidata: دستیاب آئٹم
+      available_reviews: ہم جماعتاں دے مضامین
+      available_reviews_wikidata: ہم جماعتاں دے آئٹم
+    assignment_end: تفویض دا خاتمہ
+    assignment_start: تفویض دا آغاز
+    calendar:
+      legend: متاندازا
+      legend_class_canceled: چھٹی/منسوخ
+      legend_class_meeting: جماعت دی ملاقات
+      legend_class_not_meeting: کوئی طے شدہ ملاقات ناہیں
+      select_meeting_days: ہفتے دے او ݙینہ چݨو جیہڑے تہاݙی جماعت ملدی اے۔
     cancel: منسوخ
+    character_doc: کورس دے دور دوران کورس دے شاگرداں ولوں mainspace مضامین وچ شامل
+      کیتے ڳئے اکھراں دا کل۔
     campaigns: 'مہماں:'
     campaign_articles: مضمون %{title}
     campaign_courses: '%{title} کورس'
+    campaign_select: ہک مہم چݨو۔
     campaign_users: ایڈیٹر %{title}
+    confirm_course_deletion: کیا تساں "%{title}" عنوان آلا کورس حذف کرݨا چاہندے ہو؟
+      جے ہاں، تاں اڳوں ودھݨ کیتے کورس دا عنوان ٹائپ کرو۔
+    confirm_course_deletion_failed: '"%{title}" ایہ کورس دا عنوان ناہیں۔ کورس حذف
+      ناہیں تھیا۔'
+    confirm_manual_update: کیا تساں دستی اپڈیٹ چلاوݨا چاہندے ہو؟ تازہ ترین ترامیم
+      درآمد کیتیاں ویسن تے ول صفحہ دوبارہ لوڈ تھیسی۔ ایہ عمل کجھ ویلہ گھن سگدا اے۔
+    controlled_by_event_center: اس ایونٹ وچ اندراج Wikimedia Event Center ولوں کنٹرول
+      کیتا ویندا اے۔ ایہ Dashboard توں شامل ناہیں تھیا ونج سگدا۔
     course: کورس
     course_type_label: 'قسم:'
+    course_dates_calendar_instructions: شیڈول توں ہٹاوݨ یا شامل کرݨ کیتے تاریخاں چݨو
+      (مثلاً، چھٹیاں، اسکول بند)۔ غیر منتخب، منتخب، تے چھٹی آلی حالت وچ بدلݨ کیتے
+      تاریخ تے کلک کرو۔ کورس دیاں سرگرمیاں دیاں تاریخاں او ہفتیاں دا خیال رکھݨ کیتے
+      بدل ویسن جیہڑے کوئی طے شدہ ملاقات ناہیں رکھدے۔
     course_description: کورسز
     courses: کورسز
     courses_taught: پڑھائے ڳئے کورس
     creation_date: بݨاوݨ دی تریخ
+    start_date: شروع کرݨ دی تاریخ
     creator:
+      already_exists: ایہ کورس پہلے توں موجود اے۔ اینکوں منفرد بݨاوݨ کیتے ناں، اسکول،
+        یا ٹرم بدلݨ تے غور کرو۔
+      assignment_end: تفویض دا خاتمہ
+      assignment_start: تفویض دا آغاز
+      cancel_course_clone: کورس کلون منسوخ کرو
+      cancel_course_clone_confirm: کیا تساں ایں کورس کوں کلون کرݨا بند کرݨا چاہندے
+        ہو؟
+      checking_for_uniqueness: ایہ کورس منفرد ہوݨ کیتے جانچیا ویندا پیا اے۔
+      choose_clone: کلون کرݨ کیتے ہک کورس چݨو۔
+      clone_previous: پچھلا کورس کلون کرو
+      clone_this: ایہ کورس کلون کرو
+      cloned_course_calendar_instructions: شیڈول توں ہٹاوݨ یا شامل کرݨ کیتے تاریخاں
+        چݨو (مثلاً، چھٹیاں، اسکول بند)۔ غیر منتخب، منتخب، تے چھٹی آلی حالت وچ بدلݨ
+        کیتے تاریخ تے کلک کرو۔ جے تہاݙے کول کوئی چھٹیاں ناہیں، تاں "میرے کول کوئی
+        جماعتی چھٹیاں ناہیں" چیک کرو۔ کلون کیتا ڳیا ٹائم لائن او ہفتیاں دیاں تاریخاں
+        آپوں بدل ویسی جیہڑے کوئی طے شدہ ملاقات ناہیں رکھدے۔
+      clone_successful: کلون کیتے ڳئے کورس دیاں تفصیلاں اپڈیٹ کرو
+      copy_successful: نقل کیتے ڳئے کورس دیاں تفصیلاں اپڈیٹ کرو
+      clone_successful_details: تہاݙا کورس کلون تھی ڳیا اے، ٹائم لائن دے عناصر (ہفتے
+        تے بلاک) سمیت۔ تاریخاں شامل کرݨا یاد رکھو، جیہڑیاں اڳوں ناہیں گھدی ہویاں۔
+        کیا تہاݙے کورس بارے کوئی ٻیا شی بدلی اے؟ ہݨ اینکوں اپڈیٹ کرݨ کیتے آزاد محسوس
+        کرو۔
+      copy_successful_details: تہاݙا کورس نقل تھی ڳیا اے، ٹائم لائن دے عناصر (ہفتے
+        تے بلاک) سمیت۔ تاریخاں شامل کرݨا یاد رکھو، جیہڑیاں اڳوں ناہیں گھدی ہویاں۔
+        کیا تہاݙے کورس بارے کوئی ٻیا شی بدلی اے؟ ہݨ اینکوں اپڈیٹ کرݨ کیتے آزاد محسوس
+        کرو۔
+      course_dates_info: اپݨے کورس کیتے شروع کرݨ دی تے ختم کرݨ دی تاریخاں لکھو۔ اڳلے
+        مرحلے تے تساں ایں ٹائم فریم دے اندر وکیپیڈیا تفویض کݙاں شروع کرݨا اے ایہ چݨ
+        سگدے ہو۔
+      course_description: کورس دی تفصیل
+      course_description_placeholder: تہاݙے کورس وچ کیا کور کیتا ڳیا اے، تے طلبہ وکیپیڈیا
+        تے کیا کریسن؟ اتنی تفصیل ضرور شامل کرو جو ٻئے وکیپیڈیا ایڈیٹرز کوں تہاݙے طلبہ
+        دے تعاون دا تناظر سمجھ آ سڳے۔
+      course_private: نجی پروگرام (صرف منتظمین تے سہولت کاراں کوں ݙسݨ دے قابل)
+      course_ta_support: کورس وچ ٻئے انسٹرکٹرز یا TAs ہوؤسن
+      course_school: کورس اسکول
       course_subject: کورس مضمون
+      course_term: کورس ٹرم
       course_term_placeholder: ٹرم
       course_title: کورس دا عنوان
+      course_types:
+        basic_course_name: بنیادی پروگرام
+        basic_course_description: ایہ پروگرام ٹائپ کہیں وی شرکاء ولوں کہیں وی مضامین
+          یا مین اسپیس صفحات وچ ترمیماں دا کھوج رکھسی۔ اگر پروگرام دے ہوم وکی تے خودکار
+          وکی ترمیماں فعال ہون، تاں ایں پروگرام دا وکی تے ہک نسخہ آپوں بنڑایا تے اپڈیٹ
+          کیتا ویسی۔
+        edit_a_thon_name: Edit-A-Thon
+        edit_a_thon_description: ہک Edit-A-Thon پروگرام کہیں وی مضامین یا مین اسپیس
+          صفحات تے ترمیماں دا کھوج رکھسی۔ ڈیفالٹ طور تے، ایں پروگرام کیتے کوئی خودکار
+          ترمیماں ناہیں کیتیاں ویسن۔
+        article_scoped_program_name: مضمون دے دائرہ کار آلا پروگرام
+        article_scoped_program_description: ایہ پروگرام ٹائپ صرف تفویض کیتے ڳئے مضامین
+          یا زمرے دے ترمیماں دا کھوج رکھسی۔ ایں ٹائپ کوں استعمال کرو جیہڑا تساں شماریات
+          کوں مضامین دے ہک معلوم مجموعے یا موضوع دے علاقیاں تئیں محدود کرݨا چاہندے
+          ہو۔ ڈیفالٹ طور تے، خودکار وکی ترمیماں آن ہوندن۔
+        single_user_name: انفرادی ایڈیٹر
+        single_user_description: ایہ پروگرام ٹائپ تہاݙے اپݨے تعاون دا کھوج رکھݨ کیتے
+          بنڑایا ڳیا اے، سادہ انٹرفیس دے نال۔ ایں ٹائپ کوں استعمال کرو جیہڑا تساں
+          کوں ٻئے کہیں وی صارفاں دیاں ترمیماں دا کھوج رکھݨ دی ضرورت ناہیں۔
       create_button: میݙا کورس بݨاؤ!
       create_label: نواں کورس بݨاؤ
       create_new: نواں کورس بݨاؤ
+      copy_courses_with_assignments: دستیاب مضامین دی فہرست کلون کرو
       create_short: کورس بݨاؤ
       end_date: ختم کرݨ دی تریخ
+      expected_number: طلبہ دی متوقع تعداد
+      field_invalid_term: ٹرم وچ سال شامل ہووݨا چاہیدا اے (جیویں، "بہار 2025")
       find: آپݨاں کورس ڳولو
+      intro: ٹائٹل، اسکول، تے ٹرم تہاݙے کورس پیج دا URL بنڑیندن، تے انہاں کوں تبدیل
+        ناہیں کیتا ونج سگدا۔ باقی سب کجھ، تساں بعد وچ ترمیم کر سگدے ہو۔ تہاݙے وکیپیڈیا
+        تفویض دی ٹائم لائن بنڑاوݨ شروع کرݨ کیتے "میڈا کورس بنڑاؤ!" تے کلک کرو۔
+      new_or_clone: '''Create New Course'' تے کلک کرو تفویض ڈیزائن وزارڈ تئیں اڳوں
+        ودھݨ کیتے۔ تہاݙی ٹائم لائن وچ Wiki Education دے تجویز کردہ ٹریننگ ماڈیولز
+        تے ٻئے وسائل دے تازہ ترین آپشن شامل ہوسن۔ جیہڑا تساں دے پچھلے کورس دی ٻہوں
+        مرضی دی ٹائم لائن اے جیہڑی تساں دوبارہ استعمال کرݨا چاہندے ہو، تساں اونکوں
+        نویاں تاریخاں دے نال کلون کر سگدے ہو۔ تساں کلون دا اختیار او کورس دے اضافی
+        حصے بنڑاوݨ کیتے وی استعمال کر سگدے ہو جیہڑا تساں پہلے ہی سیٹ کر چکے ہو۔'
+      no_class_holidays: میرے کول جماعت دیاں کوئی چھٹیاں ناہیں
+      role_description: کورس وچ تہاݙا کردار
+      role_description_options:
+      - انسٹرکٹر
+      - ٹیچنگ اسسٹنٹ
+      role_description_placeholder: انسٹرکٹر، ٹیچنگ اسسٹنٹ، وغیرہ
+      separate_event_dates: ایونٹ دے آغاز/اختتام دے وکھرے وقت مخصوص کرو (اختیاری)
+      separate_event_dates_info: ایں پروگرام دیاں سرگرمیاں دیاں شماریات دا کھوج اُتوں
+        دتیاں ڳئیاں تاریخاں تے وقتاں دی بنیاد تے رکھیا ویسی، پر تساں او وکھرے وقت
+        مخصوص کر سگدے ہو جیہڑے ایونٹ یا پروگرام دے اپݨے آغاز تے اختتام دے ہوسن (مثال
+        دے طور تے، تانجو حصہ گھنݨ آلیاں کوں پتہ ہووے جو کݙاں آوݨا اے یا مقام کݙاں
+        بند تھیندا اے)۔
       save_cloned_course: نواں کورس محفوظ کرو
       start_date: شروع کرݨ دی تریخ
       subject: موضوع
+      update_scheduled: اپڈیٹ شیڈول کر ݙتی ڳئی اے۔ اڳلے اپڈیٹ سائیکل دے دوران تمام
+        موجودہ پروگراماں دے نال ڈیٹا اپڈیٹ کیتا ویسی۔ ایں وچ عام طور تے کئی گھنٹے
+        لڳدن۔
+      creating_course: کورس بنڑایا ویندا پے
     current: حالیہ کورس
+    data_articles: مضامین دا ڈیٹا
+    data_articles_info: مضامین دے ڈیٹے وچ ہر صفحے دیاں ترمیماں دی تعداد، کونجھے صفحے
+      نویں ہن، تے صفحہ نظریاں دے کل شامل ہن۔ ایہ صفحہ نظریاں دیاں قدراں اوں کورساں
+      کیتے پُراݨیاں تھی سگدن جیہڑے پہلے ہی مک ڳئے ہن، ایں کیتے WMF Tool Labs دے صفحہ
+      نظریاں دے ٹول دا url وی شامل اے۔
+    data_revisions_info: ترامیم دے ڈیٹے وچ کورس دیاں ترامیم دی تعداد، ترامیم دی id،
+      مضمون دی id، کونجھے صفحے نویں ہن تے صفحہ نظریاں دے کل شامل ہن۔
+    data_download_info: CSV فارمیٹ وچ ڈیٹا ڈاؤن لوڈ کرو۔
+    data_download_warning: ایہ کورس ہالی تئیں نویں نظام وچ اپ ٹو ڈیٹ ناہیں۔ شماریات
+      نامکمل تھی سگدن۔ انہاں کوں ڈاؤن لوڈ کرݨ توں پہلے، براہ کرم ایں کورس کیتے ڈیٹا
+      اپڈیٹ شیڈول کرو تے اوں دے مکݨ دا انتظار کرو۔ جے ایہ ہک جاری کورس اے، تاں براہ
+      کرم موجودہ اپڈیٹ دے مکݨ دا انتظار کرو۔
+    data_overview: جائزہ ڈیٹا
+    data_overview_info: جائزہ ڈیٹا پورے منصوبے کیتے مجموعی شماریات فراہم کریندا اے۔
+    data_edits: ترامیم دا ڈیٹا
+    data_edits_info: ترامیم دا ڈیٹا منصوبے دوران کیتی ڳئی ہر ترمیم دیاں تفصیلاں ݙکھیندا
+      اے۔
+    data_students: ایڈیٹرز دا ڈیٹا
+    data_students_info: ایڈیٹرز دا ڈیٹا تمام اندراج شدہ ایڈیٹرز، انہاں نے کتنی ترمیم
+      کیتی، تے کیا انہاں نے منصوبے دوران اپݨے کھاتے رجسٹر کیتے، دی فہرست ݙیندا اے۔
+    data_uploads: Commons اپلوڈز دا ڈیٹا
+    data_revisions: ترامیم دا ڈیٹا
+    data_uploads_info: Commons اپلوڈز دا ڈیٹا ہر میڈیا اپلوڈ دا ناں تے استعمال دی
+      تعداد ݙکھیندا اے۔
+    data_wikidata: ویکی ڈیٹا اعداد و شمار
+    data_wikidata_info: ترمیم دے خلاصیاں دی بنیاد تے ویکی ڈیٹا سرگرمی دی تفصیلی ٹوٹ
+    dates_too_long: زیادہ توں زیادہ مدت ہک سال اے۔
     delete_course: کورس مٹاؤ
     delete_suggestion: مٹاؤ
+    delete_course_instructions: تساں ایہ صفحہ حذف کر سگدے ہو جے پہلے ساریاں مہم ہٹا
+      ݙتی ڳئیاں ہوون۔
+    disable_student_emails: طالب علماں دے ای میل بند کرو
+    disable_student_emails_tooltip: طالب علماں دے ای میل بند کرݨ نال ایں کورس کیتے
+      طالب علماں کوں کجھ اطلاعی ای میل نہ بھیجے ویسن۔
+    dismiss_survey: مکاؤ
+    dismiss_survey_confirm: کیا تساں واقعی ایہ سروے مستقل طور تے مکاوݨا چاہندے ہو؟
+    download_stats_data: شماریات ڈاؤن لوڈ کرو
     duration: کورس دا دورانیہ
+    edit_count: تبدیلیاں دی گݨتی
+    edit_course_dates: کورس دیاں تاریخاں وچ ترمیم کرو
+    embed_course_stats: کورس دے شماریات شامل کرو
+    embed_course_stats_description: ایں پروگرام دے شماریات کوں ٻئی ویب سائٹ وچ شامل
+      کرݨ کیتے، ایہ کوڈ دا ٹوٹا کاپی تے پیسٹ کرو وچ
+    enable_account_requests: اکاؤنٹ دیاں درخواستاں چالو کرو
     end: چھیکڑ
     ended: کورس مُک ڳیا
     enroll: داخلہ گھنو
     enrollment: طالب علم شامل کرو/ ہٹاؤ
+    enrollment_edits_enabled: اندراج دیاں ترامیم فعال ہن
+    enrollment_edits_enabled_tooltip: جے فعال ہووے تاں ڈیش بورڈ پروگرام وچ شامل تھیوݨ
+      آلے ہر ایڈیٹر دے یوزر صفحے تے ڳالھ صفحے تے ہک ٹیمپلیٹ پوسٹ کریسی۔
+    event_sync: 'ترمیم بند اے: ایہ فیلڈ تبدیل ناہیں تھی سگدی کیوں جو کورس پہلے ہی
+      ہک ایونٹ نال جوڑیا ہویا اے۔ ایندا تبدیل کرݨ ایونٹ دے جوڑ وچ خلل پیسی۔'
+    event_center_link: ایونٹ سینٹر صفحہ
+    view_event_center_page: ورقہ ݙیکھو
+    go_to_event_center: رجسٹر کرݨ کیتے ایونٹ سینٹر ونڄو
+    courses_enrolled: اندراج تھئے ہوئے کورس
+    error:
+      exists: اوہ کورس پہلے توں موجود اے! مہربانی کرکے ہک نئے عنوان، اسکول یا ٹرم
+        نال دوبارہ کوشش کرو۔
+      user_exists: معافی، %{username} موجود یوزر ناہیں۔
+      user_exists_on_wiki: معافی، %{username} %{domain} تے موجود یوزر ناہیں۔
+      management_role_not_authorized: صرف کورس دے انسٹرکٹر اوں کردار وچ ہک یوزر شامل
+        یا ہٹا سگدن۔
+      invalid_language_or_project: غلط زبان/پراجیکٹ
+      invalid_wiki: '%{domain} نال رابطہ ناہیں تھی سگدا۔ ایہ ہک درست وکی ناہیں ہو
+        سگدی۔'
+      duplicate_course_slug: '%{slug} یو آر ایل پہلے توں چݨیا ہویا اے۔ مہربانی کرکے
+        عنوان، اسکول یا ٹرم تبدیل کرو۔'
+      invalid_slug: کورس کیتے خالی اسکول/عنوان۔
+      duplicate_slug: '%{slug} ناں دا ٻیا پروگرام پہلے توں موجود اے۔'
+      event_sync_delete: ایہ ورقہ Wikimedia Event Registration نال جوڑیا ہویا اے تے
+        حذف ناہیں تھی سگدا۔
+      event_sync_rename: ایہ ورقہ Wikimedia Event Registration نال جوڑیا ہویا اے تے
+        ایندا ناں تبدیل ناہیں کیتا ونڄ سگدا۔
+    expected_students: متوقع طالب علم
     features_feedback: 'خود کار تجویزاں:'
     feedback: تہاڈی رائے
+    feedback_loading: مہربانی کرکے انتظار کرو جڈاں تجویزاں لوڈ تھیندیاں پئین۔
+    gradeables_none: ایں کورس وچ کوئی گریڈ کرݨ آلیاں تفویضاں ناہیں۔
+    home_wiki: ہوم وکی
+    multi_wiki: کھوج کرݨ آلیاں وکیاں
+    namespaces: کھوج کرݨ آلے نیم اسپیس
+    instructor:
+      one: انسٹرکٹر
+      other: انسٹرکٹراں
+    instructors: انسٹرکٹرز
+    instructor_message: ایہ وی اوہی My Articles انٹرفیس اے جیہڑا طالب علماں کول اے۔
+      تساں ایندی مدد نال اوہی قدم چُݨ سگدے ہو جنہاں توں طالب علم گذرن گے۔ البتہ، صرف
+      طالب علماں دیاں شراکتاں دی کھوج رکھی ویسی۔
+    instructor_message_wikidata: ایہ وی اوہی My Items انٹرفیس اے جیہڑا طالب علماں
+      کول اے۔ تساں ایندی مدد نال اوہی قدم چُݨ سگدے ہو جنہاں توں طالب علم گذرن گے۔
+      البتہ، صرف طالب علماں دیاں شراکتاں دی کھوج رکھی ویسی۔
+    invitation: تہاݙیں %{title} وچ شامل ہوݨ دی دعوت ݙتی ڳئی اے۔ شامل ہوݨ کیتے، ہک
+      Wikipedia اکاؤنٹ نال لاگ ان کرو۔
+    invitation_username_advice: اگر تہاݙے کول ہݨے کوئی Wikipedia اکاؤنٹ ناہیں، تاں
+      ہݨ ہک بنڑاؤ۔ تہاݙا یوزرنیم اوتنا گمنام یا ذاتی طور تے شناخت کرݨ آلا تھی سگدا
+      اے جتنا تساں چاہو۔ (مشترکہ اکاؤنٹس دی اجازت ناہیں۔)
     join: شامل تھیوو
     join_course: کورس وچ شامل تھیوو
+    join_course_as_volunteer: مدد کیتے رضاکار بنڑو
+    join_prompt: '''%{title}'' وچ شامل ہووو؟'
+    join_successful: تساں کامیابی نال %{title} وچ شامل تھی ڳئے او۔ ڈیش بورڈ وقفے وقفے
+      دے اپڈیٹس نال تہاݙیاں شراکتاں دا آپوں کھوج رکھسی۔ بعد وچ واپس آ کے ݙیکھو جو
+      تساں کیا اثر پاتا اے!
+    join_failed: اندراج ناکام تھی ڳیا۔
+    join_failure_details:
+      cannot_join_twice: یوزر ہکے کورس وچ ݙو واری شامل ناہیں تھی سگدے۔
+      not_yet_approved: ایہ کورس ہݨے تئیں اندراج کیتے منظور ناہیں تھیا۔
+      withdrawn: ایہ کورس واپس گھندے ڳئے دے طور تے نشان زد کیتا ڳیا اے — شاید غلطی
+        نال۔ ایندی دوبارہ فعال کرݨ کیتے Wiki Education دے عملے نال رابطہ کرو۔
+      invalid_sync: اس ایونٹ وچ اندراج Wikimedia Event Center ولوں کنٹرول کیتا ویندا
+        اے۔ ایہ Dashboard توں شامل ناہیں تھیا ونج سگدا۔
+      disallowed_user: ایہ یوزر ممنوعہ یوزراں دی فہرست وچ اے تے کورساں وچ اندراج ناہیں
+        تھی سگدا۔
+    join_details: ایں کورس وچ شامل تھیݨ کیتے، تساں انسٹرکٹر توں پاس کوڈ — یا اندراج
+      دا لنک جیڑھا پاس کوڈ شامل کریندا اے — گھݨا پویسی۔ اگر تہاکوں ایہ ناہیں ملیا،
+      تاں اپݨے انسٹرکٹر نال رابطہ کرو۔
+    join_no_passcode: کیا تساں واقعی ایں کورس وچ شامل تھیوݨ چاہندے ہو؟
+    launch_wizard: وزارڈ شروع کرو
+    leave_confirmation: کیا تساں واقعی ایں کورس توں نکھڑݨا چاہندے ہو؟
     leave_course: کورس چھوڑو
     loading: لوڈ تھین٘دا پئے۔۔۔
+    milestones_none: ایں کورس وچ ہݨے کوئی سنگ میل ناہیں۔
     my_articles: میݙے مقالے
+    my_articles_wikidata: میݙیاں شئواں
+    needs_update: ڈیٹا اپڈیٹ شیڈول کرو
+    update_scheduled_label: اپڈیٹ شیڈول تھی ڳئی
     new_week: نواں ہفتہ شامل کرو
+    new_account_check_username: یوزر نیم دی دستیابی چیک کرو
     new_account_email: ای میل پتہ
+    new_account_email_placeholder: name@example.org
+    new_account_info: اکاؤنٹ دی درخواست کرݨ کیتے، اپݨا ای میل ایڈریس تے اپݨا مطلوبہ
+      یوزر نیم لکھو۔ جڈاں ہک سہولت کار اکاؤنٹ بݨا ݙیسی تاں پاس ورڈ تہاکوں ای میل کر
+      ݙتا ویسی۔
+    new_account_info_admin: ہک نویں ایڈیٹر کیتے اکاؤنٹ بݨاوݨ کیتے، اوندا ای میل ایڈریس
+      تے مطلوبہ یوزر نیم لکھو۔ جڈاں اکاؤنٹ بݨ ویسی تاں پاس ورڈ اونکوں ای میل کر ݙتا
+      ویسی۔
+    new_account_username: مطلوبہ یوزر نیم
+    new_account_username_invalid: ایہ یوزر نیم درست ناہیں۔
+    new_account_username_placeholder: Wiki Editor 123
+    new_account_username_taken: اوہ یوزر نیم پہلے توں گھدا ڳیا اے۔ مہربانی کر کے کوئی
+      ٻیا چݨو۔
+    new_account_submit: اکاؤنٹ دی درخواست
+    new_account_submitted: تہاݙی اکاؤنٹ دی درخواست جمع کر ݙتی ڳئی اے۔ ایس پروگرام
+      دا سہولت کار ہݨ تہاݙی اکاؤنٹ دی تخلیق مکمل کر سڳدا اے۔ جڈاں اکاؤنٹ بݨ ویسی تاں
+      تہاکوں ای میل ولوں نویں اکاؤنٹ دا پاس ورڈ ملسی۔
+    new_account_submitted_admin: تہاݙی اکاؤنٹ دی درخواست بݨ ڳئی اے۔ مہربانی کر کے
+      اپݨے طالب علماں کوں آکھو جو اپݨا ای میل ان باکس چیک کرن تے اپݨا نواں پاس ورڈ
+      حاصل کرن۔
+    no_campaign: ایس پروگرام کوں فعال کرݨ تے یوزراں کوں شامل ہوݨ دی اجازت ݙیوݨ کیتے،
+      اینکوں ہک مہم وچ شامل کرݨا ضروری اے۔ جے تہاکوں یقین ناہیں جو کیہڑی مہم وچ شامل
+      کرو، تاں 'Miscellanea' استعمال کرو۔
+    no_sandboxes: کوئی سینڈ باکس ناہیں
+    no_sandboxes_info: جڈاں فعال کیتا ویسی تاں کورس No Sandbox موڈ وچ ہوسی۔ جے ضروری
+      ہووے تاں ٹیگز تے ٹائم لائن دا مواد وی تبدیل کرݨا یقینی بݨاؤ۔
+    nocourses: تساں کہیں وی کورس وچ حصہ ناہیں گھندے۔
+    nocourse: کہیں وی کورس وچ حصہ ناہیں گھدا۔
     none: کوئی وی کائنی
+    not_permitted: تہاکوں ایس کورس کوں ایڈٹ کرݨ دی اجازت ناہیں۔
+    notify_untrained_confirmation: ایہ تمام اوں طالب علماں دے ڳالھ صفحیاں تے ہک یاد
+      دہانی پوسٹ کریسی جیہڑے تفویض کردہ ٹریننگ ماڈیولز مکمل کرݨ وچ دیر کر ڳئے ہن۔
+      کیا تساں واقعی ایہ کرݨا چاہندے ہو؟
+    no_available_actions: کوئی دستیاب عمل ناہیں
+    online_volunteers_enabled: آن لائن رضاکار فعال ہن
+    online_volunteers_tooltip: آن لائن رضاکاراں کوں فعال کرݨ نال یوزر ایڈیٹر رضاکار
+      دے طور تے شامل تھی سڳدن۔ انہاں دیاں ترامیم دی کھوج ناہیں تھیسی۔
     ores_plot: اوآرای ایس
+    ores_plot_description: ایہ گراف مجموعی طور تے ظاہر کریندا اے جو مضمون جڈاں طالب
+      علماں پہلی واری انہاں وچ ترمیم کیتی توں انہاں دیاں حالیہ ترامیم تئیں کنجاں ترقی
+      کیتی۔ Structural Completeness دی درجہ بندی ہک مشین لرننگ منصوبے (%{ores_link})
+      تے مبنی اے جیہڑا مضمون دی کوالٹی دی درجہ بندی دا اندازہ نثر دی مقدار، وکی لنکس
+      دی تعداد، تصویراں تے حصیاں دے سرلیخاں تے ٻئے خصوصیات دی بنیاد تے لئیندا اے۔
+      (%{refresh_link})
+    ores_plot_no_data: بناوٹی مکمل پن دا کوئی ڈیٹا دستیاب نہیں
+    ores_plot_refresh_data: کیش شدہ ڈیٹا کوں تازہ کرو
+    ores_plot_show_button: بناوٹی مکمل پن وچ تبدیلی
     overview: گھر
     passcode: 'پاس کوڈ:'
     passcode_none: پاس کوڈ کائنی
     passcode_prompt: 'رلݨ کیتے پاس کوڈ لکھو:'
     please_log_in: لاگ تھیوو مہربانی ہوسی۔
     private: ذاتی
+    published: 'تہاݙا کورس شائع تھی ڳیا اے! طالب علم درج ذیل URL تے ونج تے کورس وچ
+      داخل تھی سڳدن:'
+    rating_feedback: 'مضمون کیتے پیشگوئی کردہ درجہ بندی ایہ اے:'
+    requested_accounts: اکاؤنٹ دی درخواست
+    requested_accounts_alert:
+      one: '%{count} اکاؤنٹ دی درخواست زیر التوا اے۔'
+      other: '%{count} اکاؤنٹ دیاں درخواستیں زیر التوا ہن۔'
+    requested_accounts_alert_view: ݙیکھو
+    retain_available_articles: دستیاب مضامین برقرار رکھو
+    retain_available_articles_wikidata: دستیاب شئیں برقرار رکھو
+    retain_available_articles_info: جڈاں ایہ فعال ہووے، ہک دستیاب مضمون کوں چݨݨ نال
+      اوہ لسٹ وچوں ہٹایا ناہیں ویندا، جیں نال طالب علماں دا ہک گروپ اوہی مضمون چݨ
+      سڳدا اے۔
+    retain_available_articles_info_wikidata: جڈاں ایہ فعال ہووے، ہک دستیاب شے کوں
+      چݨݨ نال اوہ لسٹ وچوں ہٹائی ناہیں ویندی، جیں نال طالب علماں دا ہک گروپ اوہی شے
+      چݨ سڳدا اے۔
+    retention_predictors: برقرار رہݨ دے پیش گو
+    review_timeline: 'ہݨ، اپݨی تفویض ٹائم لائن دا جائزہ گھنو تے اینہوں اپݨیاں ضرورتاں
+      مطابق ڈھالو۔ جڈاں تساں مطمئن تھیوو، تساں اینہوں Wiki Education دے عملے توں منظوری
+      کیتے جمع کرا سڳدے ہو۔ منظوری دے بعد، تہاکوں اندراج دا ہک URL ملسی جیہڑا طالب
+      علم کورس وچ شامل تھیݨ تے تربیتاں تک رسائی کیتے استعمال کر سڳدن۔ نوٹ: تساں بعد
+      وچ وی ترمیماں کرݨ دے اہل ہووسو۔'
+    revisions_doc: پچھلے عرصے دے دوران فی ݙینہہ اوسط ترامیم دی بنیاد تے، پچھلے %{timeframe}
+      ݙینہاں وچ ترامیم دی اندازاً تعداد۔
+    revisions_none: ایں کورس دی حال وچ کوئی Wikipedia ترمیمی سرگرمی ناہیں۔
     school: سکول
+    school_and_term: اسکول/ٹرم
+    search_all_tickets_for_this_course: ایں کورس دے سارے ٹکٹ ڳولو
+    search_courses: کورس ڳولو
     start: شروع
     start_typing: ٹائپ کرݨ شروع کرو
+    stay_in_sandbox: سینڈ باکس وچ رہو
+    max_group_size: ودھ توں ودھ گروپ سائز
+    max_group_size_tooltip: اوہی مضمون تے کم کرݨ آلا طالب علماں دی ودھ توں ودھ تعداد۔
+      لا محدود کیتے خالی چھوڑ ݙیو۔
+    student: شاگرد
     students: شاگرد
+    students_taught: پڑھائے ڳئے شاگرد
     students_count: '# شاگرد'
+    student_editors: شاگرد ایڈیٹر
+    students_none: ایں کورس وچ کوئی شاگرد ناہیں۔
     students_short: شاگرد
+    student_view_action_blocked: تساں ایہ کم "View as student" موڈ وچ ناہیں کر سڳدے۔
+    submitted_admin: ایہ کورس اینہ دے بنڑاوݨ آلا منظوری کیتے جمع کرا ݙتے۔ اینہ دی
+      منظوری کیتے، اینہوں Overview صفحے تے ہک مہم وچ شامل کرو۔
+    submitted_and_pending_heading: جمع کرائے گئے تے منظوری دے زیر التوا
+    submitted_heading: جمع کرائے گئے کورس
+    submitted_note: تہاڈا کورس کامیابی نال جمع کرا ݙتا ڳئے۔ Wiki Education دا عملہ
+      اینہ دا جائزہ گھنسی تے کہیں سوال دی صورت وچ تہاڈے نال رابطہ کریسی۔ اینہ دوران،
+      جے تساں Wiki Education دے تربیتی مواد دا جائزہ گھنا چاہو، تساں انسٹرکٹراں تے
+      شاگرداں کیتے وسائل دی پوری فہرست ݙیکھ سڳدے ہو۔
+    suggestions_feedback: کیا تہاڈے کول ایں فیچر کوں بہتر کرݨ کیتے کوئی تجویز اے؟
+      سانوں ݙسیو!
+    suggestions_sending: فیڈ بیک بھیجی ویندی پئی اے…
+    suggestions_sent: فیڈ بیک بھیج ݙتی ڳئی۔ تہاݙی رائے دا شکریہ۔
+    suggestions_failed: فیڈ بیک ناہیں بھیجی ڳئی۔ بعد وچ ولا کوشش کرو۔
     user_role: رول
+    course_details: کورس تفصیلاں
+    course_submitted: جمع کراوݨ آلی حیثیت ایں تعلیمی پروگرام کورسز کیتے ورتی ویندی
+      اے جیڑھے وچ پروجیکٹ شروع ہوݨ توں پہلے کورس دے منصوبے دی منظوری لازمی ہوندی اے۔
+      ایہ صرف ClassroomProgram کورس دی قسم کیتے متعلقہ اے۔
     subject: مضمون
     submitted: جمع تھی ڳیا
+    submitted_at: جمع کراوݨ دا ویلا
+    approval_form_heading: کورس منظوری فارم
+    add_program_manager: 'پروگرام مینیجر شامل کرو:'
+    add_wiki_expert: 'Wikipedia ماہر شامل کرو:'
     add_tags: 'ٹیگ شامل کرو:'
     add_campaigns: مہماں شامل کرو
+    invalid_salesforce_id: داخل کیتی ڳئی Id درست ناہیں۔
+    add_salesforce_id: 'Salesforce Id شامل کرو:'
+    approve_course: کورس منظور کرو
+    tag_select: ہک ٹیگ چݨو یا بݨاؤ
+    tags: 'ٹیگ:'
     term: ٹرم
+    timeline: تفویض تفصیلاں
+    timeline_enabled: ٹائم لائن فعال اے
     timeline_link: ٹائم لائن
+    timeline_tooltip: ٹائم لائن کوں فعال کرݨ نال تساں ہفتہ وار سرگرمیاں مقرر کر سڳدے
+      ہو تے تربیتی ماڈیول تفویض کر سڳدے ہو۔ ایہ تعلیمی پروگرام کورسز تے ٻئے لمبے،
+      ودھ توں ودھ منظم پروگرامز کیتے مفید اے۔
     timeline_nav: ٹائم لائن تے ون٘ڄو
+    time_zone_message: شروع تے اختتامی ویلے تہاݙے مقامی ٹائم زون وچ ݙکھائے ویندن۔
     title: عنوان
+    training_due: تربیتی ماڈیول "%{title}" این کورس کیتے تفویض کیتا ڳیا اے، تے %{date}
+      کوں مکمل ہووݨا اے۔
+    training_nav: تربیت تئیں ونڄو
+    training_overdue: تربیتی ماڈیول "%{title}" این کورس کیتے تفویض کیتا ڳیا اے، تے
+      %{date} کوں مکمل ہووݨا ہی۔
+    unsubmitted: جمع نہ کرائے ڳئے کورسز
     unsubmitted_show_all: سب ݙکھاؤ
+    unsubmitted_show_recent: حالیہ ݙکھاؤ
+    untrained: غیر تربیت یافتہ
+    update_stats: شماریات اپڈیٹ کرو
+    uploads_none: این کلاس Wikimedia Commons تے کوئی تصویراں یا ٻیا میڈیا فائلاں تعاون
+      ناہیں کیتیاں۔
+    user_uploads_none: این یوزر Wikimedia Commons تے کوئی تصویراں یا ٻیا میڈیا فائلاں
+      تعاون ناہیں کیتیاں۔
+    user_recent_uploads: حالیہ اپ لوڈ
+    user_suggestions: 'یوزر تجویزاں:'
+    user_suggestions_prompt: مضمون دے ایڈیٹرز کیتے تہاݙیاں تجویزاں
+    view_other: ٻیاں مہماں ݙیکھو
     view: کورس ݙیکھو
+    view_doc: ہر مضمون تے ایڈیٹر دی پہلی ترمیم توں بعد، اندراج کیتے ڳئے ایڈیٹرز ولوں
+      ترمیم کیتے ڳئے مضامین کوں ݙیکھݨ دی تخمینی تعداد۔
     view_page: کورس ورقہ ݙیکھو
+    view_as_student: '"View as student"'
     view_wiki: وکی پیڈیا تے ݙیکھو
+    volunteer:
+      one: رضاکار
+      other: رضاکار
+    weeks_none: این کورس دی ہݨ تئیں ٹائم لائن نہ ہئی۔
+    warn_mirrored: جمع کراوݨ تے، ایہ کورس تہاݙے یوزر اکاؤنٹ نال خود بخود Wikipedia
+      تے پوسٹ کر ݙتا ویسی۔ اینہ دے بعد، ٹائم لائن وچ نویاں ترامیم Wikipedia تے عکس
+      کر ݙتیاں ویسن۔ کیا تساں ایہ کرنا چاہندے ہو؟
+    wiki_course_page_enabled: وکی کورس صفحہ فعال
+    wiki_course_page_enabled_tooltip: اگر فعال ہووے تاں، جݙاں پروگرام یا اینہ دے یوزرز
+      تے تفویضاں تبدیل تھیسن تاں صفحے دا وکی تے عکس اپڈیٹ کر ݙتا ویسی۔
+    wiki_edits_enabled: وکی ترامیم فعال
+    wiki_edits_enabled_tooltip: اگر وکی ترامیم فعال ہن تاں این پروگرام کیتے خودکار
+      وکی ترامیم کیتیاں ویسن۔ اگر تساں ناہیں چاہندے جو یوزر صفحاں، تفویض کیتے ڳئے
+      مضامین دے ڳالھ صفحاں، وغیرہ وچ ٹیمپلیٹ شامل کیتے ونجن تاں وکی ترامیم غیر فعال
+      کرو۔
+    wiki_staff: وکی ایجوکیشن عملہ
+    withdrawn: تفویض نہ کیتی
+    word_count_doc: کورس دی مدت دے دوران کورس دے طالب علماں ولوں مین اسپیس مضامین
+      وچ شامل کیتے ڳئے لوظاں دی تخمینی تعداد۔ (Wikidata دیاں ترامیم شامل ناہیں۔)
+    word_count_doc_wikidata: کورس دی مدت دے دوران کورس دے طالب علماں ولوں مین اسپیس
+      شئیں وچ شامل کیتے ڳئے لوظاں دی تخمینی تعداد۔
     yourcourses: تہاݙے کورسز
+    declined_note: ایہ کورس مسترد کر ݙتا ڳیا اے۔ اگر تہاݙے کہیں سوال ہن تاں Wiki Education
+      دے عملے نال رابطہ کرو۔
+    decline_course: کورس مسترد کرو
+    decline_course_confirm: کیا تساں ایہ کورس مسترد کرݨا چاہندے ہو؟ این نال جمع کرائی
+      ڳئی درخواست محفوظ کر ݙتی ویسی تے این کورس کیتے خودکار غیر جمع کرائے ڳئے الرٹ
+      بند کر ݙتے ویسن۔
+    survey:
+      notification_message: این کورس کیتے ساݙا سروے کرو۔
+      link: سروے ݙیو
+  course_instructor_notification:
+    notify_instructors: انسٹرکٹرز کوں ای میل کرو
+    notify_instructors_feature_description: انسٹرکٹرز کوں ای میل دے ذریعے پیغام بھیجو
+    send_notification_button_text: بھیجو
+    notification_sent_success: پیغام %{courseTitle} دے تمام انسٹرکٹرز کوں بھیجا ڳیا
+    notification_send_error_no_internet: درخواست بھیجی ناہیں ونج سڳی۔ ݙیکھو جے تساں
+      انٹرنیٹ نال جڑے ہوے ہو۔
+    notification_send_error_server: 'سرور خرابی: اطلاع ناہیں بھیجی ونج سڳی (%{status}
+      %{statusText})'
+    notification_empty_message: موضوع یا پیغام خالی ناہیں ہو سڳدا
+    confirm_send_notification: کیا تساں این کورس دے تمام انسٹرکٹرز کوں بھیجوݨا چاہندے
+      ہو؟
+    write_subject: موضوع
+    write_message_placeholder: سننيہا
+    sending_notification: بھیجݨا
+    bcc_to_salesforce: Salesforce کوں BCC
   courses_generic:
+    school_system: تعلیمی نظام
+    add_campaign: مہم شامل کرو
     all_courses: سارے پروگرام
+    archived: آرکائیو پروگرام
+    articles_i_am_reviewing: مضامین جیڑھے میں جائزہ گھندا پیاں
+    assignment_headings:
+      available_reviews: دستیاب جائزے
+      available_reviews_wikidata: دستیاب جائزے
+    assignment_end: ایونٹ ختم
+    assignments_none: این پروجیکٹ دے کوئی مضمون تفویض ناہیں کیتے گئے۔
     assignment_start: ایونٹ شروع
     cancel: منسوخ
     course: پروگرام
     courses: پروگرام
+    courses_taught: پڑھائے گئے پروگرام
     campaigns: 'مہماں:'
+    campaign_courses: '%{title} پروگرام'
     creator:
+      assignment_end: ایونٹ ختم
+      assignment_end_placeholder: YYYY-MM-DD
+      assignment_start: ایونٹ شروع
+      assignment_start_placeholder: YYYY-MM-DD
+      cancel_course_clone: پروگرام کلون منسوخ کرو
+      cancel_course_clone_confirm: کیا تساں این پروگرام کوں کلون کرݨا بند کرݨا چاہندے
+        ہو؟
+      checking_for_uniqueness: ایہ پروگرام منفرد ہوݨ کیتے جانچیا ویندا پیا اے۔
+      choose_clone: کلون کرݨ کیتے ہک پروگرام چݨو۔
+      clone_previous: پچھلا پروگرام کلون کرو
+      clone_this: این پروگرام کلون کرو
+      clone_successful: پروگرام کامیابی نال کلون تھی ڳیا
+      clone_successful_details: تہاݙا پروگرام کلون تھی ڳیا اے۔ اینہوں حتمی کرݨ کیتے
+        ہیٹھاں 'Save' تے کلک کرو۔
+      course_when: اصل توں اینہوں وکھرا کرݨ کیتے 'When' فیلڈ وچ کجھ شامل کرو (مثال
+        طور تے، مہینہ تے سال)۔
+      course_dates_info: اپݨے پروگرام کیتے شروع تے ختم دیاں تاریخاں درج کرو۔ تساں
+        ختم کوں مرکزی سرگرمیاں دے ختم توں کجھ گھنٹے یا ݙینہہ اڳوں ودھاوݨا چاہو، تاں
+        جو ایونٹ توں تھوڑی دیر بعد تھیݨ آلی متعلقہ ترامیم وی شامل ہو سگݨ۔
+      course_description: پروگرام دی تفصیل
+      course_description_placeholder: ایہ پروگرام کیا اے، تے حصہ گھنݨ آلے wiki(s)
+        تے کیا کرسن؟ ٻئے ایڈیٹرز کوں اینہوں شراکت داریاں دے تناظر دا احساس ݙیوݨ کیتے
+        مہربانی کرکے کافی تفصیل شامل کرو جیہڑیاں حصہ گھنݨ آلے کرسن۔
       course_school: ادارہ
       course_term: کݙݨ
       course_term_placeholder: کݙݨ
       course_title: پروگرام دا عنوان
+      create_button: میرا پروگرام بناؤ!
       create_label: نواں پروگرام بݨاؤ
       create_new: آزاد پروگرام بݨاؤ
       create_short: پروگرام بݨاؤ
+      end_date: سرگرمی دی کھوج ختم
       find: پروگرام ڳولو
+      intro: پروگرام دا عنوان تے ادارہ پروگرام دا URL بنڑیندن۔ ہوم وکی او مرکزی وکی
+        اے جتھاں حصہ گھنݨ آلے کم کرسن، تے ڈیفالٹ طور تے این وکی تے ترامیم کھوج کیتیاں
+        ویسن۔ جے تہاݙا پروگرام ٻہوں ساریاں زباناں یا منصوبیاں تے مشتمل اے، تاں شراکت
+        داریاں اینہوں وکیاں کیتے وی کھوج کیتیاں ویسن جیہڑے "Tracked Wikis" وچ واضح
+        طور تے شامل کیتے ڳئے ہن۔ اپݨے پروگرام دا صفحہ بنڑاوݨا شروع کرݨ کیتے "میرا
+        پروگرام بناؤ!" تے کلک کرو۔
+      new_or_clone: ہݨ ہک نواں پروگرام بناؤ، یا 'clone' آپشن استعمال کرکے ٻیا پروگرام
+        کاپی کرو جیہڑے وچ تساں حصہ گھدا اے۔
+      participate_in_campaign: مہم وچ حصہ گھنو
       save_cloned_course: بچاؤ
+      start_date: سرگرمی دی کھوج شروع
       scoping_methods:
+        scoping_methods: دائرہ کار دے طریقے
+        configure: دائرہ کار دے طریقے ترتیب ݙیو
+        about: |-
+          آرٹیکل سکوپڈ پروگرام کیتے، Dashboard صرف انہاں مضموناں تے کیتیاں ڳئیاں ترامیم دی کھوج کریسی جیہڑے تہاݙے ترتیب ݙتے ہووݨ۔ تہاݙا صفحہ بنڑݨ دے بعد، تساں کھوج کیتے انفرادی مضموناں کوں انفرادی ایڈیٹرز کوں تفویض کرکے یا انہاں کوں دستیاب مضموناں دے طور تے شامل کرکے شامل کر سڳدے ہو، یا مضموناں دے وݙے سیٹاں کیتے، تساں انہاں وچوں کوئی وی ٹول استعمال کر سڳدے ہو تاں جو انہاں مضموناں دی وضاحت کر سڳو جیہڑے تساں کھوج کرݨا چاہندے ہو۔
+
+          جیہڑے دائرہ کار دے طریقے تساں ہݨ ترتیب ݙیوݨا چاہندے ہو، چݨو۔ تساں مضموناں ٹیب توں بعد وچ وی دائرہ کار دے طریقے شامل کر سڳدے ہو۔
         categories: ونکیاں
+        categories_short_desc: وکی تے زمرہ دی خصوصیت متعلقہ مضموناں کوں اکٹھا کرݨ
+          کیتے استعمال تھیندی اے۔ تساں زمرہ دا ناں استعمال کر سڳدے ہو تاں جو Dashboard
+          کوں ݙسو جو اوہ زمرے دے سارے مضموناں دی کھوج کرے۔
+        categories_desc: زمرے دی کھوج کرݨ دا مطلب اے اے جو Dashboard اوہ زمرے دے کونجھے
+          وی مضموناں تے کیتیاں ڳئیاں ترامیم کوں ڳݨسی۔ ڈیفالٹ طور تے (گہرائی 0)، صرف
+          اوہ مضامین کھوج کیتے ویسن جیہڑے براہ راست اوہ زمرے وچ ہن۔ تساں گہرائی دی
+          قدر ودھا سڳدے ہو (زیادہ توں زیادہ 3 تئیں) جے تساں انہاں مضموناں کوں شامل
+          کرݨا چاہندے ہو جیہڑے اوہ زمرے دے ذیلی زمریاں وچ ہن۔ پہلے زمرہ کوں ضرور براؤز
+          کرو، تاں جو یقینی بݨاؤ جو ذیلی زمرے انہاں نال میل کھاندن جیہڑے تساں کھوج
+          کرݨا چاہندے ہو۔
         templates: سانچے
+        templates_short_desc: تساں مضموناں دی کھوج ہک Template دی بنیاد تے کر سڳدے
+          ہو جیہڑا انہاں وچ موجود ہووے، جیہڑا اینجھے وی کم کریندا اے چاہے Template
+          مضمون تے ہی استعمال تھئے یا متعلقہ ڳالھ صفحے تے — جیویں WikiProject templates۔
+        petscan: PetScan
+        petscan_short_desc: PetScan ہک ٹول اے جیہڑا تہاکوں وسیع رینج دے معیاراں —
+          جنہاں وچ زمرے، Template، وکی لنکس، تے ٻہوں کجھ ہور وی شامل اے — دی بنیاد
+          تے وکی صفحات کوں query کرݨ دی اجازت ݙیندا اے۔ تساں Dashboard تے کھوج کرݨ
+          کیتے مضموناں دا ہک سیٹ ترتیب ݙیوݨ کیتے PetScan query ID استعمال کر سڳدے
+          ہو۔
+        pagepile: PagePile
+        pagepile_short_desc: PagePile ہک ٹول اے جیہڑا تہاکوں صفحات دی ہک فہرست بنڑاوݨ
+          دی اجازت ݙیندا اے جیہڑی وقت دے نال ناہیں تبدیل تھیندی تے ہک منفرد ID نال
+          پہچاݨی ویندی اے۔
+        templates_desc: Template وکی صفحات تے مقصدآں دی وسیع رینج کیتے استعمال تھیندن،
+          لیکن کجھ ہک موضوع کیتے خاص ہوندن۔ نیویگیشن Template، WikiProject Template،
+          تے موضوع-خاص Infobox Template خاص طور تے مفید ہوندن جڈاں ہک Template استعمال
+          کرکے ہک آرٹیکل سکوپڈ پروگرام ترتیب ݙتا ویندا اے۔
+        pagepile_desc: |-
+          PagePile Wikimedia Cloud تے ہک ٹول اے۔ ایہ یوزراں کوں وکی صفحات دے ہک گروپ کوں "pile" ناں دے ہک سنگل بنڈل وچ اکٹھا کرݨ تے منظم کرݨ دی اجازت ݙیندا اے۔ اینہوں piles کوں وت ٻیاں نال آسانی نال شیئر کیتا ونڄ سڳدا اے، جیہڑا باہمی کم تے معلومات دے اشتراک کوں قابل بݨیندا اے۔
+
+          PetScan دے برعکس، ہک pile وچ مضامین وقت دے نال ناہیں تبدیل تھیسن، چاہے زمرے، Template یا ٻیا ڈیٹا جیہڑا مضموناں دے اوہ سیٹ بنڑاوݨ کیتے استعمال تھئے ہن، تبدیل تھی ڳئے ہووݨ۔
+        petscan_desc: |-
+          PetScan وکی صفحات دے ہک سیٹ کوں معیاراں تے ڈیٹا سورسز دی وسیع رینج دی بنیاد تے query کرݨ کیتے ہک طاقتور لیکن پیچیدہ ٹول اے۔ تساں مضموناں دے اوہ سیٹ کیتے query بنڑاوݨ کیتے PetScan کوں براہِ راست استعمال کر سڳدے ہو جنہاں دی تساں کھوج کرݨ چاہندے ہو، جیہڑا تہاکوں تہاݙے query کوں ٻہوں درست طریقے نال ٹارگٹ کرݨ کیتے مکمل آپشنز تئیں رسائی ݙیندا اے۔ متبادل طور تے، تساں سب توں عام آپشنز وچوں کجھ توں PetScan query براہِ راست Dashboard توں بنڑا سڳدے ہو۔
+
+          PetScan query parameters کوں محفوظ کریندا اے تے اوہ query کیتے ہک ID ݙیندا اے۔ اوہ query دے نتائج وقت دے نال تبدیل تھی سڳدن، مثال دے طور تے جڈاں اوہ زمرہ وچ نویں مضامین شامل کیتے ونڄن جیہڑا query وچ شامل اے۔ Dashboard ݙتے ڳئے ID کیتے query دے نتائج کوں وقفے وقفے نال refresh کریسی، تے اینہ دے اعدادوشمار کوں مضموناں دے تازہ ترین سیٹ دی بنیاد تے اپڈیٹ کریسی جیہڑا PetScan پیدا کریندا اے۔
+        petscan_create_psid: آفیشل PetScan ٹول استعمال کرکے ہک PetScan ID بنڑاؤ
+        pagepile_create_id: آفیشل PagePile ٹول استعمال کرکے ہک PagePile بنڑاؤ
+        categories_include_OR: جنہاں مضموناں وچ اینہاں زمریاں وچوں کوئی وی ہوسی، اینہاں
+          دی کھوج کیتی ویسی
+        templates_include_OR: جنہاں مضموناں وچ اینہاں Templates وچوں کوئی وی ہوسی،
+          اینہاں دی کھوج کیتی ویسی
+        start_typing_to_search: تلاش کرݨ کیتے ٹائپ کرݨ شروع کرو
     delete_course: پروگرام مٹاؤ
+    edit_course_dates: پروجیکٹ دیاں تاریخیں وچ ترمیم کرو
+    end: سرگرمی دی کھوج ختم
+    enroll: ایڈیٹر شامل کرو
+    enrollment: ایڈیٹر شامل/ہٹاؤ
     explore: پروگرام ڳولو
+    courses_enrolled: حصہ گھدے ڳئے پروگرام
+    expected_students: متوقع ایڈیٹرز
+    instructors: سہولت کار
+    join_course: پروگرام وچ شامل تھیو
+    join_details: این پروگرام وچ شامل ہوݨ کیتے، تساں سہولت کار توں پاس کوڈ — یا او
+      لنک جیہڑا پاس کوڈ شامل رکھدا اے — گھنو۔
     leave_course: پروگرام چھوڑو
+    milestones_none: این پروجیکٹ وچ فی الحال کوئی سنگ میل کائنی۔
+    not_permitted: تساں این پروگرام وچ ترمیم کرݨ دی اجازت نائیں رکھیندے۔
+    published: 'ایہ پروجیکٹ شائع تھی ڳیا اے! ایڈیٹرز ہݨ ہیٹھ درج URL تے جا کے اندراج
+      کر سڳدن:'
+    request_accounts: اکاؤنٹ دیاں درخواستاں
+    revisions_none: این پروجیکٹ وچ حال ہی وچ کوئی ترمیمی سرگرمی کائنی۔
     school: ادارہ
+    school_and_term: ادارہ/کݙاں
+    search_courses: پروگرام تلاش کرو
+    start: سرگرمی دی کھوج شروع
     student_editors: ایڈیٹ کرݨ آلے
+    student: ایڈیٹر
     students: ایڈیٹ کرݨ آلے
+    students_taught: کل ایڈیٹرز
+    students_none: این پروجیکٹ وچ کوئی ایڈیٹر شامل ناہیں۔
     students_short: ایڈیٹ کرݨ آلے
+    students_count: شریکݨ دی تعداد
     term: کݙݨ
+    unsubmitted: جمع نہ کرائے ڳئے پروگرام
+    uploads_none: این پروجیکٹ Wikimedia Commons تے کوئی تصویراں یا ٻیا میڈیا فائلاں
+      تعاون ناہیں کیتیاں۔
+    user_uploads_none: چݨے ڳئے یوزراں این پروجیکٹ کیتے کوئی تصویراں یا ٻیا میڈیا فائلاں
+      تعاون ناہیں کیتیاں۔
+    view_other: ٻیاں مہم ݙیکھو
+    view_page: ورقہ ݙیکھو
+    word_count_doc: پروگرام دی مدت دے دوران پروگرام دے ایڈیٹراں والوں مین اسپیس مضامین
+      وچ شامل کیتے ڳئے لفظاں دی تخمینی تعداد۔ (Wikidata دیاں ترامیم شامل ناہیں۔)
+    word_count_doc_wikidata: پروگرام دی مدت دے دوران پروگرام دے ایڈیٹراں والوں مین
+      اسپیس شئیں وچ شامل کیتے ڳئے لفظاں دی تخمینی تعداد۔
     yourcourses: تہاݙے پروگرام
   editable:
     edit: لکھو
     cancel: منسوخ
     save: بچاؤ
     edit_description: وضاحت وچ تبدیلی کرو
+    edit_details: تفصیلاں ترمیم کرو
+    edit_template: Template ترمیم کرو
+    rename_confirmation: کورس دے اوہ فیلڈ جیہڑے URL بنڑیندے ہن تبدیل تھی ڳئے ہن۔ ایہ
+      URL بدل ݙیسی تے کوئی وی آنوݨ آلا لنک ٹوٹ پوسی۔ کیا تساں واقعی ایہ کرݨا چاہندے
+      ہو؟
   instructor_view:
+    article_assignments: '%{prefix} تفویض'
     assignments_table:
       article_name: ناں
+      current_stage: موجودہ مرحلہ
+      relevant_links: متعلقہ لنکس
+    assigned_articles: تفویض کیتے ڳئے مضامین
+    assigned_articles_wikidata: تفویض کیتے ڳئے آئٹم
+    bad_work:
+      learn_more: اگر شاگرد دے کم نے مضمون کوں خراب کیتے تاں اساں تساں دی حوصلہ افزائی
+        کریندے ہاں جو تساں اینہوں آپ ترمیم کرو۔ ناہیں تاں، مسائل بارے سانوں ݙسو تاں
+        جو اساں اینہاں کوں بعد وچ درست کر سڳوں۔
+      learn_more_wikidata: اگر شاگرد دے کم نے آئٹم کوں خراب کیتے تاں اساں تساں دی
+        حوصلہ افزائی کریندے ہاں جو تساں اینہوں آپ ترمیم کرو۔ ناہیں تاں، مسائل بارے
+        سانوں ݙسو تاں جو اساں اینہاں کوں بعد وچ درست کر سڳوں۔
+      learn_more_button: ٻیا سِکھو
+      submit_issue: این مضمون دے کیا اہم مسائل ہن؟
+      submit_issue_wikidata: این آئٹم دے کیا اہم مسائل ہن؟
+      submit_issue_placeholder: جتنا زیادہ ماہر نظریہ تے تفصیل تساں ݙے سڳدے ہو، اتنا
+        ہی بہتر۔
+      thank_you: شکریہ! اگر تہاݙے ٻئے سوال ہوون تاں اپݨے وکی ماہر نال رابطہ کرو۔
+      quality_problems_button: معیار دے مسائل؟
+      notify_wiki_expert: وکی ماہر کوں اطلاع ݙیو
+    exercises_and_trainings: '%{prefix} مشقاں تے تربیتاں'
+    no_assignments: این طالب علم دے کوئی تفویض کیتے ڳئے مضامین ناہیں۔
+    can_assign_assignments: تساں اتوں موجود بٹݨاں استعمال کرکے ہک مضمون تفویض کر سڳدے
+      ہو۔
+    no_assignments_wikidata: این طالب علم دے کوئی تفویض کیتے ڳئے آئٹم ناہیں۔ تساں
+      اتوں موجود بٹݨاں استعمال کرکے ہک آئٹم تفویض کر سڳدے ہو۔
+    overview: '%{prefix} جائزہ'
+    reviewing_articles: مضامین دا جائزہ
+    reviewing_articles_wikidata: آئٹماں دا جائزہ
+    select_student:
+      title: '%{prefix} چݨو'
+      content: مضمون تفویضاں تفویض کرݨ تے ݙیکھݨ کیتے
+      content_wikidata: آئٹم تفویضاں تفویض کرݨ تے ݙیکھݨ کیتے
   metrics:
+    editors_doc: ایہ این کورس وچ مضامین وچ ترمیم کرݨ آلاں منفرد یوزراں دی تعداد اے۔
+    program_date_doc: ایہ پروگرام دی تاریخ اے۔
+    label: کورس سرگرمی
+    last_update: آخری اعداد و شمار دی اپڈیٹ
+    last_articles_update: مضامین دی آخری اپڈیٹ
+    next_update: اگلی متوقع اپڈیٹ
+    late_update: ہک نویں اپڈیٹ دی %{late_update_time} کوں توقع ہئی۔ اینہ دا مطلب اے
+      ہو سڳدا اے جو اپڈیٹ متوقع توں زیادہ ویلا گھندی پئی اے، یا اینہ نال کوئی مسئلہ
+      دا اشارہ مل سڳدا اے جیہڑا اپڈیٹاں کوں روکیندا پئے۔
+    no_update: ڈیش بورڈ نے این پروگرام کیتے ہݨ تئیں کوئی ڈیٹا درآمد ناہیں کیتا۔
+    enqueued_update: این پروگرام کوں اپڈیٹ قطار وچ شامل کیتا ڳیا اے۔
+    first_update: اعداد و شمار دی اپڈیٹ دا متوقع آغاز
+    activity: حالیہ سرگرمی
+    are_trained: تربیت دے لحاظ نال اپڈیٹ ہن
+    articles_created: بنڑائے ڳئے مضامین
+    articles_created_wikidata: بنڑائے ڳئے آئٹماں
+    articles_created_generic: بنڑائے ڳئے صفحات
+    articles_created_generic_wikidata: بنڑائے ڳئے آئٹماں
+    article_count: مضمون
+    articles_edited: تدوین کیتے ڳئے مضامین
+    articles_edited_wikidata: تدوین کیتے ڳئے آئٹماں
+    articles_edited_generic: ترمیم کیتے ڳئے صفحات
+    articles_edited_generic_wikidata: تدوین کیتے ڳئے آئٹماں
+    article_scoped_program_info: اے ہک 'Article Scoped Program' اے، جیہڑا صرف تفویض
+      کیتے ڳئے مضامین تے زمراں وچ ترامیم ڳݨدا اے۔
+    article_scoped_program_info_wikidata: اے ہک 'Article Scoped Program' اے، جیہڑا
+      صرف تفویض کیتے ڳئے آئٹماں تے زمراں وچ ترامیم ڳݨدا اے۔
+    bytes_added: شامل کیتے ڳئے بائٹس
+    characters: حروف
+    char_added: شامل کیتے ڳئے حروف
+    char_changed: تبدیل کیتے ڳئے حروف
+    char: شامل کیتے ڳئے حروف
+    close_modal: بند کرو
     date_time: تریخ/ویلا
+    edit_count_description: کل ترامیم
+    error_count_message: تازہ ترین اپڈیٹ دوران ڈیش بورڈ کوں %{error_count} غلطی دا
+      سامنا تھییا۔
+    future_updates_remaining:
+      updates_active: ایہ اعداد و شمار %{date} تئیں اپڈیٹ ہوندے رہسن۔
+      updates_inactive: این پروگرام دے اعداد و شمار ہݨ باقاعدگی نال اپڈیٹ ناہیں تھیندے۔
+    last_reviewed: آخری جائزہ
+    missing_data_heading: غائب یا غیر متوقع نتائج؟
+    missing_data_info: عام مسائل وچ شامل ہن
+    non_updating_course_update: ایہ ہک دفعہ دی اپڈیٹ کیتے شیڈول کیتا ڳیا اے، جیہڑی
+      جلدی تھیوݨی چاہیدی اے۔
+    last_update_failed: این کورس دی آخری اپڈیٹ ناکام تھی ڳئی۔
+    last_update_success: آخری اپڈیٹ کامیابی نال تھی ڳئی، ایں کیتے اعداد و شمار اپ
+      ٹو ڈیٹ ہووݨے چاہیدن۔
+    outreach_help: مدد چاہیدی اے؟ نیویگیشن بار وچ 'Report a problem' کوں ݙیکھو۔
+    per_user: '%{number} فی یوزر'
+    recent_updates_summary: آخری %{total} اپڈیٹاں وچوں، %{failure_count} ناکام تھئیاں
+      تے %{error_count} وچ خرابیاں آئیاں۔
     revisions: حالیہ تبدیلیاں
+    references_count: شامل کیتے ڳئے حوالے
+    references_doc: ایہ مضامین وچ شامل کیتے ڳئے حوالہ ٹیگز تے مختصر فٹ نوٹ Template
+      دی تعداد اے، تے ہک ای منبع دے متعدد حوالے وی شامل تھی سڳدن۔ ڈیٹا reference-counter
+      Toolforge API توں آندا اے۔
+    references_doc_wikidata: ایہ آئٹماں وچ شامل کیتے ڳئے حوالہ ٹیگز دی تعداد اے، تے
+      ہک ای منبع دے متعدد حوالے وی شامل تھی سڳدن۔ ڈیٹا ORES آئٹم کوالٹی ماڈل توں آندا
+      اے، تے صرف کجھ زباناں کیتے دستیاب اے۔
+    replag_info: Dashboard WMF Cloud replica databases توں ترامیم دا ڈیٹا حاصل کریندا
+      اے۔ کݙیں اے databases replication lag (replag) دی وجہ توں حالیہ ترامیم کوں ڳواھ
+      چھڑیندن۔ جݙاں ایہ صورتحال ہووے، ڳواچیاں ترامیم بعد وچ ݙکھاݙے ویندن۔
+    replag_link: replag چیک کرو
     tags: ٹیگ
+    total_updates: ہݨ تائیں اپڈیٹس دی کل تعداد
+    update_status_heading: اپڈیٹ دی صورتحال
+    update_statistics_link: ٻئے ݙیکھو
+    upload_count: کومنز اپ لوڈز
+    uploads_in_use_count:
+      one: ہک فائل ہک مضمون وچ استعمال تھئی
+      other: فائلز مضامین وچ استعمال تھئیاں
+    uploads_in_use_count_wikidata:
+      one: ہک فائل ہک آئٹم وچ استعمال تھئی
+      other: فائلز آئٹماں وچ استعمال تھئیاں
+    upload_usages_count:
+      one: ٻولیاں وچ کل استعمال
+      other: ٻولیاں وچ کل استعمالاں
+    view_count_description: مضامین دے ویکھݨ
+    view_count_description_wikidata: آئٹماں دے ویکھݨ
+    view_count_doc: ایہ مضمون دی پہلی ترمیم توں کورس دے دوران تازہ ترین اعداد و شمار
+      دی اپڈیٹ تئیں روزانہ اوسط دی بنیاد تے ݙیکھݨ دی تخمینی تعداد اے۔
+    view_count_doc_wikidata: ایہ آئٹم دی پہلی ترمیم توں کورس دے دوران تازہ ترین اعداد
+      و شمار دی اپڈیٹ تئیں روزانہ اوسط دی بنیاد تے ݙیکھݨ دی تخمینی تعداد اے۔
+    view_data_unavailable: ݙیکھݨ دا کوئی ڈیٹا دستیاب کائنی
     view: ݙکھالے
+    wiki_ed_help: مسئلے دی رپورٹ کرݨ کیتے 'Get Help' بٹݨ استعمال کرو۔
+    word_count: شامل کیتے ڳئے الفاظ
+    word_count_average: اوسط لفظاں دی تعداد
+    general: عمومی
+    total_revisions: کل ترامیم
+    claims: دعوے
+    aliases: عرفی ناں
+    merged: ضم کیتا ڳیا
+    merged_from: توں ضم کیتا ڳیا
+    created: بنڑ ڳیا
+    changed: تبدیلیاں
+    removed: ہٹا ݙتے
+    cleared: صاف کیتے ڳئے
+    added: شامل تھی ڳئے
+    descriptions: تفصیلاں
+    interwiki_links_added: شامل کیتے ڳئے بین الویکی لنکس
+    labels: لیبل
+    no_data: کوئی ڈیٹا کائنی
+    other_updates: ٻیاں اپڈیٹاں
+    qualifiers_added: شامل کیتے ڳئے کوالیفائر
+    redirects_created: بنڑائے ڳئے ری ڈائریکٹس
+    references_added: شامل کیتے ڳئے حوالے
+    references_added_info: ایہ شامل کیتے ڳئے حوالے دیاں صرف جزوی تعداد ہو سڳدی اے۔
+      ایہ Wikidata دیاں ترمیم دیاں خلاصیاں تے مبنی اے، تے کجھ ترامیم جیہڑیاں حوالے
+      شامل کریندیاں ہن، اینہ دی بجائے "Changed claim" یا "Created claim" دے طور تے
+      درجہ بندی کیتیاں ویندیاں ہن۔
+    restorations_performed: کیتیاں ڳئیاں بحالیاں
+    reverts_performed: کیتے ڳئے ری ورٹس
+    lemmas: اصل موضوع
+    language: زبان
+    lexical_category: لغتی قسم
+    forms: اشکال
+    form_claims: اشکال دے دعوے
+    form_references: اشکال دے حوالے
+    form_qualifiers: اشکال دے کوالیفائر
+    senses: معنی
+    glosses: گلاس
+    sense_claims: معنی دے دعوے
+    sense_references: معنی دے حوالے
+    sense_qualifiers: معنی دے کوالیفائر
+  namespace:
+    all: بئے
+    main: مرکزی
+    main_char_added: مرکزی اکھر شامل
+    article: مضمون
+    talk: ڳالھ مباز
+    user: یوزر نیم اسپیس
+    user_char_added: یوزر نیم اسپیس اکھر شامل
+    project: منصوبے
+    file: فائل
+    mediaWiki: میڈیا وکی
+    template: سانچہ
+    help: مدد
+    category: زمرہ
+    page: ورقہ
+    book: کتاب
+    wikijunior: WikiJunior
+    translation: ترجمہ
+    draft: ڈرافٹ
+    property: خاصیت
+    query: سوال
+    lexeme: مفرد لفظ
+    appendix: ضمیمہ
+    portal: دیرہ
+    school: اسکول
+    author: مصنف
+    cookbook: Cookbook
+    rhymes: Rhymes
+    index: فہرست
+    collection: مجموعہ
+    tracked_namespaces_info: صرف اوہ مضامین جیہڑے کھوج کیتے ڳئے نیم اسپیساں نال مطابقت
+      رکھدے ہن، ٹاپ لائن دے جائزہ اعداد و شمار وچ حصہ پاوسن، جیویں 'Articles Edited'،
+      'Total Edits'، 'Words Added' وغیرہ۔ ایس لئی صرف اوہ نیم اسپیس ٹریک کرو جنہاں
+      کوں بہتر کرݨ تہاݙے پروگرام دا مقصد اے۔
   report_cards:
+    title: رپورٹ کارڈز
+    subtitle: Scholars & Scientists رپورٹ کارڈ
     campaign: مہم
+    courses: کورسز
+    download_csv: CSV ڈاؤن لوڈ کرو
     pending: وچار ہیٹھ
     not_applicable: —
     total: مجموعہ
+    empty: کوئی اعداد و شمار شمار نئیں تھئے
+    legend: طویل مدتی وکیپیڈین (کورس توں پہلے 500+ ترامیم) کوں شرکا وچ ڳݨیا ویندا
+      اے، پر ہر ٻئے اعداد و شمار توں ٻاہر رکھیا ڳیا اے۔ 'pending' دے نشان آلے خانے
+      کورس دے ختم تھیوݨ توں 31 تے 91 ݙینہ بعد بھر ویندن۔
+    groups:
+      general: عمومی
+      during: کورس دے دوران
+      after: کورس دے بعد
+    columns:
+      number: '#'
+      title: کورس
+      instructors: انسٹرکٹر
+      participants: شرکا
+      long_term_wikipedians: …جنہاں وچوں ہک طویل مدتی وکیپیڈین (500+ ترامیم) اے
+      sessions_during: ترمیم سیشنز
+      avg_sessions_during: فی شریک اوسط ترمیم سیشنز
+      zero_edit_participants: ترمیم نہ کرݨ آلے شریک
+      uploads: اپلوڈز دی کل تعداد
+      avg_uploads: فی شریک اوسط اپلوڈز
+      words: شامل کیتے ڳئے لفظاں دی کل تعداد
+      avg_words: فی شریک اوسط لفظ
+      editors_after_course: کورس دے بعد 30 ݙینہ وچ ترمیم کرݨ آلے شریک
+      pct_active_editors_after: فعال شرکا دا فیصد جنہاں کورس دے بعد 30 ݙینہ وچ 1+
+        ترمیم کیتی
+      avg_days_to_return: پہلی آزاد ترمیم تک ݙینہ
+      avg_sessions_after: کورس دے بعد 30 ݙینہ اوسط ترمیم سیشنز
+      any_survival_edits: کورس دے ختم تھیوݨ توں 60 توں 90 ݙینہ وچ 1+ ترامیم کرݨ آلے
+        شریک
+      any_survival_edits_returning: …جنہاں وچوں پہلاں ہک کورس کیتا اے
+      survivors: کورس دے ختم تھیوݨ توں 60 توں 90 ݙینہ وچ 5+ ترامیم کرݨ آلے شریک
+      survivors_returning: …جنہاں وچوں پہلاں ہک کورس کیتا اے
   recent_activity:
+    active_courses: مضمون فعال اے
     article_title: مضمون دا عنوان
     datetime: تریخ/ویلا
+    did_you_know_eligible: Did You Know اہل
     image: تصویر
     file_name: فائل دا ناں
+    no_dyk_eligible: فی الحال کوئی DYK اہل مضمون نئیں ہن۔
+    no_plagiarism: فی الحال سرقہ دے شبے آلی کوئی حالیہ نظرثانی نئیں اے۔
+    no_edits: کوئی حالیہ ترمیم نئیں اے۔
+    plagiarism_report: سرقہ رپورٹ
+    possible_plagiarism: ممکنہ سرقہ
+    plagiarism_explanation: ویکیپیڈیا دا سرقہ کھوج نظام نویں ترمیماں دا موازنہ شائع
+      شدہ متن نال کرݨ کیتے Turnitin/iThenticate ورتیندا اے۔ ایہ رپورٹاں 100% درست
+      نئیں ہوندیاں۔ مثال دے طور تے، مناسب حوالے نال ہک براہ راست اقتباس سرقہ رپورٹ
+      دا غلط مثبت نتیجہ ݙے سڳدا اے۔ کوئی کارروائی کرݨ توں پہلاں براہ کرم شاگرد دے
+      شراکت تے رپورٹ دی تفصیل دا جائزہ گھنو۔ (جے تساں ݙیکھو کہ تبدیلی — یا پورا مضمون
+      — قابل رسائی نئیں اے، تاں مواد کاپی رائٹ دی وجوہات توں حذف کیتا ڳیا ہو سڳدا
+      اے۔)
     recent_edits: حالیہ تبدیلیاں
     recent_uploads: حالیہ اپ لوڈ
+    report: رپورٹ
+    revision_author: نظرثانی مصنف
+    revision_datetime: نظرثانی تاریخ/وقت
+    revision_score: نظرثانی سکور
+    show_courses: صرف میݙے کورسز ݙکھاؤ
+    uploaded_by: اپلوڈ کرݨ آلا
+    usage_count: استعمال دی تعداد
   revisions:
+    chars_added: شامل کیتے ڳئے حروف
+    references: شامل کیتے ڳئے حوالے
     class: جماعت
     date_time: تریخ/ویلا
     diff: فرق
     diff_show: ݙِکھاؤ
     diff_hide: لُکاؤ
+    edit_time_span: 'ترمیماں تھیئیاں: %{first_time} توں %{last_time} تائیں'
+    edited_by: ترمیم کرݨ آلا
+    edited_on: '%{edit_date} کوں ترمیم کیتی ڳئی'
+    loading: نظرثانیاں لوڈ تھیندے پئے ہن...
+    none: ایں کورس دی کوئی حالیہ ترمیمی سرگرمی نئیں اے۔
+    time_doc: ہر نظرثانی دا وقت تہاݙے مقامی وقت وچ
     title: عنوان
     view_on_wiki: وکی تے فرق ݙیکھو
     see_more: ٻئے ݙیکھو
+    show_all: سب ݙکھاؤ
+    show_course_specific: کورس مخصوص ݙکھاؤ
+    course_ended_notification: ایہ اندراج کیتے ڳئے یوزراں دیاں حالیہ ترامیم ݙکھیندا
+      اے، لیکن 'end date' توں بعد دیاں ترامیم اعداد و شمار وچ نئیں ڳݨیندیاں یا آرٹیکلز
+      ٹیب تے نئیں ݙکھائیاں ویندیاں۔ 'کورس مخصوص ݙکھاؤ' فلٹر نال تساں ݙکھاوے کوں صرف
+      end date توں پہلاں تھیوݨ آلی سرگرمی تائیں محدود کر سڳدے ہو۔
+    show_only_new_editors: صرف نویں ایڈیٹراں کوں ݙکھاؤ
+  resources:
+    label: وسائل
+    header: وسائل تے تربیت
   settings:
     common_settings_components:
       headings:
+        course_creation_settings: کورس دی تخلیق
+        default_campaign_setting: ڈیفالٹ مہم
+        site_notice_setting: سائٹ نوٹس
         site_notice_message: سنیہا
+        site_notice_preview: براہ راست پیش نظارہ
       site_notice_help:
+        intro: ایہ نوٹس HTML اے، جیہڑا ہر ورقے دے اوتے ہک بینر وچ ݙکھایا ویندا اے۔
+          ایتھے لکھے ڳئے لائن بریک نظرانداز کیتے ویندن، ایں واسطے اینکوں فارمیٹ کرݨ
+          کیتے ٹیگز استعمال کرو۔
         link: لنک
+        line_break: لائن بریک
+      buttons:
+        add_admin_button: ایڈمن شامل کرو
+        add_special_user_button: خصوصی یوزر شامل کرو
+        configure_site_notice:
+          update_site_notice_button: سائٹ نوٹس اپڈیٹ کرو
+          enable_button: فعال کرو
+          disable_button: غیر فعال
+        update_course_creation_settings: کورس دی تخلیق دیاں سیٹنگز اپڈیٹ کرو
+        update_default_campaign_setting: ڈیفالٹ مہم اپڈیٹ کرو
+        update_impact_stats: اثر دے اعداد و شمار اپڈیٹ کرو
+        update_salesforce_credentials: سیلز فورس دیاں اسناد اپڈیٹ کرو
     categories:
+      other_settings: ٻیاں ترتیباں
+      impact_stats: اثر دے اعداد و شمار
+      featured_campaigns: نمایاں مہماں
+      special_users: خصوصی یوزرز
+      admin_users: ایڈمن یوزرز
       users: ورتݨ آلے
     admin_users:
       new:
+        form_label: ایڈمن دے اختیارات ݙیو
         form_placeholder: ورتݨ ناں
+        confirm_add_admin: ایڈمن بنڑاؤ
+        confirm_remove_admin: ایڈمن دے اختیارات ختم کرو برائے
+        already_admin: '%{username} پہلاں توں ای ایڈمن اے!'
+        elevate_success: '%{username} کوں ایڈمن بنڑا ݙتا ڳیا۔'
+      remove:
+        revoke_button: ایڈمن ختم کرو
+        revoke_button_confirm: '%{username} توں ایڈمن دے حقوق ختم کرو'
+        revoking_button_working: ختم تھیندا پئے...
+        already_instructor: '%{username} پہلاں توں ای انسٹرکٹر اے!'
+        demote_success: '%{username} کوں انسٹرکٹر بنڑا ݙتا ڳیا۔'
+        no_super_admin: سپر ایڈمن توں ایڈمن دا درجہ ختم نئیں کیتا ونج سڳدا
+    featured_campaigns:
+      campaign_not_found: '''%{campaign_slug}'' سلگ آلی مہم نئیں ملی'
+      no_featured_campaigns: کوئی نمایاں مہماں بیان نئیں کیتیاں ڳیاں
+      update_featured_campaigns_button: نمایاں مہماں اپڈیٹ کرو
+      add_button: مہم شامل کرو
+      remove_button: مہم ہٹاؤ
     special_users:
       new:
+        form_label: خصوصی یوزر دے اختیارات ݙیو
         form_placeholder: ورتݨ ناں
+        confirm_add_special_user: خصوصی یوزر شامل کرو
+        already_is: '%{username} پہلاں توں ای {position} اے!'
+        elevate_success: '%{username} کوں {position} بنڑا ݙتا ڳیا۔'
+      remove:
+        revoke_button: خصوصی یوزر ختم کرو
+        revoke_button_confirm: '%{username} توں خصوصی یوزر دے حقوق ختم کرو'
+        revoking_button_working: ختم تھیندا پئے...
+        already_is_not: '%{username} خصوصی یوزر نئیں اے!'
+        demote_success: '%{username} ہݨ بس ہک یوزر اے۔'
     disallowed_users:
+      none: کوئی ممنوعہ یوزر ترتیب نئیں ݙتا ڳیا۔
+      already_disallowed: پہلاں توں ممنوع
+      add_to_list: ممنوع وچ شامل کرو
+      add_button: یوزر شامل کرو
       remove_button: ہٹاؤ
+      submit_button: جمع کرواؤ
+      title: ممنوعہ یوزرز
+      description: بوٹ اکاؤنٹس تے ٻے یوزر ناں جیہڑے کورسز وچ اندراج نئیں کروائے ونجݨ
+        چاہیدے۔
+      add:
+        success: '%{username} ممنوعہ یوزرز دی فہرست وچ شامل کیتا ڳیا۔'
+        already_exists: '%{username} پہلاں توں ای ممنوعہ یوزرز دی فہرست وچ اے۔'
+      remove:
+        success: '%{username} ممنوعہ یوزرز دی فہرست وچوں ہٹایا ڳیا۔'
+        not_found: '%{username} ممنوعہ یوزرز دی فہرست وچ نئیں اے۔'
+        confirm: کیا تساں واقعی %{username} کوں ممنوعہ یوزرز دی فہرست وچوں ہٹاوݨا
+          چاہندے ہو؟
     actions: عمل
   status:
+    active_jobs: فعال کم
+    active_jobs_doc: ہݨ عمل وچ چلݨ آلے کماں دی تعداد۔
+    all_queues_operational: ساریاں قطاریں چالو ہن
+    all_queues_not_operational: ساریاں قطاریں چالو ہن سواۓ
+    constant_update: مستقل اپڈیٹ
+    constant_update_description: مستقل اپڈیٹ کورس دے مرکزی اعداد و شمار توں آزاد ہن۔
+      او سارے موجودہ کورسز واسطے نظرثانی میٹاڈیٹا حاصل کرݨ، الرٹ پیدا کرݨ، تے ٻے ڈیٹا
+      تے نیٹ ورک نال ڳتھے کم کرݨ۔
+    constant_update_doc: وکی ترامیم تے ای میل بھیجݨ وانگے ٹرانزیکشنل کم سنبھالیندا
+      اے۔
+    daily_update: روزانہ اپڈیٹ
+    daily_update_description: ایہ وادھو ڈیٹا حاصل کریندا اے تے ٻے کم وی کریندا اے
+      جیہڑے ݙینہ وچ کئی واری کرݨ دی لوڑ نئیں۔
+    daily_update_doc: ݙینہ وچ ہک واری چلݨ آلے لمبے عرصے دے ڈیٹا اپڈیٹ دے کم سنبھالیندا
+      اے۔
     default: پہلے کنوں طے تھیا ہویا
+    default_description: کورسز کوں اوناں دے چلݨ دے دورانیے دے حساب نال قطاراں وچ چھانٹ
+      کے کورس اپڈیٹ دا شیڈول بنڑاؤ۔
+    default_doc: کورسز کوں اپڈیٹ دیاں قطاراں وچ شامل کرݨ وانگے وار وار چلݨ آلے کم
+      سنبھالیندا اے۔
+    enqueued_jobs: قطار وچ لڳے کم
+    enqueued_jobs_doc: ساریاں قطاراں وچ ہݨ قطار وچ لڳے ہوئے کماں دی تعداد۔
+    latency: تاخیر
+    latency_doc: قطار وچ کماں دے پروسیس تھیوݨ شروع تھیوݨ دا انتظار دا وقت۔ زیادہ تاخیر
+      مصروف نظام یا پروسیسنگ وچ تاخیر دی نشاندہی کر سڳدی اے۔
+    long_update: لمبی اپڈیٹ
+    long_update_description: لمبیاں اپڈیٹس 10,000 توں ودھ نظرثانیاں آلے کورسز کوں
+      پروسیس کریندیاں ہن۔
+    long_update_doc: وڈے کورسز دیاں اپڈیٹس سنبھالیندا اے۔
+    medium_update: درمیانی اپڈیٹ
+    medium_update_description: درمیانیاں اپڈیٹس 10,000 توں گھٹ نظرثانیاں آلے کورسز
+      کوں پروسیس کریندیاں ہن۔
+    medium_update_doc: عام سائز دے کورسز دیاں اپڈیٹس سنبھالیندا اے۔
+    no_info: کوئی معلومات دستیاب نئیں۔
     purpose: مقصد
+    queues_overview: قطاراں دا جائزہ
     queue: قطار
+    report_csv: رپورٹ CSV تیار کرݨ
+    report_csv_description: یوزر دے منڳے ہوئے CSV رپورٹاں تیار کرݨ دی خصوصی قطار۔
+    report_csv_doc: یوزر دے منڳے ہوئے CSV رپورٹاں سنبھالیندا اے۔
+    short_update: مختصر اپڈیٹ
+    short_update_description: مختصر اپڈیٹس 1,000 توں گھٹ نظرثانیاں آلے کورسز کوں پروسیس
+      کریندیاں ہن۔
+    short_update_doc: چھوٹے کورسز دیاں اپڈیٹس سنبھالیندا اے۔
+    sidekiq_stats: Sidekiq دے اعداد و شمار
     size: سائز
+    size_doc: ہک قطار وچ کماں دی تعداد۔
     status: حیثیت
+  suggestions:
+    editing: ترمیم دے تجویزات
+    suggestion_docs:
+      fa: جے تائیں نئی معلومات دستیاب نہ تھیوے، ٻیا مواد شامل کرݨ دی ضرورت نئیں ہوندی؛
+        عبارت دے معیار وچ ٻیا بہتری اکثر ممکن ہوندی اے۔
+      a: مضمون کوں بہتر کرݨ کیتے ماہر علم دی ضرورت ہو سڳدی اے، تے انداز دے مسئلے حل
+        کرݨ دی ضرورت ہو سڳدی اے۔ ساتھی جائزہ مدد کر سڳدا اے۔
+      ga: موضوع تے انداز دے ماہرین دی کجھ ترمیم مددگار اے؛ ملدے جلدے موضوع دے ہک موجودہ
+        نمایاں مضمون نال موازنہ انہاں حصیاں کوں نمایاں کر سڳدا اے جتھے مواد کمزور
+        یا گھٹ اے۔
+      bplus: ماہرین دے مشورے نال بہتر کیتا ونج سڳدا اے تاں جو اندازہ تھیوے جو کتھے
+        کوریج اڄ وی گھٹ اے، تے تصویراں، تاریخی پس منظر تے ٻئے حوالے نال وی۔ ساتھی
+        جائزہ تے غور کرو یا چنگے مضمون دے درجے کیتے نامزد کرو۔ جے مضمون اڄ تک مکمل
+        وکیفائی نئیں تھیا، تاں ہݨ وقت اے۔
+      b: مواد تے انداز دے کجھ پہلو حل کرݨ دی ضرورت اے۔ ماہر علم دی ضرورت ہو سڳدی اے۔
+        جے ممکن ہووے تاں معاون مواد شامل کرݨ تے غور کیتا ونجے، تے مضمون کوں انداز
+        دی ہدایت تے متعلقہ اندازی ہدایتاں دی عمومی پابندی کیتے جانچیا ونجے۔
+      c: مواد وچ خلا بند کرݨ تے صفائی دے مسئلے حل کرݨ کیتے کافی ترمیم دی ضرورت اے۔
+      start: قابل اعتماد ذرائع دے حوالے ݙیوݨ سب توں پہلاں آوݨ چاہیدے؛ مضمون کوں مواد
+        تے ترتیب وچ وی نمایاں بہتری دی ضرورت اے۔ گرامر، ہجے، تحریری انداز وی بہتر
+        کرو تے اصطلاحات دا استعمال وی بہتر کرو۔
+      stub: کوئی وی ترمیم یا اضافی مواد مددگار ہو سڳدا اے۔ بامعنی مواد فراہم کرݨ کوں
+        ترجیح ہووݨی چاہیدی اے۔ اسٹب درجے دے مضمون دے اسٹارٹ درجے تک پڄݨ دا بہترین
+        حل اے جو موضوع دی اہمیت دیاں حوالہ شدہ وجوہات شامل کیتیاں ونجن۔
+      fl: جے تائیں نئی معلومات دستیاب نہ تھیوے، ٻیا مواد شامل کرݨ دی ضرورت نئیں ہوندی۔
+      list: فہرستاں وچ ویکیپیڈیا دے مضامین دے جیندے لنکاں دیاں فہرستاں ہووݨیاں چاہیدیاں
+        ہن، جیہڑیاں مناسب ناں تے ترتیب نال ہوون۔
+      future: شامل کیتا ڳیا مواد قیاس آرائی ہو سڳدا اے تے اونہوں کوں احتیاط نال حوالہ
+        ݙتا ونجے۔
+      disambig: اوس ناں دے نویں مضامین بنڑاوݨ نال اضافے کرݨے چاہیدے ہن۔ ایہوجے صفحات
+        دے مناسب ناں ݙیوݨ تے خاص توجہ ݙیو، کیوں جو اکثر انہاں دے عنوان نال "(disambiguation)"
+        لاوݨ دی ضرورت نئیں ہوندی۔
+      '?': تجویزات دستیاب نئیں - یا تاں مضمون درجہ بند نئیں تھیا یا اوس درجے کیتے
+        تجویزات دستیاب نئیں ہن۔
+      does_not_exist: ایہ مضمون ویکیپیڈیا تے موجود نئیں۔
+  tasks:
+    conseq: ٹاسک %{task} پہلاں توں ای چلدا پئے اے!
+    constant: ٹاسک %{task} چل نئیں سڳدا جداں ٹاسک update_daily چلدا پئے اے۔
+    paused: ٹاسک %{task} چل نئیں سڳدا کیوں جو شیڈول شدہ اپڈیٹس روک ݙتیاں ڳیاں ہن۔
+      اپڈیٹس دوبارہ شروع کرݨ کیتے 'rake batch:resume' چلاؤ۔
+  tickets:
+    none: کوئی ٹکٹ نئیں
+    search_bar_placeholder: ٹکٹ تلاش کرو
+    chose_search_type: تلاش دی قسم چݨو
   timeline:
+    add_assignment: تفویض شامل کرو
     add_week: ہفتہ شامل کرو
+    arrange_timeline: ٹائم لائن ترتیب ݙیو
+    arrange_timeline_instructions: ٹائم لائن کوں بلاکاں نال 'کھینچ کے چھوڑݨ' کرݨ نال
+      مطلوبہ مقام/ہفتے وچ رکھ کے ترتیب ݙیو، یا کارڈ تے موجود تیراں نال بلاکاں کوں
+      دوبارہ ترتیب ݙیو۔
+    assignment_dates_instructions: ویکیپیڈیا تفویض ٹائم لائن دی شروعات تے ختم تھیوݨ
+      دیاں تاریخاں چݨو۔ شروع دی تاریخ تبدیل کرݨ نال پوری ٹائم لائن دیاں تاریخاں اگے
+      پچھے تھی ویسن۔
+    blackout_week_created: اس ہفتے کیتے بلاک شیڈول کیتے ڳئے ہن۔ مہربانی کر کے آخری
+      کلاس میٹنگ کوں اس ہفتے توں ہٹاوݨ توں پہلاں انہاں کوں ٻے ہفتے وچ منتقل کرو۔
+    block_assignment: تفویض
+    block_custom: کسٹم
+    block_in_class: کلاس وچ
     block_milestone: سنگ میل
+    block_handouts: ہینڈ آؤٹس
+    block_resources: وسائل
+    block_type: بلاک دی قسم تہاݙے طالب علماں نال انہاں دی ٹائم لائن تے اس شئے بارے
+      ڳالھ کرݨ کیتے تے تہاݙے کیتے مفید اوزار بنڑاوݨ کیتے استعمال کیتی ویندی اے (جیویں
+      کہ جائزہ صفحے تے سنگ میل دا خاکہ)
     course_dates: کورس دیاں تریخاں
+    course_dates_instructions: پورے کورس (نہ کہ صرف ویکیپیڈیا تفویض) دی شروعات تے
+      ختم تھیوݨ دیاں تاریخاں چݨو۔
     course_end: کورس دا چھیکڑ
     course_start: کورس شروع
+    delete_week_confirmation: کیا تساں یقینی ہو کہ تساں ایہ ہفتہ حذف کرݨ چاہندے ہو؟
+      اس نال ہفتہ تے اوندے سارے متعلقہ بلاک حذف تھی ویسن۔ ایہ کم واپس نئیں تھی سڳدا۔
+    delete_weeks_confirmation: کیا تساں یقینی ہو کہ تساں ایہ پوری ٹائم لائن حذف کر
+      کے شروع توں شروع کرݨ چاہندے ہو؟ ایہ کم واپس نئیں تھی سڳدا۔
+    discard_all_changes: ساریاں تبدیلیاں رد کرو
     delete_timeline_and_start_over: ٹائم لائن مٹاؤ
     done: تھی ڳیا
+    due_default: اگلے ہفتے تک
+    edit_titles: ہفتے دے عنوانات تبدیل کرو
+    edit_titles_info: ٹائم لائن وچ ہفتے دے عنوانات تبدیل کرو۔ صرف انہاں ہفتیاں کوں
+      کسٹم عنوانات ݙتے ونج سڳدے ہن جنہاں وچ شیڈول شدہ ملاقاتاں ہون۔ اگر کوئی کسٹم
+      عنوانات استعمال کیتے ونجݨ، تاں بغیر ملاقاتاں آلے ہفتے نمبراں دی بجائے تاریخاں
+      نال ݙکھائے ویسن۔
     empty_week_1: شروع کرو
+    empty_week_2: اس ہفتے ترمیم شروع کرو
     empty_week_3: یا
+    empty_week_4: ٹائم لائن بنڑاوݨ کیتے تفویض وزارڈ استعمال کرو۔
+    empty_week_drag_items: خالی ہفتہ۔ تساں ٻئے ہفتے توں ہک بلاک اتھاں کھینچ کے ݙے
+      سڳدے ہو۔
+    first_week_title: پہلا فعال ہفتہ
     gradeable_value: قدر
+    gradeables_none: اس ٹائم لائن وچ کوئی تفویض گریڈ شدہ نشان نئیں کیتے ڳئے۔
+    grading_header: 'گریڈنگ (کل: %{total})'
+    move_block_down: بلاک ہیٹھاں منتقل کرو
+    move_block_up: بلاک اُتے منتقل کرو
+    no_class_holidays: میرے کول کوئی کلاس دیاں چھٹیاں نئیں ہن
+    no_timeline: اس کورس دی کوئی ٹائم لائن نئیں اے۔
+    no_activity_this_week: اس ہفتے کوئی شیڈول شدہ ملاقاتاں نئیں ہن۔
+    nothing_this_week: اس ہفتے دے شیڈول وچ کجھ نئیں اے۔
+    reset_titles: ڈیفالٹ تے ری سیٹ کرو
+    reset_titles_confirmation: کیا تساں واقعی سارے ہفتیاں دے عنوانات ری سیٹ کرݨ چاہندے
+      ہو؟ ایہ واپس نئیں تھی سڳدا۔
     save_all_changes: سارے بچاؤ
     this_week_title_default: ایں ہفتے
     title: ٹائم لائن
+    too_many_weeks_warning: خبردار! تفویض دی اختتامی تاریخ توں پہلاں کافی غیر تعطیل
+      ہفتے نئیں ہن! تساں ملاقات دیاں تاریخاں تے تعطیل دیاں تاریخاں مقرر کرݨ کیتے 'کورس
+      دیاں تاریخاں تبدیل کرو' تے کلک کر سڳدے ہو۔
+    unable_to_add_week: تساں نویں ہفتے نئیں شامل کر سڳدے جݙاں تہاݙی ٹائم لائن بھری
+      ہوئی اے۔ گھٹ توں گھٹ ہک ہفتہ حذف کرو یا ہک نویں کیتے جاہ بنڑاوݨ کیتے اپݨے تفویض
+      دیاں تاریخاں تبدیل کرو۔
     view_full_timeline: پوری ٹائم لائن ݙیکھو
     week_number: ہفتہ %{number}
+    add_block: بلاک شامل کرو
+    delete_week: ہفتہ حذف کرو
+    add_standard_block: معیاری بلاک شامل کرو
+    standard_blocks: معیاری بلاکس
+    standard_block_add: شامل کرو
+    standard_block_filter: مطابق
+    standard_block_matches: مطابق
+    standard_block_does_not_match: مطابق نئیں
+    standard_block_match_unknown: نامعلوم
+    standard_block_already_added: پہلاں توں ٹائم لائن وچ
+    sandbox_mode: سینڈباکس موڈ
+    sandbox_mode_current_sandboxes: سینڈباکسز وچ مسودہ بنڑاوݨ
+    sandbox_mode_current_live: زندہ مضامین دی ترمیم
+    sandbox_mode_switch_to_live: لائیو ترمیم تے سوئچ کرو
+    sandbox_mode_switch_to_sandboxes: سینڈباکسز تے سوئچ کرو
+    sandbox_mode_added: بلاکس شامل تھی ڳئے
+    sandbox_mode_removed: بلاکس ہٹائے ڳئے
+    sandbox_mode_unmatched: متوقع بلاک نئیں ملے۔ عنواناں وچ ترمیم تھی سڳدی اے۔
+    sandbox_mode_unresolved: ایہ بلاک وی وزارڈ دے نامعلوم جواب تے منحصر ہن تے تبدیل
+      نئیں کیتے ڳئے۔
   training:
     continue: جاری(%{progress})
     start: شروع
     view: ݙکھالا
     next: اڳلا ورقہ
     page: ورقہ
+    page_number: صفحہ %{number} از %{total}
+    previous: < پچھلا
+    table_of_contents: فہرستِ عنوانات
+    training_library: ٹریننگ لائبریری
+    additional_training: اضافی ٹریننگ ماڈیولز
+    orientation_modules: انسٹرکٹر اورینٹیشن ماڈیولز
+    logged_out: تساں لاگ آؤٹ ہو۔ جے تئیں تساں لاگ ان نئیں تھیندے، تساں کوں ایہ ماڈیول
+      مکمل کرݨ دا کریڈٹ نئیں ملسی۔
     done: مکمل!
+    invalid: معاف کرو، اے سلائڈ موجود نئیں!
+    wait: مہربانی کر کے صفحہ نہ چھوڑو، تہاݙی ٹریننگ دی پیش رفت اپڈیٹ تھی رہی اے۔
+    check_answer: جواب چیک کرو
+    included_modules: شامل شدہ ماڈیولز
+    view_library_source: لائبریری دا ماخذ ݙیکھو
+    view_module_source: ماڈیول دا ماخذ ݙیکھو
+    reload_from_source: ماخذ توں دوبارہ لوڈ کرو
+    kind:
+      exercise: مشق
+      discussion: گفتگو
+      training: ٹریننگ
+    no_training_library_records_wiki_ed_mode: ڈیٹا بیس وچ کوئی TrainingLibrary ریکارڈ
+      نئیں۔ ٹریننگ دا ڈیٹا training_content/ yaml فائلاں توں لوڈ کرݨ کیتے <a href="%{url}">ایتھے</a>
+      کلک کرو۔
+    no_training_library_records_non_wiki_ed_mode: ڈیٹا بیس وچ کوئی TrainingLibrary
+      ریکارڈ نئیں۔
+    search_training_resources: ٹریننگ وسائل ڳولو
+    no_training_resource_match_your_search: کوئی ٹریننگ وسیلہ تہاݙی ڳول نال نئیں ملدا۔
+    exercise_sandbox: مشق سینڈباکس
+    exercise_sandbox_incomplete: مہربانی کرکے ایہ مکمل نشان کرݨ توں پہلے اپݨی مشق
+      سینڈباکس (%{pages}) وچ مشق مکمل کرو۔
+    exercise_needs_assigned_article: ایہ مکمل کرݨ توں پہلے تساں کوں اپݨے آپ کوں ہک
+      مضمون تفویض کرݨا چاہیدا اے۔
+    exercise_article_unverified: ایہ مشق مکمل نشان کرݨ توں پہلے اپݨی وکیپیڈیا ترمیم
+      دی تصدیق کرو۔
+    open_exercise: مشق شروع کرو
+    remaining_exercise: '%{count} اضافی مشقاں باقی ہن۔'
+    view_all: ساریاں مشقاں ݙیکھو
+    take_your_time: مہربانی کرکے اپݨا وقت گھنو!
+    alert_content: ایہ ٻہوں ضروری اے کہ تساں ٹریننگ دا مواد مکمل طور تے سکھو۔
     close: بند
     loading: لوڈ تھین٘دا پئے۔۔۔
+    wiki_source: ویکی ماخذ
     article_title_input:
+      submit: مضمون جمع کرو
+      modal_title: تساں کیہڑا مضمون ترمیم کیتا اے؟
+      success: شاباش! تہاݙی ترمیم دی تصدیق تھی ڳئی اے۔
+      placeholder: 'مثال: Marie Curie یا https://en.wikipedia.org/wiki/Marie_Curie'
+      checking: جانچ تھیندی پئی ہے...
       verify: تصدیق کرو
+      not_found: اساں تہاݙی ترمیم اوں مضمون تے نئیں ڳول سڳے۔ مہربانی کرکے مضمون دا
+        ناں چیک کرو تے دوبارہ کوشش کرو۔
+      not_mainspace: ایہ ویکیپیڈیا مین سپیس دا زندہ مضمون نئیں۔ کیا تساں واقعی ایہوں
+        ایں مشق کیتے جمع کرݨ چاہندے ہو؟
+      submit_anyway: بہر حال جمع کرو
+  claim_verification:
+    pick_instructions: حوالے دی تفصیل ݙیکھݨ کیتے ہک نمایاں دعوے تے کلک کرو۔
+    revision_notice: ایہ اوہ مضمون اے جیویں %{date} کوں ہا جڈاں دعوے شامل کیتے ڳئے
+      سن۔
+    tile_revision_date: '%{date} تائیں'
+    claims_highlighted:
+      one: '%{count} دعویٰ نمایاں تھیا اے'
+      other: '%{count} دعوے نمایاں تھئے ہن'
+    next_claim: اگلا دعویٰ
+    previous_claim: پچھلا دعویٰ
+    claim_position: دعویٰ %{current} از %{total}
+    loading_claims: دعوے لوڈ تھیندے پئے ہن…
+    claim: دعویٰ
+    cited_source: حوالہ شدہ ماخذ
+    source_url: ماخذ یوآرایل
+    select_claim: تصدیق کیتے ایں دعوے کوں چݨو
+    no_articles: کوئی مضمون دستیاب نئیں
+    your_selected_claim: تہاݙا چُݨیا ہويا دعویٰ
+    find_in_article: مضمون دے متن وچ ایں کوں ڳولو
+    show_surrounding: آݙو ٻاݙو دا پیراگراف ݙکھاؤ
+    choose_different_claim: کوئی ٻيا دعویٰ چݨو
+    back_to_claim: میݙے دعوے تے واپس
+    no_online_source: ایں حوالہ شدہ ماخذ وچ کوئی یوآرایل شامل نئیں۔
+    course_picker_heading: کورس چݨو
+    course_picker_no_courses: کوئی کورس نئیں
+    take_not_enrolled: ایہوں کرݨ کیتے تساں کورس وچ داخل ہووݨا پوسی۔
+    exercise_heading: حقیقت دی تصدیق آلی مشق
+    intro_p1: ویکیپیڈیا تے ہر حقیقت دا کوئی قابل بھروسہ ماخذ ہووݨا چاہیدے۔ معلومات
+      کیتے ویکیپیڈیا استعمال کریندے ویلے تساں کوں ایڈیٹر دی ڳالھ منݨ دی لوڑ نئیں؛
+      تساں حوالہ شدہ ماخذ ڳول سڳدے ہو تے ایں معلومات کوں آپ پڑھ سڳدے ہو۔ ایں کوں تصدیق
+      پذیری آہدن، جیہڑی ویکیپیڈیا دی ساکھ دے پچھوں سب توں اہم پالیسیاں وچوں ہک اے۔
+    intro_p2: جڈاں اے آئی ٹولز وڈے پیمانے تے استعمال تھیوݨ لڳدن، معلومات دی تصدیق
+      سکھݨ پہلاں توں وی زیادہ ضروری تھی ڳیا اے۔ اے آئی توں بنڑائی ہوئی مواد وچ حقائق
+      تے ماخذ اکثر آپس وچ نئیں ملدے — تے ایہو ہک وݙی وجہ اے جیہڑی تساں کوں ویکیپیڈیا
+      وچ مواد شامل کرݨ کیتے ایں کوں استعمال کرݨ دی اجازت نئیں ݙیندی۔
+    intro_p3: ایں مشق وچ، تساں تصدیق پذیری کوں عمل وچ ݙیکھسو۔ تساں حوالہ شدہ ماخذ
+      وچ کوئی مخصوص حقیقت ڳولݨ دی کوشش کر کے دعویاں دی تصدیق دا مشق کریسو۔
+    step_heading: 'مرحلہ %{number}: %{name}'
+    step_select_article: ہک مضمون چݨو
+    step_select_claim: تصدیق کیتے دعویٰ چݨو
+    select_article_instructions: ایں مشق کوں شروع کرݨ کیتے ہیٹھاں ݙتی ڳئی مضموناں
+      دی فہرست وچوں چݨو۔
+    select_claim_instructions: 'ہیٹھاں ݙتے ڳئے دعویاں کوں حوالہ شدہ ماخذاں نال چیک
+      کرݨ دی لوڑ اے، کیوں جو ایہ اے آئی توں بنڑائے ہو سڳدن۔ (نوٹ: ہو سڳدے جو ایں دعویاں
+      دے شامل تھیوݨ توں بعد مضمون بدل ڳیا ہووے۔)'
+    form:
+      step_evaluate_source: ماخذ دا جائزہ گھنو
+      evaluate_source_instructions: 'پہلاں، خود ماخذ تے غور کرو: بھاویں اے قابل بھروسہ
+        لڳدا اے، تے بھاویں اے موضوع کیتے موزوں اے۔ تساں [ماخذ دی جانچ پڑتال تے ٹریننگ](https://dashboard.wikiedu.org/training/students/evaluating-articles/what-is-a-good-source)
+        دا جائزہ گھݨ چاہو۔'
+      source_appropriate_question: کیا ایہ ماخذ ویکیپیڈیا کیتے، ایں خاص مضمون کیتے
+        تے جیہڑے دعوے دی اے حمایت کریندا اے اوں کیتے موزوں اے؟
+      source_appropriate_options:
+        appropriate: جی ہا، ایہ دعوے کیتے موزوں ماخذ اے۔
+        depends_on_use: کجھ حد تائیں، لیکن ایہ ایں کیتے بہترین قسم دا ماخذ نئیں۔
+        inappropriate: نئیں، ایہ اتھے استعمال کرݨ کیتے ماخذ دی ٹھیک قسم نئیں۔
+        unsure: غیر یقینی
+      source_appropriate_notes_label: کیوں یا کیوں نئیں؟ جے نئیں، تاں ایندے بدرلے
+        کیہڑی قسم دا ماخذ موزوں ہوسی؟
+      meets_rs_policy_question: کیا ایہ قابل بھروسہ ماخذ اے؟
+      meets_rs_policy_options:
+        generally_reliable: جی ہا، ایہ ایں سیاق و سباق وچ قابل بھروسہ ماخذ دی تعریف
+          تے صاف طور تے پورا اتردے۔
+        context_dependent: کجھ حد تائیں، لیکن ایں وچ کمیاں ہن۔
+        not_reliable: نئیں، ایہ صاف طور تے ویکیپیڈیا دی قابل بھروسہ ماخذ دی تعریف
+          تے پورا نئیں اتردا۔
+        unsure: غیر یقینی
+      meets_rs_policy_notes_label: ایہ ماخذ کیوں قابل بھروسہ اے یا نئیں؟
+      step_find_source: ماخذ لبھو
+      find_source_instructions: ہݨ جڈاں تساں اپݨا دعویٰ چݨ گھدا اے، حوالہ شدہ ماخذ
+        لبھو۔ ماخذ لبھݨ کیتے تساں کوں اپݨے انسٹرکٹر یا لائبریرین نال مشورہ کرݨ دی
+        ضرورت تھی سڳدی اے۔
+      source_access_question: کیا تساں اپݨے دعوے کیتے حوالہ شدہ ماخذ دے پورے متن تک
+        رسائی حاصل کر سڳے؟
+      source_access_options:
+        accessed: جی ہا، میکوں ماخذ تک رسائی حاصل اے۔
+        nonexistent: نئیں، ماخذ موجود نئیں اے۔
+        inaccessible: نئیں، ماخذ موجود اے لیکن میکوں اینھ تک رسائی حاصل نئیں تھی سڳی۔
+      choose_another_claim_prompt: جے تساں حوالہ شدہ ماخذ تک رسائی حاصل نئیں کر سڳے،
+        تاں اینھ مشق کوں پورا کرݨ کیتے کوئی ٻيا دعویٰ چݨو۔
+      source_access_notes_label: 'جے تساں ماخذ نئیں لبھ سڳے، تاں اپݨے تجربے بارے سانوں
+        ٻيا کجھ ݙساؤ:'
+      step_verify: دعوے دی تصدیق کرو
+      verify_instructions: |-
+        ہݨ جڈاں تساں حوالہ شدہ ماخذ لبھ گھدا اے، ایہ طے کرو کہ ایہ تساں دے چݨے ہوئے دعوے دی کیتی حمایت کریندے۔ جے تساں کوں ٹھیک ٹھیک پتا لڳ ونجے کہ معلومات کتھوں آئیاں ہن، تاں دستاویز وچ او جاہ لکھو جتھے تساں اونہیں کوں پایا۔
+
+        تصدیق کیتے نکات:
+        - ماخذ دا خلاصہ تے نتیجہ پڑھو۔ کیا ایہ دعوے دے موضوع دا احاطہ کریندے؟
+        - اپݨی ایپلیکیشن وچ "find" فنکشن ورتو۔ ماخذ وچ دعوے دے اہم لفظ لبھو، وت اوں دے آݙو ٻاݙو دا متن پڑھو جتھے او نظر آن۔ جے تساں متن وچ اہم لفظ یا اونھاں دے مترادف نئیں لبھ سڳدے، تاں دعویٰ شاید غیر قابل تصدیق اے۔
+        - جنریٹیو اے آئی ماخذاں توں بنڑیا ہویا متن اکثر کسے موضوع بارے وسیع، عام دعوے کریندے، تے اینجھا حوالہ ݙیندے جیہڑا اوں دعوے دی صرف ہک چھوٹی مثال ݙیوݨ آلے ماخذ دا حوالہ ہوندے۔ کیا دعویٰ کہیں خاص مثال توں عام دعویٰ اخذ کریندا پئے؟ جے ہاں، تاں ایہ غیر قابل تصدیق اے۔
+      verdict_question: کیا ماخذ دعوے دی تائید کریندا اے؟
+      verdict_options:
+        full_support: جی ہا — ایہ پورے دعوے دی واضح طور تے حمایت کریندا اے۔
+        partial_support: جزوی طور تے — دعوے دے کجھ عناصر ایں ماخذ توں آئے ہن، لیکن
+          اینھ دا ہک اہم حصہ نئیں اے۔
+        unsupported: نئیں — ماخذ اوں ڳالھ دا احاطہ نئیں کریندا جیہڑا دعویٰ آکھدا اے۔
+        contradicted: الٹا — ماخذ اصل وچ دعوے دی تردید کریندا اے۔
+        undetermined: میں ایہ طے نئیں کر سڳیا کہ دعویٰ حوالہ شدہ ماخذ وچ موجود ہا
+          یا نئیں۔
+        mostly_supports: بہت حد تائیں ہا — دعوے دی مرکزی ڳالھ ایں ماخذ توں آئی اے۔
+        mostly_unsupported: بہت حد تائیں نئیں — ماخذ دعوے دے مطابق اے، لیکن براہِ
+          راست اینھ دی تائید نئیں کریندا۔
+      verdict_option_descriptions:
+        full_support: میں دعوے دیاں ساریاں ڳالھیں حوالہ شدہ ماخذ وچ لبھ سڳدا ہاں۔
+        partial_support: میں دعوے دیاں کجھ ڳالھیں لبھ سڳدا ہاں، لیکن دعوے وچ اینھی
+          معلومات وی اے جیہڑی میں حوالہ شدہ ماخذ وچ نئیں لبھ سڳیا۔
+        unsupported: میں دعوے دیاں کوئی وی ڳالھیں حوالہ شدہ ماخذ وچ نئیں لبھ سڳیا۔
+        contradicted: میں حوالہ شدہ ماخذ وچ اینھیں ڳالھیں لبھیاں ہن جیہڑیاں دعوے وچ
+          آکھی ڳئی ڳالھ دی الٹ ہن۔
+      claim_location_label: اگر تساں دعویٰ لبھݨ وچ کامیاب تھیے ہو، تاں ماخذ وچ اوہ
+        کتھاں ہا؟ (مثلاً صفحہ نمبر، باب وغیرہ۔۔۔)
+      verification_notes_label: اگر تساں معلومات دی تصدیق نئیں کر سڳے، تاں اپݨے تجربے
+        بارے سانوں ٻیا کجھ ݙسو۔ (مثلاً کیا ماخذ غیر واضح یا پڑھݨ وچ اوکھا ہا؟ کیا
+        ماخذ دعوے نال غیر متعلق ہا؟ کیا حوالہ غیر دقیق ہا تے ماخذ اینھا وݙا ہا کہ
+        اوندی معقول مشاورت نئیں تھی سڳدی؟)
+      other_comments_label: ایں مشق بارے کوئی ٻے تبصرے؟
+      verification_example:
+        lead: 'ہک مثال ایہ اے:'
+        verified_heading: 'مثال: ماخذ دعوے دی تائید کریندا اے'
+        verified_article_alt: ویکیپیڈیا مضمون «دی بائسکل ٹری» دا سکرین شاٹ۔ مثال دعوے
+          آلی جملہ نمایاں کیتی ڳئی اے۔
+        verified_claim: 'دعویٰ آکھدا اے: "In 2013, The Bicycle Tree launched a crowdfunding
+          campaign to open a storefront.[1]"'
+        verified_source: 'ماخذ: DKELSEN (2016-06-08). "Bicycle Tree Celebrates a Decade
+          of Bike Activism in SanTana". OC Weekly. اصل توں 2019-12-09 کوں محفوظ کیتا
+          ڳیا۔ 2026-05-29 کوں لبھیا ڳیا۔'
+        verified_source_alt: OC Weekly دے ہک مضمون دا سکرین شاٹ، جیندے وچ براؤزر دا
+          فائنڈ بار کراؤڈ فنڈنگ مہم بارے جملے وچ «crowd» نال ملدا اے۔
+        verified_conclusion_html: تساں ݙیکھ سڳدے ہو جو %{source_link} وچ دعوے آلی
+          معلومات واضح طور تے شامل اے۔
+        verified_source_link_text: OC Weekly دا ماخذ
+        failed_heading: 'مثال: دعوے دی ماخذ توں تصدیق نئیں تھی سڳدی'
+        failed_article_alt: ویکیپیڈیا مضمون «Revolutionary Socialist Party (Zambia)»
+          دا سکرین شاٹ۔ مثال دعوے آلی جملہ نمایاں کیتی ڳئی اے۔
+        failed_source_alt: حوالہ شدہ Burnell 2001 دے جرنل مضمون دی ہک PDF دا سکرین
+          شاٹ۔ سرچ بار وچ «Revolutionary Socialist Party» دا کوئی نتیجہ نئیں ملیا۔
+        failed_conclusion_html: کیوں جو دعوے دے اہم الفاظ %{source_link} وچ کتھائیں
+          نئیں مل سڳدے، ایہ تصدیق ناکام تھیندی اے، لہٰذا تساں «نئیں — ماخذ وچ دعوے
+          دی ڳالھ دا احاطہ نئیں» چݨسو۔
+        failed_source_link_text: ماخذ دا متن
+      submit: جمع کرواؤ
+      submitted_heading: جمع کروایا ڳیا جواب
+      edit_response: جواب وچ ترمیم کرو
+      submit_failed: غلطی! تہاݙا جواب محفوظ نئیں تھیا۔
+    responses:
+      heading: طالباں دے جواب
+      preview_exercise: مشق دا پیش نظارہ
+      submitted_at: جمع کروایا ڳیا %{date}
+      pending_heading: تھین٘دا پئے
+      taken_at: دعویٰ گھدا ڳیا%{date}
+      none_yet: ہݨ تائیں کہیں طالب علم نے دعویٰ نئیں چݨیا۔
+    admin:
+      loading: لوڈ تھیندا پئے
+      heading: دعویٰ دی تصدیق
+      pool_size: 'پول دا سائز: %{count} دعوے'
+      last_run: 'آخری رن %{time}: +%{harvested} دعوے %{processed} الرٹس توں (%{skipped}
+        چھوڑ ݙتے ڳئے%{rescan})'
+      full_rescan_note: ، مکمل دوبارہ سکین
+      harvest: دعویٰ دا پول کٹھا کرو
+      full_rescan: مکمل دوبارہ سکین
+      status: 'حیثیت: %{status}'
+      progress: — %{at} / %{total} الرٹس (%{pct}%)
+      counts: '%{harvested} کٹھے کیتے ڳئے · %{processed} پراسیس تھئے · %{skipped}
+        چھوڑ ݙتے ڳئے · %{errors} غلطیاں'
   update_username:
+    header: ہک بدلے ڳئے یوزر ناں کوں اپڈیٹ کرو
+    not_found: درج کیتے ڳئے یوزر ناں کیتے کوئی یوزر نئیں ملیا۔
+    username_updated: یوزر ناں کامیابی نال اپ ڈیٹ تھی ڳیا اے!
+    info: اگر ہک یوزر نے اپݨے Wikimedia اکاؤنٹ دا یوزر ناں بدل ݙتا اے، تاں ڈیش بورڈ
+      تے اپڈیٹ کرݨ کیتے نواں یوزر ناں ایتھے درج کرو۔
     label: نواں ورتݨ ناں
     button: اپ ݙیٹ
   uploads:
+    article_name: مضمون دا ناں
     author: 'مصنف:'
+    categories: زمرے
+    credit: کریڈٹ
     date: 'تریخ:'
+    description: تفصیل
     file_name: فائل دا ناں
+    file_usage: ٻیاں وکیاں تے فائل دا استعمال
+    header: Wikimedia Commons تے اپلوڈ کیتیاں ڳئیاں فائلاں
     image: تصویر
     label: اپلوڈ کردہ
+    license: 'لائسنس:'
+    loading: اپلوڈز لوڈ تھیندے پئے ہن...
+    none: ایں کلاس نے Wikimedia Commons تے کوئی تصویراں یا ٻیاں میڈیا فائلاں تعاون
+      نئیں کیتیاں۔
     original_file: اصل فائل
+    select_label: اپ لوڈ کرن آلے دے حساب نال فلٹر
+    time_doc: تہاݙے مقامی وقت وچ ہر اپلوڈ دا وقت
     uploaded_at: اپ لوڈ ویلا
     uploader: اپلوڈ کرݨ آلا
+    uploaded_by: اپلوڈ کرن آلا
+    uploaded_on: اپلوڈ دی تریخ
+    usage_count: استعمال دی تعداد
+    usage_doc: جیہڑے وکیپیڈیا مضموناں وچ ایں تصویر دا استعمال تھیا اے، انہاں دی تعداد
+    usage_count_gallery_tile:
+      one: 1 مضمون وچ استعمال تھیا اے
+      other: '%{count} مضموناں وچ استعمال تھیا اے'
+    usages: استعمالاں
     gallery_view: گیلری منظر
     list_view: تندیر منظر
     source: 'ماخذ:'
+    tile_view: ٹائل دا نظارہ
+    views_per_day: روزانہ نظارے
+    view_commons: کامنز تے ݙیکھو
     wiki_big: وکی
   users:
+    back_to_profile: پروفائل تے واپس
+    back_to_stats: اعداد و شمار تے واپس
+    already_enrolled: ایہ یوزر پہلاں توں ای اندراج کروا چکیا اے!
+    assign_articles: مضمون تفویض کرو
+    assign_articles_wikidata: آئٹم تفویض کرو
     assign_articles_done: مکمل
+    assigned: تفویض کیتے ڳئے مضامین
+    assigned_wikidata: تفویض کیتے ڳئے آئٹم
+    assignees: تفویض کیتے ڳئے
     loading_authorship_data: مصنفیت ڈیٹا لوڈ کرݨ
+    scroll_to_users_edits: '%{username} دی اگلی ترمیم تے سکرول کرو'
+    authorship_data_not_fetched: مصنف دا ڈیٹا حاصل نئیں تھی سڳیا
+    character_doc: ایں ناں سپیس وچ یوزر دی طرفوں شامل کیتے ڳئے مواد دی کل مقدار، جیہڑی
+      انہاں ساریاں ترامیماں دے شامل کیتے ڳئے اکھراں کوں جوڑ تے حساب کیتی ویندی اے
+      جیہڑیاں صفحے دا حجم ودھیندیاں ہن۔ ایہ نمبر ضروری نئیں جو یوزر دے شامل کیتے ڳئے
+      نویں مواد دی درست مقدار ݙسے۔ ہٹائے ڳئے مواد کوں بحال کرݨ نال وی ایہ کل ودھ ویندی
+      اے۔ (وکی ڈیٹا دیاں ترامیماں شامل نئیں ہن۔)
+    chars_added: شامل کیتے ڳئے اکھر<br>(مضمون | یوزر | مسودہ)
+    chars_added_wikidata: شامل کیتے ڳئے اکھر<br>(آئٹم | یوزر | مسودہ)
     contributions: ورتݨ آلے دیاں ونگاراں
+    contributions_history_full: مکمل شراکت دی تاریخ ݙیکھو
+    contributions_more: ہور شراکتاں ݙیکھو
+    contribution_statistics: شراکتاں دے اعداد و شمار
+    contributions_by_language: زبان/پراجیکٹ دے مطابق شراکتاں
     course_passcode: 'پاس کوڈ:'
     editors: ایڈیٹ کرݨ آلے
+    edits: تبدیلیاں
     edits_by: 'دے ولوں تبدیلی:'
+    enroll_confirmation: کیا تساں واقعی %{username} شامل کرݨا چاہندے ہو؟
+    enroll_url: 'یوزر ایں یوآرایل تے ونج تے شامل تھی سڳدن:'
+    enrolled_success: '%{username} کامیابی نال شامل کیتا ڳیا!'
+    exercise_modules_completed:
+      one: '%{completed_count}/%{count} مشق مکمل تھی ڳئی اے'
+      other: '%{completed_count}/%{count} مشقاں مکمل تھئییاں ہن'
+    exercises_and_trainings: مشقاں تے ٹریننگز
     first_name: پہلا ناں
     last_name: چھیکڑی ناں
+    loading: یوزر لوڈ تھیندے پئے ہن…
+    characters_added_mainspace: شامل کیتے ڳئے اکھر (مضمون)
+    characters_added_mainspace_wikidata: شامل کیتے ڳئے اکھر (آئٹم)
+    characters_added_short: 'مین سپیس: %{mainspace}، یوزر سپیس: %{userspace}'
+    characters_added_userspace: شامل کیتے ڳئے اکھر (یوزر)
+    characters_added_draftspace: شامل کیتے ڳئے اکھر (مسودہ)
+    my_assigned: 'تفویض کیتے ڳئے:'
+    my_reviewing: 'نظرثانی:'
     name: ناں
+    none: کوئی شرکا نئیں۔
+    more_articles: یوزر دے ترمیم شدہ مضمون لوڈ کرݨ کیتے کلک کرو
+    no_articles: کوئی مضمون نئیں۔
+    no_articles_wikidata: کوئی آئٹم نئیں۔
+    no_revisions: کوئی ترامیم نئیں۔
+    no_highlighting: مضمون دے ایہ ورژن دا کوئی متن یوزر %{editor} کوں منسوب نئیں اے۔
+      اُنہاں دیاں ترامیم ݙیکھݨ کیتے صفحے دی تاریخ ݙیکھو۔
+    contributions_not_highlighted: یوزر %{username} دیاں شراکتاں موجود ہن، پر انہاں
+      کوں نمایاں نئیں کیتا ونج سڳدا۔ ایہ عام طور تے شامل کیتے ڳئے حوالے یا سانچے کیتے
+      تھیندا اے۔ اُنہاں دیاں ترامیم ݙیکھݨ کیتے صفحے دی تاریخ ݙیکھو۔
+    number_of_articles:
+      one: '%{count} مضمون'
+      other: '%{count} مضموناں'
+    number_of_articles_wikidata:
+      one: '%{count} آئٹم'
+      other: '%{count} آئٹم'
     profile: پروفائل
+    recent_revisions: حالیہ تبدیلیاں
+    references_count: شامل کیتے ڳئے حوالا
+    training_modules: ٹریننگ ماڈیولز
+    remove_confirmation: کیا تساں واقعی %{username} کوں ہٹاوݨ چاہندے ہو؟
+    request_confirmation: کیا تساں واقعی ایں اکاؤنٹ دی درخواست کرݨ چاہندے ہو؟
+    requested_account_status:
+      success_message: 'کامیابی: %{result_description}'
+      failure_message: 'ناکامی: %{result_description}'
+      user_exists: '%{wiki} دے کول پہلاں توں ای %{username} ناں دا اکاؤنٹ اے، تاں
+        %{email} کیتے درخواست ہٹا ݙتی ڳئی اے (%{code})۔ شریک اوں اکاؤنٹ نال سائن اِن
+        کر سڳدا اے یا ٻئے یوزر ناں دی درخواست کر سڳدا اے۔'
+      user_exists_enrolled: '%{wiki} دے کول پہلاں توں ای %{existing_username} ناں
+        دا اکاؤنٹ اے، تے اوہ یوزر پہلاں توں ای ایں کورس وچ داخل اے، تاں %{email} کیتے
+        درخواست ہٹا ݙتی ڳئی اے (%{code})۔'
+      name_conflict_enrolled: '%{wiki} نے %{username} (%{email}) کیتے اکاؤنٹ نئیں
+        بݨایا: %{message} (%{code})۔ %{existing_username} پہلاں توں ای ایں کورس وچ
+        داخل اے، تاں شریک دے کول پہلاں توں اکاؤنٹ ہو سڳدا اے۔'
+      throttled: اکاؤنٹ بݨاوݨ اُتے فی الحال شرح دی حد لڳی ہوئی اے، تاں %{username}
+        (%{email}) کیتے اکاؤنٹ نئیں بݨایا ڳیا (%{code})۔ ایہہ اوں وقت تھیندا اے جڈاں
+        تھوڑے وقت وچ بہوں سارے اکاؤنٹ بݨائے ویندن۔ درخواست رکھ گھدی ڳئی اے۔ دوبارہ
+        کوشش کرݨ توں پہلاں کجھ منٹ انتظار کرو۔
+      captcha_required: '%{wiki} نے %{username} (%{email}) کیتے اکاؤنٹ بݨاوݨ توں پہلاں
+        ہک CAPTCHA منڳا، جیندا جواب ڈیش بورڈ نئیں ݙے سڳدا (%{code})۔ ایہہ اوں وقت
+        تھیندا اے جڈاں تھوڑے وقت وچ بہوں سارے اکاؤنٹ بݨائے ویندن۔ درخواست رکھ گھدی
+        ڳئی اے۔ دوبارہ کوشش کرݨ توں پہلاں کجھ منٹ انتظار کرو۔'
+      rejected: '%{wiki} نے %{username} (%{email}) کیتے اکاؤنٹ نئیں بݨایا: %{message}
+        (%{code})'
+      api_error: '%{wiki} نے %{username} (%{email}) کیتے اکاؤنٹ بݨاوݨ دے دوران ہک
+        غلطی واپس کیتی: %{message} (%{code})۔ درخواست رکھ گھدی ڳئی اے۔'
+      unexpected: '%{wiki} نے %{username} (%{email}) کیتے اکاؤنٹ بݨاوݨ دے دوران ہک
+        غیر متوقع جواب واپس کیتا: %{response}۔ درخواست رکھ گھدی ڳئی اے تے مسئلے دی
+        اطلاع ݙتی ڳئی اے۔'
+    revision_characters_and_views: 'شامل کیتے ڳئے حرف: %{characters}، پیج ویوز: %{views}'
+    revisions_doc: پچھلے عرصے دے دوران فی ݙینہہ اوسط ترامیم دی بنیاد تے، پچھلے 7 ݙینہاں
+      وچ ایں ایڈیٹر دیاں ترامیم دی اندازاً تعداد۔
+    references_doc: ایں ایڈیٹر ولوں شامل کیتے ڳئے یا ہٹائے ڳئے حوالےآں دی تعداد۔
+    reviewers: جائزہ گھن آلا
+    reviewing: نظرثانی
+    revisions: نظر ثانی
+    sandboxes: سینڈ باکسز
+    sub_navigation:
+      assignments_and_exercises: اسائنمنٹس تے مشقاں
+      editor_overview: ایڈیٹر دا جائزہ
+      exercises_and_trainings: مشقاں تے ٹریننگ
+      student_overview: '%{prefix} دا جائزہ'
+      watch_list:
+        students_add: تمام %{prefix} واچ لسٹ وچ شامل کرو
+        instructional_message: تساں اپݨے شاگرداں دے تبادلہ خیال صفحے اپݨی واچ لسٹ
+          وچ شامل کرݨ آلے ہو، تاں جو انہاں دیاں ڳالھ مہاڑ تے شراکتاں توں باخبر رہو۔
+          'OK' تے کلک کرݨ نال سارے شاگرد واچ لسٹ وچ شامل تھی ویندن۔ جاری رکھو؟
+        tooltip_message: شاگرداں دے تبادلہ خیال صفحیاں تے ڳالھ مہاڑ کوں اپݨی واچ لسٹ
+          وچ شامل کر کے آسانی نال ٹریک کرو۔
+        success_message: '%{prefix} واچ لسٹ وچ کامیابی نال شامل تھی ڳیا اے۔'
+        error_message: '%{prefix} واچ لسٹ وچ شامل نئیں تھی سڳیا۔ براہ کرم تھوڑی دیر
+          بعد دوبارہ کوشش کرو۔'
+    total_uploads: کل اپ لوڈز
+    training_complete:
+      one: ٹریننگ نال اپ ٹو ڈیٹ اے
+      other: ٹریننگ نال اپ ٹو ڈیٹ ہن
+    training_complete_count:
+      one: '%{count} ٹریننگ اپ ٹو ڈیٹ'
+      other: '%{count} ٹریننگ اپ ٹو ڈیٹ'
+    training_doc: جنہاں ایڈیٹراں نے او ساریاں سونپیاں ڳیاں ٹریننگاں مکمل کر ڳھدی ہن
+      جنہاں دی میعاد ختم تھی ڳئی اے، او آپݨی ٹریننگ وچ اپ ٹو ڈیٹ شمار تھین دے ہن۔
+    training_incomplete: ٹریننگ نامکمل
+    training_modules_completed:
+      one: '%{completed_count}/%{count} ٹریننگ ماڈیول مکمل تھی ڳیا اے'
+      other: '%{completed_count}/%{count} ٹریننگ ماڈیول مکمل تھی ڳئے ہن'
+    training_module_name: ٹریننگ ماڈیول
     training_module_status: حیثیت
+    training_module_time:
+      minutes: منٹ
+      seconds: سیکنڈ
+    user_training_status: ٹریننگ دی حیثیت
+    user_no_training_status: ایں یوزر نے کوئی ٹریننگ ماڈیول مکمل نئیں کیتا۔
+    up_to_date_with_training: ٹریننگ نال اپ ٹو ڈیٹ
+    uploads_doc: وکی میڈیا کامنز تے فائل اپ لوڈاں دی ڳݨتری
+    ungreeted: غیر سلام شدہ
     username: ورتݨ آلا ناں
     username_placeholder: ورتݨ آلا ناں
     useremail_placeholder: ای میل
     userpasscode_placeholder: پاس کوڈ
+    words_added: شامل کیتے ڳئے لفظ<br>(مضمون | یوزر | مسودہ)
+    word_count_doc: ہک یوزر نے لائیو مضموناں، یوزر سپیس صفحات (سینڈ باکسز) تے ڈرافٹ
+      نیم سپیس وچ جتنا مواد شامل کیتا اے اوندا کل اندازہ۔ لفظ ڳݨتری دے اندازے انہاں
+      ساریاں ترامیم وچ صفحے دے سائز دی تبدیلی دے جوڑ توں کڈھے ویندن جنہاں وچ مواد
+      ہٹاوݨ توں ودھ شامل کیتا ڳیا ہووے۔ اے ڳݨتری ضروری نئیں جو یوزر دے شامل کیتے نویں
+      مواد دی مقدار کوں ظاہر کرے۔ ہٹائے ڳئے مواد دی بحالی نال وی اے کل ودھ ویندی اے۔
+      (ویکی ڈیٹا ترامیم شامل نئیں ہن۔)
+    role:
+      description: کورس وچ کردار
+      visitor: وزٹر
+      student: شاگرد
+      instructor: انسٹرکٹر
+      campus_volunteer: کیمپس رضاکار
+      online_volunteer: آن لائن رضاکار
+      wiki_ed_staff: وکی ایجوکیشن عملہ
+    email_required_instructor: موجودہ انسٹرکٹرز کیتے ضروری اے۔ تساں موجودہ کورساں
+      دے ختم تھیوݨ توں بعد اپݨا ای میل پتا ہٹا سڳدے ہو۔
+    email_invalid: 'غلط: مہربانی کر کے درست ای میل درج کرو۔'
+    imagemagick_not_installed: اپ لوڈ تھئی ہوئی تصویر پراسیس نئیں تھئی سڳدی کیوں جو
+      ImageMagick انسٹال نئیں اے۔
+  user_profiles:
+    detailed_impact: تفصیلی اثر
+    words_added_per_article: فی مضمون ودھائے ڳئے لفظ
+    references_added_per_article: فی مضمون ودھائے ڳئے حوالے
+    articles_edited_detail: تدوین کیتے ڳئے مضامین
+    no_articles_edited: ایں یوزر کول ایں حصے وچ ڈکھاوݨ کیتے ہݨے تائیں کوئی ڈیٹا نئیں۔
+    no_articles_match: کوئی مضمون چݨے ڳئے فلٹر نال نئیں ملدا۔
+    summary_articles: مضمون
+    summary_words: لفظ
+    summary_references: حوالے
+    type: قسم
+    status_new: نواں
+    status_edited: ترمیم شدہ
+    language_not_available: ناقابل اطلاق
+    column_metric: میٹرک
+    column_value: قدر
+    column_details: تفصیلاں
+    see_more: ٻئے ݙیکھو ↗
+    student_impact: شاگرد دے طور تے %{username} دا کیتا ڳیا کل اثر
+    instructor_impact: انسٹرکٹر دے طور تے %{username} دا کیتا ڳیا کل اثر
+    instructors_student_impact: '%{username} دے شاگرداں دا کیتا ڳیا کل اثر'
+    disclaimer: جو معلومات تساں ݙیسو، اوہ عوامی طور تے دستیاب کیتے ویسن۔
+    bio_placeholder: اپݨا بائیو لکھو (اختیاری)
+    location_placeholder: اپݨی لوکیشن (اختیاری)
+    institution_placeholder: ادارے دا ناں (اختیاری)
+    image_link_placeholder: تصویر دا لنک شامل کرو (اختیاری)
+    references_disclaimer: حوالے ودھ توں ودھ ڳݨے ونڄ سڳدن جے ہک ای یوزر دی ترمیم کئی
+      کورساں دا حصہ ڳݨی ونڄے۔
+    words_added_disclaimer: ودھائے ڳئے لفظ ودھ توں ودھ ڳݨے ونڄ سڳدن جے ہک ای یوزر
+      دی ترمیم کئی کورساں دا حصہ ڳݨی ونڄے۔
+  wiki_edits:
+    notify_overdue:
+      button_label: میعاد لنگھی ݙتی ڳئی ٹریننگ بارے شاگرداں کوں یاد دہانی کرواؤ
+      confirm: ایہ انھاں سارے شاگرداں دے ڳالھ ٻات صفحے تے ہک یاد دہانی پوسٹ کریسی
+        جنھاں دی ٹریننگ میعاد لنگھ ڳئی اے۔ کیا تساں واقعی ایہ کرنا چاہندے ہو؟
+      header: تساں کوں ہک میعاد لنگھی ݙتی ڳئی ٹریننگ اسائنمنٹ اے۔
+      message: براہ کرم تفویض کیتے ڳئے [%{link} ٹریننگ ماڈیولز] مکمل کرو۔
+      summary: شاگرداں دی میعاد لنگھی ݙتی ڳئی ٹریننگ
   wizard:
+    assignment_dates: اسائنمنٹ دیاں تاریخاں
+    assignment_description: اپݨی اسائنمنٹ ٹائم لائن کیتے شروع تے اختتام دیاں تاریخاں
+      چݨو۔ مثال طور، جے تساں اپݨے وکیپیڈیا منصوبے دا آغاز کلاس دے ݙوجھے ہفتے توں کرݨ
+      چاہندو، تاں اسائنمنٹ دی شروعاتی تاریخ کورس دی شروعاتی تاریخ توں ہک ہفتے بعد
+      مقرر کرو۔ اے اسائنمنٹ ڈیزائن ٹول ہک مسودہ ٹائم لائن بݨیسی جیڑھی تہاݙیاں چݨیاں
+      تاریخاں وچ فٹ آوسی۔
+    assignment_type: شاگرد اپݨی وکیپیڈیا اسائنمنٹ کیتے کیا مکمل کریسن؟
+    calendar_instructions: شیڈول وچ تاریخاں شامل کرݨ یا ہٹاوݨ کیتے تاریخاں چݨو (مثال
+      طور، چھٹیاں، سکول بند ہون)۔ اے کورس بݨاوݨ آلے ٹول کوں تہاݙیاں اسائنمنٹاں کوں
+      درست فاصلے نال ونڈݨ وچ مدد کریسی۔ غیر چݨی، چݨی تے چھٹی آلی حالت وچ بدلݨ کیتے
+      تاریخ تے کلک کرو۔
+    confirm_course_dates: کورس دیاں شروع تے اختتام دیاں تاریخاں دی تصدیق کرو۔
+    confirm_dates: اپݨے کورس دیاں تاریخاں، ہفتہ وار ملاقاتاں تے چھٹیاں چݨو۔
+    course_dates: کورس دیاں تاریخاں
+    min_weeks: ایں اسائنمنٹ کیتے گھٹ توں گھٹ %{min_weeks} دستیاب ہفتے ضروری ہن۔ جے
+      تساں ایں قسم دی اسائنمنٹ استعمال کرݨ چاہندو، تاں اپݨی اسائنمنٹ دی شروع تے اختتام
+      دیاں تاریخاں تبدیل کرو۔
+    select_one_option: مہربانی کر کے ہک آپشن چݨو۔
+    minimum_options:
+      one: مہربانی کر کے %{count} یا زیادہ آپشن چݨو۔
+      other: مہربانی کر کے %{count} یا زیادہ آپشن چݨو۔
+    no_class_holidays: میݙے کلاس دیاں چھٹیاں نئیں ہن۔
+    read_less: گھٹ پڑھو
+    read_more: ٻیا پڑھو
+    review_selections: مہربانی کر کے ہیلاں تہاݙیاں چݨاوݨاں دی نظرثانی کرو۔ ہک چݨاوݨ
+      دی ترمیم کیتے اوندے تے کلک کرو۔ جڈاں مکمل تھی ونڄے، تاں وزرڈ مکمل کرݨ تے تہاݙی
+      ٹائم لائن بݨاوݨ کیتے 'جمع کرواؤ' تے کلک کرو۔
+    select_assignment: اوہ قسم دی اسائنمنٹ چݨو جیڑھی تساں تہاݙی ٹائم لائن وچ شامل
+      کرݨ چاہندے او۔
     summary: خلاصہ
+  error:
+    form_errors: مہربانی کر کے فارم وچ غلطیاں ݙیکھو۔
+    invalid_assignment: غلط اسائنمنٹ
+    invalid_date: '%{key} تریخ غلط اے'
+    invalid_file_format: فائل محفوظ نئیں تھی سڳی۔ مہربانی کر کے PDF یا Word دستاویز
+      اپلوڈ کرو۔
+    oauth_invalid: تہاݙی ویکیپیڈیا اجازت دی مدت ختم تھی ڳئی اے۔ مہربانی کر کے دوبارہ
+      لاگ اِن کرو۔
+    start_date_before_end_date: شروع دی تریخ ختم دی تریخ توں پہلاں ہوݨی چاہیدی اے۔
+    unsupported_browser:
+      header: غیر معاونت شدہ براؤزر۔ :-(
+      explanation: تساں ہک ایجھا براؤزر استعمال کر رہے او جیڑھا ڈیش بورڈ نال موزوں
+        نئیں۔ ایہ سائٹ Chrome، Firefox، Edge، تے ݙوجھے جدید براؤزراں دے نویں ورژنز
+        تے چنڳی چلدی اے۔
+    ip_blocked: تساں فی الحال ایں ڈیوائس توں اکاؤنٹ نئیں بݨا سڳدے۔ اے ایں واسطے تھی
+      سڳدا اے کہ تہاݙا IP ایڈریس ویکیپیڈیا ولوں بلاک اے یا نویں اکاؤنٹس کیتے ݙینہہ
+      دی حد پہلاں ای مکمل تھی ڳئی اے۔ ݙوجھے نیٹ ورک توں جڑݨ دی کوشش کرو۔
+    login_success_download_html: کامیابی نال سائن اِن تھی ڳیا اے! %{link}۔
+    download_here: تہاݙی فائل ڈاؤن لوڈ کرݨ کیتے ایتھے کلک کرو
+  error_401:
+    explanation: تساں ایں درخواست تے عمل کرݨ دے مجاز نئیں۔ جے تساں سمجھدے او کہ تساں
+      کوں ایہ نوٹس غلطی نال ݙکھایا ڳیا اے، تاں مہربانی کر کے ایں ڈیش بورڈ دے منتظمین
+      نال رابطہ کرو تاں جو اونہاں کوں ایں مسئلے دی خبر تھیوے۔
+    json_explanation: لگدا اے کہ تساں لاگ آؤٹ تھی ڳئے او۔ مہربانی کر کے ریفریش کرو،
+      لاگ اِن کرو تے ٻیا کوشش کرو۔
+  error_incorrect_passcode:
+    header: پاس کوڈ غلط اے۔:-(
+    explanation: ایں کورس وچ داخل تھیوݨ کیتے پاس کوڈ غلط اے۔ مہربانی کر کے انسٹرکٹر
+      توں ایں کورس وچ داخل تھیوݨ کیتے موجودہ پاس کوڈ پچھو۔ تساں ہیٹھاں صحیح پاس کوڈ
+      داخل کر کے ٻیا کوشش کر سڳدے او۔
+  error_no_course:
+    explanation: ایسا کوئی کورس %{slug} موجود نئیں۔
+  error_404:
+    header: صفحہ نئیں مِلیا۔ :-(
+    explanation: ایہ صفحہ موجود نئیں۔ جے تساں کہیں کورس دے ڈیش بورڈ تائیں پُڄݨ دی
+      کوشش کر رہے ہاوے، تاں ہوسڳدا اے کہ اوہ کورس ایں ڈیش بورڈ کیتے رجسٹرڈ نہ ہووے۔
+  error_422:
+    header: 422 — غیر قابل عمل انٹیٹی۔ :-(
+    explanation: کجھ غلط تھی ڳیا اے۔ مہربانی کر کے ایں ڈیش بورڈ دے منتظمین نال رابطہ
+      کرو تاں جو اونہاں کوں ایں مسئلے دی خبر تھیوے۔
+  error_500:
+    header: 500 — اندرونی سرور دی خرابی۔:-(
+    explanation: کجھ غلط تھی ڳیا اے۔ مہربانی کر کے ایں ڈیش بورڈ دے منتظمین نال رابطہ
+      کرو تاں جو اونہاں کوں ایں مسئلے دی خبر تھیوے۔
+  login_error:
+    header: لاگ اِن وچ غلطی
+    explanation: لگدا اے کہ سائن اِن دے عمل وچ کوئی مسئلہ ہا۔ (معذرت! کݙاہیں ایویں
+      تھی ویندا اے۔) مہربانی کر کے ٻيا لاگ اِن کرݨ یا داخلہ گھنݨ دی کوشش کرو۔
+  notifications:
+    new_notifications: تساں کول نویاں اطلاعاں ہن۔
+    no_notifications: تساں کول کوئی نوی اطلاع نئیں۔
+    aria_label:
+      bell: اطلاعاں
   downloads:
+    available_in_bell: تہاݙی فائل تیار اے۔ ڈاؤن لوڈ والی اطلاع تے ونڄو۔
     title: ڈاؤن لوڈ
+    none: تساں کول ہݨ تائیں کوئی ڈاؤن لوڈ نئیں۔
+    generating: بݨایا ویندا پیا اے…
     ready: تیار
+    error: ناکام تھیا
+    timeout: ہݨ وی پراسیس تھیندا پیا اے…
+    retry: ولھی چیک کرو
     download: ڈاؤن لوڈ
+    dismiss: برخواست کرو
+    new_downloads: تساں کول نویں ڈاؤن لوڈ ہن۔
+    no_downloads: تساں کول کوئی نویں ڈاؤن لوڈ نئیں۔
+    aria_label: ڈاؤن لوڈ
+    csv: CSV ڈاؤن لوڈ کرو
+    json: JSON ڈاؤن لوڈ کرو
+  survey:
+    login_message: تہاݙا وقت ݙیوݨ دا شکریہ۔ سروے کرݨ کیتے مہربانی کر کے ڈیش بورڈ وچ
+      لاگ اِن کرو۔
+    notification_explanation: جے تھلے ݙتا ڳیا چیک باکس چݨیا ڳیا ہووے تاں یوزرز کوں
+      نوٹیفکیشن شیڈول دے مطابق ای میلز وی موصول تھیسن، براؤزر وچ اطلاعاں ݙیکھݨ دے
+      نال۔ ورنہ صرف براؤزر اطلاعاں ظاہر تھیسن۔
+    notification_schedule_explanation: اطلاعاں وچ براؤزر اطلاعاں تے ای میلز وی شامل
+      ہن، جے اوپر ایہ فعال کیتا ڳیا ہووے تاں۔
+    follow_up_explanation: جے فالو اپ اطلاع ای میلز دی ضرورت نئیں تاں خالی چھوڑ ݙیو۔
+    email:
+      headline: سلام، %{username}
+      message_line1: ساݙی اُمید اے جو تہاݙی مدت چنگی گزری ہوسی! وکی ایجوکیشن ساݙے
+        وسائل تے تہاݙیاں وکی پیڈیا اسائنمنٹس دی حمایت بہتر کرݨ کیتے تہاݙی فیڈ بیک
+        دی تلاش وچ اے۔ تہاݙا جواب ساݙیاں موجودہ پیشکشاں دی بہتری کیتے انتہائی اہم
+        اے۔
+      message_line2: کیا تساں ساݙے انسٹرکٹر سروے کوں بھرݨ کیتے 15 منٹ کڈھݨ تے آمادہ
+        او؟ تھلے ݙتے ڳئے بٹݨ تے کلک کرو تاکہ اساں وکی پیڈیا نال پڑھاوݨ کوں ہک ٻیا
+        فائدہ مند تے قیمتی تجربہ بݨا سڳوں۔
+      course: 'کورس: %{course_info}'
+      closing: نیک تمناواں نال،
+      signed: '- وکی ایجوکیشن ٹیم'
+      link: سروے ݙیو
+    follow_up:
+      message: ایہ تہاݙے کورس، %{course_title}، دے سروے بارے ہک یاد دہانی اے۔ ایں
+        سروے توں ملݨ آلی آراء ساکوں تہاݙے وانڳوں وکی پیڈیا اسائنمنٹاں کیتے ساݙی مدد
+        کوں بہتر بݨاوݨ وچ مدد کریندی اے۔
+    edit_survey: سروے ایڈٹ کرو
+  feedback_form_responses:
+    no_responses: ابھی تائیں فیڈ بیک دے کوئی جواب نئیں۔
+  wiki_api:
+    create_account_reason: ایہ یوزر %{event} وچ حصہ گھندا پئے۔
+  onboarding:
+    supplementary:
+      header: تساں ساݙے بارے کتھوں سݨیا؟
+      where_did_you_hear: تساں پہلی وار وکی ایجوکیشن بارے کتھوں یا کیندے توں سݨیا؟
+      why_are_you_here: تساں کیا کرݨ چاہندے او؟
   article_finder:
+    add_available_article: دستیاب مضمون دے طور تے شامل کرو
+    add_available_article_wikidata: دستیاب آئٹم دے طور تے شامل کرو
+    article_finder: مضمون فائنڈر
+    article_finder_wikidata: آئٹم فائنڈر
+    article_quality: مضمون دا معیار (0-100)
+    article_quality_wikidata: آئٹم دا معیار (0-100)
+    assign_article_self: اپݨے آپ کوں لڳاؤ
+    average_views: روزانہ اوسط ویوز
+    category_search: زمرہ تلاش
+    completeness_estimate: مکمل تھیوݨ دا سکور
+    estimation_score_not_found: اندازہ سکور نئیں لَبھیا!
+    fetching_assessments: صفحے دے جائزے گھن آ رہے ہن
+    fetching_scores: مکمل تھیوݨ دا سکور گھن آ رہے ہن
+    fetching_pageviews: صفحے دے ویوز گھن آ رہے ہن
+    fetching_revisions: صفحے دیاں ترامیم گھن آ رہے ہن
+    fetched_articles: حاصل شدہ مضمون
+    fetched_articles_wikidata: حاصل شدہ آئٹم
+    filtered_articles: فلٹر شدہ مضمون
+    filtered_articles_wikidata: فلٹر شدہ آئٹم
     hide_options: اختیارات لُکاؤ
+    keyword_search: کی ورڈ تلاش
+    minimum_views_label: گھٹ توں گھٹ ویوز
+    more_results: ٻئے نتائج
+    no_article_found: ایں زمرے وچ کوئی مضمون نئیں لَبھیا
+    no_article_found_wikidata: ایں زمرے وچ کوئی آئٹم نئیں لَبھیا
     page_assessment_class: جماعت
+    page_views_not_found: صفحے دے ویوز نئیں لَبھے!
+    relevanceIndex: لاڳاپا انڈیکس
+    remove_article: مضمون ہٹاؤ
+    remove_article_wikidata: آئٹم ہٹاؤ
     search: ڳولو
+    searching_articles: مضمون تلاش تھی رہے ہن
+    searching_articles_wikidata: آئٹم تلاش تھی رہے ہن
+    search_placeholder: اپݨا کی ورڈ لکھو
     show_options: اختیارات ݙکھاؤ
+    subheading_message: آؤ، ویکيپیڈيا دا ہک مضمون لبھوں جیندے تے کم کرݨا اے۔
+    subheading_message_wikidata: آؤ، ویکيڈیٹا دا ہک آئٹم لبھوں جیندے تے کم کرݨا اے۔
     submit: جمع کرواؤ
     tools: اوزار
+    unassign_article_self: مضمون دی تفویض ہٹاؤ
+    unassign_article_self_wikidata: آئٹم دی تفویض ہٹاؤ
   training_status:
+    completed: مکمل
+    continue: جاری رکھو
+    completed_at: مکمل تھی ڳیا
+    completion_time: مکمل تھیوݨ دا وقت
+    late: لیٹ
+    view: ݙیکھو
     started: شروع تھیا
+    not_started: شروع نئیں تھیا
+    due: آخری تاریخ %{due_date}
+    assignment_status: ٹریننگ اسائنمنٹ (%{status})
+  multi_wiki:
+    selector_placeholder: وکی ڈومین لکھݨا شروع کرو
   news:
+    nav_tooltip: خبراں تے حالیہ تبدیلیاں
     add_news: خبراں شامل کرو
+    post_confirmation:
+      title: خبراں دی اپڈیٹ پوسٹ کرو؟
+      confirmation: مہربانی کر کے تصدیق کرو۔
+    delete_confirmation:
+      title: خبراں دا مواد حذف کرݨ توں اڳے ودھوں؟
+      confirmation: مہربانی کر کے تصدیق کرو۔
+    no_updates:
+      message: حالے تائیں کوئی خبراں دی اپڈیٹ دستیاب نئیں۔
+      check_later: مہربانی کر کے بعد وچ دوبارہ ݙیکھو۔
+    header:
+      P&E_dashboard_title: خبراں تے حالیہ تبدیلیاں
+      wiki_education_dashboard_title: ویکی ایجوکیشن ڈیش بورڈ نیوز
     footer:
       P&E_dashboard:
         link_text: وکیمیڈیا
+        footer_text: خبراں تے حالیہ تبدیلیاں پڑھو
+      wiki_education_dashboard:
+        footer_text: وکی ایجوکیشن توں ٻیاں خبراں
     options:
       news_content:
+        delete_news: خبراں حذف کرو
         confirm_delete: تصدیق
         cancel_delete: منسوخ
+        cancel_edit: ترمیم منسوخ کرو
+        edit_news: خبراں وچ ترمیم کرو
+        update_news: خبراں اپ ڈیٹ کرو
       create_news:
         cancel_post: پوسٹ منسوخ کرو
+        confirm_post: پوسٹ دی تصدیق کرو
+        discard_post: خبراں رد کرو
+        post_news: خبراں پوسٹ کرو
+    notification:
+      delete: خبراں دا مواد کامیابی نال حذف تھی ڳیا اے۔
+      update: خبراں دا مواد کامیابی نال اپ ڈیٹ تھی ڳیا اے۔
+      create_news: خبراں دا مواد کامیابی نال شائع تھی ڳیا اے۔
+      create_news_error: خبراں دا مواد بݨاوݨ وچ خرابی تھئی اے۔ مہربانی کر کے دوبارہ
+        کوشش کرو۔
+      update_error: خبراں دا مواد اپ ڈیٹ کرݨ وچ خرابی تھئی اے۔ مہربانی کر کے دوبارہ
+        کوشش کرو۔
+      empty_create_news_content_error: مہربانی کر کے پوسٹ کرݨ توں پہلاں خبراں دا مواد
+        داخل کرو۔
+      empty_update_news_content_error: مہربانی کر کے اپ ڈیٹ کرݨ توں پہلاں خبراں دا
+        مواد داخل کرو۔
+    text_area_input:
+      placeholder: خبراں تے حالیہ تبدیلیاں شامل کرو
   notes:
     title: عنوان
+    note_title: نوٹ دا عنوان
+    note_text: نوٹ دا متن
+    created: نوٹ کامیابی نال بݨایا ڳیا اے۔
+    updated: نوٹ کامیابی نال اپ ڈیٹ کیتا ڳیا اے۔
+    failure: خرابی! مہربانی کر کے بعد وچ ٻیا کوشش کرو۔
+    empty_fields: مہربانی کر کے یقین کرو جو سارے ان پٹ خانے بھرے ہوئے ہن تے ٻیا کوشش
+      کرو۔
+    edit: ہر ترمیم دا وقت تہاݙے مقامی وقت وچ ݙکھایا ویندا اے۔
+    edited_by: ترمیم کرݨ آلا
+    last_edited_by: نوٹ وچ آخری ترمیم کرݨ آلے ایڈمن دا ناں ݙکھایا ویندا اے۔
+    deleted: نوٹ کامیابی نال حذف تھی ڳیا اے۔ ایہ ہݨ تہاݙے نوٹس وچ دستیاب نئیں۔
+    delete_note_confirmation: 'نوٹ حذف کرو: ایہ عمل نوٹ کوں مستقل طور تے حذف کر ݙیسے۔
+      کیا تساں اڳوں ودھݨا چاہندے او؟'
+    delete_note_error: نوٹ حذف نئیں تھی سڳیا۔ مہربانی کر کے ٻیا کوشش کرو۔
+    no_notes: ایں کورس دے نال فی الحال کوئی نوٹ منسلک نئیں۔
+    create_note: نوٹ بݨاؤ
     cancel_note_creation: منسوخ
     post_note: پوسٹ
+    edit_note: نوٹ تبدیل کرو
     cancel_edit_note: منسوخ
     save_note: بچاؤ
     delete_note: نوٹ مٹاؤ
+    admin:
+      button_text: ایڈمن نوٹس
+      header_text: ایڈمن نوٹس پینل
+      aria_label:
+        no_notes_available: پینل وچ کوئی ایڈمن نوٹس دستیاب نئیں۔ ایڈمن نوٹس پینل کھولݨ
+          کیتے ریٹرن کی دباؤ۔
+        new_notes_message: '%{count} نویں ایڈمن نوٹس دستیاب ہن۔'
+        notes_panel_opened: ایڈمن نوٹس پینل موڈل کھل ڳیا اے۔ پینل بند کرݨ کیتے Escape
+          کی دباؤ۔
+        close_admin: ایڈمن نوٹ پینل موڈل بند کرو
+        note_action_button: نوٹس ایکشن بٹݨ
+        create_note: نوٹ بݨاؤ بٹݨ
+        note_creation: نوٹ بݨاوݨ آلا علاقہ ہݨ دستیاب اے۔
+        cancel_note_creation: نوٹ بݨاوݨ رد کرو۔
+        post_created_note: نوٹ پوسٹ کرو
+        note_title_field: نوٹ دا ٹائٹل آلا فیلڈ فوکس اے۔ نوٹ دا ٹائٹل ایتھاں لکھو۔
+        note_text_field: نوٹ دا ٹیکسٹ آلا فیلڈ فوکس اے۔ نوٹ دا مواد ایتھاں لکھو۔
+        collapse_note: نوٹ {{title}} دے متن کوں سمیٹݨ کیتے ریٹرن کی دباؤ۔
+        expand_note: نوٹ {{title}} دے متن کوں وݙا کر کے ݙکھاوݨ کیتے ریٹرن کی دباؤ۔
+        note_details_focused: نوٹ {{title}} دی تفصیل
+        note_edit_button_focused: نوٹ {{title}} دی تفصیل وچ ترمیم کرو۔
+        note_edit_save_button_focused: ترمیم شدہ نوٹ {{title}} محفوظ کرو۔
+        note_edit_cancel_button_focused: نوٹ {{title}} دی ترمیم منسوخ کرو۔
+        note_delete_button_focused: نوٹ {{title}} حذف کرو۔
+        note_edit_mode: نوٹ {{title}} کیتے ترمیم موڈ وچ داخل تھی ڳئے او۔ تساں ہݨ ٹائٹل
+          تے مواد وچ ترمیم کر سڳدے او۔
+  customize_error_message:
+    JSONP_request_failed: ویکیپیڈیا توں ڈیٹا گھنݨ دی درخواست دا ٹائم آؤٹ تھی ڳیا اے۔
+      ایہ ہولی انٹرنیٹ کنکشن یا عارضی سرور مسئلے دی وجہ توں تھی سڳدا اے۔ مہربانی کر
+      کے ٻئے ویلے دوبارہ کوشش کرو۔
+  tagged_courses:
+    download_csv: CSV ڈاؤن لوڈ کرو
+  weekday_picker:
+    aria:
+      weekday_select: '{{weekday}} منتخب کرݨ کیتے ریٹرن کی دباؤ۔'
+      weekday_selected: '{{weekday}} منتخب تھی ڳیا اے۔ ناں منتخب کرݨ کیتے ریٹرن کی
+        دباؤ۔'
+      weekday_unselected: '{{weekday}} ناں منتخب'
+  question_groups:
+    edit_question_group: سوال گروپ وچ ترمیم کرو
+  form_search:
+    search: ڳولو
+    advanced_search: اضافی ڳول
+    clear: صاف
+    program_date: پروگرام دی تاریخ
+  lms_integration:
+    heading: '%{lms_name} لنک'
+    linked_to: 'کورس:'
+    last_sync: 'آخری سنک:'
+    last_roster_sync_error: روستَر سنک کرݨ وچ ہک غلطی تھی ڳئی اے۔
+    last_sync_error: سنک وچ آخری غلطی
+    roster_students: کینوس روستَر
+    connected_accounts: جُڑیا ہویا
+    never_synced: ابھے تائیں سنک نئیں تھیا
+    time_ago: '%{time_ago} پہلاں'
+    my_account_link: 'تہاݙا اکاؤنٹ:'
+    linked: جُڑیا ہویا
+    not_linked: نئیں جُڑیا
+    my_last_sync: آخری سنک
+    no_grades_yet: ابھے تائیں سنک شدہ ترقی نئیں
+    not_yet_linked: تہاݙا اکاؤنٹ ایں کورس کیتے کینوس نال نئیں جُڑیا۔
+  lti_integrations:
+    title: LTI انضمام
+    course: کورس
+    instructor: انسٹرکٹر
+    lms_course: کینوس کورس
+    lms_instance: کینوس انسٹانس
+    lti_version: LTI ورژن
+    installed: نصب شدہ
+    connected_students: جُڑے ہوئے طالب علم
+    roster: کینوس روسٹر
+    not_applicable: —
+  lti:
+    beta_feedback:
+      message: اساں ساݙے کینوس انضمام دے ایں بیٹا ورژن بارے تہاݙی رائے دا خیر مقدم
+        کریندے ہاں۔
+      link: رائے بھیجو
+    iframe_landing:
+      explanation: dashboard.wikiedu.org کو نویں ٹیب وچ کھولو
+      button: ویکی ایجوکیشن ڈیش بورڈ کھولو
+      not_linked: ایہ کینوس کورس ابھے تائیں ویکی ایجوکیشن ڈیش بورڈ نال نئیں جُڑیا۔
+        انضمام سیٹ اپ کرݨ کیتے ڈیش بورڈ کھولو۔
+    oauth_redirect:
+      title: وکیپیڈیا سائن ان تے اڳوں ودھدا پے…
+      button: جاری رکھو
+    setup:
+      header: ایں کینوس کورس کیتے ویکی ایجوکیشن ڈیش بورڈ سیٹ اپ کرو
+      link_existing:
+        header: موجد ویکی ایجوکیشن کورس کوں جوڑو
+        label: کورس
+      submit: ایں کورس کوں جوڑو
+      linked_notice: تہاݙا کورس %{lms_course} جُڑ ڳیا اے!
+      already_linked: 'خرابی: ایہ کورس پہلاں توں ای جُڑیا ہویا اے۔'
+      create_prompt: ڈیش بورڈ تے ہک کورس بݨاؤ
+      create_return_note: کورس بݨاوݨ آلا نویں ٹیب وچ کُھلدے۔ جݙاں تہاݙے کول ڈیش بورڈ
+        کورس ہووے تاں دوبارہ لوڈ کرو۔
+      no_approved_courses: کینوس انٹیگریشن صرف تہاݙے کورس دی Wiki Education عملے دی
+        منظوری توں بعد ای دستیاب اے۔
+      no_courses_yet: تہاݙا Wiki Education ڈیش بورڈ تے ایتھاں تئیں کوئی کورس نئیں۔
+        مہربانی کر کے پہلاں ہک بݨاؤ۔
+      link_conflict_error: تہاݙے کینوس تے ڈیش بورڈ اکاؤنٹاں کوں جوڑݨ وچ ہک تضاد تھیا۔
+        مہربانی کر کے مدد کیتے Wiki Education عملے نال رابطہ کرو۔
+      duplicate_link_error: ایہ کینوس یوزر پہلاں توں ای ہک ٻئے وکیپیڈیا اکاؤنٹ نال
+        جُڑیا ہویا اے۔ پہلاں جُڑئے ہوئے اکاؤنٹ نال ڈیش بورڈ وچ سائن ان کرو، ول دوبارہ
+        لانچ کرو۔
+    deep_link:
+      module_name: تحقیق کرو تے ہک وکیپیڈیا مضمون لکھو
+      header: وکیپیڈیا کم چݨو
+      header_multiple: وکیپیڈیا اسائنمنٹس امپورٹ کرو
+      instruction: ایں قابلِ درجہ بندی آلی شے کیتے ہک وکیپیڈیا کم چݨو
+      instruction_multiple: ویکی ایجوکیشن ڈیش بورڈ دی ٹائم لائن وچوں کݨھی چیزاں امپورٹ
+        کرݨیاں ہن، اوہ چݨو۔
+      submit: کورس وچ شامل کرو
+      all_added: ساریاں دستیاب چیزاں شامل کر ݙتیاں ڳیاں ہن۔
+      no_gradables: کوئی قابلِ درجہ بندی شے نئیں لَبھی۔
+      forbidden_header: ایہ صرف انسٹرکٹر ای کر سڳدن۔
+      forbidden_explanation: ڈیش بورڈ اسائنمنٹس امپورٹ کرݨ صرف کورس انسٹرکٹرز کیتے
+        دستیاب اے۔
+      unavailable_header: دستیاب ناہی
+      unavailable_explanation: ایہ چیزاں ہݨ امپورٹ کرݨ کیتے دستیاب ناہن۔
+    status:
+      roster:
+        peer_reviews: پیئر ریویو
+      header: ویکی ایجوکیشن ڈیش بورڈ
+      linked: جُڑیا ہویا
+      refresh: تازہ کرو
+      roster_sync_label: روسٹر سنک
+      grade_sync_label: گریڈ سنک
+      sync_grades: گریڈ سنک کرو
+      grade_sync_started: گریڈ سنک شروع تھی ڳئی اے۔
+      grade_sync_error: گریڈ سنک کرݨ وچ ہک غلطی تھی ڳئی اے۔
+      roster_sync_error: روسٹر سنک کرݨ وچ ہک غلطی تھی ڳئی اے۔
+      import_next_step:
+        header: ڈیش بورڈ ٹائم لائن توں وکی پیڈیا اسائنمنٹس امپورٹ کرو
+        instruction: ماڈیولز تے ونڄو، ⋮ (آپشنز) مینیو کھولو، تے wikiedu.org چݨو۔
+      publish_next_step:
+        header: وکی پیڈیا اسائنمنٹس امپورٹ تھی ڳیاں
+        instruction: ماڈیول پبلش کرݨ نہ بھلو جے تساں پہلاں توں نہ کیتا ہووے۔
+    check_again: وڈھی چیک کرو
+    student_overview:
+      next_step: اگلا قدم
+      my_articles: میڑھے مضامین
+      trainings: ٹریننگاں
+      exercises: مشقاں
+      empty: کوئی وکی پیڈیا سرگرمی کائینی
+      role:
+        editing: زیرِ ترمیم
+        reviewing: نظرانئ
+    setup_pending:
+      header: وکی ایجوکیشن ڈیش بورڈ سیٹ اپ تھی رِہا اے
+      explanation: تہاݙا انسٹرکٹر ہݨ وی ایں کورس کیتے وکی پیڈیا اسائنمنٹ سیٹ اپ کر
+        رِہا اے۔ اوندے مکمل کرݨ دے بعد وڈھی چیک کرو، یا آپݨے انسٹرکٹر نال رابطہ کرو۔
+    enrollment_error:
+      header: تہاکوں وکی ایجوکیشن کورس وچ انرول نئیں کیتا ونڄ سڳیا
+      explanation: کجھ شئے تہاݙی انرولمنٹ وچ رکاوٹ بݨی۔ مدد کیتے آپݨے انسٹرکٹر یا
+        وکی ایجوکیشن سٹاف نال رابطہ کرو؛ ایہ مسئلہ جائزے کیتے ریکارڈ کر ݙتا ڳیا اے۔
+    launch_error:
+      header: ڈیش بورڈ دے کینوس انٹیگریشن کوں لانچ کرݨ وچ ہک خرابی تھی۔
+      explanation: کینوس دا صفحہ وڈھی لوڈ کرو۔ اگر مسئلہ برقرار رہوے تاں وکی ایجوکیشن
+        سٹاف نال رابطہ کرو۔
+    connect_identity:
+      header: آپݨے وکی پیڈیا اکاؤنٹ کوں ایں کورس نال جوڑو
+      explanation: جوڑݨ نال تہاݙا وکی پیڈیا کم %{course} وچ تہاݙے وکی ایجوکیشن ڈیش
+        بورڈ اکاؤنٹ %{username} دے ذریعے ایں کینوس کورس کوں رپورٹ تھیسی۔ وکی ایجوکیشن
+        سٹاف دی مدد توں بغیر ایں کنکشن کوں بعد وچ تبدیل نئیں کیتا ونڄ سڳدا، تاں چیک
+        کرو جو تھلّے ݙتا ڳیا اکاؤنٹ اوہو اے جیندے استعمال دا تہاݙا ارادہ اے۔
+      canvas_course: کینوس کورس
+      dashboard_account: وکی پیڈیا اکاؤنٹ
+      confirm: ایں اکاؤنٹ کوں جوڑو
+      wrong_account: ہک ٻیا اکاؤنٹ استعمال کرو
+    identity:
+      signed_in_as: 'وکی پیڈیا اکاؤنٹ: %{username}'
+      no_account: ہُن تائیں کوئی وکی پیڈیا اکاؤنٹ نئیں جوڑیا ڳیا
+    enrollment_pending_approval:
+      header: ایہ کورس وکی ایجوکیشن دی منظوری دا منتظر اے
+      explanation: تہاݙے انسٹرکٹر نے ایہ وکی ایجوکیشن کورس ترتیب ݙتا اے، لیکن وکی
+        ایجوکیشن سٹاف ہُن وی ایندا جائزہ گھن رہیا اے۔ جڈاں ایندی منظوری تھی ونڄے (عام
+        طور تے کجھ ݙینہ وچ)، تاں ایں کینوس ٹیب تے وڈھی آئو تے تساں آپے انرول تھی ویسو۔
+      contact_hint: اگر تہاݙے کول کوئی سوال اے تاں آپݨے انسٹرکٹر یا وکی ایجوکیشن سٹاف
+        نال رابطہ کرو۔
+    assignment_view:
+      status:
+        completed: مکمل
+        in_progress: تھیندا پئے
+        not_started: شروع نئیں تھیا
+        connected: ڄڑ ڳیا
+        not_connected: ڄڑیا نئیں
+        removed_in_lms: کینوس وچ داخل نئیں
+      open_on_wikipedia: وکی پیڈیا تے ݙیکھو
+      show: ݙیکھو
+      hide: لُکاؤ
+      sandbox_preview:
+        loading: '...'
+        not_found: کوئی سینڈ باکس نئیں لَبھا
+        error: سینڈ باکس لوڈ نئیں تھی سڳیا
+      roster:
+        student: شاگرد
+        username: ورتݨ آلا ناں
+        status: حیثیت
+        sandbox: سینڈ باکس
+        empty: ہݨ تائیں کوئی شاگرد وی وکی پیڈیا اکاؤنٹ نئیں جوڑے۔
+        assigned_article: تفویض کیتا ڳیا مضمون
+      no_article_yet: ہݨ تائیں کوئی مضمون نئیں چݨیا ڳیا۔
+      article_work:
+        header: مضمون تے کم
+        not_created: ایہ مضمون ہݨ تائیں وکی پیڈیا تے موجود نئیں۔
+        created: شروع تھیا
+        not_created_yet: شروع نئیں تھیا
+        characters: جوڑے ڳئے اکھر
+        references: شامل کیتے ڳئے حوالا
+        revisions: تبدیلیاں
+        pages:
+          bibliography: کتابیات
+          outline: خاکہ
+          draft: مسودہ سینڈ باکس
+      student:
+        your_sandbox: تہاݙا سینڈ باکس
+        your_article: تہاݙا مضمون
+        open_exercise: مشق کھولو
+        launch_instructions: لانچ ہدایات
+      setup:
+        summary: '%{connected} از %{total} نے وکی پیڈیا اکاؤنٹ جوڑیا اے۔'
+        empty: روسٹر سنک زیر التواء اے۔ تھوڑی دیر بعد وڈھی چیک کرو۔
+        pending: '%{count} شاگرداں نے ہݨ تائیں وکی پیڈیا اکاؤنٹ نئیں جوڑیا۔'
+      trainings:
+        progress: '%{completed} از %{total} ٹریننگاں مکمل'
+        module: ٹریننگ
+        due_date: مقررہ تاریخ
+        covered: ایں کورس وچ ٹریننگاں
+        module_completion: '%{completed} از %{total} شاگرداں نے مکمل کیتا اے۔'
+      peer_review:
+        progress: '%{completed} از %{total} ہم مرتبہ جائزے مکمل'
+        article: جائزہ کیتے مضمون
+        review_page: جائزہ صفحہ
+        reviews: سونپے ڳئے جائزے
+        your_reviews: تہاݙے ہم مرتبہ جائزے
+        none_yet: ہݨ تائیں کوئی نئیں سونپیا ڳیا
+        none_assigned: تہاکوں ہݨ تائیں کوئی ہم مرتبہ جائزہ نئیں سونپیا ڳیا
+      orphan:
+        explanation: ایں اسائنمنٹ کیتے ݙکھاوݨ کیتے کوئی ڈیش بورڈ مواد موجود نئیں۔
+      submission:
+        explanation: ایں سبمشن کیتے ݙکھاوݨ کیتے کوئی شاگرد کم موجود نئیں۔
+        open_dashboard: ویکی ایجوکیشن ڈیش بورڈ کھولو
+        viewing: '%{username} دا کم ݙکھایا ویندا پئے'
+        details: شاگرد دیاں تفصیلاں کھولو
 ...

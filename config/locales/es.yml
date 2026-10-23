@@ -1602,8 +1602,8 @@ es:
     new_downloads: Tienes nuevas descargas.
     no_downloads: No tienes nuevas descargas.
     aria_label: Descargas
-    csv: 'Descargar CSV'
-    json: 'Descargar JSON'
+    csv: Descargar CSV
+    json: Descargar JSON
   survey:
     login_message: Gracias por tu tiempo. Inicia sesión en tu panel de Wiki Ed para
       participar en la encuesta.

@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/revision_data_parser"
 require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
-#= results from a replica wiki database on wmflabs:
+#= results from a replica wiki database on wmcloud:
 #=   https://replica-revision-tools.wmcloud.org/
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
@@ -17,7 +17,7 @@ class Replica # rubocop:disable Metrics/ClassLength
   end
 
   # This is the maximum number of concurrent queries the system should run
-  # against the wmflabs replica endpoint.
+  # against the wmcloud replica endpoint.
   CONCURRENCY_LIMIT = 2
 
   ################
@@ -276,7 +276,7 @@ class Replica # rubocop:disable Metrics/ClassLength
   # For languages with hyphens in the language code, they are usually replaced
   # with underscores.
   #
-  # See https://quarry.wmflabs.org/query/4031 to look up database name for a wiki
+  # See https://quarry.wmcloud.org/query/4031 to look up database name for a wiki
   # Or check the table here: https://db-names.toolforge.org/
   #
   # Here are some of the naming exceptions that we must special-case:

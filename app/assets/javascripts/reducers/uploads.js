@@ -63,6 +63,9 @@ export default function uploads(state = initialState, action) {
             upload.thumburl = get(fetchedData, `${upload.id}.imageinfo[0].thumburl`);
           }
           upload.fetchState = true;
+        } else if (action.requestedIds?.includes(upload.id) && !upload.fetchState) {
+          upload.credit = 'Not found';
+          upload.fetchState = 'failed';
         }
         return upload;
       });

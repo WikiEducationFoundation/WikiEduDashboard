@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import SandboxPreview, { usePagePreview } from './SandboxPreview';
 import { StageTracker } from './ArticleParts';
 import LiveArticleViewer from './LiveArticleViewer';
+import ClaimVerificationWork from '../claim_verification_exercise/ClaimVerificationWork';
 import {
-  articleStatusLabel, formatDate, isLate, percent, stateLabel
+  articleStatusLabel, formatDate, isClaimVerification, isLate, percent, stateLabel
 } from './assignmentHelpers';
 
 const ExternalLink = ({ href, children }) => (
@@ -317,6 +318,10 @@ const CellDetails = ({ cell, item, username, compact = false }) => {
     case 'training':
       return <TrainingProgress cell={cell} item={item} />;
     case 'exercise':
+      // The fact-verification exercise is graded from its submitted responses.
+      if (isClaimVerification(item) && !compact) {
+        return <ClaimVerificationWork username={username} />;
+      }
       return <Exercise cell={cell} compact={compact} />;
     case 'article':
       return <Article cell={cell} username={username} />;
