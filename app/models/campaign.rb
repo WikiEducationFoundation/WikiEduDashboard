@@ -145,6 +145,14 @@ class Campaign < ApplicationRecord
     Rails.cache.delete(course_sums_cache_key)
   end
 
+  def articles_count_cache_key
+    "#{slug}-articles_count"
+  end
+
+  def clear_articles_count_cache
+    Rails.cache.delete(articles_count_cache_key)
+  end
+
   private
 
   def validate_dates

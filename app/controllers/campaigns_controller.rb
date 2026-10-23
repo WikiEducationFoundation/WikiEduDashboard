@@ -67,6 +67,7 @@ class CampaignsController < ApplicationController
     respond_to do |format|
       format.html do
         set_page
+        reject_deep_page
         set_presenter
         # If there are more edited articles than the limit, we disable the feed of campaign articles
         if @presenter.too_many_articles?
@@ -246,6 +247,7 @@ class CampaignsController < ApplicationController
   def refresh_stats
     set_campaign
     @campaign.clear_course_sums_cache
+    @campaign.clear_articles_count_cache
 
     flash[:notice] = t('campaign.refresh_campaign_stats')
     redirect_to overview_campaign_path(@campaign.slug)
@@ -293,6 +295,12 @@ class CampaignsController < ApplicationController
   def set_page
     @page = params[:page]&.to_i
     @page = nil unless @page&.positive?
+  end
+
+  # Before the presenter, so a rejected page never counts the articles.
+  def reject_deep_page
+    return unless @page && @page > CoursesPresenter::MAX_ARTICLE_PAGE
+    raise ActionController::RoutingError, 'Not Found'
   end
 
   def set_sort

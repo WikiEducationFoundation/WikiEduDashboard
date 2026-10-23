@@ -617,6 +617,9 @@ en:
     student_course: students by course
     title: Title
     too_large: This campaign is too large for the requested data to be displayed.
+    articles_truncated: Only the first %{count} articles are shown.
+    articles_truncated_html: Only the first %{count} articles are shown. Sign in to access the full list via %{csv_link}.
+    articles_truncated_csv: CSV export
     too_many_articles: The edited article list for this campaign is too long to be displayed. Please view individual courses/programs/events to see the articles edited.
     slug: Slug
     search_campaigns: Search campaigns
