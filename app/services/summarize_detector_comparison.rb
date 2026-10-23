@@ -3,7 +3,7 @@
 require_dependency "#{Rails.root}/app/services/export_ai_detection_comparison"
 require_dependency "#{Rails.root}/app/services/collect_detector_comparison_scores"
 
-# The data behind the admin detector comparison page: the texts generated on
+# The data behind the detector comparison page: the texts generated on
 # the challenge topics, the Agpedia article on each of those topics, the
 # student text each topic came from, and each topic's whole article before and
 # after the student's term and today, each with every detector's verdict and

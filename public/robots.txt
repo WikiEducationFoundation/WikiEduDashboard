@@ -6,3 +6,4 @@ Disallow: /user*
 Disallow: /stats_graphs*
 Disallow: /*.csv
 Disallow: /campaigns/*/articles?
+Disallow: /detector_comparison/units*

@@ -17,7 +17,7 @@ const receivedData = {
 };
 
 describe('assignments reducer', () => {
-    test('should return initial state when no action nor state  is provided', () => {
+    test('should return initial state when no action nor state is provided', () => {
         const newState = assignments(undefined, { type: null });
         expect(newState.assignments).toEqual([]);
         expect(newState.loading).toBe(true);

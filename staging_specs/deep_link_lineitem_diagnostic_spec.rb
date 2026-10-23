@@ -10,9 +10,8 @@ require_relative 'spec_helper'
 #
 # Background: SyncLtiLineItems' auto-created, course-level line items (no
 # resourceLinkId) produce launches with no custom claim and no lineItemId,
-# so the assignment_view drill-down can't tell which column was clicked
-# (see .claude/canvas_integration/assignment_view_deep_linking_decision-
-# 2026-05-29.md). Deep linking is the proposed fix. Before building the
+# so the assignment_view drill-down can't tell which column was clicked.
+# Deep linking is the proposed fix. Before building the
 # full per-assignment picker, this probe confirms the plumbing: the minimal
 # LtiLaunchController#deep_link / BuildLtiDeepLinkForm stub returns one
 # synthetic content item with a `lineItem`; if Canvas then creates an

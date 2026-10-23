@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { listDrafts, createDraft, deleteDraft } from '../api.js';
+import { listDrafts, createDraft, deleteDraft, listExistingModules, copyModule } from '../api.js';
 
 const DraftList = () => {
   const navigate = useNavigate();
   const [drafts, setDrafts] = useState(null);
   const [newName, setNewName] = useState('');
+  const [modules, setModules] = useState([]);
+  const [copySlug, setCopySlug] = useState('');
   const [error, setError] = useState(null);
 
   const refresh = () => listDrafts().then(data => setDrafts(data.drafts));
 
   useEffect(() => {
     refresh().catch(e => setError(e.message));
+    listExistingModules().then(data => setModules(data.modules)).catch(e => setError(e.message));
   }, []);
 
   const handleCreate = async (event) => {
@@ -19,6 +22,17 @@ const DraftList = () => {
     setError(null);
     try {
       const result = await createDraft({ name: newName });
+      navigate(`/training_module_drafts/${result.draft.slug}`);
+    } catch (e) {
+      setError(e.message);
+    }
+  };
+
+  const handleCopy = async (event) => {
+    event.preventDefault();
+    setError(null);
+    try {
+      const result = await copyModule(copySlug);
       navigate(`/training_module_drafts/${result.draft.slug}`);
     } catch (e) {
       setError(e.message);
@@ -61,6 +75,29 @@ const DraftList = () => {
         </form>
       </section>
 
+      {modules.length > 0 && (
+        <section className="training_module_composer__new">
+          <h2>Update a module</h2>
+          <form onSubmit={handleCopy}>
+            <label htmlFor="copy_module_slug">Module</label>
+            <select
+              id="copy_module_slug"
+              value={copySlug}
+              onChange={e => setCopySlug(e.target.value)}
+              required
+            >
+              <option value="" disabled>—</option>
+              {modules.map(m => (
+                <option key={m.slug} value={m.slug}>{m.name} ({m.slug})</option>
+              ))}
+            </select>
+            <button type="submit" className="button dark" disabled={!copySlug}>
+              Copy module
+            </button>
+          </form>
+        </section>
+      )}
+
       {error && <div className="notification error">{error}</div>}
 
       <section className="training_module_composer__existing">
@@ -74,6 +111,7 @@ const DraftList = () => {
                 <th>Slug</th>
                 <th>Slides</th>
                 <th>Module id</th>
+                <th>Updates</th>
                 <th>Updated</th>
                 <th />
               </tr>
@@ -95,6 +133,7 @@ const DraftList = () => {
                   <td><code>{draft.slug}</code></td>
                   <td>{draft.slide_count}</td>
                   <td>{draft.module_id}</td>
+                  <td>{draft.updates ? <code>{draft.updates}</code> : '—'}</td>
                   <td>{new Date(draft.updated_at).toLocaleString()}</td>
                   <td>
                     <button

@@ -1,4 +1,5 @@
 - content_for :before_title, 'Analytics — '
+- campaigns = Campaign.order(:title)
 %header.main-page
   .container
     %h1 Analytics Tools
@@ -22,23 +23,23 @@
       = form_tag(method: 'get') do
         %input{:name => "campaign_intersection", :type => "hidden", :value => "true"}/
         = label_tag('campaign_1_id', "campaign 1")
-        = collection_select(:campaign_1, :id, Campaign.all, :id, :title, prompt: true)
+        = collection_select(:campaign_1, :id, campaigns, :id, :title, prompt: true)
         %br/
         = label_tag('campaign_2_id', "campaign 2")
-        = collection_select(:campaign_2, :id, Campaign.all, :id, :title, prompt: true)
+        = collection_select(:campaign_2, :id, campaigns, :id, :title, prompt: true)
         %br/
         = submit_tag("Campaign Intersection", class: 'button dark')
       %br/
       = form_tag('/mentor_requests_csv', method: :get) do
         = label_tag('mentor_requests_campaign_id', "campaign")
-        = collection_select(:campaign, :id, Campaign.all, :id, :title, { prompt: true },
+        = collection_select(:campaign, :id, campaigns, :id, :title, { prompt: true },
                             { id: 'mentor_requests_campaign_id' })
         %br/
         = submit_tag("Mentor Requests", class: 'button dark')
       %br/
       = form_tag('/mentor_volunteers_csv', method: :get) do
         = label_tag('mentor_volunteers_campaign_id', "campaign")
-        = collection_select(:campaign, :id, Campaign.all, :id, :title, { prompt: true },
+        = collection_select(:campaign, :id, campaigns, :id, :title, { prompt: true },
                             { id: 'mentor_volunteers_campaign_id' })
         %br/
         = submit_tag("Mentor Volunteers", class: 'button dark')
