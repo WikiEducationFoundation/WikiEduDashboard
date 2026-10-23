@@ -20,6 +20,15 @@ describe 'multiwiki assignments', type: :feature, js: true do
                           role: CoursesUsers::Roles::STUDENT_ROLE)
   end
 
+  it 'does not show the assign and review buttons when the course metadata is locked' do
+    course.update(flags: { finalized: true })
+    visit "/courses/#{course.slug}/students/articles"
+    first('.student-selection .student').click
+
+    expect(page).to have_css('.sandbox-link') # selected student header has loaded
+    expect(page).not_to have_css('.assign-button')
+  end
+
   it 'creates a valid assignment from a wiki URL' do
     VCR.use_cassette 'multiwiki_assignment' do
       visit "/courses/#{course.slug}/students/articles"
