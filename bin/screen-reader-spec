@@ -1,0 +1,121 @@
+#!/usr/bin/env bash
+# Run specs tagged `:screen_reader` with Orca, a real screen reader, listening.
+#
+# Usage:
+#   bin/screen-reader-spec spec/features/article_viewer_screen_reader_spec.rb [rspec args...]
+#
+# This starts an isolated stack, runs rspec inside it, and tears the stack down:
+#   - a virtual display (Xvfb), so Chrome and Orca never touch the real desktop
+#   - a private D-Bus session with no service activation, so no keyrings, portals
+#     or gvfs mounts get started inside it
+#   - the AT-SPI accessibility bus
+#   - Orca, with its debug log written to tmp/screen_reader/orca.log and its
+#     settings kept in a throwaway home directory
+#   - speech-dispatcher (started by Orca) speaking with espeak-ng into libao's null
+#     device: silent, but it still reports speech progress, which Orca's Say All
+#     needs in order to advance
+# The specs drive Orca over its D-Bus interface and read what it said from the log;
+# see spec/support/screen_reader.rb. Elsewhere, `:screen_reader` specs are skipped.
+#
+# Linux only. Needs a recent Orca: its D-Bus remote controller first shipped in
+# Orca 49, and this has been tested with Orca 51.1. Also needs:
+#   sudo apt install orca speech-dispatcher speech-dispatcher-espeak-ng libao4 xvfb xdotool
+
+set -euo pipefail
+
+cd "$(dirname "$0")/.."
+
+if [ "${1:-}" = "--inside-session" ]; then
+  shift
+  run_dir=$SCREEN_READER_RUN_DIR
+  # Orca starts speech-dispatcher itself, so it isn't one of this script's jobs;
+  # its socket path is under run_dir.
+  stop_session() {
+    local pids
+    pids=$(jobs -p)
+    kill $pids 2>/dev/null || true
+    pkill -f -- "speech-dispatcher.*$run_dir" 2>/dev/null || true
+    sleep 1
+    kill -9 $pids 2>/dev/null || true
+    pkill -9 -f -- "speech-dispatcher.*$run_dir" 2>/dev/null || true
+  }
+  trap stop_session EXIT
+
+  /usr/libexec/at-spi-bus-launcher --launch-immediately >"$run_dir/at-spi.log" 2>&1 &
+  gdbus wait --session --timeout 10 org.a11y.Bus
+
+  HOME=$run_dir/home XDG_CONFIG_HOME=$run_dir/home/.config XDG_DATA_HOME=$run_dir/home/.local/share \
+    XDG_CACHE_HOME=$run_dir/home/.cache GSETTINGS_BACKEND=memory \
+    orca --debug-file "$ORCA_DEBUG_LOG" >"$run_dir/orca.out" 2>&1 &
+
+  # Orca reads a newly loaded page aloud by default, which would talk over the
+  # first command a spec sends. Orca claims its bus name before it publishes its
+  # command objects, so this retries until the object is there.
+  configured=
+  for _ in $(seq 100); do
+    if gdbus call --session -d org.gnome.Orca1.Service \
+         -o /org/gnome/Orca1/Service/DocumentPresenter \
+         -m org.freedesktop.DBus.Properties.Set \
+         org.gnome.Orca1.DocumentPresenter SayAllOnLoad '<false>' >/dev/null 2>&1; then
+      configured=1
+      break
+    fi
+    sleep 0.2
+  done
+  [ -n "$configured" ] || { echo 'Orca did not start; see tmp/screen_reader/orca.log' >&2; exit 1; }
+
+  bundle exec rspec "$@"
+  exit
+fi
+
+for tool in orca Xvfb xdotool gdbus dbus-run-session; do
+  command -v "$tool" >/dev/null || { echo "bin/screen-reader-spec needs $tool; see the header of this script." >&2; exit 1; }
+done
+
+# Sockets live under XDG_RUNTIME_DIR, and Unix socket paths are capped at about
+# 108 characters, so this has to be a short path.
+run_dir=$(mktemp -d /tmp/screen-reader.XXXXXX)
+log_dir=$PWD/tmp/screen_reader
+mkdir -p "$log_dir" "$run_dir/home/.config/speech-dispatcher" "$run_dir/speech-dispatcher"
+rm -f "$log_dir/orca.log"
+
+xvfb_pid=
+cleanup() {
+  [ -n "$xvfb_pid" ] && kill "$xvfb_pid" 2>/dev/null || true
+  pkill -9 -f -- "speech-dispatcher.*$run_dir" 2>/dev/null || true
+  rm -rf "$run_dir"
+}
+trap cleanup EXIT
+
+cat >"$run_dir/bus.conf" <<'CONF'
+<!DOCTYPE busconfig PUBLIC "-//freedesktop//DTD D-Bus Bus Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/dbus/1.0/busconfig.dtd">
+<busconfig>
+  <type>session</type>
+  <listen>unix:tmpdir=/tmp</listen>
+  <auth>EXTERNAL</auth>
+  <policy context="default">
+    <allow send_destination="*" eavesdrop="true"/>
+    <allow eavesdrop="true"/>
+    <allow own="*"/>
+  </policy>
+</busconfig>
+CONF
+
+cat >"$run_dir/home/.config/speech-dispatcher/speechd.conf" <<CONF
+LogLevel 3
+LogDir "$run_dir/speech-dispatcher"
+AudioOutputMethod "libao"
+AddModule "espeak-ng" "sd_espeak-ng" "espeak-ng.conf"
+DefaultModule espeak-ng
+CONF
+echo 'default_driver=null' >"$run_dir/home/.libao"
+
+Xvfb -displayfd 3 -screen 0 1280x1024x24 -nolisten tcp 3>"$run_dir/display" >"$log_dir/xvfb.log" 2>&1 &
+xvfb_pid=$!
+for _ in $(seq 50); do [ -s "$run_dir/display" ] && break; sleep 0.1; done
+[ -s "$run_dir/display" ] || { echo 'Xvfb did not start; see tmp/screen_reader/xvfb.log' >&2; exit 1; }
+
+DISPLAY=:$(cat "$run_dir/display") XDG_RUNTIME_DIR=$run_dir SCREEN_READER_RUN_DIR=$run_dir \
+  ORCA_DEBUG_LOG=$log_dir/orca.log \
+  dbus-run-session --config-file="$run_dir/bus.conf" -- "$0" --inside-session "$@"
