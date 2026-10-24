@@ -92,6 +92,16 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showArticle]);
 
+  useEffect(() => {
+    if (!showArticle) return undefined;
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape' && !event.defaultPrevented) {
+        hideArticle(event);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [showArticle]);
   // This runs when the user accesses the articleViewer directly from a permalink
   useEffect(() => {
     if (showOnMount && !showArticle) {
@@ -246,11 +256,16 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
   }
 
   return (
-    <div ref={ref}>
+    <div role="dialog" aria-labelledby={`article-viewer-title-${article.id}`} ref={ref}>
       <div className={`article-viewer ${showArticle ? '' : 'hidden'}`}>
         <div className="article-header">
           <p>
-            <span className="article-viewer-title">{trunc(article.title, 56)}</span>
+            <span
+              id={`article-viewer-title-${article.id}`}
+              className="article-viewer-title"
+            >
+              {trunc(article.title, 56)}
+            </span>
             {
               showPermalink && <Permalink articleId={article.id} />
             }

@@ -27,10 +27,13 @@ export const ClaimSelectionPanel = ({ claim, onTake, taking, error, onClose }) =
   // so a student can click another highlighted claim — so focus is not trapped.
   useEffect(() => {
     const handleEscape = (event) => {
-      if (event.key === 'Escape') { onClose(); }
+      if (event.key === 'Escape') {
+        event.stopPropagation();
+        onClose();
+      }
     };
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener('keydown', handleEscape, true);
+    return () => document.removeEventListener('keydown', handleEscape, true);
   }, [onClose]);
 
   return (
