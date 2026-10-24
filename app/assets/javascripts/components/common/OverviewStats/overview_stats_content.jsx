@@ -7,8 +7,16 @@ import NamespaceOverviewStats from './namespace_overview_stats';
 const OverviewStatsContent = ({ course, content }) => {
   const title = content.statsTitle;
   const data = content.statsData;
+  // Per issue #7063: collapsed by default, unless the course's home wiki is Wikidata
+  const homeWikiIsWikidata = course?.home_wiki?.project === 'wikidata';
   const statistics = (title === 'www.wikidata.org')
-    ? <WikidataOverviewStats statistics={data} isCourseOverview={true}/>
+    ? (
+      <WikidataOverviewStats
+        statistics={data}
+        isCourseOverview={true}
+        defaultExpanded={homeWikiIsWikidata}
+      />
+    )
     : <NamespaceOverviewStats course={course} statistics={data} />;
 
   return (
