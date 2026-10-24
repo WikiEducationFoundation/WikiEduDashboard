@@ -195,6 +195,55 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page.evaluate_script('window.cvSameDocument')).to be(true)
   end
 
+  it 'closes the claim panel before the viewer and ignores Escape while taking a claim' do
+    visit "/courses/#{course.slug}/verify_claim"
+    click_on 'Sea otter'
+    find('.parsed-article .cv-claim', wait: 20).click
+
+    find('.cv-selection-panel').send_keys(:escape)
+    expect(page).to have_no_css('.cv-selection-panel')
+    expect(page).to have_css('.article-viewer')
+
+    find('body').send_keys(:escape)
+    expect(page).to have_no_css('.article-viewer')
+    expect(page.current_url).not_to include('showArticle=')
+
+    click_on 'Sea otter'
+    find('.parsed-article .cv-claim', wait: 20).click
+    page.execute_script(<<~JS)
+      const realFetch = window.fetch.bind(window);
+      window.fetch = (input, options) => {
+        const url = typeof input === 'string' ? input : input.url;
+        if (url.includes('/verify_claim/take')) {
+          window.takeRequestStarted = true;
+          return new Promise((resolve) => {
+            window.finishTakeRequest = () => resolve(new Response('{}', { status: 403 }));
+          });
+        }
+        return realFetch(input, options);
+      };
+    JS
+
+    within '.cv-selection-panel' do
+      click_button I18n.t('claim_verification.select_claim')
+    end
+    expect(page).to have_button(I18n.t('claim_verification.select_claim'), disabled: true)
+    expect(page.evaluate_script('window.takeRequestStarted')).to be(true)
+
+    find('.cv-selection-panel').send_keys(:escape)
+    expect(page).to have_css('.cv-selection-panel')
+    expect(page).to have_css('.article-viewer')
+
+    page.execute_script('window.finishTakeRequest()')
+    expect(page).to have_content(I18n.t('claim_verification.take_not_enrolled'), wait: 10)
+    find('.cv-selection-panel').send_keys(:escape)
+    expect(page).to have_no_css('.cv-selection-panel')
+    expect(page).to have_css('.article-viewer')
+    find('body').send_keys(:escape)
+    expect(page).to have_no_css('.article-viewer')
+    expect(page.current_url).not_to include('showArticle=')
+  end
+
   it 'shows a student their own submitted response in a popover on the students tab' do
     TrainingModule.load_all
     exercise_module = TrainingModule.find_by(slug: 'fact-verification-exercise')

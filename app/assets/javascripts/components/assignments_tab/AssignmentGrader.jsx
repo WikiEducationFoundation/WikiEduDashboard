@@ -5,10 +5,7 @@ import CellDetails, { StateBadge } from './CellDetails';
 import {
   listQuery, matchesFilter, neighbors, reachedStage, sortStudents, studentName
 } from './assignmentHelpers';
-import { onEnterOrSpace } from '../../utils/keyboard_handlers';
-
-const isTyping = target => ['INPUT', 'SELECT', 'TEXTAREA'].includes(target.tagName)
-  || target.isContentEditable;
+import { isTyping, onEnterOrSpace } from '../../utils/keyboard_handlers';
 
 // One assignment, one student at a time: the assignment's heading with
 // previous/next through the students beside it (also on the ← and → keys),
