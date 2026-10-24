@@ -1,5 +1,6 @@
 
 
+import i18n from '../i18n';
 import React from 'react';
 import createReactClass from 'create-react-class';
 import TextAreaInput from '../components/common/text_area_input';
@@ -8,12 +9,21 @@ import Calendar from '../components/common/calendar.jsx';
 import Popover from '../components/common/popover.jsx';
 import Loading from '../components/common/loading.jsx';
 import { createRoot } from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import validations from '../reducers/validations';
+
+const store = configureStore({ reducer: { validations } });
+
+const renderExample = (id, example) => {
+  const root = createRoot(document.getElementById(id));
+  root.render(<Provider store={store}>{example}</Provider>);
+};
 
 const StyleguideExamples = {
 
   datePickerEnabled() {
-    const root = createRoot(document.getElementById('date-picker-enabled'));
-    root.render(
+    renderExample('date-picker-enabled',
       <DatePicker
         editable
         value_key="start"
@@ -27,8 +37,7 @@ const StyleguideExamples = {
   },
 
   datePickerDisabled() {
-    const root = createRoot(document.getElementById('date-picker-disabled'));
-    root.render(
+    renderExample('date-picker-disabled',
       <DatePicker
         value_key="start"
         label="Start Date"
@@ -41,8 +50,7 @@ const StyleguideExamples = {
   },
 
   calendar() {
-    const root = createRoot(document.getElementById('calendar'));
-    root.render(
+    renderExample('calendar',
       <Calendar
         course={{ start: '2016-06-01', end: '2016-06-30' }}
         editable={true}
@@ -53,8 +61,7 @@ const StyleguideExamples = {
   },
 
   richText() {
-    const root = createRoot(document.getElementById('rich-text'));
-    root.render(
+    renderExample('rich-text',
       <TextAreaInput
         value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
         editable={true}
@@ -103,18 +110,19 @@ const StyleguideExamples = {
         );
       }
     });
-    const root = createRoot(document.getElementById('popover'));
-    root.render(<PopoverExample />);
+    renderExample('popover', <PopoverExample />);
   },
 
   loading() {
-    const root = createRoot(document.getElementById('loading'));
-
-    root.render(<Loading />);
+    renderExample('loading', <Loading />);
   }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
+  i18n.defaultLocale = window.defaultLocale;
+  i18n.locale = window.locale;
+  i18n.availableLocales = window.availableLocales;
+  i18n.store(window.stores || {});
   Object.keys(StyleguideExamples).forEach((example) => {
     StyleguideExamples[example]();
   });
