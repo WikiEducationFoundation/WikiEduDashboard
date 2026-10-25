@@ -342,15 +342,6 @@ class Course < ApplicationRecord
                                   .collect(&:training_module_ids).flatten
   end
 
-  def tracked_article_course_timeslices
-    # This method tries to replicate the idea of "tracked revisions"
-    # 'revision_count > 0' condition is because we may create empty timeslices
-    # due to system revisions
-    # 'tracked: true' condition is to avoid timeslices for untracked articles courses
-    article_course_timeslices.where('revision_count > 0')
-                             .where(tracked: true)
-  end
-
   def tracked_namespaces
     courses_wikis.map do |course_wiki|
       wiki = course_wiki.wiki
