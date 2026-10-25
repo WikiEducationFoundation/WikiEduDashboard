@@ -72,12 +72,17 @@ class ArticleNamespacesManager
 
   def reset_undeleted_or_retracked_articles
     retracked_ids = []
+    # Not @course.articles.to_a: that would cache a stale @course.articles,
+    # which reset_articles_in_untracked_namespaces reads later.
+    existing_article_ids = @course.articles_courses.pluck(:article_id).to_set
     @course.wikis.each do |wiki|
       # Find non-deleted and tracked articles without an articles_courses record
       @course.articles_from_timeslices(wiki.id)
              .where(deleted: false).in_batches do |article_batch|
         tracked = articles_in_tracked_namespaces(article_batch)
-        tracked_without_articles_courses = tracked - @course.articles.to_a
+        tracked_without_articles_courses = tracked.reject do |a|
+          existing_article_ids.include?(a.id)
+        end
         retracked_ids += tracked_without_articles_courses.map(&:id)
         @cleaner.reset_included(tracked_without_articles_courses, wiki)
       end

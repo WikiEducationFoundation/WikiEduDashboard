@@ -352,18 +352,17 @@ class Course < ApplicationRecord
   end
 
   def tracked_namespaces
-    @tracked_namespaces ||=
-      courses_wikis.includes(:wiki, :course_wiki_namespaces).map do |course_wiki|
-        wiki = course_wiki.wiki
-        wiki_namespaces = course_wiki.course_wiki_namespaces
-        if wiki_namespaces.empty?
-          { wiki:, namespace: 0 }
-        else
-          wiki_namespaces.map do |wiki_ns|
-            { wiki:, namespace: wiki_ns.namespace }
-          end
+    courses_wikis.includes(:wiki, :course_wiki_namespaces).map do |course_wiki|
+      wiki = course_wiki.wiki
+      wiki_namespaces = course_wiki.course_wiki_namespaces
+      if wiki_namespaces.empty?
+        { wiki:, namespace: 0 }
+      else
+        wiki_namespaces.map do |wiki_ns|
+          { wiki:, namespace: wiki_ns.namespace }
         end
-      end.flatten
+      end
+    end.flatten
   end
 
   # Returns true if the course only tracks specific assigned/category articles.
