@@ -41,6 +41,7 @@ const useAuthorshipHighlighting = ({
   const [whoColorEditors, setWhoColorEditors] = useState(null);
   const [usersState, setUsersState] = useState([]);
   const [userIdsFetched, setUserIdsFetched] = useState(false);
+  const [userIdsFailed, setUserIdsFailed] = useState(false);
   const [unhighlightedContributors, setUnhighlightedContributors] = useState([]);
   const [whoColorFailed, setWhoColorFailed] = useState(false);
   const [failureMessage, setFailureMessage] = useState(null);
@@ -176,6 +177,9 @@ const useAuthorshipHighlighting = ({
       }).catch((error) => {
         setFailureMessage(error.message);
         setWhoColorFailed(true);
+        // Nothing to highlight with, but the article can still be shown and
+        // the spinner must not wait for ids that will never come.
+        setUserIdsFailed(true);
       });
   };
 
@@ -212,12 +216,20 @@ const useAuthorshipHighlighting = ({
     }
   }, [parsedSettle?.id]);
 
-  // Wait for whocolor API to return the raw HTML before highlighting it
+  // Highlighting needs the MediaWiki user ids as much as the WhoColor HTML: run
+  // with an empty `usersState` it colors nothing, reports "No Unhighlighted
+  // Contributors" and clears the spinner as if everything had loaded. The ids
+  // are looked up once `users` is known, so wait for that lookup to settle,
+  // either way. Finder mode never asks for them (it skips fetchArticleDetails),
+  // so there is nothing to wait for there.
+  const userIdsSettled = userIdsFetched || userIdsFailed || (!users && showArticleFinder);
+
+  // Wait for the whocolor HTML and the user ids before highlighting
   useEffect(() => {
-    if (whoColorHtml) {
+    if (whoColorHtml && userIdsSettled) {
       highlightAuthors();
     }
-  }, [whoColorHtml]);
+  }, [whoColorHtml, userIdsSettled]);
 
   // On a revision toggle, drop the previous coloring; the shell's parsed refetch
   // bumps parsedSettle, which re-fetches WhoColor for the new revision.
