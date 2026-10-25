@@ -800,6 +800,7 @@ qqq:
   users:
     already_enrolled: Message indicating that a user is already enrolled in the course
       and cannot be enrolled again.
+    toggle_revision_details: Accessible label for the button that expands or collapses a student's revision details.
     assign_articles_done: '{{Identical|Done}}'
     assigned: Label for articles assigned to a user
     assignees: Label for list of assigned users for an article
