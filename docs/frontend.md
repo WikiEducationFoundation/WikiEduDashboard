@@ -59,3 +59,23 @@ The [api.js](/app/assets/javascripts/utils/api.js) file contains many of the AJA
 
 ## Yarn dependency management
 When dependencies need to be added or updated, do so using Yarn — for example, `yarn add <package_name>`. This will automatically update the yarn.lock file.
+
+### SVG assets
+
+Store new standalone SVG assets in `app/assets/images/` and reuse an existing asset when it matches the intended appearance and purpose.
+
+Use an `<img>` element when an SVG is part of the rendered content. Provide meaningful alternative text when the image conveys information, or an empty `alt` attribute when it is decorative.
+
+For decorative icons and backgrounds, SVG files can be referenced from Stylus stylesheets using a relative URL, for example:
+
+```stylus
+background url('../images/check.svg') center no-repeat
+```
+
+Set the required dimensions and positioning in the stylesheet. Prefer referencing a standalone SVG file over embedding its contents as a data URI when an external asset is practical.
+
+Before adding an SVG, check whether an equivalent asset already exists. Do not replace assets solely because their filenames are similar; verify their appearance, dimensions, colors, and intended use.
+
+Some existing stylesheets still reference legacy assets in `app/assets/svg/`. Preserve these references unless the asset and its replacement have been verified and the stylesheet updated accordingly.
+
+The old Gulp icon-font generation workflow is no longer part of the project. Do not add new SVG icons through that workflow; use standalone SVG assets instead.
