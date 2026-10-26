@@ -11,11 +11,11 @@ describe HistogramPlotter do
   let(:article) { create(:article) }
 
   before do
-    FileUtils.rm_rf "#{Rails.root}/public/assets/system"
+    FileUtils.rm_rf "#{Rails.root}/tmp/ores_plot"
   end
 
   after do
-    FileUtils.rm_rf "#{Rails.root}/public/assets/system"
+    FileUtils.rm_rf "#{Rails.root}/tmp/ores_plot"
   end
 
   context 'when there is no article data' do
@@ -47,6 +47,17 @@ describe HistogramPlotter do
       expect(File.exist?(csv)).to eq(true)
       described_class.delete_csv(campaign: Campaign.first)
       expect(File.exist?(csv)).to eq(false)
+    end
+
+    it 'leaves private courses out of a campaign CSV' do
+      course.update(private: true)
+      course.campaigns << Campaign.first
+      csv = described_class.csv(campaign: Campaign.first)
+      expect(File.readlines(csv).count).to eq(1)
+    end
+
+    it 'keeps the CSV out of the public directory' do
+      expect(described_class.csv(course:)).not_to start_with('public/')
     end
   end
 end
