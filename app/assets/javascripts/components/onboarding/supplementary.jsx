@@ -23,10 +23,12 @@ export const OnboardingSupplementary = (props) => {
     e.preventDefault();
     setState(prevState => ({ ...prevState, sending: true }));
 
-    const { heardFrom, referralDetails, whyHere, otherReason } = state;
+    const { heardFrom, referralDetails, primaryReason, primaryReasonDetails, whyHere, otherReason } = state;
     const body = {
       heardFrom,
       referralDetails,
+      primaryReason,
+      primaryReasonDetails,
       whyHere,
       otherReason,
       user_name: props.user.username
@@ -109,6 +111,41 @@ export const OnboardingSupplementary = (props) => {
 
             {
               referralDetailsLabel && referralDetails
+            }
+
+            <br /><br />
+            <label>{I18n.t('onboarding.supplementary.primary_reason')}</label>
+            <input type="radio" name="primaryReason" id="primaryReason-real-world-impact" value="real-world-impact" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="primaryReason-real-world-impact">I wanted an assignment with real-world impact.</label><br />
+
+            <input type="radio" name="primaryReason" id="primaryReason-misinformation" value="misinformation" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="primaryReason-misinformation">I wanted an assignment that tackles misinformation.</label><br />
+
+            <input type="radio" name="primaryReason" id="primaryReason-ai" value="ai" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="primaryReason-ai">I wanted an assignment that tackles the challenges of AI.</label><br />
+
+            <input type="radio" name="primaryReason" id="primaryReason-representation" value="representation" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="primaryReason-representation">I wanted an assignment that improves representation.</label><br />
+
+            <input type="radio" name="primaryReason" id="primaryReason-evaluating-sources" value="evaluating-sources" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="primaryReason-evaluating-sources">I wanted an assignment that teaches my students how to evaluate sources.</label><br />
+
+            <input type="radio" name="primaryReason" id="primaryReason-free-support" value="free-support" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="primaryReason-free-support">I wanted an assignment that includes free support for me and my students.</label><br />
+
+            <input type="radio" name="primaryReason" id="primaryReason-something-new" value="something-new" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="primaryReason-something-new">I wanted to try something new.</label><br />
+
+            <input type="radio" name="primaryReason" id="primaryReason-colleague-recommendation" value="colleague-recommendation" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="primaryReason-colleague-recommendation">My colleagues recommended the assignment to me.</label><br />
+
+            <input type="radio" name="primaryReason" id="primaryReason-other" value="other" onChange={_handleFieldChange} />
+            <label className="no-label" htmlFor="primaryReason-other" id="primaryReason-other-label">Other (please explain)</label><br />
+
+            {
+              state.primaryReason === 'other' && (
+                <textarea className="form-control" name="primaryReasonDetails" id="primaryReasonDetails" aria-labelledby="primaryReason-other-label" onChange={_handleFieldChange} />
+              )
             }
 
             <br /><br />

@@ -2347,6 +2347,7 @@ en:
     supplementary:
       header: "How did you hear about us?"
       where_did_you_hear: "Where, or from whom, did you first hear about Wiki Education?"
+      primary_reason: "What is the primary reason you decided to run a Wikipedia assignment?"
       why_are_you_here: "What would you like to do?"
 
   article_finder:

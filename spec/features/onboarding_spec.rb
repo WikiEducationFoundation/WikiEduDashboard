@@ -129,5 +129,22 @@ describe 'onboarding', type: :feature, js: true do
       fill_in 'referralDetails', with: 'Conference Name'
       click_button 'Submit'
     end
+
+    it 'is able to explain an other primary reason' do
+      visit onboarding_path
+      find('.intro .button').click
+      find('input[type=radio][value=true]').click
+      find('form button[type=submit]').click
+      page.assert_selector('form#supplementary')
+      expect(page).to have_no_css('#primaryReasonDetails')
+      find('input[type="radio"][name="primaryReason"][value="other"]').click
+      fill_in 'primaryReasonDetails', with: 'My reason'
+      expect(page).to be_axe_clean
+      click_button 'Submit'
+      expect(page).to have_content 'Permissions'
+      alert = Alert.find_by(user:, type: 'OnboardingAlert')
+      expect(alert.details['primary_reason']).to eq('answer' => 'other',
+                                                    'additional' => 'My reason')
+    end
   end
 end

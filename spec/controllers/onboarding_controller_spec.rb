@@ -103,5 +103,20 @@ describe OnboardingController, type: :request do
       expect(alert.reload.details['heard_from']['answer']).to eq('From Nights Watch')
       expect(alert.reload.details['heard_from']['additional']).to eq('Jeor Mormont')
     end
+
+    it 'stores the primary reason in the details field and message' do
+      params = {
+        user_name: user.username,
+        primaryReason: 'other',
+        primaryReasonDetails: 'The wall needs a better article'
+      }
+      put '/onboarding/supplementary', params: params
+      expect(response.status).to eq(204)
+      alert = Alert.where(user_id: user.id, type: 'OnboardingAlert').first
+      expect(alert.details['primary_reason']['answer']).to eq('other')
+      expect(alert.details['primary_reason']['additional'])
+        .to eq('The wall needs a better article')
+      expect(alert.message).to include("PRIMARY REASON:\nother (The wall needs a better article)")
+    end
   end
 end

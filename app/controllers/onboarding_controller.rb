@@ -44,6 +44,10 @@ class OnboardingController < ApplicationController
         'answer' => params[:heardFrom],
         'additional' => params[:referralDetails]
       },
+      'primary_reason' => {
+        'answer' => params[:primaryReason],
+        'additional' => params[:primaryReasonDetails]
+      },
       'why_here' => {
         'answer' => params[:whyHere],
         'additional' => params[:otherReason]
@@ -53,9 +57,13 @@ class OnboardingController < ApplicationController
 
   def format_message_response(params)
     referral_details = params[:referralDetails]
+    reason_details = params[:primaryReasonDetails]
     <<~RESPONSE
       HEARD FROM:
       #{params[:heardFrom]} #{"(#{referral_details})" if referral_details}
+
+      PRIMARY REASON:
+      #{params[:primaryReason]} #{"(#{reason_details})" if reason_details}
 
       WHY HERE:
       #{params[:whyHere]}
@@ -66,7 +74,7 @@ class OnboardingController < ApplicationController
   end
 
   def supplementary_response?
-    params[:heardFrom].present? || params[:whyHere].present? || params[:otherReason].present?
+    %i[heardFrom primaryReason whyHere otherReason].any? { |key| params[key].present? }
   end
 
   def set_new_permissions
