@@ -259,10 +259,8 @@ if ENV['SCREENSHOTS']
         # ---------- Timeline Wizard (Research and write) ----------
         sleep 3
         shoot('course_wizard_dates', wait: 0)
-        # Pick a weekday, then "no blackout dates" so we can advance.
+        # Pick a weekday, then advance.
         find('span[title="Wednesday"]', match: :first).click
-        find('.wizard__form.course-dates input[type=checkbox]', match: :first)
-          .set(true)
         wizard_next
 
         shoot('course_wizard_path', wait: 0)
@@ -316,6 +314,9 @@ if ENV['SCREENSHOTS']
         shoot('course_wizard_supplementary', wait: 0)
         find('h3', text: 'Extra credit assignment').click
         wizard_next
+
+        shoot('course_wizard_instructor_learner', wait: 0)
+        wizard_next # default "Yes"
 
         shoot('course_wizard_summary', wait: 0)
         click_button 'Generate Timeline'
