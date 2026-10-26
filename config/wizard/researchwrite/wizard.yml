@@ -48,39 +48,12 @@
       tag: fall_2026_research_opted_out
 
 -
-  key: essentials
-  title: Training
-  description: |
-    To help your students familiarize themselves with the basics of Wikipedia editing
-    and its policy and community norms, we've developed a series of online training modules.
-
-    Students should create user accounts and complete the core student training modules.
-    This training helps students understand the Wikipedia fundamentals, walks students
-    through their first edits, gives advice for picking articles and drafting revisions,
-    and shows how to find support. Students who complete the training are better prepared
-    to focus on your course's learning outcomes, and generally have better experiences.
-    The training modules are embedded throughout your assignment and provide students with
-    relevant help as they undertake different tasks of their Wikipedia assignment.
-
-    You can track which training modules your students have taken through your course
-    Dashboard. **Grading students for completing the training is recommended.**
-
-    #### Will you ask students to complete this training as part of their grade?
-  type: 1  # single choice
-  minimum: 1
-  options:
-    -
-      title: Yes, training will be graded.
-      output: essentials
-      logic: graded_training
-    -
-      title: No, training will not be graded.
-      output: essentials
-      logic: ungraded_training
-
--
   key: generative_ai
   title: Generative AI and the Wikipedia assignment
+  # `essentials` is the only content group in content.yml, so this panel-level
+  # output is what builds the whole timeline. It must sit on a panel with no
+  # `only_if`, so that every course gets it.
+  output: essentials
   description: |
     Many of our training modules include guidance for students on how to thoughtfully and critically
     use generative AI tools to support their work on Wikipedia – **and only if permitted by your own
@@ -191,6 +164,26 @@
     -
       title: "No"
       blurb: I do not want to incorporate this training module.
+
+# Tag-only panel: lets staff find courses interested in the diverse STEM
+# biographies initiative. No default selection, so a `stem_biographies` tag
+# always reflects a choice the instructor made.
+-
+  key: stem_biographies
+  title: Are you interested in having your students create biographies of diverse people in STEM this term?
+  description: |
+    Wiki Education is running an initiative this term to create new biographies of diverse
+    people in STEM. If you’re interested in participating, we can provide you with a few
+    suggested names of missing articles to get your students started.
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: "Yes"
+      tag: stem_biographies
+    -
+      title: "No"
+      tag: no_stem_biographies
 
 -
   key: sandboxes
@@ -351,6 +344,22 @@
     -
       title: No. No one will work on medicine- or psychology-related content.
       tag: no_medical_topics
+
+# Tag-only panel: lets admins spot courses expected to edit somewhere other
+# than English Wikipedia.
+-
+  key: non_english_wikipedia
+  title: Will your students be contributing content to any non-English versions of Wikipedia?
+  description: ''
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: "Yes"
+      tag: non_english_wikipedia
+    -
+      title: "No"
+      tag: english_wikipedia_only
 
 - key: topics # This key is special-cased as non-exclusive in WizardTimelineManager
   title: Subject-specific resources
@@ -635,46 +644,6 @@
 #       blurb: The Wiki Ed team can provide advice and support to high-achieving students who are interested in the Good Article process.
 #       tag: dyk_and_ga
 #       logic: good_article_nominations
-
--
-  key: assignment_expectations
-  title: Assignment expectations
-  description: |
-    What types of contributions do you expect your students to make to Wikipedia?
-  type: 1 # single choice
-  minimum: 1
-  options:
-    -
-      title: I would like my students to contribute substantially to Wikipedia either by considerably expanding existing articles or creating new articles.
-      tag: expected_contributions_large
-    -
-      title: I expect that my students will make small edits to Wikipedia, such as adding a few sentences to an article.
-      tag: expected_contributions_small
-    -
-      title: I don't know how much content my students will contribute to Wikipedia.
-      tag: expected_contributions_unknown
-
--
-  key: other_assignments
-  title: What portion of your course will the Wikipedia assignment comprise?
-  description: |
-    We recommend that your Wikipedia assignment make up at minimum 20% of the overall course grade.
-  type: 1 # single choice
-  minimum: 1
-  options:
-    -
-      title: The Wikipedia assignment will be the only assignment.
-      tag: assignment_portion_only
-    -
-      title: The Wikipedia assignment is a major assignment.
-      tag: assignment_portion_major
-    -
-      title: The Wikipedia assignment is a minor assignment.
-      tag: assignment_portion_minor
-    -
-      title: I don't know.
-      tag: assignment_portion_unknown
-
 
 -
   key: instructor_learner

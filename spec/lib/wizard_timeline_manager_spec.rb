@@ -19,8 +19,7 @@ describe WizardTimelineManager do
     let(:wizard_params) do
       { 'wizard_output' =>
           { 'output' => ['essentials'],
-            'logic' => %w[graded_training
-                          critique
+            'logic' => %w[critique
                           add_to_article
                           copyedit
                           illustrate

@@ -156,14 +156,14 @@ instructors take.
    <br><a href="screenshots/course_wizard_dates.png"><img src="screenshots/course_wizard_dates.png" width="320" alt="wizard course dates"></a>
 2. **Assignment type** — pick "Research and write", "Translate", or "Create images and multimedia".
    <br><a href="screenshots/course_wizard_path.png"><img src="screenshots/course_wizard_path.png" width="320" alt="wizard assignment type"></a>
-3. **Training** — graded or ungraded.
-   <br><a href="screenshots/course_wizard_training.png"><img src="screenshots/course_wizard_training.png" width="320" alt="wizard training"></a>
-4. **Generative AI** — assign the LLM-and-Wikipedia training or not.
+3. **Generative AI** — assign the LLM-and-Wikipedia training or not.
    <br><a href="screenshots/course_wizard_ai.png"><img src="screenshots/course_wizard_ai.png" width="320" alt="wizard generative AI"></a>
-5. **Getting started with editing** — pick the on-ramp activities.
+4. **Getting started with editing** — pick the on-ramp activities.
    <br><a href="screenshots/course_wizard_getting_started.png"><img src="screenshots/course_wizard_getting_started.png" width="320" alt="wizard getting started"></a>
-6. **Improving representation** — add the diversity / equity / inclusion guidance or not.
+5. **Improving representation** — add the diversity / equity / inclusion guidance or not.
    <br><a href="screenshots/course_wizard_representation.png"><img src="screenshots/course_wizard_representation.png" width="320" alt="wizard representation"></a>
+6. **Diverse STEM biographies** — yes/no interest in the initiative; tags the course.
+   <br><a href="screenshots/course_wizard_stem_biographies.png"><img src="screenshots/course_wizard_stem_biographies.png" width="320" alt="wizard STEM biographies"></a>
 7. **Sandboxes vs. live editing**.
    <br><a href="screenshots/course_wizard_sandboxes.png"><img src="screenshots/course_wizard_sandboxes.png" width="320" alt="wizard sandboxes"></a>
 8. **Working individually or in groups**.
@@ -172,18 +172,18 @@ instructors take.
    <br><a href="screenshots/course_wizard_articles_source.png"><img src="screenshots/course_wizard_articles_source.png" width="320" alt="wizard articles source"></a>
 10. **Medical topics** — yes/no, inserts the medical-content training if yes.
     <br><a href="screenshots/course_wizard_medical.png"><img src="screenshots/course_wizard_medical.png" width="320" alt="wizard medical"></a>
-11. **Subject-specific resources / handouts**.
+11. **Non-English Wikipedia** — yes/no; tags the course.
+    <br><a href="screenshots/course_wizard_non_english.png"><img src="screenshots/course_wizard_non_english.png" width="320" alt="wizard non-English Wikipedia"></a>
+12. **Subject-specific resources / handouts**.
     <br><a href="screenshots/course_wizard_handouts.png"><img src="screenshots/course_wizard_handouts.png" width="320" alt="wizard handouts"></a>
-12. **Peer feedback** — 0, 1, or 2 reviews.
+13. **Peer feedback** — 0, 1, or 2 reviews.
     <br><a href="screenshots/course_wizard_peer_review.png"><img src="screenshots/course_wizard_peer_review.png" width="320" alt="wizard peer review"></a>
-13. **Discussions** — which weekly discussions to include.
+14. **Discussions** — which weekly discussions to include.
     <br><a href="screenshots/course_wizard_discussions.png"><img src="screenshots/course_wizard_discussions.png" width="320" alt="wizard discussions"></a>
-14. **Supplementary assignments** — weekly journal, reflective essay, extra credit, etc.
+15. **Supplementary assignments** — weekly journal, reflective essay, extra credit, etc.
     <br><a href="screenshots/course_wizard_supplementary.png"><img src="screenshots/course_wizard_supplementary.png" width="320" alt="wizard supplementary"></a>
-15. **Assignment expectations** — how much each student is expected to contribute.
-    <br><a href="screenshots/course_wizard_expectations.png"><img src="screenshots/course_wizard_expectations.png" width="320" alt="wizard expectations"></a>
-16. **Course weight** — share of the syllabus the Wikipedia assignment occupies.
-    <br><a href="screenshots/course_wizard_weight.png"><img src="screenshots/course_wizard_weight.png" width="320" alt="wizard course weight"></a>
+16. **Learning to edit with your students** — whether the instructor will edit an article too. (A "Mentorship program" panel follows for new instructors only.)
+    <br><a href="screenshots/course_wizard_instructor_learner.png"><img src="screenshots/course_wizard_instructor_learner.png" width="320" alt="wizard learning to edit with your students"></a>
 17. **Summary** — review every selection; clicking *Generate Timeline* writes the resulting weeks/blocks to the course.
     <br><a href="screenshots/course_wizard_summary.png"><img src="screenshots/course_wizard_summary.png" width="320" alt="wizard summary"></a>
 
