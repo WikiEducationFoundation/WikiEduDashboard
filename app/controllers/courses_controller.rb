@@ -20,6 +20,8 @@ class CoursesController < ApplicationController
   respond_to :html, :json
   before_action :require_permissions, only: %i[notify_untrained
                                                delete_all_weeks]
+  before_action :require_admin_permissions, only: [:tag]
+  before_action :require_campaign_list_permissions, only: [:list]
 
   ################
   # CRUD methods #
@@ -283,11 +285,24 @@ class CoursesController < ApplicationController
     params.require(:campaign).permit(:title)
   end
 
+  # Adding a course to a campaign approves it on Wiki Ed, which only admins
+  # may do. On P&E, course editors manage their own course's campaigns.
+  def require_campaign_list_permissions
+    return require_admin_permissions if Features.wiki_ed?
+    require_permissions
+  end
+
   def validate
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
-    course_cloned_status = @course.cloned_status == 3
-    raise NotPermittedError unless current_user&.can_edit?(@course) || course_cloned_status
+    raise NotPermittedError unless current_user&.can_edit?(@course) || copier_finishing_copy?
+  end
+
+  # CopyCourseController doesn't enroll the user who copies a course, so that
+  # user may edit the copy until its setup modal is finished.
+  def copier_finishing_copy?
+    return false unless current_user && @course.cloned_status == 3
+    @course.flags[:copied_by_user_id] == current_user.id
   end
 
   def handle_course_announcement(instructor)
