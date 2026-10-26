@@ -6,8 +6,8 @@ import { AUTHORSHIP_ID, AUTHORSHIP_NOTE, CREDITS_ID, CREDITS_NOTE } from './desc
 
 const AuthorshipNote = ({ generatedAt, note = AUTHORSHIP_NOTE }) => (
   <footer className="detector-comparison__footer" id={AUTHORSHIP_ID}>
-    <p>{note}</p>
     <p id={CREDITS_ID}>{CREDITS_NOTE}</p>
+    <p>{note}</p>
     {generatedAt && <p>Data as of {new Date(generatedAt).toLocaleString()}.</p>}
   </footer>
 );
@@ -21,8 +21,8 @@ const Dagger = ({ target, symbol, label }) => (
 
 Dagger.propTypes = { target: PropTypes.string.isRequired, symbol: PropTypes.string.isRequired, label: PropTypes.string.isRequired };
 
-export const AuthorshipDagger = () => <Dagger target={AUTHORSHIP_ID} symbol="†" label="Who wrote this section" />;
+export const AuthorshipDagger = () => <Dagger target={AUTHORSHIP_ID} symbol="‡" label="Who wrote this section" />;
 // After each page's title, pointing to the thanks for donated credits.
-export const CreditsDagger = () => <Dagger target={CREDITS_ID} symbol="‡" label="Donated credits" />;
+export const CreditsDagger = () => <Dagger target={CREDITS_ID} symbol="†" label="Donated credits" />;
 
 export default AuthorshipNote;
