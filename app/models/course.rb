@@ -318,6 +318,12 @@ class Course < ApplicationRecord
     campaigns.any? && !withdrawn
   end
 
+  # Private courses are visible only to admins and the course's participants.
+  def visible_to?(user)
+    return true unless private
+    user.present? && user.nonvisitor?(self)
+  end
+
   def closed?
     flags[:closed_date].present?
   end

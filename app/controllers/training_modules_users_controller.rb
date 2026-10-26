@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 class TrainingModulesUsersController < ApplicationController
+  include CourseHelper
   respond_to :json
   before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete,
                                             :verify_exercise_article]
 
   def index
     course = Course.find(params[:course_id])
-    user = User.find_by(id: params[:user_id]) if params[:user_id]
-    render 'courses/_blocks', locals: { blocks: course.blocks, course:, user: }
+    require_course_visible(course)
+    render 'courses/_blocks',
+           locals: { blocks: course.blocks, course:, user: progress_user(course) }
   end
 
   def create_or_update
@@ -47,6 +49,14 @@ class TrainingModulesUsersController < ApplicationController
   end
 
   private
+
+  # A user's progress goes only to that user and to people who can edit the
+  # course, as in TrainingStatusController.
+  def progress_user(course)
+    user = User.find_by(id: params[:user_id]) if params[:user_id]
+    return unless user && current_user
+    return user if current_user.id == user.id || current_user.can_edit?(course)
+  end
 
   def set_training_module
     @training_module = TrainingModule.find_by(slug: params[:module_id])

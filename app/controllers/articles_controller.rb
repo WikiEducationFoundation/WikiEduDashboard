@@ -2,8 +2,10 @@
 require_dependency "#{Rails.root}/lib/revision_score_manager"
 
 class ArticlesController < ApplicationController
+  include CourseHelper
   respond_to :json
   before_action :set_course, except: :revision_score
+  before_action :require_course_editor, only: :update_tracked_status
 
   # Scores the given revisions for the article development graphs. The frontend
   # fetches the revision list itself (client-side, from the MediaWiki API) and
@@ -33,6 +35,12 @@ class ArticlesController < ApplicationController
 
   def set_course
     @course = Course.find(params[:course_id])
+    require_course_visible(@course)
+  end
+
+  def require_course_editor
+    require_signed_in
+    raise NotPermittedError unless current_user.can_edit?(@course)
   end
 
 end

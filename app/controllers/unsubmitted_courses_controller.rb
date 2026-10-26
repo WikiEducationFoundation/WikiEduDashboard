@@ -15,7 +15,8 @@ class UnsubmittedCoursesController < ApplicationController
   private
 
   def scoped_courses
-    return Course.unsubmitted if @show_all
-    Course.unsubmitted.where(start: START_DATE_CUTOFF.ago..)
+    courses = current_user&.admin? ? Course.unsubmitted : Course.unsubmitted.nonprivate
+    return courses if @show_all
+    courses.where(start: START_DATE_CUTOFF.ago..)
   end
 end

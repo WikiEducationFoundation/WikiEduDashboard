@@ -231,8 +231,9 @@ class User < ApplicationRecord
     article_maps.uniq { |article| article[:article_id] }
   end
 
-  def taught_courses_with_edited_articles
+  def taught_courses_with_edited_articles(viewer: nil)
     courses = instructed_courses.includes(articles_courses: :article, courses_users: :user)
+    courses = courses.select { |course| course.visible_to?(viewer) }
 
     courses.map do |course|
       {

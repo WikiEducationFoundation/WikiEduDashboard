@@ -56,14 +56,52 @@ describe ArticlesController, type: :request do
   end
 
   describe '#update_tracked_status' do
+    let(:instructor) { create(:user, username: 'Instructor') }
+    let(:request_params) { { article_id: article.id, course_id: course.id, tracked: false } }
+    let(:article_course) { course.articles_courses.find_by(article_id: article.id) }
+
+    before do
+      create(:courses_user, user_id: instructor.id, course_id: course.id,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+
     it 'updates the tracked status' do
-      request_params = { article_id: article.id, course_id: course.id, tracked: false }
-      article_course = course.articles_courses.find_by(article_id: article.id)
+      login_as instructor
       post '/articles/status', params: request_params, as: :json
       expect(article_course.reload.tracked).to eq(false)
       request_params[:tracked] = true
       post '/articles/status', params: request_params, as: :json
       expect(article_course.reload.tracked).to eq(true)
+    end
+
+    it 'refuses a logged-out visitor' do
+      post '/articles/status', params: request_params, as: :json
+      expect(response.status).to eq(401)
+      expect(article_course.reload.tracked).to eq(true)
+    end
+
+    it 'refuses a student in the course' do
+      login_as user
+      post '/articles/status', params: request_params, as: :json
+      expect(response.status).to eq(401)
+      expect(article_course.reload.tracked).to eq(true)
+    end
+  end
+
+  describe 'a private course' do
+    let(:details_params) { { article_id: article.id, course_id: course.id, format: :json } }
+
+    before { course.update(private: true) }
+
+    it 'hides article details from a logged-out visitor' do
+      get '/articles/details', params: details_params
+      expect(response.status).to eq(404)
+    end
+
+    it 'shows article details to a participant' do
+      login_as user
+      get '/articles/details', params: details_params
+      expect(response.status).to eq(200)
     end
   end
 end

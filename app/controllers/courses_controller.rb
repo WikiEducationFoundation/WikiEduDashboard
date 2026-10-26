@@ -87,6 +87,7 @@ class CoursesController < ApplicationController
 
   def find
     course = Course.find(params[:course_id])
+    require_course_visible(course)
     redirect_to "/courses/#{course.slug}"
   end
 
@@ -548,10 +549,7 @@ class CoursesController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def protect_privacy
-    return unless @course.private
-    # Admins and enrolled users have non-visitor roles
-    return if current_user&.nonvisitor?(@course)
-    raise ActionController::RoutingError, 'not found'
+    require_course_visible(@course)
   end
 
   # If this is an enroll link, save the slug and enroll code
