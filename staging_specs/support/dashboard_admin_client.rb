@@ -251,17 +251,17 @@ module DashboardAdminClient
   #   assigned module refs          1       28
   #   deep-linkable gradables       3        9
   #
-  # The `logic` set below is the canonical walk through the wizard's 16 panels —
-  # graded training, LLM training, the recommended early-editing tasks, sandboxes,
-  # individual work, an instructor-prepared article list, medical topics, one
-  # handout, two peer reviewers, all three discussions, and the presentation /
+  # The `logic` set below is the canonical walk through the wizard's 13 panels —
+  # LLM training, the recommended early-editing tasks, sandboxes, individual
+  # work, an instructor-prepared article list, medical topics, one handout, two
+  # peer reviewers, all three discussions, and the presentation /
   # reflective-essay / extra-credit supplements. It mirrors
   # `go_through_researchwrite_wizard` in spec/features/course_creation_spec.rb,
   # whose `expected_course_blocks` is 29 — so the assertion below is a live check
   # that this set still tracks `config/wizard/researchwrite/content.yml`. If
   # content.yml changes, this and that feature spec notice together.
   WIZARD_LOGIC = %w[
-    graded_training llm_training
+    llm_training
     critique add_to_article fact_verification
     improving_representation yes_sandboxes working_individually
     choose_articles_from_list medical_topics art_history_handout

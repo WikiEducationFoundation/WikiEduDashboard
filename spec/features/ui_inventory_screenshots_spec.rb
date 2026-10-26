@@ -269,10 +269,6 @@ if ENV['SCREENSHOTS']
         pick_first_wizard_option # Research and write
         wizard_next
 
-        shoot('course_wizard_training', wait: 0)
-        pick_first_wizard_option # Training graded
-        wizard_next
-
         shoot('course_wizard_ai', wait: 0)
         pick_first_wizard_option # AI training
         wizard_next
@@ -311,14 +307,6 @@ if ENV['SCREENSHOTS']
 
         shoot('course_wizard_supplementary', wait: 0)
         find('h3', text: 'Extra credit assignment').click
-        wizard_next
-
-        shoot('course_wizard_expectations', wait: 0)
-        omniclick find('.wizard__option', match: :first).find('button', match: :first)
-        wizard_next
-
-        shoot('course_wizard_weight', wait: 0)
-        omniclick find('.wizard__option', match: :first).find('button', match: :first)
         wizard_next
 
         shoot('course_wizard_summary', wait: 0)

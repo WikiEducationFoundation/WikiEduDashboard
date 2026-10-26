@@ -45,10 +45,6 @@ def go_through_researchwrite_wizard(returning_instructor: true, set_meeting_days
   sleep 1
 
   # Click through the offered choices
-  find('.wizard__option', match: :first).find('button', match: :first).click # Training not graded
-  click_button 'Next'
-  sleep 1
-
   find('.wizard__option', match: :first).find('button', match: :first).click # Yes "LLMs" training
   click_button 'Next'
   sleep 1
@@ -96,22 +92,6 @@ def go_through_researchwrite_wizard(returning_instructor: true, set_meeting_days
   # DYK/GA option removed for ~Spring 2021
   # click_button 'Next' # No DYK/GA
   # sleep 1
-
-  ####################################
-  # Fall 2020 supplemental questions #
-  ####################################
-  # contribute substantially
-  omniclick find('.wizard__option', match: :first).find('button', match: :first)
-  click_button 'Next'
-  sleep 1
-  # only assignment
-  omniclick find('.wizard__option', match: :first).find('button', match: :first)
-  click_button 'Next'
-  sleep 1
-  # # sandboxes unacceptable
-  # omniclick find('.wizard__option', match: :first).find('button', match: :first)
-  # click_button 'Next'
-  sleep 1
 
   # "Learning to edit with your students" panel; accept the default "Yes"
   click_button 'Next'
