@@ -151,7 +151,7 @@ lb:
     project: Projet
     deleted: (geläscht)
     edited: Geännert Artikelen
-    edited_by: 'Geännert vum:'
+    edited_by: Geännert vum %{author}
     edited_mobile: Artikelen
     edited_none: Et gëtt nach keng geännert Artikelen.
     filter:

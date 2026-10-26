@@ -25,6 +25,7 @@ sk:
   application:
     back: Späť
     cancel: Zrušiť
+    close: Zavrieť
     next: Ďalej
     skip_to_main_content: Preskočiť na hlavný obsah
     cookie_consent: Na zapamätanie si prihlásenia táto stránka používa súbory cookies
@@ -76,6 +77,7 @@ sk:
     change: Zmeniť
     details: Podrobnosti
     confirm: OK
+    confirm_generic: Naozaj to chcete urobiť?
     opt_in: Áno
     opt_out: Nie
     opt_yes: áno
@@ -117,6 +119,8 @@ sk:
     about_creating_programs: Ak organizujete jedno samostatné podujatie, môžete teraz
       vytvoriť program. Ak je vaše podujatie súčasťou niečoho väčšieho, nájdite alebo
       preň vytvorte kampaň. Potom môžete vytvoriť nový program zo stránky kampane.
+    tooltip:
+      alt: Ďalšie informácie
   home:
     explore: Preskúmať
     log_in: Prihláste sa pomocou Wikipédie
@@ -212,7 +216,8 @@ sk:
       articles_created: Vytvorené články
       articles_improved: Vylepšené články
       characters_added: Pridané znaky
-      new_editors: Noví redaktori
+      new_editors: Noví redaktori (registrácia do 60 dní pred začiatkom)
+      retained_new_editors: Udržaní redaktori
       active_programs: Aktívne programy
       active_facilitators: Aktívni facilitátori
     charts:
@@ -225,13 +230,15 @@ sk:
       edits: Úpravy
       programs: Programy
       articles_created: Vytvorené články
-      new_editors: Noví redaktori
+      new_editors: Noví redaktori (registrácia do 60 dní pred začiatkom)
+      retained_new_editors: Udržaní redaktori
     facilitators:
       title: Rebríček facilitátorov
       username: Používateľské meno
       courses: Kurzy
       active: Aktívny
       students: Študenti
+      retained_new_editors: Udržaní redaktori
       active_in_year: Aktívny za rok
       "yes": Áno
       "no": Nie
@@ -280,7 +287,7 @@ sk:
     does_not_exist: Článok neexistuje. Vytvorte stránku pieskoviska a priraďte sa
       k nej, aby ste dostávali návrhy.
     edited: Upravené články
-    edited_by: 'Upravil(a):'
+    edited_by: 'Upravil(a): %{author}'
     edited_mobile: Články
     edited_none: Zatiaľ nie sú žiadne upravené články.
     filter:
@@ -431,6 +438,11 @@ sk:
     add_placeholder: Zadajte názov článku alebo URL
     assign_self: Zadať si článok
     invalid_mainspace_article: Musí to byť platný článok v hlavnom mennom priestore.
+    invalid_title_format: „%{title}“ nemá platný formát názvu.
+    not_mainspace_article: '%{title} nie je článok v hlavnom mennom priestore (povolené
+      sú iba bežné stránky článkov)'
+    unable_to_verify_article: Článok sa nepodarilo overiť
+    wiki_api_unreachable: Nepodarilo sa spojiť s Wiki API.
     assign_self_wikidata: Priradiť si položku
     assign_tooltip: Priradený článok je ten, ktorý plánujete vytvoriť alebo vylepšiť.
     assign_tooltip_wikidata: Priradená položka je taká, ktorú plánujete vytvoriť alebo
@@ -440,6 +452,10 @@ sk:
     confirm_add_available: Určite chcete pridať %{title}?
     confirm_addition: Určite chcete zadať článok %{title} redaktorovi %{username}?
     confirm_deletion: Určite chcete odstrániť tento zadaný článok?
+    copy_available: Importovať z iného kurzu
+    copy_available_url_placeholder: URL kurzu
+    copy_available_select_placeholder: Vyberte kurz
+    copy_available_include_student_assigned: Zahrnúť pridelené články?
     delete: Odobrať a odstrániť
     editors: Priradené k
     change_sandbox_url: Zmeniť pieskovisko
@@ -480,7 +496,9 @@ sk:
       limit_exceeded_wikidata: Každý študent už hodnotí aspoň %{maximum} položiek.
     remove: Odstrániť
     reviewers: Hodnotiaci
+    review_classmate_draft: (koncept v pieskovisku používateľa %{username})
     review_other: Priradiť/odobrať partnerské hodnotenie
+    review_sandbox_not_found: '%{title} nepatrí k článku pridelenému spolužiakovi.'
     review_self: Hodnotiť článok
     review_self_wikidata: Hodnotiť položku
     review_tooltip: Toto je pre články, ktoré plánujete partnersky hodnotiť alebo
@@ -511,6 +529,15 @@ sk:
     warning_untracked_wiki: 'Upozorňujeme, že článok, ktorý ste si vybrali, je na
       wiki, ktorú tento kurz nesleduje. Ak chcete sledovať príspevky do tohto článku,
       inštruktor musí do tohto kurzu pridať nasledujúcu wiki: %{wiki}'
+  assignments_tab:
+    label: Zadania
+    overdue: Po termíne
+    progress: Postup
+    assigned: Pridelené
+    live_article: Živý článok
+    stage_assigned: Článok pridelený
+    stage_live: Živý článok upravený
+    view_training: Zobraziť školenie
   blocks:
     milestones:
       title: Míľniky
@@ -549,6 +576,8 @@ sk:
     course_already_removed: „%{title}“ už bol odstránený z kampane „%{campaign_title}“
     course: Kurz
     course_data: údaje kurzu
+    all_data: Všetko
+    export: Exportovať
     course_removed: „%{title}“ bol odstránený z kampane „%{campaign_title}“
     course_removed_and_deleted: „%{title}“ bol vymazaný a odstránený z kampane „%{campaign_title}“
     course_removed_but_not_deleted: „%{title}“ bol odstránený z „%{campaign_title}“,
@@ -557,6 +586,8 @@ sk:
     create_my_campaign: Vytvoriť moju kampaň!
     customize_passcode: predvolený prístupový kód
     data_download_info: Stiahnuť údaje kampane ako súbory CSV
+    data_download_generating: Súbor sa vytvára. Keď bude pripravený na stiahnutie,
+      dostanete upozornenie.
     data_courses: Prehľadové údaje o kurze
     data_courses_info: Základné metriky pre každý kurz/program
     data_articles: Upravených stránok
@@ -608,6 +639,10 @@ sk:
     student_course: študenti podľa kurzu
     title: Názov
     too_large: Táto kampaň je príliš veľká na to, aby sa zobrazili požadované údaje.
+    articles_truncated: Zobrazuje sa iba prvých %{count} článkov.
+    articles_truncated_html: Zobrazuje sa iba prvých %{count} článkov. Ak sa prihlásite,
+      celý zoznam získate cez %{csv_link}.
+    articles_truncated_csv: export CSV
     too_many_articles: Zoznam upravených článkov pre túto kampaň je príliš dlhý na
       zobrazenie. Ak chcete vidieť upravené články, pozrite si jednotlivé kurzy/programy/podujatia.
     slug: Slug
@@ -875,18 +910,27 @@ sk:
       a diskusnú stránku každého redaktora, ktorý sa pripojí k programu.
     event_sync: 'Úpravy zakázané: Toto pole nemožno zmeniť, pretože kurz je už prepojený
       s podujatím. Jeho zmena by narušila integráciu podujatia.'
+    event_center_link: Stránka v Centre podujatí
+    view_event_center_page: Zobraziť stránku
+    go_to_event_center: Prejsť do Centra podujatí a zaregistrovať sa
     courses_enrolled: Zapísané kurzy
     error:
       exists: Tento kurz už existuje! Skúste to znova s iným názvom, školou alebo
         semestrom.
       user_exists: Prepáčte, %{username} nie je existujúci používateľ.
       user_exists_on_wiki: Prepáčte, %{username} nie je existujúci používateľ na %{domain}.
+      management_role_not_authorized: Používateľa s touto rolou môžu pridať alebo
+        odobrať iba inštruktori kurzu.
       invalid_language_or_project: Neplatný jazyk/projekt
       invalid_wiki: Nemožno sa pripojiť k %{domain}. Možno nejde o platnú wiki.
       duplicate_course_slug: URL adresa %{slug} je už obsadená. Zmeňte názov, školu
         alebo semester.
       invalid_slug: Prázdna škola/názov kurzu.
       duplicate_slug: Iný program s názvom %{slug} už existuje.
+      event_sync_delete: Táto stránka je prepojená s registráciou podujatí Wikimedia
+        a nemožno ju zmazať.
+      event_sync_rename: Táto stránka je prepojená s registráciou podujatí Wikimedia
+        a nemožno ju premenovať.
     expected_students: Očakávaní študenti
     features_feedback: 'Automatické návrhy:'
     feedback: Spätná väzba
@@ -1036,6 +1080,7 @@ sk:
     student_editors: Študenti redaktori
     students_none: Tento kurz nemá žiadnych študentov.
     students_short: Študenti
+    student_view_action_blocked: V režime „Zobraziť ako študent“ to nemôžete urobiť.
     submitted_admin: Tento kurz bol odoslaný na schválenie jeho tvorcom. Ak ho chcete
       schváliť, pridajte ho do kampane na stránke Prehľad.
     submitted_and_pending_heading: Odoslané a čakajúce na schválenie
@@ -1083,6 +1128,8 @@ sk:
     training_overdue: Školiaci modul „%{title}“ je priradený k tomuto kurzu a termín
       jeho dokončenia bol %{date}.
     unsubmitted: Neodoslané kurzy
+    unsubmitted_show_all: Zobraziť všetky
+    unsubmitted_show_recent: Zobraziť nedávne
     untrained: Nezaškolení
     update_stats: Aktualizovať štatistiky
     uploads_none: Táto trieda neprispela žiadnymi obrázkami ani inými mediálnymi súbormi
@@ -1097,6 +1144,7 @@ sk:
     view_doc: Odhadovaný počet zobrazení článkov upravených zapísanými redaktormi
       od doby, keď redaktor vykonal svoju prvú úpravu každého článku
     view_page: Zobraziť stránku kurzu
+    view_as_student: Zobraziť ako študent
     view_wiki: Zobraziť na Wikipédii
     volunteer:
       one: Dobrovoľník
@@ -1116,8 +1164,8 @@ sk:
       článkov atď.
     wiki_staff: Tím Wiki Education
     withdrawn: Nesplnil zadanie
-    word_count_doc: Odhad počtu slov pridaných do článkov v hlavnom mennom priestore
-      študentmi kurzu počas semestra kurzu
+    word_count_doc: Odhad počtu slov, ktoré študenti kurzu počas trvania kurzu pridali
+      do článkov v hlavnom mennom priestore. (Úpravy na Wikidátach nie sú zahrnuté.)
     word_count_doc_wikidata: Odhad počtu slov pridaných do položiek v hlavnom mennom
       priestore študentmi kurzu počas semestra kurzu
     yourcourses: Vaše kurzy
@@ -1286,8 +1334,9 @@ sk:
       obrázkami ani inými mediálnymi súbormi.
     view_other: Zobraziť ďalšie kampane
     view_page: Zobraziť stránku
-    word_count_doc: Odhad počtu slov pridaných do článkov v hlavnom mennom priestore
-      redaktormi programu počas trvania programu
+    word_count_doc: Odhad počtu slov, ktoré redaktori programu počas trvania programu
+      pridali do článkov v hlavnom mennom priestore. (Úpravy na Wikidátach nie sú
+      zahrnuté.)
     word_count_doc_wikidata: Odhad počtu slov pridaných do položiek v hlavnom mennom
       priestore redaktormi programu počas trvania programu
     yourcourses: Vaše programy
@@ -1499,6 +1548,46 @@ sk:
       články“, „celkový počet úprav“, „pridané slová“ atď., budú prispievať iba články
       zodpovedajúce sledovaným menným priestorom. Preto sledujte iba tie menné priestory,
       ktoré má váš program za cieľ zlepšiť.
+  report_cards:
+    title: Hodnotiace karty
+    subtitle: Hodnotiaca karta Scholars & Scientists
+    campaign: Kampaň
+    courses: Kurzy
+    download_csv: Stiahnuť CSV
+    pending: čaká sa
+    not_applicable: —
+    total: Celkom
+    empty: žiadne vypočítané štatistiky
+    legend: Dlhoroční wikipedisti (viac ako 500 úprav pred kurzom) sa započítavajú
+      medzi účastníkov, ale vo všetkých ostatných údajoch sú vynechaní. Bunky označené
+      ako čakajúce sa doplnia 31 a 91 dní po skončení kurzu.
+    groups:
+      general: Všeobecné
+      during: Počas kurzu
+      after: Po kurze
+    columns:
+      number: '#'
+      title: Kurz
+      instructors: Inštruktor
+      participants: Účastníci
+      long_term_wikipedians: …z toho dlhoroční wikipedisti (500+ úprav)
+      sessions_during: Redakčné relácie
+      avg_sessions_during: Priemerný počet redakčných relácií na účastníka
+      zero_edit_participants: Účastníci bez úprav
+      uploads: Celkový počet nahraných súborov
+      avg_uploads: Priemerný počet nahraných súborov na účastníka
+      words: Celkový počet pridaných slov
+      avg_words: Priemerný počet slov na účastníka
+      editors_after_course: Účastníci, ktorí upravovali do 30 dní po kurze
+      pct_active_editors_after: Percento aktívnych účastníkov, ktorí do 30 dní po
+        kurze urobili aspoň 1 úpravu
+      avg_days_to_return: Dni do prvej samostatnej úpravy
+      avg_sessions_after: Priemerný počet redakčných relácií 30 dní po kurze
+      any_survival_edits: Účastníci s aspoň 1 úpravou medzi 60. a 90. dňom po skončení
+        kurzu
+      any_survival_edits_returning: …z toho absolvovali predchádzajúci kurz
+      survivors: Účastníci s aspoň 5 úpravami medzi 60. a 90. dňom po skončení kurzu
+      survivors_returning: …z toho absolvovali predchádzajúci kurz
   recent_activity:
     active_courses: Článok je aktívny v
     article_title: Názov
@@ -1561,7 +1650,14 @@ sk:
         course_creation_settings: Vytváranie kurzov
         default_campaign_setting: Predvolená kampaň
         site_notice_setting: Oznam stránky
+        site_notice_message: Správa
         site_notice_preview: Živý náhľad
+      site_notice_help:
+        intro: Oznam je v HTML a zobrazuje sa v pruhu v hornej časti každej stránky.
+          Zalomenia riadkov napísané tu sa ignorujú, preto na formátovanie použite
+          značky.
+        link: Odkaz
+        line_break: Zalomenie riadka
       buttons:
         add_admin_button: Pridať administrátora
         add_special_user_button: Pridať špeciálneho používateľa
@@ -1670,6 +1766,9 @@ sk:
     purpose: Účel
     queues_overview: Prehľad frontov
     queue: Front
+    report_csv: Vytváranie správ CSV
+    report_csv_description: Samostatný front na vytváranie správ CSV vyžiadaných používateľmi.
+    report_csv_doc: Spracúva správy CSV vyžiadané používateľmi.
     short_update: Krátka aktualizácia
     short_update_description: Krátke aktualizácie spracúvajú kurzy s menej ako 1 000
       revíziami.
@@ -1795,6 +1894,24 @@ sk:
     week_number: Týždeň %{number}
     add_block: Pridať blok
     delete_week: Odstrániť týždeň
+    add_standard_block: Pridať štandardný blok
+    standard_blocks: Štandardné bloky
+    standard_block_add: Pridať
+    standard_block_filter: Filtrovať bloky
+    standard_block_matches: Zodpovedá
+    standard_block_does_not_match: Nezodpovedá
+    standard_block_match_unknown: Neznáme
+    standard_block_already_added: Už je v časovej osi
+    sandbox_mode: Režim pieskoviska
+    sandbox_mode_current_sandboxes: Písanie konceptov v pieskoviskách
+    sandbox_mode_current_live: Úpravy živých článkov
+    sandbox_mode_switch_to_live: Prepnúť na úpravy naživo
+    sandbox_mode_switch_to_sandboxes: Prepnúť na pieskoviská
+    sandbox_mode_added: Pridané bloky
+    sandbox_mode_removed: Odstránené bloky
+    sandbox_mode_unmatched: Očakávané bloky sa nenašli. Ich názvy mohli byť upravené.
+    sandbox_mode_unresolved: Tieto bloky závisia aj od neznámej odpovede v sprievodcovi
+      a neboli zmenené.
   training:
     continue: Pokračovať (%{progress})
     start: Začať
@@ -1833,6 +1950,8 @@ sk:
     exercise_sandbox_incomplete: Prosím dokončite cvičenie vo svojom cvičnom pieskovisku
       (%{pages}) predtým, ako ho označíte ako dokončené
     exercise_needs_assigned_article: Pred dokončením si musíte priradiť článok.
+    exercise_article_unverified: Pred označením tohto cvičenia ako dokončeného overte
+      svoju úpravu na Wikipédii.
     open_exercise: Začať cvičenie
     remaining_exercise: Zostáva %{count} ďalších cvičení.
     view_all: Zobraziť všetky cvičenia
@@ -1842,7 +1961,16 @@ sk:
     loading: Načítava sa…
     wiki_source: wiki zdroj
     article_title_input:
+      submit: Odoslať článok
+      modal_title: Ktorý článok ste upravili?
       success: Skvelá práca! Vaša úprava bola overená.
+      placeholder: napr. Marie Curie alebo https://en.wikipedia.org/wiki/Marie_Curie
+      checking: Kontroluje sa...
+      verify: Overiť
+      not_found: Vašu úpravu sme v tomto článku nenašli. Skontrolujte názov článku
+        a skúste to znova.
+      not_mainspace: Toto nie je živý článok z hlavného menného priestoru Wikipédie.
+        Naozaj ho chcete odoslať pre toto cvičenie?
       submit_anyway: Odoslať aj tak
   claim_verification:
     pick_instructions: Kliknutím na zvýraznené tvrdenie zobrazíte podrobnosti o citácii.
@@ -1872,7 +2000,7 @@ sk:
     take_not_enrolled: Aby ste to mohli urobiť, musíte byť zapísaní v kurze.
     exercise_heading: Cvičenie na overovanie faktov
     intro_p1: Každý fakt na Wikipédii by mal byť podložený spoľahlivým zdrojom. Keď
-      na Wikipédii hľadáte informácie, nemali by ste musieť veriť autorovi na slovo;
+      na Wikipédii hľadáte informácie, nemali by ste musieť veriť redaktorovi na slovo;
       môžete si nájsť citovaný zdroj a prečítať si danú informáciu sami. Toto sa nazýva
       overiteľnosť a je to jedno z najdôležitejších pravidiel, na ktorých stojí dôveryhodnosť
       Wikipédie.
@@ -1892,8 +2020,7 @@ sk:
     form:
       step_evaluate_source: Vyhodnoťte zdroj
       evaluate_source_instructions: 'Najprv zvážte samotný zdroj: či pôsobí spoľahlivo
-        a či sa hodí k danej téme. Môže vám pomôcť prehľad wikipedického konceptu
-        „spoľahlivých zdrojov“: https://en.wikipedia.org/wiki/Wikipedia:Reliable_sources'
+        a či sa hodí k danej téme. Môže vám pomôcť [školenie o hodnotení zdrojov](https://dashboard.wikiedu.org/training/students/evaluating-articles/what-is-a-good-source).'
       source_appropriate_question: Je tento zdroj vhodný pre Wikipédiu, pre tento
         konkrétny článok a pre tvrdenie, ktoré podporuje?
       source_appropriate_options:
@@ -1920,16 +2047,22 @@ sk:
       source_access_question: Podarilo sa vám získať prístup k celému textu zdroja
         citovaného pri vašom tvrdení?
       source_access_options:
-        accessed: Áno, zdroj som získal.
+        accessed: Áno, k zdroju mám prístup.
         nonexistent: Nie, zdroj neexistuje.
         inaccessible: Nie, zdroj existuje, ale nepodarilo sa mi k nemu získať prístup.
+      choose_another_claim_prompt: Keďže k citovanému zdroju nemáte prístup, vyberte
+        na dokončenie tohto cvičenia iné tvrdenie.
       source_access_notes_label: 'Ak sa vám zdroj nepodarilo nájsť, povedzte nám o
         tom viac:'
       step_verify: Overte tvrdenie
-      verify_instructions: Keď citovaný zdroj nájdete, dôkladne ho preskúmajte a posúďte,
-        nakoľko podporuje tvrdenie, ktoré ste si vybrali. Ak nájdete presne to miesto,
-        odkiaľ informácia pochádza, poznačte si, kde v dokumente ste ju našli. (Niektoré
-        citácie sú príliš nepresné na to, aby ich čitateľ dokázal v praxi overiť.)
+      verify_instructions: |-
+        Keď citovaný zdroj nájdete, posúďte, nakoľko podporuje tvrdenie, ktoré ste si vybrali. Ak nájdete presne to miesto, odkiaľ informácia pochádza, poznačte si, kde v dokumente ste ju našli.
+
+        Tipy na overovanie:
+
+        - Prečítajte si abstrakt a záver zdroja. Zaoberá sa témou tvrdenia?
+        - Použite vo svojej aplikácii funkciu „hľadať“. Vyhľadajte v zdroji kľúčové slová z tvrdenia a prečítajte si text okolo nich. Ak kľúčové slová ani ich synonymá v texte nenájdete, tvrdenie je pravdepodobne neoveriteľné.
+        - Text vytvorený generatívnou AI často uvádza široké, všeobecné tvrdenia o téme s citáciou zdroja, ktorý ponúka len jeden malý príklad daného tvrdenia. Vyvodzuje tvrdenie všeobecný záver z konkrétneho prípadu? Ak áno, je neoveriteľné.
       verdict_question: Podporuje zdroj toto tvrdenie?
       verdict_options:
         full_support: Áno – výslovne podporuje celé tvrdenie.
@@ -1941,6 +2074,13 @@ sk:
         mostly_supports: Väčšinou áno – jadro tvrdenia pochádza z tohto zdroja.
         mostly_unsupported: Väčšinou nie – zdroj nie je s tvrdením v rozpore, ale
           priamo ho nepodporuje.
+      verdict_option_descriptions:
+        full_support: V citovanom zdroji nájdem všetky fakty z tvrdenia.
+        partial_support: Niektoré fakty z tvrdenia v zdroji nájdem, ale tvrdenie obsahuje
+          aj informácie, ktoré v citovanom zdroji nenájdem.
+        unsupported: V citovanom zdroji nenájdem žiadny z faktov z tvrdenia.
+        contradicted: V citovanom zdroji som našiel/našla fakty, ktoré tvrdia opak
+          toho, čo uvádza tvrdenie.
       claim_location_label: Ak sa vám tvrdenie podarilo nájsť, kde v zdroji sa nachádzalo?
         (napr. číslo strany, kapitola atď.)
       verification_notes_label: Ak sa vám informáciu nepodarilo overiť, povedzte nám
@@ -1948,6 +2088,30 @@ sk:
         s tvrdením? Bola citácia nepresná a zdroj príliš dlhý na to, aby sa dal rozumne
         prezrieť?)
       other_comments_label: Máte k tomuto cvičeniu ďalšie pripomienky?
+      verification_example:
+        lead: 'Tu je príklad:'
+        verified_heading: 'Príklad: Zdroj tvrdenie podporuje'
+        verified_article_alt: Snímka obrazovky článku na Wikipédii „The Bicycle Tree“.
+          Veta s ukážkovým tvrdením je zvýraznená.
+        verified_claim: 'Tvrdenie znie: „In 2013, The Bicycle Tree launched a crowdfunding
+          campaign to open a storefront.[1]“'
+        verified_source: 'Zdroj: DKELSEN (2016-06-08). "Bicycle Tree Celebrates a
+          Decade of Bike Activism in SanTana". OC Weekly. Archivované z originálu
+          2019-12-09. Citované 2026-05-29.'
+        verified_source_alt: Snímka obrazovky článku z OC Weekly, v ktorom vyhľadávací
+          panel prehliadača našiel „crowd“ vo vete o crowdfundingovej kampani
+        verified_conclusion_html: Vidíte, že %{source_link} výslovne obsahuje informáciu
+          z tvrdenia.
+        verified_source_link_text: zdroj z OC Weekly
+        failed_heading: 'Príklad: Tvrdenie nemožno zo zdroja overiť'
+        failed_article_alt: Snímka obrazovky článku na Wikipédii „Revolutionary Socialist
+          Party (Zambia)“. Veta s ukážkovým tvrdením je zvýraznená.
+        failed_source_alt: Snímka obrazovky PDF s citovaným článkom Burnella z roku
+          2001. Vyhľadávanie „Revolutionary Socialist Party“ nemá žiadne výsledky.
+        failed_conclusion_html: Keďže kľúčové slová z tvrdenia nenájdete nikde v texte
+          (%{source_link}), overenie zlyhá, a preto by ste vybrali „Nie – zdroj nepokrýva
+          to, čo uvádza tvrdenie.“
+        failed_source_link_text: text zdroja
       submit: Odoslať
       submitted_heading: Odoslaná odpoveď
       edit_response: Upraviť odpoveď
@@ -2033,7 +2197,8 @@ sk:
     character_doc: Celkové množstvo obsahu, ktoré používateľ pridal do tohto menného
       priestoru, vypočítané sčítaním pridaných znakov za všetky úpravy, ktoré zväčšili
       veľkosť stránky. Toto číslo nemusí nutne odrážať množstvo nového obsahu, ktoré
-      používateľ pridal. Obnovenie odstráneného obsahu tiež zvýši tento súčet.
+      používateľ pridal. Obnovenie odstráneného obsahu tiež zvýši tento súčet. (Úpravy
+      na Wikidátach nie sú zahrnuté.)
     chars_added: Pridané znaky<br>(článok | používateľ | koncept)
     chars_added_wikidata: Pridané znaky<br>(položka | používateľ | koncept)
     contributions: Príspevky používateľa
@@ -2091,6 +2256,28 @@ sk:
     requested_account_status:
       success_message: 'Úspech: %{result_description}'
       failure_message: 'Neúspech: %{result_description}'
+      user_exists: '%{wiki} už má účet s názvom %{username}, preto bola žiadosť pre
+        %{email} odstránená (%{code}). Účastník sa môže prihlásiť týmto účtom alebo
+        požiadať o iné používateľské meno.'
+      user_exists_enrolled: '%{wiki} už má účet s názvom %{existing_username} a tento
+        používateľ je už do kurzu zapísaný, preto bola žiadosť pre %{email} odstránená
+        (%{code}).'
+      name_conflict_enrolled: '%{wiki} nevytvorila účet pre %{username} (%{email}):
+        %{message} (%{code}). %{existing_username} je už do tohto kurzu zapísaný,
+        takže účastník možno už účet má.'
+      throttled: Vytváranie účtov je momentálne obmedzené, preto účet pre %{username}
+        (%{email}) nebol vytvorený (%{code}). Stáva sa to, keď sa za krátky čas vytvorí
+        veľa účtov. Žiadosť zostala zachovaná. Pred ďalším pokusom počkajte niekoľko
+        minút.
+      captcha_required: '%{wiki} pred vytvorením účtu pre %{username} (%{email}) vyžadovala
+        CAPTCHA, ktorú Dashboard nedokáže vyriešiť (%{code}). Stáva sa to, keď sa
+        za krátky čas vytvorí veľa účtov. Žiadosť zostala zachovaná. Pred ďalším pokusom
+        počkajte niekoľko minút.'
+      rejected: '%{wiki} nevytvorila účet pre %{username} (%{email}): %{message} (%{code})'
+      api_error: '%{wiki} vrátila pri vytváraní účtu pre %{username} (%{email}) chybu:
+        %{message} (%{code}). Žiadosť zostala zachovaná.'
+      unexpected: '%{wiki} vrátila pri vytváraní účtu pre %{username} (%{email}) neočakávanú
+        odpoveď: %{response}. Žiadosť zostala zachovaná a problém bol nahlásený.'
     revision_characters_and_views: 'Pridané znaky: %{characters}, zobrazenia: %{views}'
     revisions_doc: Odhadovaný počet úprav vykonaných týmto redaktorom za posledných
       7 dní na základe priemerného počtu úprav za deň za posledné obdobie.
@@ -2150,7 +2337,7 @@ sk:
       Koncept. Odhady počtu slov sa počítajú zo súčtu zmien veľkosti stránky za všetky
       úpravy, ktoré pridali viac, než odstránili. Toto číslo nemusí nutne odrážať
       množstvo nového obsahu, ktoré používateľ pridal. Obnovenie odstráneného obsahu
-      tiež zvýši tento súčet.
+      tiež zvýši tento súčet. (Úpravy na Wikidátach nie sú zahrnuté.)
     role:
       description: Rola v kurze
       visitor: Návštevník
@@ -2162,8 +2349,12 @@ sk:
     email_required_instructor: Vyžaduje sa pre aktuálnych inštruktorov. Svoju e-mailovú
       adresu môžete odstrániť po skončení aktuálnych kurzov.
     email_invalid: 'Neplatné: Zadajte platný e-mail'
+    imagemagick_not_installed: Nahratý obrázok nemožno spracovať, pretože nie je nainštalovaný
+      ImageMagick.
   user_profiles:
     detailed_impact: Podrobný dopad
+    words_added_per_article: Pridané slová podľa článku
+    references_added_per_article: Pridané referencie podľa článku
     articles_edited_detail: Upravené stránky
     no_articles_edited: Pre tohto používateľa nie je možné v tejto sekcii nič zobraziť.
     no_articles_match: Vybraným filtrom nezodpovedajú žiadne články.
@@ -2283,6 +2474,18 @@ sk:
       bell: Upozornenia
   downloads:
     available_in_bell: Váš súbor je pripravený. Prejdite na upozornenie na sťahovanie.
+    title: Stiahnutia
+    none: Zatiaľ nemáte žiadne stiahnutia.
+    generating: Vytvára sa…
+    ready: Pripravené
+    error: Zlyhalo
+    timeout: Stále sa spracúva…
+    retry: Skontrolovať znova
+    download: Stiahnuť
+    dismiss: Zavrieť
+    new_downloads: Máte nové stiahnutia.
+    no_downloads: Nemáte žiadne nové stiahnutia.
+    aria_label: Stiahnutia
     csv: Stiahnuť CSV
     json: Stiahnuť JSON
   survey:
@@ -2504,7 +2707,21 @@ sk:
     my_last_sync: Posledná synchronizácia
     no_grades_yet: Zatiaľ nebol synchronizovaný žiadny pokrok
     not_yet_linked: Váš účet zatiaľ nie je prepojený s Canvasom pre tento kurz.
+  lti_integrations:
+    title: Integrácie LTI
+    course: Kurz
+    instructor: Inštruktor
+    lms_course: Kurz v Canvase
+    lms_instance: Inštancia Canvasu
+    lti_version: Verzia LTI
+    installed: Nainštalované
+    connected_students: Pripojení študenti
+    roster: Zoznam študentov v Canvase
+    not_applicable: —
   lti:
+    beta_feedback:
+      message: Uvítame spätnú väzbu k tejto beta verzii našej integrácie s Canvasom.
+      link: Poslať spätnú väzbu
     iframe_landing:
       explanation: Otvoriť dashboard.wikiedu.org na novej karte
       button: Otvoriť Wiki Education Dashboard
@@ -2549,6 +2766,8 @@ sk:
       unavailable_header: Nedostupné
       unavailable_explanation: Tieto položky už nie je možné importovať.
     status:
+      roster:
+        peer_reviews: Partnerské hodnotenia
       header: Wiki Education Dashboard
       linked: Prepojené
       refresh: Obnoviť

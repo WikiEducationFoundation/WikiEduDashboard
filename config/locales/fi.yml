@@ -148,7 +148,7 @@ fi:
     does_not_exist: Artikkelia ei ole. Luo sivu hiekkalaatikkoosi ja anna se itsellesi
       tehtäväksi, niin saat muokkaussuosituksia.
     edited: Muokatut artikkelit
-    edited_by: 'Muokannut:'
+    edited_by: 'Muokannut: %{author}'
     edited_mobile: Artikkelit
     edited_none: Ei muokattuja artikkeleja vielä.
     filter:
@@ -234,6 +234,9 @@ fi:
     add_available_submit: Lisää artikkelit
     add_available_submit_wikidata: Lisää kohteita
     assign_self: Anna itsellesi artikkeli tehtäväksi
+    invalid_title_format: '"%{title}" ei ole kelvollisen muotoinen otsikko.'
+    unable_to_verify_article: Artikkelin todennus epäonnistui
+    wiki_api_unreachable: Wiki-APIin ei voida muodostaa yhteyttä.
     assign_tooltip: Tehtäväartikkeli on se, jonka olet valinnut tehtäväksi tai parannettavaksi.
     clone: Luo kopio
     confirm_add_available: Haluatko varmasti lisätä artikkelin %{title}
@@ -249,6 +252,7 @@ fi:
     no_available: Tällä kurssilla ei ole yhtään tehtäväksi annettavaa artikelia.
     remove: Poista
     reviewers: Arvioija(t)
+    review_classmate_draft: (käyttäjän %{username} hiekkalaatikkoluonnos)
     review_other: Anna arvioiminen tehtäväksi tai ota se pois
     review_self: Arvioi artikkeli
     review_self_wikidata: Tarkasta kohde
@@ -312,6 +316,10 @@ fi:
     random_passcode: satunnainen pääsykoodi
     requested_accounts: Pyydetyt käyttäjätunnukset
     title: Otsikko
+    articles_truncated: Vain ensimmäiset %{count} artikkelia näytetään.
+    articles_truncated_html: 'Vain ensimmäiset %{count} artikkelia näytetään. Näytä
+      koko luettelo kirjautumalla sisään: %{csv_link}.'
+    articles_truncated_csv: CSV-vienti
     use_start_end_dates: Käytä aloitus-ja päättymispäiviä
   categories:
     add_category: Lisää luokka
