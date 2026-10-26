@@ -107,15 +107,36 @@ describe WizardTimelineManager do
   describe '#add_tags' do
     it 'updates a tag with the same key as an existing tag' do
       create(:course, id: 10001, timeline_start: Time.zone.today, timeline_end: Time.zone.today)
-      create(:tag, id: 1, course_id: 10001, tag: 'use_sandboxes', key: 'draft_and_mainspace')
+      create(:tag, id: 1, course_id: 10001, tag: 'yes_sandboxes', key: 'sandboxes')
 
       wizard_id = 'researchwrite'
       wizard_params = { 'wizard_output' =>
                         { 'tags' =>
-                          [{ tag: 'work_live', key: 'draft_and_mainspace' }] } }
+                          [{ tag: 'no_sandboxes', key: 'sandboxes' }] } }
       course = Course.find(10001)
       described_class.update_timeline_and_tags(course, wizard_id, wizard_params)
-      expect(Tag.find(1).tag).to eq('work_live')
+      expect(Tag.find(1).tag).to eq('no_sandboxes')
+    end
+
+    # Tags come from the client, so only tags the wizard offers are written.
+    it 'ignores tags the wizard does not offer' do
+      course = create(:course, timeline_start: Time.zone.today, timeline_end: Time.zone.today)
+      admin_tag = create(:tag, course_id: course.id, tag: 'no_clone', key: nil)
+      wizard_params = { 'wizard_output' =>
+                        { 'tags' => [{ tag: 'harmless' },
+                                     { tag: 'arbitrary', key: 'any' },
+                                     { tag: 'cloneable', key: 'sandboxes' }] } }
+      described_class.update_timeline_and_tags(course, 'researchwrite', wizard_params)
+      expect(admin_tag.reload.tag).to eq('no_clone')
+      expect(course.tags.pluck(:tag)).to eq(['no_clone'])
+    end
+
+    it 'writes the assignment type tag' do
+      course = create(:course, timeline_start: Time.zone.today, timeline_end: Time.zone.today)
+      wizard_params = { 'wizard_output' =>
+                        { 'tags' => [{ tag: 'research_write_assignment', key: 'index' }] } }
+      described_class.update_timeline_and_tags(course, 'researchwrite', wizard_params)
+      expect(course.tags.pluck(:tag)).to eq(['research_write_assignment'])
     end
   end
 end
