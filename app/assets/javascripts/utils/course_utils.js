@@ -334,13 +334,13 @@ export default class CourseUtils {
   // By the end of 2019, we should hopefully be able to remove this method
   // assuming messages are now serialized as a hash in the DB.
   static formatOnboardingAlertMessage(message) {
-    // Split on main categories and remove an empty array position that will
-    // appear at the very end.
+    // Split on main categories, only at blank lines followed by a heading,
+    // so that blank lines inside an instructor's answer stay in that answer.
     // e.g. [ 'HEARD FROM:\nassociation (name)', 'WHY HERE:\nteach', ... ]
-    const categories = message.split('\n\n').slice(0, -1);
+    const categories = message.trim().split(/\n\n(?=[A-Z][A-Z ]*:(?:\n|$))/);
     return categories.map((category) => {
       // Grab the content after the category heading
-      const [, content] = category.split(':');
+      const content = category.slice(category.indexOf(':') + 1);
       // If there is content, return it, otherwise return N/A
       return content.trim() ? category : `${category.trim()}\nN/A`;
     });

@@ -629,3 +629,32 @@ describe('courseUtils.draftForReview', () => {
     expect(courseUtils.draftForReview(reviewOnEswiki, assignments)).toBeUndefined();
   });
 });
+
+describe('courseUtils.formatOnboardingAlertMessage', () => {
+  test('splits the message into one entry per category', () => {
+    const message = 'HEARD FROM:\nweb \n\nPRIMARY REASON:\nai \n\nWHY HERE:\nteach this term\n\nOTHER:\nMore to say\n';
+    expect(courseUtils.formatOnboardingAlertMessage(message)).toEqual([
+      'HEARD FROM:\nweb ',
+      'PRIMARY REASON:\nai ',
+      'WHY HERE:\nteach this term',
+      'OTHER:\nMore to say'
+    ]);
+  });
+
+  test('shows N/A for unanswered categories', () => {
+    const message = 'HEARD FROM:\n \n\nWHY HERE:\nteach this term\n\nOTHER:\n\n';
+    expect(courseUtils.formatOnboardingAlertMessage(message)).toEqual([
+      'HEARD FROM:\nN/A',
+      'WHY HERE:\nteach this term',
+      'OTHER:\nN/A'
+    ]);
+  });
+
+  test('keeps blank lines inside an answer', () => {
+    const message = 'PRIMARY REASON:\nother (First.\n\nSecond: more.)\n\nOTHER:\n\n';
+    expect(courseUtils.formatOnboardingAlertMessage(message)).toEqual([
+      'PRIMARY REASON:\nother (First.\n\nSecond: more.)',
+      'OTHER:\nN/A'
+    ]);
+  });
+});
