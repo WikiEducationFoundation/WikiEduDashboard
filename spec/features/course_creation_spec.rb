@@ -73,6 +73,10 @@ def go_through_researchwrite_wizard(returning_instructor: true, set_meeting_days
   click_button 'Next'
   sleep 1
 
+  find('.wizard__option', match: :first).find('button', match: :first).click # Yes, non-English
+  click_button 'Next'
+  sleep 1
+
   # Choose the first handout
   omniclick find('.wizard__option', match: :first).find('button', match: :first)
   click_button 'Next'
@@ -346,6 +350,9 @@ describe 'New course creation and editing', type: :feature do
       # The instructor accepted the default "Yes" on the "Learning to edit with
       # your students" panel, so the course carries the opt-in tag.
       expect(Course.first.tag?('instructor_learner')).to be true
+
+      # The walk answers "Yes" to the non-English Wikipedia question.
+      expect(Course.first.tag?('non_english_wikipedia')).to be true
     end
 
     it 'squeezes assignments into the course dates' do

@@ -325,6 +325,22 @@
       title: No. No one will work on medicine- or psychology-related content.
       tag: no_medical_topics
 
+# Tag-only panel: lets admins spot courses expected to edit somewhere other
+# than English Wikipedia.
+-
+  key: non_english_wikipedia
+  title: Will your students be contributing content to any non-English versions of Wikipedia?
+  description: ''
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: "Yes"
+      tag: non_english_wikipedia
+    -
+      title: "No"
+      tag: english_wikipedia_only
+
 - key: topics # This key is special-cased as non-exclusive in WizardTimelineManager
   title: Subject-specific resources
   description:

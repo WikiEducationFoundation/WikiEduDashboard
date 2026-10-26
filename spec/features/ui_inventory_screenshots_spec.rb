@@ -295,6 +295,10 @@ if ENV['SCREENSHOTS']
         pick_first_wizard_option # Yes/medical
         wizard_next
 
+        shoot('course_wizard_non_english', wait: 0)
+        pick_first_wizard_option # Yes/non-English
+        wizard_next
+
         shoot('course_wizard_handouts', wait: 0)
         omniclick find('.wizard__option', match: :first).find('button', match: :first)
         wizard_next

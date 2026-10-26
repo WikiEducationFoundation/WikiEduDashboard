@@ -251,7 +251,7 @@ module DashboardAdminClient
   #   assigned module refs          1       28
   #   deep-linkable gradables       3        9
   #
-  # The `logic` set below is the canonical walk through the wizard's 13 panels —
+  # The `logic` set below is the canonical walk through the wizard's 14 panels —
   # LLM training, the recommended early-editing tasks, sandboxes, individual
   # work, an instructor-prepared article list, medical topics, one handout, two
   # peer reviewers, all three discussions, and the presentation /
