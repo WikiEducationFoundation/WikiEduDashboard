@@ -546,7 +546,7 @@ describe AssignmentsController, type: :request do
   end
 
   describe 'PATCH #update_status' do
-    let(:assignment) { create(:assignment, course:, role: 0) }
+    let(:assignment) { create(:assignment, course:, user_id: user.id, role: 0) }
     let(:request_params) do
       { course_id: course.id, id: assignment.id, user_id: user.id, format: :json, status: }
     end
@@ -567,6 +567,19 @@ describe AssignmentsController, type: :request do
       it 'renders a 422' do
         patch "/assignments/#{assignment.id}/status", params: request_params
         expect(response.status).to eq(422)
+      end
+    end
+
+    context 'when the assignment belongs to someone else' do
+      let(:status) { 'in_progress' }
+      let(:other_user) { create(:user, username: 'Other') }
+      let(:other_assignment) { create(:assignment, course:, user_id: other_user.id, role: 0) }
+
+      it 'refuses even if the request names the current user' do
+        patch "/assignments/#{other_assignment.id}/status",
+              params: request_params.merge(id: other_assignment.id)
+        expect(response.status).to eq(401)
+        expect(other_assignment.reload.status).not_to eq(status)
       end
     end
   end
