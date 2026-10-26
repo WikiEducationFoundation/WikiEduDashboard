@@ -165,6 +165,26 @@
       title: "No"
       blurb: I do not want to incorporate this training module.
 
+# Tag-only panel: lets staff find courses interested in the diverse STEM
+# biographies initiative. No default selection, so a `stem_biographies` tag
+# always reflects a choice the instructor made.
+-
+  key: stem_biographies
+  title: Are you interested in having your students create biographies of diverse people in STEM this term?
+  description: |
+    Wiki Education is running an initiative this term to create new biographies of diverse
+    people in STEM. If you’re interested in participating, we can provide you with a few
+    suggested names of missing articles to get your students started.
+  type: 1 # single choice
+  minimum: 1
+  options:
+    -
+      title: "Yes"
+      tag: stem_biographies
+    -
+      title: "No"
+      tag: no_stem_biographies
+
 -
   key: sandboxes
   title: Sandboxes or edit live?

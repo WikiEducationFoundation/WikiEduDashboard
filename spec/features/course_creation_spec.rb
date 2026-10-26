@@ -55,6 +55,10 @@ def go_through_researchwrite_wizard(returning_instructor: true, set_meeting_days
   click_button 'Next' # Default "Improving representation" option
   sleep 1
 
+  find('.wizard__option', match: :first).find('button', match: :first).click # Yes, STEM biographies
+  click_button 'Next'
+  sleep 1
+
   find('.wizard__option', match: :first).find('button', match: :first).click # Work in sandboxes
   click_button 'Next'
   sleep 1
@@ -351,7 +355,9 @@ describe 'New course creation and editing', type: :feature do
       # your students" panel, so the course carries the opt-in tag.
       expect(Course.first.tag?('instructor_learner')).to be true
 
-      # The walk answers "Yes" to the non-English Wikipedia question.
+      # The walk answers "Yes" to the STEM biographies and non-English
+      # Wikipedia questions.
+      expect(Course.first.tag?('stem_biographies')).to be true
       expect(Course.first.tag?('non_english_wikipedia')).to be true
     end
 

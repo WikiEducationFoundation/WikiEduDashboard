@@ -279,6 +279,10 @@ if ENV['SCREENSHOTS']
         shoot('course_wizard_representation', wait: 0)
         wizard_next # accept defaults
 
+        shoot('course_wizard_stem_biographies', wait: 0)
+        pick_first_wizard_option # Yes/STEM biographies
+        wizard_next
+
         shoot('course_wizard_sandboxes', wait: 0)
         pick_first_wizard_option # Draft in sandboxes
         wizard_next
