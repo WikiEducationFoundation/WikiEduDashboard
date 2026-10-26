@@ -46,6 +46,7 @@ Rails.application.config.to_prepare do
 
   Rapidfire::QuestionGroupsController.class_eval do
     before_action :require_admin_permissions
+    before_action :protect_confidentiality, only: [:results]
     before_action :set_tags, only: [:new, :edit]
 
     def index
@@ -118,6 +119,15 @@ Rails.application.config.to_prepare do
 
     def set_tags
       @available_tags = Tag.distinct.pluck(:tag)
+    end
+
+    # Same rule as QuestionsController#protect_confidentiality: a question
+    # group in any confidential survey has confidential results.
+    def protect_confidentiality
+      question_group = Rapidfire::QuestionGroup.find(params[:id])
+      return unless question_group.surveys.exists?(confidential_results: true)
+      return if current_user.super_admin?
+      render plain: 'The results for this survey are confidential.', status: :forbidden
     end
   end
 
