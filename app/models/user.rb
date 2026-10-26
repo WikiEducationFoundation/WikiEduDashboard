@@ -245,10 +245,13 @@ class User < ApplicationRecord
     end
   end
 
-  # Exclude tokens/secrets from json output
-  def to_json(options = {})
-    options[:except] ||= %i[wiki_token wiki_secret remember_token]
-    super(options)
+  SECRET_ATTRIBUTES = %w[wiki_token wiki_secret remember_token chat_password].freeze
+
+  # Exclude tokens/secrets from json output. Overriding serializable_hash
+  # rather than to_json also covers as_json, users inside a rendered hash,
+  # and jbuilder views that pass users through.
+  def serializable_hash(options = nil)
+    super.except(*SECRET_ATTRIBUTES)
   end
 
   def profile_image
