@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import { DATASETS } from './descriptions';
 import { datasetPath, INDEX_PATH } from './data';
+import { CreditsDagger } from './authorship_note';
 
 // The top of a dataset's page: the way back to the index, a switch to the other dataset, and
 // the dataset's title. Arriving from another page starts at the top, unless the address names
@@ -29,7 +30,7 @@ const DatasetHeader = ({ current }) => {
           </Link>
         ))}
       </nav>
-      <h1>{dataset.title}</h1>
+      <h1>{dataset.title}<CreditsDagger /></h1>
     </>
   );
 };

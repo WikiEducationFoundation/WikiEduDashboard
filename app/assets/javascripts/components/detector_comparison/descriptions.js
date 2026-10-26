@@ -9,6 +9,12 @@ export const EXPLANATIONS_AUTHORSHIP_NOTE = '† The text from "How to read this
 // The index's version: Wiki Education wrote the preamble and the conclusions above the datasets.
 export const INDEX_AUTHORSHIP_NOTE = '† The text from "Datasets" to the end of the page was written by Claude Code, an AI assistant, at the direction of Wiki Education.';
 
+// Detector vendors that donated scoring credits, in the order the thanks names them. To thank
+// another donor, add its name here.
+export const CREDIT_DONORS = ['Pangram', 'originality.ai'];
+export const CREDITS_ID = 'detector-comparison-credits';
+export const CREDITS_NOTE = `‡ This work was supported by donated credits from ${new Intl.ListFormat('en').format(CREDIT_DONORS)}. Thank you for supporting Wiki Education and the Wikipedia community!`;
+
 // The two tables the page presents, each on its own page.
 export const DATASETS = [
   {

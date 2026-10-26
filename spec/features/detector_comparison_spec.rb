@@ -139,6 +139,13 @@ describe 'AI detector comparison page', type: :feature, js: true do
                                text: 'from "How to read this page" to the end of the page'
     end
 
+    it 'links the page title to the thanks for donated credits' do
+      visit '/detector_comparison'
+      find("h1 a[href='#detector-comparison-credits']", text: '‡').click
+      expect(page).to have_css '#detector-comparison-credits',
+                               text: 'donated credits from Pangram and originality.ai'
+    end
+
     it 'follows a link in a view description to a section of the explanations' do
       with_ladder_link_view do
         visit '/detector_comparison'
