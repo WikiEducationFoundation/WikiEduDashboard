@@ -23,11 +23,12 @@ class Users::EnrollmentController < ApplicationController
   def add
     set_course_and_user
     ensure_management_role_is_authorized { return }
+    ensure_change_is_authorized
     ensure_user_exists { return }
     set_real_name
     @result = JoinCourse.new(course: @course,
                              user: @user,
-                             role: enroll_params[:role],
+                             role: enroll_params[:role].to_i,
                              role_description: enroll_params[:role_description],
                              real_name: @real_name).result
     ensure_enrollment_success { return }
@@ -107,6 +108,7 @@ class Users::EnrollmentController < ApplicationController
     return if @user.nil?
 
     ensure_management_role_is_authorized { return }
+    ensure_change_is_authorized
     ensure_role_is_authorized { return }
     ensure_course_user_exists { return }
 
@@ -135,6 +137,14 @@ class Users::EnrollmentController < ApplicationController
     render json: { message: I18n.t('courses.error.management_role_not_authorized') },
            status: :unauthorized
     yield
+  end
+
+  # Only course editors may enroll or remove other users. Any participant
+  # may remove themselves, which is how a student leaves a course.
+  def ensure_change_is_authorized
+    return if current_user.can_edit?(@course)
+    return if request.delete? && @user == current_user
+    raise NotPermittedError
   end
 
   # For events controlled by Event Center, only non-student roles

@@ -52,9 +52,25 @@ describe Users::EnrollmentController, type: :request do
       expect(instructor_record).to be_nil
     end
 
-    it 'can still enroll another user as a student' do
+    it 'refuses to enroll another user as a student' do
       enroll(CoursesUsers::Roles::STUDENT_ROLE)
+      expect(response.status).to eq(401)
+      expect(CoursesUsers.exists?(course:, user: target)).to be false
+    end
+
+    it 'refuses to remove another student' do
+      create(:courses_user, course:, user: target, role: CoursesUsers::Roles::STUDENT_ROLE)
+      delete "/courses/#{course.slug}/user",
+             params: { id: course.slug, user: { user_id: target.id, role: CoursesUsers::Roles::STUDENT_ROLE } }
+      expect(response.status).to eq(401)
+      expect(CoursesUsers.exists?(course:, user: target)).to be true
+    end
+
+    it 'can remove themselves from the course' do
+      delete "/courses/#{course.slug}/user",
+             params: { id: course.slug, user: { user_id: student.id, role: CoursesUsers::Roles::STUDENT_ROLE } }
       expect(response.status).to eq(200)
+      expect(CoursesUsers.exists?(course:, user: student)).to be false
     end
 
     # WIKI_ED_STAFF_ROLE is the other role in User::EDITING_ROLES, so granting
