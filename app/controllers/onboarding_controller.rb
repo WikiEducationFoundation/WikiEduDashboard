@@ -46,7 +46,7 @@ class OnboardingController < ApplicationController
       },
       'primary_reason' => {
         'answer' => params[:primaryReason],
-        'additional' => params[:primaryReasonDetails]
+        'additional' => primary_reason_details(params)
       },
       'why_here' => {
         'answer' => params[:whyHere],
@@ -57,7 +57,7 @@ class OnboardingController < ApplicationController
 
   def format_message_response(params)
     referral_details = params[:referralDetails]
-    reason_details = params[:primaryReasonDetails]
+    reason_details = primary_reason_details(params)
     <<~RESPONSE
       HEARD FROM:
       #{params[:heardFrom]} #{"(#{referral_details})" if referral_details}
@@ -71,6 +71,12 @@ class OnboardingController < ApplicationController
       OTHER:
       #{params[:otherReason]}
     RESPONSE
+  end
+
+  # The details box only applies to 'other', but the form keeps its text
+  # after the instructor switches to a different reason.
+  def primary_reason_details(params)
+    params[:primaryReasonDetails].presence if params[:primaryReason] == 'other'
   end
 
   def supplementary_response?
