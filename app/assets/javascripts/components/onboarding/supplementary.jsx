@@ -144,7 +144,7 @@ export const OnboardingSupplementary = (props) => {
 
             {
               state.primaryReason === 'other' && (
-                <textarea className="form-control" name="primaryReasonDetails" id="primaryReasonDetails" aria-labelledby="primaryReason-other-label" onChange={_handleFieldChange} />
+                <textarea className="form-control" name="primaryReasonDetails" id="primaryReasonDetails" aria-labelledby="primaryReason-other-label" defaultValue={state.primaryReasonDetails} onChange={_handleFieldChange} />
               )
             }
 

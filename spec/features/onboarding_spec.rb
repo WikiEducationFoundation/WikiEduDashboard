@@ -146,5 +146,18 @@ describe 'onboarding', type: :feature, js: true do
       expect(alert.details['primary_reason']).to eq('answer' => 'other',
                                                     'additional' => 'My reason')
     end
+
+    it 'keeps the other primary reason visible after switching away and back' do
+      visit onboarding_path
+      find('.intro .button').click
+      find('input[type=radio][value=true]').click
+      find('form button[type=submit]').click
+      page.assert_selector('form#supplementary')
+      find('input[type="radio"][name="primaryReason"][value="other"]').click
+      fill_in 'primaryReasonDetails', with: 'My reason'
+      find('input[type="radio"][name="primaryReason"][value="ai"]').click
+      find('input[type="radio"][name="primaryReason"][value="other"]').click
+      expect(find('#primaryReasonDetails').value).to eq('My reason')
+    end
   end
 end
