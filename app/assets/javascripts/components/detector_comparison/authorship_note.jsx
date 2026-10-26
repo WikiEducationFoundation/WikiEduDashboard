@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { AUTHORSHIP_ID, AUTHORSHIP_NOTE, CREDITS_ID, CREDITS_NOTE } from './descriptions';
 
 const AuthorshipNote = ({ generatedAt, note = AUTHORSHIP_NOTE }) => (
-  <footer className="detector-comparison__footer" id={AUTHORSHIP_ID}>
+  <footer className="detector-comparison__footer">
     <p id={CREDITS_ID}>{CREDITS_NOTE}</p>
-    <p>{note}</p>
+    <p id={AUTHORSHIP_ID}>{note}</p>
     {generatedAt && <p>Data as of {new Date(generatedAt).toLocaleString()}.</p>}
   </footer>
 );
