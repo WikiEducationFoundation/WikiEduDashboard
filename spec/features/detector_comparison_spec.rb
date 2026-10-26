@@ -134,9 +134,16 @@ describe 'AI detector comparison page', type: :feature, js: true do
 
     it 'links the AI-written explanations to their authorship note' do
       visit '/detector_comparison/topics'
-      find("h2 a[href='#detector-comparison-authorship']", text: '†').click
+      find("h2 a[href='#detector-comparison-authorship']", text: '‡').click
       expect(page).to have_css '#detector-comparison-authorship',
                                text: 'from "How to read this page" to the end of the page'
+    end
+
+    it 'links the page title to the thanks for donated credits' do
+      visit '/detector_comparison'
+      find("h1 a[href='#detector-comparison-credits']", text: '†').click
+      expect(page).to have_css '#detector-comparison-credits',
+                               text: 'donated credits from Pangram and originality.ai'
     end
 
     it 'follows a link in a view description to a section of the explanations' do
