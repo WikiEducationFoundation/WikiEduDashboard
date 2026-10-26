@@ -45,6 +45,7 @@ slides:
   - slug: dashboard-home-tab # 325
   - slug: dashboard-timeline-tab # 326
   - slug: dashboard-students-tab # 327
+  - slug: dashboard-assignments-tab # 347
   - slug: dashboard-student-assignments-and-exercises # 338
   - slug: dashboard-articles-tab # 328
   - slug: authorship-highlighting # 334
