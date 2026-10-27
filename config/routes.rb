@@ -58,9 +58,10 @@ Rails.application.routes.draw do
   post '/settings/update_site_notice' => 'settings#update_site_notice'
 
 
-  # Griddler allows us to receive incoming emails. By default,
-  # the path for incoming emails is /email_processor
-  mount_griddler
+  # Griddler allows us to receive incoming emails. The path for incoming
+  # emails is /email_processor; InboundEmailsController checks Mailgun's
+  # signature before handing them to Griddler.
+  post '/email_processor' => 'inbound_emails#create', as: :email_processor
 
   #UserProfilesController
   controller :user_profiles do
