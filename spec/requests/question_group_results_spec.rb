@@ -21,6 +21,13 @@ describe 'Question group results for a confidential survey', type: :request do
     expect(response.body).not_to include('CONFIDENTIAL-ANSWER')
   end
 
+  it 'stay visible to a regular admin when the survey is not confidential' do
+    survey.update(confidential_results: false)
+    login_as create(:admin)
+    get path, params: { format: :json }
+    expect(response.body).to include('CONFIDENTIAL-ANSWER')
+  end
+
   it 'are shown to a super admin' do
     login_as create(:super_admin)
     get path, params: { format: :json }

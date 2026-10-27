@@ -23,7 +23,10 @@ class WizardTagOptions
   end
 
   def panel_tags
+    # A panel without a key can't be permitted: a nil key would match the
+    # admin-set tags, which have none.
     load_yaml("#{@wizard_id}/wizard.yml").flat_map do |panel|
+      next [] unless panel['key']
       Array(panel['options']).filter_map { |option| [panel['key'], option['tag']] if option['tag'] }
     end
   end

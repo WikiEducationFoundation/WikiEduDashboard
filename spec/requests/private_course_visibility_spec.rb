@@ -132,18 +132,59 @@ describe 'Private course visibility', type: :request do
   end
 
   describe 'campaign articles' do
-    before { campaign.courses << private_course }
+    before do
+      campaign.courses << private_course
+      public_course = create(:course, slug: 'Open/Open_(term)')
+      campaign.courses << public_course
+      create(:articles_course, course: public_course, tracked: true,
+                               article: create(:article, title: 'Public_Course_Article'))
+    end
 
     it 'leaves out articles edited only in the private course' do
       get "/campaigns/#{campaign.slug}/articles.json"
+      expect(response.status).to eq(200)
+      expect(response.body).to include('Public_Course_Article')
       expect(response.body).not_to include('Private_Course_Article')
     end
   end
 
   describe 'ORES plot' do
+    after { FileUtils.rm_rf "#{Rails.root}/tmp/ores_plot" }
+
     it 'is refused to a logged-out visitor' do
       get "/courses/#{private_course.slug}/ores_plot.json"
       expect(response.status).to eq(404)
+    end
+
+    it 'is shown to a participant' do
+      login_as student
+      get "/courses/#{private_course.slug}/ores_plot.json"
+      expect(response.status).to eq(200)
+    end
+  end
+
+  describe 'active courses' do
+    before { private_course.update(end: 1.day.from_now) }
+
+    it 'leaves the course out for a logged-out visitor' do
+      get '/active_courses.json'
+      expect(response.status).to eq(200)
+      expect(lists_private_course?).to be false
+    end
+  end
+
+  describe 'embedded course stats' do
+    let(:path) { "/embed/course_stats/#{private_course.slug}" }
+
+    it 'are refused to a logged-out visitor' do
+      get path
+      expect(response.status).to eq(404)
+    end
+
+    it 'are shown to a participant' do
+      login_as student
+      get path
+      expect(response.status).to eq(200)
     end
   end
 
@@ -185,6 +226,14 @@ describe 'Private course visibility', type: :request do
       login_as outsider
       post path
       expect(response.status).to eq(401)
+    end
+
+    it 'is allowed for the course instructor' do
+      watchlist = instance_double(WatchlistEdits, watch_userpages: 'ok')
+      allow(WatchlistEdits).to receive(:new).and_return(watchlist)
+      login_as instructor
+      post path
+      expect(response.status).to eq(200)
     end
   end
 end
