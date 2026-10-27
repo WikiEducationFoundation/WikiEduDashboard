@@ -32,6 +32,8 @@ class AssignmentsController < ApplicationController
   # For creating single assignments
   def create
     check_permissions(assignment_params[:user_id].to_i)
+    # Assigning yourself an article needs a role in the course, as claiming does.
+    check_participation unless current_user.can_edit?(@course)
     set_wiki { return }
     set_new_assignment
     update_onwiki_course_and_assignments

@@ -71,6 +71,23 @@ describe OnboardingController, type: :request do
 
   describe '#supplementary' do
     let(:user) { create(:user, onboarded: false, username: 'JonSnow') }
+    let(:other_user) { create(:user, username: 'AryaStark') }
+
+    before { login_as user }
+
+    it 'refuses a logged-out visitor' do
+      logout
+      put '/onboarding/supplementary', params: { user_name: user.username, heardFrom: 'Raven' }
+      expect(response.status).to eq(401)
+      expect(Alert.exists?(type: 'OnboardingAlert')).to eq(false)
+    end
+
+    it 'files the alert for the signed-in user, whatever user_name is sent' do
+      put '/onboarding/supplementary', params: { user_name: other_user.username,
+                                                 heardFrom: 'Raven' }
+      expect(Alert.exists?(user_id: user.id, type: 'OnboardingAlert')).to eq(true)
+      expect(Alert.exists?(user_id: other_user.id)).to eq(false)
+    end
 
     it 'creates an alert for instructor' do
       params = { user_name: user.username, heardFrom: 'From Nights Watch' }

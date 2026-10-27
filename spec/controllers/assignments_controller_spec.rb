@@ -161,6 +161,22 @@ describe AssignmentsController, type: :request do
   end
 
   describe 'POST #create' do
+    # Assigning yourself an article needs a role in the course.
+    before do
+      create(:courses_user, course:, user:, role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    context 'when the user is not in the course' do
+      let(:other_course) { create(:course, slug: 'Other/Not_my_course_(term)') }
+
+      it 'refuses to let them assign themselves an article' do
+        post '/assignments', params: { user_id: user.id, course_slug: other_course.slug,
+                                       title: 'pizza', role: 0, format: :json }
+        expect(response.status).to eq(401)
+        expect(Assignment.count).to eq(0)
+      end
+    end
+
     context 'when the user has permission to create the assignment' do
       let(:course) do
         create(:course, slug: 'Unasp/Teorias_da_Comunicação_(term_1)', submitted: true)

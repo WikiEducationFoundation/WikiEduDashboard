@@ -7,7 +7,7 @@ class UserProfilesController < ApplicationController
 
   before_action :set_user
   before_action :set_user_profile, only: [:update, :update_email_preferences]
-  before_action :require_write_permissions, only: [:update]
+  before_action :require_write_permissions, only: [:update, :delete_profile_image]
 
   def taught_courses_articles
     user = User.find_by(username: params[:username])

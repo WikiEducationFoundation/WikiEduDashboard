@@ -252,6 +252,7 @@ class CoursesController < ApplicationController
 
   def needs_update
     @course = find_course_by_slug(params[:id])
+    require_update_permission
     @course.update(needs_update: true)
     render json: { result: I18n.t('courses.creator.update_scheduled') },
            status: :ok
@@ -284,6 +285,15 @@ class CoursesController < ApplicationController
 
   def campaign_params
     params.require(:campaign).permit(:title)
+  end
+
+  # As on the course page: participants and editors of an ended course, and
+  # admins of any course, can schedule a full update.
+  def require_update_permission
+    require_signed_in
+    return if current_user.admin?
+    participant = current_user.nonvisitor?(@course) || current_user.can_edit?(@course)
+    raise NotPermittedError unless participant && @course.end < Time.zone.now
   end
 
   # Adding a course to a campaign approves it on Wiki Ed, which only admins

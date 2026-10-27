@@ -57,6 +57,16 @@ describe RequestedAccountsController, type: :request do
         )
       end
 
+      before { course.update(flags: { register_accounts: true }) }
+
+      it 'refuses a request when the course has not enabled account requests' do
+        course.update(flags: {})
+        put '/requested_accounts', params: { passcode: course.passcode, course_slug: course.slug,
+                                             username:, email: }
+        expect(response.status).to eq(401)
+        expect(course.requested_accounts.count).to eq(0)
+      end
+
       it 'returns an error if the passcode is invalid' do
         put '/requested_accounts', params: { passcode: 'wrongpasscode', course_slug: course.slug }
         expect(response.status).to eq(302)
@@ -88,13 +98,15 @@ describe RequestedAccountsController, type: :request do
         expect(course.requested_accounts.last.email).to eq('newemail@example.com')
       end
 
-      it 'returns a 500 if user is not authorized create accounts now' do
+      it 'only queues the request when a user who can\'t edit the course asks for it now' do
+        expect_any_instance_of(described_class).not_to receive(:create_account)
         put '/requested_accounts', params: { passcode: course.passcode,
                                              course_slug: course.slug,
                                              username:,
                                              email: 'newemail@example.com',
                                              create_account_now: true }
-        expect(response.status).to eq(500)
+        expect(response.status).to eq(200)
+        expect(course.requested_accounts.count).to eq(1)
       end
 
       it 'renders a success message if account creation is successful' do

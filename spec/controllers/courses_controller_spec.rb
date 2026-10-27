@@ -792,14 +792,47 @@ describe CoursesController, type: :request do
   end
 
   describe '#needs_update' do
-    let(:course) { create(:course, needs_update: false, slug: slug_params) }
+    let(:course) do
+      create(:course, needs_update: false, slug: slug_params, start: 2.months.ago, end: 1.day.ago)
+    end
+    let(:student) { create(:user, username: 'EndedCourseStudent') }
+    let(:path) { "/courses/#{course.slug}/needs_update" }
 
     before do
-      allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
+      create(:courses_user, course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
-    it 'sets "needs_update" to true' do
-      get "/courses/#{course.slug}/needs_update", params: { id: course.slug }
+    it 'sets "needs_update" to true for a participant of an ended course' do
+      login_as student
+      get path, params: { id: course.slug }
+      expect(course.reload.needs_update).to eq(true)
+    end
+
+    it 'refuses a logged-out visitor' do
+      get path, params: { id: course.slug }
+      expect(response.status).to eq(401)
+      expect(course.reload.needs_update).to eq(false)
+    end
+
+    it 'refuses a signed-in user who is not in the course' do
+      login_as create(:user, username: 'Outsider')
+      get path, params: { id: course.slug }
+      expect(response.status).to eq(401)
+      expect(course.reload.needs_update).to eq(false)
+    end
+
+    it 'refuses a participant while the course is still running' do
+      course.update(end: 1.month.from_now)
+      login_as student
+      get path, params: { id: course.slug }
+      expect(response.status).to eq(401)
+      expect(course.reload.needs_update).to eq(false)
+    end
+
+    it 'lets an admin schedule an update for a running course' do
+      course.update(end: 1.month.from_now)
+      login_as create(:admin)
+      get path, params: { id: course.slug }
       expect(course.reload.needs_update).to eq(true)
     end
   end
