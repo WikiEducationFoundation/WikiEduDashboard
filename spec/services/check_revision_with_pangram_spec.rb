@@ -209,7 +209,7 @@ describe CheckRevisionWithPangram do
   end
 
   context 'when the flagged text was already in the article' do
-    it 'records that in the new alert details and checks the edits that added it' do
+    it 'leaves the alert to the check of the edits that added it' do
       expect_any_instance_of(PangramApi).to receive(:inference)
                                         .and_return(simplified_pangram_response)
       expect(FindPreexistingFlaggedText).to receive(:new)
@@ -217,8 +217,9 @@ describe CheckRevisionWithPangram do
         .and_return(instance_double(FindPreexistingFlaggedText, all_preexisting?: true,
                                                                 preexisting_passages: ['Old.']))
       expect(OriginEditAiCheckWorker).to receive(:schedule)
-        .with(ai_edit_alert: kind_of(AiEditAlert), parent_rev_id: 1315359489,
-              passages: ['Old.'])
+        .with(hash_including('mw_rev_id' => live_article_revision_id,
+                             'article_id' => live_article.id,
+                             'parent_rev_id' => 1315359489, 'passages' => ['Old.']))
       VCR.use_cassette 'pangram_2' do
         described_class.new(
           { 'mw_rev_id' => live_article_revision_id,
@@ -229,7 +230,8 @@ describe CheckRevisionWithPangram do
             'revision_timestamp' => timestamp }
         )
       end
-      expect(AiEditAlert.last.details[:flagged_text_preexisting]).to be true
+      expect(AiEditAlert.count).to eq(0)
+      expect(RevisionAiScore.count).to eq(1)
     end
   end
 

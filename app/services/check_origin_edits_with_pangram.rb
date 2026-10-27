@@ -2,11 +2,12 @@
 
 require_dependency "#{Rails.root}/lib/ai/ai_detector"
 
-# Follows up an AI edit alert whose flagged text was all already on the page
-# before the student's edit. Finds the earlier edits that added that text,
-# checks up to MAX_CHECKS of them with Pangram, and creates a
-# PreexistingAiTextAlert if any of them is flagged, since the edit that added
-# the text may hold more AI text than the part the student's edit included.
+# Creates the alert for a flagged student edit whose flagged text was all
+# already on the page before that edit. The earlier edits that added the text
+# may hold more AI text than the part the student's edit included, so this
+# finds them, checks up to MAX_CHECKS of them with Pangram, and creates a
+# PreexistingAiTextAlert if any is flagged. Otherwise the edit gets the
+# regular AiEditAlert. Either way, the edit gets one alert.
 class CheckOriginEditsWithPangram
   DETECTOR_KEY = CheckRevisionWithPangram::DETECTOR_KEY
   MAX_CHECKS = 3
@@ -17,29 +18,39 @@ class CheckOriginEditsWithPangram
   # max_ai_likelihood:, pangram_share_link:, flagged:, already_alerted: }
   attr_reader :checked_origins
 
-  # passages: the pre-existing flagged passages, as found in parent_rev_id
-  def initialize(ai_edit_alert:, parent_rev_id:, passages:)
-    @ai_edit_alert = ai_edit_alert
-    @parent_rev_id = parent_rev_id
-    @passages = passages
-    @wiki = ai_edit_alert.wiki
+  # attributes: see OriginEditAiCheckWorker.schedule
+  # check_origins: false skips straight to the regular AiEditAlert
+  def initialize(attributes, check_origins: true)
+    @mw_rev_id = attributes['mw_rev_id']
+    @wiki = Wiki.find(attributes['wiki_id'])
+    @article = Article.find(attributes['article_id'])
+    @course_id = attributes['course_id']
+    @user_id = attributes['user_id']
+    @article_title = attributes['article_title']
+    @parent_rev_id = attributes['parent_rev_id']
+    @passages = attributes['passages']
     @checked_origins = []
-    perform unless already_followed_up?
+    perform(check_origins) unless alert_exists?
   end
 
   private
 
-  def perform
-    candidates.each { |origin| check(origin) }
-    create_alert if @checked_origins.any? { |origin| alertable?(origin) }
+  def perform(check_origins)
+    candidates.each { |origin| check(origin) } if check_origins
+    if @checked_origins.any? { |origin| alertable?(origin) }
+      create_preexisting_ai_text_alert
+    else
+      create_ai_edit_alert
+    end
   end
 
-  def already_followed_up?
-    PreexistingAiTextAlert.exists?(revision_id: @ai_edit_alert.revision_id)
+  def alert_exists?
+    AiEditAlert.exists?(revision_id: @mw_rev_id) ||
+      PreexistingAiTextAlert.exists?(revision_id: @mw_rev_id)
   end
 
   def candidates
-    FindOriginRevisions.new(wiki: @wiki, article: @ai_edit_alert.article,
+    FindOriginRevisions.new(wiki: @wiki, article: @article,
                             rev_id: @parent_rev_id, passages: @passages)
                        .origins
                        .select { |origin| origin[:timestamp] >= EARLIEST_CHECKED_EDIT }
@@ -82,14 +93,14 @@ class CheckOriginEditsWithPangram
     # Not retried: a retry would re-bill the checks that already succeeded.
     Sentry.capture_exception(e, level: 'warning',
                                 extra: { revision_id: origin[:rev_id],
-                                         ai_edit_alert_id: @ai_edit_alert.id })
+                                         edit_revision_id: @mw_rev_id })
     nil
   end
 
   def record_score(origin, parser)
     RevisionAiScore.create!(
       revision_id: origin[:rev_id], wiki_id: @wiki.id,
-      article_id: @ai_edit_alert.article_id, course_id: @ai_edit_alert.course_id,
+      article_id: @article.id, course_id: @course_id,
       user_id: User.find_by(username: origin[:username])&.id,
       revision_datetime: origin[:timestamp],
       avg_ai_likelihood: parser.average_ai_likelihood,
@@ -99,15 +110,29 @@ class CheckOriginEditsWithPangram
     )
   end
 
-  def create_alert
-    alert = PreexistingAiTextAlert.create!(
-      revision_id: @ai_edit_alert.revision_id, user_id: @ai_edit_alert.user_id,
-      course_id: @ai_edit_alert.course_id, article_id: @ai_edit_alert.article_id,
-      details: { article_title: @ai_edit_alert.article_title,
-                 ai_edit_alert_id: @ai_edit_alert.id,
-                 origin_edits: @checked_origins }
-    )
+  # Pangram's results for the student's edit, as CheckRevisionWithPangram recorded them.
+  def edit_pangram_details
+    score = RevisionAiScore.where(revision_id: @mw_rev_id, wiki_id: @wiki.id,
+                                  article_id: @article.id, check_type: DETECTOR_KEY,
+                                  check_origin: RevisionAiScore::COURSE_UPDATE_ORIGIN)
+                           .where.not(avg_ai_likelihood: nil).last
+    detector.parse(score.details).pangram_details.merge(flagged_text_preexisting: true)
+  end
+
+  def create_preexisting_ai_text_alert
+    details = edit_pangram_details.merge(article_title: @article_title,
+                                         origin_edits: @checked_origins)
+    alert = PreexistingAiTextAlert.create!(revision_id: @mw_rev_id, user_id: @user_id,
+                                           course_id: @course_id, article_id: @article.id,
+                                           details:)
     alert.send_alert_emails
+  end
+
+  def create_ai_edit_alert
+    AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id, user_id: @user_id,
+                                            course_id: @course_id, article_id: @article.id,
+                                            article_title: @article_title,
+                                            pangram_details: edit_pangram_details)
   end
 
   def detector

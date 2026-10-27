@@ -8,14 +8,20 @@ class OriginEditAiCheckWorker
   # follows a wiki or database failure, and reuses any scores already stored.
   sidekiq_options lock: :until_executed, retry: 3
 
-  def self.schedule(ai_edit_alert:, parent_rev_id:, passages:)
-    perform_async(ai_edit_alert.id, parent_rev_id, passages)
+  # The edit is still flagged, so it gets the regular AI edit alert when the
+  # earlier edits could not be checked.
+  sidekiq_retries_exhausted do |job, _exception|
+    CheckOriginEditsWithPangram.new(job['args'].first, check_origins: false)
   end
 
-  def perform(ai_edit_alert_id, parent_rev_id, passages)
-    ai_edit_alert = AiEditAlert.find_by(id: ai_edit_alert_id)
-    return if ai_edit_alert.nil?
+  # attributes: the edit's 'mw_rev_id', 'wiki_id', 'article_id', 'course_id',
+  # 'user_id' and 'article_title', plus 'parent_rev_id' and the pre-existing
+  # flagged 'passages'
+  def self.schedule(attributes)
+    perform_async(attributes)
+  end
 
-    CheckOriginEditsWithPangram.new(ai_edit_alert:, parent_rev_id:, passages:)
+  def perform(attributes)
+    CheckOriginEditsWithPangram.new(attributes)
   end
 end

@@ -146,24 +146,18 @@ class CheckRevisionWithPangram
   def generate_alert
     return if @rev_datetime < MAX_DAYS_FOR_ALERT.days.ago
     return if alert_already_exists?
+    return check_origin_edits if preexisting_flagged_text.all_preexisting?
 
-    alert = AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id,
+    AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id,
                                             user_id: @user_id,
                                             course_id: @course_id,
                                             article_id: @article.id,
                                             article_title: @article_title,
                                             pangram_details: alert_details)
-    check_origin_edits(alert) if preexisting_flagged_text.all_preexisting?
   end
 
-  # Recorded so we can see how often an alert is only about text that was
-  # already in the article, before deciding how to handle those alerts.
   def alert_details
-    @parser.pangram_details.merge(flagged_text_preexisting: flagged_text_preexisting?)
-  end
-
-  def flagged_text_preexisting?
-    preexisting_flagged_text.all_preexisting?
+    @parser.pangram_details.merge(flagged_text_preexisting: false)
   end
 
   def preexisting_flagged_text
@@ -173,15 +167,20 @@ class CheckRevisionWithPangram
                                      threshold: AI_LIKELY_THRESHOLD)
   end
 
-  # The flagged text came from earlier edits, which may hold more AI text
-  # than the part this edit included.
-  def check_origin_edits(alert)
-    OriginEditAiCheckWorker.schedule(ai_edit_alert: alert, parent_rev_id: @parent_rev_id,
-                                     passages: preexisting_flagged_text.preexisting_passages)
+  # All the flagged text was already on the page. The earlier edits that added
+  # it may hold more AI text than the part this edit included, so the alert
+  # waits until they have been checked; see CheckOriginEditsWithPangram.
+  def check_origin_edits
+    OriginEditAiCheckWorker.schedule(
+      'mw_rev_id' => @mw_rev_id, 'wiki_id' => @wiki.id, 'article_id' => @article.id,
+      'course_id' => @course_id, 'user_id' => @user_id, 'article_title' => @article_title,
+      'parent_rev_id' => @parent_rev_id, 'passages' => preexisting_flagged_text.preexisting_passages
+    )
   end
 
   def alert_already_exists?
-    AiEditAlert.exists?(revision_id: @mw_rev_id)
+    AiEditAlert.exists?(revision_id: @mw_rev_id) ||
+      PreexistingAiTextAlert.exists?(revision_id: @mw_rev_id)
   end
 
   # Imports the scored result into the RevisionAiScores table, over any failure row

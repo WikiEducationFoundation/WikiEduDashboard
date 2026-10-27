@@ -21,10 +21,13 @@
 #
 
 # Alert for a student edit whose AI-flagged text was already on the page, when
-# an earlier edit that added that text is also flagged by Pangram. revision_id
-# is the student's edit; the earlier edits are in details[:origin_edits].
-# Created by CheckOriginEditsWithPangram.
+# an earlier edit that added that text is also flagged by Pangram. It is sent
+# instead of an AiEditAlert for that edit. revision_id is the student's edit;
+# details hold Pangram's results for it, as for an AiEditAlert, plus the
+# earlier edits in details[:origin_edits]. Created by CheckOriginEditsWithPangram.
 class PreexistingAiTextAlert < Alert
+  include AiAlertPageType
+
   def main_subject
     '[PLACEHOLDER - subject line for an alert that AI-flagged text a student edit ' \
       "built on came from an earlier edit] Page: #{article&.title} — #{course&.title}"
@@ -50,10 +53,6 @@ class PreexistingAiTextAlert < Alert
     details[:article_title]
   end
 
-  def ai_edit_alert
-    AiEditAlert.find_by(id: details[:ai_edit_alert_id])
-  end
-
   def origin_edits
     details[:origin_edits] || []
   end
@@ -70,7 +69,7 @@ class PreexistingAiTextAlert < Alert
   def send_alert_emails
     return if emails_disabled?
     return if course&.private
-    return if AiEditAlert::NO_EMAIL_TYPES.include?(ai_edit_alert&.page_type)
+    return if NO_EMAIL_TYPES.include?(page_type)
 
     PreexistingAiTextAlertMailer.send_emails(self)
     update(email_sent_at: Time.zone.now)
