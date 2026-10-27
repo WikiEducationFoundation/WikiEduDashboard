@@ -29,6 +29,7 @@ class Campaign < ApplicationRecord
            through: :campaigns_courses, source: :course
   has_many :articles_courses, through: :courses
   has_many :articles, -> { distinct }, through: :courses
+  has_many :nonprivate_articles, -> { distinct }, through: :nonprivate_courses, source: :articles
   has_many :students, -> { distinct }, through: :courses
   has_many :instructors, -> { distinct }, through: :courses
   has_many :nonstudents, -> { distinct }, through: :courses
@@ -98,7 +99,7 @@ class Campaign < ApplicationRecord
   end
 
   def articles_to_json
-    articles.distinct.map do |article|
+    nonprivate_articles.map do |article|
       {
         title: article.title,
         wiki: article.wiki

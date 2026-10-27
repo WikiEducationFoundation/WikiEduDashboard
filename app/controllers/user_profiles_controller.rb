@@ -13,7 +13,7 @@ class UserProfilesController < ApplicationController
     user = User.find_by(username: params[:username])
     return render json: { error: 'User not found' }, status: :not_found if user.nil?
 
-    data = user.taught_courses_with_edited_articles
+    data = user.taught_courses_with_edited_articles(viewer: current_user)
 
     render json: data, status: :ok
   end
