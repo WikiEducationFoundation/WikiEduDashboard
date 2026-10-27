@@ -218,11 +218,17 @@ class CoursesPresenter
   def course_sums
     @course_sums ||= if campaign
                        Rails.cache.fetch(campaign.course_sums_cache_key, expires_in: 1.day) do
-                         courses.pick(Arel.sql(COURSE_SUMS_SQL))
+                         aggregated_courses.pick(Arel.sql(COURSE_SUMS_SQL))
                        end
                      else
-                       courses.pick(Arel.sql(COURSE_SUMS_SQL))
+                       aggregated_courses.pick(Arel.sql(COURSE_SUMS_SQL))
                      end
+  end
+
+  # Campaign aggregates are cached under the campaign and shown to every
+  # viewer, so they leave out private courses whoever fills the cache.
+  def aggregated_courses
+    campaign ? campaign.courses.nonprivate : courses
   end
 
   def word_count
@@ -287,7 +293,8 @@ class CoursesPresenter
   end
 
   def combined_wikidata_stats
-    @stats ||= courses.includes(:course_stat).where.not(course_stat: nil).filter_map do |course|
+    @stats ||= aggregated_courses.includes(:course_stat).where.not(course_stat: nil)
+                                 .filter_map do |course|
       course.course_stat&.stats_hash&.[]('www.wikidata.org')
     end
 

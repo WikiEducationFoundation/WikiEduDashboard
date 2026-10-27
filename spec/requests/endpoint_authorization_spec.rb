@@ -26,6 +26,25 @@ describe 'Endpoint authorization', type: :request do
     end
   end
 
+  describe 'refreshing a campaign\'s cached stats' do
+    let(:campaign) { create(:campaign, slug: 'stats_campaign') }
+    let(:path) { "/campaigns/#{campaign.slug}/refresh" }
+
+    it 'is refused to a signed-in user who is not an organizer' do
+      expect(Rails.cache).not_to receive(:delete)
+      login_as user
+      get path
+    end
+
+    it 'works for an organizer' do
+      create(:campaigns_user, campaign:, user:, role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+      expect(Rails.cache).to receive(:delete).with(campaign.course_sums_cache_key)
+      expect(Rails.cache).to receive(:delete).with(campaign.articles_count_cache_key)
+      login_as user
+      get path
+    end
+  end
+
   describe 'disabling a campaign\'s account requests' do
     let(:campaign) { create(:campaign, slug: 'requests_campaign', register_accounts: true) }
     let(:path) { "/requested_accounts_campaigns/#{campaign.slug}/disable_account_requests" }

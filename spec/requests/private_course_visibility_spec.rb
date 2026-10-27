@@ -148,6 +148,38 @@ describe 'Private course visibility', type: :request do
     end
   end
 
+  # These totals are cached per campaign and shared by every viewer, so they
+  # leave out private courses even for viewers who can see them.
+  describe 'campaign statistics' do
+    before do
+      private_course.update!(view_sum: 1000)
+      campaign.courses << private_course
+      campaign.courses << create(:course, slug: 'Open/Open_(term)', view_sum: 7)
+    end
+
+    def campaign_stats
+      JSON.parse(response.body)['campaigns'].find { |c| c['slug'] == campaign.slug }
+    end
+
+    it 'leaves the private course out of the totals, even for an admin' do
+      login_as admin
+      get '/campaigns/statistics.json'
+      expect(campaign_stats.values_at('view_sum', 'course_count')).to eq([7, 1])
+    end
+
+    it 'leaves the private course out of the campaign list' do
+      login_as admin
+      get '/campaigns.json'
+      expect(campaign_stats.values_at('view_sum', 'course_count')).to eq([7, 1])
+    end
+
+    it 'returns no campaigns for a logged-out request for the user\'s own' do
+      get '/campaigns/statistics.json', params: { user_only: 'true' }
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)['campaigns']).to eq([])
+    end
+  end
+
   describe 'ORES plot' do
     after { FileUtils.rm_rf "#{Rails.root}/tmp/ores_plot" }
 

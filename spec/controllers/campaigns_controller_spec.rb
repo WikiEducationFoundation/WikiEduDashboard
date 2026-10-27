@@ -512,6 +512,7 @@ describe CampaignsController, type: :request do
         expect(Rails.cache.read(key)).not_to be_nil, 'Cache write failed'
 
         # Trigger the refresh (should clear)
+        login_as create(:admin)
         get "/campaigns/#{campaign.slug}/refresh"
 
         expect(response).to redirect_to(overview_campaign_path(campaign.slug))
