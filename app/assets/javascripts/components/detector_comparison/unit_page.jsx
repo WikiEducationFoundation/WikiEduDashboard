@@ -1,5 +1,5 @@
 /* eslint-disable i18next/no-literal-string */
-// English-only admin research page: no i18n, by decision (see descriptions.js).
+// English-only research page: no i18n, by decision (see descriptions.js).
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ import {
 import { datasetPath, fetchUnit, formatScore, shade } from './data';
 import VerdictChip from './verdict_chip';
 import { topicPath } from './topic_matrix';
-import AuthorshipNote from './authorship_note';
+import AuthorshipNote, { CreditsDagger } from './authorship_note';
 
 const PRIOR_ARTICLE = '{prior_article}';
 
@@ -177,7 +177,7 @@ const UnitPage = () => {
   return (
     <div className="container detector-comparison">
       <p><Link to="/detector_comparison">← AI detector comparison</Link></p>
-      <h1>{unitTitle(unit, unit.pair_topic)}</h1>
+      <h1>{unitTitle(unit, unit.pair_topic)}<CreditsDagger /></h1>
       <Facts unit={unit} />
 
       <section>

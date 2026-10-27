@@ -4,7 +4,8 @@ jest.mock('../../app/assets/javascripts/components/assignments_tab/AssignmentPro
   fetchAssignmentProgress: jest.fn()
 }));
 import {
-  filterLabel, isLate, itemTitle, listQuery, matchesFilter, neighbors, sortStudents, studentName
+  filterLabel, isClaimVerification, isLate, itemTitle, listQuery, matchesFilter, neighbors,
+  sortStudents, studentName
 } from '../../app/assets/javascripts/components/assignments_tab/assignmentHelpers';
 import { rebaseHtml } from '../../app/assets/javascripts/components/assignments_tab/pagePreview';
 
@@ -48,6 +49,14 @@ describe('assignmentHelpers', () => {
     expect(matchesFilter(cell, 'complete')).toBe(false);
     expect(matchesFilter(cell, 'overdue')).toBe(true);
     expect(matchesFilter({ state: 'complete' }, 'overdue')).toBe(false);
+  });
+
+  test('isClaimVerification picks out the exercise done at /verify_claim', () => {
+    expect(isClaimVerification({ kind: 'exercise', exercise_url: '/courses/A/B/verify_claim' }))
+      .toBe(true);
+    expect(isClaimVerification({ kind: 'exercise', training_url: '/training/x/y' })).toBe(false);
+    expect(isClaimVerification({ kind: 'training', exercise_url: '/courses/A/B/verify_claim' }))
+      .toBe(false);
   });
 
   test('isLate compares completion with the end of the due date', () => {

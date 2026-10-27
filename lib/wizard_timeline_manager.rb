@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wizard_tag_writer"
+require_dependency "#{Rails.root}/lib/wizard_tag_options"
 
 # Routines for building and saving a course timeline after submission of wizard data
 class WizardTimelineManager
@@ -30,6 +31,7 @@ class WizardTimelineManager
     end
 
     @course = course
+    @wizard_id = wizard_id
     @output = wizard_params['wizard_output']['output'] || []
     @logic = wizard_params['wizard_output']['logic'] || []
     @tags = wizard_params['wizard_output']['tags'] || []
@@ -194,7 +196,9 @@ class WizardTimelineManager
   end
 
   def add_tags
-    WizardTagWriter.new(@course).write(@tags)
+    options = WizardTagOptions.new(@wizard_id)
+    permitted = @tags.select { |tag| options.permitted?(tag[:key], tag[:tag]) }
+    WizardTagWriter.new(@course).write(permitted)
   end
 
   FLAG_LOGIC = {

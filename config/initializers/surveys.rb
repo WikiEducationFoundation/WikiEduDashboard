@@ -46,6 +46,7 @@ Rails.application.config.to_prepare do
 
   Rapidfire::QuestionGroupsController.class_eval do
     before_action :require_admin_permissions
+    before_action :protect_confidentiality, only: [:results]
     before_action :set_tags, only: [:new, :edit]
 
     def index
@@ -119,6 +120,15 @@ Rails.application.config.to_prepare do
     def set_tags
       @available_tags = Tag.distinct.pluck(:tag)
     end
+
+    # Same rule as QuestionsController#protect_confidentiality: a question
+    # group in any confidential survey has confidential results.
+    def protect_confidentiality
+      question_group = Rapidfire::QuestionGroup.find(params[:id])
+      return unless question_group.surveys.exists?(confidential_results: true)
+      return if current_user.super_admin?
+      render plain: 'The results for this survey are confidential.', status: :forbidden
+    end
   end
 
   Rapidfire::Question.class_eval do
@@ -180,12 +190,35 @@ Rails.application.config.to_prepare do
 
   Rapidfire::AnswerGroupsController.class_eval do
     include SurveysHelper
+    before_action :refuse_logged_out_answers, only: [:create], prepend: true
     before_action :set_course, only: [:new, :create]
+    before_action :ensure_survey_is_available, only: [:create]
     after_action :add_course_to_answer_group, only: [:create]
 
     def add_course_to_answer_group
       answer_group = @answer_group_builder.to_model
       answer_group.update_attribute(:course_id, @course&.id)
+    end
+
+    # Refusals here are bare 401s: the app's error pages can't render inside
+    # the engine.
+    def refuse_logged_out_answers
+      head :unauthorized unless current_user
+    end
+
+    # Answers come only from a survey the user could take on the survey page:
+    # one that isn't closed and is either open or assigned to them. Admins may
+    # answer any survey, for example when testing one.
+    def ensure_survey_is_available
+      return if current_user.admin?
+      surveys = @question_group.surveys.where(closed: [false, nil])
+      return if surveys.any? { |survey| survey.open || assigned_to_survey?(survey) }
+      head :unauthorized
+    end
+
+    def assigned_to_survey?(survey)
+      current_user.survey_notifications.joins(:survey_assignment)
+                  .exists?(survey_assignments: { survey_id: survey.id })
     end
   end
 

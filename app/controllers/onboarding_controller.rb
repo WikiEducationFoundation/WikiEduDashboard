@@ -27,13 +27,15 @@ class OnboardingController < ApplicationController
     head :no_content
   end
 
+  # The alert is always about the signed-in user, whatever user_name the
+  # form sends.
   def supplementary
+    require_signed_in
     head :no_content
     return unless supplementary_response?
-    user_name = params[:user_name]
     details = format_details_hash(params)
     response = format_message_response(params)
-    OnboardingAlertManager.new.create_alert(user_name, response, details)
+    OnboardingAlertManager.new.create_alert(current_user.username, response, details)
   end
 
   private
@@ -44,6 +46,10 @@ class OnboardingController < ApplicationController
         'answer' => params[:heardFrom],
         'additional' => params[:referralDetails]
       },
+      'primary_reason' => {
+        'answer' => params[:primaryReason],
+        'additional' => primary_reason_details(params)
+      },
       'why_here' => {
         'answer' => params[:whyHere],
         'additional' => params[:otherReason]
@@ -53,9 +59,13 @@ class OnboardingController < ApplicationController
 
   def format_message_response(params)
     referral_details = params[:referralDetails]
+    reason_details = primary_reason_details(params)
     <<~RESPONSE
       HEARD FROM:
       #{params[:heardFrom]} #{"(#{referral_details})" if referral_details}
+
+      PRIMARY REASON:
+      #{params[:primaryReason]} #{"(#{reason_details})" if reason_details}
 
       WHY HERE:
       #{params[:whyHere]}
@@ -65,8 +75,14 @@ class OnboardingController < ApplicationController
     RESPONSE
   end
 
+  # The details box only applies to 'other', but the form keeps its text
+  # after the instructor switches to a different reason.
+  def primary_reason_details(params)
+    params[:primaryReasonDetails].presence if params[:primaryReason] == 'other'
+  end
+
   def supplementary_response?
-    params[:heardFrom].present? || params[:whyHere].present? || params[:otherReason].present?
+    %i[heardFrom primaryReason whyHere otherReason].any? { |key| params[key].present? }
   end
 
   def set_new_permissions

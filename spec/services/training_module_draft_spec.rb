@@ -172,6 +172,49 @@ describe TrainingModuleDraft do
     end
   end
 
+  describe 'update drafts' do
+    let(:source) do
+      { 'module_slug' => 'ponds', 'slides' => [{ 'id' => 9101, 'slug' => 'pond-intro' }] }
+    end
+
+    it 'keeps the id of the module they update' do
+      create(:training_module, id: 91, slug: 'ponds')
+      draft = described_class.new(slug: 'ponds', name: 'Ponds', module_id: 91, source:).save
+      expect(draft.module_id).to eq(91)
+    end
+
+    it 'drops slide ids that are not from the source module, or already claimed' do
+      draft = described_class.new(
+        slug: 'ponds', name: 'Ponds', module_id: 91, source:,
+        slides: [{ 'id' => 9101, 'slug' => 'a' }, { 'id' => '9101', 'slug' => 'b' },
+                 { 'id' => 4401, 'slug' => 'c' }]
+      ).save
+      expect(draft.slides.map { |s| s['id'] }).to eq([9101, nil, nil])
+    end
+
+    it 'keeps the original slug of a copied slide' do
+      draft = described_class.new(slug: 'ponds', name: 'Ponds', module_id: 91, source:,
+                                  slides: [{ 'id' => 9101, 'slug' => 'renamed' }]).save
+      expect(draft.slides.first['slug']).to eq('pond-intro')
+    end
+
+    it 'round-trips the source through the draft file' do
+      described_class.new(slug: 'ponds', name: 'Ponds', module_id: 91, source:).save
+      expect(described_class.find('ponds').source.slide_ids).to eq([9101])
+    end
+  end
+
+  it 'drops slide ids from drafts of new modules' do
+    draft = described_class.new(slug: 'n', name: 'N', slides: [{ 'id' => 1, 'slug' => 'x' }]).save
+    expect(draft.slides.first).not_to have_key('id')
+  end
+
+  it 'validates slide slugs assigned after creation' do
+    draft = described_class.new(slug: 'n', name: 'N')
+    expect { draft.slides = [{ 'slug' => 'Bad Slug' }] }
+      .to raise_error(TrainingModuleDraft::InvalidSlug)
+  end
+
   describe '.all with malformed drafts' do
     it 'skips unreadable files rather than raising' do
       described_class.new(slug: 'ok', name: 'Good').save

@@ -1,0 +1,73 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.wikidata.org/w/api.php?action=query&format=json&meta=siteinfo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 938d7c06665d414cb97cb89998816899-c8043632f2f449d5
+      Baggage:
+      - sentry-trace_id=938d7c06665d414cb97cb89998816899,sentry-sample_rand=0.683572,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 15 May 2026 17:31:40 GMT
+      Server:
+      - mw-api-ext.codfw.main-5dcb646f7d-qn2k4
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      Accept-Ranges:
+      - bytes
+      X-Cache:
+      - cp4044 miss, cp4044 pass
+      X-Cache-Status:
+      - pass
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4044"
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Transfer-Encoding:
+      - chunked
+      X-Request-Id:
+      - 5686624a-19ea-4f5e-ab3a-75dd03963f78
+      X-Analytics:
+      - ''
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"general":{"mainpage":"Wikidata:Main Page","base":"https://www.wikidata.org/wiki/Wikidata:Main_Page","sitename":"Wikidata","logo":"//www.wikidata.org/static/images/project-logos/wikidatawiki.png","generator":"MediaWiki
+        1.47.0-wmf.2","phpversion":"8.3.30","phpsapi":"fpm-fcgi","dbtype":"mysql","dbversion":"10.11.14-MariaDB-log","langconversion":"","linkconversion":"","titleconversion":"","linkprefixcharset":"","linkprefix":"","linktrail":"/^([a-z]+)(.*)$/sD","legaltitlechars":"
+        %!\"$&''()*,\\-.\\/0-9:;=?@A-Z\\\\^_`a-z~\\x80-\\xFF+","invalidusernamechars":"@:>=","git-hash":"51aa8afb3bf1eadb77f36e1d9b8a68869dd259a7","git-branch":"wmf/1.47.0-wmf.2","case":"first-letter","lang":"en","fallback":[],"fallback8bitEncoding":"windows-1252","writeapi":"","maxarticlesize":2097152,"timezone":"UTC","timeoffset":0,"articlepath":"/wiki/$1","scriptpath":"/w","script":"/w/index.php","variantarticlepath":false,"server":"//www.wikidata.org","servername":"www.wikidata.org","wikiid":"wikidatawiki","time":"2026-05-15T17:31:40Z","misermode":"","maxuploadsize":5368709120,"minuploadchunksize":1024,"galleryoptions":{"imagesPerRow":0,"imageWidth":120,"imageHeight":120,"captionLength":"","showBytes":"","mode":"traditional","showDimensions":""},"thumblimits":[120,150,180,200,220,250,300,400],"imagelimits":[{"width":320,"height":240},{"width":640,"height":480},{"width":800,"height":600},{"width":1024,"height":768},{"width":1280,"height":1024},{"width":2560,"height":2048}],"favicon":"https://www.wikidata.org/static/favicon/wikidata.ico","centralidlookupprovider":"CentralAuth","allcentralidlookupproviders":["CentralAuth","local"],"interwikimagic":"","magiclinks":{"ISBN":"","PMID":"","RFC":""},"categorycollation":"uppercase","nofollowlinks":"","nofollownsexceptions":[],"nofollowdomainexceptions":["mediawiki.org","wikibooks.org","wikimedia.com","wikimedia.org","wikinews.org","wikipedia.org","wikiquote.org","wikisource.org","wikiversity.org","wiktionary.org","wikivoyage.org","wikidata.org","wikifunctions.org","tools.wmflabs.org","toolforge.org","etherpad.wmflabs.org"],"wmf-config":{"wmfMasterDatacenter":"eqiad","wmfEtcdLastModifiedIndex":6329633},"max-page-id":133260554,"linter":{"high":["deletable-table-tag","duplicate-ids","html5-misnesting","misc-tidy-replacement-issues","multiline-html-table-in-list","multiple-unclosed-formatting-tags","pwrap-bug-workaround","self-closed-tag","template-arg-in-extension-tag","tidy-font-bug","tidy-whitespace-bug","unclosed-quotes-in-heading"],"medium":["bogus-image-options","fostered","misnested-tag","multi-colon-escape","wikilink-in-extlink"],"low":["empty-heading","missing-end-tag","missing-end-tag-in-heading","night-mode-unaware-background-color","obsolete-tag","stripped-tag"]},"mobileserver":"https://www.wikidata.org","wikibase-propertytypes":{"commonsMedia":{"valuetype":"string"},"geo-shape":{"valuetype":"string"},"tabular-data":{"valuetype":"string"},"url":{"valuetype":"string"},"external-id":{"valuetype":"string"},"wikibase-item":{"valuetype":"wikibase-entityid"},"wikibase-property":{"valuetype":"wikibase-entityid"},"globe-coordinate":{"valuetype":"globecoordinate"},"monolingualtext":{"valuetype":"monolingualtext"},"quantity":{"valuetype":"quantity"},"string":{"valuetype":"string"},"time":{"valuetype":"time"},"musical-notation":{"valuetype":"string"},"math":{"valuetype":"string"},"entity-schema":{"valuetype":"wikibase-entityid"},"wikibase-lexeme":{"valuetype":"wikibase-entityid"},"wikibase-form":{"valuetype":"wikibase-entityid"},"wikibase-sense":{"valuetype":"wikibase-entityid"}},"wikibase-conceptbaseuri":"http://www.wikidata.org/entity/","wikibase-geoshapestoragebaseurl":"https://commons.wikimedia.org/wiki/","wikibase-tabulardatastoragebaseurl":"https://commons.wikimedia.org/wiki/","wikibase-sparql":"https://query.wikidata.org/sparql","pageviewservice-supported-metrics":{"pageviews":{"pageviews":""},"siteviews":{"pageviews":"","uniques":""},"mostviewed":{"pageviews":""}},"readinglists-config":{"maxListsPerUser":100,"maxEntriesPerList":5000,"deletedRetentionDays":30}}}}'
+  recorded_at: Wed, 14 May 2025 00:00:00 GMT
+recorded_with: VCR 6.1.0

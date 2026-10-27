@@ -38,6 +38,17 @@ describe CourseCloneManager do
     create(:week, id: 2, course_id: 1, order: 2)
     create(:week, id: 3, course_id: 1, order: 3)
     create(:tag, course_id: 1, key: 'tricky_topic_areas', tag: 'no_medical_topics')
+    create(:tag, course_id: 1, key: 'sandboxes', tag: 'no_sandboxes')
+    create(:tag, course_id: 1, key: 'working_in_groups', tag: 'working_individually')
+    create(:tag, course_id: 1, key: 'index', tag: 'research_write_assignment')
+    create(:tag, course_id: 1, key: 'instructor_learner', tag: 'instructor_learner')
+    create(:tag, course_id: 1, key: 'topics-biographies', tag: 'biographies')
+    # Wizard answers outside the list, which must stay with the original: the
+    # research experiment consent, the mentorship request, and a key that only
+    # looks like a `topics-` answer.
+    create(:tag, course_id: 1, key: 'fall_2026_research_optin', tag: 'fall_2026_research_opted_in')
+    create(:tag, course_id: 1, key: 'mentoring', tag: 'mentor_requested')
+    create(:tag, course_id: 1, key: 'topicsfoo', tag: 'foo')
     create(:tag, course_id: 1, tag: 'arbitrary_tag')
   end
 
@@ -102,10 +113,26 @@ describe CourseCloneManager do
       expect(tags).to include('returning_instructor')
     end
 
-    it 'carries over tricky_topic_areas tag, but not others' do
-      tags = clone.tags.pluck(:tag)
-      expect(tags).to include('no_medical_topics')
-      expect(tags).not_to include('arbitrary_tag')
+    it 'carries over the wizard tags under their keys, but not others' do
+      carried = clone.tags.where.not(key: 'course_creator').pluck(:key, :tag)
+      expect(carried).to include(%w[tricky_topic_areas no_medical_topics],
+                                 %w[sandboxes no_sandboxes],
+                                 %w[working_in_groups working_individually],
+                                 %w[index research_write_assignment],
+                                 %w[instructor_learner instructor_learner],
+                                 %w[topics-biographies biographies])
+      expect(carried.map(&:last)).not_to include('arbitrary_tag')
+      expect(carried.map(&:first))
+        .not_to include('fall_2026_research_optin', 'mentoring', 'topicsfoo')
+      expect(clone.tags.where(key: 'course_creator').count).to eq(1)
+      expect(clone.tags.where(tag: 'cloned').count).to eq(1)
+    end
+
+    it 'lets a clone of a research-write course schedule the advice emails' do
+      allow(CourseAdviceEmailWorker).to receive(:schedule_email)
+      ScheduleCourseAdviceEmails.new(clone).schedule_emails
+      expect(CourseAdviceEmailWorker).to have_received(:schedule_email)
+        .with(hash_including(course: clone, subject: 'biographies'))
     end
 
     it 'marks the cloned status as PENDING' do
@@ -160,14 +187,30 @@ describe CourseCloneManager do
   end
 
   context 'with a preset campaign' do
-    it 'allows for the campaign to be set' do
-      slug = 'new_campaign_slug'
-      new_campaign = create(:campaign, id: 2, title: 'New Campaign', slug:)
-      campaign_clone = described_class.new(course: Course.find(1), user: User.find(1),
-                                           clone_assignments: false, campaign_slug: slug).clone!
+    let(:slug) { 'new_campaign_slug' }
+    let!(:new_campaign) { create(:campaign, id: 2, title: 'New Campaign', slug:) }
+
+    def clone_into_campaign
+      described_class.new(course: Course.find(1), user: User.find(1),
+                          clone_assignments: false, campaign_slug: slug).clone!
+    end
+
+    it 'allows for the campaign to be set where course creation is open' do
+      allow(Features).to receive(:open_course_creation?).and_return(true)
+      campaign_clone = clone_into_campaign
 
       expect(campaign_clone.campaigns.length).to eq(1)
       expect(campaign_clone.campaigns).to include(new_campaign)
+    end
+
+    it 'allows an admin to set the campaign on Wiki Ed' do
+      User.find(1).update(permissions: User::Permissions::ADMIN)
+      expect(clone_into_campaign.campaigns).to include(new_campaign)
+    end
+
+    # On Wiki Ed, adding a course to a campaign approves it.
+    it 'ignores the campaign for a non-admin on Wiki Ed' do
+      expect(clone_into_campaign.campaigns).to be_empty
     end
   end
 

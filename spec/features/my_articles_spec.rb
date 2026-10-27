@@ -67,4 +67,45 @@ flags: { available_article: false })
     expect(page).to have_content "Articles I'm peer reviewing"
     expect(student.assignments.where(role: REVIEWING).count).to eq(1)
   end
+
+  context 'when a classmate is drafting a new article' do
+    let(:sandbox_url) { 'https://en.wikipedia.org/wiki/User:Classmate/The_Teaching_of_Love' }
+
+    before do
+      create(:assignment, course:, article_title: 'The_Teaching_of_Love', article_id: nil,
+                          user: classmate, role: ASSIGNED)
+    end
+
+    def enter_review(title)
+      visit "/courses/#{course.slug}"
+      click_button 'Review an article'
+      within('#assignment-input') { find('input', match: :first).set(title) }
+      click_button 'Assign'
+    end
+
+    it "links the review option to the classmate's sandbox draft" do
+      visit "/courses/#{course.slug}"
+      click_button 'Review an article'
+      expect(page).to have_link('The Teaching of Love', href: sandbox_url)
+      expect(page).to have_content I18n.t('assignments.review_classmate_draft',
+                                          username: 'Classmate')
+    end
+
+    it "adds a review of the classmate's article from their sandbox URL" do
+      enter_review(sandbox_url)
+
+      expect(page).to have_content "Articles I'm peer reviewing"
+      review = student.assignments.find_by(role: REVIEWING)
+      expect(review.article_title).to eq('The_Teaching_of_Love')
+      expect(review.sandbox_url).to eq(sandbox_url)
+    end
+
+    it "shows an error for a User page that isn't a classmate's draft" do
+      enter_review('User:Classmate/sandbox')
+
+      expect(page).to have_content I18n.t('assignments.review_sandbox_not_found',
+                                          title: 'User:Classmate/sandbox')
+      expect(student.assignments.where(role: REVIEWING).count).to eq(0)
+    end
+  end
 end

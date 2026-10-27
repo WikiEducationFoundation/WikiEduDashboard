@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/revision_data_parser"
 require_dependency "#{Rails.root}/lib/errors/api_error_handling"
 
 #= Fetches wiki revision data from an endpoint that provides SQL query
-#= results from a replica wiki database on wmflabs:
+#= results from a replica wiki database on wmcloud:
 #=   https://replica-revision-tools.wmcloud.org/
 #= For what's going on at the other end, see:
 #=   https://github.com/WikiEducationFoundation/WikiEduDashboardTools
@@ -17,7 +17,7 @@ class Replica # rubocop:disable Metrics/ClassLength
   end
 
   # This is the maximum number of concurrent queries the system should run
-  # against the wmflabs replica endpoint.
+  # against the wmcloud replica endpoint.
   CONCURRENCY_LIMIT = 2
 
   ################
@@ -240,7 +240,10 @@ class Replica # rubocop:disable Metrics/ClassLength
                     read_timeout: READ_TIMEOUT) { |http| http.request(req) }
   end
 
-  REPLICA_TOOL_URL = 'https://replica-revision-tools.wmcloud.org/'
+  # Moved from https://replica-revision-tools.wmcloud.org/ on 2026-10-23: Cloud VPS was taken
+  # offline for a PHP security update, so the endpoint now runs on Toolforge with patched PHP.
+  # https://wikitech.wikimedia.org/wiki/Incidents/2026-10-21_PHP_security_update/Community
+  REPLICA_TOOL_URL = 'https://wikiedudashboard.toolforge.org/'
 
   def do_post(endpoint, key, data)
     url = URI.parse "#{REPLICA_TOOL_URL}#{endpoint}"
@@ -276,7 +279,7 @@ class Replica # rubocop:disable Metrics/ClassLength
   # For languages with hyphens in the language code, they are usually replaced
   # with underscores.
   #
-  # See https://quarry.wmflabs.org/query/4031 to look up database name for a wiki
+  # See https://quarry.wmcloud.org/query/4031 to look up database name for a wiki
   # Or check the table here: https://db-names.toolforge.org/
   #
   # Here are some of the naming exceptions that we must special-case:

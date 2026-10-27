@@ -1,12 +1,12 @@
 /* eslint-disable i18next/no-literal-string */
-// English-only admin research page: no i18n, by decision (see descriptions.js).
+// English-only research page: no i18n, by decision (see descriptions.js).
 import React, { useEffect, useMemo, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { AVERAGE_MODELS, AVERAGE_ROW, CONDITIONS, DEFAULT_SELECTION, DETECTORS, MODELS, REFERENCE_ROWS } from './descriptions';
 import { BAR_DETECTORS, conditionsIn, datasetPath, fetchOverview, isGenerated, modelsIn } from './data';
 import { AverageBars, averageValues, BarLegend, MiniBars, Tooltip, unitValues, useCellTooltip, valuesLabel } from './bars';
 import { conditionLabel, modelLabel, referenceRows } from './topic_matrix';
-import AuthorshipNote from './authorship_note';
+import AuthorshipNote, { CreditsDagger } from './authorship_note';
 
 const AVERAGE = 'average';
 const wikipediaUrl = topic => `https://en.wikipedia.org/wiki/${encodeURIComponent(topic.replace(/ /g, '_'))}`;
@@ -70,7 +70,7 @@ const TopicPage = () => {
   return (
     <div className="container detector-comparison">
       <p><Link to={datasetPath('topics')}>← Texts on 16 topics</Link></p>
-      <h1>{topic}</h1>
+      <h1>{topic}<CreditsDagger /></h1>
       <p><a href={wikipediaUrl(topic)}>The Wikipedia article</a></p>
 
       <fieldset className="detector-comparison__filter detector-comparison__filter--inline">

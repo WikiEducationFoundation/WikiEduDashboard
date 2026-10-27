@@ -177,6 +177,14 @@ const API = {
     return response.json();
   },
 
+  async needsUpdate(courseSlug) {
+    const response = await request(`/courses/${courseSlug}/needs_update.json`, {
+      method: 'PUT'
+    });
+    await ensureOk(response);
+    return response.json();
+  },
+
   fetch(courseId, endpoint) {
     return request(`/courses/${courseId}/${endpoint}.json${studentViewQuery(endpoint)}`, {
       credentials: "include"
@@ -409,7 +417,9 @@ const API = {
   },
 
   async notifyOverdue(courseSlug) {
-    const response = await request(`/courses/${courseSlug}/notify_untrained.json`);
+    const response = await request(`/courses/${courseSlug}/notify_untrained.json`, {
+      method: 'POST'
+    });
     await ensureOk(response, 'Couldn\'t notify students! ');
     alert('Students with overdue trainings notified!');
     return response.text();

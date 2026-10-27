@@ -581,7 +581,7 @@ sl:
     additional_training: Dodatni moduli usposabljanja
     orientation_modules: Moduli za usmerjanje učitelja
     done: Opravljeno!
-    invalid: Ta diapozitiv žal ne obstaja!
+    invalid: Ta drsnica žal ne obstaja!
     kind:
       discussion: Pogovor
     no_training_library_records_wiki_ed_mode: V zbirki podatkov ni zapisov TrainingLibrary.

@@ -1,0 +1,76 @@
+# Maps the course `subject` string carried on each harvested claim to a broad
+# discipline bucket, so the curated set can be balanced across sciences,
+# social sciences, and humanities.
+#
+# Keys are matched case-insensitively against the exact subject string, with
+# surrounding whitespace stripped. Subjects not listed here — including the
+# blank subject, which is the single largest group in the pool — come out as
+# `unclassified` and need a human call.
+#
+# Edit freely.
+
+sciences:
+  - Chemistry
+  - Ecology
+  - Environmental Sciences
+  - Biology
+  - Biological Sciences
+  - Neuroscience
+  - Zoology
+  - Molecular Science
+  - Genes and Proteins
+  - Microbiology
+  - Species
+  - Virology
+  - Genetics
+  - Science
+  - mathematics
+
+health_sciences:
+  - Medicine
+  - Public Health
+
+social_sciences:
+  - Psychology
+  - Political Science
+  - Sociology
+  - Political Communication
+  - Cultural Anthropology
+  - Anthropology
+  - Communication Studies
+  - Geography/Global Studies
+  - Criminal Justice
+  - Social Informatics
+  - media/communication
+  - Information Studies
+  - Information Literacy
+  - Honors Business
+  - Computer Information Systems
+
+humanities:
+  - History
+  - Books
+  - English
+  - African Studies
+  - LGBT+ Studies
+  - Writing
+  - Linguistics
+  - Art History
+  - Films
+  - MUSIC
+  - Women's Studies
+  - Nonviolence
+  - Biographies
+  - Digital rhetoric
+  - American history
+  - Theater
+  - Writing / Composition
+  - sexuality
+  - Writing Studies
+  - Religion and Humanities
+  - Latin American Studies
+  - Latin American, Latinx, and Caribbean Studies
+  - Composition/ Communications
+  - technical writing
+  - Rhetoric
+  - Science Communication

@@ -29,6 +29,7 @@ class Campaign < ApplicationRecord
            through: :campaigns_courses, source: :course
   has_many :articles_courses, through: :courses
   has_many :articles, -> { distinct }, through: :courses
+  has_many :nonprivate_articles, -> { distinct }, through: :nonprivate_courses, source: :articles
   has_many :students, -> { distinct }, through: :courses
   has_many :instructors, -> { distinct }, through: :courses
   has_many :nonstudents, -> { distinct }, through: :courses
@@ -98,7 +99,7 @@ class Campaign < ApplicationRecord
   end
 
   def articles_to_json
-    articles.distinct.map do |article|
+    nonprivate_articles.map do |article|
       {
         title: article.title,
         wiki: article.wiki
@@ -143,6 +144,14 @@ class Campaign < ApplicationRecord
 
   def clear_course_sums_cache
     Rails.cache.delete(course_sums_cache_key)
+  end
+
+  def articles_count_cache_key
+    "#{slug}-articles_count"
+  end
+
+  def clear_articles_count_cache
+    Rails.cache.delete(articles_count_cache_key)
   end
 
   private

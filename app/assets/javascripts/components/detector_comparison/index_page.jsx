@@ -1,12 +1,12 @@
 /* eslint-disable i18next/no-literal-string */
-// English-only admin research page: no i18n, by decision (see descriptions.js).
+// English-only research page: no i18n, by decision (see descriptions.js).
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { DATASETS, INDEX_AUTHORSHIP_NOTE } from './descriptions';
 import { datasetPath, fetchIndex } from './data';
 import { SELECTION_KEYS } from './selection';
 import CuratedViews from './curated_views';
-import AuthorshipNote, { AuthorshipDagger } from './authorship_note';
+import AuthorshipNote, { AuthorshipDagger, CreditsDagger } from './authorship_note';
 
 // The index: the operator's preamble and conclusions, then a way into each dataset.
 const IndexPage = () => {
@@ -36,7 +36,7 @@ const IndexPage = () => {
   const intro = data.intro || { preamble_html: '', views: [] };
   return (
     <div className="container detector-comparison">
-      <h1>AI detector comparison</h1>
+      <h1>AI detector comparison<CreditsDagger /></h1>
       {/* Operator-written Markdown rendered with HTML escaped (RenderDetectorComparisonIntro). */}
       <div className="detector-comparison__preamble" dangerouslySetInnerHTML={{ __html: intro.preamble_html }} />
       <CuratedViews views={intro.views} />

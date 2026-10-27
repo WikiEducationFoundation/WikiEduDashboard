@@ -20,6 +20,8 @@ class CoursesController < ApplicationController
   respond_to :html, :json
   before_action :require_permissions, only: %i[notify_untrained
                                                delete_all_weeks]
+  before_action :require_admin_permissions, only: [:tag]
+  before_action :require_campaign_list_permissions, only: [:list]
 
   ################
   # CRUD methods #
@@ -64,6 +66,7 @@ class CoursesController < ApplicationController
 
   def destroy
     validate
+    require_admin_to_delete_published_course
     reject_deletion_of_event_synced_course { return }
     DeleteCourseWorker.schedule_deletion(course: @course, current_user:)
     render json: { success: true }
@@ -85,6 +88,7 @@ class CoursesController < ApplicationController
 
   def find
     course = Course.find(params[:course_id])
+    require_course_visible(course)
     redirect_to "/courses/#{course.slug}"
   end
 
@@ -249,6 +253,7 @@ class CoursesController < ApplicationController
 
   def needs_update
     @course = find_course_by_slug(params[:id])
+    require_update_permission
     @course.update(needs_update: true)
     render json: { result: I18n.t('courses.creator.update_scheduled') },
            status: :ok
@@ -283,11 +288,41 @@ class CoursesController < ApplicationController
     params.require(:campaign).permit(:title)
   end
 
+  # On Wiki Ed, a course in a campaign has been approved, and the course page
+  # offers deletion to non-admins only before that (available_actions.jsx).
+  def require_admin_to_delete_published_course
+    return unless Features.wiki_ed? && @course.campaigns.any?
+    return if current_user&.admin?
+    raise NotPermittedError
+  end
+
+  # As on the course page: participants and editors of an ended course, and
+  # admins of any course, can schedule a full update.
+  def require_update_permission
+    require_signed_in
+    return if current_user.admin?
+    participant = current_user.nonvisitor?(@course) || current_user.can_edit?(@course)
+    raise NotPermittedError unless participant && @course.end < Time.zone.now
+  end
+
+  # Adding a course to a campaign approves it on Wiki Ed, which only admins
+  # may do. On P&E, course editors manage their own course's campaigns.
+  def require_campaign_list_permissions
+    return require_admin_permissions if Features.wiki_ed?
+    require_permissions
+  end
+
   def validate
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
-    course_cloned_status = @course.cloned_status == 3
-    raise NotPermittedError unless current_user&.can_edit?(@course) || course_cloned_status
+    raise NotPermittedError unless current_user&.can_edit?(@course) || copier_finishing_copy?
+  end
+
+  # CopyCourseController doesn't enroll the user who copies a course, so that
+  # user may edit the copy until its setup modal is finished.
+  def copier_finishing_copy?
+    return false unless current_user && @course.cloned_status == 3
+    @course.flags[:copied_by_user_id] == current_user.id
   end
 
   def handle_course_announcement(instructor)
@@ -533,10 +568,7 @@ class CoursesController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def protect_privacy
-    return unless @course.private
-    # Admins and enrolled users have non-visitor roles
-    return if current_user&.nonvisitor?(@course)
-    raise ActionController::RoutingError, 'not found'
+    require_course_visible(@course)
   end
 
   # If this is an enroll link, save the slug and enroll code
