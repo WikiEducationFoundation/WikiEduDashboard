@@ -138,6 +138,8 @@ class Course < ApplicationRecord
     # initiated, but not completed.
     PENDING = 1
     COMPLETED = 2
+    # Made by CopyCourseController; set up by whoever copied it.
+    COPIED = 3
   end
 
   ##########

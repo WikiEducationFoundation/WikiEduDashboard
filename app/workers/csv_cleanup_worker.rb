@@ -11,9 +11,9 @@ class CsvCleanupWorker
   # succeeds.
   def perform(filename)
     ReportCsvStore.delete filename
-  rescue Errno::ENOENT
-    # Local store: cleanups scheduled before report names changed can't find
-    # their files.
+  rescue Errno::ENOENT, Aws::S3::Errors::NoSuchKey, Aws::S3::Errors::NotFound
+    # Cleanups scheduled before report names changed can't find their files.
+    # S3 normally reports success for a missing key, but not every gateway does.
     nil
   end
 end

@@ -55,12 +55,14 @@ class TrainingModulesUsersController < ApplicationController
 
   private
 
-  # A user's progress goes only to that user and to people who can edit the
-  # course, as in TrainingStatusController.
+  # A user's progress goes only to that user and, for the course's own
+  # participants, to people who can edit the course, as in
+  # TrainingStatusController.
   def progress_user(course)
     user = User.find_by(id: params[:user_id]) if params[:user_id]
     return unless user && current_user
-    return user if current_user.id == user.id || current_user.can_edit?(course)
+    return user if current_user.id == user.id || current_user.admin?
+    return user if user.course_roles(course).any? && current_user.can_edit?(course)
   end
 
   def set_training_module

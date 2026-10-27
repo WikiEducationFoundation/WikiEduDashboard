@@ -317,8 +317,8 @@ class CoursesController < ApplicationController
   # requires edit rights.
   def restrict_course_fields
     return unless current_user && params[:course].is_a?(ActionController::Parameters)
-    RestrictCourseParams.new(course_params: params[:course], user: current_user,
-                             creating: action_name == 'create')
+    course = Course.find_by(slug: params[:id].gsub(/\.json$/, '')) if action_name == 'update'
+    RestrictCourseParams.new(course_params: params[:course], user: current_user, course:)
   end
 
   def validate

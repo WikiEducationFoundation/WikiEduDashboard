@@ -195,6 +195,15 @@ describe 'Endpoint authorization', type: :request do
       expect(JSON.parse(response.body)['blocks']).to eq([])
     end
 
+    it 'returns no blocks to an instructor for a user outside the course' do
+      instructor = create(:user, username: 'ProgressInstructor')
+      create(:courses_user, course:, user: instructor, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      login_as instructor
+      get '/training_modules_users.json', params: { course_id: course.id,
+                                                   user_id: create(:user, username: 'Outside').id }
+      expect(JSON.parse(response.body)['blocks']).to eq([])
+    end
+
     it 'returns the blocks for the viewer\'s own progress' do
       get '/training_modules_users.json', params: { course_id: course.id, user_id: user.id }
       expect(JSON.parse(response.body)['blocks'].count).to eq(1)

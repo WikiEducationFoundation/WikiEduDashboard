@@ -111,6 +111,8 @@ describe 'Private course visibility', type: :request do
         create(:block, week:, training_module_ids: [training_module.id])
         create(:courses_user, course: public_course, user: instructor,
                               role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        create(:courses_user, course: public_course, user: student,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
         allow(TrainingModuleDueDateManager).to receive(:new).and_wrap_original do |original, **args|
           users_shown << args[:user]
           original.call(**args)

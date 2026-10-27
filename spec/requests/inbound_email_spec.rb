@@ -43,6 +43,25 @@ describe 'Inbound email', type: :request do
       expect(response.status).to eq(401)
     end
 
+    it 'refuses a signed email whose timestamp is old' do
+      expect_any_instance_of(EmailProcessor).not_to receive(:process)
+      old = 1.hour.ago.to_i.to_s
+      post '/email_processor',
+           params: email_params.merge('timestamp' => old, 'token' => token,
+                                      'signature' => OpenSSL::HMAC.hexdigest('SHA256', signing_key,
+                                                                             "#{old}#{token}"))
+      expect(response.status).to eq(401)
+    end
+
+    it 'refuses a second email with a token already used' do
+      allow(Rails).to receive(:cache).and_return(ActiveSupport::Cache::MemoryStore.new)
+      allow_any_instance_of(EmailProcessor).to receive(:process)
+      post_email(signature_for(signing_key))
+      expect(response.status).to eq(200)
+      post_email(signature_for(signing_key))
+      expect(response.status).to eq(401)
+    end
+
     it 'refuses an unsigned email' do
       expect_any_instance_of(EmailProcessor).not_to receive(:process)
       post '/email_processor', params: email_params

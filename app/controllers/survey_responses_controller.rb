@@ -29,7 +29,9 @@ class SurveyResponsesController < ApplicationController
   # Who answered a confidential survey is confidential too, as its results
   # are (see protect_confidentiality in SurveysController).
   def confidential_question_group_ids
+    # NOT IN with a NULL in the list matches nothing, which would hide every response.
     SurveysQuestionGroup.joins(:survey).where(surveys: { confidential_results: true })
+                        .where.not(rapidfire_question_group_id: nil)
                         .select(:rapidfire_question_group_id)
   end
 end

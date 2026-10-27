@@ -201,6 +201,12 @@ describe 'Course authorization', type: :request do
       expect(own_course.reload.submitted).to be true
     end
 
+    it 'lets the instructor set the subject while setting up a clone' do
+      own_course.update!(cloned_status: Course::ClonedStatus::PENDING)
+      put path, params: { course: { subject: 'Changed', cloned_status: 2 } }, as: :json
+      expect(own_course.reload.subject).to eq('Changed')
+    end
+
     it 'lets the instructor finish setting up a clone, and nothing else' do
       own_course.update!(cloned_status: Course::ClonedStatus::PENDING)
       put path, params: { course: { cloned_status: 0 } }, as: :json
@@ -261,6 +267,13 @@ describe 'Course authorization', type: :request do
     before { login_as outsider }
 
     context 'on Wiki Ed' do
+      it 'keeps the type the course creator took from the campaign' do
+        campaign.update!(default_course_type: 'Editathon')
+        course_params = params[:course].merge(initial_campaign_id: campaign.id)
+        post '/courses', params: { course: course_params }, as: :json
+        expect(Course.last.type).to eq('Editathon')
+      end
+
       it 'ignores type, privacy and admin-only settings' do
         post '/courses', params:, as: :json
         course = Course.last

@@ -29,6 +29,13 @@ describe 'Recent survey responses', type: :request do
     expect(response.body).not_to include('ConfidentialRespondent')
   end
 
+  it 'still lists other responses when a confidential survey has a blank question group row' do
+    SurveysQuestionGroup.create!(survey: confidential_survey, rapidfire_question_group_id: nil)
+    login_as create(:admin)
+    get '/survey/responses'
+    expect(response.body).to include('OpenRespondent')
+  end
+
   it 'lists every response for a super admin' do
     login_as create(:super_admin)
     get '/survey/responses'
