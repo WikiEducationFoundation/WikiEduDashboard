@@ -409,7 +409,9 @@ const API = {
   },
 
   async notifyOverdue(courseSlug) {
-    const response = await request(`/courses/${courseSlug}/notify_untrained.json`);
+    const response = await request(`/courses/${courseSlug}/notify_untrained.json`, {
+      method: 'POST'
+    });
     await ensureOk(response, 'Couldn\'t notify students! ');
     alert('Students with overdue trainings notified!');
     return response.text();

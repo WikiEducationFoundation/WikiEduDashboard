@@ -853,7 +853,7 @@ describe CoursesController, type: :request do
       allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
     end
 
-    let(:subject) { get "/courses/#{course.slug}/notify_untrained", params: { id: course.slug } }
+    let(:subject) { post "/courses/#{course.slug}/notify_untrained", params: { id: course.slug } }
 
     context 'user is admin' do
       before do
