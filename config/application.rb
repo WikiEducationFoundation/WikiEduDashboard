@@ -65,6 +65,14 @@ module WikiEduDashboard
 
     config.action_dispatch.return_only_media_type_on_content_type = false
 
+    # Cookies without a SameSite attribute (the session and Devise's remember-me
+    # cookie) go out as SameSite=Lax, so a cross-site form post or fetch can't
+    # act as the signed-in user. Top-level navigation from other sites, such as
+    # the return from Wikipedia OAuth or a link opened from Canvas, still sends
+    # them. LTI views in the Canvas iframe already work without the session
+    # (see LtiLaunchController).
+    config.action_dispatch.cookies_same_site_protection = :lax
+
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
