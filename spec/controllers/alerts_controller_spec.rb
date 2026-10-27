@@ -9,6 +9,9 @@ describe AlertsController, type: :request do
     let(:target_user) { create(:admin, email: 'email@email.com') }
     let!(:courses_users) do
       create(:courses_user, course_id: course.id, user_id: user.id)
+      # The Get Help button addresses the course's Wiki Ed staff.
+      create(:courses_user, course_id: course.id, user_id: target_user.id,
+                            role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
     end
 
     let(:alert_params) do

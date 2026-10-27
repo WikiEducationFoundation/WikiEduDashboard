@@ -117,10 +117,11 @@ describe 'Private course visibility', type: :request do
         end
       end
 
-      it 'shows a user who can\'t edit the course only their own progress' do
+      it 'shows a user who can\'t edit the course no progress at all' do
         login_as outsider
         get path, params: { course_id: public_course.id, user_id: student.id }
-        expect(users_shown).to eq([outsider])
+        expect(users_shown).to be_empty
+        expect(JSON.parse(response.body)['blocks']).to eq([])
       end
 
       it 'shows the student\'s progress to the course instructor' do
