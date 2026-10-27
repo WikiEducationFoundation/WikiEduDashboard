@@ -1,12 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import useCampaignDownloadModal from '../../hooks/useCampaignDownloadModal.js';
+
+// The campaign reports leave private courses out. Admins and organizers
+// (campaign.editable) can ask for the variant that includes them, which the
+// server caches under its own name and serves only to them.
+const withPrivateCourses = ({ id, href, ...option }) => ({
+  ...option,
+  id: `${id}-with-private-courses`,
+  href: `${href}${href.includes('?') ? '&' : '?'}include_private=true`
+});
 
 const CampaignStatsDownloadModal = ({ campaign_slug, campaign: campaignProp }) => {
   const campaignFromStore = useSelector(state => state.campaign);
   const campaign = campaignProp || campaignFromStore;
   const campaignTitle = campaign?.title || campaign_slug;
+  const [includePrivate, setIncludePrivate] = useState(false);
 
   const {
     show,
@@ -16,7 +26,7 @@ const CampaignStatsDownloadModal = ({ campaign_slug, campaign: campaignProp }) =
     userSignedIn
   } = useCampaignDownloadModal({ campaignTitle });
 
-  const downloadOptions = [
+  const publicOptions = [
     {
       id: `${campaign_slug}-courses`,
       href: `/campaigns/${campaign_slug}/courses.csv`,
@@ -54,6 +64,10 @@ const CampaignStatsDownloadModal = ({ campaign_slug, campaign: campaignProp }) =
       info: I18n.t('campaign.data_wikidata_info')
     }
   ];
+  const canIncludePrivate = Boolean(campaign?.editable);
+  const downloadOptions = canIncludePrivate && includePrivate
+    ? publicOptions.map(withPrivateCourses)
+    : publicOptions;
 
   if (!show) {
     return (
@@ -65,6 +79,17 @@ const CampaignStatsDownloadModal = ({ campaign_slug, campaign: campaignProp }) =
     <div className="basic-modal course-stats-download-modal">
       <button onClick={closeModal} className="pull-right article-viewer-button icon-close" />
       <h2>{I18n.t('campaign.data_download_info')}</h2>
+      {canIncludePrivate && (
+        <label className="campaign-private-courses-toggle">
+          <input
+            type="checkbox"
+            checked={includePrivate}
+            onChange={e => setIncludePrivate(e.target.checked)}
+          />
+          {' '}
+          {I18n.t('campaign.data_include_private_courses')}
+        </label>
+      )}
       <hr />
       {downloadOptions.map((option, index) => (
         <React.Fragment key={option.id}>

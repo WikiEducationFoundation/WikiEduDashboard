@@ -7,8 +7,14 @@ require_dependency "#{Rails.root}/lib/analytics/csv_edit_counts"
 require "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 
 class CampaignCsvBuilder
-  def initialize(campaign)
+  # Campaign reports are cached under one name and served to everyone who
+  # requests them, so they leave out private courses, as users_to_csv does.
+  # The variant with include_private is cached under its own name
+  # (ReportCsvWorker.campaign_csv_name) and only generated for admins and the
+  # campaign's organizers; see ReportsController#require_private_courses_access.
+  def initialize(campaign, include_private: false)
     @campaign = campaign || AllCourses
+    @include_private = include_private
   end
 
   def courses_to_csv # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
@@ -116,10 +122,9 @@ class CampaignCsvBuilder
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
   end
 
-  # Campaign reports are cached under one name and served to everyone who
-  # requests them, so they leave out private courses, as users_to_csv does.
   def courses
-    @campaign.is_a?(Campaign) ? @campaign.nonprivate_courses : @campaign.courses
+    return @campaign.courses unless @campaign.is_a?(Campaign)
+    @include_private ? @campaign.courses : @campaign.nonprivate_courses
   end
 
   def sum_wiki_columns(csv_data)
