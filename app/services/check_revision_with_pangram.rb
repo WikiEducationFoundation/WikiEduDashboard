@@ -37,6 +37,7 @@ class CheckRevisionWithPangram
     plaintext_service = GetRevisionPlaintext.new(@mw_rev_id, @wiki)
     @article_title = plaintext_service.article_title
     @plain_text = plaintext_service.plain_text
+    @parent_rev_id = plaintext_service.from_rev
   end
 
   # Determines whether the check was already performed for the given revision,
@@ -132,11 +133,12 @@ class CheckRevisionWithPangram
     @parser = detector.parse(@pangram_result)
   end
 
+  # As a start, we'll just look at the most-likely window.
+  # In many cases, the max is 1.0, but we'll be a little
+  # more conservative.
+  AI_LIKELY_THRESHOLD = 0.9
   def ai_likely?
-    # As a start, we'll just look at the most-likely window.
-    # In many cases, the max is 1.0, but we'll be a little
-    # more conservative.
-    @parser.max_ai_likelihood > 0.9
+    @parser.max_ai_likelihood > AI_LIKELY_THRESHOLD
   end
 
   # Don't generate an alert for old edits.
@@ -150,7 +152,19 @@ class CheckRevisionWithPangram
                                             course_id: @course_id,
                                             article_id: @article.id,
                                             article_title: @article_title,
-                                            pangram_details: @parser.pangram_details)
+                                            pangram_details: alert_details)
+  end
+
+  # Recorded so we can see how often an alert is only about text that was
+  # already in the article, before deciding how to handle those alerts.
+  def alert_details
+    @parser.pangram_details.merge(flagged_text_preexisting: flagged_text_preexisting?)
+  end
+
+  def flagged_text_preexisting?
+    FindPreexistingFlaggedText.new(windows: @parser.windows, text: @plain_text,
+                                   parent_rev_id: @parent_rev_id, wiki: @wiki,
+                                   threshold: AI_LIKELY_THRESHOLD).all_preexisting?
   end
 
   def alert_already_exists?

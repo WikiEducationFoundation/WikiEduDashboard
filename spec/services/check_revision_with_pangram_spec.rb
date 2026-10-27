@@ -173,6 +173,7 @@ describe CheckRevisionWithPangram do
       end
       expect(AiEditAlert.count).to eq(1)
       expect(AiEditAlert.last.article_id).to eq(live_article.id)
+      expect(AiEditAlert.last.details[:flagged_text_preexisting]).to be false
 
       expect(RevisionAiScore.count).to eq(1)
       expect(RevisionAiScore.last.article_id).to eq(live_article.id)
@@ -204,6 +205,27 @@ describe CheckRevisionWithPangram do
       new_alert = AiEditAlert.last
       expect(new_alert.details[:prior_alert_for_page]).to eq(prior_page_alert.id)
       expect(new_alert.details[:prior_alert_for_user]).to eq(prior_user_alert.id)
+    end
+  end
+
+  context 'when the flagged text was already in the article' do
+    it 'records that in the new alert details' do
+      expect_any_instance_of(PangramApi).to receive(:inference)
+                                        .and_return(simplified_pangram_response)
+      expect(FindPreexistingFlaggedText).to receive(:new)
+        .with(hash_including(parent_rev_id: 1315359489, threshold: 0.9))
+        .and_return(instance_double(FindPreexistingFlaggedText, all_preexisting?: true))
+      VCR.use_cassette 'pangram_2' do
+        described_class.new(
+          { 'mw_rev_id' => live_article_revision_id,
+            'wiki_id' => en_wiki.id,
+            'article_id' => live_article.id,
+            'course_id' => course.id,
+            'user_id' => user.id,
+            'revision_timestamp' => timestamp }
+        )
+      end
+      expect(AiEditAlert.last.details[:flagged_text_preexisting]).to be true
     end
   end
 
