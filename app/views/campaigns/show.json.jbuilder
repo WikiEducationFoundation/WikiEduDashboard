@@ -8,7 +8,11 @@ if @campaign
     json.description @campaign.description
     json.template_description @campaign.template_description
     json.default_course_type @campaign.default_course_type
-    json.default_passcode @campaign.default_passcode
+    # New courses in the campaign start with this passcode, so only the people
+    # who manage the campaign see it. CourseCreationManager applies it otherwise.
+    if current_user&.admin? || @campaign.organizers.include?(current_user)
+      json.default_passcode @campaign.default_passcode
+    end
     json.courses_count number_to_human @presenter.courses_count
     json.user_count number_to_human @presenter.user_count
     json.new_article_count_human number_to_human(@presenter.new_article_count)

@@ -27,13 +27,15 @@ class OnboardingController < ApplicationController
     head :no_content
   end
 
+  # The alert is always about the signed-in user, whatever user_name the
+  # form sends.
   def supplementary
+    require_signed_in
     head :no_content
     return unless supplementary_response?
-    user_name = params[:user_name]
     details = format_details_hash(params)
     response = format_message_response(params)
-    OnboardingAlertManager.new.create_alert(user_name, response, details)
+    OnboardingAlertManager.new.create_alert(current_user.username, response, details)
   end
 
   private

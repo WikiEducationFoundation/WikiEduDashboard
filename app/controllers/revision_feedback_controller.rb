@@ -5,12 +5,16 @@ require_dependency "#{Rails.root}/lib/lift_wing_api"
 require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 
 class RevisionFeedbackController < ApplicationController
+  include CourseHelper
+
   def index
+    assignment = Assignment.find(params['assignment_id'])
+    require_course_visible(assignment.course)
     set_latest_revision_id
     return if @rev_id.nil?
     revision_data = LiftWingApi.new(@wiki).get_revision_data([@rev_id])[@rev_id.to_s]
     @feedback = RevisionFeedbackService.new(revision_data['features']).feedback
-    @user_feedback = Assignment.find(params['assignment_id']).assignment_suggestions
+    @user_feedback = assignment.assignment_suggestions
     @rating = revision_data['prediction']
   end
 

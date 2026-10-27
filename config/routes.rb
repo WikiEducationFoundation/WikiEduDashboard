@@ -200,9 +200,9 @@ Rails.application.routes.draw do
 
     get 'courses/*id/manual_update' => 'courses#manual_update',
         :as => :manual_update, constraints: { id: /.*/ }
-    get 'courses/*id/notify_untrained' => 'courses#notify_untrained',
+    post 'courses/*id/notify_untrained' => 'courses#notify_untrained',
         :as => :notify_untrained, constraints: { id: /.*/ }
-    get 'courses/*id/needs_update' =>  'courses#needs_update',
+    put 'courses/*id/needs_update' =>  'courses#needs_update',
         :as => :needs_update, constraints: { id: /.*/ }
     get 'courses/*id/ores_plot' =>  'ores_plot#course_plot',
         constraints: { id: /.*/ }

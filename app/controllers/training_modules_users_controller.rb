@@ -35,10 +35,11 @@ class TrainingModulesUsersController < ApplicationController
   end
 
   def mark_exercise_complete
-    set_training_module
-    set_training_module_user
     block = Block.find(params[:block_id])
     @course = block.course
+    raise ParticipatingUserError unless current_user.nonvisitor?(@course)
+    set_training_module
+    set_training_module_user
     if marking_complete?
       verify_exercise_article_recorded { return }
       verify_exercise_sandbox { return }
