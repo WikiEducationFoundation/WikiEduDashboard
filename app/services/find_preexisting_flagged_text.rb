@@ -23,6 +23,12 @@ class FindPreexistingFlaggedText
     find_preexisting_passages
   end
 
+  # Bracketed footnote markers like [a] or [note 1] survive plain text
+  # conversion and may be numbered differently in a diff and in the full page.
+  def self.normalize(text)
+    text.gsub(/\[[^\[\]\n]{1,12}\]/, '').squish
+  end
+
   def all_preexisting?
     @flagged_passages.any? && @flagged_passages == @preexisting_passages
   end
@@ -56,10 +62,8 @@ class FindPreexistingFlaggedText
     text.split(/\n+/).map { |line| normalize(line) }.compact_blank
   end
 
-  # Bracketed footnote markers like [a] or [note 1] survive plain text
-  # conversion and may be numbered differently in a diff and in the full page.
   def normalize(text)
-    text.gsub(/\[[^\[\]\n]{1,12}\]/, '').squish
+    self.class.normalize(text)
   end
 
   def parent_plain_text
