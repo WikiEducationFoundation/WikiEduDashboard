@@ -218,4 +218,34 @@ describe LtiLegacyLaunchesController, type: :request do
       expect(response).to have_http_status(:not_found)
     end
   end
+  # The key's holder can sign any guid and context_id, so a launch naming a
+  # Canvas course bound to another Dashboard course must not reach it.
+  describe 'a launch naming a Canvas course bound to another course' do
+    let(:other_course) { create(:course, slug: 'Other/Someone_elses_course_(2026)') }
+
+    def bind(course)
+      LtiCourseBinding.create!(lms_id: guid, lms_context_id: 'canvas-course-77',
+                               lms_resource_link_id: 'canvas-course-77', lti_version: '1.1',
+                               lms_family: 'canvas', course:)
+    end
+
+    it 'is refused' do
+      bind(other_course)
+      launch
+      expect(response).to have_http_status(:unauthorized)
+      expect(response.location).to be_nil
+    end
+
+    it 'goes through when the binding is the key\'s own course' do
+      bind(course)
+      launch
+      expect(response).to have_http_status(:see_other)
+    end
+
+    it 'goes through when the binding has no course yet' do
+      bind(nil)
+      launch
+      expect(response).to have_http_status(:see_other)
+    end
+  end
 end
