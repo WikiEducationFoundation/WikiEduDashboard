@@ -40,6 +40,7 @@ class AiEditAlert < Alert
                     details:)
 
     alert.send_alert_emails
+    alert
   end
 
   # Is there another alert for the same

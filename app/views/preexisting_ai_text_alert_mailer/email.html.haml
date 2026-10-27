@@ -1,0 +1,37 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              %p.paragraph
+                [PLACEHOLDER - intro: text that
+                #{link_to @alert.user.username, "#{@course_link}/students/articles/#{@alert.user.url_encoded_username}", class: 'link'}
+                edited in the course
+                %a.link{href: @course_link}= @course.title
+                was flagged as possibly AI-generated, but the flagged text was already on the page,
+                and Pangram also flags the earlier edits listed below that added it]
+              %p.paragraph
+                [PLACEHOLDER - label for the page link]
+                %a.link{href: @alert.page_url}= @alert.article_title
+                (
+                %a.link{href: @alert.url} diff
+                )
+              %h2.headline [PLACEHOLDER - heading for the list of flagged earlier edits]
+              %ul.paragraph
+                - @alert.flagged_origin_edits.each do |edit|
+                  %li
+                    %a.link{href: @alert.diff_url(edit[:rev_id])}= edit[:username]
+                    = "(#{edit[:timestamp].to_s[0, 10]})"
+                    —
+                    %a.link{href: edit[:pangram_share_link]} Pangram
+              %h2.headline [PLACEHOLDER - heading for next steps]
+              %p.paragraph
+                [PLACEHOLDER - next steps for the student, e.g. reviewing the earlier text and removing it if it is not good]
+
+.hidden
+  %p
+    Alert ID:
+    %a{href: "#{@alert.alert_list_url}"}= @alert.id

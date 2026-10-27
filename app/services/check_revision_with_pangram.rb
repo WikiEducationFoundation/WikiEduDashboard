@@ -147,12 +147,13 @@ class CheckRevisionWithPangram
     return if @rev_datetime < MAX_DAYS_FOR_ALERT.days.ago
     return if alert_already_exists?
 
-    AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id,
+    alert = AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id,
                                             user_id: @user_id,
                                             course_id: @course_id,
                                             article_id: @article.id,
                                             article_title: @article_title,
                                             pangram_details: alert_details)
+    check_origin_edits(alert) if preexisting_flagged_text.all_preexisting?
   end
 
   # Recorded so we can see how often an alert is only about text that was
@@ -162,9 +163,21 @@ class CheckRevisionWithPangram
   end
 
   def flagged_text_preexisting?
-    FindPreexistingFlaggedText.new(windows: @parser.windows, text: @plain_text,
-                                   parent_rev_id: @parent_rev_id, wiki: @wiki,
-                                   threshold: AI_LIKELY_THRESHOLD).all_preexisting?
+    preexisting_flagged_text.all_preexisting?
+  end
+
+  def preexisting_flagged_text
+    @preexisting_flagged_text ||=
+      FindPreexistingFlaggedText.new(windows: @parser.windows, text: @plain_text,
+                                     parent_rev_id: @parent_rev_id, wiki: @wiki,
+                                     threshold: AI_LIKELY_THRESHOLD)
+  end
+
+  # The flagged text came from earlier edits, which may hold more AI text
+  # than the part this edit included.
+  def check_origin_edits(alert)
+    OriginEditAiCheckWorker.schedule(ai_edit_alert: alert, parent_rev_id: @parent_rev_id,
+                                     passages: preexisting_flagged_text.preexisting_passages)
   end
 
   def alert_already_exists?

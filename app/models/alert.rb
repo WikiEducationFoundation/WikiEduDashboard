@@ -60,6 +60,7 @@ class Alert < ApplicationRecord
     OverdueTrainingAlert
     OverEnrollmentAlert
     PossiblePlagiarismAlert
+    PreexistingAiTextAlert
     ProductiveCourseAlert
     ProtectedArticleAssignmentAlert
     ReviewRequestAlert
