@@ -72,6 +72,19 @@ describe GetRevisionPlaintext do
       expect(service.plain_text).to include('text after')
     end
 
+    it 'excludes reference list entries that are not cite templates' do
+      stub_revision_html(<<~HTML)
+        <p>Article prose.<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+        <div class="mw-references-wrap"><ol class="references">
+          <li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1">^</a></b></span>
+            <span class="reference-text"><a class="external text" href="http://example.org/a.pdf">Archived copy</a>
+            example.org Archived 2018-03-29 at the Wayback Machine</span></li>
+        </ol></div>
+      HTML
+      service = described_class.new(12345, en_wiki, diff_mode: false)
+      expect(service.plain_text).to eq('Article prose.')
+    end
+
     it 'preserves normal prose' do
       stub_revision_html('<p>Just some normal text.</p>')
       service = described_class.new(12345, en_wiki, diff_mode: false)
