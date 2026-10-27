@@ -549,6 +549,9 @@ class Course < ApplicationRecord
     flags['format']
   end
 
+  EDIT_SETTING_KEYS = %w[
+    wiki_course_page_enabled assignment_edits_enabled enrollment_edits_enabled
+  ].freeze
   def edit_settings_present?
     flags.key?('edit_settings')
   end

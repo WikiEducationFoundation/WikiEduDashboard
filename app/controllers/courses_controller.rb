@@ -22,6 +22,7 @@ class CoursesController < ApplicationController
                                                delete_all_weeks]
   before_action :require_admin_permissions, only: [:tag]
   before_action :require_campaign_list_permissions, only: [:list]
+  before_action :restrict_course_fields, only: %i[create update]
 
   ################
   # CRUD methods #
@@ -312,6 +313,14 @@ class CoursesController < ApplicationController
     require_permissions
   end
 
+  # Signed-out requests get no further: create requires sign-in and update
+  # requires edit rights.
+  def restrict_course_fields
+    return unless current_user && params[:course].is_a?(ActionController::Parameters)
+    RestrictCourseParams.new(course_params: params[:course], user: current_user,
+                             creating: action_name == 'create')
+  end
+
   def validate
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
@@ -456,12 +465,11 @@ class CoursesController < ApplicationController
     end
   end
 
-  EDIT_SETTING_KEYS = %w[
-    wiki_course_page_enabled assignment_edits_enabled enrollment_edits_enabled
-  ].freeze
   def update_edit_settings
+    # Absent for users who may not change them; see RestrictCourseParams.
+    return unless Course::EDIT_SETTING_KEYS.any? { |key| params[:course].key?(key) }
     update_flags = {}
-    EDIT_SETTING_KEYS.each do |key|
+    Course::EDIT_SETTING_KEYS.each do |key|
       update_flags[key] = params.dig(:course, key)
     end
     @course.flags['edit_settings'] = update_flags
