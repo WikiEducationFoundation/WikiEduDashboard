@@ -101,6 +101,20 @@ describe AlertsController, type: :request do
 
       expect(response.status).to eq(422)
     end
+
+    # Alert emails link here, and a link can only GET. The alert's page has
+    # the Resolve button.
+    it 'sends a GET to the alert\'s page without resolving it' do
+      get route
+      expect(response).to redirect_to(alerts_list_path(alert))
+      expect(alert.reload.resolved).to be(false)
+    end
+
+    it 'returns to the alert\'s page after the Resolve button' do
+      put route
+      expect(response).to redirect_to(alerts_list_path(alert))
+      expect(alert.reload.resolved).to be(true)
+    end
   end
 
   describe '#notify_instructors' do

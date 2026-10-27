@@ -34,12 +34,18 @@ class AlertsController < ApplicationController
   # Resolves alert if it is resolvable? Requires admin permission.
   # Normally, same alerts won't be created for the second time.
   # Resolving alert, allows it to be created for the second time if conditions are met.
+  # Alert emails link here, and a link can only GET, so a GET goes to the
+  # alert's page, whose Resolve button sends the PUT.
   def resolve
+    return redirect_to alerts_list_path(@alert) if request.get?
     ensure_alert_is_resolvable { return }
 
     @alert.update resolved: true
 
-    render json: { alert: @alert }
+    respond_to do |format|
+      format.html { redirect_to alerts_list_path(@alert) }
+      format.json { render json: { alert: @alert } }
+    end
   end
 
   # Create alert and send notification to all the instructors of a course.

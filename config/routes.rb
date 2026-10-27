@@ -22,9 +22,9 @@ Rails.application.routes.draw do
     # So, we treat it as a login error.
     get 'sign_in', to: 'errors#login_error', as: :new_user_session
 
-    get 'sign_out', to: 'users#signout', as: :destroy_user_session
-    get 'sign_out_oauth', to: 'devise/sessions#destroy',
-                          as: :true_destroy_user_session
+    delete 'sign_out', to: 'users#signout', as: :destroy_user_session
+    # Signing out takes a DELETE; old links and bookmarks just go home.
+    get 'sign_out', to: redirect('/')
   end
 
   get '/settings/all_admins' => 'settings#all_admins'
@@ -604,7 +604,7 @@ Rails.application.routes.draw do
   if Features.wiki_ed?
     put '/salesforce/link/:course_id' => 'salesforce#link'
     put '/salesforce/update/:course_id' => 'salesforce#update'
-    get '/salesforce/create_media' => 'salesforce#create_media'
+    post '/salesforce/create_media' => 'salesforce#create_media'
   end
 
   # Wikimedia Event Center

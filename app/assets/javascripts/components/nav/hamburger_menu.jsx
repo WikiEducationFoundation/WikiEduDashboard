@@ -82,7 +82,7 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
                     </li>
                     <DownloadsBell />
                     <li>
-                      <a href={destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
+                      <a href={destroyUrl} data-method="delete" className="current-user">{I18n.t('application.log_out')}</a>
                     </li>
                   </span>
                 ) : (
