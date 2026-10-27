@@ -42,7 +42,22 @@ describe 'Survey answer submission', type: :request do
       survey.update(closed: true)
       login_as user
       post path, params:, as: :json
+      expect(response.status).to eq(401)
       expect(Rapidfire::AnswerGroup.count).to eq(0)
+    end
+
+    it 'is accepted from an admin, for testing a survey' do
+      login_as admin
+      post path, params:, as: :json
+      expect(Rapidfire::AnswerGroup.last.user).to eq(admin)
+    end
+
+    it 'is accepted when closed is unset, as the survey page treats it as open' do
+      assign(survey, to: user)
+      survey.update_column(:closed, nil)
+      login_as user
+      post path, params:, as: :json
+      expect(Rapidfire::AnswerGroup.last.user).to eq(user)
     end
 
     it 'is accepted from an assigned user' do

@@ -66,6 +66,7 @@ class CoursesController < ApplicationController
 
   def destroy
     validate
+    require_admin_to_delete_published_course
     reject_deletion_of_event_synced_course { return }
     DeleteCourseWorker.schedule_deletion(course: @course, current_user:)
     render json: { success: true }
@@ -285,6 +286,14 @@ class CoursesController < ApplicationController
 
   def campaign_params
     params.require(:campaign).permit(:title)
+  end
+
+  # On Wiki Ed, a course in a campaign has been approved, and the course page
+  # offers deletion to non-admins only before that (available_actions.jsx).
+  def require_admin_to_delete_published_course
+    return unless Features.wiki_ed? && @course.campaigns.any?
+    return if current_user&.admin?
+    raise NotPermittedError
   end
 
   # As on the course page: participants and editors of an ended course, and

@@ -135,4 +135,33 @@ describe 'Course authorization', type: :request do
       expect(Course.exists?(copied_course.id)).to be true
     end
   end
+  describe 'deleting an approved course on Wiki Ed' do
+    let(:approved_course) { create(:course, slug: 'Approved/Approved_course_(term)') }
+
+    before do
+      approved_course.campaigns << Campaign.first
+      create(:courses_user, course: approved_course, user: instructor,
+                            role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    end
+
+    it 'is refused to the course\'s instructor' do
+      expect(DeleteCourseWorker).not_to receive(:schedule_deletion)
+      login_as instructor
+      delete "/courses/#{approved_course.slug}.json"
+      expect(response.status).to eq(401)
+    end
+
+    it 'is allowed for an admin' do
+      expect(DeleteCourseWorker).to receive(:schedule_deletion)
+      login_as admin
+      delete "/courses/#{approved_course.slug}.json"
+    end
+
+    it 'is allowed for the instructor before approval' do
+      approved_course.campaigns.clear
+      expect(DeleteCourseWorker).to receive(:schedule_deletion)
+      login_as instructor
+      delete "/courses/#{approved_course.slug}.json"
+    end
+  end
 end

@@ -177,6 +177,14 @@ const API = {
     return response.json();
   },
 
+  async needsUpdate(courseSlug) {
+    const response = await request(`/courses/${courseSlug}/needs_update.json`, {
+      method: 'PUT'
+    });
+    await ensureOk(response);
+    return response.json();
+  },
+
   fetch(courseId, endpoint) {
     return request(`/courses/${courseId}/${endpoint}.json${studentViewQuery(endpoint)}`, {
       credentials: "include"

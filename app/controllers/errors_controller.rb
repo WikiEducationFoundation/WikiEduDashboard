@@ -37,9 +37,11 @@ class ErrorsController < ApplicationController
 
   # The passcode form submits to this path, so it must stay on this site:
   # '/...', but not '//...' or '/\...', which browsers treat as another host.
+  # Browsers also drop tabs and newlines from URLs ('/<tab>/...' becomes
+  # '//...'), so control characters disqualify a path too.
   def site_relative(path)
     return '' unless path.start_with?('/')
-    return '' if path.start_with?('//', '/\\')
+    return '' if path.start_with?('//', '/\\') || path.match?(/[[:cntrl:]]/)
     path
   end
 

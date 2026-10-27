@@ -21,5 +21,14 @@ describe 'TicketDispenser CSRF', type: :request do
       delete "/td/tickets/#{ticket.id}", params: { id: ticket.id }
       expect(TicketDispenser::Ticket.exists?(ticket.id)).to be true
     end
+
+    it 'are accepted with the token from the tickets page' do
+      login_as admin
+      get '/tickets/dashboard'
+      token = response.body[/<meta name="csrf-token" content="([^"]+)"/, 1]
+      delete "/td/tickets/#{ticket.id}", params: { id: ticket.id },
+                                         headers: { 'X-CSRF-Token' => token }
+      expect(TicketDispenser::Ticket.exists?(ticket.id)).to be false
+    end
   end
 end

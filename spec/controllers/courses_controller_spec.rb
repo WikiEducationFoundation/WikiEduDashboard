@@ -804,19 +804,19 @@ describe CoursesController, type: :request do
 
     it 'sets "needs_update" to true for a participant of an ended course' do
       login_as student
-      get path, params: { id: course.slug }
+      put path, params: { id: course.slug }
       expect(course.reload.needs_update).to eq(true)
     end
 
     it 'refuses a logged-out visitor' do
-      get path, params: { id: course.slug }
+      put path, params: { id: course.slug }
       expect(response.status).to eq(401)
       expect(course.reload.needs_update).to eq(false)
     end
 
     it 'refuses a signed-in user who is not in the course' do
       login_as create(:user, username: 'Outsider')
-      get path, params: { id: course.slug }
+      put path, params: { id: course.slug }
       expect(response.status).to eq(401)
       expect(course.reload.needs_update).to eq(false)
     end
@@ -824,7 +824,7 @@ describe CoursesController, type: :request do
     it 'refuses a participant while the course is still running' do
       course.update(end: 1.month.from_now)
       login_as student
-      get path, params: { id: course.slug }
+      put path, params: { id: course.slug }
       expect(response.status).to eq(401)
       expect(course.reload.needs_update).to eq(false)
     end
@@ -832,7 +832,7 @@ describe CoursesController, type: :request do
     it 'lets an admin schedule an update for a running course' do
       course.update(end: 1.month.from_now)
       login_as create(:admin)
-      get path, params: { id: course.slug }
+      put path, params: { id: course.slug }
       expect(course.reload.needs_update).to eq(true)
     end
   end

@@ -35,6 +35,12 @@ describe 'Endpoint authorization', type: :request do
       expect(campaign.reload.register_accounts).to be true
     end
 
+    it 'is refused to a signed-in user who is not an admin' do
+      login_as user
+      put path
+      expect(campaign.reload.register_accounts).to be true
+    end
+
     it 'works for an admin' do
       login_as admin
       put path

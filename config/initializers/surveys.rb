@@ -211,7 +211,7 @@ Rails.application.config.to_prepare do
     # answer any survey, for example when testing one.
     def ensure_survey_is_available
       return if current_user.admin?
-      surveys = @question_group.surveys.where(closed: false)
+      surveys = @question_group.surveys.where(closed: [false, nil])
       return if surveys.any? { |survey| survey.open || assigned_to_survey?(survey) }
       head :unauthorized
     end

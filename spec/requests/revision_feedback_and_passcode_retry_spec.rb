@@ -25,7 +25,8 @@ describe 'Revision feedback and passcode retry', type: :request do
     end
 
     it 'drops a retry path that points at another site' do
-      %w[https://evil.example //evil.example /\\evil.example].each do |path|
+      ['https://evil.example', '//evil.example', '/\\evil.example',
+       "/\t/evil.example", "/\n/evil.example", "/\r/evil.example"].each do |path|
         get '/errors/incorrect_passcode', params: { retry: path }
         expect(response.body).not_to include('evil.example')
       end
