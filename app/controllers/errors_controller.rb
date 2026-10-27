@@ -19,7 +19,7 @@ class ErrorsController < ApplicationController
   end
 
   def incorrect_passcode
-    @path = params[:retry] || ''
+    @path = site_relative(params[:retry].to_s)
     render status: :unauthorized # 401
   end
 
@@ -34,6 +34,14 @@ class ErrorsController < ApplicationController
   end
 
   private
+
+  # The passcode form submits to this path, so it must stay on this site:
+  # '/...', but not '//...' or '/\...', which browsers treat as another host.
+  def site_relative(path)
+    return '' unless path.start_with?('/')
+    return '' if path.start_with?('//', '/\\')
+    path
+  end
 
   def not_found_message
     if params[:school] && params[:titleterm] # only if it is a course
