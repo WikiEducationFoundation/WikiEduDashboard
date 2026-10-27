@@ -101,9 +101,9 @@ Rails.application.routes.draw do
   # Users
   resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ }
 
-  resources :assignments do
+  resources :assignments, only: [:create, :destroy] do
     patch '/status' => 'assignments#update_status'
-    resources :assignment_suggestions
+    resources :assignment_suggestions, only: [:create, :destroy]
   end
   patch '/assignments/:id/update_sandbox_url' => 'assignments#update_sandbox_url'
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
@@ -196,9 +196,6 @@ Rails.application.routes.draw do
 
   # Courses
   controller :courses do
-    get 'courses/new' => 'courses#new',
-        constraints: { id: /.*/ } # repeat of resources
-
     get 'courses/*id/manual_update' => 'courses#manual_update',
         :as => :manual_update, constraints: { id: /.*/ }
     post 'courses/*id/notify_untrained' => 'courses#notify_untrained',
@@ -298,9 +295,8 @@ Rails.application.routes.draw do
   end
 
   # Course Notes
-  resources :admin_course_notes, constraints: { id: /\d+/ } do
-    get 'find_course_note', on: :member
-  end
+  resources :admin_course_notes, only: [:show, :create, :update, :destroy],
+                                 constraints: { id: /\d+/ }
 
   # Categories
   post 'categories' => 'categories#add_categories'
@@ -311,17 +307,10 @@ Rails.application.routes.draw do
   get 'lookups/tag(.:format)' => 'lookups#tag'
 
   # Timeline
-  resources :courses, constraints: { id: /.*/ } do
-    resources :weeks, only: [:index, :new, :create], constraints: { id: /.*/ }
-    # get 'courses' => 'courses#index'
-  end
-  resources :weeks, only: [:index, :show, :edit, :update, :destroy]
-  resources :blocks, only: [:show, :edit, :update, :destroy]
+  resources :courses, only: [:create, :show, :update, :destroy], constraints: { id: /.*/ }
+  resources :weeks, only: [:destroy]
+  resources :blocks, only: [:destroy]
   post 'courses/:course_id/timeline' => 'timeline#update_timeline',
-       constraints: { course_id: /.*/ }
-  post 'courses/:course_id/enable_timeline' => 'timeline#enable_timeline',
-       constraints: { course_id: /.*/ }
-  post 'courses/:course_id/disable_timeline' => 'timeline#disable_timeline',
        constraints: { course_id: /.*/ }
 
   post 'articles/:article_id/revision_score' => 'articles#revision_score'
@@ -420,7 +409,7 @@ Rails.application.routes.draw do
   get 'campaigns/:slug/refresh' => 'campaigns#refresh_stats'
 
   # Courses by tag
-  resources :tagged_courses, param: :tag, except: :show do
+  resources :tagged_courses, param: :tag, only: [] do
     member do
       get 'programs'
       get 'articles'
@@ -505,7 +494,6 @@ Rails.application.routes.draw do
   # Misc
   # get 'courses' => 'courses#index'
   get 'explore' => 'explore#index'
-  get 'explore/search' => 'explore#search'
   get 'unsubmitted_courses' => 'unsubmitted_courses#index'
   get 'active_courses' => 'active_courses#index'
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
@@ -542,7 +530,6 @@ Rails.application.routes.draw do
       get 'handle_special_faq_query'  # Defines a route for a specific FAQ instance
     end
   end
-  get '/faq/test' => 'faq#test'
   get '/faq_topics' => 'faq_topics#index'
   get '/faq_topics/new' => 'faq_topics#new'
   post '/faq_topics' => 'faq_topics#create'
@@ -641,9 +628,9 @@ Rails.application.routes.draw do
     post ':experiment_slug/student_opt_out' => 'student_opt_out#opt_out'
   end
 
-  resources :admin
-  resources :alerts_list
-  resources :revision_ai_scores_stats
+  resources :admin, only: [:index]
+  resources :alerts_list, only: [:index, :show]
+  resources :revision_ai_scores_stats, only: [:index]
 
   # AI alerts stats
   get 'ai_edit_alerts_stats/select_campaign' => 'ai_edit_alerts_stats#select_campaign'
