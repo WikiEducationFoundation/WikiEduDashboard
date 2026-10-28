@@ -46,7 +46,7 @@ class CourseStatistics
   # rubocop:enable Metrics/MethodLength
 
   def articles_edited
-    Article.where(namespace: 0, id: @all_article_ids)
+    Article.where(id: @edited_article_ids)
   end
 
   ################
@@ -89,27 +89,34 @@ class CourseStatistics
   end
 
   def find_new_article_ids
-    new_article_ids = []
-    @courses.each do |course|
-      new_article_ids += course.tracked_article_course_timeslices
-                               .where(new_article: true)
-                               .pluck(:article_id)
-                               .uniq
-    end
-
-    created_articles = Article.where(namespace: 0, id: new_article_ids)
-    @surviving_article_ids = created_articles.where(deleted: false).pluck(:id)
-    @deleted_article_ids = created_articles.where(deleted: true).pluck(:id)
+    @surviving_article_ids = live_mainspace_articles_courses.where(new_article: true)
+                                                            .distinct.pluck(:article_id)
+    @deleted_article_ids = deleted_new_article_ids
   end
 
   def find_edited_article_ids
-    @all_article_ids = []
-    @courses.each do |course|
-      @all_article_ids += course.tracked_article_course_timeslices
-                                .pluck(:article_id)
-                                .uniq
-    end
-    @edited_article_ids = Article.where(namespace: 0, id: @all_article_ids,
-                                        deleted: false).pluck(:id)
+    @edited_article_ids = live_mainspace_articles_courses.distinct.pluck(:article_id)
+  end
+
+  # Tracked articles_courses records of mainspace articles that still exist. Read from
+  # articles_courses rather than timeslices, since finalized courses have their
+  # timeslices purged. Doesn't use the tracked and live scopes, to avoid issue #5911.
+  def live_mainspace_articles_courses
+    ArticlesCourses.where(course_id: @course_ids, tracked: true)
+                   .joins(:article)
+                   .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
+  end
+
+  # Deleted articles have no articles_courses records (see ArticleNamespacesManager),
+  # so they are found through their article course timeslices, which the purge keeps
+  # for deleted articles. 'revision_count > 0' skips timeslices with only system
+  # revisions.
+  def deleted_new_article_ids
+    new_article_ids = ArticleCourseTimeslice.where(course_id: @course_ids, tracked: true,
+                                                   new_article: true)
+                                            .where('revision_count > 0')
+                                            .select(:article_id)
+    Article.where(namespace: Article::Namespaces::MAINSPACE, deleted: true,
+                  id: new_article_ids).pluck(:id)
   end
 end
