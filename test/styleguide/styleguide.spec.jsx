@@ -46,6 +46,53 @@ describe('Styleguide examples', () => {
     });
   });
 
+  it('enforces the editable date-picker bounds, including both boundary days', () => {
+    global.defaultLocale = 'en';
+    global.locale = 'en';
+    global.availableLocales = ['en'];
+    global.stores = { en: { courses: { loading: 'Loading test translation' } } };
+
+    act(() => {
+      require('../../app/assets/javascripts/styleguide/styleguide');
+      document.dispatchEvent(new Event('DOMContentLoaded'));
+    });
+
+    const dateInput = document.querySelector('#date-picker-enabled input');
+    const findDay = day => Array.from(document.querySelectorAll(
+      '#date-picker-enabled .DayPicker-Day:not(.DayPicker-Day--outside)'
+    )).find(cell => cell.textContent.trim() === String(day));
+
+    act(() => Simulate.click(dateInput));
+    expect(findDay(9).getAttribute('aria-disabled')).toBe('true');
+    act(() => Simulate.click(findDay(9)));
+    expect(dateInput.value).toBe('2016-06-22');
+
+    expect(findDay(10).getAttribute('aria-disabled')).toBe('false');
+    act(() => Simulate.click(findDay(10)));
+    expect(dateInput.value).toBe('2016-06-10');
+
+    act(() => Simulate.click(dateInput));
+    expect(findDay(29).getAttribute('aria-disabled')).toBe('false');
+    act(() => Simulate.click(findDay(29)));
+    expect(dateInput.value).toBe('2016-06-29');
+
+    act(() => Simulate.click(dateInput));
+    expect(findDay(30).getAttribute('aria-disabled')).toBe('true');
+    act(() => Simulate.click(findDay(30)));
+    expect(dateInput.value).toBe('2016-06-29');
+
+    [
+      ['2016-06-09', '2016-06-29'],
+      ['2016-06-10', '2016-06-10'],
+      ['2016-06-29', '2016-06-29'],
+      ['2016-06-30', '2016-06-29']
+    ].forEach(([value, expected]) => {
+      act(() => Simulate.change(dateInput, { target: { value } }));
+      act(() => Simulate.blur(dateInput));
+      expect(dateInput.value).toBe(expected);
+    });
+  });
+
   it.each([
     ['en', 'Loading test translation'],
     ['es', 'Cargando test translation']

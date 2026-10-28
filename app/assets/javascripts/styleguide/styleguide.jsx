@@ -11,6 +11,7 @@ import Loading from '../components/common/loading.jsx';
 import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import { parseISO } from 'date-fns';
 import validations from '../reducers/validations';
 
 const store = configureStore({ reducer: { validations } });
@@ -28,7 +29,10 @@ const StyleguideExamples = {
         editable
         value_key="start"
         label="Start Date"
-        date_props={{ minDate: '2016-06-10', maxDate: '2016-06-29' }}
+        date_props={{
+          minDate: parseISO('2016-06-10'),
+          maxDate: parseISO('2016-06-29')
+        }}
         onChange={(key, date) => { console.log(key, date); }}
         value="2016-06-22"
         placeholder="Please choose a date"
@@ -41,7 +45,10 @@ const StyleguideExamples = {
       <DatePicker
         value_key="start"
         label="Start Date"
-        date_props={{ minDate: '2016-06-10', maxDate: '2016-06-29' }}
+        date_props={{
+          minDate: parseISO('2016-06-10'),
+          maxDate: parseISO('2016-06-29')
+        }}
         onChange={(key, date) => { console.log(key, date); }}
         value="2016-06-22"
         placeholder="Please choose a date"
