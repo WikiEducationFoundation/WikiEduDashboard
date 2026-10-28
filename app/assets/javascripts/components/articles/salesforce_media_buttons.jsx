@@ -21,6 +21,7 @@ const SalesforceMediaButtons = ({
     return (
       <a
         href={completeUrl}
+        data-method="post"
         target="_blank"
         className="button dark small"
         key={`salesforce-media-${username}`}

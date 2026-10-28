@@ -13,12 +13,14 @@ class AlertsController < ApplicationController
   # Other type of alerts are created via the update cycle, not directly by users.
   def create
     ensure_alerts_are_enabled { return }
+    require_course_participation
 
     alert_type = params[:alert_type]
-    @alert = ALERT_TYPES[alert_type].new(alert_params.except(:alert_type))
+    @alert = ALERT_TYPES[alert_type].new(alert_params.except(:alert_type, :target_user_id))
     @alert.user = current_user
     # :target_user_id will be nil for the 'dashboard help' option
-    set_default_target_user unless alert_params[:target_user_id]
+    @alert.target_user_id = permitted_target_user_id
+    set_default_target_user unless @alert.target_user_id
 
     if @alert.save
       generate_ticket
@@ -32,12 +34,18 @@ class AlertsController < ApplicationController
   # Resolves alert if it is resolvable? Requires admin permission.
   # Normally, same alerts won't be created for the second time.
   # Resolving alert, allows it to be created for the second time if conditions are met.
+  # Alert emails link here, and a link can only GET, so a GET goes to the
+  # alert's page, whose Resolve button sends the PUT. HEAD is routed like GET.
   def resolve
+    return redirect_to alerts_list_path(@alert) unless request.put?
     ensure_alert_is_resolvable { return }
 
     @alert.update resolved: true
 
-    render json: { alert: @alert }
+    respond_to do |format|
+      format.html { redirect_to alerts_list_path(@alert) }
+      format.json { render json: { alert: @alert } }
+    end
   end
 
   # Create alert and send notification to all the instructors of a course.
@@ -105,6 +113,26 @@ class AlertsController < ApplicationController
 
   def alert_params
     params.permit(:alert_type, :article_id, :course_id, :message, :target_user_id, :subject_id)
+  end
+
+  # Alerts about a course come from its participants (or admins). Alerts
+  # with no course, such as general dashboard help, are open to anyone.
+  def require_course_participation
+    return if alert_params[:course_id].blank?
+    course = Course.find_by(id: alert_params[:course_id])
+    return if current_user.nonvisitor?(course) || current_user.can_edit?(course)
+    raise NotPermittedError
+  end
+
+  # The Get Help button addresses the course's Wiki Ed staff. Any other
+  # target is honoured only from an admin.
+  def permitted_target_user_id
+    target_id = alert_params[:target_user_id]
+    return if target_id.blank?
+    return target_id if current_user.admin?
+    staff = CoursesUsers.where(course_id: alert_params[:course_id], user_id: target_id,
+                               role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
+    target_id if staff.exists?
   end
 
   def set_default_target_user

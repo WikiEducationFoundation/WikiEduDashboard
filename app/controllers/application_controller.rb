@@ -56,8 +56,7 @@ class ApplicationController < ActionController::Base
     non_redirect_paths = [onboarding_path,
                           onboard_path,
                           new_user_session_path,
-                          destroy_user_session_path,
-                          true_destroy_user_session_path]
+                          destroy_user_session_path]
     return if non_redirect_paths.any? { |path| full_path.starts_with? path }
     redirect_to onboarding_path(return_to: full_path)
   end

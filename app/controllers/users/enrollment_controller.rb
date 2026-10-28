@@ -21,9 +21,11 @@ class Users::EnrollmentController < ApplicationController
   # Adding a user #
   #################
   def add
-    set_course_and_user
-    ensure_management_role_is_authorized { return }
+    set_course
+    # Checked before set_user, which imports unknown usernames from the wiki.
     ensure_change_is_authorized
+    set_user
+    ensure_management_role_is_authorized { return }
     ensure_user_exists { return }
     set_real_name
     @result = JoinCourse.new(course: @course,
@@ -104,7 +106,8 @@ class Users::EnrollmentController < ApplicationController
   # Removing a user #
   ###################
   def remove
-    set_course_and_user
+    set_course
+    set_user
     return if @user.nil?
 
     ensure_management_role_is_authorized { return }
@@ -186,8 +189,11 @@ class Users::EnrollmentController < ApplicationController
   ##################
   # Finding a user #
   ##################
-  def set_course_and_user
+  def set_course
     @course = Course.find_by(slug: params[:id])
+  end
+
+  def set_user
     if enroll_params.key? :user_id
       @user = User.find(enroll_params[:user_id])
     elsif enroll_params.key? :username

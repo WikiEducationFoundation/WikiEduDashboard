@@ -111,16 +111,19 @@ describe 'Private course visibility', type: :request do
         create(:block, week:, training_module_ids: [training_module.id])
         create(:courses_user, course: public_course, user: instructor,
                               role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        create(:courses_user, course: public_course, user: student,
+                              role: CoursesUsers::Roles::STUDENT_ROLE)
         allow(TrainingModuleDueDateManager).to receive(:new).and_wrap_original do |original, **args|
           users_shown << args[:user]
           original.call(**args)
         end
       end
 
-      it 'shows a user who can\'t edit the course only their own progress' do
+      it 'shows a user who can\'t edit the course no progress at all' do
         login_as outsider
         get path, params: { course_id: public_course.id, user_id: student.id }
-        expect(users_shown).to eq([outsider])
+        expect(users_shown).to be_empty
+        expect(JSON.parse(response.body)['blocks']).to eq([])
       end
 
       it 'shows the student\'s progress to the course instructor' do
@@ -145,6 +148,38 @@ describe 'Private course visibility', type: :request do
       expect(response.status).to eq(200)
       expect(response.body).to include('Public_Course_Article')
       expect(response.body).not_to include('Private_Course_Article')
+    end
+  end
+
+  # These totals are cached per campaign and shared by every viewer, so they
+  # leave out private courses even for viewers who can see them.
+  describe 'campaign statistics' do
+    before do
+      private_course.update!(view_sum: 1000)
+      campaign.courses << private_course
+      campaign.courses << create(:course, slug: 'Open/Open_(term)', view_sum: 7)
+    end
+
+    def campaign_stats
+      JSON.parse(response.body)['campaigns'].find { |c| c['slug'] == campaign.slug }
+    end
+
+    it 'leaves the private course out of the totals, even for an admin' do
+      login_as admin
+      get '/campaigns/statistics.json'
+      expect(campaign_stats.values_at('view_sum', 'course_count')).to eq([7, 1])
+    end
+
+    it 'leaves the private course out of the campaign list' do
+      login_as admin
+      get '/campaigns.json'
+      expect(campaign_stats.values_at('view_sum', 'course_count')).to eq([7, 1])
+    end
+
+    it 'returns no campaigns for a logged-out request for the user\'s own' do
+      get '/campaigns/statistics.json', params: { user_only: 'true' }
+      expect(response.status).to eq(200)
+      expect(JSON.parse(response.body)['campaigns']).to eq([])
     end
   end
 

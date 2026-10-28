@@ -32,7 +32,9 @@ module Experiments
       @course = Course.find(params[:course_id])
       code = @course.flags[Spring2018CmuExperiment::EMAIL_CODE]
       raise IncorrectEmailCodeError if code.nil?
-      raise IncorrectEmailCodeError unless code == params[:email_code]
+      # The code in the emailed link is the only credential.
+      raise IncorrectEmailCodeError unless ActiveSupport::SecurityUtils
+                                           .secure_compare(code, params[:email_code].to_s)
     end
   end
 

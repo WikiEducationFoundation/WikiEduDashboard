@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import DOMPurify from 'dompurify';
 import reducer from '../../reducers';
 
 export const getStore = () => {
@@ -21,7 +22,8 @@ export const getStore = () => {
       courseCreator: {
         defaultCourseType: reactRoot.getAttribute('data-default-course-type'),
         courseStringPrefix: reactRoot.getAttribute('data-course-string-prefix'),
-        courseCreationNotice: reactRoot.getAttribute('data-course-creation-notice'),
+        // Admin-written HTML, rendered unescaped by the course creator and clone dialogs.
+        courseCreationNotice: DOMPurify.sanitize(reactRoot.getAttribute('data-course-creation-notice') || ''),
         useStartAndEndTimes: reactRoot.getAttribute('data-use-start-and-end-times') === 'true'
       },
       currentUserFromHtml,
