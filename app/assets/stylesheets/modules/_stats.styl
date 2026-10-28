@@ -128,11 +128,37 @@
     -webkit-font-smoothing auto
     margin 0
 
+  .wikidata-stats-toggle
+    align-items center
+    background transparent
+    border 0
+    color inherit
+    cursor pointer
+    display flex
+    font inherit
+    justify-content space-between
+    padding 0
+    text-align left
+    width 100%
+
+    &:focus-visible
+      outline 2px solid $brand_primary
+      outline-offset 2px
+
+    > span:last-child
+      color $brand_primary
+      font-size 24px
+      font-weight 300
+      line-height 1
+      margin-left 12px
+
   .wikidata-display
     width 100%
     display flex
     justify-content space-between
     flex-flow wrap
+    &[hidden]
+      display none
 
     .stat-display__row
       width: 25%
