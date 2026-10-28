@@ -38,6 +38,17 @@ class HistogramPlotter
               end
     csv_content = OresDiffCsvBuilder.new(courses).articles_to_csv
     File.write(csv_path, csv_content)
+    delete_older_csvs
+  end
+
+  # Each day's plot gets a new file, so earlier days' files for the same
+  # course or campaign are removed once today's exists.
+  def delete_older_csvs
+    pattern = /\A#{Regexp.escape(slug_filename.to_s)}-\d{4}-\d{2}-\d{2}\.csv\z/
+    Dir.children(analytics_path).each do |name|
+      next if name == csv_filename || !pattern.match?(name)
+      File.delete("#{analytics_path}/#{name}")
+    end
   end
 
   def slug_filename

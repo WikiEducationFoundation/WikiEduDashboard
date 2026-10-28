@@ -92,9 +92,11 @@ class RequestedAccountsController < ApplicationController
   end
 
   # Only course editors may skip the request queue, as the UI only offers
-  # immediate creation to instructors.
+  # immediate creation to instructors. The new-account modal sends JSON, so
+  # the flag arrives as a boolean; form posts send the string 'true'.
   def create_account_now?
-    params[:create_account_now] == 'true' && current_user&.can_edit?(@course)
+    ActiveModel::Type::Boolean.new.cast(params[:create_account_now]) &&
+      current_user&.can_edit?(@course)
   end
 
   def create_account_now

@@ -169,6 +169,8 @@ describe TrainingController, type: :request do
     context 'for all modules' do
       let(:subject) { get '/reload_trainings', params: { module: 'all' } }
 
+      before { login_as create(:admin) }
+
       it 'returns the result upon success' do
         subject
         expect(response.body).to include('Success!')
@@ -179,6 +181,22 @@ describe TrainingController, type: :request do
           .and_raise(TrainingBase::DuplicateSlugError, 'oh noes!')
         subject
         expect(response.body).to include('oh noes!')
+      end
+    end
+
+    context 'for all modules, without an admin' do
+      it 'is refused to a non-admin once modules exist' do
+        expect(TrainingModule).not_to receive(:load_all)
+        login_as user
+        get '/reload_trainings', params: { module: 'all' }
+        expect(response.status).to eq(401)
+      end
+
+      # A new installation has no modules, and may have no admin yet.
+      it 'is allowed for anyone when there are no modules yet' do
+        TrainingModule.delete_all
+        get '/reload_trainings', params: { module: 'all' }
+        expect(response.body).to include('Success!')
       end
     end
 

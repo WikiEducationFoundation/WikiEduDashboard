@@ -107,7 +107,7 @@
       selected: true # selected by default
     -
       title: Add to an article (recommended)
-      blurb: Students help fix Wikipedia's equity gap by adding missing facts to a biography of a diverse person. They learn to add information, including the technical how-tos of citations.
+      blurb: Students add a single fact to a Wikipedia biography and cite it to a reliable source as a stepping stone to their larger contribution. This preliminary activity is designed to get students comfortable making live edits to Wikipedia and to practice adding citations.
       # description:
       logic: add_to_article
       selected: true # selected by default

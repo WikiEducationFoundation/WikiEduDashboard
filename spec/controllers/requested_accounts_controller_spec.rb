@@ -121,6 +121,21 @@ describe RequestedAccountsController, type: :request do
         expect(response.status).to eq(200)
         expect(response.body).to include('Created account for MyUsername')
       end
+
+      # The new-account modal sends JSON, where create_account_now is a boolean.
+      it 'creates the account at once for an instructor using the modal' do
+        instructor = create(:user, username: 'ModalInstructor')
+        create(:courses_user, course:, user: instructor,
+                              role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        allow_any_instance_of(ApplicationController)
+          .to receive(:current_user).and_return(instructor)
+        stub_account_creation
+        allow(UserImporter).to receive(:new_from_username).and_return(user)
+        put '/requested_accounts', params: { passcode: course.passcode, course_slug: course.slug,
+                                             username: 'MyUsername', email: 'myemail@me.net',
+                                             create_account_now: true }, as: :json
+        expect(response.body).to include('Created account for MyUsername')
+      end
     end
 
     describe '#create_accounts' do

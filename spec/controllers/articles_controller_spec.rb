@@ -23,6 +23,13 @@ describe ArticlesController, type: :request do
       expect(assigns(:article)).to eq(article)
       expect(Oj.load(response.body)).to eq('1001' => 0.42)
     end
+
+    it 'scores no more revisions than the article graph asks for' do
+      allow_any_instance_of(LiftWingApi).to receive(:get_revision_data).and_return({})
+      post "/articles/#{article.id}/revision_score",
+           params: { rev_ids: (1..200).to_a, format: :json }
+      expect(Oj.load(response.body).size).to eq(ArticlesController::MAX_SCORED_REVISIONS)
+    end
   end
 
   describe '#details' do
