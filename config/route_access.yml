@@ -23,7 +23,6 @@
 #   development  only in the development environment
 #   none         routed, but no action answers it (404)
 
-
 about_this_site#accessibility: public
 about_this_site#canvas_instructor_guide: public
 about_this_site#canvas_integration_guide: public
@@ -224,10 +223,6 @@ errors#internal_server_error: public
 errors#login_error: public
 errors#unprocessable: public
 
-experiments/fall2017_cmu_experiment#course_list: admin
-experiments/fall2017_cmu_experiment#opt_in: token
-experiments/fall2017_cmu_experiment#opt_out: token
-
 experiments/instructor_opt_in#opt_in: signed_in
 experiments/instructor_opt_in#opt_out: signed_in
 experiments/instructor_opt_in#show: signed_in
@@ -235,10 +230,6 @@ experiments/instructor_opt_in#show: signed_in
 experiments/opt_in#opt_in: signed_in
 experiments/opt_in#opt_out: signed_in
 experiments/opt_in#show: public
-
-experiments/spring2018_cmu_experiment#course_list: admin
-experiments/spring2018_cmu_experiment#opt_in: token
-experiments/spring2018_cmu_experiment#opt_out: token
 
 experiments/student_opt_out#opt_out: admin
 experiments/student_opt_out#show: admin
