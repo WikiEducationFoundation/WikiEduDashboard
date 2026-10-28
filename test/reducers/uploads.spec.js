@@ -77,5 +77,27 @@ describe('uploads reducer', () => {
       expect(newState.uploads[0].fetchState).toBe(true);
       expect(newState.uploads[0].credit).toBe('Example credit');
     });
+
+    it('does not change the original upload objects', () => {
+      const upload = { id: 1 };
+      const state = stateWith([upload]);
+      const action = { type: SET_UPLOAD_METADATA, data: [commonsResponse(1)], requestedIds: [1] };
+
+      reducer(state, action);
+
+      expect(upload.credit).toBeUndefined();
+      expect(upload.fetchState).toBeUndefined();
+    });
+
+    it('does not change the original upload objects when the fetch fails', () => {
+      const upload = { id: 1 };
+      const state = stateWith([upload]);
+      const action = { type: SET_UPLOAD_METADATA, data: [undefined], requestedIds: [1] };
+
+      reducer(state, action);
+
+      expect(upload.credit).toBeUndefined();
+      expect(upload.fetchState).toBeUndefined();
+    });
   });
 });
