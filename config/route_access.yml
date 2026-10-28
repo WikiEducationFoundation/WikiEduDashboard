@@ -114,7 +114,6 @@ campaigns#add_organizer: organizer
 campaigns#alerts: public
 campaigns#articles: public
 campaigns#assignments: public
-campaigns#campaigns/%{slug}/programs?courses_query=%{courses_query}: none  # meant as a redirect (routes.rb), but no redirect() wraps it
 campaigns#create: signed_in
 campaigns#current_alerts: public
 campaigns#current_term: public
