@@ -70,6 +70,20 @@ describe WikiApi::DiffWikitextExtractor do
     expect(changed_wikitext(deleted, added)).to include('largely obscure')
   end
 
+  it 'keeps the paragraph when an insertion follows a mid-sentence citation' do
+    before = "#{obscure}#{reference} It traded with Rome,#{reference}"
+    deleted = "#{before} India and China."
+    added = "#{CGI.escapeHTML(before)}#{ins(' Persia, Arabia and Egypt.')} India and China."
+    expect(changed_wikitext(deleted, added)).to include('largely obscure')
+  end
+
+  it 'keeps the paragraph when a mid-sentence citation follows a named reference' do
+    before = "#{obscure}<ref name=\"aksum\" /> It traded with Rome,#{reference}"
+    deleted = "#{before} India and China."
+    added = "#{CGI.escapeHTML(before)}#{ins(' Persia, Arabia and Egypt.')} India and China."
+    expect(changed_wikitext(deleted, added)).to include('largely obscure')
+  end
+
   it 'keeps the paragraph when the insertion follows a sentence without final punctuation' do
     deleted = 'Aksum was a kingdom'
     added = "Aksum was a kingdom#{ins(' It traded with Rome.')}"

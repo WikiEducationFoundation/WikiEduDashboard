@@ -132,10 +132,13 @@ class WikiApi
         sentence_end?(inserted) && sentence_start?(after)
     end
 
-    # References and templates (like {{sfn}}) that follow a
-    # sentence's final punctuation.
-    TRAILING_REFS = %r{(\s*(<ref[^>]*/>|<ref[^>]*>.*?</ref>|\{\{[^{}]*\}\}))+\z}m
-    LEADING_REFS = %r{\A(\s*(<ref[^>]*/>|<ref[^>]*>.*?</ref>|\{\{[^{}]*\}\}))+}m
+    # A reference or template (like {{sfn}}). A ref's body can't
+    # contain another ref tag, so a match can't run from one ref
+    # across the prose to a later one.
+    REF = %r{<ref[^>]*/>|<ref[^>]*>(?:(?!</?ref).)*</ref>|\{\{[^{}]*\}\}}m
+    # References and templates that follow a sentence's final punctuation.
+    TRAILING_REFS = /(\s*(#{REF}))+\z/
+    LEADING_REFS = /\A(\s*(#{REF}))+/
     # Final punctuation, optionally inside closing quotes or parentheses.
     SENTENCE_END = /[.!?]['"”’)]*\z/
     # Link brackets, bold/italic quotes and opening quotes that
