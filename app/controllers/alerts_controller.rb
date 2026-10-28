@@ -35,9 +35,9 @@ class AlertsController < ApplicationController
   # Normally, same alerts won't be created for the second time.
   # Resolving alert, allows it to be created for the second time if conditions are met.
   # Alert emails link here, and a link can only GET, so a GET goes to the
-  # alert's page, whose Resolve button sends the PUT.
+  # alert's page, whose Resolve button sends the PUT. HEAD is routed like GET.
   def resolve
-    return redirect_to alerts_list_path(@alert) if request.get?
+    return redirect_to alerts_list_path(@alert) unless request.put?
     ensure_alert_is_resolvable { return }
 
     @alert.update resolved: true

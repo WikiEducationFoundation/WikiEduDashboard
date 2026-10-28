@@ -110,6 +110,13 @@ describe AlertsController, type: :request do
       expect(alert.reload.resolved).to be(false)
     end
 
+    # Rails routes HEAD like GET, and neither is checked for a CSRF token.
+    it 'does not resolve on a HEAD request' do
+      head route
+      expect(response).to redirect_to(alerts_list_path(alert))
+      expect(alert.reload.resolved).to be(false)
+    end
+
     it 'returns to the alert\'s page after the Resolve button' do
       put route
       expect(response).to redirect_to(alerts_list_path(alert))
