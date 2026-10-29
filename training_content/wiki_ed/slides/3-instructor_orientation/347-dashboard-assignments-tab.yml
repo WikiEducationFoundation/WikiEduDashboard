@@ -1,0 +1,17 @@
+id: 347
+title_prefix: "Dashboard:"
+title: Assignments tab
+summary:
+content: |
+  <figure style="width: 100%;">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/Dashboard.wikiedu.org_Assignments_tab_screenshot.png" />
+  </figure>
+
+  The **Assignments** tab provides a bird’s eye view of how your class is progressing
+  through all assigned trainings and exercises, including due dates and completion
+  timestamps.
+
+  You can also use this tab to view an individual student’s progress across every
+  activity, or examine everyone’s progress on a single activity.
+
+  To download a CSV file of the data, click the button in the top right corner.

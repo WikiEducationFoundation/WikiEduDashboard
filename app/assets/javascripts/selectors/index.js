@@ -237,17 +237,24 @@ export const getFilteredAlerts = createSelector(
 
 export const getFilteredArticleFinder = createSelector(
   [getArticleFinderState], (articleFinder) => {
+    // The wiki being searched, which is the one the results are rendered for.
+    // The home wiki is only the fallback when no other has been chosen, so
+    // reading it directly judged one wiki's articles by another's grades.
+    const { language, project } = articleFinder.wiki || articleFinder.home_wiki;
+    // Only some wikis assess their articles, so there may be no set of grades
+    // to compare against at all.
+    const grades = PageAssessmentGrades[project]?.[language];
+
     return pickBy(articleFinder.articles, (article) => {
-      const language = articleFinder.home_wiki.language;
-      const project = articleFinder.home_wiki.project;
-      if (article.grade && !includes(Object.keys(PageAssessmentGrades[project][language]), article.grade)) {
+      const assessment = grades && article.grade ? grades[article.grade] : null;
+      if (article.grade && grades && !assessment) {
         return false;
       }
       let quality;
-      if (article.grade && article.revScore) {
-        quality = Math.max(article.revScore, PageAssessmentGrades[project][language][article.grade].score);
-      } else if (article.grade) {
-        quality = PageAssessmentGrades[project][language][article.grade].score;
+      if (assessment && article.revScore) {
+        quality = Math.max(article.revScore, assessment.score);
+      } else if (assessment) {
+        quality = assessment.score;
       } else if (article.revScore) {
         quality = article.revScore;
       } else {

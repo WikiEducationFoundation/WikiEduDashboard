@@ -50,6 +50,7 @@ nl:
   application:
     back: Terug
     cancel: Annuleren
+    close: Sluiten
     next: Volgende
     skip_to_main_content: Naar hoofdinhoud springen
     cookie_consent: Deze site gebruikt cookies om u aangemeld te houden en slaat informatie
@@ -100,6 +101,7 @@ nl:
     change: Wijzigen
     details: Details
     confirm: OK
+    confirm_generic: Weet u zeker dat u dit wilt doen?
     opt_in: Ja
     opt_out: Nee
     opt_yes: ja
@@ -241,6 +243,7 @@ nl:
       articles_improved: Pagina's verbeterd
       characters_added: Tekens toegevoegd
       new_editors: Nieuwe bewerkers (voorregistratie 60 dagen)
+      retained_new_editors: Behouden bewerkers
       active_programs: Actieve programma's
       active_facilitators: Actieve begeleiders
     charts:
@@ -254,12 +257,14 @@ nl:
       programs: Programma's
       articles_created: Pagina's aangemaakt
       new_editors: Nieuwe bewerkers (voorregistratie 60 dagen)
+      retained_new_editors: Behouden bewerkers
     facilitators:
       title: Begeleidersscorebord
       username: Gebruikersnaam
       courses: Cursussen
       active: Actief
       students: Studenten
+      retained_new_editors: Behouden bewerkers
       active_in_year: Actief in jaar
       "yes": Ja
       "no": Nee
@@ -296,6 +301,8 @@ nl:
     permalink: Permanente koppeling
     previous: Vorige
     article_title: Paginanaam
+    language: Taal
+    project: Project
     assigned_to: Toegewezen aan
     character_doc: Het totale aantal tekens dat is toegevoegd aan pagina's door de
       ingeschreven studenten tussen de begin- en einddatum
@@ -307,7 +314,7 @@ nl:
     does_not_exist: De pagina bestaat niet. Maak een kladblokpagina aan en wijs uzelf
       daaraan toe om suggesties te ontvangen.
     edited: Pagina's bewerkt
-    edited_by: 'Bewerkt door:'
+    edited_by: Bewerkt door %{author}
     edited_mobile: Pagina's
     edited_none: Er zijn nog geen pagina's bewerkt.
     filter:
@@ -465,6 +472,11 @@ nl:
     assign_self: Wijs een pagina aan mezelf toe
     invalid_mainspace_article: Dit moet een geldige pagina uit de hoofdnaamruimte
       zijn.
+    invalid_title_format: '"%{title}" is geen juiste titelindeling.'
+    not_mainspace_article: '%{title} is geen pagina in de hoofdnaamruimte (alleen
+      gewone paginanaamruimtepagina''s zijn toegestaan)'
+    unable_to_verify_article: Kan de pagina niet verifiëren
+    wiki_api_unreachable: Kan de wiki-API niet bereiken.
     assign_self_wikidata: Item aan mezelf toewijzen
     assign_tooltip: Een toegewezen pagina is een pagina die u wilt maken of verbeteren.
     assign_tooltip_wikidata: Een toegewezen item is een item dat u wilt maken of verbeteren.
@@ -517,7 +529,10 @@ nl:
       limit_exceeded_wikidata: Elke student beoordeelt al minstens %{maximum} items.
     remove: Verwijderen
     reviewers: Controleur(s)
+    review_classmate_draft: (kladblokconcept van %{username})
     review_other: Een peerreview toewijzen of verwijderen
+    review_sandbox_not_found: '%{title} hoort niet bij de toegewezen pagina van een
+      klasgenoot.'
     review_self: Controleer een pagina
     review_self_wikidata: Item controleren
     review_tooltip: Dit is voor pagina('s) die u wilt beoordelen of waarop u terugkoppeling
@@ -552,6 +567,15 @@ nl:
       zich op een wiki bevindt die niet door deze cursus wordt bijgehouden. Om bijdragen
       aan deze pagina te kunnen volgen, moet een docent de volgende wiki aan deze
       cursus toevoegen: %{wiki}'
+  assignments_tab:
+    label: Opdrachten
+    overdue: Verlopen
+    progress: Voortgang
+    assigned: Toegewezen
+    live_article: Live pagina
+    stage_assigned: Pagina toegewezen
+    stage_live: Live pagina bewerkt
+    view_training: Training bekijken
   blocks:
     milestones:
       title: Mijlpalen
@@ -593,6 +617,8 @@ nl:
       campagne'
     course: Cursus
     course_data: cursusgegevens
+    all_data: Alle
+    export: Exporteren
     course_removed: '"%{title}" is verwijderd uit de campagne "%{campaign_title}"'
     course_removed_and_deleted: '"%{title}" is verwijderd uit de campagne "%{campaign_title}"'
     course_removed_but_not_deleted: '"%{title}" is verwijderd uit "%{campaign_title}",
@@ -601,6 +627,8 @@ nl:
     create_my_campaign: Mijn campagne aanmaken!
     customize_passcode: een standaard toegangscode
     data_download_info: Campagnegegevens als CSV's downloaden
+    data_download_generating: Het bestand wordt gegenereerd. U krijgt bericht wanneer
+      het klaar is om te downloaden.
     data_courses: Cursusoverzichtgegevens
     data_courses_info: Basisstatistieken voor elke cursus/programma
     data_articles: Pagina's bewerkt
@@ -654,6 +682,10 @@ nl:
     student_course: studenten per cursus
     title: Titel
     too_large: Deze campagne is te groot om de gevraagde gegevens weer te geven.
+    articles_truncated: Alleen de eerste %{count} pagina's worden weergegeven.
+    articles_truncated_html: Alleen de eerste %{count} pagina's worden weergegeven.
+      Meld u aan om de volledige lijst te openen via %{csv_link}.
+    articles_truncated_csv: CSV-export
     too_many_articles: De lijst met bewerkte pagina's voor deze campagne is te lang
       om weer te geven. Bekijk de individuele cursussen/programma's/evenementen om
       de bewerkte pagina's te zien.
@@ -943,6 +975,8 @@ nl:
         of termijn.
       user_exists: '%{username} is geen bestaande gebruiker.'
       user_exists_on_wiki: Sorry, %{username} is geen bestaande gebruiker op %{domain}.
+      management_role_not_authorized: Alleen cursusdocenten kunnen een gebruiker in
+        die rol toevoegen of verwijderen.
       invalid_language_or_project: Onjuiste taal/project
       invalid_wiki: Kan geen verbinding maken met %{domain}. Het is mogelijk geen
         correcte wiki.
@@ -950,6 +984,10 @@ nl:
         of periode.
       invalid_slug: Lege school/titel voor cursus.
       duplicate_slug: Er bestaat al een ander programma met de naam %{slug}.
+      event_sync_delete: Deze pagina is gekoppeld aan Wikimedia Event Registration
+        en kan niet worden verwijderd.
+      event_sync_rename: Deze pagina is gekoppeld aan Wikimedia Event Registration
+        en kan niet worden hernoemd.
     expected_students: Verwachte studenten
     features_feedback: 'Geautomatiseerde suggesties:'
     feedback: Terugkoppeling
@@ -1099,6 +1137,7 @@ nl:
     student_editors: Studentbewerkers
     students_none: Deze cursus heeft nog geen geregistreerde studenten.
     students_short: Studenten
+    student_view_action_blocked: U kunt dit niet doen in de modus "Weergeven als student".
     submitted_admin: Deze cursus is ter goedkeuring voorgelegd aan de maker. Om de
       cursus goed te keuren voegt u hem toe aan een campagne op de overzichtspagina.
     submitted_and_pending_heading: Ingediend en in afwachting van goedkeuring
@@ -1146,6 +1185,8 @@ nl:
     training_overdue: De trainingsmodule "%{title}" is toegekend voor deze cursus
       en verviel op %{date}.
     unsubmitted: Niet-ingediende cursussen
+    unsubmitted_show_all: Alles weergeven
+    unsubmitted_show_recent: Recente weergeven
     untrained: Ongetraind
     update_stats: Statistieken bijwerken
     uploads_none: Dit project heeft geen enkele afbeelding of andere media bijgedragen
@@ -1160,6 +1201,7 @@ nl:
     view_doc: Het geschatte aantal weergaven van pagina's die zijn bewerkt door geregistreerde
       bewerkers sinds de bewerker de eerste bewerking van elke pagina heeft uitgevoerd.
     view_page: Cursuspagina bekijken
+    view_as_student: Weergeven als student
     view_wiki: Op Wikipedia bekijken
     volunteer:
       one: Vrijwilliger
@@ -1181,7 +1223,7 @@ nl:
     withdrawn: Opdracht niet uitgevoerd
     word_count_doc: Een schatting van het aantal woorden dat door de studenten van
       de cursus gedurende de cursusperiode aan pagina's in de hoofdnaamruimte is toegevoegd.
-      (Wikidata-bewerkingen zijn niet inbegrepen.)
+      Wikidata-bewerkingen zijn niet inbegrepen.
     word_count_doc_wikidata: Een schatting van het aantal woorden dat door de studenten
       van de cursus aan items in de hoofdnaamruimte is toegevoegd tijdens de cursusperiode
     yourcourses: Uw cursussen
@@ -1357,7 +1399,7 @@ nl:
     view_page: Pagina bekijken
     word_count_doc: Een schatting van het aantal woorden dat door de bewerkers van
       het programma aan pagina's in de hoofdnaamruimte is toegevoegd tijdens de programmaperiode.
-      (Wikidata-bewerkingen zijn niet inbegrepen.)
+      Wikidata-bewerkingen zijn niet inbegrepen.
     word_count_doc_wikidata: Een schatting van het aantal woorden dat door de bewerkers
       van het programma aan items in de hoofdnaamruimte is toegevoegd tijdens de programmaperiode
     yourcourses: Uw programma's
@@ -1427,6 +1469,7 @@ nl:
     articles_created_wikidata: Aangemaakte items
     articles_created_generic: Pagina’s aangemaakt
     articles_created_generic_wikidata: Items aangemaakt
+    article_count: Pagina's
     articles_edited: Pagina's bewerkt
     articles_edited_wikidata: Items bewerkt
     articles_edited_generic: Pagina's bewerkt
@@ -1569,6 +1612,47 @@ nl:
       dragen bij aan de overzichtsstatistieken, zoals 'Bewerkte pagina's', 'Totaal
       bewerkingen', 'Woorden toegevoegd', enz. Volg daarom alleen de naamruimten die
       uw programma wil verbeteren.
+  report_cards:
+    title: Rapportkaarten
+    subtitle: Rapportkaart voor Scholars & Scientists
+    campaign: Campagne
+    courses: Cursussen
+    download_csv: CSV downloaden
+    pending: in behandeling
+    not_applicable: —
+    total: Totaal
+    empty: geen statistieken berekend
+    legend: Langdurige Wikipedianen (500+ bewerkingen vóór de cursus) worden onder
+      Deelnemers geteld, maar bij elk ander cijfer weggelaten. Cellen met de markering
+      ‘in behandeling’ worden 31 en 91 dagen na afloop van een cursus ingevuld.
+    groups:
+      general: Algemeen
+      during: Tijdens de cursus
+      after: Na de cursus
+    columns:
+      number: '#'
+      title: Cursus
+      instructors: Docent
+      participants: Deelnemers
+      long_term_wikipedians: …waarvan langdurige Wikipediaan (500+ bewerkingen)
+      sessions_during: Bewerkingssessies
+      avg_sessions_during: Gemiddeld aantal bewerkingssessies per deelnemer
+      zero_edit_participants: Deelnemers zonder bewerkingen
+      uploads: Totaal aantal uploads
+      avg_uploads: Gemiddeld aantal uploads per deelnemer
+      words: Totaal aantal toegevoegde woorden
+      avg_words: Gemiddeld aantal woorden per deelnemer
+      editors_after_course: Deelnemers die binnen 30 dagen na de cursus hebben bewerkt
+      pct_active_editors_after: Percentage actieve deelnemers dat binnen 30 dagen
+        na de cursus 1 of meer bewerkingen heeft gemaakt
+      avg_days_to_return: Dagen tot de eerste zelfstandige bewerking
+      avg_sessions_after: Gemiddeld aantal bewerkingssessies 30 dagen na de cursus
+      any_survival_edits: Deelnemers met 1 of meer bewerkingen tussen dag 60 en 90
+        na afloop van de cursus
+      any_survival_edits_returning: …waarvan een eerdere cursus gevolgd
+      survivors: Deelnemers met 5 of meer bewerkingen tussen dag 60 en 90 na afloop
+        van de cursus
+      survivors_returning: …waarvan een eerdere cursus gevolgd
   recent_activity:
     active_courses: Pagina is actief in
     article_title: Titel
@@ -1632,7 +1716,14 @@ nl:
         course_creation_settings: Cursus aanmaken
         default_campaign_setting: Standaardcampagne
         site_notice_setting: Sitemelding
+        site_notice_message: Bericht
         site_notice_preview: Livevoorbeeld
+      site_notice_help:
+        intro: De mededeling is HTML en wordt weergegeven in een banner boven aan
+          elke pagina. Regeleinden die u hier typt, worden genegeerd; gebruik dus
+          tags om de opmaak te regelen.
+        link: Koppeling
+        line_break: Regeleinde
       buttons:
         add_admin_button: Beheerder toevoegen
         add_special_user_button: Speciale gebruiker toevoegen
@@ -1875,6 +1966,25 @@ nl:
     week_number: Week %{number}
     add_block: Blok toevoegen
     delete_week: Week verwijderen
+    add_standard_block: Standaardblok toevoegen
+    standard_blocks: Standaardblokken
+    standard_block_add: Toevoegen
+    standard_block_filter: Blokken filteren
+    standard_block_matches: Komt overeen
+    standard_block_does_not_match: Komt niet overeen
+    standard_block_match_unknown: Onbekend
+    standard_block_already_added: Al in de tijdlijn
+    sandbox_mode: Kladblokmodus
+    sandbox_mode_current_sandboxes: Concepten maken in kladblokken
+    sandbox_mode_current_live: Live pagina's bewerken
+    sandbox_mode_switch_to_live: Overschakelen naar live bewerken
+    sandbox_mode_switch_to_sandboxes: Overschakelen naar kladblokken
+    sandbox_mode_added: Blokken toegevoegd
+    sandbox_mode_removed: Blokken verwijderd
+    sandbox_mode_unmatched: Verwacht(e) blok(ken) niet gevonden. De titel(s) is/zijn
+      mogelijk bewerkt.
+    sandbox_mode_unresolved: Deze blokken zijn ook afhankelijk van een onbekend assistentantwoord
+      en zijn niet gewijzigd.
   training:
     continue: Doorgaan (%{progress})
     start: Beginnen
@@ -1914,6 +2024,8 @@ nl:
       voordat u deze als voltooid markeert.
     exercise_needs_assigned_article: U moet jezelf een pagina toewijzen voordat u
       dit kunt voltooien.
+    exercise_article_unverified: Verifieer uw Wikipedia-bewerking voordat u deze oefening
+      als voltooid markeert.
     open_exercise: Met de oefening beginnen
     remaining_exercise: '%{count} aanvullende oefeningen resterend.'
     view_all: Alle oefeningen bekijken
@@ -1922,6 +2034,18 @@ nl:
     close: SLUITEN
     loading: Bezig met laden...
     wiki_source: wikibron
+    article_title_input:
+      submit: Pagina versturen
+      modal_title: Welke pagina heeft u bewerkt?
+      success: Goed werk! Uw bewerking is geverifieerd.
+      placeholder: bijvoorbeeld Marie Curie of https://en.wikipedia.org/wiki/Marie_Curie
+      checking: Bezig met controleren...
+      verify: Verifiëren
+      not_found: We konden uw bewerking op die pagina niet vinden. Controleer de paginanaam
+        en probeer het opnieuw.
+      not_mainspace: Dit is geen live pagina uit de hoofdnaamruimte van Wikipedia.
+        Weet u zeker dat u die voor deze oefening wilt versturen?
+      submit_anyway: Toch versturen
   claim_verification:
     pick_instructions: Klik op een gemarkeerde bewering om de bronvermelding te bekijken.
     revision_notice: Dit is de pagina zoals die was op %{date} toen de beweringen
@@ -2005,6 +2129,8 @@ nl:
         accessed: Ja, ik heb toegang tot de bron.
         nonexistent: Nee, de bron bestaat niet.
         inaccessible: Nee, de bron bestaat wel, maar ik kon er geen toegang toe krijgen.
+      choose_another_claim_prompt: Aangezien u de aangehaalde bron niet kunt openen,
+        kiest u een andere bewering om deze oefening te voltooien.
       source_access_notes_label: 'Als u de bron niet hebt kunnen vinden, vertel ons
         dan meer over uw ervaring:'
       step_verify: Verifieer de bewering
@@ -2028,6 +2154,16 @@ nl:
         mostly_supports: Grotendeels wel, de kern van de bewering komt uit deze bron.
         mostly_unsupported: Meestal niet, de bron is weliswaar in overeenstemming
           met de bewering, maar ondersteunt deze niet direct.
+      verdict_option_descriptions:
+        full_support: Ik kan alle feiten uit de bewering terugvinden in de aangehaalde
+          bron.
+        partial_support: Ik kan een deel van de feiten in de bewering terugvinden,
+          maar er staat informatie in de bewering die ik niet in de aangehaalde bron
+          kan vinden.
+        unsupported: Ik kan geen enkel feit uit de bewering terugvinden in de aangehaalde
+          bron.
+        contradicted: Ik heb in de aangehaalde bron feiten gevonden die het tegenovergestelde
+          stellen van wat in de bewering wordt vermeld.
       claim_location_label: Als u de bewering hebt kunnen vinden, waar in de bron
         stond deze dan? (bijv. paginanummer, hoofdstuk, enz.)
       verification_notes_label: 'Als u de informatie niet kon verifiëren, vertel ons
@@ -2035,6 +2171,31 @@ nl:
         leesbaar? Was de bron niet relevant voor de bewering? Was de bronvermelding
         onnauwkeurig en de bron te lang om redelijkerwijs te raadplegen?'
       other_comments_label: Zijn er nog andere opmerkingen over deze oefening?
+      verification_example:
+        lead: 'Hier is een voorbeeld:'
+        verified_heading: 'Voorbeeld: de bron ondersteunt de bewering'
+        verified_article_alt: Schermafbeelding van het Wikipedia-artikel "The Bicycle
+          Tree". De zin met de voorbeeldbewering is gemarkeerd.
+        verified_claim: 'De bewering luidt: “In 2013 startte The Bicycle Tree een
+          crowdfundingcampagne om een winkelpand te openen.[1]”'
+        verified_source: 'Bron: DKELSEN (2016-06-08). "Bicycle Tree Celebrates a Decade
+          of Bike Activism in SanTana". OC Weekly. Gearchiveerd van het origineel
+          op 2019-12-09. Geraadpleegd op 2026-05-29.'
+        verified_source_alt: Schermafbeelding van een artikel in OC Weekly, waarbij
+          de zoekbalk van de browser “crowd” markeert in de zin over de crowdfundingcampagne
+        verified_conclusion_html: U kunt zien dat de %{source_link} de informatie
+          uit de bewering expliciet bevat.
+        verified_source_link_text: OC Weekly-bron
+        failed_heading: 'Voorbeeld: de bewering kan niet met de bron worden geverifieerd'
+        failed_article_alt: Schermafbeelding van het Wikipedia-artikel "Revolutionary
+          Socialist Party (Zambia)". De zin met de voorbeeldbewering is gemarkeerd.
+        failed_source_alt: Schermafbeelding van een pdf van het aangehaalde tijdschriftartikel
+          Burnell 2001. Een zoekbalk levert geen resultaten op voor “Revolutionary
+          Socialist Party".
+        failed_conclusion_html: Omdat u nergens in de %{source_link} trefwoorden uit
+          de bewering kunt vinden, slaagt dit niet voor de verificatie, dus zou u
+          “Nee — de bron dekt niet wat de bewering zegt.” selecteren.
+        failed_source_link_text: brontekst
       submit: Opslaan
       submitted_heading: Opgeslagen antwoord
       edit_response: Antwoord bewerken
@@ -2104,6 +2265,8 @@ nl:
     view_commons: Op Commons bekijken
     wiki_big: Wiki
   users:
+    back_to_profile: Terug naar profiel
+    back_to_stats: Terug naar statistieken
     already_enrolled: Deze gebruiker is al ingeschreven!
     assign_articles: Pagina's toewijzen
     assign_articles_wikidata: Items toewijzen
@@ -2118,14 +2281,15 @@ nl:
       aan deze naamruimte, berekend door het aantal tekens dat de bewerkte pagina's
       groter zijn geworden bij elkaar op te tellen. Dit getal is niet noodzakelijk
       gelijk aan de hoeveelheid inhoud die een gebruiker heeft toegevoegd. Het terugplaatsen
-      van verwijderde inhoud verhoogt dit getal ook. (Wikidata-bewerkingen zijn niet
-      inbegrepen.)
+      van verwijderde inhoud verhoogt dit getal ook. Wikidata-bewerkingen zijn niet
+      inbegrepen.
     chars_added: Tekens toegevoegd<br>(pagina | gebruiker | concept)
     chars_added_wikidata: Tekens toegevoegd<br>(item | gebruiker | concept)
     contributions: Gebruikersbijdragen
     contributions_history_full: Volledige bijdragegeschiedenis bekijken
     contributions_more: Meer bijdragen bekijken
     contribution_statistics: Bijdragestatistieken
+    contributions_by_language: Bijdragen per taal/project
     course_passcode: 'Toegangscode:'
     editors: Studentbewerkers
     edits: bewerkingen
@@ -2174,6 +2338,30 @@ nl:
     requested_account_status:
       success_message: 'Gelukt: %{result_description}'
       failure_message: 'Mislukt: %{result_description}'
+      user_exists: '%{wiki} heeft al een account met de naam %{username}, dus het
+        verzoek voor %{email} is verwijderd (%{code}). De deelnemer kan zich met dat
+        account aanmelden of een andere gebruikersnaam aanvragen.'
+      user_exists_enrolled: '%{wiki} heeft al een account met de naam %{existing_username},
+        en die gebruiker is al voor deze cursus ingeschreven, dus het verzoek voor
+        %{email} is verwijderd (%{code}).'
+      name_conflict_enrolled: '%{wiki} heeft het account voor %{username} (%{email})
+        niet aangemaakt: %{message} (%{code}). %{existing_username} is al voor deze
+        cursus ingeschreven, dus de deelnemer heeft mogelijk al een account.'
+      throttled: Het aanmaken van accounts wordt op dit moment beperkt, dus het account
+        voor %{username} (%{email}) is niet aangemaakt (%{code}). Dit gebeurt wanneer
+        er in korte tijd veel accounts worden aangemaakt. Het verzoek is bewaard.
+        Wacht een paar minuten voordat u het opnieuw probeert.
+      captcha_required: '%{wiki} vroeg om een CAPTCHA voordat het account voor %{username}
+        (%{email}) werd aangemaakt, die het dashboard niet kan beantwoorden (%{code}).
+        Dit gebeurt wanneer er in korte tijd veel accounts worden aangemaakt. Het
+        verzoek is bewaard. Wacht een paar minuten voordat u het opnieuw probeert.'
+      rejected: '%{wiki} heeft het account voor %{username} (%{email}) niet aangemaakt:
+        %{message} (%{code})'
+      api_error: '%{wiki} gaf een fout bij het aanmaken van het account voor %{username}
+        (%{email}): %{message} (%{code}). Het verzoek is bewaard.'
+      unexpected: '%{wiki} gaf een onverwacht antwoord bij het aanmaken van het account
+        voor %{username} (%{email}): %{response}. Het verzoek is bewaard en het probleem
+        is gerapporteerd.'
     revision_characters_and_views: 'Tekens toegevoegd: %{characters}, Weergaven: %{views}'
     revisions_doc: Het geschatte aantal bewerkingen dat deze bewerker de afgelopen
       7 dagen heeft uitgevoerd, gebaseerd op het gemiddelde aantal bewerkingen per
@@ -2234,7 +2422,7 @@ nl:
       som van wijzigingen in paginagrootte over alle bewerkingen die meer hebben toegevoegd
       dan verwijderd. Dit getal weerspiegelt niet noodzakelijk de hoeveelheid nieuwe
       inhoud die de gebruiker heeft toegevoegd. Het herstellen van verwijderde inhoud
-      verhoogt dit totaal ook. (Wikidata-bewerkingen zijn niet inbegrepen.)
+      verhoogt dit totaal ook. Wikidata-bewerkingen zijn niet inbegrepen.
     role:
       description: Rol in cursus
       visitor: Bezoeker
@@ -2246,7 +2434,27 @@ nl:
     email_required_instructor: Is vereist voor huidige docenten. U kunt uw e-mailadres
       verwijderen nadat de huidige cursussen zijn beëindigd.
     email_invalid: 'Onjuist: voer een geldig e-mailadres in'
+    imagemagick_not_installed: Kan de geüploade afbeelding niet verwerken omdat ImageMagick
+      niet is geïnstalleerd.
   user_profiles:
+    detailed_impact: Gedetailleerde impact
+    words_added_per_article: Toegevoegde woorden per pagina
+    references_added_per_article: Toegevoegde referenties per pagina
+    articles_edited_detail: Bewerkte pagina's
+    no_articles_edited: Deze gebruiker heeft nog geen gegevens om in dit onderdeel
+      weer te geven.
+    no_articles_match: Geen pagina's komen overeen met de geselecteerde filter(s).
+    summary_articles: Pagina's
+    summary_words: Woorden
+    summary_references: Referenties
+    type: Type
+    status_new: Nieuw
+    status_edited: Bewerkt
+    language_not_available: N.v.t.
+    column_metric: Meeteenheid
+    column_value: Waarde
+    column_details: Details
+    see_more: Meer weergeven ↗
     student_impact: Totale impact gemaakt door %{username} als student
     instructor_impact: Totale impact gemaakt door %{username} als docent
     instructors_student_impact: Totale impact gemaakt door de studenten van %{username}
@@ -2352,6 +2560,22 @@ nl:
     no_notifications: U hebt geen nieuwe meldingen.
     aria_label:
       bell: Meldingen
+  downloads:
+    available_in_bell: Uw bestand is klaar. Ga naar de downloadmelding.
+    title: Downloads
+    none: U heeft nog geen downloads.
+    generating: Bezig met genereren…
+    ready: Klaar
+    error: Mislukt
+    timeout: Nog bezig met verwerken…
+    retry: Opnieuw controleren
+    download: Downloaden
+    dismiss: Sluiten
+    new_downloads: U heeft nieuwe downloads.
+    no_downloads: U heeft geen nieuwe downloads.
+    aria_label: Downloads
+    csv: CSV downloaden
+    json: JSON downloaden
   survey:
     login_message: Bedankt voor uw tijd. Meld u aan op het Dashboard om de vragenlijst
       in te vullen.
@@ -2575,7 +2799,21 @@ nl:
     my_last_sync: Laatste synchronisatie
     no_grades_yet: Nog geen gesynchroniseerde voortgang
     not_yet_linked: Uw account is nog niet gekoppeld aan Canvas voor deze cursus.
+  lti_integrations:
+    title: LTI-integraties
+    course: Cursus
+    instructor: Docent
+    lms_course: Canvas-cursus
+    lms_instance: Canvas-instantie
+    lti_version: LTI-versie
+    installed: Geïnstalleerd
+    connected_students: Verbonden studenten
+    roster: Canvas-deelnemerslijst
+    not_applicable: —
   lti:
+    beta_feedback:
+      message: We ontvangen graag terugkoppeling over deze bètaversie van onze Canvas-integratie.
+      link: Terugkoppeling versturen
     iframe_landing:
       explanation: Open dashboard.wikiedu.org in een nieuw tabblad
       button: Open het Wiki Education Dashboard
@@ -2621,6 +2859,8 @@ nl:
       unavailable_header: Niet beschikbaar
       unavailable_explanation: Deze items zijn niet meer beschikbaar om te importeren.
     status:
+      roster:
+        peer_reviews: Intercollegiale beoordelingen
       header: Wiki Education Dashboard
       linked: Gekoppeld
       refresh: Vernieuwen

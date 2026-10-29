@@ -31,7 +31,8 @@ set :linked_files, fetch(:linked_files, []).push('config/application.yml',
 
 # Default value for linked_dirs is []
 set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp', 'public/system',
-                                                 'training_content_drafts')
+                                                 'training_content_drafts',
+                                                 'detector_comparison_snapshots')
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }

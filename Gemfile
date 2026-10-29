@@ -45,11 +45,7 @@ gem 'browser'
 ### Email
 gem 'validates_email_format_of' # Email format validation, used in User model
 gem 'premailer-rails' # used for enabling CSS for mailer emails
-# css_parser is a transitive dependency of premailer. Pinned to 3.x, the first
-# line with the fix for GHSA-9pmc-p236-855h (SSRF + local file disclosure in
-# read_remote_file). 3.0.0 is default-secure for premailer pipelines and needs
-# no code changes per the advisory's upgrade notes.
-gem 'css_parser', '~> 3.0' # transitive of premailer; pinned to patched 3.x
+gem 'css_parser', '~> 3.3' # transitive of premailer; pinned for security fixes
 gem 'nokogiri' # expected by premailer-rails but not required
 gem 'rubyzip', require: 'zip' # used by ExportTrainingModuleDraft
 gem 'mailgun-ruby' # email sending service

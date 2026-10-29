@@ -43,6 +43,7 @@ fa:
       مقدار را کاهش یا افزایش دهید.
   application:
     cancel: انصراف
+    close: بستن
     cookie_consent_acknowledge: متوجه هستم
     cookie_consent_see_more: مشاهدهٔ بیشتر
     create_accounts: ایجاد حساب‌های ویکی‌پدیا
@@ -337,7 +338,7 @@ fa:
     instructor:
       one: Instructor
       other: Instructors
-    instructors: اساتید
+    instructors: مربیان
     invitation: از شما برای پیوستن به %{title} دعوت شده است. برای پیوستن، شما نیاز
       به ورود با یک حساب ویکی‌پدیا دارید.
     join: پیوستن
@@ -372,7 +373,7 @@ fa:
     overview: خانه
     passcode: کد دسترسی
     passcode_none: بدون کد دسترسی
-    passcode_prompt: 'برای پیوستن کد عبور را وارد کنید:'
+    passcode_prompt: 'برای پیوستن گذرکد را وارد کنید:'
     please_log_in: لطفا وارد شوید.
     private: خصوصی
     published: 'دورهٔ آموزشی‌تان هم‌اینک منتشر شده است! دانش‌آموزان/دانشجویان می‌توانند
@@ -675,7 +676,7 @@ fa:
     username: نام کاربری
     username_placeholder: نام کاربری
     useremail_placeholder: ایمیل
-    userpasscode_placeholder: رمز عبور
+    userpasscode_placeholder: گذرکد
     role:
       visitor: بازدیدکننده
       student: دانشجو

@@ -77,9 +77,10 @@ const setExerciseModule = (complete = true) => (block_id, module_id) => (dispatc
 export const setExerciseModuleComplete = setExerciseModule();
 export const setExerciseModuleIncomplete = setExerciseModule(false);
 
-export const verifyExerciseArticle = (block_id, module_id, article_title) => () => {
+// confirmed: the student is submitting a page outside mainspace after being warned.
+export const verifyExerciseArticle = (block_id, module_id, article_title, confirmed = false) => () => {
   return request('/training_modules_users/verify_exercise_article.json', {
-    body: JSON.stringify({ block_id, module_id, article_title }),
+    body: JSON.stringify({ block_id, module_id, article_title, confirmed }),
     method: 'POST'
   }).then(resp => resp.json());
 };

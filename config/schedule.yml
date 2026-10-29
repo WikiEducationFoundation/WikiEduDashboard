@@ -45,6 +45,14 @@ update_default_campaign:
   class: "DefaultCampaignUpdateWorker"
   queue: default
 
+# Once a week, flag old courses (ended over 6 months ago, with no pending timeslice work)
+# as purgeable, so a later job can delete their timeslices and keep the timeslice tables
+# from growing without bound.
+mark_purgeable_courses:
+  cron: "0 8 * * 6" # every Saturday at 1am PT (UTC -7)
+  class: "MarkPurgeableCoursesWorker"
+  queue: default
+
 # Sync rosters for every active Canvas-bound course via LTIAAS NRPS.
 # On-launch syncs already keep instructors fresh; the daily run catches
 # students who haven't launched recently. Membership status is stored on each

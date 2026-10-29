@@ -39,6 +39,7 @@ fi:
   application:
     back: Takaisin
     cancel: Peruuta
+    close: Sulje
     next: Seuraava
     cookie_consent_acknowledge: Ymmärrän
     cookie_consent_see_more: Lisätietoa.
@@ -147,7 +148,7 @@ fi:
     does_not_exist: Artikkelia ei ole. Luo sivu hiekkalaatikkoosi ja anna se itsellesi
       tehtäväksi, niin saat muokkaussuosituksia.
     edited: Muokatut artikkelit
-    edited_by: 'Muokannut:'
+    edited_by: 'Muokannut: %{author}'
     edited_mobile: Artikkelit
     edited_none: Ei muokattuja artikkeleja vielä.
     filter:
@@ -233,6 +234,9 @@ fi:
     add_available_submit: Lisää artikkelit
     add_available_submit_wikidata: Lisää kohteita
     assign_self: Anna itsellesi artikkeli tehtäväksi
+    invalid_title_format: '"%{title}" ei ole kelvollisen muotoinen otsikko.'
+    unable_to_verify_article: Artikkelin todennus epäonnistui
+    wiki_api_unreachable: Wiki-APIin ei voida muodostaa yhteyttä.
     assign_tooltip: Tehtäväartikkeli on se, jonka olet valinnut tehtäväksi tai parannettavaksi.
     clone: Luo kopio
     confirm_add_available: Haluatko varmasti lisätä artikkelin %{title}
@@ -248,12 +252,17 @@ fi:
     no_available: Tällä kurssilla ei ole yhtään tehtäväksi annettavaa artikelia.
     remove: Poista
     reviewers: Arvioija(t)
+    review_classmate_draft: (käyttäjän %{username} hiekkalaatikkoluonnos)
     review_other: Anna arvioiminen tehtäväksi tai ota se pois
     review_self: Arvioi artikkeli
     review_self_wikidata: Tarkasta kohde
     review_tooltip: Tässä näytetään artikkelit, joita olet ottanut vertaisarvioitavaksi
       tai joille aiot antaa palautetta.
     select: Valitse
+  assignments_tab:
+    label: Tehtävät
+    overdue: Myöhässä
+    progress: Edistyminen
   blocks:
     milestones:
       title: Virstanpylväät
@@ -281,6 +290,8 @@ fi:
       -kampanjan?
     course_already_removed: '"%{title}" on jo poistettu "%{campaign_title}" -kapanjasta'
     course: Kurssi
+    all_data: Kaikki
+    export: Vie
     course_removed: '"%{title}" on poistettu "%{campaign_title}" -kampanjasta'
     create_campaign: Uuden kampanjan luonti
     create_my_campaign: Luo kampanja!
@@ -305,6 +316,10 @@ fi:
     random_passcode: satunnainen pääsykoodi
     requested_accounts: Pyydetyt käyttäjätunnukset
     title: Otsikko
+    articles_truncated: Vain ensimmäiset %{count} artikkelia näytetään.
+    articles_truncated_html: 'Vain ensimmäiset %{count} artikkelia näytetään. Näytä
+      koko luettelo kirjautumalla sisään: %{csv_link}.'
+    articles_truncated_csv: CSV-vienti
     use_start_end_dates: Käytä aloitus-ja päättymispäiviä
   categories:
     add_category: Lisää luokka
@@ -864,6 +879,9 @@ fi:
     kind:
       discussion: Keskustelu
     open_exercise: Aloita harjoitus
+    article_title_input:
+      modal_title: Mitä artikkelia muokkasit?
+      verify: Vahvista
   claim_verification:
     tile_revision_date: alkaen %{date}
     previous_claim: Edellinen väite
@@ -1045,6 +1063,11 @@ fi:
     header: Sisäänkirjautumisvirhe
     explanation: Sisäänkirjautumisessa tapahtui virhe. (Pahoittelut siitä, niin tapahtuu
       joskus.) Ole hyvä ja yritä uudelleen.
+  downloads:
+    title: Lataukset
+    ready: Valmis
+    retry: Tarkista uudelleen
+    no_downloads: Sinulla ei ole uusia latauksia.
   survey:
     login_message: Kiitos ajastasi. Ole hyvä ja kirjaudu ohjausnäkymään kyselyn täyttämiseksi.
     notification_explanation: Jos alla oleva kohta on valittuna, muokkaajat saavat
@@ -1096,4 +1119,7 @@ fi:
     continue: Jatka
   form_search:
     program_date: Ohjelman päivämäärä
+  lti_integrations:
+    course: Kurssi
+    installed: Asennettu
 ...

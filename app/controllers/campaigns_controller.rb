@@ -10,10 +10,11 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
                                         remove_course ores_plot
-                                        alerts active_courses]
+                                        alerts active_courses refresh_stats]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: %i[update destroy add_organizer
-                                                     remove_organizer remove_course edit]
+                                                     remove_organizer remove_course edit
+                                                     refresh_stats]
 
   DETAILS_FIELDS = %w[title start end].freeze
   CAMPAIGNS_PER_PAGE = 25
@@ -67,6 +68,7 @@ class CampaignsController < ApplicationController
     respond_to do |format|
       format.html do
         set_page
+        reject_deep_page
         set_presenter
         # If there are more edited articles than the limit, we disable the feed of campaign articles
         if @presenter.too_many_articles?
@@ -222,9 +224,11 @@ class CampaignsController < ApplicationController
   def statistics
     user_only = params[:user_only]
     newest = params[:newest]
-    # rubocop:disable Layout/LineLength
-    @campaigns = user_only == 'true' ? current_user.campaigns : Campaign.all.order(created_at: :desc)
-    # rubocop:enable Layout/LineLength
+    @campaigns = if user_only == 'true'
+                   current_user&.campaigns || Campaign.none
+                 else
+                   Campaign.all.order(created_at: :desc)
+                 end
     @campaigns = @campaigns.limit(10) if newest == 'true'
     render user_only == 'true' ? 'user_statistics' : 'statistics'
   end
@@ -244,8 +248,8 @@ class CampaignsController < ApplicationController
   end
 
   def refresh_stats
-    set_campaign
     @campaign.clear_course_sums_cache
+    @campaign.clear_articles_count_cache
 
     flash[:notice] = t('campaign.refresh_campaign_stats')
     redirect_to overview_campaign_path(@campaign.slug)
@@ -293,6 +297,12 @@ class CampaignsController < ApplicationController
   def set_page
     @page = params[:page]&.to_i
     @page = nil unless @page&.positive?
+  end
+
+  # Before the presenter, so a rejected page never counts the articles.
+  def reject_deep_page
+    return unless @page && @page > CoursesPresenter::MAX_ARTICLE_PAGE
+    raise ActionController::RoutingError, 'Not Found'
   end
 
   def set_sort

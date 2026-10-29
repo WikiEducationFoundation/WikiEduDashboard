@@ -150,6 +150,7 @@ class ReportsController < ApplicationController
 
   def set_course
     @course = find_course_by_slug(csv_params[:course])
+    require_course_visible(@course)
   end
 
   def set_campaign

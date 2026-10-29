@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/training_progress_manager"
+require_dependency "#{Rails.root}/lib/utils/due_date"
 
 class TrainingModuleDueDateManager
   def initialize(opts)
@@ -22,7 +23,7 @@ class TrainingModuleDueDateManager
   end
 
   def overdue?
-    @training_module.training? && !module_completed? && Time.zone.now.to_date > computed_due_date
+    @training_module.training? && !module_completed? && DueDate.passed?(computed_due_date)
   end
 
   def deadline_status

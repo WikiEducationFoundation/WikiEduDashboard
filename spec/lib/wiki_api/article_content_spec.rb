@@ -152,6 +152,18 @@ describe WikiApi::ArticleContent do
     end
   end
 
+  describe '#revision_wikitext' do
+    it 'returns the wikitext source of the revision' do
+      response = double('response', data: { 'wikitext' => { '*' => "'''Bees''' are insects." } })
+      api_client = double('api_client')
+      allow_any_instance_of(WikiApi).to receive(:api_client).and_return(api_client)
+      allow(api_client).to receive(:send).with(:action, 'parse', { oldid: 123, prop: 'wikitext' })
+                                         .and_return(response)
+
+      expect(subject.revision_wikitext(123)).to eq("'''Bees''' are insects.")
+    end
+  end
+
   describe '#parse_wikitext' do
     it 'returns parsed HTML from wikitext' do
       response_data = { 'text' => { '*' => '<p>Parsed content</p>' } }

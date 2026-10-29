@@ -234,15 +234,16 @@ GEM
     connection_pool (3.0.2)
     crack (0.4.5)
       rexml
-    crass (1.0.7)
+    crass (1.0.8)
     cronex (0.15.0)
       tzinfo
       unicode (>= 0.4.4.5)
-    css_parser (3.0.0)
+    css_parser (3.3.0)
       addressable
+      base64
       ssrf_filter (~> 1.5)
     csv (3.3.5)
-    dalli (3.2.10)
+    dalli (3.2.13)
       logger
     date (3.5.1)
     debug_inspector (1.1.0)
@@ -426,7 +427,8 @@ GEM
       net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.5.1)
       net-protocol
-    net-ssh (7.3.0)
+    net-ssh (7.3.8)
+      logger
     netrc (0.11.0)
     nio4r (2.7.5)
     nokogiri (1.19.4)
@@ -782,7 +784,7 @@ DEPENDENCIES
   capybara-screenshot
   chartkick
   connection_pool
-  css_parser (~> 3.0)
+  css_parser (~> 3.3)
   csv
   dalli (~> 3.2.9)
   deep_cloneable

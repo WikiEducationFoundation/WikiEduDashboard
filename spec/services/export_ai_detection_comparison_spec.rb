@@ -87,6 +87,16 @@ describe ExportAiDetectionComparison do
     FileUtils.rm_f(path)
   end
 
+  it 'adds the plain and source texts only when asked to' do
+    unit.update!(source_text: "#{text}<ref>Smith 2020</ref>", source_format: 'wikitext')
+
+    expect(described_class.new(sample_names: ['march']).headers).not_to include('source_text')
+    export = described_class.new(sample_names: ['march'], include_text: true)
+    expect(export.headers).to include('plain_text', 'source_format', 'source_text')
+    expect(export.rows.first).to include('plain_text' => text, 'source_format' => 'wikitext',
+                                         'source_text' => "#{text}<ref>Smith 2020</ref>")
+  end
+
   it 'omits factor columns when no unit has factors' do
     AiDetectionSample.update_all(factors: nil)
 

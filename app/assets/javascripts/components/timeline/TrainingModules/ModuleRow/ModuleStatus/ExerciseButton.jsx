@@ -2,13 +2,20 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const ExerciseButton = ({
-  block_id, course, exercise_url, flags, isComplete, isExercise, slug,
+  article_title_input, block_id, course, exercise_url, flags, isComplete, isExercise, slug,
   complete, fetchExercises, incomplete
 }) => {
   // An in-app exercise completes itself when the student submits it, so there
   // is nothing to mark manually: show the status instead of the buttons.
   if (exercise_url) {
     return flags?.marked_complete ? <div>Status: Complete!</div> : <span>--</span>;
+  }
+
+  // Verifying the article (the Submit Article button) is what completes an
+  // article_title_input exercise, and the server refuses to mark it complete
+  // without one, so Mark Complete is only offered once an article is on record.
+  if (article_title_input && !flags?.marked_complete && !flags?.exercise_article_title) {
+    return <span>--</span>;
   }
 
   let button = (
@@ -43,6 +50,7 @@ export const ExerciseButton = ({
 };
 
 ExerciseButton.propTypes = {
+  article_title_input: PropTypes.bool,
   block_id: PropTypes.number.isRequired,
   course: PropTypes.shape({
     id: PropTypes.number.isRequired

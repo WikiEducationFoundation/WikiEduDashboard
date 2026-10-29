@@ -70,6 +70,6 @@ describe ArticleFunnel do
     expect(due).to eq(course.blocks.first.calculated_due_date)
     expect(stage(:bibliography)).not_to have_key(:overdue)
 
-    travel_to(due + 1.day) { expect(stage(:bibliography)[:overdue]).to eq(2) }
+    travel_to(due + 2.days) { expect(stage(:bibliography)[:overdue]).to eq(2) }
   end
 end

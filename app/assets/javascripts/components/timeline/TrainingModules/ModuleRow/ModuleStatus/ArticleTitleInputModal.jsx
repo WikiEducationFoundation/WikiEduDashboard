@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-const parseArticleTitle = (input) => {
-  const urlMatch = input.match(/\/wiki\/([^#?]+)/);
-  if (urlMatch) return decodeURIComponent(urlMatch[1].replace(/_/g, ' '));
-  return input.trim();
-};
-
 const ArticleTitleInputModal = ({ block_id, module_id, verifyArticle, onVerified, onClose }) => {
   const [inputValue, setInputValue] = useState('');
-  const [status, setStatus] = useState('idle'); // idle | loading | error | success
+  const [status, setStatus] = useState('idle'); // idle | loading | error | confirm | success
   const [errorMessage, setErrorMessage] = useState('');
+  // A page the student edited that isn't a mainspace article, which they have
+  // to confirm before it counts.
+  const [pageToConfirm, setPageToConfirm] = useState(null);
 
+  // The server works out the article from a title or any kind of wiki URL.
   const handleSubmit = () => {
-    const articleTitle = parseArticleTitle(inputValue);
-    if (!articleTitle) return;
+    const articleInput = inputValue.trim();
+    if (!articleInput) return;
+    const confirmed = status === 'confirm';
     setStatus('loading');
-    verifyArticle(block_id, module_id, articleTitle)
+    verifyArticle(block_id, module_id, articleInput, confirmed)
       .then((resp) => {
         if (resp.status === 'verified') {
           setStatus('success');
-          setTimeout(() => onVerified(articleTitle), 1500);
+          setTimeout(() => onVerified(resp.article_title), 1500);
+        } else if (resp.status === 'confirm') {
+          setStatus('confirm');
+          setPageToConfirm({ title: resp.article_title, url: resp.article_url, message: resp.message });
         } else {
           setStatus('error');
           setErrorMessage(resp.message);
@@ -35,6 +37,16 @@ const ArticleTitleInputModal = ({ block_id, module_id, verifyArticle, onVerified
   const handleKeyDown = (e) => {
     if (e.key === 'Enter') handleSubmit();
   };
+
+  // A confirmation is for the page that was found, so a new input needs checking again.
+  const handleChange = (e) => {
+    setInputValue(e.target.value);
+    if (status === 'confirm') setStatus('idle');
+  };
+
+  let submitLabel = I18n.t('training.article_title_input.verify');
+  if (status === 'loading') submitLabel = I18n.t('training.article_title_input.checking');
+  if (status === 'confirm') submitLabel = I18n.t('training.article_title_input.submit_anyway');
 
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
@@ -53,13 +65,21 @@ const ArticleTitleInputModal = ({ block_id, module_id, verifyArticle, onVerified
                 type="text"
                 className="alert-box__input"
                 value={inputValue}
-                onChange={e => setInputValue(e.target.value)}
+                onChange={handleChange}
                 onKeyDown={handleKeyDown}
                 placeholder={I18n.t('training.article_title_input.placeholder')}
                 disabled={status === 'loading'}
               />
               {status === 'error' && (
                 <p className="alert-content alert-content--error">{errorMessage}</p>
+              )}
+              {status === 'confirm' && (
+                <>
+                  <p className="alert-content alert-content--warning">
+                    <a href={pageToConfirm.url} target="_blank" rel="noopener noreferrer">{pageToConfirm.title}</a>
+                  </p>
+                  <p className="alert-content alert-content--warning">{pageToConfirm.message}</p>
+                </>
               )}
               <div className="alert-button-container">
                 <button className="alert-button" onClick={onClose}>
@@ -72,7 +92,7 @@ const ArticleTitleInputModal = ({ block_id, module_id, verifyArticle, onVerified
                   onClick={handleSubmit}
                   disabled={status === 'loading' || !inputValue.trim()}
                 >
-                  {status === 'loading' ? I18n.t('training.article_title_input.checking') : I18n.t('training.article_title_input.verify')}
+                  {submitLabel}
                 </button>
               </div>
             </>

@@ -124,6 +124,7 @@ class Course < ApplicationRecord
   has_many :article_course_timeslices
   has_many :course_user_wiki_timeslices
   has_many :course_wiki_timeslices
+  has_many :article_course_user_wiki_timeslices
 
   has_many :sandboxes, lambda {
     distinct.sandbox
@@ -137,6 +138,8 @@ class Course < ApplicationRecord
     # initiated, but not completed.
     PENDING = 1
     COMPLETED = 2
+    # Made by CopyCourseController; set up by whoever copied it.
+    COPIED = 3
   end
 
   ##########
@@ -207,10 +210,18 @@ class Course < ApplicationRecord
     where('courses.end <= ?', Time.zone.now - UPDATE_LENGTH)
   }
 
+  # A course needs a partial update if any of its timeslices still needs work:
+  # a course wiki timeslice flagged needs_update or needs_reaggregation, or an
+  # article-course-user-wiki timeslice flagged needs_update. This mirrors the
+  # "pending work" check in MarkPurgeableCourses, so a course is never protected
+  # from purging while being ineligible for the update that would clear the flag.
   scope :needs_partial_update, lambda {
-    joins(:course_wiki_timeslices)
-      .where(course_wiki_timeslices: { needs_update: true })
-      .distinct
+    cwt_course_ids = CourseWikiTimeslice.where(needs_update: true)
+                                        .or(CourseWikiTimeslice.where(needs_reaggregation: true))
+                                        .select(:course_id)
+    acuwt_course_ids = ArticleCourseUserWikiTimeslice.where(needs_update: true)
+                                                     .distinct.select(:course_id)
+    where(id: cwt_course_ids).or(where(id: acuwt_course_ids))
   }
 
   scope :current_or_set_to_full_update, -> { current.or(where(needs_update: true)) }
@@ -309,6 +320,12 @@ class Course < ApplicationRecord
     campaigns.any? && !withdrawn
   end
 
+  # Private courses are visible only to admins and the course's participants.
+  def visible_to?(user)
+    return true unless private
+    user.present? && user.nonvisitor?(self)
+  end
+
   def closed?
     flags[:closed_date].present?
   end
@@ -331,15 +348,6 @@ class Course < ApplicationRecord
     @training_module_ids ||= Block.joins(:week).where(weeks: { course_id: id })
                                   .where.not('training_module_ids = ?', [].to_yaml)
                                   .collect(&:training_module_ids).flatten
-  end
-
-  def tracked_article_course_timeslices
-    # This method tries to replicate the idea of "tracked revisions"
-    # 'revision_count > 0' condition is because we may create empty timeslices
-    # due to system revisions
-    # 'tracked: true' condition is to avoid timeslices for untracked articles courses
-    article_course_timeslices.where('revision_count > 0')
-                             .where(tracked: true)
   end
 
   def tracked_namespaces
@@ -534,6 +542,9 @@ class Course < ApplicationRecord
     flags['format']
   end
 
+  EDIT_SETTING_KEYS = %w[
+    wiki_course_page_enabled assignment_edits_enabled enrollment_edits_enabled
+  ].freeze
   def edit_settings_present?
     flags.key?('edit_settings')
   end
@@ -596,6 +607,33 @@ class Course < ApplicationRecord
 
   def retain_available_articles?
     flags[:retain_available_articles].present?
+  end
+
+  # True once MarkPurgeableCourses has flagged this course for timeslice purging
+  # (it ended long ago and has no pending timeslice work).
+  def purgeable?
+    flags[:purgeable].present?
+  end
+
+  # True once course's timeslice records were deleted and the course doesn't allow
+  # new metadata updates.
+  def finalized?
+    flags[:finalized].present?
+  end
+
+  # An unfinished update log more recent than this is treated as a possibly
+  # running update; an older one is stale (left behind by a deploy or restart
+  # mid-update), since real updates usually take hours, not weeks.
+  RUNNING_UPDATE_WINDOW = 14.days
+
+  # True if an update might currently be running: there is an unfinished update
+  # log whose start time is within RUNNING_UPDATE_WINDOW.
+  def update_possibly_running?
+    unfinished = flags['unfinished_update_logs']
+    return false if unfinished.blank?
+
+    cutoff = RUNNING_UPDATE_WINDOW.ago.to_f
+    unfinished.values.any? { |log| log['start_time'].to_f > cutoff }
   end
 
   def disable_student_emails?

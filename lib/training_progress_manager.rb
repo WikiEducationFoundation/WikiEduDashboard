@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/training_module_due_date_manager"
+require_dependency "#{Rails.root}/lib/utils/due_date"
 
 class TrainingProgressManager
   def initialize(user, training_module, training_module_user: nil)
@@ -38,7 +39,7 @@ class TrainingProgressManager
   # where modules could belong to any number of courses
   def assignment_status_css_class
     return 'completed' if module_completed?
-    overall_due_date.present? && overall_due_date < Time.zone.today ? 'overdue' : nil
+    DueDate.passed?(overall_due_date) ? 'overdue' : nil
   end
   alias assignment_deadline_status assignment_status_css_class
 

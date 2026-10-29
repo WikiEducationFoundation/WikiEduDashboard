@@ -88,10 +88,17 @@ class WikimediaEventCenterController < ApplicationController
   # Secret should be shared with WMF engineers via private paste on Phabricator.
   def verify_secret
     raise InvalidSecretError if Features.wiki_ed? && !Features.staging?
-    raise InvalidSecretError unless params[:secret] == ENV['WikimediaCampaignsPlatformSecret']
+    raise InvalidSecretError unless valid_secret?
   rescue InvalidSecretError => e
     render json: { error: e.message, error_code: e.code }, status: :unauthorized
     yield
+  end
+
+  # An unset secret must not match a request that omits it.
+  def valid_secret?
+    secret = ENV['WikimediaCampaignsPlatformSecret']
+    return false if secret.blank? || params[:secret].blank?
+    ActiveSupport::SecurityUtils.secure_compare(params[:secret].to_s, secret)
   end
 
   def set_course

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils';
 import CourseAlert from './course_alert';
-import OptInNotification from '../common/opt_in_notification';
 import { isAfter, startOfDay } from 'date-fns';
 import { toDate } from '../../utils/date_utils';
 
@@ -177,13 +176,6 @@ const CourseAlerts = ({
         newAlerts.push(
           <CourseAlert key="course_purgeable" message={purgeableNotice} />
         );
-      }
-
-      // //////////////////////////
-      // Experiment notifications /
-      // //////////////////////////
-      if (course.experiment_notification) {
-        newAlerts.push(<OptInNotification notification={course.experiment_notification} key="opt_in" />);
       }
       setAlerts(newAlerts);
     };

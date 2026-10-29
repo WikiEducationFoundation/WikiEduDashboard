@@ -38,6 +38,7 @@ zh-TW:
   application:
     back: 返回
     cancel: 取消
+    close: 關閉
     next: 下一個
     skip_to_main_content: 跳至主要內容
     cookie_consent: 此網站使用 cookies 來保持您的登入狀態，並儲存您的維基百科帳號相關資訊。
@@ -924,7 +925,7 @@ zh-TW:
       wiki 編輯。
     wiki_staff: 維基教育成員
     withdrawn: 沒有分配
-    word_count_doc: 在課程期間由選課學生所添增到主命名空間條目的增加字詞估計量
+    word_count_doc: 在課程期間由選課學生所添增到主命名空間條目的增加字詞估計量。（不包含維基數據的編輯。）
     word_count_doc_wikidata: 在課程期間由選課學生所添增到主命名空間項目的增加字詞估計量
     yourcourses: 您的課程
     declined_note: 此課程已被放棄。若有任何疑問，請聯絡 Wiki Education 成員。
@@ -1564,7 +1565,7 @@ zh-TW:
     assignees: 被分配者
     loading_authorship_data: 載入作者資料中
     authorship_data_not_fetched: 無法索取作者資料
-    character_doc: 加入此命名空間的內容加入總數。計算方式是把所有編輯的增加頁面文字量的編輯進行加總。這個數字並不完全代表使用者所增加的新內容，還原原本的內容也會被計算為加入總數之中。
+    character_doc: 加入此命名空間的內容加入總數。計算方式是把所有編輯的增加頁面文字量的編輯進行加總。這個數字並不完全代表使用者所增加的新內容，還原原本的內容也會被計算為加入總數之中。（不包含維基數據的編輯。）
     chars_added: 已增加字元<br> (條目|使用者|草稿)
     chars_added_wikidata: 新增的字元<br> (條目|使用者|草稿)
     contributions: 使用者貢獻
@@ -1660,7 +1661,7 @@ zh-TW:
     useremail_placeholder: 請輸入電子郵件
     userpasscode_placeholder: 選課代碼
     words_added: 已增加詞<br>（條目|使用者|草稿）
-    word_count_doc: 使用者添加到現存條目、使用者空間頁面（沙盒）、和草稿命名空間的總容量估計值。字數估計值是根據所有多於刪除內容的添加編輯內容之頁面大小變化總和計算出的。此數字不一定會精確反應出使用者所添加的新內容的數量。恢復移除的內容也會增加到總數裡。
+    word_count_doc: 使用者添加到現存條目、使用者空間頁面（沙盒）、和草稿命名空間的總容量估計值。字數估計值是根據所有多於刪除內容的添加編輯內容之頁面大小變化總和計算出的。此數字不一定會精確反應出使用者所添加的新內容的數量。恢復移除的內容也會增加到總數裡。（不包含維基數據的編輯。）
     role:
       description: 在課程裡的身份
       visitor: 訪客
@@ -1693,7 +1694,7 @@ zh-TW:
     assignment_dates: 分配作業日期
     assignment_description: 選擇您的分配作業時間表起始日期。例如若您想要在課程上第二週開始您的維基計劃專案，設定分配開始日期在課程開始日期的後一週。此分配工具將建立適用您所選擇之時間表日期的草稿時間軸
     assignment_type: 學生將會為他們的維基百科分配作業完成什麼？
-    calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間（例如假日或不上課的時候）。這能夠讓課程建立工具精準的開出你的分配作業時段。點選一個日期可以從非課程時段、上課時段、以及休假時段三種設定之間轉換。
+    calendar_instructions: 選擇日期，以便從行事曆中增加或移除這些時間（例如假日或非上課的時候）。這能夠讓課程建立工具精準的開出你的分配作業時段。點選一個日期從非課程時段、上課時段、以及休假時段三種設定之間轉換。
     confirm_course_dates: 確認課程的開始和結束日期。
     confirm_dates: 選擇您課程的課程日期、每週會議與假日。
     course_dates: 課程日期

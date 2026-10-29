@@ -51,8 +51,14 @@ describe DeUserfyingEditAlertMonitor do
       allow(api).to receive(:query).and_return(response)
     end
 
-    context 'when no recent change carries the de-userfying tag' do
+    context 'when no recent change carries the new user move tag' do
       let(:recentchanges) { [] }
+
+      it 'queries recent changes for the tag applied by the edit filter' do
+        mntor.edits
+        expect(api).to have_received(:query)
+          .with(hash_including(rctag: 'new user move into mainspace'))
+      end
 
       it 'returns no edits' do
         expect(mntor.edits).to be_empty
@@ -63,7 +69,7 @@ describe DeUserfyingEditAlertMonitor do
       let(:recentchanges) do
         [{ 'type' => 'log', 'ns' => 2, 'title' => 'User:Alice/sandbox',
            'pageid' => 111, 'revid' => 12, 'logid' => 99, 'user' => 'Alice',
-           'timestamp' => '2026-09-01T12:00:00Z', 'tags' => ['de-userfying'],
+           'timestamp' => '2026-09-01T12:00:00Z', 'tags' => [described_class::TAG],
            'logparams' => { 'target_title' => 'my title 1' } }]
       end
 

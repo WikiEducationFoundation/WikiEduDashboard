@@ -161,22 +161,22 @@ export const verifyMainSpaceArticle = (articleTitle, language, project) => {
       const pages = data?.query?.pages;
       const page = pages ? Object.values(pages)[0] : null;
 
-      if (!page) return { valid: false, message: 'Unable to reach the Wiki API.' };
+      if (!page) return { valid: false, message: I18n.t('assignments.wiki_api_unreachable') };
 
       // Check for illegal characters (e.g. [ ] { } | )
       if (page.invalid !== undefined) {
-        return { valid: false, message: `"${title}" is not a valid title format.` };
+        return { valid: false, message: I18n.t('assignments.invalid_title_format', { title }) };
       }
 
       // Block non-mainspace (Categories, User pages, etc.)
       if (page.ns !== 0) {
-        return { valid: false, message: `${title} is not a mainspace article (only regular article pages are allowed)` };
+        return { valid: false, message: I18n.t('assignments.not_mainspace_article', { title }) };
       }
 
       return { valid: true };
     } catch (error) {
       dispatch({ type: types.API_FAIL, data: error });
-      return { valid: false, message: 'Unable to verify article' };
+      return { valid: false, message: I18n.t('assignments.unable_to_verify_article') };
     }
   };
 };

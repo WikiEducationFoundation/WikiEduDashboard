@@ -30,10 +30,25 @@ class HistogramPlotter
   def build_csv
     FileUtils.mkdir_p analytics_path
     return if File.exist? csv_path
-    courses =
-      @campaign_or_course.is_a?(Course) ? [@campaign_or_course] : @campaign_or_course.courses
+    # Campaign plots are shared by every viewer, so they leave out private courses.
+    courses = if @campaign_or_course.is_a?(Course)
+                [@campaign_or_course]
+              else
+                @campaign_or_course.nonprivate_courses
+              end
     csv_content = OresDiffCsvBuilder.new(courses).articles_to_csv
     File.write(csv_path, csv_content)
+    delete_older_csvs
+  end
+
+  # Each day's plot gets a new file, so earlier days' files for the same
+  # course or campaign are removed once today's exists.
+  def delete_older_csvs
+    pattern = /\A#{Regexp.escape(slug_filename.to_s)}-\d{4}-\d{2}-\d{2}\.csv\z/
+    Dir.children(analytics_path).each do |name|
+      next if name == csv_filename || !pattern.match?(name)
+      File.delete("#{analytics_path}/#{name}")
+    end
   end
 
   def slug_filename
@@ -46,11 +61,9 @@ class HistogramPlotter
     "#{slug_filename}-#{Time.zone.today}.csv"
   end
 
-  def public_analytics_path
-    'assets/system/analytics'
-  end
-
+  # Only OresPlotController reads these files, so they stay out of public/,
+  # where anyone could fetch them by guessing the name.
   def analytics_path
-    "public/#{public_analytics_path}"
+    'tmp/ores_plot'
   end
 end

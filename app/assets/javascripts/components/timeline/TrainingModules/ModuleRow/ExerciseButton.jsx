@@ -51,8 +51,8 @@ export const ExerciseButton = ({ module, isStaff, course, verifyArticle, fetchEx
       );
     }
 
-    const handleVerify = (block_id, module_id, article_title) => {
-      return verifyArticle(block_id, module_id, article_title);
+    const handleVerify = (block_id, module_id, article_title, confirmed) => {
+      return verifyArticle(block_id, module_id, article_title, confirmed);
     };
 
     return (
@@ -97,7 +97,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  verifyArticle: (block_id, module_id, article_title) => dispatch(verifyExerciseArticle(block_id, module_id, article_title)),
+  verifyArticle: (block_id, module_id, article_title, confirmed) => dispatch(verifyExerciseArticle(block_id, module_id, article_title, confirmed)),
   fetchExercises: course_id => dispatch(fetchTrainingModuleExercisesByUser(course_id)),
   refreshTimeline: course_slug => dispatch(fetchTimeline(course_slug))
 });

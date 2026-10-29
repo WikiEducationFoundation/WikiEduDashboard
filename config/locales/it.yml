@@ -175,7 +175,7 @@ it:
     does_not_exist: La voce non esiste. Crea una pagina delle prove e assegnatela
       per ricevere suggerimenti.
     edited: Voci modificate
-    edited_by: 'Modificato da:'
+    edited_by: Modificato da %{author}
     edited_mobile: Voci
     edited_none: Non ci sono voci modificate ancora.
     filter:
@@ -1004,6 +1004,8 @@ it:
     kind:
       discussion: Discussione
     loading: Caricamento…
+    article_title_input:
+      submit_anyway: Invia comunque
   claim_verification:
     form:
       source_access_options:

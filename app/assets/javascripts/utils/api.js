@@ -70,7 +70,14 @@ const API = {
   },
 
   async fetchUserProfileStats(username) {
-    const response = await request(`/user_stats.json?username=${username}`);
+    const response = await request(`/users/${username}/stats.json`);
+
+    await ensureOk(response);
+    return response.json();
+  },
+
+  async fetchUserArticles(username) {
+    const response = await request(`/users/${username}/user_articles.json`);
 
     await ensureOk(response);
     return response.json();
@@ -166,6 +173,14 @@ const API = {
       method: 'POST'
     });
 
+    await ensureOk(response);
+    return response.json();
+  },
+
+  async needsUpdate(courseSlug) {
+    const response = await request(`/courses/${courseSlug}/needs_update.json`, {
+      method: 'PUT'
+    });
     await ensureOk(response);
     return response.json();
   },
@@ -366,17 +381,6 @@ const API = {
     return result;
   },
 
-  async removeAndDeleteCourse(courseSlug, campaignTitle, campaignId, campaignSlug) {
-    const response = await request(`/courses/${courseSlug}.json/delete_from_campaign?campaign_title=${campaignTitle}&campaign_id=${campaignId}&campaign_slug=${campaignSlug}`, {
-      method: 'DELETE'
-    });
-
-    await ensureOk(response);
-    const result = await response.json();
-    window.location = '/';
-    return result;
-  },
-
   async deleteBlock(block_id) {
     const response = await request(`/blocks/${block_id}.json`, {
       method: 'DELETE'
@@ -402,7 +406,9 @@ const API = {
   },
 
   async notifyOverdue(courseSlug) {
-    const response = await request(`/courses/${courseSlug}/notify_untrained.json`);
+    const response = await request(`/courses/${courseSlug}/notify_untrained.json`, {
+      method: 'POST'
+    });
     await ensureOk(response, 'Couldn\'t notify students! ');
     alert('Students with overdue trainings notified!');
     return response.text();

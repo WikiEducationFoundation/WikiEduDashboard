@@ -23,20 +23,14 @@ describe AnalyticsController, type: :request do
   describe '#results' do
     let(:admin) { create(:admin) }
 
-    it 'returns a monthly report for admins' do
-      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-      post '/analytics', params: { monthly_report: true }
-      expect(response.status).to eq(200)
-    end
-
-    it 'blocks anonymous users from the monthly report' do
-      post '/analytics', params: { monthly_report: true }
+    it 'blocks anonymous users from campaign intersection statistics' do
+      post '/analytics', params: { campaign_intersection: true }
       expect(response.status).to eq(401)
     end
 
-    it 'blocks signed-in non-admins from the monthly report' do
+    it 'blocks signed-in non-admins from campaign intersection statistics' do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      post '/analytics', params: { monthly_report: true }
+      post '/analytics', params: { campaign_intersection: true }
       expect(response.status).to eq(401)
     end
 

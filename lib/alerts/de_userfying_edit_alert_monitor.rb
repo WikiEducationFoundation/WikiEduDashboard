@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
-# This class identifies articles that have been moved from
-# their use space by users
-# Tag: de-userfying
-# Cf. https://en.wikipedia.org/wiki/MediaWiki:Tag-de-userfying
+# This class identifies articles that have been moved into mainspace by new users
+# Tag: new user move into mainspace, applied by
+# https://en.wikipedia.org/wiki/Special:AbuseFilter/630
+# (until 2026-07-03, the filter used the tag de-userfying)
 class DeUserfyingEditAlertMonitor
+  TAG = 'new user move into mainspace'
+
   def self.create_alerts_for_deuserfying_edits
     new.create_alerts
   end
@@ -28,7 +30,7 @@ class DeUserfyingEditAlertMonitor
   end
 
   # Query:
-  # https://en.wikipedia.org/w/api.php?action=query&list=recentchanges&rcprop=title|ids|flags|user|tags|loginfo|timestamp&rctag=de-userfying&rclimit=100&rcshow=!bot
+  # https://en.wikipedia.org/w/api.php?action=query&list=recentchanges&rcprop=title|ids|flags|user|tags|loginfo|timestamp&rctag=new%20user%20move%20into%20mainspace&rclimit=100&rcshow=!bot
   # Will fetch last 100 edits (parameter rclimit)
   # Cf. https://www.mediawiki.org/wiki/API:RecentChanges
   def edits
@@ -37,7 +39,7 @@ class DeUserfyingEditAlertMonitor
       list: 'recentchanges',
       rcprop: 'title|ids|flags|user|tags|loginfo|timestamp',
       rclimit: '100',
-      rctag: 'de-userfying',
+      rctag: TAG,
       rcshow: '!bot'
     }
     res = api.query(query_params)

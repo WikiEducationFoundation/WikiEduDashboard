@@ -17,10 +17,15 @@ class Courses::DeleteFromCampaignController < CoursesController
 
   private
 
+  # As on the campaign page (CoursesPresenter#can_remove_course?): admins and
+  # the organizers of the campaign the course is being removed from.
   def validate
     slug = params[:slug].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
-    raise NotPermittedError unless current_user&.can_edit?(@course)
+    campaign = @course.campaigns.find_by(id: params[:campaign_id])
+    raise NotPermittedError unless campaign && current_user
+    return if current_user.admin? || campaign.organizers.include?(current_user)
+    raise NotPermittedError
   end
 
   def remove_and_delete_course_from_campaign

@@ -22,6 +22,9 @@
           %a{href: '/revision_ai_scores_stats'} AI checks over time
         %li
           %a{href: '/ai_tools'} AI detectors comparison tool
+        - if Features.wiki_ed?
+          %li
+            %a{href: '/detector_comparison'} AI detector comparison data
         %li
           %a{href: '/claim_verification'} Claim verification
 
@@ -57,6 +60,10 @@
           %a{href: '/training_module_drafts'} Training module composer
         %li
           %a{href: '/update_username'} Update username
+        - @opt_in_experiments.each do |experiment|
+          %li
+            %a{href: "/experiments/#{experiment.slug}/student_opt_out"}
+              Experiment opt-out (#{experiment.slug})
         %li
           %a{href: '/usage'} Usage stats
         %li

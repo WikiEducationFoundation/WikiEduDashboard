@@ -5,6 +5,15 @@ import { isBlockedInStudentView } from './student_view';
 // it is a relative path if it doesn't start with http or https
 const isRelativePath = path => !path.match(/^http(s?)/);
 
+// Retry-After is only readable here if the server exposes it via
+// Access-Control-Expose-Headers. Only the delay-seconds form is parsed; an
+// HTTP-date value resolves to null here (see retryAfterRaw below).
+const parseRetryAfterSeconds = (value) => {
+  if (!value) return null;
+  const seconds = Number(value);
+  return Number.isNaN(seconds) ? null : seconds;
+};
+
 // Thrown by ensureOk instead of the raw Response, so failed requests surface
 // in Sentry (and anywhere else that inspects errors) as a real Error with a
 // message and stack trace, rather than as an unhandled "[object Response]".
@@ -16,6 +25,10 @@ export class ApiError extends Error {
     this.statusText = response.statusText;
     this.url = response.url;
     this.responseText = responseText;
+    // Raw header value, so a null retryAfterSeconds can be told apart from
+    // an absent header vs. an unparsed format (e.g. a date).
+    this.retryAfterRaw = response.headers?.get?.('retry-after') ?? null;
+    this.retryAfterSeconds = parseRetryAfterSeconds(this.retryAfterRaw);
   }
 }
 

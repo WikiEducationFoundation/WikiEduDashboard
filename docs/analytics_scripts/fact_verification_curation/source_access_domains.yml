@@ -1,0 +1,221 @@
+# Source-access classification for the Fact Verification claim pool.
+#
+# Used by build_article_inventory.rb to bucket each claim's source_url by how
+# readable the cited source is likely to be for a student with no library
+# proxy. This is a *heuristic prior*, not a verified access check — nothing
+# here has been fetched. Treat the resulting counts as a way to rank articles
+# for hand-checking, not as ground truth.
+#
+# Tiers:
+#   open          - full text freely readable, no login
+#   paywalled     - subscription or purchase needed for the full text
+#   abstract_only - citation/abstract free, full text is not
+#   doi_redirect  - indirection; real access unknown until the DOI resolves
+#
+# Matching: a claim's host is matched against `domains` by exact host or by
+# any parent domain (so `agupubs.onlinelibrary.wiley.com` matches
+# `onlinelibrary.wiley.com`). If nothing matches, `suffix_rules` are tried in
+# order. Anything still unmatched is counted as `unknown`.
+#
+# Edit freely — this file is meant to be tuned as spot-checks come back.
+
+tiers:
+  doi_redirect:
+    domains:
+      - doi.org
+      - dx.doi.org
+      - hdl.handle.net
+
+  abstract_only:
+    domains:
+      - pubmed.ncbi.nlm.nih.gov
+      - www.ncbi.nlm.nih.gov
+      - books.google.com
+      - www.google.com/books
+      - scholar.google.com
+      - www.researchgate.net
+      - www.academia.edu
+      - search.worldcat.org
+      - www.worldcat.org
+      - ui.adsabs.harvard.edu
+      - citeseerx.ist.psu.edu
+      - www.semanticscholar.org
+      - linkinghub.elsevier.com
+      - www.scribd.com
+
+  paywalled:
+    domains:
+      - www.sciencedirect.com
+      - www.jstor.org
+      - academic.oup.com
+      - onlinelibrary.wiley.com
+      - www.tandfonline.com
+      - www.taylorfrancis.com
+      - www.cambridge.org
+      - journals.sagepub.com
+      - link.springer.com
+      - www.springer.com
+      - www.nature.com
+      - www.cell.com
+      - www.thelancet.com
+      - pubs.acs.org
+      - journals.lww.com
+      - brill.com
+      - www.ebsco.com
+      - ebookcentral.proquest.com
+      - www.proquest.com
+      - heinonline.org
+      - muse.jhu.edu
+      - www.emerald.com
+      - dl.acm.org
+      - jamanetwork.com
+      - www.ahajournals.org
+      - www.healthaffairs.org
+      - ashpublications.org
+      - www.science.org
+      - www.pnas.org
+      - www.jbc.org
+      - www.embopress.org
+      - www.ucpress.edu
+      - www.mapress.com
+      - www.nytimes.com
+      - www.latimes.com
+      - www.forbes.com
+      - www.businessinsider.com
+      - content.time.com
+      - www.nber.org
+      - www.spandidos-publications.com
+      - www.techscience.com
+      - cshprotocols.cshlp.org
+      - onf.ons.org
+      - www.jmcc-online.com
+      - iranicaonline.org
+      - www.vedantu.com
+
+  open:
+    domains:
+      # Open-access repositories and publishers
+      - pmc.ncbi.nlm.nih.gov
+      - journals.plos.org
+      - www.mdpi.com
+      - www.frontiersin.org
+      - arxiv.org
+      - www.biorxiv.org
+      - www.medrxiv.org
+      - www.redalyc.org
+      - scielo.org
+      - www.scielo.br
+      - scindeks.ceon.rs
+      - revistas.unisinos.br
+      - journals.ysu.am
+      - arar.sci.am
+      - bioresources.cnr.ncsu.edu
+      - atlasgeneticsoncology.org
+      - archive.org
+      - www.doaj.org
+      # Reference and data resources
+      - en.wikipedia.org
+      - www.britannica.com
+      - www.uniprot.org
+      - alphafold.ebi.ac.uk
+      - go.drugbank.com
+      - www.marinespecies.org
+      - www.iucnredlist.org
+      - animaldiversity.org
+      - www.fishbase.org
+      - bonap.net
+      - www.calflora.org
+      - ucjeps.berkeley.edu
+      - invasions.si.edu
+      - www.snopes.com
+      # Intergovernmental / NGO / official
+      - www.who.int
+      - www.fao.org
+      - www.worldbank.org
+      - www.unep.org
+      - www.un.org
+      - digitallibrary.un.org
+      - en.unesco.org
+      - www.ipcc.ch
+      - www.oecd.org
+      - www.iea.org
+      - www.weforum.org
+      - www.europol.europa.eu
+      - www.istat.it
+      - esploradati.istat.it
+      - climateactiontracker.org
+      - www.climatefinance.org
+      - www.migrationpolicy.org
+      - newamerica.org
+      - www.pewresearch.org
+      - www.apa.org
+      - africanbiogenome.org
+      # Freely readable news / media
+      - www.theguardian.com
+      - www.bbc.com
+      - www.reuters.com
+      - www.aljazeera.com
+      - www.pbs.org
+      - www.pbssocal.org
+      - www.cbsnews.com
+      - www.npr.org
+      - www.smithsonianmag.com
+      - elpais.com
+      - laist.com
+      - www.today.com
+      - reason.com
+      - filmmakermagazine.com
+      - thebftonline.com
+      - www.myjoyonline.com
+      - www.politicsweb.co.za
+      - arka.am
+      - www.sport24.gr
+      - www.bnsports.gr
+      - health.clevelandclinic.org
+
+# Tried in order when no domain match is found. `suffix` matches the end of
+# the host; `contains` matches anywhere in the host.
+suffix_rules:
+  - suffix: .gov
+    tier: open
+  - suffix: .mil
+    tier: open
+  - contains: .gov.
+    tier: open
+  - suffix: .int
+    tier: open
+  - contains: nih.gov
+    tier: open
+  # University and library hosts are mostly open pages, but proxied catalog
+  # and database links are not. Catalog/proxy hosts are caught first.
+  - contains: proxy
+    tier: paywalled
+  - contains: search.library
+    tier: paywalled
+  - suffix: .edu
+    tier: open
+  - contains: .edu.
+    tier: open
+  - contains: .ac.
+    tier: open
+
+# Hosts that are freely readable but are not the kind of source this exercise
+# should lean on — self-published author/organization sites, user-generated
+# reference sites, video, and homework-help mills. Counted separately as a
+# sourcing-quality signal; they still get an access tier from the rules above.
+weak_source_domains:
+  - imdb.com
+  - youtube.com
+  - www.scribd.com
+  - www.vedantu.com
+  - kristinhannah.com
+  - reynaroberts.com
+  - www.marinelifephotography.com
+  - magazine.weverse.io
+  - www.academia.edu
+  - www.researchgate.net
+  - scholar.google.com
+  - en.wikipedia.org
+  - www.google.com
+  - medium.com
+  - substack.com

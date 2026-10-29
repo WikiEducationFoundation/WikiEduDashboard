@@ -34,7 +34,7 @@ class OresDiffCsvBuilder
   end
 
   def article_row(articles_course, course)
-    # TODO: implement this without revisions
+    # TODO: implement this without revisions (#6327)
     article = articles_course.article
     # ordered_revisions = articles_course.all_revisions.order('date ASC')
     # first_revision = ordered_revisions.first

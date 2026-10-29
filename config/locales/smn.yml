@@ -106,6 +106,9 @@ smn:
   editable:
     cancel: Jooskâ
     save: Vuorkkii
+  instructor_view:
+    assignments_table:
+      article_name: Nommâ
   metrics:
     activity: Vorâs nubástusah
     close_modal: Toopâ
@@ -160,6 +163,7 @@ smn:
     recent_revisions: Vorâs nubástusah
     username: Kevtteenommâ
     username_placeholder: Kevtteenommâ
+    useremail_placeholder: Čääli šleđgâpostâčujottâs
   wizard:
     read_more: Čääiti lase
   article_finder:

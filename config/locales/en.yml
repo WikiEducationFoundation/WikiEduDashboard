@@ -90,8 +90,6 @@ en:
     details: Details
     confirm: OK
     confirm_generic: Are you sure you want to do this?
-    opt_in: "Yes"
-    opt_out: "No"
     opt_yes: "yes"
     opt_no: "no"
     print: Print
@@ -287,6 +285,8 @@ en:
     permalink: Permalink
     previous: Previous
     article_title: Article Title
+    language: Language
+    project: Project
     assigned_to: Assigned To
     character_doc: The sum of characters added to articles by enrolled editors between the start and end dates
     cross_wiki_tracking: >
@@ -343,6 +343,7 @@ en:
     see_more: See more
     see_more_tooltip: Only the first 500 edited articles are loaded initially. Click to load additional articles.
     search: Search Wikipedia for an Article
+    edited_by: "Edited by %{author}"
     show_cumulative_changes: Show Cumulative Changes
     show_current_version: Show Current Version
     show_current_version_with_authorship_highlighting: "Current Version w/ Authorship Highlighting"
@@ -433,6 +434,10 @@ en:
     add_placeholder: Enter an article title or URL
     assign_self: Assign myself an article
     invalid_mainspace_article: This must be a valid mainspace article.
+    invalid_title_format: '"%{title}" is not a valid title format.'
+    not_mainspace_article: "%{title} is not a mainspace article (only regular article pages are allowed)"
+    unable_to_verify_article: Unable to verify article
+    wiki_api_unreachable: Unable to reach the Wiki API.
     assign_self_wikidata: Assign myself an item
     assign_tooltip: An assigned article is one that you plan to create or improve.
     assign_tooltip_wikidata: An assigned item is one that you plan to create or improve.
@@ -481,7 +486,9 @@ en:
       limit_exceeded_wikidata: Each student is already reviewing at least %{maximum} item(s).
     remove: Remove
     reviewers: Reviewer(s)
+    review_classmate_draft: "(%{username}'s sandbox draft)"
     review_other: Assign/remove a peer review
+    review_sandbox_not_found: "%{title} isn't for a classmate's assigned article."
     review_self: Review an article
     review_self_wikidata: Review an item
     review_tooltip: This is for article(s) you plan to peer review or provide feedback on.
@@ -608,6 +615,9 @@ en:
     student_course: students by course
     title: Title
     too_large: This campaign is too large for the requested data to be displayed.
+    articles_truncated: Only the first %{count} articles are shown.
+    articles_truncated_html: Only the first %{count} articles are shown. Sign in to access the full list via %{csv_link}.
+    articles_truncated_csv: CSV export
     too_many_articles: The edited article list for this campaign is too long to be displayed. Please view individual courses/programs/events to see the articles edited.
     slug: Slug
     search_campaigns: Search campaigns
@@ -1312,6 +1322,7 @@ en:
     articles_created_wikidata: Items Created
     articles_created_generic: Pages Created
     articles_created_generic_wikidata: Items Created
+    article_count: Articles
     articles_edited: Articles Edited
     articles_edited_wikidata: Items Edited
     articles_edited_generic: Pages Edited
@@ -1540,7 +1551,12 @@ en:
         course_creation_settings: Course creation
         default_campaign_setting: Default Campaign
         site_notice_setting: Site Notice
+        site_notice_message: Message
         site_notice_preview: Live Preview
+      site_notice_help:
+        intro: The notice is HTML, shown in a banner at the top of every page. Line breaks typed here are ignored, so use tags to format it.
+        link: Link
+        line_break: Line break
       buttons:
         add_admin_button: Add Admin
         add_special_user_button: Add Special User
@@ -1810,11 +1826,13 @@ en:
     article_title_input:
       submit: "Submit Article"
       modal_title: "Which article did you edit?"
-      success: "Great work! Your edit has been verified. You can now mark this exercise complete."
+      success: "Great work! Your edit has been verified."
       placeholder: "e.g. Marie Curie or https://en.wikipedia.org/wiki/Marie_Curie"
       checking: "Checking..."
       verify: "Verify"
       not_found: "We could not find your edit on that article. Please check the article name and try again."
+      not_mainspace: "This is not a live article from Wikipedia mainspace. Are you sure you want to submit it for this exercise?"
+      submit_anyway: "Submit anyway"
 
   claim_verification:
     pick_instructions: Click a highlighted claim to see the citation details.
@@ -2002,6 +2020,8 @@ en:
     wiki_big: Wiki
 
   users:
+    back_to_profile: Back to Profile
+    back_to_stats: "Back to Stats"
     already_enrolled: That user is already enrolled!
     assign_articles: Assign Articles
     assign_articles_wikidata: Assign Items
@@ -2025,6 +2045,7 @@ en:
     contributions_history_full: View full contribution history
     contributions_more: View More Contributions
     contribution_statistics: Contribution Statistics
+    contributions_by_language: Contributions by Language/Project
     course_passcode: "Passcode:"
     editors: Editors
     edits: edits
@@ -2069,6 +2090,14 @@ en:
     requested_account_status:
       success_message: "Success: %{result_description}"
       failure_message: "Failure: %{result_description}"
+      user_exists: "%{wiki} already has an account named %{username}, so the request for %{email} was removed (%{code}). The participant can sign in with that account or request a different username."
+      user_exists_enrolled: "%{wiki} already has an account named %{existing_username}, and that user is already enrolled in this course, so the request for %{email} was removed (%{code})."
+      name_conflict_enrolled: "%{wiki} did not create the account for %{username} (%{email}): %{message} (%{code}). %{existing_username} is already enrolled in this course, so the participant may already have an account."
+      throttled: "Account creation is being rate limited right now, so the account for %{username} (%{email}) was not created (%{code}). This happens when many accounts are created in a short time. The request was kept. Wait a few minutes before trying again."
+      captcha_required: "%{wiki} asked for a CAPTCHA before creating the account for %{username} (%{email}), which the Dashboard cannot answer (%{code}). This happens when many accounts are created in a short time. The request was kept. Wait a few minutes before trying again."
+      rejected: "%{wiki} did not create the account for %{username} (%{email}): %{message} (%{code})"
+      api_error: "%{wiki} returned an error while creating the account for %{username} (%{email}): %{message} (%{code}). The request was kept."
+      unexpected: "%{wiki} returned an unexpected response while creating the account for %{username} (%{email}): %{response}. The request was kept and the problem has been reported."
     revision_characters_and_views: "Chars Added: %{characters}, Views: %{views}"
     revisions_doc: >
       The estimated number of edits made by this editor in the past 7 days,
@@ -2137,7 +2166,25 @@ en:
     useremail_placeholder: "Enter Email Address"
     email_required_instructor: "Is required for current instructors. You may remove your email address after current courses have ended."
     email_invalid: "Invalid: Please enter a valid email"
+    imagemagick_not_installed: "Unable to process uploaded image because ImageMagick is not installed."
   user_profiles:
+    detailed_impact: "Detailed Impact"
+    words_added_per_article: "Words Added per Article"
+    references_added_per_article: "References Added per Article"
+    articles_edited_detail: "Articles Edited"
+    no_articles_edited: "This user has no data to display in this section yet."
+    no_articles_match: "No articles match the selected filter(s)."
+    summary_articles: "Articles"
+    summary_words: "Words"
+    summary_references: "References"
+    type: "Type"
+    status_new: "New"
+    status_edited: "Edited"
+    language_not_available: "N/A"
+    column_metric: "Metric"
+    column_value: "Value"
+    column_details: "Details"
+    see_more: "See more ↗"
     student_impact: Total impact made by %{username} as a student
     instructor_impact: Total impact made by %{username} as an instructor
     instructors_student_impact: Total impact made by %{username}'s students
@@ -2256,6 +2303,7 @@ en:
       bell: Notifications
 
   downloads:
+    available_in_bell: Your file is ready. Go to the download notification.
     title: Downloads
     none: You have no downloads yet.
     generating: Generating…
@@ -2268,6 +2316,8 @@ en:
     new_downloads: You have new downloads.
     no_downloads: You have no new downloads.
     aria_label: Downloads
+    csv: 'Download CSV'
+    json: 'Download JSON'
 
   survey:
     login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."
@@ -2296,6 +2346,7 @@ en:
     supplementary:
       header: "How did you hear about us?"
       where_did_you_hear: "Where, or from whom, did you first hear about Wiki Education?"
+      primary_reason: "What is the primary reason you decided to run a Wikipedia assignment?"
       why_are_you_here: "What would you like to do?"
 
   article_finder:

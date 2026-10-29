@@ -9,6 +9,9 @@ describe AlertsController, type: :request do
     let(:target_user) { create(:admin, email: 'email@email.com') }
     let!(:courses_users) do
       create(:courses_user, course_id: course.id, user_id: user.id)
+      # The Get Help button addresses the course's Wiki Ed staff.
+      create(:courses_user, course_id: course.id, user_id: target_user.id,
+                            role: CoursesUsers::Roles::WIKI_ED_STAFF_ROLE)
     end
 
     let(:alert_params) do
@@ -97,6 +100,27 @@ describe AlertsController, type: :request do
       put route, params: { format: :json }
 
       expect(response.status).to eq(422)
+    end
+
+    # Alert emails link here, and a link can only GET. The alert's page has
+    # the Resolve button.
+    it 'sends a GET to the alert\'s page without resolving it' do
+      get route
+      expect(response).to redirect_to(alerts_list_path(alert))
+      expect(alert.reload.resolved).to be(false)
+    end
+
+    # Rails routes HEAD like GET, and neither is checked for a CSRF token.
+    it 'does not resolve on a HEAD request' do
+      head route
+      expect(response).to redirect_to(alerts_list_path(alert))
+      expect(alert.reload.resolved).to be(false)
+    end
+
+    it 'returns to the alert\'s page after the Resolve button' do
+      put route
+      expect(response).to redirect_to(alerts_list_path(alert))
+      expect(alert.reload.resolved).to be(true)
     end
   end
 
