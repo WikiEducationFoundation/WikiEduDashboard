@@ -6,7 +6,9 @@ require_dependency "#{Rails.root}/lib/wiki_api/diff_wikitext_extractor"
 class GetRevisionPlaintext
   # changed_wikitext is the wikitext added in a diff (nil for a whole revision),
   # with the references that plain_text drops.
-  attr_reader :plain_text, :article_title, :changed_wikitext
+  # from_rev is the revision a diff was taken from (the parent by default),
+  # 0 for a page's first revision, and nil outside diff mode.
+  attr_reader :plain_text, :article_title, :changed_wikitext, :from_rev
 
   def initialize(mw_rev_id, wiki, diff_mode: true, from_rev: nil)
     @wiki = wiki

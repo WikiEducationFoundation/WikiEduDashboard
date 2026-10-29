@@ -21,6 +21,8 @@
 
 # Alert for suspected AI-generated text on edited pages
 class AiEditAlert < Alert
+  include AiAlertPageType
+
   ####################
   # Alert generation #
   ####################
@@ -216,10 +218,6 @@ class AiEditAlert < Alert
     return :mainspace if page_type == :mainspace
   end
 
-  NO_EMAIL_TYPES = [
-    :bibliography, # Lists of references are where we see false positives
-    :peer_review # This is intended for a fellow student so no need to flag it
-  ].freeze
   def send_alert_emails
     return if NO_EMAIL_TYPES.include? page_type
     return if course&.private # Don't send emails for private courses.
@@ -242,35 +240,6 @@ class AiEditAlert < Alert
 
   def non_exercise_sandbox?
     page_type == :sandbox
-  end
-
-  def page_type # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity
-    case article_title
-    when /Choose an Article/
-      :choose_an_article
-    when /Evaluate an Article/
-      :evaluate_an_article
-    when %r{/Bibliography}
-      :bibliography
-    when %r{/Outline}
-      :outline
-    when /Peer Review/
-      :peer_review
-    when /^User:/ # catchall for other sandboxes
-      :sandbox
-    when /^Draft:/
-      :draft
-    when /^Talk:/
-      :talk_page
-    when /^User talk:/
-      :user_talk
-    when /^Template talk:/
-      :template_talk
-    when /^[^:]+$/ # match titles without ':'
-      :mainspace
-    else
-      :unknown
-    end
   end
 
   # This will only work for mainspace, and might exclude
