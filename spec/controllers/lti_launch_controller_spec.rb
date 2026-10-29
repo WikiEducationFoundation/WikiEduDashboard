@@ -1186,6 +1186,24 @@ describe LtiLaunchController, type: :request do
         expect(response).to have_http_status(:forbidden)
       end
     end
+
+    # Scholars & Scientists cohorts never appear in the picker, so a submitted
+    # slug for one is refused like any other course outside the linkable set.
+    context 'when the chosen course is a Scholars & Scientists cohort' do
+      let!(:cohort) { create(:fellows_cohort, end: 2.months.from_now) }
+
+      before do
+        approve(cohort)
+        CoursesUsers.create!(user: instructor, course: cohort,
+                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+      end
+
+      it 'returns 403 and does not bind' do
+        post '/lti/setup', params: { ltik: 'ltik-abc', course_slug: cohort.slug }
+        expect(response).to have_http_status(:forbidden)
+        expect(binding.reload.course).to be_nil
+      end
+    end
   end
 
   describe 'GET /lti/connect_course' do
