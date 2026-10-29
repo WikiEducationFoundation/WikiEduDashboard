@@ -24,7 +24,7 @@ const Form = (props) => {
     email: props.currentUser.email,
     instructor:
       props.currentUser.permissions !== null
-        ? String(props.currentUser.permission === 2)
+        ? String(props.currentUser.permissions === 2)
         : null,
     sending: false,
   });
