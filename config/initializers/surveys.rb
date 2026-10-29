@@ -9,10 +9,24 @@ Rails.application.config.to_prepare do
     has_many :question_group_conditionals, foreign_key: 'rapidfire_question_group_id'
     has_many :campaigns, through: :question_group_conditionals
     has_and_belongs_to_many :surveys, join_table: 'surveys_question_groups', foreign_key: 'rapidfire_question_group_id'
+
+    # A group on a course application form, or one that applications have
+    # answered, can't be deleted: the answers would lose their questions.
+    before_destroy :refuse_if_used_for_applications
+
+    def used_for_applications?
+      CourseApplicationForm.uses_question_group?(id) ||
+        Rapidfire::AnswerGroup.where(question_group_id: id).where.not(course_application_id: nil).exists?
+    end
+
+    def refuse_if_used_for_applications
+      throw :abort if used_for_applications?
+    end
   end
 
   Rapidfire::AnswerGroup.class_eval do
     belongs_to :user
+    belongs_to :course_application, optional: true
   end
 
   Rapidfire::Answer.class_eval do
@@ -97,7 +111,11 @@ Rails.application.config.to_prepare do
 
     def destroy
       @question_group = Rapidfire::QuestionGroup.find(params[:id])
-      @question_group.destroy
+      # The interface offers no delete for a group used for applications.
+      unless @question_group.destroy
+        render plain: 'This question group is used for course applications.', status: :conflict
+        return
+      end
 
       respond_to do |format|
         format.html { redirect_to question_groups_path }
@@ -136,6 +154,18 @@ Rails.application.config.to_prepare do
     scope :course_data_questions, ->{where("course_data_type <> ''")}
     serialize :alert_conditions, type: Hash
 
+    # Deleting a question would orphan the application answers to it.
+    before_destroy :refuse_if_answered_in_applications
+
+    def answered_in_applications?
+      answers.joins(:answer_group)
+             .where.not(rapidfire_answer_groups: { course_application_id: nil }).exists?
+    end
+
+    def refuse_if_answered_in_applications
+      throw :abort if answered_in_applications?
+    end
+
     def self.for_conditionals(question_id)
       where.not(id: question_id).where("conditionals IS NULL OR conditionals = ''")
     end
@@ -165,6 +195,19 @@ Rails.application.config.to_prepare do
   end
 
   Rapidfire::QuestionsController.class_eval do
+    # The interface offers no delete for a question applications have answered.
+    def destroy
+      unless @question.destroy
+        render plain: 'This question has answers from course applications.', status: :conflict
+        return
+      end
+
+      respond_to do |format|
+        format.html { redirect_to index_location }
+        format.js
+      end
+    end
+
     private
 
     def save_and_redirect(params, on_error_key)
