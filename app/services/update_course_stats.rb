@@ -53,6 +53,7 @@ class UpdateCourseStats
     # to calculate new article stats for each namespace.
     update_wiki_namespace_stats
     log_end_of_update
+    reset_purge_state
   rescue Replica::RequestFailedError => e
     report_replica_failure(e)
   end
@@ -132,6 +133,20 @@ class UpdateCourseStats
     # namespaces that were previously tracked but are no longer tracked.
     UpdateWikiNamespaceStatsTimeslice.new(@course)
     @debugger.log_update_progress :wiki_namespace_stats_updated
+  end
+
+  # A full update gives the course fresh timeslices, so it is neither purgeable nor
+  # finalized anymore: a finalized course's CSVs read the rebuilt timeslices instead of
+  # the stored counts, and MarkPurgeableCourses flags the course again once it was last
+  # updated long enough ago (see CoursePurgeChecks).
+  def reset_purge_state
+    return unless @full_update
+
+    @course.remove_flag(:purgeable) if @course.purgeable?
+    return unless @course.finalized?
+
+    StoreTimesliceEditCounts.clear(@course)
+    @course.remove_flag(:finalized)
   end
 
   def log_end_of_update
