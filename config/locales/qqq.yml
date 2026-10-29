@@ -440,6 +440,9 @@ qqq:
         (Wiki Ed only)
         {{Identical|Subject}}
     current: Label for the list of current courses
+    data_download_generating: Notification message informing the user that their requested
+      export file is currently being generated and they will be notified when it is
+      ready to download.
     delete_course: Button to delete a course
     delete_suggestion: '{{Identical|Delete}}'
     dismiss_survey: |-
