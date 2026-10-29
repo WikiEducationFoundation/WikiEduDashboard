@@ -119,8 +119,16 @@ class ArticleNamespacesManager
   end
 
   def articles_in_tracked_namespaces(article_batch)
-    tracked = @course.tracked_namespaces.map { |wiki_ns| [wiki_ns[:wiki].id, wiki_ns[:namespace]] }
-    article_batch.select { |article| tracked.include?([article.wiki_id, article.namespace]) }
+    article_batch.select do |article|
+      tracked_namespace_pairs.include?([article.wiki_id, article.namespace])
+    end
+  end
+
+  # One manager is created per update, so this is safe to memoize here (unlike on Course,
+  # which can live across multiple update calls and survives #reload without clearing it).
+  def tracked_namespace_pairs
+    @tracked_namespace_pairs ||=
+      @course.tracked_namespaces.map { |wiki_ns| [wiki_ns[:wiki].id, wiki_ns[:namespace]] }
   end
 
   # Articles that have an article course record that was created *after* some of its article
