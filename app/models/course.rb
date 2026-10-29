@@ -351,7 +351,7 @@ class Course < ApplicationRecord
   end
 
   def tracked_namespaces
-    courses_wikis.map do |course_wiki|
+    courses_wikis.includes(:wiki, :course_wiki_namespaces).map do |course_wiki|
       wiki = course_wiki.wiki
       wiki_namespaces = course_wiki.course_wiki_namespaces
       if wiki_namespaces.empty?
