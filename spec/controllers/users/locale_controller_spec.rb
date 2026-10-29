@@ -16,12 +16,23 @@ RSpec.describe Users::LocaleController, type: :request do
       post "/update_locale/#{invalid_locale}"
       expect(response.status).to eq(422)
       expect(user.locale).to eq('fr')
+
+      post '/update_locale/pt-BR'
+      expect(response.status).to eq(422)
     end
 
     it 'updates user locale and returns a 200 or 302 if locale is valid' do
       post "/update_locale/#{valid_locale}"
       expect(response.status).to eq(200).or eq(302)
       expect(user.locale).to eq('es')
+
+      post '/update_locale/pt'
+      expect(response.status).to eq(200).or eq(302)
+      expect(user.reload.locale).to eq('pt')
+
+      post '/update_locale/pt-br'
+      expect(response.status).to eq(200).or eq(302)
+      expect(user.reload.locale).to eq('pt-br')
     end
   end
 end
