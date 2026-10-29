@@ -352,9 +352,12 @@ describe ReportsController, :report_csv_files, type: :request do
 
     it 'includes the private course for an organizer of the campaign' do
       expect(CsvCleanupWorker).to receive(:perform_at)
+      article = create(:article, title: 'Hidden_course_article')
+      create(:article_course_timeslice, course: private_course, article:, revision_count: 1)
       login_as organizer
       csv = download("/campaigns/#{campaign.slug}/articles_csv", request_params)
-      expect(csv).to include('course_slug')
+      expect(csv).to include('Hidden_course_article')
+      expect(csv).to include(private_course.slug)
     end
 
     it 'leaves the private course out of the public report even for an admin' do

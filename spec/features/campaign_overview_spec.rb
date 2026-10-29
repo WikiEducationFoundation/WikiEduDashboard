@@ -148,6 +148,35 @@ describe 'campaign overview page', type: :feature, js: true do
     end
   end
 
+  describe 'the download modal' do
+    let(:checkbox_label) { I18n.t('campaign.data_include_private_courses') }
+
+    def open_download_modal
+      visit "/campaigns/#{campaign.slug}/overview"
+      click_button I18n.t('courses.download_stats_data')
+      expect(page).to have_content I18n.t('campaign.data_download_info')
+    end
+
+    it 'offers private courses to an organizer of the campaign' do
+      create(:campaigns_user, user:, campaign:, role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+      login_as(user)
+      open_download_modal
+      expect(page).to have_field(checkbox_label, type: 'checkbox')
+    end
+
+    it 'offers private courses to an admin' do
+      login_as(create(:admin))
+      open_download_modal
+      expect(page).to have_field(checkbox_label, type: 'checkbox')
+    end
+
+    it 'does not offer them to another signed-in user' do
+      login_as(user)
+      open_download_modal
+      expect(page).to have_no_field(checkbox_label)
+    end
+  end
+
   context 'as a campaign organizer' do
     before do
       create(:campaigns_user, user_id: user.id, campaign_id: campaign.id,

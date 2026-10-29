@@ -33,7 +33,10 @@ class CampaignsController < ApplicationController
                   Campaign.find_by(slug: params[:slug])
                 end
     respond_to do |format|
-      format.json { set_presenter }
+      format.json do
+        set_presenter
+        @editable = current_user&.admin? || user_is_organizer?
+      end
     end
   end
 

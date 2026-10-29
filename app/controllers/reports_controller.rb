@@ -76,17 +76,6 @@ class ReportsController < ApplicationController
     end
   end
 
-  # Campaign reports leave private courses out, because each one is cached once
-  # and served to everyone who asks. The variant that includes them
-  # (include_private=true) is cached under its own name and only generated for
-  # admins and the campaign's organizers; everyone else gets the 404 that
-  # private courses get elsewhere.
-  def require_private_courses_access
-    return unless include_private?
-    return if current_user.admin? || @campaign.organizers.include?(current_user)
-    raise ActionController::RoutingError.new('Not Found'), 'Report not available'
-  end
-
   def campaign_wikidata_csv
     csv_of('campaign_wikidata')
   end
@@ -171,6 +160,17 @@ class ReportsController < ApplicationController
     @campaign = Campaign.find_by(slug: csv_params[:slug])
     return if @campaign
     raise ActionController::RoutingError.new('Not Found'), 'Campaign does not exist'
+  end
+
+  # Campaign reports leave private courses out, because each one is cached once
+  # and served to everyone who asks. The variant that includes them
+  # (include_private=true) is cached under its own name and only generated for
+  # admins and the campaign's organizers; everyone else gets the 404 that
+  # private courses get elsewhere.
+  def require_private_courses_access
+    return unless include_private?
+    return if current_user.admin? || @campaign.organizers.include?(current_user)
+    raise ActionController::RoutingError.new('Not Found'), 'Report not available'
   end
 
   # The retention predictors report is only defined for Scholars & Scientists
