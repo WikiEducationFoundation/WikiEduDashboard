@@ -28,11 +28,11 @@ class Users::EnrollmentController < ApplicationController
     ensure_management_role_is_authorized { return }
     ensure_user_exists { return }
     set_real_name
-    @result = JoinCourse.new(course: @course,
-                             user: @user,
-                             role: enroll_params[:role].to_i,
+    # Admins may add students to a course that takes applications.
+    @result = JoinCourse.new(course: @course, user: @user, role: enroll_params[:role].to_i,
                              role_description: enroll_params[:role_description],
-                             real_name: @real_name).result
+                             real_name: @real_name,
+                             skip_application_check: current_user.admin?).result
     ensure_enrollment_success { return }
 
     alert_staff_if_new_instructor_was_added

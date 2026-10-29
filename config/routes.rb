@@ -254,6 +254,11 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     patch 'courses/:slug/application_form' => 'course_application_forms#update',
           constraints: { slug: /.*/ }
+    # The public Scholars & Scientists apply page. See CourseApplicationsController.
+    get 'courses/:slug/apply' => 'course_applications#show',
+        constraints: { slug: /.*/ }
+    post 'courses/:slug/apply' => 'course_applications#create',
+         constraints: { slug: /.*/ }
     # The unlisted LTI 1.1 credentials page, declared before the courses#show
     # catch-all so it wins. Nothing in the interface links to it; Wiki
     # Education shares the URL with beta instructors who need the 1.1 path.

@@ -43,6 +43,11 @@ class CourseApplicationForm < ApplicationRecord
     question_group_ids_in_use.include?(question_group_id)
   end
 
+  # Open, and for a course that can still take participants.
+  def accepting_applications?
+    open && !course.withdrawn && course.end > Time.zone.now
+  end
+
   # The form's Rapidfire question groups, in form order.
   def question_groups
     groups_by_id = Rapidfire::QuestionGroup.where(id: question_group_ids).index_by(&:id)

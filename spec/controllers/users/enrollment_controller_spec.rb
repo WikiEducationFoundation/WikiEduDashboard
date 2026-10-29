@@ -112,6 +112,35 @@ describe Users::EnrollmentController, type: :request do
       end
     end
 
+    context 'POST with student role, to a course that takes applications' do
+      let(:cohort) { create(:fellows_cohort, slug: 'Wiki_Education/Workshop_(2027)') }
+      let(:post_params) do
+        { id: cohort.slug,
+          user: { username: another_user.username, role: CoursesUsers::Roles::STUDENT_ROLE } }
+      end
+
+      before do
+        cohort.campaigns << Campaign.first
+        CourseApplicationForm.create!(course: cohort)
+        stub_oauth_edit
+        stub_raw_action
+      end
+
+      it 'refuses an instructor who is not an admin' do
+        create(:courses_user, user:, course: cohort, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+        post "/courses/#{cohort.slug}/user", params: post_params
+        expect(subject).to eq(404)
+        expect(cohort.students).to be_empty
+      end
+
+      it 'enrolls the student when an admin adds them' do
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
+        post "/courses/#{cohort.slug}/user", params: post_params
+        expect(subject).to eq(200)
+        expect(cohort.students).to include(another_user)
+      end
+    end
+
     context 'POST with Wiki Ed staff role, when the user is an admin' do
       let(:post_params) do
         { id: course.slug,
