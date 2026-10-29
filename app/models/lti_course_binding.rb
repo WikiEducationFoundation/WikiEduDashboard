@@ -100,6 +100,10 @@ class LtiCourseBinding < ApplicationRecord
   # course_id, but without this validation a duplicate surfaces as an uncaught
   # RecordNotUnique (500); the validation turns it into a handleable error.
   validates :course_id, uniqueness: { allow_nil: true }
+  # Backstop for the setup picker and the 1.1 credentials page, which already
+  # keep these courses out. Checked only when the course changes, so a binding
+  # that predates the rule can still save its other fields.
+  validate :course_allows_lms_integration, if: :will_save_change_to_course_id?
 
   # A binding is identified by its LMS course, not by the resource link that
   # happened to create it (see LtiSession#find_or_create_binding!).
@@ -134,11 +138,13 @@ class LtiCourseBinding < ApplicationRecord
   # The claim rides in a launch token that outlives the launch by 24 hours, so
   # the course may have been deleted since: its key went with it, but a token
   # already minted still names it, and saving a dead course id would fail the
-  # foreign key and 500 inside the iframe. Such a claim is skipped too.
+  # foreign key and 500 inside the iframe. Such a claim is skipped too, as is
+  # one for a course type the integration is not offered for, which would fail
+  # validation the same way.
   def claim_course(claimed_course_id)
     return if claimed_course_id.blank? || course_id.present?
     return if self.class.where.not(id:).exists?(course_id: claimed_course_id)
-    return unless Course.exists?(claimed_course_id)
+    return unless Course.find_by(id: claimed_course_id)&.lms_integration_allowed?
 
     self.course_id = claimed_course_id
   end
@@ -163,6 +169,12 @@ class LtiCourseBinding < ApplicationRecord
   end
 
   private
+
+  def course_allows_lms_integration
+    return if course.nil? || course.lms_integration_allowed?
+
+    errors.add(:course, 'does not support LMS integration')
+  end
 
   def sync_linked_course_flags
     previous_course_id, current_course_id = saved_change_to_course_id
