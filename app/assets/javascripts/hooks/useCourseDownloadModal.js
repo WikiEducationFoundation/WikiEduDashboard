@@ -10,4 +10,3 @@ const useCourseDownloadModal = ({ courseTitle } = {}) => {
 };
 
 export default useCourseDownloadModal;
-

@@ -54,4 +54,3 @@ const useDownloadModal = ({
 };
 
 export default useDownloadModal;
-

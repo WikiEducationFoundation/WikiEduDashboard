@@ -227,4 +227,3 @@ describe('CourseStatsDownloadModal', () => {
     expect(container.querySelector('.course-stats-download-modal')).toBeNull();
   });
 });
-
