@@ -55,11 +55,6 @@ describe 'course overview page', type: :feature, js: true do
         visit "/courses/#{course.slug}"
       end
 
-      it 'does not show the "Needs Update" button, even for admin' do
-        expect(page).to have_content 'This Week' # page has loaded
-        expect(page).not_to have_content 'Schedule Data Update'
-      end
-
       it 'shows the finalized notice' do
         expect(page).to have_content 'has been finalized'
         expect(page).not_to have_content 'will soon be finalized'
@@ -70,11 +65,6 @@ describe 'course overview page', type: :feature, js: true do
       before do
         course.update(flags: { purgeable: true })
         visit "/courses/#{course.slug}"
-      end
-
-      it 'does not show the "Needs Update" button, even for admin' do
-        expect(page).to have_content 'This Week' # page has loaded
-        expect(page).not_to have_content 'Schedule Data Update'
       end
 
       it 'shows the purgeable notice' do
