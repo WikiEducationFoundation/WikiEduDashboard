@@ -375,5 +375,35 @@ describe CourseUserWikiTimeslice, type: :model do
       expect(cu_timeslice.references_count).to eq(0)
       expect(cu_timeslice.revision_count).to eq(4)
     end
+
+    # ArticlesCourses records are only created for the course's tracked namespaces,
+    # so a missing record means the article is outside them.
+    context 'when an article has no articles_courses record' do
+      let(:untracked_ns_article) { create(:article, title: 'Sourdough') }
+      let(:untracked_ns_draft) do
+        create(:article, title: 'Sourdough', namespace: Article::Namespaces::DRAFT)
+      end
+
+      before do
+        create(:article_course_user_wiki_timeslice, course:, article: untracked_ns_article,
+               wiki:, user:, start:, end: start + 1.day, revision_count: 3,
+               character_sum: 4213, references_count: 7)
+        create(:article_course_user_wiki_timeslice, course:, article: untracked_ns_draft,
+               wiki:, user:, start:, end: start + 1.day, revision_count: 2,
+               character_sum: 812, references_count: 0)
+      end
+
+      it 'excludes mainspace articles from character_sum_ms and references_count' do
+        cu_timeslice.update_cache_from_acuwt(acuwt_records)
+        expect(cu_timeslice.character_sum_ms).to eq(100)
+        expect(cu_timeslice.references_count).to eq(3)
+      end
+
+      # Matches the legacy path, which doesn't filter draft characters by namespace.
+      it 'still includes draft articles in character_sum_draft' do
+        cu_timeslice.update_cache_from_acuwt(acuwt_records)
+        expect(cu_timeslice.character_sum_draft).to eq(225 + 812)
+      end
+    end
   end
 end

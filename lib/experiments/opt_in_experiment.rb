@@ -43,8 +43,9 @@ class OptInExperiment
   # with keys: :title, :message, :consent_form, :opt_in, :opt_out,
   # :install_title, :install_explanation, :install_message, :install_button,
   # :install_copy_button, :install_copied, :install_verify_button,
-  # :install_not_found (the :message, :consent_form, :install_explanation and
-  # :install_message values are Markdown).
+  # :install_not_found, and optionally :install_help (the :message,
+  # :consent_form, :install_explanation, :install_message and :install_help
+  # values are Markdown).
   def student_invitation_copy
     raise NotImplementedError
   end
@@ -100,6 +101,21 @@ class OptInExperiment
     :opted_out
   end
 
+  # A user's student enrollments that this experiment has, or could have, a
+  # participation record for, each mapped to that record (nil when the student
+  # has not responded).
+  def student_participations(user)
+    student_enrollments(user).index_with { |courses_user| participation(courses_user) }
+  end
+
+  # Opts a student out on their behalf (from the admin page, at their request)
+  # in every course this experiment covers, including eligible courses they
+  # have not been invited in yet, so a later instructor opt-in does not invite
+  # them. Only this experiment's records are touched.
+  def opt_out_student(user)
+    student_enrollments(user).each { |courses_user| handle_student_opt_out(courses_user) }
+  end
+
   # Announce a confirmed opt-in to the experiment's external data collection
   # server, if it has one. Called asynchronously (ExperimentEnrollmentWorker)
   # after the student opts in; must be safe to retry.
@@ -140,6 +156,13 @@ class OptInExperiment
   end
 
   private
+
+  # Includes an ineligible course only if the student already has a record for
+  # it, e.g. one whose term changed after they responded.
+  def student_enrollments(user)
+    user.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE).includes(:course)
+        .select { |cu| eligible_course?(cu.course) || participation(cu) }
+  end
 
   def tag_instructed_courses(user, value)
     eligible_instructed_courses(user).each do |course|

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/roster"
+
 # Bundles the data for the in-Canvas assignment view of the peer-review
 # (LtiLineItem::PEER_REVIEW_TYPE) gradebook column. Instructors see each
 # connected student's reviews-done count; a student sees their own reviews, each
@@ -54,9 +56,6 @@ class PeerReviewAssignmentViewContext
   # itself, the way the article columns show each student's assigned article
   # (operator decision 2026-08-04).
   #
-  # A progress object each: the review statuses live in per-assignment `flags`,
-  # so there is no grouped query to batch them into — and this is one row per
-  # student, not per revision.
   def roster
     student_contexts.map { |context| row_for(context.user) }
   end
@@ -89,7 +88,16 @@ class PeerReviewAssignmentViewContext
     return if user.nil?
 
     @progress_for ||= {}
-    @progress_for[user.id] ||= LtiPeerReviewProgress.new(@course, user)
+    @progress_for[user.id] ||=
+      LtiPeerReviewProgress.new(@course, user,
+                                assignments: progress_roster.assignments_for(user.id))
+  end
+
+  # Every student's assignments, loaded once for the roster plus the viewer.
+  def progress_roster
+    @progress_roster ||= StudentProgress::Roster.new(
+      course: @course, user_ids: student_contexts.map(&:user_id) + [@user&.id]
+    )
   end
 
   # Wikipedia-linked learners on this binding, ordered for a stable roster —

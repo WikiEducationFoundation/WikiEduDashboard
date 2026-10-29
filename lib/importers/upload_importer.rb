@@ -64,8 +64,13 @@ class UploadImporter
 
   def self.import_uploads(uploads)
     ActiveRecord::Base.transaction do
-      uploads.each do |file|
-        import_upload(file)
+      uploads.each_slice(1000) do |batch|
+        ids = batch.map { |file| file['pageid'] }
+        existing_ids = CommonsUpload.where(id: ids).pluck(:id).to_set
+        batch.each do |file|
+          next if existing_ids.include?(file['pageid'])
+          import_upload(file)
+        end
       end
     end
   end
@@ -113,19 +118,18 @@ class UploadImporter
 
   def self.save_usage_counts(usage_counts)
     ActiveRecord::Base.transaction do
-      usage_counts.each do |id, count|
-        file = CommonsUpload.find(id)
-        file.usage_count = count
+      CommonsUpload.where(id: usage_counts.keys).find_each do |file|
+        file.usage_count = usage_counts[file.id]
         file.save
       end
     end
   end
 
   def self.import_urls(file_urls)
+    files = CommonsUpload.where(id: file_urls.map { |file_url| file_url['pageid'] }).index_by(&:id)
     ActiveRecord::Base.transaction do
       file_urls.each do |file_url|
-        id = file_url['pageid']
-        file = CommonsUpload.find(id)
+        file = files[file_url['pageid']]
         file.thumburl = file_url['imageinfo'][0]['thumburl']
         file.thumbwidth = file_url['imageinfo'][0]['thumbwidth']
         file.thumbheight = file_url['imageinfo'][0]['thumbheight']

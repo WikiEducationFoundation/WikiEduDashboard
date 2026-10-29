@@ -59,6 +59,7 @@ const fetchResponseToJSON = (res) => {
 
 const resolveAlertPromise = (alertId) => {
   return request(`/alerts/${alertId}/resolve.json`, {
+    method: 'PUT',
     credentials: 'include'
   }).then(fetchResponseToJSON)
     .catch((error) => {

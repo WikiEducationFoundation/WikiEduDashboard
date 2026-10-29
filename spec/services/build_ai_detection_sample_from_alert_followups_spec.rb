@@ -22,7 +22,8 @@ describe BuildAiDetectionSampleFromAlertFollowups do
 
   before do
     allow(GetRevisionPlaintext).to receive(:new)
-      .and_return(instance_double(GetRevisionPlaintext, plain_text: text))
+      .and_return(instance_double(GetRevisionPlaintext, plain_text: text,
+                                  changed_wikitext: 'Added wikitext.'))
   end
 
   it 'adds alerted edits with a follow-up, recording the self-report without trusting it' do

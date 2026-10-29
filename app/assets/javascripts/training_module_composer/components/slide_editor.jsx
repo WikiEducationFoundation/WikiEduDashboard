@@ -17,12 +17,23 @@ const collisionMessage = (collision, slug) => {
   return null;
 };
 
-const SlideEditor = ({ slide, index, moduleId, onChange, collision }) => {
+// In an update draft, a slide copied from the module keeps its file, and a
+// new slide's id is assigned at export.
+const slideFilename = ({ index, moduleId, isUpdate, sourceSlide, slug }) => {
+  if (sourceSlide) return sourceSlide.filename;
+  const id = isUpdate || !moduleId ? '—' : String(moduleId * 100 + index + 1).padStart(4, '0');
+  return `${id}-${slug || 'slug'}.yml`;
+};
+
+const SlideEditor = ({ slide, index, moduleId, isUpdate, sourceSlide, onChange, collision }) => {
   const derivedSlug = useMemo(() => slugifyTitle(slide.title), [slide.title]);
   const effectiveSlug = slide.slug || derivedSlug;
   const previewHtml = useMemo(() => md.render(slide.content || ''), [slide.content]);
-  const slideId = moduleId ? moduleId * 100 + index + 1 : null;
-  const filename = `${slideId ? String(slideId).padStart(4, '0') : '—'}-${effectiveSlug || 'slug'}.yml`;
+  const filename = slideFilename({ index, moduleId, isUpdate, sourceSlide, slug: effectiveSlug });
+  // A copied slide keeps its slug: the exported zip can't remove the file a
+  // rename would leave behind.
+  const sharedWith = sourceSlide?.shared_with || [];
+  const preservedKeys = sourceSlide?.preserved_keys || [];
   const [cheatsheetOpen, setCheatsheetOpen] = useState(false);
   const toggleCheatsheet = () => setCheatsheetOpen(open => !open);
   const [imagePickerOpen, setImagePickerOpen] = useState(false);
@@ -49,8 +60,9 @@ const SlideEditor = ({ slide, index, moduleId, onChange, collision }) => {
 
   const handleTitleChange = (event) => {
     const newTitle = event.target.value;
-    // If the slug hasn't been customized (matches old derivedSlug), follow the title.
-    const nextSlug = (!slide.slug || slide.slug === slugifyTitle(slide.title))
+    // If the slug hasn't been customized (matches old derivedSlug), follow the
+    // title — unless the slide was copied from the module, which keeps its slug.
+    const nextSlug = (!sourceSlide && (!slide.slug || slide.slug === slugifyTitle(slide.title)))
       ? slugifyTitle(newTitle)
       : slide.slug;
     onChange({ title: newTitle, slug: nextSlug });
@@ -77,6 +89,7 @@ const SlideEditor = ({ slide, index, moduleId, onChange, collision }) => {
             value={slide.slug || ''}
             placeholder={derivedSlug}
             onChange={e => onChange({ slug: e.target.value })}
+            readOnly={Boolean(sourceSlide)}
           />
           {collision ? (
             <small className="training_module_composer__collision">
@@ -87,6 +100,23 @@ const SlideEditor = ({ slide, index, moduleId, onChange, collision }) => {
           )}
         </div>
       </div>
+
+      {(sharedWith.length > 0 || preservedKeys.length > 0) && (
+        <div className="training_module_composer__editor__source_notes">
+          {sharedWith.length > 0 && (
+            <small>
+              Also used in:{' '}
+              {sharedWith.map(m => <code key={m}>{m}</code>)}
+            </small>
+          )}
+          {preservedKeys.length > 0 && (
+            <small>
+              Kept unchanged:{' '}
+              {preservedKeys.map(k => <code key={k}>{k}</code>)}
+            </small>
+          )}
+        </div>
+      )}
 
       <div className="training_module_composer__editor__panes">
         <div className="training_module_composer__field training_module_composer__editor__source">

@@ -19,6 +19,13 @@ an exported CSV.
 - **Sample**: a named set of text units in `ai_detection_samples`, each holding the
   exact text sent to detectors and where it came from (wiki, revision, diff, term), or
   just the text for units that did not come from a wiki revision.
+- **Source text**: the unit's text as written, before it was cleaned for the detectors,
+  with its citations and references, for later analysis such as claim verification.
+  `source_format` says what it is: `wikitext` (revision units get it automatically: the
+  wikitext a diff added, or the whole revision's), `markdown` (Agpedia), or `model_reply`
+  (a model's whole reply, from which the cleaned text was extracted). Rows can carry
+  `source_text` and `source_format` columns. Units built before October 2026 were
+  backfilled with `backfill_source_text.rb`.
 - **Ground truth and provenance**: `ground_truth` is what we know about how the text was
   produced (`human`, `ai`, `ai_assisted`, or blank for unknown); `provenance` is how we
   know it (`pre_llm_term`, `staff_confirmed`, `experiment`, `synthetic`, `self_report`, or
@@ -132,7 +139,9 @@ ExportAiDetectionComparison.new(sample_names: %w[terms_2021_2025_march recent_20
 One row per unit and detector, with the unit's identity and ground truth followed by
 the shared summary keys. Rows imported from the March CSV carry their summary
 directly; failed calls appear with an `error` column and no scores. Copy the file to
-your machine for analysis.
+your machine for analysis. `include_text: true` adds `plain_text`, `source_format` and
+`source_text` columns; they are large and repeat on every detector row, so they are
+left out by default.
 
 ## Exemplars and challenge cases
 
@@ -150,6 +159,81 @@ factors so recall can be reported per cell: `model` (frontier, free tier, older)
 `ai_assisted`), `post_processing` (none; an automated humanizer; light human edits), and
 `topic` shared with a known-human unit so the pair controls for subject. Keep Originality
 to a subset of exemplars; Pangram can run on all of them.
+
+### Building exemplars (`exemplars/`)
+
+These scripts run on a workstation and write CSVs for `BuildAiDetectionSampleFromRows`;
+their output stays outside the repo (`~/detector_exemplars/` by convention).
+
+- `generate_texts.py` generates texts per (model, condition, topic) through tools already
+  installed locally: Claude Code, Codex, Antigravity or the Gemini API, and Ollama for
+  open-weight models. Each tool's own system prompt is replaced with a neutral one, and
+  tools are off except in the web conditions. `CONDITIONS` changes one thing at a time
+  from the base prompts: requested length, web access, a human-written or ChatGPT-written
+  prompt, or Wiki Education's three-turn assignment flow (bibliography, outline of changes
+  to the article as it stood before the student's term, draft) in its own training-module
+  wording. Prompts written outside the script are kept verbatim in `exemplars/prompts/`:
+  `human_prompts.txt` (separated by `===` lines, rotated across topics) and
+  `chatgpt_prompt.txt`. Every call is stored as JSON with its prompts and raw replies, so
+  runs resume where they stopped; `--assemble` extracts the draft a student would paste
+  (dropping chat framing, advice, reference lists and markup) into the builder CSV. It
+  also drops the notes models wrap around a draft about the edit itself (scope, what is
+  missing, notes before publication). Codex runs with ChatGPT workspace apps off
+  (`features.apps=false`): with them on, Codex reached the web and ChatGPT pages even with
+  web search disabled, and the runs that did so are kept apart in the observed-only
+  condition `assignment_apps_web`.
+- `collect_agpedia.py` collects Agpedia articles (agent-written, CC0) as full-article and
+  lead units pinned to a revision, skipping articles with direct operator edits, and
+  archives each revision's markdown and rendered page.
+- `source_texts.py` writes the source texts for those units (the model's whole reply, or
+  the Agpedia markdown) for `backfill_source_text.rb`, and with `prompts` the prompts each
+  generated text came from, for `backfill_prompts_from_csv` in the same script.
+
+When a regenerated CSV changes the cleaned text or labels of a sample already built in
+production, `sync_sample_from_csv.rb` brings the sample in line: units whose text is no
+longer in the CSV move to a retired sample name with their scores attached, unchanged units
+take the CSV's current notes and factors, and new texts are added by the usual builder.
+
+### Open Pangram (`analysis/score_open_pangram.py`)
+
+Scores unit texts offline with Pangram's open EditLens models (RoBERTa-large and a
+Llama 3.2 3B adapter), for research only: they are licensed CC BY-NC-SA and Pangram says
+not to use them to enforce AI policy in education. It imports EditLens's text cleaning from
+a local clone of https://github.com/pangramlabs/EditLens rather than copying that code
+here, scores long texts in windows, and writes rows in the export's format (`--merge-with`
+adds them to an export for `analyze.py`). On 900 texts from EditLens's own validation and
+test splits it reproduces Pangram's published results (human vs AI-generated macro F1
+0.995 for RoBERTa against 0.997 reported).
+
+Open Pangram scores reach the Dashboard through `ImportOfflineDetectorScores`, which takes a
+score file from `score_open_pangram.py` (or any offline detector writing the same columns)
+and stores each row against every unit with that text:
+
+```ruby
+importer = ImportOfflineDetectorScores.new(path: '/home/sage/all_units_llama_2026-10-12.csv')
+[importer.imported, importer.unmatched]
+```
+
+## The comparison page
+
+`/detector_comparison` (public, on the Wiki Education Dashboard) presents the known-AI samples
+(provenance `synthetic` or `agpedia`) and the human baseline texts they are paired with.
+Each text has its own page with the text, Pangram's windows marked on it, every detector's
+result, the prompts and the text as written. For a new generated sample, run the source and
+prompt backfills after building it; units in samples whose names end in `_retired` are
+left out.
+
+The page serves a published snapshot, not the database: new samples and scores appear
+only after publishing, in a Rails console (about 15 seconds for ~1,800 texts):
+
+```ruby
+PublishDetectorComparison.new.counts
+```
+
+Each publication is a directory under `detector_comparison_snapshots/` (a shared directory
+on the server), and `current` points to the newest; the last three are kept. The
+introduction and conclusions in `config/detector_comparison_page.yml` are read on each
+request, so they change on deploy without publishing.
 
 ## 4. Analyze
 
@@ -172,6 +256,22 @@ linking to both vendors' reports, a per-case report of challenge cases with each
 detector's verdict, a list of self-reported false positives a detector still flags (for
 a human to confirm, never taken as truth), a slope chart for `--pair-by`, a wide CSV of
 max scores, and `summary.md` with the tables.
+
+### Readout
+
+`readout.py` judges each detector by its own verdict on the human baseline and on each part
+of the October 2026 challenge set, with the Dashboard's alert rule as an extra column, exact
+95% intervals, recall at thresholds calibrated to flag a fixed share of the baseline, and the
+term samples against those thresholds. It reads Open Pangram score files directly, and
+writes markdown and JSON:
+
+```sh
+.venv/bin/python readout.py ~/detector_comparison_2026-10.csv \
+    --open-pangram ~/open_pangram_roberta.csv ~/open_pangram_llama.csv \
+    --markdown ~/detector_results/readout.md --json ~/detector_results/readout.json
+```
+
+Baseline texts that appear in more than one sample are counted once per detector.
 
 ### Cutover questions
 

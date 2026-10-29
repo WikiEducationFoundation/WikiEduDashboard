@@ -52,6 +52,7 @@ class Assignment < ApplicationRecord
   serialize :flags, type: Hash
 
   delegate :status, to: :assignment_pipeline
+  delegate :status_updated_at, to: :assignment_pipeline
   delegate :update_status, to: :assignment_pipeline
   delegate :all_statuses, to: :assignment_pipeline
   delegate :draft_sandbox_status, to: :assignment_pipeline

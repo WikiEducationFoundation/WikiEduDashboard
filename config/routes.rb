@@ -22,9 +22,9 @@ Rails.application.routes.draw do
     # So, we treat it as a login error.
     get 'sign_in', to: 'errors#login_error', as: :new_user_session
 
-    get 'sign_out', to: 'users#signout', as: :destroy_user_session
-    get 'sign_out_oauth', to: 'devise/sessions#destroy',
-                          as: :true_destroy_user_session
+    delete 'sign_out', to: 'users#signout', as: :destroy_user_session
+    # Signing out takes a DELETE; old links and bookmarks just go home.
+    get 'sign_out', to: redirect('/')
   end
 
   get '/settings/all_admins' => 'settings#all_admins'
@@ -58,18 +58,37 @@ Rails.application.routes.draw do
   post '/settings/update_site_notice' => 'settings#update_site_notice'
 
 
-  # Griddler allows us to receive incoming emails. By default,
-  # the path for incoming emails is /email_processor
-  mount_griddler
+  # Griddler allows us to receive incoming emails. The path for incoming
+  # emails is /email_processor; InboundEmailsController checks Mailgun's
+  # signature before handing them to Griddler.
+  post '/email_processor' => 'inbound_emails#create', as: :email_processor
 
   #UserProfilesController
   controller :user_profiles do
-    get 'users/:username/taught_courses_articles' => 'user_profiles#taught_courses_articles', constraints: { username: /.*/ }
+    get 'users/:username/taught_courses_articles' => 'user_profiles#taught_courses_articles',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    get 'users/:username/user_articles' => 'user_profiles#user_articles',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    get 'users/:username/stats' => 'user_profiles#stats',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    get 'users/:username/stats_graphs' => 'user_profiles#stats_graphs',
+        constraints: { username: /[^\/]+/, format: 'json' }
+    delete 'users/:username/profile_image' => 'user_profiles#delete_profile_image',
+           as: 'delete_profile_image', constraints: { username: /[^\/]+/ }
+    get 'users/:username/update_email_preferences' => 'user_profiles#update_email_preferences',
+        constraints: { username: /[^\/]+/ }
+    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences',
+        constraints: { username: /.*/ }
+    get 'users/:username/stats/:metric' => 'user_profiles#show',
+        constraints: { username: /[^\/]+/, metric: /[^\/]+/ }
+    get 'users/:username/:profile_section' => 'user_profiles#show',
+        constraints: {
+          username: /[^\/]+/,
+          profile_section: /course-details|uploads|training/
+        }
     get 'users/:username' => 'user_profiles#show' , constraints: { username: /.*/ }
-    get 'user_stats' => 'user_profiles#stats'
-    get 'stats_graphs' => 'user_profiles#stats_graphs'
-    delete 'profile_image' => 'user_profiles#delete_profile_image', as: 'delete_profile_image', constraints: { username: /.*/ }
-    get 'update_email_preferences/:username' => 'user_profiles#update_email_preferences', constraints: { username: /.*/ }
+    post 'users/update' => 'user_profiles#update', as: 'update_user_profile'
+    patch 'users/update' => 'user_profiles#update'
     post 'users/update/:username' => 'user_profiles#update' , constraints: { username: /.*/ }
   end
 
@@ -82,9 +101,9 @@ Rails.application.routes.draw do
   # Users
   resources :users, only: [:index, :show], param: :username, constraints: { username: /.*/ }
 
-  resources :assignments do
+  resources :assignments, only: [:create, :destroy] do
     patch '/status' => 'assignments#update_status'
-    resources :assignment_suggestions
+    resources :assignment_suggestions, only: [:create, :destroy]
   end
   patch '/assignments/:id/update_sandbox_url' => 'assignments#update_sandbox_url'
   put '/assignments/:assignment_id/claim' => 'assignments#claim'
@@ -134,6 +153,10 @@ Rails.application.routes.draw do
   get 'course_flags/show' => 'course_flags#show'
   post 'course_flags/update' => 'course_flags#update'
 
+  # Purge one course's timeslices by hand (admin only)
+  get 'purge_courses' => 'purge_courses#show'
+  post 'purge_courses' => 'purge_courses#purge'
+
   # Self-enrollment: joining a course by entering a passcode or visiting a url
   get 'courses/:course_id/enroll/(:passcode)' => 'self_enrollment#enroll_self',
       constraints: { course_id: /.*/ }
@@ -177,14 +200,11 @@ Rails.application.routes.draw do
 
   # Courses
   controller :courses do
-    get 'courses/new' => 'courses#new',
-        constraints: { id: /.*/ } # repeat of resources
-
     get 'courses/*id/manual_update' => 'courses#manual_update',
         :as => :manual_update, constraints: { id: /.*/ }
-    get 'courses/*id/notify_untrained' => 'courses#notify_untrained',
+    post 'courses/*id/notify_untrained' => 'courses#notify_untrained',
         :as => :notify_untrained, constraints: { id: /.*/ }
-    get 'courses/*id/needs_update' =>  'courses#needs_update',
+    put 'courses/*id/needs_update' =>  'courses#needs_update',
         :as => :needs_update, constraints: { id: /.*/ }
     get 'courses/*id/ores_plot' =>  'ores_plot#course_plot',
         constraints: { id: /.*/ }
@@ -223,6 +243,10 @@ Rails.application.routes.draw do
     get 'courses/:slug/alerts.json' => 'courses#alerts',
         constraints: { slug: /.*/ }
     get 'courses/:slug/lms_integration_status.json' => 'lms_integration_status#show',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/assignment_progress.json' => 'courses/assignment_progress#index',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/assignment_progress.csv' => 'courses/assignment_progress#csv',
         constraints: { slug: /.*/ }
     # The unlisted LTI 1.1 credentials page, declared before the courses#show
     # catch-all so it wins. Nothing in the interface links to it; Wiki
@@ -275,9 +299,8 @@ Rails.application.routes.draw do
   end
 
   # Course Notes
-  resources :admin_course_notes, constraints: { id: /\d+/ } do
-    get 'find_course_note', on: :member
-  end
+  resources :admin_course_notes, only: [:show, :create, :update, :destroy],
+                                 constraints: { id: /\d+/ }
 
   # Categories
   post 'categories' => 'categories#add_categories'
@@ -288,17 +311,10 @@ Rails.application.routes.draw do
   get 'lookups/tag(.:format)' => 'lookups#tag'
 
   # Timeline
-  resources :courses, constraints: { id: /.*/ } do
-    resources :weeks, only: [:index, :new, :create], constraints: { id: /.*/ }
-    # get 'courses' => 'courses#index'
-  end
-  resources :weeks, only: [:index, :show, :edit, :update, :destroy]
-  resources :blocks, only: [:show, :edit, :update, :destroy]
+  resources :courses, only: [:create, :show, :update, :destroy], constraints: { id: /.*/ }
+  resources :weeks, only: [:destroy]
+  resources :blocks, only: [:destroy]
   post 'courses/:course_id/timeline' => 'timeline#update_timeline',
-       constraints: { course_id: /.*/ }
-  post 'courses/:course_id/enable_timeline' => 'timeline#enable_timeline',
-       constraints: { course_id: /.*/ }
-  post 'courses/:course_id/disable_timeline' => 'timeline#disable_timeline',
        constraints: { course_id: /.*/ }
 
   post 'articles/:article_id/revision_score' => 'articles#revision_score'
@@ -341,6 +357,8 @@ Rails.application.routes.draw do
   # Scholars & Scientists report cards (admin-only, Wiki Education Dashboard only)
   get 'report_cards' => 'report_cards#index'
   get 'report_cards/:campaign_slug' => 'report_cards#show'
+  # Courses that have installed the Canvas (LTI) integration (admin-only)
+  get 'lti_integrations' => 'lti_integrations#index'
 
   # Reports generated in background
   # Course reports
@@ -359,6 +377,7 @@ Rails.application.routes.draw do
   get 'campaigns/:slug/instructors' => 'reports#campaign_instructors_csv'
   get 'campaigns/:slug/courses' => 'reports#campaign_courses_csv'
   get 'campaigns/:slug/articles_csv' => 'reports#campaign_articles_csv'
+  get 'campaigns/:slug/all_csv' => 'reports#campaign_all_csv'
   get 'campaigns/:slug/wikidata' => 'reports#campaign_wikidata_csv'
 
   # Campaigns
@@ -385,16 +404,12 @@ Rails.application.routes.draw do
       controller: :campaigns,
       action: :show
   get 'campaigns/:slug', to: redirect('campaigns/%{slug}/programs')
-  get 'campaigns/:slug/programs/:courses_query',
-      controller: :campaigns,
-      action: :programs,
-      to: 'campaigns/%{slug}/programs?courses_query=%{courses_query}'
   get 'campaigns/:slug/ores_data.json' =>  'ores_plot#campaign_plot'
   get 'current_term(/:subpage)' => 'campaigns#current_term'
   get 'campaigns/:slug/refresh' => 'campaigns#refresh_stats'
 
   # Courses by tag
-  resources :tagged_courses, param: :tag, except: :show do
+  resources :tagged_courses, param: :tag, only: [] do
     member do
       get 'programs'
       get 'articles'
@@ -433,6 +448,7 @@ Rails.application.routes.draw do
   get 'training_modules_users' => 'training_modules_users#index'
   post 'training_modules_users' => 'training_modules_users#create_or_update'
   post 'training_modules_users/exercise' => 'training_modules_users#mark_exercise_complete'
+  post 'training_modules_users/verify_exercise_article' => 'training_modules_users#verify_exercise_article'
   get 'reload_trainings' => 'training#reload'
 
   get 'training_status' => 'training_status#show'
@@ -452,13 +468,16 @@ Rails.application.routes.draw do
   get 'find_training_slide/:slide_id' => 'training#find_slide'
 
   # Training module composer (admin-only): compose new training modules as
-  # yml-file drafts, then export as a zip of production-layout files.
+  # yml-file drafts, then export as a zip of production-layout files. Drafts
+  # copied from an existing module export only the files that changed.
   get 'training_module_drafts' => 'training_module_drafts#index'
   post 'training_module_drafts' => 'training_module_drafts#create'
   # Static subpaths must come before the :slug-parameterized routes so they
   # aren't captured as draft slugs.
   get 'training_module_drafts/existing_slide_slugs' => 'training_module_drafts#existing_slide_slugs'
   post 'training_module_drafts/parse_paste' => 'training_module_drafts#parse_paste'
+  get 'training_module_drafts/existing_modules' => 'training_module_drafts#existing_modules'
+  post 'training_module_drafts/copy' => 'training_module_drafts#copy'
   get 'training_module_drafts/:slug/export' => 'training_module_drafts#export',
       constraints: { slug: %r{[^/.]+} }, as: :export_training_module_draft
   get 'training_module_drafts/:slug/collisions' => 'training_module_drafts#collisions',
@@ -475,7 +494,6 @@ Rails.application.routes.draw do
   # Misc
   # get 'courses' => 'courses#index'
   get 'explore' => 'explore#index'
-  get 'explore/search' => 'explore#search'
   get 'unsubmitted_courses' => 'unsubmitted_courses#index'
   get 'active_courses' => 'active_courses#index'
   get '/courses_by_wiki/:language.:project(.org)' => 'courses_by_wiki#show'
@@ -512,7 +530,6 @@ Rails.application.routes.draw do
       get 'handle_special_faq_query'  # Defines a route for a specific FAQ instance
     end
   end
-  get '/faq/test' => 'faq#test'
   get '/faq_topics' => 'faq_topics#index'
   get '/faq_topics/new' => 'faq_topics#new'
   post '/faq_topics' => 'faq_topics#create'
@@ -575,7 +592,7 @@ Rails.application.routes.draw do
   if Features.wiki_ed?
     put '/salesforce/link/:course_id' => 'salesforce#link'
     put '/salesforce/update/:course_id' => 'salesforce#update'
-    get '/salesforce/create_media' => 'salesforce#create_media'
+    post '/salesforce/create_media' => 'salesforce#create_media'
   end
 
   # Wikimedia Event Center
@@ -585,12 +602,6 @@ Rails.application.routes.draw do
 
   # Experiments
   namespace :experiments do
-    get 'fall2017_cmu_experiment/:course_id/:email_code/opt_in' => 'fall2017_cmu_experiment#opt_in'
-    get 'fall2017_cmu_experiment/:course_id/:email_code/opt_out' => 'fall2017_cmu_experiment#opt_out'
-    get 'fall2017_cmu_experiment/course_list' => 'fall2017_cmu_experiment#course_list'
-    get 'spring2018_cmu_experiment/:course_id/:email_code/opt_in' => 'spring2018_cmu_experiment#opt_in'
-    get 'spring2018_cmu_experiment/:course_id/:email_code/opt_out' => 'spring2018_cmu_experiment#opt_out'
-    get 'spring2018_cmu_experiment/course_list' => 'spring2018_cmu_experiment#course_list'
 
     # Generic opt-in research experiments (e.g. the Fall 2026 study). The
     # invitation lookup is slug-less (it discovers the active experiment for the
@@ -605,11 +616,15 @@ Rails.application.routes.draw do
     get ':experiment_slug/instructor_optin' => 'instructor_opt_in#show'
     post ':experiment_slug/instructor_optin/opt_in' => 'instructor_opt_in#opt_in'
     post ':experiment_slug/instructor_optin/opt_out' => 'instructor_opt_in#opt_out'
+
+    # Admin page for opting a student out of one experiment by username.
+    get ':experiment_slug/student_opt_out' => 'student_opt_out#show'
+    post ':experiment_slug/student_opt_out' => 'student_opt_out#opt_out'
   end
 
-  resources :admin
-  resources :alerts_list
-  resources :revision_ai_scores_stats
+  resources :admin, only: [:index]
+  resources :alerts_list, only: [:index, :show]
+  resources :revision_ai_scores_stats, only: [:index]
 
   # AI alerts stats
   get 'ai_edit_alerts_stats/select_campaign' => 'ai_edit_alerts_stats#select_campaign'
@@ -622,6 +637,13 @@ Rails.application.routes.draw do
   get 'claim_verification' => 'claim_verification#index'
   get 'claim_verification/status' => 'claim_verification#status'
   post 'claim_verification/harvest' => 'claim_verification#harvest'
+
+  # AI detector comparison data (public, Wiki Ed only)
+  get 'detector_comparison' => 'detector_comparison#index'
+  get 'detector_comparison/topics' => 'detector_comparison#topics'
+  get 'detector_comparison/known_human' => 'detector_comparison#known_human'
+  get 'detector_comparison/units/:id' => 'detector_comparison#unit'
+  get 'detector_comparison/topics/:topic' => 'detector_comparison#topic'
 
   # AI tools for admins
   get 'ai_tools' => 'ai_tools#show'

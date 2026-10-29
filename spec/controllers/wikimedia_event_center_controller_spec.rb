@@ -70,6 +70,23 @@ describe WikimediaEventCenterController, type: :request do
       end
     end
 
+    context 'when no secret is configured and none is sent' do
+      let(:secret) { nil }
+
+      around do |example|
+        saved = ENV.delete('WikimediaCampaignsPlatformSecret')
+        example.run
+      ensure
+        ENV['WikimediaCampaignsPlatformSecret'] = saved
+      end
+
+      it 'refuses the request' do
+        subject
+        expect(JSON.parse(response.body)['error_code']).to eq('invalid_secret')
+        expect(course.reload.flags[:event_sync]).to be_nil
+      end
+    end
+
     context 'when the course does not exist' do
       let(:course_slug) { 'not-a-course' }
 

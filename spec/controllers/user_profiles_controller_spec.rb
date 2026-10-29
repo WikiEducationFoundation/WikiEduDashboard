@@ -59,9 +59,10 @@ describe UserProfilesController, type: :request do
                               role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
       end
 
-      it 'displays the profile navbar' do
+      it 'renders the profile react root with instructor flags' do
         get route, params: { username: user.username }
-        expect(response).to render_template(partial: '_profile_nav')
+        expect(response.body).to include("id='react_root'")
+        expect(response.body).to include('&quot;instructor&quot;: true')
       end
     end
 
@@ -74,9 +75,10 @@ describe UserProfilesController, type: :request do
                               role: CoursesUsers::Roles::STUDENT_ROLE)
       end
 
-      it 'displays the profile navbar' do
+      it 'renders the profile react root with student flags' do
         get route, params: { username: user.username }
-        expect(response).to render_template(partial: '_profile_nav')
+        expect(response.body).to include("id='react_root'")
+        expect(response.body).to include('&quot;student&quot;: true')
       end
     end
 
@@ -84,15 +86,16 @@ describe UserProfilesController, type: :request do
       let(:course) { create(:course) }
       let(:user) { create(:user) }
 
-      it 'does not display the profile navbar' do
+      it 'does not render react root and shows no course message' do
         get route, params: { username: user.username }
-        expect(response).not_to render_template(partial: '_profile_nav')
+        expect(response.body).not_to include("id='react_root'")
+        expect(response.body).to include(I18n.t('courses.nocourse'))
       end
     end
   end
 
   describe '#delete_profile_image' do
-    let(:route) { '/profile_image' }
+    let(:route) { "/users/#{user.username}/profile_image" }
 
     context 'user profile is of the current user' do
       let(:user) { create(:user) }
@@ -139,7 +142,7 @@ describe UserProfilesController, type: :request do
   end
 
   describe '#update' do
-    let(:route) { "/users/update/#{user.username}" }
+    let(:route) { '/users/update' }
 
     context 'user profile is of the current user' do
       let(:user) { create(:user, email: 'fake_email@gmail.com') }
@@ -196,6 +199,23 @@ describe UserProfilesController, type: :request do
                                               user_id: profile.user_id,
                                               image_file_link: file_link } }
         expect(user.user_profile.image_file_link).to eq(file_link)
+      end
+
+      it 'shows a helpful message when ImageMagick is missing' do
+        file = fixture_file_upload('wiki-logo.png', 'image/png')
+        error_msg = 'Could not run the `identify` command. Please install ImageMagick.'
+        allow_any_instance_of(UserProfile)
+          .to receive(:update)
+          .and_raise(Paperclip::Errors::CommandNotFoundError.new(error_msg))
+
+        post route, params: { username: user.username,
+                              email: { email: user.email },
+                              user_profile: { id: profile.id,
+                                              user_id: profile.user_id,
+                                              image: file } }
+
+        expect(response).to redirect_to("/users/#{user.username}")
+        expect(flash[:error]).to include('ImageMagick')
       end
 
       it 'updates users email address' do
@@ -334,13 +354,13 @@ describe UserProfilesController, type: :request do
   end
 
   describe '#stats' do
-    let(:route) { "/user_stats.json" }
+    let(:route) { "/users/#{user.username}/stats.json" }
 
     context 'when user found' do
       let(:user) { create(:user) }
 
       it 'returns 200 OK' do
-        get route, params: { username: user.username }
+        get route
         expect(response.status).to eq(200)
       end
     end
@@ -348,7 +368,7 @@ describe UserProfilesController, type: :request do
     context 'when user not found' do
 
       it 'returns 404 not found' do
-        get route, params: { username: 'non existing user' }
+        get '/users/non%20existing%20user/stats.json'
         expect(response.status).to eq(404)
       end
     end

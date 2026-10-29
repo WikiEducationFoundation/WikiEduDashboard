@@ -34,6 +34,7 @@ const getValidationErrors = state => state.validations.errorQueue;
 const getCourse = state => state.course;
 const getTickets = state => state.tickets;
 const getSpecialUsers = state => state.settings.specialUsers;
+const getViewAsStudent = state => state.viewAsStudent;
 
 export const getInstructorUsers = createSelector(
   [getUsers], users => sortBy(getFiltered(users, { role: INSTRUCTOR_ROLE }), 'enrolled_at')
@@ -107,12 +108,45 @@ export const getCampusVolunteerUsers = createSelector(
   [getUsers], users => sortBy(getFiltered(users, { role: CAMPUS_VOLUNTEER_ROLE }), 'enrolled_at')
 );
 
-export const getCurrentUser = createSelector(
+// The current user's actual roles, ignoring student view.
+export const getRealCurrentUser = createSelector(
   [getCurrentUserFromHtml, getUsers], (currentUserFromHtml, users) => {
     const currentUserFromUsers = getFiltered(users, { id: currentUserFromHtml.id })[0];
     const currentUser = currentUserFromUsers || currentUserFromHtml;
     const userRoles = UserUtils.userRoles(currentUser, users);
     return { ...currentUser, ...userRoles };
+  }
+);
+
+export const getCanViewAsStudent = createSelector(
+  [getRealCurrentUser, getCourseType], (user, courseType) => {
+    return Boolean(user.isInstructor) && courseType === 'ClassroomProgramCourse';
+  }
+);
+
+export const getIsViewingAsStudent = createSelector(
+  [getViewAsStudent, getCanViewAsStudent], (viewAsStudent, canViewAsStudent) => {
+    return viewAsStudent && canViewAsStudent;
+  }
+);
+
+// In student view, an instructor keeps their identity but has a student's
+// roles, so the course page renders as it would for an enrolled student.
+export const getCurrentUser = createSelector(
+  [getRealCurrentUser, getIsViewingAsStudent], (realUser, isViewingAsStudent) => {
+    if (!isViewingAsStudent) { return realUser; }
+    const {
+      isInstructor, isAdvancedRole, isAdmin, isStaff, isCampusVolunteer, isOnlineVolunteer,
+      notEnrolled, ...user
+    } = realUser;
+    return {
+      ...user,
+      role: STUDENT_ROLE,
+      admin: false,
+      campaign_organizer: false,
+      isStudent: true,
+      isEnrolled: true
+    };
   }
 );
 
@@ -203,17 +237,24 @@ export const getFilteredAlerts = createSelector(
 
 export const getFilteredArticleFinder = createSelector(
   [getArticleFinderState], (articleFinder) => {
+    // The wiki being searched, which is the one the results are rendered for.
+    // The home wiki is only the fallback when no other has been chosen, so
+    // reading it directly judged one wiki's articles by another's grades.
+    const { language, project } = articleFinder.wiki || articleFinder.home_wiki;
+    // Only some wikis assess their articles, so there may be no set of grades
+    // to compare against at all.
+    const grades = PageAssessmentGrades[project]?.[language];
+
     return pickBy(articleFinder.articles, (article) => {
-      const language = articleFinder.home_wiki.language;
-      const project = articleFinder.home_wiki.project;
-      if (article.grade && !includes(Object.keys(PageAssessmentGrades[project][language]), article.grade)) {
+      const assessment = grades && article.grade ? grades[article.grade] : null;
+      if (article.grade && grades && !assessment) {
         return false;
       }
       let quality;
-      if (article.grade && article.revScore) {
-        quality = Math.max(article.revScore, PageAssessmentGrades[project][language][article.grade].score);
-      } else if (article.grade) {
-        quality = PageAssessmentGrades[project][language][article.grade].score;
+      if (assessment && article.revScore) {
+        quality = Math.max(article.revScore, assessment.score);
+      } else if (assessment) {
+        quality = assessment.score;
       } else if (article.revScore) {
         quality = article.revScore;
       } else {
@@ -326,7 +367,7 @@ export const firstValidationErrorMessage = createSelector(
 
 export const editPermissions = createSelector(
   [getCourse, getCurrentUser], (course, user) => {
-    if (!user.isAdvancedRole) { return false; }
+    if (course.metadata_locked || !user.isAdvancedRole) { return false; }
     return user.isAdmin || !course.closed;
   }
 );

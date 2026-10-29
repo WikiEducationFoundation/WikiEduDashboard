@@ -20,6 +20,7 @@ require_dependency "#{Rails.root}/lib/claim_verification/exercise_form"
 # the dashboard, submitting the form handled by
 # ClaimVerificationResponsesController.
 class ClaimVerificationExercisesController < ApplicationController
+  include CourseFromReturnTo
   before_action :require_signed_in
 
   def state
@@ -98,24 +99,5 @@ class ClaimVerificationExercisesController < ApplicationController
   def inferred_course
     @courses = current_user.courses
     course_from_return_to || (@courses.first if @courses.one?)
-  end
-
-  def course_from_return_to
-    path = params[:return_to].presence || session[:training_return_to]
-    return if path.blank?
-    slug = slug_from_course_path(path)
-    slug.present? && Course.find_by(slug:)
-  rescue URI::InvalidURIError
-    nil
-  end
-
-  # "/courses/School/Title_(Term)/timeline" -> "School/Title_(Term)".
-  # Course slugs are exactly school/title (one slash), so take the two
-  # segments after "courses".
-  def slug_from_course_path(path)
-    segments = URI(path).path.split('/').compact_blank
-    index = segments.index('courses')
-    return if index.nil?
-    CGI.unescape(segments[index + 1, 2].to_a.join('/'))
   end
 end

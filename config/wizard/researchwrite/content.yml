@@ -126,6 +126,7 @@ essentials:
         id: improving_representation
         if: improving_representation
         title: Improving Representation
+        kind: 1
         training_module_ids: [68] # Improving representation
         content: |
 

@@ -72,12 +72,17 @@ class ArticleNamespacesManager
 
   def reset_undeleted_or_retracked_articles
     retracked_ids = []
+    # Not @course.articles.to_a: that would cache a stale @course.articles,
+    # which reset_articles_in_untracked_namespaces reads later.
+    existing_article_ids = @course.articles_courses.pluck(:article_id).to_set
     @course.wikis.each do |wiki|
       # Find non-deleted and tracked articles without an articles_courses record
       @course.articles_from_timeslices(wiki.id)
              .where(deleted: false).in_batches do |article_batch|
         tracked = articles_in_tracked_namespaces(article_batch)
-        tracked_without_articles_courses = tracked - @course.articles.to_a
+        tracked_without_articles_courses = tracked.reject do |a|
+          existing_article_ids.include?(a.id)
+        end
         retracked_ids += tracked_without_articles_courses.map(&:id)
         @cleaner.reset_included(tracked_without_articles_courses, wiki)
       end
@@ -114,9 +119,16 @@ class ArticleNamespacesManager
   end
 
   def articles_in_tracked_namespaces(article_batch)
-    @course.tracked_namespaces.flat_map do |wiki_ns|
-      article_batch.where(wiki_id: wiki_ns[:wiki].id, namespace: wiki_ns[:namespace])
+    article_batch.select do |article|
+      tracked_namespace_pairs.include?([article.wiki_id, article.namespace])
     end
+  end
+
+  # One manager is created per update, so this is safe to memoize here (unlike on Course,
+  # which can live across multiple update calls and survives #reload without clearing it).
+  def tracked_namespace_pairs
+    @tracked_namespace_pairs ||=
+      @course.tracked_namespaces.map { |wiki_ns| [wiki_ns[:wiki].id, wiki_ns[:namespace]] }
   end
 
   # Articles that have an article course record that was created *after* some of its article

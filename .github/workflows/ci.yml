@@ -4,6 +4,56 @@ name: CI
 on: ['push', 'pull_request', 'workflow_dispatch']
 
 jobs:
+  # Security audits run in a separate job, so a new finding shows up as its
+  # own failing check without keeping the test suites below from running to
+  # completion. Dependency advisories are published independently of our
+  # code, so a new one can turn any build red overnight; a new Brakeman
+  # finding needs reviewing, but shouldn't hold back the test results.
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v5
+
+      - name: setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+           ruby-version: 3.4.8
+           bundler-cache: true
+
+      - name: setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      # Fails when Gemfile.lock contains a gem with a published security
+      # advisory (ruby-advisory-db, refreshed on each run).
+      - name: Ruby dependency vulnerability audit
+        run: bundle exec bundle-audit check --update
+
+      # Mirrors the Ruby audit for the JavaScript dependency tree: fails
+      # when yarn.lock resolves a package with a published npm advisory of
+      # moderate severity or higher. `--recursive` covers transitive
+      # dependencies, where nearly all such advisories land. Advisories that
+      # have been reviewed and don't apply are listed, with the reasoning, in
+      # npmAuditIgnoreAdvisories in .yarnrc.yml. Reads the lockfile directly,
+      # so it needs no `yarn install`. Runs even when the Ruby audit fails,
+      # so both sets of advisories show up at once.
+      - name: JavaScript dependency vulnerability audit
+        if: ${{ !cancelled() }}
+        run: yarn npm audit --recursive --severity moderate
+
+      # Security static analysis. Fails on any finding that is not in
+      # config/brakeman.ignore, where every baselined warning carries a
+      # written justification. A new finding means either a real issue or a
+      # pattern that needs reviewing and, if genuinely safe, adding to the
+      # baseline with its reasoning -- not a blanket suppression. Runs even
+      # when the dependency audits fail.
+      - name: Ruby security static analysis
+        if: ${{ !cancelled() }}
+        run: bundle exec brakeman --no-pager -q -i config/brakeman.ignore
+
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -72,35 +122,11 @@ jobs:
            ruby-version: 3.4.8
            bundler-cache: true
 
-      # Fails the build when Gemfile.lock contains a gem with a published
-      # security advisory (ruby-advisory-db, refreshed on each run). Runs
-      # before the test suites so a new advisory surfaces in the first
-      # minutes of the build, and even when a later step fails.
-      - name: Ruby dependency vulnerability audit
-        run: bundle exec bundle-audit check --update
-
-      # Security static analysis. Fails the build on any finding that is not
-      # in config/brakeman.ignore, where every baselined warning carries a
-      # written justification. A new finding means either a real issue or a
-      # pattern that needs reviewing and, if genuinely safe, adding to the
-      # baseline with its reasoning -- not a blanket suppression.
-      - name: Ruby security static analysis
-        run: bundle exec brakeman --no-pager -q -i config/brakeman.ignore
-
       - name: setup Node
         uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: 'yarn'
-
-      # Mirrors the Ruby audit above for the JavaScript dependency tree:
-      # fails the build when yarn.lock resolves a package with a published
-      # npm advisory of moderate severity or higher. `--recursive` covers
-      # transitive dependencies, where nearly all such advisories land.
-      # Reads the lockfile directly, so it needs no `yarn install` and adds
-      # only a few seconds before the suites start.
-      - name: JavaScript dependency vulnerability audit
-        run: yarn npm audit --recursive --severity moderate
 
       - name: Grant parallel DB permissions
         run: |

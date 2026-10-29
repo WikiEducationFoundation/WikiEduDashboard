@@ -23,14 +23,20 @@ const interleaveSeparators = (acc, link, index, collection) => {
   return index < limit ? prefix.concat(<Separator key={index} />) : prefix;
 };
 
+const hasSandboxDraft = ({ draft_sandbox_status }) => {
+  return Boolean(draft_sandbox_status) && draft_sandbox_status !== 'does_not_exist';
+};
+
 const AssignmentLinks = ({ assignment, courseType, user, course, project, editMode }) => {
   const { article_url, id, role, editors } = assignment;
   const actions = [];
 
   if (((editors && editors.length) || assignment.role === ASSIGNED_ROLE) && !isUserSandbox(assignment)) {
     // Exclude sandbox link for 'no_sandboxes' courses for existing articles.
-    // New articles will still use sandboxes for drafting in 'no_sandboxes' courses.
-    if (!assignment.article_id || !course?.no_sandboxes) {
+    // New articles will still use sandboxes for drafting in 'no_sandboxes' courses,
+    // and the draft stays relevant if the article gets created while the student
+    // is working on it, so keep the link whenever the sandbox draft exists.
+    if (!assignment.article_id || !course?.no_sandboxes || hasSandboxDraft(assignment)) {
       actions.push(
         <SandboxLink key={`sandbox-${id}`} assignment={assignment} editMode={editMode} user={user} />
       );

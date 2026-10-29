@@ -16,6 +16,49 @@ describe 'Article Viewer', type: :feature, js: true do
     create(:articles_course, course:, article:, user_ids: [user.id])
   end
 
+    it 'closes with Escape and removes the showArticle param' do
+    login_as user
+    visit "/courses/#{course.slug}/articles"
+    find('button.icon-article-viewer').click
+
+    expect(page).to have_css('.article-viewer')
+    expect(page.current_url).to include("showArticle=#{article.id}")
+
+    find('body').send_keys(:escape)
+    expect(page).to have_no_css('.article-viewer')
+    expect(page).to have_no_current_path(/showArticle=/, url: true)
+  end
+
+  it 'ignores Escape while typing in the bad-work alert' do
+    stub_token_request
+    login_as instructor
+    visit "/courses/#{course.slug}/articles"
+    find('button.icon-article-viewer').click
+    find('button', text: 'Quality Problems?').click
+
+    find_field('submit-bad-work-alert').send_keys('draft text', :escape)
+    expect(page).to have_css('.article-viewer')
+    expect(page).to have_field('submit-bad-work-alert', with: 'draft text')
+
+    # With focus outside the field, the same key closes the viewer. This also
+    # shows the handler is alive, so the check above isn't passing trivially.
+    page.execute_script('document.activeElement.blur()')
+    find('body').send_keys(:escape)
+    expect(page).to have_no_css('.article-viewer')
+  end
+
+
+  it 'closes with Escape when opened from a showArticle permalink' do
+    login_as user
+    visit "/courses/#{course.slug}/articles?showArticle=#{article.id}"
+
+    expect(page).to have_css('.article-viewer', wait: 10)
+    find('body').send_keys(:escape)
+
+    expect(page).to have_no_css('.article-viewer')
+    expect(page).to have_no_current_path(/showArticle=/, url: true)
+  end
+
   it 'shows list of students who edited the article' do
     pending 'This fails on CI because of a CORS error, possible related to an outdated polyfill'
 

@@ -91,8 +91,11 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_css('.cv-pick-banner__heading',
                              text: step_heading(2, 'step_select_claim'), wait: 20)
 
-    # The viewer renders the flagged revision annotated with its harvested claims;
-    # clicking the highlighted claim sentence opens the in-viewer panel.
+    # The viewer renders the flagged revision annotated with its harvested claims,
+    # and "View on wiki" goes to that revision, not the current version.
+    expect(page).to have_link(I18n.t('articles.view_on_wiki'),
+                              href: "https://en.wikipedia.org/w/index.php?oldid=#{flagged_rev}")
+    # Clicking the highlighted claim sentence opens the in-viewer panel.
     find('.parsed-article .cv-claim', wait: 20).click
     within '.cv-selection-panel' do
       expect(page).to have_content(sentence)
@@ -192,6 +195,55 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page.evaluate_script('window.cvSameDocument')).to be(true)
   end
 
+  it 'closes the claim panel before the viewer and ignores Escape while taking a claim' do
+    visit "/courses/#{course.slug}/verify_claim"
+    click_on 'Sea otter'
+    find('.parsed-article .cv-claim', wait: 20).click
+
+    find('.cv-selection-panel').send_keys(:escape)
+    expect(page).to have_no_css('.cv-selection-panel')
+    expect(page).to have_css('.article-viewer')
+
+    find('body').send_keys(:escape)
+    expect(page).to have_no_css('.article-viewer')
+    expect(page.current_url).not_to include('showArticle=')
+
+    click_on 'Sea otter'
+    find('.parsed-article .cv-claim', wait: 20).click
+    page.execute_script(<<~JS)
+      const realFetch = window.fetch.bind(window);
+      window.fetch = (input, options) => {
+        const url = typeof input === 'string' ? input : input.url;
+        if (url.includes('/verify_claim/take')) {
+          window.takeRequestStarted = true;
+          return new Promise((resolve) => {
+            window.finishTakeRequest = () => resolve(new Response('{}', { status: 403 }));
+          });
+        }
+        return realFetch(input, options);
+      };
+    JS
+
+    within '.cv-selection-panel' do
+      click_button I18n.t('claim_verification.select_claim')
+    end
+    expect(page).to have_button(I18n.t('claim_verification.select_claim'), disabled: true)
+    expect(page.evaluate_script('window.takeRequestStarted')).to be(true)
+
+    find('.cv-selection-panel').send_keys(:escape)
+    expect(page).to have_css('.cv-selection-panel')
+    expect(page).to have_css('.article-viewer')
+
+    page.execute_script('window.finishTakeRequest()')
+    expect(page).to have_content(I18n.t('claim_verification.take_not_enrolled'), wait: 10)
+    find('.cv-selection-panel').send_keys(:escape)
+    expect(page).to have_no_css('.cv-selection-panel')
+    expect(page).to have_css('.article-viewer')
+    find('body').send_keys(:escape)
+    expect(page).to have_no_css('.article-viewer')
+    expect(page.current_url).not_to include('showArticle=')
+  end
+
   it 'shows a student their own submitted response in a popover on the students tab' do
     TrainingModule.load_all
     exercise_module = TrainingModule.find_by(slug: 'fact-verification-exercise')
@@ -230,6 +282,7 @@ describe 'Claim verification exercise', type: :feature, js: true do
     click_button I18n.t('claim_verification.form.submitted_heading'), wait: 10
     within '.cv-response-pop' do
       expect(page).to have_content(sentence)
+      expect(page).to have_content('Riedman & Estes 1990')
       expect(page).to have_content(
         I18n.t('claim_verification.form.verdict_options.mostly_supports')
       )
@@ -271,10 +324,21 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_content(I18n.t('claim_verification.step_select_article'), wait: 20)
 
     # The submissions live on their own page (a full-page load must work too).
+    # With the exercise not on the timeline, the Assignments tab doesn't track
+    # it, so this is the list of every submission rather than the tab's grader.
     visit "/courses/#{course.slug}/verify_claim/responses"
     expect(page).to have_content(I18n.t('claim_verification.responses.heading'), wait: 20)
     expect(page).to have_content('Otterfan')
     expect(page).to have_content(sentence)
+    # The card shows the claim's citation and source as the student saw them,
+    # so the answers can be checked against them.
+    within '.cv-response-card', match: :first do
+      expect(page).to have_content('Riedman & Estes 1990')
+      expect(page).to have_link(I18n.t('claim_verification.source_url'),
+                                href: 'https://example.com/otters')
+      expect(page).to have_link(I18n.t('claim_verification.find_in_article'),
+                                href: %r{/w/index\.php\?oldid=#{flagged_rev}#cite_note-1})
+    end
     expect(page).to have_content(I18n.t('claim_verification.form.verdict_options.contradicted'))
     expect(page).to have_content('The source says the opposite.')
     expect(page).to have_content(I18n.t('claim_verification.responses.pending_heading'))
@@ -287,6 +351,58 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_no_content('Slowpoke')
     click_link "← #{I18n.t('claim_verification.responses.heading')}"
     expect(page).to have_content('Slowpoke', wait: 10)
+  end
+
+  # With the exercise on the timeline, the Assignments tab tracks it, so the
+  # timeline's "Student responses" link opens that tab's grader: one student at
+  # a time, with everyone's status in the list beside them.
+  it 'grades the responses one student at a time in the Assignments tab' do
+    TrainingModule.load_all
+    exercise_module = TrainingModule.find_by(slug: 'fact-verification-exercise')
+    week = create(:week, course:)
+    create(:block, week:, due_date: course.start + 1.week,
+                   training_module_ids: [exercise_module.id])
+    instructor = create(:user, username: 'Prof', onboarded: true)
+    create(:courses_user, course:, user: instructor,
+                          role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    claim = VerificationClaim.find_by(sentence:)
+    VerificationClaimAssignment.create!(user: student, course:, verification_claim: claim)
+    VerificationClaimResponse.create!(
+      user: student, course:, verification_claim: claim,
+      answers: { 'source_appropriate' => 'appropriate',
+                 'meets_rs_policy' => 'generally_reliable',
+                 'source_access' => 'accessed', 'verdict' => 'contradicted',
+                 'other_comments' => 'The source says the opposite.' }
+    )
+    # A student who has taken the claim but not submitted.
+    slow_student = create(:user, username: 'Slowpoke', onboarded: true)
+    create(:courses_user, course:, user: slow_student, role: CoursesUsers::Roles::STUDENT_ROLE)
+    VerificationClaimAssignment.create!(user: slow_student, course:, verification_claim: claim)
+    stub_token_request
+    login_as instructor
+
+    # It opens at the first student: their claim, its source and their answers.
+    visit "/courses/#{course.slug}/verify_claim/responses"
+    expect(page).to have_current_path(
+      "/courses/#{course.slug}/assignments/exercise-fact-verification-exercise/Otterfan", wait: 20
+    )
+    within '.assignments-tab__student' do
+      expect(page).to have_content(sentence, wait: 10)
+      expect(page).to have_content('Riedman & Estes 1990')
+      expect(page).to have_content(I18n.t('claim_verification.form.verdict_options.contradicted'))
+    end
+
+    # The next student hasn't submitted: their status says so, and the claim
+    # they're working on shows without any answers.
+    click_button "#{I18n.t('articles.next')} →"
+    within '.student.selected' do
+      expect(page).to have_content('Slowpoke', wait: 10)
+      expect(page).to have_content(I18n.t('lti.assignment_view.status.in_progress'))
+    end
+    within '.assignments-tab__student' do
+      expect(page).to have_content('Riedman & Estes 1990', wait: 10)
+      expect(page).to have_no_content(I18n.t('claim_verification.form.submitted_heading'))
+    end
   end
 
   # Arriving on a shared ?showArticle= link forces the picker into view even when
@@ -330,5 +446,31 @@ describe 'Claim verification exercise', type: :feature, js: true do
     expect(page).to have_content(I18n.t('claim_verification.take_not_enrolled'), wait: 10)
     expect(page).to have_no_content(I18n.t('claim_verification.your_selected_claim'))
     expect(VerificationClaimAssignment.find_by(user: outsider, course:)).to be_nil
+  end
+
+  it 'tells an instructor in "View as student" that taking a claim is blocked' do
+    instructor = create(:user, username: 'Prof', onboarded: true)
+    create(:courses_user, course:, user: instructor,
+                          role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
+    # courses#show verifies an instructor's OAuth edit credentials.
+    stub_token_request
+    login_as instructor
+
+    visit "/courses/#{course.slug}"
+    within('.module.actions') { click_button I18n.t('courses.view_as_student') }
+    expect(page).to have_css('nav [role="switch"][aria-checked="true"]')
+
+    visit "/courses/#{course.slug}/verify_claim"
+    expect(page).to have_content(I18n.t('claim_verification.step_select_article'), wait: 20)
+    click_on 'Sea otter'
+    find('.parsed-article .cv-claim', wait: 20).click
+    within '.cv-selection-panel' do
+      click_button I18n.t('claim_verification.select_claim')
+    end
+
+    # The take is blocked before it's sent, so it isn't the not-enrolled refusal.
+    expect(page).to have_content(I18n.t('courses.student_view_action_blocked'), wait: 10)
+    expect(page).to have_no_content(I18n.t('claim_verification.take_not_enrolled'))
+    expect(VerificationClaimAssignment.find_by(user: instructor, course:)).to be_nil
   end
 end

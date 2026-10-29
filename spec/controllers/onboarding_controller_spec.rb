@@ -71,6 +71,23 @@ describe OnboardingController, type: :request do
 
   describe '#supplementary' do
     let(:user) { create(:user, onboarded: false, username: 'JonSnow') }
+    let(:other_user) { create(:user, username: 'AryaStark') }
+
+    before { login_as user }
+
+    it 'refuses a logged-out visitor' do
+      logout
+      put '/onboarding/supplementary', params: { user_name: user.username, heardFrom: 'Raven' }
+      expect(response.status).to eq(401)
+      expect(Alert.exists?(type: 'OnboardingAlert')).to eq(false)
+    end
+
+    it 'files the alert for the signed-in user, whatever user_name is sent' do
+      put '/onboarding/supplementary', params: { user_name: other_user.username,
+                                                 heardFrom: 'Raven' }
+      expect(Alert.exists?(user_id: user.id, type: 'OnboardingAlert')).to eq(true)
+      expect(Alert.exists?(user_id: other_user.id)).to eq(false)
+    end
 
     it 'creates an alert for instructor' do
       params = { user_name: user.username, heardFrom: 'From Nights Watch' }
@@ -102,6 +119,33 @@ describe OnboardingController, type: :request do
       alert = Alert.where(user_id: user.id, type: 'OnboardingAlert').first
       expect(alert.reload.details['heard_from']['answer']).to eq('From Nights Watch')
       expect(alert.reload.details['heard_from']['additional']).to eq('Jeor Mormont')
+    end
+
+    it 'stores the primary reason in the details field and message' do
+      params = {
+        user_name: user.username,
+        primaryReason: 'other',
+        primaryReasonDetails: 'The wall needs a better article'
+      }
+      put '/onboarding/supplementary', params: params
+      expect(response.status).to eq(204)
+      alert = Alert.where(user_id: user.id, type: 'OnboardingAlert').first
+      expect(alert.details['primary_reason']['answer']).to eq('other')
+      expect(alert.details['primary_reason']['additional'])
+        .to eq('The wall needs a better article')
+      expect(alert.message).to include("PRIMARY REASON:\nother (The wall needs a better article)")
+    end
+
+    it 'drops primary reason details unless the answer is other' do
+      params = {
+        user_name: user.username,
+        primaryReason: 'ai',
+        primaryReasonDetails: 'Left over from choosing other'
+      }
+      put '/onboarding/supplementary', params: params
+      alert = Alert.where(user_id: user.id, type: 'OnboardingAlert').first
+      expect(alert.details['primary_reason']['additional']).to be_nil
+      expect(alert.message).not_to include('Left over')
     end
   end
 end

@@ -20,11 +20,30 @@ class LtiLegacyLaunchesController < ApplicationController
   def create
     verification = VerifyLtiLegacyLaunch.new(request)
     return refuse(verification) unless verification.valid?
+    return refuse_other_course(verification) if bound_to_other_course?(verification)
 
     redirect_to "/lti?ltik=#{CGI.escape(launch_token(verification))}", status: :see_other
   end
 
   private
+
+  # A key's holder can sign any guid and context_id, so a launch naming a
+  # Canvas course already bound to a different Dashboard course would reach
+  # that course's binding. A key only ever speaks for its own course.
+  def bound_to_other_course?(verification)
+    launch = verification.launch_params
+    LtiCourseBinding.where(lms_id: launch['tool_consumer_instance_guid'],
+                           lms_context_id: launch['context_id'])
+                    .where.not(course_id: [nil, verification.consumer_key.course_id])
+                    .exists?
+  end
+
+  def refuse_other_course(verification)
+    Sentry.capture_message('LTI 1.1 launch refused: reason=other_course_binding ' \
+                           "key_id=#{verification.consumer_key.id}")
+    allow_iframe
+    render 'lti_launch/launch_error', layout: 'lti_iframe', status: :unauthorized
+  end
 
   def launch_token(verification)
     key = verification.consumer_key

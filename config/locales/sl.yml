@@ -581,7 +581,7 @@ sl:
     additional_training: Dodatni moduli usposabljanja
     orientation_modules: Moduli za usmerjanje učitelja
     done: Opravljeno!
-    invalid: Ta diapozitiv žal ne obstaja!
+    invalid: Ta drsnica žal ne obstaja!
     kind:
       discussion: Pogovor
     no_training_library_records_wiki_ed_mode: V zbirki podatkov ni zapisov TrainingLibrary.
@@ -688,6 +688,7 @@ sl:
     average_views: Povprečno ogledov na dan
     category_search: Poišči po kategorijah
     fetching_pageviews: Pridobivanje ogledov strani
+    hide_options: Skrij možnosti
     keyword_search: Iskanje po ključni besedi
     minimum_views_label: Minimum ogledov
     more_results: Več zadetkov
@@ -701,4 +702,7 @@ sl:
     continue: Nadaljuj
     completion_time: Čas dokončanja
     view: Ogled
+  lti:
+    assignment_view:
+      hide: Skrij
 ...

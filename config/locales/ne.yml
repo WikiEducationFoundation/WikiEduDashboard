@@ -67,7 +67,7 @@ ne:
     training: तालिम
     change: परिवर्तन गर्नुहोस्
     details: विवरणहरू
-    confirm: हुन्छ
+    confirm: ठीक छ
     opt_in: हो
     opt_out: होइन
     opt_yes: छ
@@ -533,6 +533,7 @@ ne:
     user: युजरस्पेस
     user_char_added: युजरस्पेसमा थपिएका अक्षरहरू
     project: परियोजना
+    mediaWiki: मिडियाविकि
     template: ढाँचा
     help: सहयोग
     category: श्रेणी

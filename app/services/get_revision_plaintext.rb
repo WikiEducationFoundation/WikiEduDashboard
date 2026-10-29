@@ -4,7 +4,9 @@ require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 require_dependency "#{Rails.root}/lib/wiki_api/diff_wikitext_extractor"
 
 class GetRevisionPlaintext
-  attr_reader :plain_text, :article_title
+  # changed_wikitext is the wikitext added in a diff (nil for a whole revision),
+  # with the references that plain_text drops.
+  attr_reader :plain_text, :article_title, :changed_wikitext
 
   def initialize(mw_rev_id, wiki, diff_mode: true, from_rev: nil)
     @wiki = wiki
@@ -93,7 +95,8 @@ class GetRevisionPlaintext
     doc = Nokogiri::HTML(html)
     doc.xpath('//table').each(&:remove) # Exclude tables, like infoboxes
     doc.xpath('//cite').each(&:remove) # Exclude `cite` tags, which usually appear at the end
-    doc.css('.mw-cite-backlink').each(&:remove) # Exclude backlinks that precede `cite` tags.
+    # Exclude reference lists, including refs that aren't wrapped in `cite` tags.
+    doc.css('ol.references').each(&:remove)
 
     doc.xpath('//figure').each(&:remove) # Exclude figure elements (images + captions)
     doc.xpath('//img').each(&:remove) # Exclude any remaining image elements

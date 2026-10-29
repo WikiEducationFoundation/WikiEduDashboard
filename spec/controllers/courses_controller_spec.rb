@@ -52,6 +52,42 @@ describe CoursesController, type: :request do
     end
   end
 
+  describe '#articles' do
+    let(:course) { create(:course, slug: slug_params) }
+
+    before do
+      stub_const('CoursesController::DEFAULT_ARTICLES_LIMIT', 2)
+      stub_const('CoursesController::MAX_ARTICLES_LIMIT', 3)
+      create_list(:article, 4).each do |article|
+        create(:articles_course, course_id: course.id, article_id: article.id)
+      end
+    end
+
+    def article_count(params = {})
+      get "/courses/#{course.slug}/articles.json", params: params
+      expect(response.status).to eq(200)
+      JSON.parse(response.body)['course']['articles'].length
+    end
+
+    it 'returns as many articles as the limit asks for' do
+      expect(article_count(limit: 3)).to eq(3)
+    end
+
+    it 'returns the default number of articles without a limit' do
+      expect(article_count).to eq(2)
+    end
+
+    it 'caps the limit' do
+      expect(article_count(limit: 100)).to eq(3)
+    end
+
+    it 'falls back to the default for a limit that is not a positive number' do
+      expect(article_count(limit: 0)).to eq(2)
+      expect(article_count(limit: -1)).to eq(2)
+      expect(article_count(limit: 'all')).to eq(2)
+    end
+  end
+
   describe '#destroy' do
     let!(:course)           { create(:course, submitted: true, slug: slug_params) }
     let!(:user)             { create(:test_user) }
@@ -756,14 +792,47 @@ describe CoursesController, type: :request do
   end
 
   describe '#needs_update' do
-    let(:course) { create(:course, needs_update: false, slug: slug_params) }
+    let(:course) do
+      create(:course, needs_update: false, slug: slug_params, start: 2.months.ago, end: 1.day.ago)
+    end
+    let(:student) { create(:user, username: 'EndedCourseStudent') }
+    let(:path) { "/courses/#{course.slug}/needs_update" }
 
     before do
-      allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
+      create(:courses_user, course:, user: student, role: CoursesUsers::Roles::STUDENT_ROLE)
     end
 
-    it 'sets "needs_update" to true' do
-      get "/courses/#{course.slug}/needs_update", params: { id: course.slug }
+    it 'sets "needs_update" to true for a participant of an ended course' do
+      login_as student
+      put path, params: { id: course.slug }
+      expect(course.reload.needs_update).to eq(true)
+    end
+
+    it 'refuses a logged-out visitor' do
+      put path, params: { id: course.slug }
+      expect(response.status).to eq(401)
+      expect(course.reload.needs_update).to eq(false)
+    end
+
+    it 'refuses a signed-in user who is not in the course' do
+      login_as create(:user, username: 'Outsider')
+      put path, params: { id: course.slug }
+      expect(response.status).to eq(401)
+      expect(course.reload.needs_update).to eq(false)
+    end
+
+    it 'refuses a participant while the course is still running' do
+      course.update(end: 1.month.from_now)
+      login_as student
+      put path, params: { id: course.slug }
+      expect(response.status).to eq(401)
+      expect(course.reload.needs_update).to eq(false)
+    end
+
+    it 'lets an admin schedule an update for a running course' do
+      course.update(end: 1.month.from_now)
+      login_as create(:admin)
+      put path, params: { id: course.slug }
       expect(course.reload.needs_update).to eq(true)
     end
   end
@@ -784,7 +853,7 @@ describe CoursesController, type: :request do
       allow_any_instance_of(ApplicationController).to receive(:user_signed_in?).and_return(true)
     end
 
-    let(:subject) { get "/courses/#{course.slug}/notify_untrained", params: { id: course.slug } }
+    let(:subject) { post "/courses/#{course.slug}/notify_untrained", params: { id: course.slug } }
 
     context 'user is admin' do
       before do

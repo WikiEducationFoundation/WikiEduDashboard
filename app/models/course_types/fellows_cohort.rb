@@ -81,4 +81,8 @@ class FellowsCohort < Course
   def training_library_slug
     'professional-development'
   end
+
+  def assignments_tab_enabled?
+    true
+  end
 end

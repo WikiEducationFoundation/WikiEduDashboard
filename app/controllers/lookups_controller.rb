@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-#= Controller for user functionality
+#= Controller for campaign and tag lookups
 class LookupsController < ApplicationController
   include CourseHelper
 

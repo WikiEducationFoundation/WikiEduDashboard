@@ -14,9 +14,10 @@ require 'capybara/rspec'
 require 'capybara-screenshot/rspec'
 
 Capybara.register_driver :selenium do |app|
-  chrome_args = %w[no-sandbox disable-gpu --window-size=1200,1200]
+  chrome_args = %w[no-sandbox disable-gpu --window-size=1200,1200 --lang=en]
   chrome_args.prepend('--headless=new') unless ENV['HEADED']
   options = Selenium::WebDriver::Chrome::Options.new(args: chrome_args)
+  options.add_preference('intl.accept_languages', 'en-US,en')
   Capybara::Selenium::Driver.new(app,
                                  browser: :chrome,
                                  options:,
