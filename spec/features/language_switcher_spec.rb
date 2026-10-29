@@ -26,6 +26,17 @@ describe 'language_switcher', type: :feature, js: true do
       expect(page).to have_text(I18n.t('home.log_in', locale: 'fr'))
     end
 
+    it 'displays Português and português do Brasil, but not pt-BR' do
+      visit root_path
+      within('.language-picker') do
+        find('.language-picker__control').click
+        expect(page).to have_css('.language-picker__menu')
+        expect(page).to have_text('Português')
+        expect(page).to have_text('português do Brasil')
+        expect(page).to have_no_text('pt-BR')
+      end
+    end
+
     it 'fallbacks to en for locales with incomplete translations' do
       visit root_path(locale: 'az')
       expect(page).to have_current_path(root_path(locale: 'az'))
