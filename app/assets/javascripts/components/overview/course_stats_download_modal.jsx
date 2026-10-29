@@ -1,38 +1,54 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import useCourseDownloadModal from '../../hooks/useCourseDownloadModal.js';
 
 const CourseStatsDownloadModal = ({ course }) => {
-  const [show, setShow] = useState(false);
+  const {
+    show,
+    openModal,
+    closeModal,
+    handleDownload,
+    userSignedIn
+  } = useCourseDownloadModal({ courseTitle: course.title || course.slug });
 
-  const showStats = () => {
-    setShow(true);
-  };
+  const downloadOptions = [
+    {
+      id: `${course.slug}-overview`,
+      href: `/course_csv?course=${course.slug}`,
+      dataLabel: I18n.t('courses.data_overview'),
+      info: I18n.t('courses.data_overview_info')
+    },
+    {
+      id: `${course.slug}-uploads`,
+      href: `/course_uploads_csv?course=${course.slug}`,
+      dataLabel: I18n.t('courses.data_uploads'),
+      info: I18n.t('courses.data_uploads_info')
+    },
+    {
+      id: `${course.slug}-students`,
+      href: `/course_students_csv?course=${course.slug}`,
+      dataLabel: I18n.t('courses.data_students'),
+      info: I18n.t('courses.data_students_info')
+    },
+    {
+      id: `${course.slug}-articles`,
+      href: `/course_articles_csv?course=${course.slug}`,
+      dataLabel: I18n.t('courses.data_articles'),
+      info: I18n.t('courses.data_articles_info')
+    }
+  ];
 
-  const hideStats = () => {
-    setShow(false);
-  };
-
-  if (!show) {
-    return <button onClick={showStats} className="button">{I18n.t('courses.download_stats_data')}</button>;
+  if (course.course_stats && course.home_wiki?.project === 'wikidata') {
+    downloadOptions.push({
+      id: `${course.slug}-wikidata`,
+      href: `/course_wikidata_csv?course=${course.slug}`,
+      dataLabel: I18n.t('courses.data_wikidata'),
+      info: I18n.t('courses.data_wikidata_info')
+    });
   }
 
-  const overviewCsvLink = `/course_csv?course=${course.slug}`;
-  const uploadsCsvLink = `/course_uploads_csv?course=${course.slug}`;
-  const studentsCsvLink = `/course_students_csv?course=${course.slug}`;
-  const articlesCsvLink = `/course_articles_csv?course=${course.slug}`;
-  const wikidataCsvLink = `/course_wikidata_csv?course=${course.slug}`;
-
-  let wikidataLink;
-  if (course.course_stats && course.home_wiki.project === 'wikidata') {
-    wikidataLink = (
-      <>
-        <hr />
-        <p>
-          <a href={wikidataCsvLink} className="button right">{I18n.t('courses.data_wikidata')}</a>
-          {I18n.t('courses.data_wikidata_info')}
-        </p>
-      </>
-    );
+  if (!show) {
+    return <button onClick={openModal} className="button">{I18n.t('courses.download_stats_data')}</button>;
   }
 
   let warning;
@@ -42,31 +58,34 @@ const CourseStatsDownloadModal = ({ course }) => {
 
   return (
     <div className="basic-modal course-stats-download-modal">
-      <button onClick={hideStats} className="pull-right article-viewer-button icon-close" />
+      <button onClick={closeModal} className="pull-right article-viewer-button icon-close" />
       <h2>{I18n.t('courses.data_download_info')}</h2>
       {warning}
       <hr />
-      <p>
-        <a href={overviewCsvLink} className="button right">{I18n.t('courses.data_overview')}</a>
-        {I18n.t('courses.data_overview_info')}
-      </p>
-      <hr />
-      <p>
-        <a href={uploadsCsvLink} className="button right">{I18n.t('courses.data_uploads')}</a>
-        {I18n.t('courses.data_uploads_info')}
-      </p>
-      <hr />
-      <p>
-        <a href={studentsCsvLink} className="button right">{I18n.t('courses.data_students')}</a>
-        {I18n.t('courses.data_students_info')}
-      </p>
-      <hr />
-      <p>
-        <a href={articlesCsvLink} className="button right">{I18n.t('courses.data_articles')}</a>
-        {I18n.t('courses.data_articles_info')}
-      </p>
-      <hr />
-      {wikidataLink}
+      {downloadOptions.map((option, index) => (
+        <React.Fragment key={option.id}>
+          {index > 0 && <hr />}
+          <p>
+            {userSignedIn ? (
+              <button
+                type="button"
+                onClick={e => handleDownload(option, e)}
+                className="button right"
+              >
+                {option.dataLabel}
+              </button>
+            ) : (
+              <a
+                href={option.href}
+                className="button right"
+              >
+                {option.dataLabel}
+              </a>
+            )}
+            {option.info}
+          </p>
+        </React.Fragment>
+      ))}
     </div>
   );
 };
