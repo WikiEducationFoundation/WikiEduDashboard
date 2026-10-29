@@ -22,6 +22,7 @@
 #
 
 require_dependency "#{Rails.root}/lib/word_count"
+require_dependency "#{Rails.root}/lib/revision_stat_timeslice"
 
 #= Course + User join model
 class CoursesUsers < ApplicationRecord
@@ -113,16 +114,17 @@ class CoursesUsers < ApplicationRecord
     self.revision_count = course_user_wiki_timeslices.sum(&:revision_count)
   end
 
-  def update_cache_from_timeslices(excluded_wiki_ids)
+  def update_cache_from_timeslices(excluded_wiki_ids, upload_counts_by_user:,
+                                   first_assigned_titles_by_user:, revision_stat_timeslice:)
     # total_uploads is not implemented yet as a timeslice attribute
-    self.total_uploads = course.upload_counts_by_user.fetch(user_id, 0)
+    self.total_uploads = upload_counts_by_user.fetch(user_id, 0)
 
     update_values_from_timeslices(excluded_wiki_ids)
 
     # recent_revisions field doesn't belong to timeslices
-    self.recent_revisions = course.revision_stat_timeslice.recent_revisions_for_courses_user(self)
+    self.recent_revisions = revision_stat_timeslice.recent_revisions_for_courses_user(self)
     # assigned_article_title field doesn't belong to timeslices
-    self.assigned_article_title = course.first_assigned_titles_by_user.fetch(user_id, '')
+    self.assigned_article_title = first_assigned_titles_by_user.fetch(user_id, '')
     save
   end
 
@@ -139,10 +141,25 @@ class CoursesUsers < ApplicationRecord
   # Class methods #
   #################
   def self.update_all_caches_from_timeslices(courses_users)
-    # Look up the excluded wiki ids once for the batch, not once per user.
+    # Look up the excluded wiki ids once for the batch, not once per user. Per-course
+    # lookups are built once per distinct course, not passed via the course itself: a
+    # courses_user's #course can be the same in-memory instance across the whole batch
+    # (Rails reuses the inverse association), so caching them there would leak stale
+    # values across repeated calls on that instance.
     excluded_wiki_ids = WordCount.excluded_wiki_ids
+    update_caches_by_course = Hash.new { |hash, course| hash[course] = build_update_caches(course) }
     courses_users.includes(:user, :course).find_each do |courses_user|
-      courses_user.update_cache_from_timeslices(excluded_wiki_ids)
+      update_caches = update_caches_by_course[courses_user.course]
+      courses_user.update_cache_from_timeslices(excluded_wiki_ids, **update_caches)
     end
+  end
+
+  def self.build_update_caches(course)
+    {
+      upload_counts_by_user: course.uploads.group('commons_uploads.user_id').count,
+      first_assigned_titles_by_user: course.assignments.order(:id).group_by(&:user_id)
+                                           .transform_values { |a| a.first.article_title },
+      revision_stat_timeslice: RevisionStatTimeslice.new(course)
+    }
   end
 end

@@ -495,19 +495,6 @@ class Course < ApplicationRecord
     uploads.where('usage_count > 0')
   end
 
-  def upload_counts_by_user
-    @upload_counts_by_user ||= uploads.group('commons_uploads.user_id').count
-  end
-
-  def first_assigned_titles_by_user
-    @first_assigned_titles_by_user ||= assignments.order(:id).group_by(&:user_id)
-                                                  .transform_values { |a| a.first.article_title }
-  end
-
-  def revision_stat_timeslice
-    @revision_stat_timeslice ||= RevisionStatTimeslice.new(self)
-  end
-
   def word_count
     @word_count ||= WordCount.from_characters(character_sum)
   end
