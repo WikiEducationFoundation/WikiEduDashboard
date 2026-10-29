@@ -74,6 +74,10 @@ class FellowsCohort < Course
     true
   end
 
+  def applications_allowed?
+    true
+  end
+
   def passcode_required?
     false
   end

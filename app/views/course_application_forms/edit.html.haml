@@ -1,0 +1,54 @@
+-# Admin-only settings for a Scholars & Scientists course's application form.
+-# See CourseApplicationFormsController. Expects @course, @form and
+-# @question_group_choices (the groups on the form, in order, then the others
+-# that may join it).
+- content_for :before_title, "#{t('course_application_forms.title')} — "
+
+%header.main-page
+  .container
+    %h1= t('course_application_forms.title')
+    %p= link_to @course.title, "/courses/#{@course.slug}"
+
+.container.course-application-form
+  - if @form.errors.any?
+    .notification
+      %ul
+        - @form.errors.full_messages.each do |message|
+          %li= message
+
+  = form_with url: "/courses/#{@course.slug}/application_form", method: :patch,
+              scope: :course_application_form, local: true do |f|
+    .form-group
+      -# Explicit ids: form_with generates none in this app, and the labels need them.
+      = f.check_box :open, checked: @form.open, id: 'course_application_form_open'
+      = f.label :open, t('course_application_forms.open'), for: 'course_application_form_open'
+
+    .form-group
+      = f.label :intro, t('course_application_forms.intro'), for: 'course_application_form_intro'
+      = f.text_area :intro, value: @form.intro, rows: 6, id: 'course_application_form_intro'
+
+    %h2= t('course_application_forms.question_groups')
+    %p= t('course_application_forms.positions_help')
+    - if @question_group_choices.empty?
+      %p= t('course_application_forms.no_question_groups_available')
+    - else
+      %table.table
+        %thead
+          %tr
+            %th= t('course_application_forms.position')
+            %th= t('course_application_forms.question_group')
+            %th
+        %tbody
+          - @question_group_choices.each do |group|
+            - index = @form.question_group_ids.index(group.id)
+            %tr
+              %td
+                = number_field_tag "course_application_form[positions][#{group.id}]",
+                                   index && index + 1, min: 1,
+                                   aria: { label: "#{t('course_application_forms.position')}: #{group.name}" }
+              %td= group.name
+              %td
+                = link_to t('course_application_forms.edit_question_group'),
+                          rapidfire.edit_question_group_path(group)
+
+    = f.submit t('course_application_forms.save'), class: 'button dark'
