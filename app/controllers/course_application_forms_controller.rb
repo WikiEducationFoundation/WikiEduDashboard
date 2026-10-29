@@ -16,8 +16,7 @@ class CourseApplicationFormsController < ApplicationController
 
   def update
     if @form.update(form_params)
-      redirect_to "/courses/#{@course.slug}/application_form",
-                  notice: t('course_application_forms.saved'), status: :see_other
+      redirect_to request.path, notice: t('course_application_forms.saved'), status: :see_other
     else
       set_question_group_choices
       render :edit, status: :unprocessable_content
@@ -43,10 +42,11 @@ class CourseApplicationFormsController < ApplicationController
       question_group_ids: ordered_question_group_ids }
   end
 
-  # Each offered group has a position field. Groups left blank are not on the
-  # form; the rest are asked in position order.
+  # Each offered group has a position field, keyed by group id. Groups left
+  # blank are not on the form; the rest are asked in position order.
   def ordered_question_group_ids
-    positions = params.dig(:course_application_form, :positions)&.permit!.to_h || {}
+    group_ids = Rapidfire::QuestionGroup.pluck(:id).map(&:to_s)
+    positions = params.dig(:course_application_form, :positions)&.permit(*group_ids).to_h
     positions.compact_blank
              .sort_by { |id, position| [position.to_i, id.to_i] }
              .map(&:first)

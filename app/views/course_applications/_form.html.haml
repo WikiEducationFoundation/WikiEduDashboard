@@ -1,0 +1,15 @@
+-# The application questions: every question group on the course's form, in
+-# order, as one form submitted in one request. course_application.js shows and
+-# hides conditional questions; without it, every question is shown.
+- if @invalid
+  .module.course-application__invalid{ role: 'alert' }
+    %p= t('course_applications.invalid')
+
+= form_with url: "/courses/#{@course.slug}/apply", method: :post, local: true,
+            html: { class: 'course-application__form', data: { course_application_form: true } } do
+  - @form.question_groups.each do |group|
+    - group.questions.each do |question|
+      = render 'question', question:, answer: @answers_by_question_id[question.id]
+  = submit_tag t('course_applications.submit'), class: 'button dark'
+
+= hot_javascript_tag 'course_application'

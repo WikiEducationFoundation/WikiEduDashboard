@@ -84,6 +84,8 @@ class SelfEnrollmentController < ApplicationController
     return unless @result['failure']
     respond_to do |format|
       format.html do
+        # A course that takes applications is joined by applying.
+        next redirect_to "/courses/#{@course.slug}/apply" if application_required?
         redirect_to course_slug_path(@course.slug,
                                      enrolled: false,
                                      failure_reason: @result['failure'])
@@ -96,6 +98,10 @@ class SelfEnrollmentController < ApplicationController
       end
     end
     yield
+  end
+
+  def application_required?
+    @result['failure'] == 'application_required'
   end
 
   def redirect_if_passcode_invalid

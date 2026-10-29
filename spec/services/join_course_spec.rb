@@ -177,4 +177,31 @@ describe JoinCourse do
       expect(result['success']).to be_nil
     end
   end
+
+  context 'for a course that takes applications' do
+    let(:course) { create(:fellows_cohort, end: 2.months.from_now) }
+
+    before { CourseApplicationForm.create!(course:) }
+
+    it 'refuses a student' do
+      result = described_class.new(course:, user: second_user,
+                                   role: CoursesUsers::Roles::STUDENT_ROLE).result
+      expect(result['failure']).to eq('application_required')
+      expect(course.students).to be_empty
+    end
+
+    it 'enrolls a student when the caller skips the application check' do
+      result = described_class.new(course:, user: second_user,
+                                   role: CoursesUsers::Roles::STUDENT_ROLE,
+                                   skip_application_check: true).result
+      expect(result['success']).to be_present
+    end
+
+    # The shared setup has already enrolled `user` as an instructor.
+    it 'still enrolls other roles' do
+      result = described_class.new(course:, user: second_user,
+                                   role: CoursesUsers::Roles::INSTRUCTOR_ROLE).result
+      expect(result['success']).to be_present
+    end
+  end
 end
