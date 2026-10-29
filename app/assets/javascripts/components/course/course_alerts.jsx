@@ -161,6 +161,22 @@ const CourseAlerts = ({
           />
         );
       }
+
+      // //////////////////////////////////////
+      // Finalized and purgeable notifications /
+      // //////////////////////////////////////
+      if (course.flags && course.flags.finalized) {
+        newAlerts.push(
+          <CourseAlert key="course_finalized" message={CourseUtils.i18n('finalized_notice', course.string_prefix)} />
+        );
+      } else if (course.flags && course.flags.purgeable) {
+        const purgeableNotice = Features.wikiEd
+          ? I18n.t('courses.purgeable_notice_wiki_ed')
+          : CourseUtils.i18n('purgeable_notice', course.string_prefix);
+        newAlerts.push(
+          <CourseAlert key="course_purgeable" message={purgeableNotice} />
+        );
+      }
       setAlerts(newAlerts);
     };
 

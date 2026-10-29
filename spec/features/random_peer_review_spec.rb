@@ -83,6 +83,16 @@ describe 'random peer reviews', type: :feature, js: true do
     expect(student2_peer_reviews.first).to eq article.title
   end
 
+  it 'does not show the random peer review button when the course metadata is locked' do
+    course.update(flags: { finalized: true })
+    VCR.use_cassette 'assignments/random_peer_review' do
+      visit "/courses/#{course.slug}/students/overview"
+    end
+
+    expect(page).to have_css('table.users') # page has loaded
+    expect(page).not_to have_button 'Assign random peer reviews'
+  end
+
   it 'assigns correctly if peer review count is not set' do
     VCR.use_cassette 'assignments/random_peer_review' do
       visit "/courses/#{course.slug}/students/overview"

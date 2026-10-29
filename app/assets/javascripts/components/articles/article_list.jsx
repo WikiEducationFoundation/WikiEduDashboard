@@ -146,7 +146,8 @@ const ArticleList = createReactClass({
   render() {
     const keys = articleListKeys(this.props.course);
     const project = this.props.course.home_wiki.project;
-    const trackedEditable = this.props.current_user && this.props.current_user.isAdvancedRole;
+    const { course, current_user } = this.props;
+    const trackedEditable = current_user && current_user.isAdvancedRole && !course.metadata_locked;
 
     if (this.props.course.type !== 'ClassroomProgramCourse' && trackedEditable) {
       keys.tracked = {

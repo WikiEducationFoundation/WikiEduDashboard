@@ -31,6 +31,7 @@ const AvailableArticles = (props) => {
   let elements = [];
   let findingArticlesTraining;
   const { assignments, course, course_id, current_user } = props;
+  const locked = course.metadata_locked;
 
   const { assigned } = processAssignments(props);
 
@@ -75,7 +76,7 @@ const AvailableArticles = (props) => {
       <AssignCell
         course={course}
         role={ASSIGNED_ROLE}
-        editable
+        editable={!locked}
         allowMultipleArticles={true}
         course_id={course_id}
         current_user={current_user}
@@ -84,7 +85,7 @@ const AvailableArticles = (props) => {
       />
     );
     // Same gate as the add control inside AssignCell
-    if (current_user.isInstructor || current_user.admin) {
+    if (!locked && (current_user.isInstructor || current_user.admin)) {
       copyCell = (
         <CopyAvailableArticles course={course} course_id={course_id} current_user={current_user} />
       );
@@ -101,7 +102,7 @@ const AvailableArticles = (props) => {
             {findingArticlesTraining}
             {assignCell}
             {copyCell}
-            <Link to={`/courses/${course_id}/article_finder`}><button className="button border small ml2">{ArticleUtils.I18n('find', project)}</button></Link>
+            {!locked && <Link to={`/courses/${course_id}/article_finder`}><button className="button border small ml2">{ArticleUtils.I18n('find', project)}</button></Link>}
           </div>
         </div>
         <AvailableArticlesList {...props} elements={elements} />
