@@ -36,7 +36,8 @@ class Query::RankedArticlesCoursesQuery
   # average daily views times the days since the first revision, or the stored
   # view_count when either is missing. Ordering by the same arithmetic keeps the
   # sort in step with the numbers on screen; `articles_courses` has no `view_sum`.
-  VIEWS_SQL = 'COALESCE(DATEDIFF(CURRENT_DATE, articles_courses.first_revision) * ' \
+  # UTC_DATE matches the helper's `Time.now.utc`, whatever the server's time zone.
+  VIEWS_SQL = 'COALESCE(DATEDIFF(UTC_DATE(), articles_courses.first_revision) * ' \
               'COALESCE(articles_courses.average_views, articles.average_views), ' \
               'articles_courses.view_count)'
   # Sort parameter => SQL to order by. The keys are the names the controller accepts.
@@ -66,6 +67,6 @@ class Query::RankedArticlesCoursesQuery
     column = SORT_COLUMNS[@sort_column]
     direction = DIRECTIONS.find { |d| d.casecmp?(@sort_direction.to_s) }
     return DEFAULT_ORDER unless column && direction
-    Arel.sql("#{column} #{direction}")
+    Arel.sql(column).public_send(direction.downcase)
   end
 end
