@@ -2082,6 +2082,7 @@ en:
       other: "%{count} items"
     profile: profile
     recent_revisions: Recent Edits
+    toggle_revision_details: Toggle student revision details
     references_count: References Added
     training_modules: Training Modules
     remove_confirmation: Are you sure you want to remove %{username}?
