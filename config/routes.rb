@@ -248,6 +248,12 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/assignment_progress.csv' => 'courses/assignment_progress#csv',
         constraints: { slug: /.*/ }
+    # Admin-only Scholars & Scientists application form settings, declared
+    # before the courses#show catch-all. See CourseApplicationFormsController.
+    get 'courses/:slug/application_form' => 'course_application_forms#edit',
+        constraints: { slug: /.*/ }
+    patch 'courses/:slug/application_form' => 'course_application_forms#update',
+          constraints: { slug: /.*/ }
     # The unlisted LTI 1.1 credentials page, declared before the courses#show
     # catch-all so it wins. Nothing in the interface links to it; Wiki
     # Education shares the URL with beta instructors who need the 1.1 path.

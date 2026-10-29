@@ -194,6 +194,13 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
     ));
   }
 
+  // Application form settings, for admins on Scholars & Scientists courses (Wiki Ed only).
+  if (user.admin && Features.wikiEd && course.type === 'FellowsCohort') {
+    controls.push((
+      <div key="application_form" className="available-action"><a href={`/courses/${course.slug}/application_form`} className="button">{I18n.t('course_application_forms.title')}</a></div>
+    ));
+  }
+
   if (user.admin && Features.wikiEd) {
     controls.push((
       <div key="notify_instructors" className="available-action"><NotifyInstructorsButton courseId={course.id} courseTitle={course.title} /></div>

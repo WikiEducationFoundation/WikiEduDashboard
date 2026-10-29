@@ -1111,6 +1111,20 @@ en:
       notification_message: Take our survey for this course.
       link: Take Survey
 
+  course_application_forms:
+    title: Application form
+    open: Accepting applications
+    intro: Intro
+    question_groups: Question groups
+    question_group: Question group
+    position: Position
+    edit_question_group: Edit
+    save: Save
+    saved: Saved
+    positions_help: "[PLACEHOLDER - instructions for the question group table: leave a position blank to keep a group off the form; numbers set the order, base group first]"
+    no_question_groups_available: "[PLACEHOLDER - message when no question groups are available yet, pointing admins to the question group admin to create one]"
+    no_question_groups_error: "[PLACEHOLDER - error when saving an open form with no question groups]"
+
   course_instructor_notification:
     notify_instructors: Email Instructors
     notify_instructors_feature_description: Send a message to Instructors via email
