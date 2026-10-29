@@ -306,6 +306,9 @@ ores_plot#refresh_ores_data: public
 personal_data#personal_data_csv: signed_in
 personal_data#show: signed_in
 
+purge_courses#purge: admin
+purge_courses#show: admin
+
 questions#question: admin
 questions#results: admin
 questions#update_position: admin
