@@ -10,10 +10,11 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: %i[overview programs articles users edit
                                         update destroy add_organizer remove_organizer
                                         remove_course ores_plot
-                                        alerts active_courses]
+                                        alerts active_courses refresh_stats]
   before_action :require_create_permissions, only: [:create]
   before_action :require_write_permissions, only: %i[update destroy add_organizer
-                                                     remove_organizer remove_course edit]
+                                                     remove_organizer remove_course edit
+                                                     refresh_stats]
 
   DETAILS_FIELDS = %w[title start end].freeze
   CAMPAIGNS_PER_PAGE = 25
@@ -223,9 +224,11 @@ class CampaignsController < ApplicationController
   def statistics
     user_only = params[:user_only]
     newest = params[:newest]
-    # rubocop:disable Layout/LineLength
-    @campaigns = user_only == 'true' ? current_user.campaigns : Campaign.all.order(created_at: :desc)
-    # rubocop:enable Layout/LineLength
+    @campaigns = if user_only == 'true'
+                   current_user&.campaigns || Campaign.none
+                 else
+                   Campaign.all.order(created_at: :desc)
+                 end
     @campaigns = @campaigns.limit(10) if newest == 'true'
     render user_only == 'true' ? 'user_statistics' : 'statistics'
   end
@@ -245,7 +248,6 @@ class CampaignsController < ApplicationController
   end
 
   def refresh_stats
-    set_campaign
     @campaign.clear_course_sums_cache
     @campaign.clear_articles_count_cache
 

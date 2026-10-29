@@ -186,6 +186,11 @@ Rails.application.config.to_prepare do
 
   Rapidfire::ApplicationController.class_eval do
     layout 'surveys'
+
+    # Raised by authenticate_administrator! for non-admins; unhandled, it was a 500.
+    rescue_from Rapidfire::AccessDenied do
+      render plain: Errors::AuthenticationErrors::NotPermittedError.new.message, status: :forbidden
+    end
   end
 
   Rapidfire::AnswerGroupsController.class_eval do

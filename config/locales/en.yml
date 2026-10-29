@@ -90,8 +90,6 @@ en:
     details: Details
     confirm: OK
     confirm_generic: Are you sure you want to do this?
-    opt_in: "Yes"
-    opt_out: "No"
     opt_yes: "yes"
     opt_no: "no"
     print: Print

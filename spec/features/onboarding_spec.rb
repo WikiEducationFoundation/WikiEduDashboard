@@ -35,7 +35,8 @@ describe 'onboarding', type: :feature, js: true do
       end
 
       it 'is able to log out' do
-        visit destroy_user_session_path
+        visit onboarding_path
+        click_link 'Log out'
         expect(page).to have_current_path(root_path)
       end
     end

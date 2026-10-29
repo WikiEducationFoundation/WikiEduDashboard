@@ -381,17 +381,6 @@ const API = {
     return result;
   },
 
-  async removeAndDeleteCourse(courseSlug, campaignTitle, campaignId, campaignSlug) {
-    const response = await request(`/courses/${courseSlug}.json/delete_from_campaign?campaign_title=${campaignTitle}&campaign_id=${campaignId}&campaign_slug=${campaignSlug}`, {
-      method: 'DELETE'
-    });
-
-    await ensureOk(response);
-    const result = await response.json();
-    window.location = '/';
-    return result;
-  },
-
   async deleteBlock(block_id) {
     const response = await request(`/blocks/${block_id}.json`, {
       method: 'DELETE'

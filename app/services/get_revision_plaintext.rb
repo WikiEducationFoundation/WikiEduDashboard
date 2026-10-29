@@ -95,7 +95,8 @@ class GetRevisionPlaintext
     doc = Nokogiri::HTML(html)
     doc.xpath('//table').each(&:remove) # Exclude tables, like infoboxes
     doc.xpath('//cite').each(&:remove) # Exclude `cite` tags, which usually appear at the end
-    doc.css('.mw-cite-backlink').each(&:remove) # Exclude backlinks that precede `cite` tags.
+    # Exclude reference lists, including refs that aren't wrapped in `cite` tags.
+    doc.css('ol.references').each(&:remove)
 
     doc.xpath('//figure').each(&:remove) # Exclude figure elements (images + captions)
     doc.xpath('//img').each(&:remove) # Exclude any remaining image elements

@@ -27,6 +27,7 @@ describe CourseStatistics do
       start: 1.month.ago, end: 1.month.ago + 1.day)
       create(:article_course_timeslice, course_id: id, article_id: id, revision_count: 1,
       new_article: id == 1, start: 1.month.ago, end: 1.month.ago + 1.day)
+      create(:articles_course, course_id: id, article_id: id, new_article: id == 1)
       create(:course_user_wiki_timeslice, course_id: id, user_id: id, wiki:, character_sum_ms: id,
       references_count: id, start: 1.month.ago, end: 1.month.ago + 1.day)
 
@@ -58,9 +59,17 @@ describe CourseStatistics do
     end
 
     it 'counts new articles that got deleted' do
+      # Deleted articles lose their articles_courses records, but keep their timeslices.
       Article.find(1).update(deleted: true)
+      ArticlesCourses.where(article_id: 1).delete_all
       expect(subject[:articles_created]).to eq(0)
       expect(subject[:articles_deleted]).to eq(1)
+    end
+
+    it 'counts edited and created articles once the timeslices are purged' do
+      ArticleCourseTimeslice.delete_all
+      expect(subject[:articles_edited]).to eq(course_ids.count)
+      expect(subject[:articles_created]).to eq(1)
     end
 
     it 'counts uploads from during courses' do
@@ -71,9 +80,8 @@ describe CourseStatistics do
     end
 
     it 'counts only tracked articles' do
-      ArticleCourseTimeslice.find_by(course_id: 1, article_id: 1).update(tracked: false)
-      ArticleCourseTimeslice.find_by(course_id: 2, article_id: 2).update(revision_count: 0)
-      expect(subject[:articles_edited]).to eq(course_ids.count - 2)
+      ArticlesCourses.find_by(course_id: 1, article_id: 1).update(tracked: false)
+      expect(subject[:articles_edited]).to eq(course_ids.count - 1)
     end
 
     it 'counts only articles in namespace' do

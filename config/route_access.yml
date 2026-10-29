@@ -1,0 +1,580 @@
+# Who may call each routed controller action.
+#
+# spec/routing/route_access_spec.rb fails when a route has no entry here or an
+# entry has no route, so every new route needs an explicit, reviewed access
+# level. It also requests every route whose level isn't public, token, none or
+# development while logged out, and fails if one answers with a success.
+#
+# A level is the weakest caller that can succeed, on either dashboard; a
+# comment says when Wiki Ed is stricter. It describes who may call the action,
+# not what each caller may see: public pages still leave out private courses.
+#
+#   public       anyone, including logged-out visitors
+#   token        a credential other than the session: a signature, a shared
+#                secret, an emailed code, an LTI launch token, a signed id
+#   signed_in    any signed-in user
+#   self         a signed-in user acting on their own records
+#   participant  a user with a role in the course (and admins)
+#   editor       a user who can edit the course: its instructors and Wiki Ed
+#                staff, organizers of its campaigns, admins
+#   organizer    a campaign organizer or an admin
+#   admin        an admin
+#   super_admin  a super admin
+#   development  only in the development environment
+#   none         routed, but no action answers it (404)
+
+about_this_site#accessibility: public
+about_this_site#canvas_instructor_guide: public
+about_this_site#canvas_integration_guide: public
+about_this_site#hecvat: public
+about_this_site#private_information: public
+
+action_mailbox/ingresses/mailgun/inbound_emails#create: none
+
+action_mailbox/ingresses/mandrill/inbound_emails#create: none
+action_mailbox/ingresses/mandrill/inbound_emails#health_check: none
+
+action_mailbox/ingresses/postmark/inbound_emails#create: none
+
+action_mailbox/ingresses/relay/inbound_emails#create: none
+
+action_mailbox/ingresses/sendgrid/inbound_emails#create: none
+
+active_courses#index: public
+
+active_storage/blobs/proxy#show: token
+
+active_storage/blobs/redirect#show: token
+
+active_storage/direct_uploads#create: token
+
+active_storage/disk#show: token
+active_storage/disk#update: token
+
+active_storage/representations/proxy#show: token
+
+active_storage/representations/redirect#show: token
+
+admin#index: admin
+
+admin_course_notes#create: admin
+admin_course_notes#destroy: admin
+admin_course_notes#show: admin
+admin_course_notes#update: admin
+
+ai_edit_alerts_stats#choose_campaign: admin
+ai_edit_alerts_stats#index: admin
+ai_edit_alerts_stats#redirect_to_default: admin
+ai_edit_alerts_stats#select_campaign: admin
+
+ai_tools#compare_ai_detectors: admin
+ai_tools#show: admin
+
+alert_followup#show: admin
+alert_followup#update: admin
+
+alerts#create: signed_in  # participant when it names a course
+alerts#notify_instructors: admin
+alerts#resolve: admin
+
+alerts_list#index: admin
+alerts_list#show: admin
+
+analytics#all_campaigns: public
+analytics#all_courses: public
+analytics#all_courses_csv: public
+analytics#index: public
+analytics#mentor_requests_csv: admin
+analytics#mentor_volunteers_csv: admin
+analytics#results: public  # a no-op unless an admin asks for monthly_report or campaign_intersection
+analytics#tagged_courses_csv: admin
+analytics#ungreeted: signed_in
+analytics#usage: public
+
+article_finder#index: public
+
+articles#details: public
+articles#revision_score: public
+articles#update_tracked_status: editor
+
+assignment_suggestions#create: participant
+assignment_suggestions#destroy: self
+
+assignments#assign_reviewers_randomly: editor
+assignments#claim: participant  # editors may claim for others
+assignments#create: participant
+assignments#destroy: editor
+assignments#update_sandbox_url: participant
+assignments#update_status: self
+
+blocks#destroy: editor
+
+campaigns#active_courses: public
+campaigns#add_organizer: organizer
+campaigns#alerts: public
+campaigns#articles: public
+campaigns#assignments: public
+campaigns#create: signed_in
+campaigns#current_alerts: public
+campaigns#current_term: public
+campaigns#destroy: organizer
+campaigns#edit: organizer
+campaigns#featured_campaigns: public
+campaigns#index: public
+campaigns#new: public
+campaigns#ores_plot: public
+campaigns#overview: public
+campaigns#programs: public
+campaigns#refresh_stats: organizer
+campaigns#remove_course: organizer
+campaigns#remove_organizer: organizer
+campaigns#show: public
+campaigns#statistics: public  # user_only=true lists only the signed-in user's campaigns
+campaigns#update: organizer
+campaigns#users: public
+
+categories#add_categories: editor
+categories#category: editor
+categories#remove_category: editor
+
+claim_verification#harvest: admin
+claim_verification#index: admin
+claim_verification#status: admin
+
+claim_verification_exercises#annotated_article: signed_in
+claim_verification_exercises#entry: signed_in
+claim_verification_exercises#state: signed_in
+claim_verification_exercises#take: signed_in
+
+claim_verification_responses#create: signed_in
+claim_verification_responses#index: admin
+
+copy_available_articles#create: editor
+copy_available_articles#preview: editor
+
+copy_course#copy: signed_in  # admin on Wiki Ed
+copy_course#index: signed_in  # admin on Wiki Ed
+
+course_canvas_credentials#create: editor
+course_canvas_credentials#show: editor
+
+course_clone#clone: signed_in  # editor of the source course on Wiki Ed
+
+course_flags#index: admin
+course_flags#show: admin
+course_flags#update: admin
+
+courses#alerts: public
+courses#articles: public
+courses#assignments: public
+courses#campaigns: public
+courses#categories: public
+courses#check: public
+courses#classroom_program_students_and_instructors_json: public
+courses#classroom_program_students_json: public
+courses#course: public
+courses#create: signed_in
+courses#delete_all_weeks: editor
+courses#destroy: editor  # admin on Wiki Ed once the course is in a campaign
+courses#fellows_cohort_students_and_instructors_json: public
+courses#fellows_cohort_students_json: public
+courses#find: public
+courses#list: editor  # admin on Wiki Ed
+courses#manual_update: super_admin
+courses#needs_update: participant
+courses#notify_untrained: editor
+courses#search: public
+courses#show: public
+courses#tag: admin
+courses#tags: public
+courses#timeline: public
+courses#update: editor
+courses#uploads: public
+courses#users: public
+
+courses/assignment_progress#csv: editor
+courses/assignment_progress#index: editor
+
+courses/delete_from_campaign#delete_course_from_campaign: organizer
+
+courses/syllabuses#update: editor
+
+courses/watchlist#add_to_watchlist: editor
+
+courses_by_wiki#show: public
+
+courses_users#index: signed_in
+
+dashboard#index: signed_in
+dashboard#my_account: public
+
+detector_comparison#index: public
+detector_comparison#known_human: public
+detector_comparison#topic: public
+detector_comparison#topics: public
+detector_comparison#unit: public
+
+embed#course_stats: public
+
+errors#file_not_found: public
+errors#incorrect_passcode: public
+errors#internal_server_error: public
+errors#login_error: public
+errors#unprocessable: public
+
+experiments/instructor_opt_in#opt_in: signed_in
+experiments/instructor_opt_in#opt_out: signed_in
+experiments/instructor_opt_in#show: signed_in
+
+experiments/opt_in#opt_in: signed_in
+experiments/opt_in#opt_out: signed_in
+experiments/opt_in#show: public
+
+experiments/student_opt_out#opt_out: admin
+experiments/student_opt_out#show: admin
+
+explore#index: public
+
+faq#create: admin
+faq#destroy: admin
+faq#edit: admin
+faq#handle_special_faq_query: public
+faq#index: public
+faq#new: admin
+faq#show: public
+faq#update: admin
+
+faq_topics#create: admin
+faq_topics#delete: admin
+faq_topics#edit: admin
+faq_topics#index: admin
+faq_topics#new: admin
+faq_topics#update: admin
+
+feedback_form_responses#confirmation: public
+feedback_form_responses#create: public
+feedback_form_responses#index: admin
+feedback_form_responses#new: public
+feedback_form_responses#show: admin
+
+greeting#greet_course_students: admin
+
+home#index: public
+
+inbound_emails#create: token
+
+lms_integration_status#show: public  # {bound: false} unless the caller is in the bound course
+
+lookups#campaign: public
+lookups#tag: admin
+
+lti_config#legacy: public
+
+lti_integrations#index: admin
+
+lti_launch#assignment_view: token
+lti_launch#complete_setup: signed_in
+lti_launch#connect_course: token
+lti_launch#connect_identity: signed_in
+lti_launch#deep_link: token
+lti_launch#deep_link_select: token
+lti_launch#launch: token
+lti_launch#sync_grades: token
+
+lti_legacy_launches#create: token
+
+mailer_previews#index: public
+
+mass_email/term_recap#index: admin
+mass_email/term_recap#send_recap_emails: admin
+
+mass_enrollment#add_users: editor
+mass_enrollment#index: editor
+
+omniauth_callbacks#mediawiki: public
+omniauth_callbacks#mediawiki_signup: public
+omniauth_callbacks#passthru: public
+
+onboarding#index: signed_in
+onboarding#onboard: signed_in
+onboarding#supplementary: signed_in
+
+ores_plot#campaign_plot: public
+ores_plot#course_plot: public
+ores_plot#refresh_ores_data: public
+
+personal_data#personal_data_csv: signed_in
+personal_data#show: signed_in
+
+questions#question: admin
+questions#results: admin
+questions#update_position: admin
+
+rails/conductor/action_mailbox/inbound_emails#create: development
+rails/conductor/action_mailbox/inbound_emails#index: development
+rails/conductor/action_mailbox/inbound_emails#new: development
+rails/conductor/action_mailbox/inbound_emails#show: development
+
+rails/conductor/action_mailbox/inbound_emails/sources#create: development
+rails/conductor/action_mailbox/inbound_emails/sources#new: development
+
+rails/conductor/action_mailbox/incinerates#create: development
+
+rails/conductor/action_mailbox/reroutes#create: development
+
+rails/info#index: development
+rails/info#notes: development
+rails/info#properties: development
+rails/info#routes: development
+
+rails/mailers#download: public
+rails/mailers#index: public
+rails/mailers#preview: public
+
+rails/welcome#index: development
+
+rapidfire/answer_groups#create: signed_in
+rapidfire/answer_groups#new: public
+
+rapidfire/question_groups#create: admin
+rapidfire/question_groups#destroy: admin
+rapidfire/question_groups#edit: admin
+rapidfire/question_groups#index: admin
+rapidfire/question_groups#new: admin
+rapidfire/question_groups#results: admin
+rapidfire/question_groups#show: admin
+rapidfire/question_groups#update: admin
+
+rapidfire/questions#create: admin
+rapidfire/questions#destroy: admin
+rapidfire/questions#edit: admin
+rapidfire/questions#index: admin
+rapidfire/questions#new: admin
+rapidfire/questions#show: none
+rapidfire/questions#update: admin
+
+recent_activity#index: public
+
+redirects#sandbox: signed_in
+
+report_cards#index: admin
+report_cards#show: admin
+
+reports#all_courses_and_instructors_csv: admin
+reports#campaign_all_csv: signed_in
+reports#campaign_articles_csv: signed_in
+reports#campaign_courses_csv: signed_in
+reports#campaign_instructors_csv: signed_in
+reports#campaign_students_csv: signed_in
+reports#campaign_wikidata_csv: signed_in
+reports#course_articles_csv: signed_in
+reports#course_csv: signed_in
+reports#course_retention_csv: admin
+reports#course_students_csv: signed_in
+reports#course_uploads_csv: signed_in
+reports#course_wikidata_csv: signed_in
+reports#system_csv: admin
+reports#system_daily_stats_csv: admin
+
+requested_accounts#create_accounts: editor
+requested_accounts#create_all_accounts: admin
+requested_accounts#destroy: editor
+requested_accounts#enable_account_requests: editor
+requested_accounts#index: admin
+requested_accounts#request_account: public  # needs the course passcode
+requested_accounts#show: editor
+
+requested_accounts_campaigns#create_accounts: admin
+requested_accounts_campaigns#disable_account_requests: admin
+requested_accounts_campaigns#enable_account_requests: admin
+requested_accounts_campaigns#index: admin
+
+revision_ai_scores_stats#index: admin
+
+revision_analytics#recent_uploads: public
+
+revision_feedback#index: public
+
+salesforce#create_media: admin
+salesforce#link: admin
+salesforce#update: admin
+
+sandbox_mode#update: admin
+
+self_enrollment#enroll_self: signed_in  # needs the passcode for the student role
+
+settings#add_disallowed_user: super_admin
+settings#add_featured_campaign: admin
+settings#all_admins: admin
+settings#course_creation: admin
+settings#default_campaign: admin
+settings#disallowed_users: admin
+settings#downgrade_admin: super_admin
+settings#downgrade_special_user: super_admin
+settings#fetch_impact_stats: admin
+settings#fetch_site_notice: admin
+settings#index: admin
+settings#remove_disallowed_user: super_admin
+settings#remove_featured_campaign: admin
+settings#special_users: admin
+settings#update_course_creation: admin
+settings#update_default_campaign: admin
+settings#update_impact_stats: admin
+settings#update_salesforce_credentials: super_admin
+settings#update_site_notice: super_admin
+settings#upgrade_admin: super_admin
+settings#upgrade_special_user: super_admin
+
+styleguide#index: public
+
+survey_assignments#create: admin
+survey_assignments#create_notifications: admin
+survey_assignments#destroy: admin
+survey_assignments#edit: admin
+survey_assignments#index: admin
+survey_assignments#new: admin
+survey_assignments#send_notifications: admin
+survey_assignments#send_test_email: admin
+survey_assignments#show: admin
+survey_assignments#update: admin
+
+survey_notifications#update: signed_in
+
+survey_responses#delete: admin
+survey_responses#index: admin
+
+survey_results#results: admin
+
+surveys#clone_question: admin
+surveys#clone_question_group: admin
+surveys#course_select: admin
+surveys#create: admin
+surveys#destroy: admin
+surveys#edit: admin
+surveys#edit_question_groups: admin
+surveys#index: admin
+surveys#new: admin
+surveys#optout: public  # static text; logged-out visitors get the sign-in page (status 200)
+surveys#results_index: admin
+surveys#show: public
+surveys#update: admin
+surveys#update_question_group_position: admin
+
+system/backups#can_start_backup: public
+
+system_stats#facilitators: admin
+system_stats#index: admin
+system_stats#wiki_trends: admin
+
+system_status#index: public
+
+tagged_courses#alerts: admin
+tagged_courses#articles: admin
+tagged_courses#programs: admin
+tagged_courses#stats: admin
+
+ticket_dispenser/messages#create: admin
+ticket_dispenser/messages#destroy: none
+ticket_dispenser/messages#edit: none
+ticket_dispenser/messages#index: none
+ticket_dispenser/messages#new: none
+ticket_dispenser/messages#show: none
+ticket_dispenser/messages#update: none
+
+ticket_dispenser/tickets#create: none
+ticket_dispenser/tickets#destroy: admin
+ticket_dispenser/tickets#edit: none
+ticket_dispenser/tickets#index: admin
+ticket_dispenser/tickets#new: none
+ticket_dispenser/tickets#open_tickets: admin
+ticket_dispenser/tickets#read_all_messages: admin
+ticket_dispenser/tickets#show: admin
+ticket_dispenser/tickets#update: admin
+
+ticket_dispenser/tickets/replies#create: admin
+ticket_dispenser/tickets/replies#destroy: admin
+ticket_dispenser/tickets/replies#edit: none
+ticket_dispenser/tickets/replies#index: none
+ticket_dispenser/tickets/replies#new: none
+ticket_dispenser/tickets/replies#show: none
+ticket_dispenser/tickets/replies#update: none
+
+tickets#dashboard: admin
+tickets#notify_owner: admin
+tickets#reply: admin
+tickets#search: admin
+
+timeline#update_timeline: editor
+
+timeslice_duration#index: super_admin
+timeslice_duration#show: super_admin
+timeslice_duration#update: super_admin
+
+training#find_slide: public
+training#index: public
+training#reload: public  # admin for module=all once modules exist
+training#show: public
+training#slide_view: public
+training#training_module: public
+
+training_module_drafts#collisions: admin
+training_module_drafts#copy: admin
+training_module_drafts#create: admin
+training_module_drafts#destroy: admin
+training_module_drafts#existing_modules: admin
+training_module_drafts#existing_slide_slugs: admin
+training_module_drafts#export: admin
+training_module_drafts#index: admin
+training_module_drafts#parse_paste: admin
+training_module_drafts#show: admin
+training_module_drafts#update: admin
+
+training_modules#find: public
+training_modules#index: public
+training_modules#show: public
+
+training_modules_users#create_or_update: signed_in
+training_modules_users#index: public
+training_modules_users#mark_exercise_complete: participant
+training_modules_users#verify_exercise_article: signed_in
+
+training_status#show: public  # {} unless the user's own, or an editor asking about a participant
+training_status#user: public  # {} unless the user's own status, or an admin
+
+unsubmitted_courses#index: public
+
+update_username#index: signed_in
+update_username#update: signed_in
+
+user_profiles#delete_profile_image: self
+user_profiles#show: public
+user_profiles#stats: public
+user_profiles#stats_graphs: public
+user_profiles#taught_courses_articles: public
+user_profiles#update: self
+user_profiles#update_email_preferences: token
+user_profiles#user_articles: public
+
+users#index: admin
+users#show: none
+users#signout: public
+
+users/enrollment#index: participant
+
+users/locale#update_locale: signed_in
+
+weeks#destroy: editor
+
+wikimedia_event_center#confirm_event_sync: token
+wikimedia_event_center#unsync_event: token
+wikimedia_event_center#update_event_participants: token
+
+wizard#submit_wizard: editor
+wizard#wizard: public
+wizard#wizard_blocks: admin
+wizard#wizard_index: public
+
+# Mounted Rack apps, by path. (Rapidfire and TicketDispenser are engines, so
+# their actions are listed above.)
+/cable: none  # mounted by rails/all; the app defines no channels
+/sidekiq: admin  # authenticate :user, admin? in routes.rb

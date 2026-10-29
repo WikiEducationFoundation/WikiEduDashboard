@@ -18,6 +18,24 @@ describe HistogramPlotter do
     FileUtils.rm_rf "#{Rails.root}/tmp/ores_plot"
   end
 
+  context 'when files from earlier days exist' do
+    let(:dir) { "#{Rails.root}/tmp/ores_plot" }
+    let(:old_file) { "#{dir}/Sage-s—te,_st_(slug)-2020-01-01.csv" }
+    let(:other_course_file) { "#{dir}/Sage-s—te,_st_(slug)_extra-2020-01-01.csv" }
+
+    before do
+      FileUtils.mkdir_p dir
+      FileUtils.touch [old_file, other_course_file]
+    end
+
+    it 'removes the course\'s earlier files and leaves other courses\' files' do
+      csv = described_class.csv(course:)
+      expect(File.exist?(csv)).to be true
+      expect(File.exist?(old_file)).to be false
+      expect(File.exist?(other_course_file)).to be true
+    end
+  end
+
   context 'when there is no article data' do
     it 'returns an empty CSV' do
       csv = described_class.csv(course:)

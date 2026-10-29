@@ -85,6 +85,7 @@ describe 'campaign overview page', type: :feature, js: true do
     end
 
     it 'displays stats accurately' do
+      login_as(create(:admin))
       visit "/campaigns/#{campaign.slug}/refresh"
       expect(page).to have_content 'Campaign stats refreshed successfully'
       visit "/campaigns/#{campaign.slug}/overview"

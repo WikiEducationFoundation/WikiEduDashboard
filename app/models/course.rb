@@ -138,6 +138,8 @@ class Course < ApplicationRecord
     # initiated, but not completed.
     PENDING = 1
     COMPLETED = 2
+    # Made by CopyCourseController; set up by whoever copied it.
+    COPIED = 3
   end
 
   ##########
@@ -348,15 +350,6 @@ class Course < ApplicationRecord
                                   .collect(&:training_module_ids).flatten
   end
 
-  def tracked_article_course_timeslices
-    # This method tries to replicate the idea of "tracked revisions"
-    # 'revision_count > 0' condition is because we may create empty timeslices
-    # due to system revisions
-    # 'tracked: true' condition is to avoid timeslices for untracked articles courses
-    article_course_timeslices.where('revision_count > 0')
-                             .where(tracked: true)
-  end
-
   def tracked_namespaces
     courses_wikis.map do |course_wiki|
       wiki = course_wiki.wiki
@@ -549,6 +542,9 @@ class Course < ApplicationRecord
     flags['format']
   end
 
+  EDIT_SETTING_KEYS = %w[
+    wiki_course_page_enabled assignment_edits_enabled enrollment_edits_enabled
+  ].freeze
   def edit_settings_present?
     flags.key?('edit_settings')
   end

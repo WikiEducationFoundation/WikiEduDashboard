@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/analytics/monthly_report"
 require_dependency "#{Rails.root}/lib/analytics/course_statistics"
 require_dependency "#{Rails.root}/lib/analytics/campaign_csv_builder"
 require_dependency "#{Rails.root}/lib/analytics/ungreeted_list"
@@ -22,10 +21,7 @@ class AnalyticsController < ApplicationController
   def index; end
 
   def results
-    if params[:monthly_report]
-      require_admin_permissions
-      monthly_report
-    elsif params[:campaign_intersection]
+    if params[:campaign_intersection]
       require_admin_permissions
       campaign_intersection
     end
@@ -131,10 +127,6 @@ class AnalyticsController < ApplicationController
       total_languages: wikis_with_counts.pluck(:language).compact.uniq.size,
       total_projects: wikis_with_counts.pluck(:project).uniq.size
     }
-  end
-
-  def monthly_report
-    @monthly_report = MonthlyReport.run
   end
 
   def campaign_intersection
