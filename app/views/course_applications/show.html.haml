@@ -1,0 +1,29 @@
+-# The public apply page. See CourseApplicationsController. Expects @course,
+-# @form (nil until an admin sets one up), @application (the viewer's own, if
+-# any), @answers_by_question_id, and @invalid after a failed submission.
+- content_for :before_title, "#{@course.title} — "
+
+%header.main-page
+  .container
+    %h1= @course.title
+    %p= "#{l(@course.start.to_date, format: :long)} – #{l(@course.end.to_date, format: :long)}"
+
+.container.narrow.course-application
+  - if @application
+    .module
+      %p= t('course_applications.submitted')
+  - elsif !@form&.accepting_applications?
+    .module
+      %p= t('course_applications.closed')
+  - else
+    - if @form.intro.present?
+      .module.course-application__intro= simple_format(@form.intro)
+    - if current_user
+      = render 'form'
+    - else
+      .module
+        %p= t('course_applications.log_in_to_apply')
+        = button_to user_mediawiki_omniauth_authorize_path, params: { origin: request.path },
+                    class: 'button dark' do
+          %span= t('application.log_in')
+          %span= t('application.sign_up_log_in_extended')

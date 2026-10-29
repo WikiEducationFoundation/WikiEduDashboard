@@ -1,0 +1,77 @@
+-# One application question. Locals: question, and answer (the submitted
+-# Rapidfire::Answer carrying any validation errors, or nil).
+-#
+-# The question text is Markdown, so it is rendered in its own element and
+-# fields point to it with aria-labelledby rather than wrapping it in a label.
+-# A conditional question is required only while it is shown, which the
+-# browser can't know, so only the server enforces its requirement.
+- field = "answers[#{question.id}][answer_text]"
+- field_id = "answer_#{question.id}"
+- text_id = "#{field_id}_text"
+- errors_id = "#{field_id}_errors"
+- errors = answer&.errors&.full_messages || []
+- value = answer&.answer_text
+- required = question.rules[:presence].to_i == 1
+- required_attribute = required && question.conditionals.blank?
+- described_by = errors.any? ? errors_id : nil
+
+.course-application__question{ id: "question_#{question.id}",
+                               data: { conditional: question.conditionals.presence } }
+  - if question.is_a?(Rapidfire::Questions::Text)
+    .course-application__text= sanitize(question_text_html_from_markdown(question.question_text))
+  - else
+    .course-application__question-text{ id: text_id }
+      = sanitize(question_text_html_from_markdown(question.question_text))
+      - unless required
+        %span.contextual= t('course_applications.optional')
+
+    - case question
+    - when Rapidfire::Questions::Radio, Rapidfire::Questions::Checkbox
+      - checkbox = question.is_a?(Rapidfire::Questions::Checkbox)
+      - checked_values = value.to_s.split(Rapidfire.answers_delimiter)
+      %div{ role: checkbox ? 'group' : 'radiogroup',
+            aria: { labelledby: text_id, describedby: described_by,
+                    required: (required_attribute && !checkbox) || nil } }
+        - question.options.each_with_index do |option, index|
+          - option_value = strip_tags(option).strip
+          - option_id = "#{field_id}_#{index}"
+          .course-application__option
+            - if checkbox
+              = check_box_tag "#{field}[]", option_value, checked_values.include?(option_value),
+                              id: option_id
+            - else
+              = radio_button_tag field, option_value, value == option_value,
+                                 id: option_id, required: required_attribute
+            = label_tag option_id, sanitize(option)
+    - when Rapidfire::Questions::Select
+      = select_tag field, options_for_select(question.options.map { |o| strip_tags(o).strip }, value),
+                   include_blank: true, id: field_id, required: required_attribute,
+                   aria: { labelledby: text_id, describedby: described_by }
+    - when Rapidfire::Questions::Long
+      = text_area_tag field, value, rows: 5, id: field_id, required: required_attribute,
+                      aria: { labelledby: text_id, describedby: described_by }
+    - when Rapidfire::Questions::Numeric, Rapidfire::Questions::RangeInput
+      - rules = question.rules
+      - range = question.is_a?(Rapidfire::Questions::RangeInput)
+      = number_field_tag field, value, id: field_id, required: required_attribute,
+                         min: (range ? rules[:range_minimum] : rules[:greater_than_or_equal_to]).presence,
+                         max: (range ? rules[:range_maximum] : rules[:less_than_or_equal_to]).presence,
+                         step: (range ? rules[:range_increment] : nil).presence,
+                         aria: { labelledby: text_id, describedby: described_by }
+    - when Rapidfire::Questions::Date
+      = date_field_tag field, value, id: field_id, required: required_attribute,
+                       aria: { labelledby: text_id, describedby: described_by }
+    - else
+      = text_field_tag field, value, id: field_id, required: required_attribute,
+                       aria: { labelledby: text_id, describedby: described_by }
+
+    - if question.follow_up_question_text.present?
+      - follow_up_id = "#{field_id}_follow_up"
+      = label_tag follow_up_id, question.follow_up_question_text
+      = text_area_tag "answers[#{question.id}][follow_up_answer_text]",
+                      answer&.follow_up_answer_text, rows: 3, id: follow_up_id
+
+    - if errors.any?
+      %ul.errors{ id: errors_id }
+        - errors.each do |message|
+          %li= message
