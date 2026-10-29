@@ -6,4 +6,3 @@
 # and incomplete `pt-BR` locale from appearing in the language selector or
 # backend locales.
 I18n.load_path.reject! { |path| File.basename(path) == 'pt-BR.yml' }
-
