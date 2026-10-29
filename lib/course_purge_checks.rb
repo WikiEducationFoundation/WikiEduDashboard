@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-#= The conditions a course must meet to have its timeslices purged: it ended long
-#  enough ago and is "done":
+#= The conditions a course must meet to have its timeslices purged: it ended and was
+#  last updated long enough ago, and is "done":
 #  - it is not possibly running an update;
 #  - it has no full update required;
 #  - it has no pending timeslice work (no course wiki timeslice needing update or
@@ -9,11 +9,13 @@
 #  MarkPurgeableCourses uses them to flag courses, and they are checked again right
 #  before purging, since a course can change after being flagged.
 class CoursePurgeChecks
-  # A course becomes eligible for purging once it ended at least this long ago.
+  # A course becomes eligible for purging once it ended, and was last updated, at least
+  # this long ago. Counting from the last update means a finalized course that gets a
+  # full update (which rebuilds its timeslices) keeps them for this long again.
   PURGEABLE_AFTER = 6.months
 
   # Ordered from cheapest to most expensive, so passed? stops early.
-  CHECKS = %i[ended_long_ago no_update_running no_full_update_pending
+  CHECKS = %i[ended_long_ago updated_long_ago no_update_running no_full_update_pending
               no_timeslices_pending].freeze
 
   def initialize(course)
@@ -33,6 +35,12 @@ class CoursePurgeChecks
 
   def ended_long_ago?
     @course.end < PURGEABLE_AFTER.ago
+  end
+
+  # Courses that never finished an update pass.
+  def updated_long_ago?
+    last_update_end = @course.last_update_end_time
+    last_update_end.nil? || last_update_end < PURGEABLE_AFTER.ago
   end
 
   def no_update_running?

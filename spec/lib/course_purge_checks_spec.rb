@@ -22,6 +22,20 @@ describe CoursePurgeChecks do
     expect(checks.passed?).to be false
   end
 
+  it 'fails updated_long_ago for a course whose last update ended recently' do
+    course.add_flag(key: 'update_logs',
+                    value: { 1 => { 'start_time' => 1.month.ago.to_datetime,
+                                    'end_time' => 1.month.ago.to_datetime } })
+    expect(checks.results[:updated_long_ago]).to be false
+  end
+
+  it 'passes updated_long_ago for a course whose last update ended long ago' do
+    course.add_flag(key: 'update_logs',
+                    value: { 1 => { 'start_time' => 1.year.ago.to_datetime,
+                                    'end_time' => 1.year.ago.to_datetime } })
+    expect(checks.results[:updated_long_ago]).to be true
+  end
+
   it 'fails no_update_running for a course with a recent unfinished update' do
     course.add_flag(key: 'unfinished_update_logs',
                     value: { '1' => { 'start_time' => 1.day.ago.to_datetime } })

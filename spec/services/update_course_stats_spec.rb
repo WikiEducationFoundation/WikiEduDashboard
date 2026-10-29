@@ -47,6 +47,47 @@ describe UpdateCourseStats do
     end
   end
 
+  context 'when a finalized course gets an update' do
+    let(:flags) { { finalized: true } }
+
+    before do
+      allow_any_instance_of(UpdateCourseWikiTimeslices).to receive(:run).and_return([0, 0, 0])
+      create(:course_stats, course:, stats_hash: { 'edits_by_namespace' => { 0 => 7 } })
+    end
+
+    it 'is no longer finalized after a full update, and drops the stored edit counts' do
+      course.update(needs_update: true)
+      subject
+      expect(course.reload.finalized?).to be false
+      expect(course.course_stat.reload.stats_hash).not_to have_key('edits_by_namespace')
+    end
+
+    it 'stays finalized after an update that is not a full one' do
+      subject
+      expect(course.reload.finalized?).to be true
+      expect(course.course_stat.reload.stats_hash).to have_key('edits_by_namespace')
+    end
+  end
+
+  context 'when a purgeable course gets an update' do
+    let(:flags) { { purgeable: true } }
+
+    before do
+      allow_any_instance_of(UpdateCourseWikiTimeslices).to receive(:run).and_return([0, 0, 0])
+    end
+
+    it 'is no longer purgeable after a full update' do
+      course.update(needs_update: true)
+      subject
+      expect(course.reload.purgeable?).to be false
+    end
+
+    it 'stays purgeable after an update that is not a full one' do
+      subject
+      expect(course.reload.purgeable?).to be true
+    end
+  end
+
   context 'when logging the end of an update' do
     before do
       allow_any_instance_of(UpdateCourseWikiTimeslices).to receive(:run)

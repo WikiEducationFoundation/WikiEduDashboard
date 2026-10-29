@@ -12,6 +12,7 @@ class PurgeCoursesController < ApplicationController
     purgeable: 'Purgeable flag set',
     not_finalized: 'Not already finalized',
     ended_long_ago: 'Ended more than 6 months ago',
+    updated_long_ago: 'Last updated more than 6 months ago',
     no_update_running: 'No update running',
     no_full_update_pending: 'No full update pending',
     no_timeslices_pending: 'No timeslices pending update or reaggregation'
