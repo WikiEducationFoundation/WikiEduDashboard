@@ -427,6 +427,13 @@ describe CampaignsController, type: :request do
         end
       end
 
+      it 'sorts by views when asked to' do
+        get "/campaigns/#{campaign.slug}/articles", params: { sort: 'view_sum', direction: 'desc' }
+
+        expect(response).to be_successful
+        expect(response).to render_template(:articles)
+      end
+
       context 'when too_many_articles is true' do
         before do
           allow_any_instance_of(CoursesPresenter).to receive(:too_many_articles?).and_return(true)

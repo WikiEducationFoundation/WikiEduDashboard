@@ -32,7 +32,22 @@ class Query::RankedArticlesCoursesQuery
 
   private
 
-  SORTABLE_COLUMNS = %w[title view_sum character_sum references_count].freeze
+  # The views the page shows are computed per row (ArticleHelper#calculate_view_count):
+  # average daily views times the days since the first revision, or the stored
+  # view_count when either is missing. Ordering by the same arithmetic keeps the
+  # sort in step with the numbers on screen; `articles_courses` has no `view_sum`.
+  # UTC_DATE matches the helper's `Time.now.utc`, whatever the server's time zone.
+  VIEWS_SQL = 'COALESCE(DATEDIFF(UTC_DATE(), articles_courses.first_revision) * ' \
+              'COALESCE(articles_courses.average_views, articles.average_views), ' \
+              'articles_courses.view_count)'
+  # Sort parameter => SQL to order by. The keys are the names the controller accepts.
+  SORT_COLUMNS = {
+    'title' => 'articles.title',
+    'view_sum' => VIEWS_SQL,
+    'character_sum' => 'articles_courses.character_sum',
+    'references_count' => 'articles_courses.references_count'
+  }.freeze
+  DIRECTIONS = %w[ASC DESC].freeze
   DEFAULT_ORDER = 'articles.deleted ASC, articles_courses.character_sum DESC'
 
   # Builds a subquery that includes optional ordering and pagination depending on the "too_many" flag. # rubocop:disable Layout/LineLength
@@ -49,11 +64,9 @@ class Query::RankedArticlesCoursesQuery
   end
 
   def order_clause
-    if @sort_column.present? && @sort_direction.present? &&
-       SORTABLE_COLUMNS.include?(@sort_column)
-      "#{@sort_column} #{@sort_direction.upcase}"
-    else
-      DEFAULT_ORDER
-    end
+    column = SORT_COLUMNS[@sort_column]
+    direction = DIRECTIONS.find { |d| d.casecmp?(@sort_direction.to_s) }
+    return DEFAULT_ORDER unless column && direction
+    Arel.sql(column).public_send(direction.downcase)
   end
 end
