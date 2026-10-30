@@ -44,10 +44,10 @@ describe 'Detailed course overview stats', type: :feature, js: true do
 
     # Clicking other tabs renders the respective stats data
     page.find('.tab', text: 'www.wikidata.org').click
+    page.find('.wikidata-stats-toggle').click
     expect(page.find('.tab.active')).to have_content('www.wikidata.org')
-    expect(page.find('.content-container .title'))
-      .not_to have_content('en.wikibooks.org - Cookbook')
-    expect(page.find('.content-container .title')).to have_content('www.wikidata.org')
+    expect(page).to have_no_css('.content-container .title', text: 'en.wikibooks.org - Cookbook')
+    expect(page).to have_css('.wikidata-stats-toggle')
     expect(page.find('.content-container')).to have_content("Claims\n35")
 
     page.find('.tab', text: 'en.wikipedia.org - Mainspace').click
