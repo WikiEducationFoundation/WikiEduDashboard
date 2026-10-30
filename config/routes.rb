@@ -248,6 +248,28 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     get 'courses/:slug/assignment_progress.csv' => 'courses/assignment_progress#csv',
         constraints: { slug: /.*/ }
+    # Admin-only Scholars & Scientists application form settings, declared
+    # before the courses#show catch-all. See CourseApplicationFormsController.
+    get 'courses/:slug/application_form' => 'course_application_forms#edit',
+        constraints: { slug: /.*/ }
+    patch 'courses/:slug/application_form' => 'course_application_forms#update',
+          constraints: { slug: /.*/ }
+    # The public Scholars & Scientists apply page. See CourseApplicationsController.
+    get 'courses/:slug/apply' => 'course_applications#show',
+        constraints: { slug: /.*/ }
+    post 'courses/:slug/apply' => 'course_applications#create',
+         constraints: { slug: /.*/ }
+    # Admin-only review of a course's applications. See CourseApplicationReviewsController.
+    get 'courses/:slug/applications' => 'course_application_reviews#index',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/applications/:id' => 'course_application_reviews#show',
+        constraints: { slug: /.*/, id: /\d+/ }
+    patch 'courses/:slug/applications/:id' => 'course_application_reviews#update',
+          constraints: { slug: /.*/, id: /\d+/ }
+    post 'courses/:slug/applications/:id/accept' => 'course_application_reviews#accept',
+         constraints: { slug: /.*/, id: /\d+/ }
+    post 'courses/:slug/applications/:id/decline' => 'course_application_reviews#decline',
+         constraints: { slug: /.*/, id: /\d+/ }
     # The unlisted LTI 1.1 credentials page, declared before the courses#show
     # catch-all so it wins. Nothing in the interface links to it; Wiki
     # Education shares the URL with beta instructors who need the 1.1 path.

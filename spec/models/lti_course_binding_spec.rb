@@ -29,6 +29,20 @@ describe LtiCourseBinding do
       expect(dup.errors[:course_id]).to be_present
     end
 
+    it 'refuses a course type the integration is not offered for' do
+      binding = described_class.new(base_attrs.merge(course: create(:fellows_cohort)))
+      expect(binding).not_to be_valid
+      expect(binding.errors[:course]).to be_present
+    end
+
+    # Only a change of course is checked, so a binding that predates the rule
+    # can still record its sync timestamps and errors.
+    it 'still saves other fields on a binding that predates the course-type rule' do
+      binding = described_class.create!(base_attrs)
+      binding.update_column(:course_id, create(:fellows_cohort).id)
+      expect(binding.reload.update(last_roster_sync_at: Time.current)).to be true
+    end
+
     it 'allows many unbound bindings for different LMS courses' do
       described_class.create!(base_attrs)
       expect(described_class.new(base_attrs.merge(lms_context_id: 'canvas-course-88')))
@@ -117,6 +131,11 @@ describe LtiCourseBinding do
       deleted_id = course.id
       course.destroy
       binding.claim_course(deleted_id)
+      expect(binding.course_id).to be_nil
+    end
+
+    it 'skips a course type the integration is not offered for' do
+      binding.claim_course(create(:fellows_cohort).id)
       expect(binding.course_id).to be_nil
     end
   end

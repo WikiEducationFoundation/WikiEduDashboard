@@ -34,6 +34,21 @@ describe SelfEnrollmentController, type: :request do
         end
       end
 
+      context 'when the course takes applications' do
+        let(:course) { create(:fellows_cohort, end: Time.zone.today + 1.week, slug: slug_params) }
+
+        before do
+          course.campaigns << Campaign.first
+          CourseApplicationForm.create!(course:)
+        end
+
+        it 'sends the user to the apply page without enrolling them' do
+          get enroll_url, params: request_params
+          expect(response).to redirect_to("/courses/#{course.slug}/apply")
+          expect(course.students).to be_empty
+        end
+      end
+
       context 'when the course is approved' do
         before do
           course.campaigns << Campaign.first

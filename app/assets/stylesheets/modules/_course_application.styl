@@ -1,0 +1,34 @@
+// The public Scholars & Scientists apply page (course_applications/).
+.course-application__invalid
+  color $warning_text
+  border-color $warning_text
+
+.course-application__form
+  .course-application__question
+    margin-bottom 1.5em
+
+  .course-application__question-text
+    font-weight 600
+    margin-bottom 0.5em
+    p
+      margin 0 0 0.25em
+
+  input[type=text],
+  input[type=number],
+  input[type=date],
+  textarea,
+  select
+    width 100%
+
+  .course-application__option
+    display flex
+    align-items center
+    gap 0.5em
+    margin-bottom 0.25em
+    label
+      margin 0
+      font-weight normal
+
+  .errors
+    color $warning_text
+    margin 0.25em 0 0

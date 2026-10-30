@@ -83,6 +83,8 @@ class Course < ApplicationRecord
            dependent: :destroy
   has_one :course_stat, class_name: 'CourseStat', dependent: :destroy
   has_many :retention_stats, dependent: :destroy
+  has_one :course_application_form, dependent: :destroy
+  has_many :course_applications, dependent: :destroy
 
   #########################
   # Activity by the users #
@@ -704,6 +706,14 @@ class Course < ApplicationRecord
     false
   end
 
+  # Whether the course may be bound to an LMS course (the Canvas integration).
+  # Overridden for FellowsCohort: the integration and its security assessment
+  # (docs/hecvat.md) are for the Student Program, and Scholars & Scientists
+  # courses stay outside that scope.
+  def lms_integration_allowed?
+    true
+  end
+
   # Overridden for some course types
   def cloneable?
     !tag?('no_clone')
@@ -742,6 +752,12 @@ class Course < ApplicationRecord
   # Overridden for some course types
   def training_library_slug
     'students'
+  end
+
+  # Whether the course can take Scholars & Scientists applications (a
+  # CourseApplicationForm). Overridden for FellowsCohort.
+  def applications_allowed?
+    false
   end
 
   def account_requests_enabled?

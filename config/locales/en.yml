@@ -918,6 +918,7 @@ en:
       withdrawn: This course has been marked as withdrawn — possibly by mistake. Contact Wiki Education staff to re-enable it.
       invalid_sync: Enrollment in this event is controlled by Wikimedia Event Center. It cannot be joined from the Dashboard.
       disallowed_user: This user is on the disallowed users list and cannot be enrolled in courses.
+      application_required: "[PLACEHOLDER - refusal when someone tries to join a course that takes applications without having been accepted; may point to the apply page]"
 
     join_details: To join this course, you need to get the passcode — or an enrollment link that includes the passcode — from the instructor. If you haven't received this, contact your instructor.
     join_no_passcode: Are you sure you want to join this course?
@@ -1110,6 +1111,48 @@ en:
     survey:
       notification_message: Take our survey for this course.
       link: Take Survey
+
+  course_application_forms:
+    title: Application form
+    open: Accepting applications
+    intro: Intro
+    question_groups: Question groups
+    question_group: Question group
+    position: Position
+    edit_question_group: Edit
+    save: Save
+    saved: Saved
+    positions_help: "[PLACEHOLDER - instructions for the question group table: leave a position blank to keep a group off the form; numbers set the order, base group first]"
+    no_question_groups_available: "[PLACEHOLDER - message when no question groups are available yet, pointing admins to the question group admin to create one]"
+    no_question_groups_error: "[PLACEHOLDER - error when saving an open form with no question groups]"
+
+  course_applications:
+    submit: Submit application
+    optional: (optional)
+    submitted: "[PLACEHOLDER - confirmation shown to someone who has applied to this course]"
+    closed: "[PLACEHOLDER - message when this course is not accepting applications]"
+    log_in_to_apply: "[PLACEHOLDER - prompt to log in with a Wikipedia account (or create one) in order to apply]"
+    invalid: "[PLACEHOLDER - error summary when some answers need fixing before the application can be submitted]"
+
+  course_application_reviews:
+    title: Applications
+    statuses:
+      submitted: Submitted
+      accepted: Accepted
+      declined: Declined
+    applicant: Applicant
+    real_name: Real name
+    email: Email
+    status: Status
+    submitted_at: Submitted
+    decided_by: Decided by
+    accept: Accept and enroll
+    decline: Decline
+    answers: Answers
+    staff_notes: Staff notes
+    save_notes: Save notes
+    notes_saved: Saved
+    download_csv: Download CSV
 
   course_instructor_notification:
     notify_instructors: Email Instructors
