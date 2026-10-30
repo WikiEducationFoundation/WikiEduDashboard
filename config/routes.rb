@@ -259,6 +259,17 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     post 'courses/:slug/apply' => 'course_applications#create',
          constraints: { slug: /.*/ }
+    # Admin-only review of a course's applications. See CourseApplicationReviewsController.
+    get 'courses/:slug/applications' => 'course_application_reviews#index',
+        constraints: { slug: /.*/ }
+    get 'courses/:slug/applications/:id' => 'course_application_reviews#show',
+        constraints: { slug: /.*/, id: /\d+/ }
+    patch 'courses/:slug/applications/:id' => 'course_application_reviews#update',
+          constraints: { slug: /.*/, id: /\d+/ }
+    post 'courses/:slug/applications/:id/accept' => 'course_application_reviews#accept',
+         constraints: { slug: /.*/, id: /\d+/ }
+    post 'courses/:slug/applications/:id/decline' => 'course_application_reviews#decline',
+         constraints: { slug: /.*/, id: /\d+/ }
     # The unlisted LTI 1.1 credentials page, declared before the courses#show
     # catch-all so it wins. Nothing in the interface links to it; Wiki
     # Education shares the URL with beta instructors who need the 1.1 path.

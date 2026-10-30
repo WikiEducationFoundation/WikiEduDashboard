@@ -1,0 +1,61 @@
+-# Admin-only view of one application: the applicant, its answers, staff notes,
+-# and the decision. See CourseApplicationReviewsController. Expects @course,
+-# @application and @answer_groups.
+- user = @application.user
+- content_for :before_title, "#{user.username} — #{t('course_application_reviews.title')} — "
+- base_path = "/courses/#{@course.slug}"
+- application_path = "#{base_path}/applications/#{@application.id}"
+
+%header.main-page
+  .container
+    %h1= user.username
+    %p
+      = link_to @course.title, base_path
+      ·
+      = link_to t('course_application_reviews.title'), "#{base_path}/applications"
+
+.container.course-application-review
+  %dl.course-application-review__details
+    %dt= t('course_application_reviews.status')
+    %dd= t("course_application_reviews.statuses.#{@application.status}")
+    %dt= t('course_application_reviews.real_name')
+    %dd= user.real_name
+    %dt= t('course_application_reviews.email')
+    %dd= user.email
+    %dt= t('course_application_reviews.submitted_at')
+    %dd= l(@application.created_at, format: :long)
+    - if @application.decided_at
+      %dt= t('course_application_reviews.decided_by')
+      %dd= "#{@application.decided_by&.username} (#{l(@application.decided_at, format: :long)})"
+
+  .course-application-review__decision
+    - if @application.submitted? || @application.declined?
+      - if @course.approved?
+        = button_to t('course_application_reviews.accept'), "#{application_path}/accept",
+                    class: 'button dark'
+      - else
+        %p= t('courses.join_failure_details.not_yet_approved')
+    - if @application.submitted?
+      = button_to t('course_application_reviews.decline'), "#{application_path}/decline",
+                  class: 'button'
+
+  %h2= t('course_application_reviews.answers')
+  - @answer_groups.each do |answer_group|
+    %h3= answer_group.question_group.name
+    - answer_group.answers.sort_by { |answer| answer.question.position.to_i }.each do |answer|
+      - question = answer.question
+      .course-application-review__answer
+        .course-application-review__question
+          = sanitize(question_text_html_from_markdown(question.question_text))
+        = simple_format(h(answer.answer_text))
+        - if question.follow_up_question_text.present? && answer.follow_up_answer_text.present?
+          .course-application-review__question= question.follow_up_question_text
+          = simple_format(h(answer.follow_up_answer_text))
+
+  %h2
+    = label_tag 'course_application_staff_notes', t('course_application_reviews.staff_notes')
+  = form_with url: application_path, method: :patch, scope: :course_application,
+              local: true do |f|
+    = f.text_area :staff_notes, value: @application.staff_notes, rows: 5,
+                  id: 'course_application_staff_notes'
+    = f.submit t('course_application_reviews.save_notes'), class: 'button'

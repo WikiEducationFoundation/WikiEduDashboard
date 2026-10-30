@@ -7,7 +7,10 @@
 %header.main-page
   .container
     %h1= t('course_application_forms.title')
-    %p= link_to @course.title, "/courses/#{@course.slug}"
+    %p
+      = link_to @course.title, "/courses/#{@course.slug}"
+      ·
+      = link_to t('course_application_reviews.title'), "/courses/#{@course.slug}/applications"
 
 .container.course-application-form
   - if @form.errors.any?
