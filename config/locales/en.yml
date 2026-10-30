@@ -1134,6 +1134,26 @@ en:
     log_in_to_apply: "[PLACEHOLDER - prompt to log in with a Wikipedia account (or create one) in order to apply]"
     invalid: "[PLACEHOLDER - error summary when some answers need fixing before the application can be submitted]"
 
+  course_application_reviews:
+    title: Applications
+    statuses:
+      submitted: Submitted
+      accepted: Accepted
+      declined: Declined
+    applicant: Applicant
+    real_name: Real name
+    email: Email
+    status: Status
+    submitted_at: Submitted
+    decided_by: Decided by
+    accept: Accept and enroll
+    decline: Decline
+    answers: Answers
+    staff_notes: Staff notes
+    save_notes: Save notes
+    notes_saved: Saved
+    download_csv: Download CSV
+
   course_instructor_notification:
     notify_instructors: Email Instructors
     notify_instructors_feature_description: Send a message to Instructors via email

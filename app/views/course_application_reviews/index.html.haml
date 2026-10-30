@@ -1,0 +1,37 @@
+-# Admin-only list of a Scholars & Scientists course's applications. See
+-# CourseApplicationReviewsController. Expects @course and @applications.
+- content_for :before_title, "#{t('course_application_reviews.title')} — "
+- base_path = "/courses/#{@course.slug}"
+
+%header.main-page
+  .container
+    %h1= t('course_application_reviews.title')
+    %p
+      = link_to @course.title, base_path
+      ·
+      = link_to t('course_application_forms.title'), "#{base_path}/application_form"
+
+.container.course-application-reviews
+  %p.course-application-reviews__counts
+    - CourseApplication.statuses.each_key do |status|
+      %span= "#{t("course_application_reviews.statuses.#{status}")}: #{@applications.count { |a| a.status == status }}"
+
+  - if @applications.any?
+    %p= link_to t('course_application_reviews.download_csv'), "#{base_path}/applications.csv",
+                class: 'button'
+    %table.table
+      %thead
+        %tr
+          %th= t('course_application_reviews.applicant')
+          %th= t('course_application_reviews.real_name')
+          %th= t('course_application_reviews.submitted_at')
+          %th= t('course_application_reviews.status')
+          %th= t('course_application_reviews.decided_by')
+      %tbody
+        - @applications.each do |application|
+          %tr
+            %td= link_to application.user.username, "#{base_path}/applications/#{application.id}"
+            %td= application.user.real_name
+            %td= l(application.created_at.to_date, format: :long)
+            %td= t("course_application_reviews.statuses.#{application.status}")
+            %td= application.decided_by&.username
