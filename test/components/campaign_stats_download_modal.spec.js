@@ -174,6 +174,69 @@ describe('CampaignStatsDownloadModal', () => {
     });
   });
 
+  describe('private courses', () => {
+    const openModal = () => {
+      act(() => {
+        container.querySelector('button').click();
+      });
+    };
+
+    test('offers no switch when the viewer cannot edit the campaign', () => {
+      renderComponent();
+      openModal();
+      expect(container.querySelector('.campaign-private-courses-toggle')).toBeNull();
+    });
+
+    test('switches every download to the variant including private courses for an editor', () => {
+      global.Features = { user_signed_in: false };
+      renderComponent({ campaign: { ...campaign, editable: true } });
+      openModal();
+
+      const toggle = container.querySelector('.campaign-private-courses-toggle input');
+      expect(toggle).not.toBeNull();
+      expect(toggle.checked).toBe(false);
+      container.querySelectorAll('a.button.right').forEach((link) => {
+        expect(link.getAttribute('href')).not.toContain('include_private');
+      });
+
+      act(() => {
+        toggle.click();
+      });
+
+      const hrefs = Array.from(container.querySelectorAll('a.button.right'))
+        .map(link => link.getAttribute('href'));
+      expect(hrefs).toEqual([
+        '/campaigns/miscellanea/courses.csv?include_private=true',
+        '/campaigns/miscellanea/articles_csv.csv?include_private=true',
+        '/campaigns/miscellanea/students.csv?include_private=true',
+        '/campaigns/miscellanea/students.csv?course=true&include_private=true',
+        '/campaigns/miscellanea/instructors.csv?course=true&include_private=true',
+        '/campaigns/miscellanea/wikidata.csv?include_private=true'
+      ]);
+    });
+
+    test('dispatches the variant with its own download id for a signed-in editor', () => {
+      const startDownloadSpy = jest.spyOn(downloadActions, 'startDownload')
+        .mockReturnValue({ type: 'START_DOWNLOAD' });
+      renderComponent({ campaign: { ...campaign, editable: true } });
+      openModal();
+      act(() => {
+        container.querySelector('.campaign-private-courses-toggle input').click();
+      });
+      act(() => {
+        container.querySelectorAll('button.button.right')[0].click();
+      });
+
+      expect(startDownloadSpy).toHaveBeenCalledWith(
+        expect.objectContaining({
+          id: 'miscellanea-courses-with-private-courses',
+          href: '/campaigns/miscellanea/courses.csv?include_private=true'
+        })
+      );
+      startDownloadSpy.mockRestore();
+    });
+  });
+
   test('closes modal when close button is clicked', () => {
     renderComponent();
     act(() => {

@@ -18,6 +18,9 @@ class ReportsController < ApplicationController
   before_action :set_campaign, only: %i[campaign_courses_csv campaign_articles_csv
                                         campaign_students_csv campaign_all_csv
                                         campaign_instructors_csv campaign_wikidata_csv]
+  before_action :require_private_courses_access,
+                only: %i[campaign_courses_csv campaign_articles_csv campaign_students_csv
+                         campaign_all_csv campaign_instructors_csv campaign_wikidata_csv]
   before_action :set_course, only: %i[course_csv course_uploads_csv
                                       course_students_csv course_articles_csv
                                       course_wikidata_csv course_retention_csv]
@@ -159,6 +162,17 @@ class ReportsController < ApplicationController
     raise ActionController::RoutingError.new('Not Found'), 'Campaign does not exist'
   end
 
+  # Campaign reports leave private courses out, because each one is cached once
+  # and served to everyone who asks. The variant that includes them
+  # (include_private=true) is cached under its own name and only generated for
+  # admins and the campaign's organizers; everyone else gets the 404 that
+  # private courses get elsewhere.
+  def require_private_courses_access
+    return unless include_private?
+    return if current_user.admin? || @campaign.organizers.include?(current_user)
+    raise ActionController::RoutingError.new('Not Found'), 'Report not available'
+  end
+
   # The retention predictors report is only defined for Scholars & Scientists
   # (FellowsCohort) courses.
   def require_fellows_cohort
@@ -173,9 +187,14 @@ class ReportsController < ApplicationController
       render_ready_report(filename)
     else
       ReportCsvWorker.generate_csv(source: @course || @campaign, filename:, type:,
-                                   include_course: csv_params[:course])
+                                   include_course: csv_params[:course],
+                                   include_private: include_private?)
       render_generating_report
     end
+  end
+
+  def include_private?
+    @campaign.present? && csv_params[:include_private] == 'true'
   end
 
   def render_ready_report(filename)
@@ -205,7 +224,8 @@ class ReportsController < ApplicationController
     enqueue_constituent_csv('campaign_courses')
     enqueue_constituent_csv('campaign_articles')
     ReportCsvWorker.generate_csv(
-      source: @campaign, filename:, type: 'campaign_all', include_course: nil
+      source: @campaign, filename:, type: 'campaign_all', include_course: nil,
+      include_private: include_private?
     )
   end
 
@@ -214,7 +234,8 @@ class ReportsController < ApplicationController
     return if ReportCsvStore.exists?(constituent_name)
 
     ReportCsvWorker.generate_csv(
-      source: @campaign, filename: constituent_name, type:, include_course: with_course
+      source: @campaign, filename: constituent_name, type:, include_course: with_course,
+      include_private: include_private?
     )
   end
 
@@ -223,14 +244,17 @@ class ReportsController < ApplicationController
   def build_filename(type, with_course: nil)
     # Filename does not have to contain '/' char because it's interpreted as a route
     return "#{@course.slug}-#{type}-#{Time.zone.today}.csv".tr('/', '-') if course_report?(type)
-    return ReportCsvWorker.campaign_zip_name(@campaign) if type == 'campaign_all'
+    if type == 'campaign_all'
+      return ReportCsvWorker.campaign_zip_name(@campaign, include_private: include_private?)
+    end
 
     include_courses = with_course.nil? ? csv_params[:course] : with_course
-    ReportCsvWorker.campaign_csv_name(@campaign, type, course: include_courses)
+    ReportCsvWorker.campaign_csv_name(@campaign, type, course: include_courses,
+                                                       include_private: include_private?)
   end
 
   def csv_params
-    params.permit(:slug, :course)
+    params.permit(:slug, :course, :include_private)
   end
 
   def system_csv_filters
