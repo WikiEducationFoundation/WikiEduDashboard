@@ -125,7 +125,7 @@ const ArticleList = createReactClass({
   },
 
   showMore() {
-    return this.props.fetchArticles(this.props.course_id, this.props.limit + 500);
+    return this.props.fetchMoreArticles(this.props.course_id);
   },
 
   sortSelect(e) {
