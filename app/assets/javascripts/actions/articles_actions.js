@@ -69,6 +69,30 @@ export const fetchArticles = (courseId, limit, refresh = false) => {
   };
 };
 
+// Loads the next page of articles after the ones already loaded. The cursor is
+// the highest articles_course_id loaded, not the last row of the list, because
+// the user can sort the list in any order.
+export const fetchMoreArticles = (courseId) => {
+  return (dispatch, getState) => {
+    const loaded = getState().articles.articles;
+    const afterId = loaded.reduce((max, article) => Math.max(max, article.articles_course_id || 0), 0);
+    return fetchArticlesPage(courseId, ARTICLES_PAGE_SIZE, afterId)
+      .then((resp) => {
+        const page = resp?.course?.articles;
+        if (!page) { throw resp; }
+        dispatch({
+          type: types.RECEIVE_MORE_ARTICLES,
+          data: resp,
+          pageSize: ARTICLES_PAGE_SIZE,
+        });
+        fetchWikidataLabelsForArticles(page, dispatch);
+      })
+      .catch((response) => {
+        dispatch({ type: types.API_FAIL, data: response });
+      });
+  };
+};
+
 export const sortArticles = (key, refresh) => ({
   type: types.SORT_ARTICLES,
   key,

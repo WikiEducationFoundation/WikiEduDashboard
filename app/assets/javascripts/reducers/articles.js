@@ -1,7 +1,8 @@
-import { uniqWith, map, isEqual } from 'lodash-es';
+import { uniqWith, uniqBy, map, isEqual } from 'lodash-es';
 import { sortByKey } from '../utils/model_utils';
 import {
   RECEIVE_ARTICLES,
+  RECEIVE_MORE_ARTICLES,
   SORT_ARTICLES,
   SET_PROJECT_FILTER,
   SET_NEWNESS_FILTER,
@@ -66,6 +67,14 @@ const getTrackedStatusFilterEnabledStatus = _articles =>
 const getDefaultTrackedStatusFilter = _articles =>
   ((_articles[0] && _articles[0].tracked) ? 'tracked' : 'both');
 
+// Puts the loaded articles back in the order the user last chose. A column that
+// was clicked twice is stored with a null sortKey, which means it is reversed.
+const sortLoadedArticles = (loaded, sort) => {
+  if (!sort.key) { return loaded; }
+  const previousKey = sort.sortKey ? null : sort.key;
+  return sortByKey(loaded, sort.key, previousKey, SORT_DESCENDING[sort.key]).newModels;
+};
+
 export default function articles(state = initialState, action) {
   switch (action.type) {
     case RECEIVE_ARTICLES: {
@@ -94,6 +103,32 @@ export default function articles(state = initialState, action) {
         loading: false,
         lastRequestTimestamp: Date.now(),
         totalPages: Math.ceil(action.data.course.articles.length / ARTICLES_PER_PAGE)
+      };
+    }
+
+    case RECEIVE_MORE_ARTICLES: {
+      const page = action.data.course.articles;
+      const sorted = sortLoadedArticles(
+        uniqBy([...state.articles, ...page], article => article.articles_course_id ?? article.id),
+        state.sort
+      );
+      const newnessFilterEnabled = sorted.some(a => a.new_article) && sorted.some(a => !a.new_article);
+      const trackedStatusFilterEnabled = getTrackedStatusFilterEnabledStatus(sorted);
+      return {
+        ...state,
+        articles: sorted,
+        limit: sorted.length,
+        // A full page means there may be more; a short page means we are done.
+        limitReached: page.length < action.pageSize,
+        wikis: uniqWith(map(sorted, mapWikis), isEqual),
+        trackedStatusFilter: trackedStatusFilterEnabled
+          ? state.trackedStatusFilter
+          : getDefaultTrackedStatusFilter(sorted),
+        newnessFilterEnabled,
+        trackedStatusFilterEnabled,
+        loading: false,
+        lastRequestTimestamp: Date.now(),
+        totalPages: Math.ceil(sorted.length / ARTICLES_PER_PAGE)
       };
     }
 
