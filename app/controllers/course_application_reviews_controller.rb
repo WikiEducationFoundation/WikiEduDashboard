@@ -39,9 +39,7 @@ class CourseApplicationReviewsController < ApplicationController
 
   def accept
     acceptance = AcceptCourseApplication.new(application: @application, staff: current_user)
-    unless acceptance.success?
-      flash[:error] = t("courses.join_failure_details.#{acceptance.failure}")
-    end
+    flash[:error] = t(acceptance.failure) unless acceptance.success?
     redirect_to application_path, status: :see_other
   end
 

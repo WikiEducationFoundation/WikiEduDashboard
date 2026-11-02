@@ -1,13 +1,15 @@
 # frozen_string_literal: true
 
-# Accepts an application to a Scholars & Scientists course and enrolls the
-# applicant as a student, together: if enrolling fails, the application is left
-# as it was and `failure` holds the JoinCourse reason, a
-# `courses.join_failure_details` key. A course must be approved before anyone
-# can be accepted, which JoinCourse enforces.
+# Accepts an application to a Scholars & Scientists course, enrolls the
+# applicant as a student, and emails them the course's acceptance email. If any
+# step before the email fails, the application is left as it was and `failure`
+# holds an i18n key for the reason. A course must be approved before anyone can
+# be accepted, which JoinCourse enforces, and its application form must have
+# an acceptance email.
 #
 # Submitted and declined applications can be accepted. Accepting one that is
-# already accepted (a double submit, or two staff at once) changes nothing.
+# already accepted (a double submit, or two staff at once) changes nothing and
+# sends nothing.
 class AcceptCourseApplication
   attr_reader :failure
 
@@ -26,10 +28,20 @@ class AcceptCourseApplication
   def accept
     @application.with_lock do
       next if @application.accepted?
-      next unless enrolled?
+      next unless acceptance_email? && enrolled?
       # Inside the lock's transaction, so a failure here also undoes the enrollment.
       @application.update!(status: :accepted, decided_by: @staff, decided_at: Time.zone.now)
+      @accepted = true
     end
+    # After the transaction commits, so a failed delivery can't undo the decision.
+    CourseApplicationMailer.send_acceptance(@application) if @accepted
+  end
+
+  def acceptance_email?
+    return true if @application.course.course_application_form&.acceptance_email.present?
+
+    @failure = 'course_application_reviews.acceptance_email_missing'
+    false
   end
 
   def enrolled?
@@ -40,7 +52,7 @@ class AcceptCourseApplication
     # point of accepting them.
     return true if result['success'] || result['failure'] == 'cannot_join_twice'
 
-    @failure = result['failure']
+    @failure = "courses.join_failure_details.#{result['failure']}"
     false
   end
 end

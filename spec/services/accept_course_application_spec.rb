@@ -8,10 +8,12 @@ describe AcceptCourseApplication do
   let(:staff) { create(:admin) }
   let(:application) { CourseApplication.create!(course:, user:) }
   let(:question_group) { create(:question_group) }
-
-  before do
-    CourseApplicationForm.create!(course:, open: true, question_group_ids: [question_group.id])
+  let!(:form) do
+    CourseApplicationForm.create!(course:, open: true, question_group_ids: [question_group.id],
+                                  acceptance_email: 'See you at the first meeting.')
   end
+
+  before { allow(CourseApplicationMailer).to receive(:send_acceptance) }
 
   def accept
     described_class.new(application:, staff:)
@@ -33,6 +35,11 @@ describe AcceptCourseApplication do
       expect(student?).to be(true)
     end
 
+    it 'emails the applicant' do
+      accept
+      expect(CourseApplicationMailer).to have_received(:send_acceptance).with(application)
+    end
+
     it 'accepts a declined application' do
       application.update!(status: :declined)
       accept
@@ -51,6 +58,16 @@ describe AcceptCourseApplication do
       expect(accept).to be_success
       expect(application.reload.decided_by).to eq(user)
       expect(student?).to be(false)
+      expect(CourseApplicationMailer).not_to have_received(:send_acceptance)
+    end
+
+    it 'changes nothing until the form has an acceptance email' do
+      form.update!(acceptance_email: '')
+      acceptance = accept
+      expect(acceptance.failure).to eq('course_application_reviews.acceptance_email_missing')
+      expect(application.reload).to be_submitted
+      expect(student?).to be(false)
+      expect(CourseApplicationMailer).not_to have_received(:send_acceptance)
     end
   end
 
@@ -58,9 +75,10 @@ describe AcceptCourseApplication do
     it 'changes nothing and gives the reason' do
       acceptance = accept
       expect(acceptance).not_to be_success
-      expect(acceptance.failure).to eq('not_yet_approved')
+      expect(acceptance.failure).to eq('courses.join_failure_details.not_yet_approved')
       expect(application.reload).to be_submitted
       expect(student?).to be(false)
+      expect(CourseApplicationMailer).not_to have_received(:send_acceptance)
     end
   end
 end

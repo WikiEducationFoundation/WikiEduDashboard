@@ -1126,6 +1126,8 @@ en:
     positions_help: "[PLACEHOLDER - instructions for the question group table: leave a position blank to keep a group off the form; numbers set the order, base group first]"
     no_question_groups_available: "[PLACEHOLDER - message when no question groups are available yet, pointing admins to the question group admin to create one]"
     no_question_groups_error: "[PLACEHOLDER - error when saving an open form with no question groups]"
+    acceptance_email: Acceptance email
+    acceptance_email_help: "[PLACEHOLDER - help for the acceptance email field: emailed to each applicant when accepted (meeting times, call link and passcode, and so on); sent from the scholars_and_scientists_manager; Accept stays unavailable until it is filled in]"
 
   course_applications:
     submit: Submit application
@@ -1154,6 +1156,9 @@ en:
     save_notes: Save notes
     notes_saved: Saved
     download_csv: Download CSV
+    accept_confirm: "[PLACEHOLDER - confirmation before accepting: enrolls the applicant and emails them the course's acceptance email]"
+    decline_confirm: "[PLACEHOLDER - confirmation before declining: emails the applicant the decline email]"
+    acceptance_email_missing: "[PLACEHOLDER - shown in place of the Accept button until the course's acceptance email is written on the application form settings]"
 
   course_instructor_notification:
     notify_instructors: Email Instructors
