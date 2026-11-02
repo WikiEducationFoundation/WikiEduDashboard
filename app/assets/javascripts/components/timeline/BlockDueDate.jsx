@@ -45,9 +45,6 @@ const BlockDueDate = ({ block, updateBlock, weekStart, toggleFocused }) => {
   const defaultDate = withModules && block.default_due_date ? (
     <span className="block__due-date-default-value"> ({formatDay(block.default_due_date)})</span>
   ) : null;
-  const blankHelp = withModules
-    ? I18n.t('timeline.due_date_default_explanation')
-    : I18n.t('timeline.due_date_none_explanation');
 
   return (
     <fieldset className="block__block-due-date">
@@ -62,7 +59,9 @@ const BlockDueDate = ({ block, updateBlock, weekStart, toggleFocused }) => {
           <input type="radio" name={name} checked={mode === 'blank'} onChange={chooseBlank} />
           {blankLabel}{defaultDate}
         </label>
-        <small className="block__due-date-help">{blankHelp}</small>
+        {withModules && (
+          <small className="block__due-date-help">{I18n.t('timeline.due_date_default_explanation')}</small>
+        )}
       </div>
       <div className="block__due-date-option">
         <label>

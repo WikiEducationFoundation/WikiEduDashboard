@@ -1736,7 +1736,6 @@ en:
     due_date_default_explanation: Default due dates are the end (Saturday) of the block's week in the Timeline.
     due_date_modules_note: A default or manual due date is required for exercises and trainings.
     due_date_none: No due date
-    due_date_none_explanation: "[PLACEHOLDER - explains that the block will show no due date on the timeline]"
     due_date_specific: Set a date
     edit_titles: Edit Week Titles
     edit_titles_info: Edit week titles in timeline. Only weeks with scheduled meetings can be given custom titles. If any custom titles are used, weeks with no meetings will be dated instead of numbered.
