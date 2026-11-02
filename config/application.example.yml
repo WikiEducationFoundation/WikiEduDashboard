@@ -132,6 +132,9 @@
 # ==== Ticketing System Environment Variables
 # Email at which to receive forwarded ticket emails
   TICKET_FORWARDING_DOMAIN: 'wikiedu.org'
+# Mailgun's HTTP webhook signing key, used to check that inbound email posted
+# to /email_processor came from Mailgun. Without it, inbound email is refused.
+  mailgun_webhook_signing_key: ''
   SALESFORCE_BCC_EMAIL: 'salesforce@salesforce.com'
 
 # Whitelisted test emails for staging and development

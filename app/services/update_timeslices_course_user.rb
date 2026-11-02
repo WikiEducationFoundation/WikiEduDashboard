@@ -5,6 +5,7 @@ require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/articles_courses_cleaner"
 require_dependency "#{Rails.root}/lib/revision_data_manager"
 require_dependency "#{Rails.root}/lib/course_revision_updater"
+require_dependency "#{Rails.root}/lib/replica"
 
 class UpdateTimeslicesCourseUser
   def initialize(course, update_service: nil)
@@ -65,21 +66,33 @@ class UpdateTimeslicesCourseUser
 
   # Process new users one at a time, marking each as no-longer-new as soon as all their
   # revisions were processed, so that an interrupted update doesn't redo completed users.
-  # If processing fails for some wiki, the user stays new (to be retried next update),
-  # so we skip their remaining wikis instead of doing work that would be redone anyway.
+  # If processing fails for some wiki, the user is kept new (all their wikis are retried
+  # next update), so we skip their remaining wikis instead of doing work that would be
+  # redone anyway. A Replica failure instead stops the whole update (see UpdateCourseStats).
   def add_user_ids_acuwt(user_ids)
     user_ids.each do |user_id|
       user = User.find(user_id)
       failed = false
       @course.wikis.each do |wiki|
         fetch_and_create_acuwt_for_new_user(wiki, user)
+      rescue Replica::RequestFailedError
+        # Don't move on to the next user; stop the whole update (see UpdateCourseStats).
+        raise
       rescue StandardError => e
         failed = true
         log_user_processing_error(e, user_id, wiki.id)
+        keep_user_new(user_id)
         break
       end
       update_created_at_for_users([user_id]) unless failed
     end
+  end
+
+  # Move created_at past this update's start, so the user is still new for the next
+  # update once this one is logged.
+  def keep_user_new(user_id)
+    @course.courses_users.where(user_id:)
+           .update_all(created_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
   end
 
   # Fetch the new user's revisions one course wiki timeslice at a time, so that a single

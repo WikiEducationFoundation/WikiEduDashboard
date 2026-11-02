@@ -293,7 +293,7 @@ export const ORESSupportedWiki = {
   languages: []
 };
 
-// Refer: https://xtools.wmflabs.org/api/project/assessments
+// Refer: https://xtools.wmcloud.org/api/project/assessments
 export const PageAssessmentSupportedWiki = {
   wikipedia: ['ar', 'en', 'hu', 'fr', 'tr'],
   wikivoyage: ['en'],

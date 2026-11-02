@@ -7,7 +7,9 @@
 
 class WebpackDevServerProxy < Rack::Proxy
   def initialize(app = nil, opts = {})
-    super
+    # rack-proxy refuses to route by the request's Host header unless it has
+    # a fixed backend, so point it at the dev server explicitly.
+    super(app, opts.merge(backend: "http://#{opts[:dev_server_host]}"))
     @dev_server_host = opts[:dev_server_host]
   end
 

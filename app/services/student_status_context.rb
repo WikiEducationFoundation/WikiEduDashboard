@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/links"
+require_dependency "#{Rails.root}/lib/student_progress/timeline"
+
 # Assembles a student's progress overview for the in-Canvas nav-item launch:
 # their assigned articles (mirroring "My Articles"), rolled-up training and
 # exercise completion, and the single most-urgent next step. The next step is
@@ -17,14 +20,14 @@ class StudentStatusContext
 
   attr_reader :course, :user
 
-  # `preload` is an LtiProgressPreload covering this user, shared across a
+  # `preload` is a StudentProgress::Roster covering this user, shared across a
   # roster's students so the course structure and each student's completions and
   # assignments are fetched once for the class. Without one, the same data is
   # loaded for this one user.
   def initialize(course:, user:, preload: nil)
     @course = course
     @user = user
-    @preload = preload || LtiProgressPreload.new(course:, user_ids: [user.id])
+    @preload = preload || StudentProgress::Roster.new(course:, user_ids: [user.id])
   end
 
   def articles
@@ -96,10 +99,12 @@ class StudentStatusContext
                 url: exercise_url(block), due_date: block.calculated_due_date)
   end
 
-  # In timeline order, which is the order the preload keeps its blocks in.
   def exercise_blocks
-    @exercise_blocks ||= @preload.blocks
-                                 .select { |block| @preload.modules_for(block).any?(&:exercise?) }
+    timeline.exercise_blocks
+  end
+
+  def timeline
+    @timeline ||= StudentProgress::Timeline.new(@preload)
   end
 
   def exercise_done?(block)
@@ -111,19 +116,16 @@ class StudentStatusContext
   def exercise_url(block)
     mod = @preload.modules_for(block).detect(&:exercise?)
     return if mod.nil?
-    return "/courses/#{@course.slug}/#{mod.exercise_path}" if mod.exercise_path.present?
 
-    training_url(mod)
+    StudentProgress::Links.exercise_url(@course, mod)
   end
 
   def training_url(mod)
-    "/training/#{@course.training_library_slug}/#{mod.slug}" \
-      "?return_to=#{CGI.escape("/courses/#{@course.slug}")}"
+    StudentProgress::Links.training_url(@course, mod)
   end
 
   def block_due_date(mod)
-    block = @preload.blocks.detect { |candidate| candidate.training_module_ids.include?(mod.id) }
-    block&.calculated_due_date
+    timeline.due_date_for(mod)
   end
 
   # Once trainings/exercises are done, the remaining work is the student's

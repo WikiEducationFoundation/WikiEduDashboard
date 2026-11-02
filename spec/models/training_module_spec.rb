@@ -37,4 +37,21 @@ describe TrainingModule do
       end
     end
   end
+
+  describe '#training_page?' do
+    it 'is true for a module with slides' do
+      expect(build(:training_module, slide_slugs: %w[a b])).to be_training_page
+    end
+
+    it 'is false for a slide-less in-app exercise' do
+      mod = build(:training_module, kind: 1, settings: { 'exercise_path' => 'verify_claim' })
+      expect(mod).not_to be_training_page
+    end
+
+    it 'is true for an in-app exercise that also has slides' do
+      mod = build(:training_module, kind: 1, slide_slugs: %w[a],
+                                    settings: { 'exercise_path' => 'verify_claim' })
+      expect(mod).to be_training_page
+    end
+  end
 end

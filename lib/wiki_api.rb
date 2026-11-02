@@ -87,6 +87,30 @@ class WikiApi
     response&.status == 200 ? response.data : nil
   end
 
+  # Returns the title and namespace of the page, following a redirect from the
+  # given title, if the user has edited it (since the given time, if any), or
+  # nil otherwise.
+  def page_edited_by(username, title, since: nil)
+    query_params = { prop: 'revisions',
+                     titles: title,
+                     redirects: 'true',
+                     rvprop: 'user',
+                     rvlimit: 1,
+                     rvuser: username }
+    # Revisions are listed newest first, so rvend is the oldest one included.
+    query_params[:rvend] = since.utc.iso8601 if since
+    page = query(query_params)&.data&.dig('pages')&.values&.first
+    return unless page&.dig('revisions').present?
+    { title: page['title'], namespace: page['ns'] }
+  end
+
+  # Returns the title of the page the given revision belongs to, or of the page
+  # with the given id, or nil if there is no such revision or page.
+  def page_title(revision_id: nil, page_id: nil)
+    query_params = revision_id ? { revids: revision_id } : { pageids: page_id }
+    query(query_params)&.data&.dig('pages')&.values&.first&.dig('title')
+  end
+
   def get_article_rating(titles)
     titles = [titles] unless titles.is_a?(Array)
     titles = titles.sort_by(&:downcase)

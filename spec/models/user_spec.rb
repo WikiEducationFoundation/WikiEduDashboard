@@ -204,6 +204,26 @@ describe User do
     end
   end
 
+  describe '#recent_course' do
+    it 'returns the recent course of a user' do
+      user = create(:user)
+      old_course = create(:course, slug: 'School/Older_(2024)', title: 'Older')
+      new_course = create(:course, slug: 'School/Newer_(2025)', title: 'Newer')
+      create(:courses_user,
+            course_id: old_course.id,
+            user_id: user.id)
+      create(:courses_user,
+            course_id: new_course.id,
+            user_id: user.id)
+        expect(user.recent_course).to eq(new_course)
+    end
+
+    it 'returns nil when the user has no courses' do
+      user = create(:user)
+      expect(user.recent_course).to be_nil
+    end
+  end
+
   describe '#can_see_real_names?' do
     it 'returns true when the user has an instructor role' do
       course = create(:course)

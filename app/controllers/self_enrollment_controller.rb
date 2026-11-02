@@ -120,11 +120,17 @@ class SelfEnrollmentController < ApplicationController
   end
 
   def role
-    if params[:role] == 'online_volunteer'
+    if params[:role] == 'online_volunteer' && online_volunteers_allowed?
       CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE
     else
       CoursesUsers::Roles::STUDENT_ROLE
     end
+  end
+
+  # Joining as an online volunteer skips the passcode, so it is only offered
+  # on P&E courses that have turned it on.
+  def online_volunteers_allowed?
+    !Features.wiki_ed? && @course.online_volunteers_enabled?
   end
 
   def add_user_to_course

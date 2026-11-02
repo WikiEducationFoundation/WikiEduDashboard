@@ -24,6 +24,8 @@
 #  metadata      :text(65535)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  source_text   :text(16777215)
+#  source_format :string(255)
 #
 
 # One text unit of a named detector-comparison sample. See
@@ -54,9 +56,17 @@ class AiDetectionSample < ApplicationRecord
   EXPERIMENT = 'experiment' # Controlled experiment with known conditions
   SYNTHETIC = 'synthetic' # Produced for testing, by us or another AI-writing process
 
+  # source_format: the form of source_text, the unit's text as written before
+  # it was cleaned into plain_text, with its citations and references.
+  WIKITEXT = 'wikitext' # Wikipedia source, or wikitext a model produced
+  MARKDOWN = 'markdown' # Agpedia page source
+  MODEL_REPLY = 'model_reply' # A model's whole reply, of which plain_text is the extracted draft
+  SOURCE_FORMATS = [WIKITEXT, MARKDOWN, MODEL_REPLY].freeze
+
   validates :sample_name, presence: true
   validates :plain_text, presence: true
   validates :ground_truth, inclusion: { in: GROUND_TRUTHS }, allow_nil: true
+  validates :source_format, inclusion: { in: SOURCE_FORMATS }, allow_nil: true
   validate :factors_are_flat
 
   before_validation :derive_text_stats

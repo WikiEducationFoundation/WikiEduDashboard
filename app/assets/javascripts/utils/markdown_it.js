@@ -33,7 +33,7 @@ export default function (opts) {
   const md = markdownIt(mergedOpts).use(footnotes);
 
   if (mergedOpts.openLinksExternally) {
-    // Remember old renderer, if overriden, or proxy to default renderer
+    // Remember old renderer, if overridden, or proxy to default renderer
     const defaultRender = md.renderer.rules.link_open || function (tokens, idx, options, env, self) {
       return self.renderToken(tokens, idx, options);
     };

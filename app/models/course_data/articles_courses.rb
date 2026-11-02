@@ -53,8 +53,9 @@ class ArticlesCourses < ApplicationRecord
 
   # Search by course and user.
   def self.search_by_course_and_user(course, user_id)
-    ArticlesCourses.where(course:).where('user_ids LIKE ?', "%- #{user_id}\n%")
+    where(course:).where('user_ids LIKE ?', "%- #{user_id}\n%")
   end
+
 
   # Calculate articles courses that need a cache update. For courses with a huge number
   # of articles, updating all caches in every update can be heavy. In order to
@@ -103,9 +104,7 @@ class ArticlesCourses < ApplicationRecord
 
     # Add new ArticlesCourses
     article_ids_without_ac = revision_article_ids - course_article_ids
-    tracked_wiki_ids = course.wikis.pluck(:id)
-    new_article_ids = Article.where(id: article_ids_without_ac, wiki_id: tracked_wiki_ids)
-                             .pluck(:id)
+    new_article_ids = Article.where(id: article_ids_without_ac, wiki: course.wikis).pluck(:id)
     create_records_and_mark_acuwt(course, new_article_ids)
   end
 

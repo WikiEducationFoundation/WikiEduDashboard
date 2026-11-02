@@ -29,6 +29,8 @@ describe ReportCsvStore do
 
   describe 'delegation' do
     let(:store) { instance_double(LocalReportCsvStore) }
+    # Stored names carry a secret-derived suffix so reports can't be guessed.
+    let(:stored_name) { a_string_matching(/\Areport-\h{32}\.csv\z/) }
 
     before do
       allow(ENV).to receive(:[]).with('report_csv_bucket').and_return(nil)
@@ -36,23 +38,37 @@ describe ReportCsvStore do
     end
 
     it 'delegates exists? to the store' do
-      expect(store).to receive(:exists?).with('report.csv')
+      expect(store).to receive(:exists?).with(stored_name)
       described_class.exists?('report.csv')
     end
 
+    it 'delegates read to the store' do
+      expect(store).to receive(:read).with(stored_name)
+      described_class.read('report.csv')
+    end
+
     it 'delegates write to the store' do
-      expect(store).to receive(:write).with('report.csv', 'data')
+      expect(store).to receive(:write).with(stored_name, 'data')
       described_class.write('report.csv', 'data')
     end
 
     it 'delegates url_for to the store' do
-      expect(store).to receive(:url_for).with('report.csv')
+      expect(store).to receive(:url_for).with(stored_name)
       described_class.url_for('report.csv')
     end
 
     it 'delegates delete to the store' do
-      expect(store).to receive(:delete).with('report.csv')
+      expect(store).to receive(:delete).with(stored_name)
       described_class.delete('report.csv')
+    end
+
+    it 'gives the same report the same stored name' do
+      names = []
+      allow(store).to receive(:url_for) { |name| names << name }
+      2.times { described_class.url_for('report.csv') }
+      described_class.url_for('other.csv')
+      expect(names[0]).to eq(names[1])
+      expect(names[2]).not_to eq(names[0])
     end
   end
 end

@@ -2,11 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { printArticleViewer } from '../../../../utils/article_viewer';
+import URLBuilder from '../utils/URLBuilder';
 
 export const Footer = ({
   article, legend, showArticleFinder, revisionId, toggleRevisionHandler, pendingRequest
 }) => {
   const revision_button_text = revisionId ? I18n.t('application.show_current_revision') : I18n.t('application.show_last_revision');
+  // Link to the revision being shown when there is one (e.g. the claim
+  // exercise's flagged revision), rather than the current version.
+  const wikiUrl = revisionId ? new URLBuilder({ article }).revisionURL(revisionId) : article.url;
   const revision_button = !showArticleFinder && (
     <div>
       {
@@ -50,7 +54,7 @@ export const Footer = ({
         {revision_button}
         <a
           className="button dark small pull-right article-viewer-button"
-          href={article.url}
+          href={wikiUrl}
           target="_blank"
           style={{
             height: 'max-content',

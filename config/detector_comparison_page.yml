@@ -1,0 +1,95 @@
+# Text for the detector comparison page (/detector_comparison), written by Wiki Education.
+#
+# preamble: Markdown shown at the top of the page.
+# views: curated conclusions, shown as cards under the preamble. Each has a title, a Markdown
+# description, a dataset (topics, the default, or known_human) whose page it opens, and a
+# selection. Anything a selection leaves out uses the page's default; the known_human page
+# uses only detectors.
+#   models:     reference:before, reference:human (the student's additions), reference:after,
+#               reference:today, reference:agpedia, average:models, or model keys
+#               (claude-sonnet-5-5, claude-fable-5-1, gpt-5.6-luna, gpt-6-astra,
+#               gemini-3.6-flash-medium, gemini-3.1-pro-high, gemini-3.6-flash,
+#               gemini-3.1-pro-preview, and the open-weight ladder's Ollama keys)
+#   strategies: one_line, detailed, one_line_250, one_line_1000, one_line_web, detailed_web,
+#               assignment, assignment_web, chatgpt_prompt_web
+#   detectors:  p4 (Pangram 4), a40, a15 (Originality AI Allowance 40 and 15),
+#               opl, opr (Open Pangram Llama and RoBERTa)
+#   topics:     all, or a list of average and topic names
+#   group:      model or strategy
+
+preamble: |
+  This is Wiki Education's AI detector comparison project. It shows data we've collected from multiple AI detectors, highlighting their performance — in particular — on AI-generated encyclopedia articles.
+
+  This first version — from October 2026 — is built around a set of 16 Wikipedia article topics, all of which were edited by students in assignments that Wiki Education supported, before the launch of ChatGPT. The articles, in the states they were in after the students' edits, represent versions we know were human-written. We generated multiple AI-created articles for each topic, using multiple AI models and with prompts ranging from simple to detailed, with and without web access.
+
+  It also includes a set of 578 student contributions sampled across terms from courses in our Wikipedia Student Program before the launch of ChatGPT (late 2022), which we can be confident were not AI-written.
+
+  We've curated some views of the data that illustrate some of our current interpretations. You can explore the data in detail by selecting which segments to display, and clicking through to see the individual texts and AI detector results.
+
+  Sage Ross
+  Wiki Education
+
+views:
+  - key: prompt-sophistication
+    title: The more sophisticated the prompt, the harder to detect
+    description: "This matters a lot. [Pangram 4](https://www.pangram.com/blog/introducing-pangram-4) catches most of the output from one-line prompts, but with a long or multi-step prompt (even one that is itself AI-generated), detection falls off. Pangram is more likely to label it 'Mixed' or even 'Human' rather than fully 'AI'. The most extreme case is represented by the Agpedia articles; [Agpedia.org](https://agpedia.org) is a Wikipedia-like site for AI-written encyclopedia articles, and it forces the AI agent to process a significant amount of rules and guidance before the AI can post the article."
+    selection:
+      models: [reference:after, reference:agpedia, average:models]
+      strategies: [one_line, detailed, assignment, assignment_web, chatgpt_prompt_web]
+      detectors: [p4]
+      topics: all
+      group: model
+  - key: topics-vary
+    title: Detector performance varies by topic
+    description: "I don't see any obvious trends behind what makes one topic harder to detect than another, but Pangram 4 is much less confident about some topics than others. The topics are ordered by Pangram 4's average score across all the current models' texts, from highest to lowest."
+    selection:
+      models: [average:models]
+      strategies: [one_line, detailed_web, assignment_web, chatgpt_prompt_web]
+      detectors: [p4]
+      topics: all
+      group: model
+  - key: model-capability
+    title: Newer models challenge AI detectors a little more
+    description: "We used a selection of open-weight models, much less capable than current frontier models, to approximate the capabilities of older widely-used models. [A table](/detector_comparison/topics#open-weight-ladder) shows which versions of ChatGPT are roughly equivalent to these. Text from the older models was caught consistently with high raw scores, although we only tested them with the simpler prompt strategies. Current models sometimes evade detection with a complex prompt."
+    selection:
+      models: ['mistral:7b-instruct-v0.2-q4_K_M', 'llama3:8b-instruct-q4_K_M', 'gemma2:27b-instruct-q4_K_M',
+               'gemma3:27b-it-q4_K_M', 'qwen3:30b-a3b-instruct-2507-q4_K_M', claude-sonnet-5-5, claude-fable-5-1,
+               gpt-5.6-luna, gpt-6-astra, gemini-3.6-flash, gemini-3.1-pro-preview]
+      strategies: [one_line, assignment_web]
+      detectors: [p4]
+      topics: all
+      group: strategy
+  - key: tools
+    title: Tool-enabled models are harder to detect than isolated LLMs
+    description: "Tool use — web search and page fetching — makes a big difference. Adding topic-specific context via search makes Pangram less confident: it labels fewer texts fully 'AI' and more 'Mixed', and with the multi-step assignment prompt, 13% as 'Human'."
+    selection:
+      models: [average:models]
+      strategies: [one_line, one_line_web, detailed, detailed_web, assignment, assignment_web]
+      detectors: [p4]
+      topics: all
+      group: model
+  - key: pangram-vs-originality
+    title: "Pangram 4 is somewhat more sensitive to AI-written text than Originality.ai Allowance"
+    description: "We have 748 AI-written texts scored by Pangram 4, Allowance 15, and Allowance 40. When Pangram's 'Mixed' verdict is counted along with the firmer 'AI' verdict, Pangram 4 caught 96%, while Allowance 15 caught 90% and Allowance 40 caught 57%. For the web-enabled AI subset, that falls to 94%, 87% and 48% respectively. With Pangram, nearly all AI-written texts have a significant signal in the raw results, but the misses (false negatives) fall below the threshold for an AI verdict. (27 out of 29 Pangram misses have higher raw Pangram scores than any of the 578 human-written texts we tested.) Most of the Allowance 40 misses also have higher raw scores, while many of the Allowance 15 misses overlap significantly with typical scores for human-written texts."
+    selection:
+      models: [reference:agpedia, average:models]
+      strategies: [one_line, detailed, one_line_web, detailed_web, assignment, assignment_web, chatgpt_prompt_web]
+      detectors: [p4, a40, a15]
+      topics: all
+      group: model
+  - key: false-positives
+    title: "Pangram 4 and Originality.ai have near-zero false positive rates on pre-ChatGPT Wikipedia text"
+    dataset: known_human
+    description: "We scored 578 pre-ChatGPT student contributions (where students added more than 3,000 characters of wikitext during the term). (See also our two [previous](https://wikiedu.org/blog/2026/01/29/generative-ai-and-wikipedia-editing-what-we-learned-in-2025/) [analyses](https://wikiedu.org/blog/2026/07/14/generative-ai-and-wikipedia-the-last-six-months/) of false positive rates from earlier versions of Pangram, which were also at or near zero for pre-ChatGPT student edits.) Pangram 4, Allowance 40 and Allowance 15 had no false positives, while Open Pangram detected one (Llama) and two (RoBERTa), all at the lightest AI-edited level."
+    selection:
+      detectors: all
+  - key: pangram-vs-open-pangram
+    title: Pangram 4 performs much better than the Open Pangram models
+    description: "[Pangram's open detection models](https://www.pangram.com/blog/introducing-open-pangram) do fairly well with detecting text from the less capable models, but fall off dramatically with the current OpenAI and Claude models (and slightly with Gemini)."
+    selection:
+      models: [reference:after, average:models, 'mistral:7b-instruct-v0.2-q4_K_M', 'llama3:8b-instruct-q4_K_M',
+               'gemma2:27b-instruct-q4_K_M', 'gemma3:27b-it-q4_K_M', 'qwen3:30b-a3b-instruct-2507-q4_K_M']
+      strategies: [one_line, detailed, detailed_web, assignment_web, chatgpt_prompt_web]
+      detectors: [p4, opl, opr]
+      topics: all
+      group: model

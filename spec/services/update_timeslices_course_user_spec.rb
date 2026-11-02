@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 require "#{Rails.root}/lib/timeslice_manager"
+require "#{Rails.root}/lib/data_cycle/update_logger"
 
 describe UpdateTimeslicesCourseUser do
   before { stub_const('TimesliceManager::TIMESLICE_DURATION', 86400) }
@@ -287,6 +288,8 @@ describe UpdateTimeslicesCourseUser do
     end
 
     it 'continues with remaining users when processing one user fails' do
+      # The failed user joined before this update started
+      CoursesUsers.find_by(course:, user: user2).update(created_at: 1.minute.ago)
       JoinCourse.new(course:, user: user3, role: CoursesUsers::Roles::STUDENT_ROLE)
       allow_any_instance_of(CourseRevisionUpdater)
         .to receive(:fetch_revisions_for_new_users) do |_updater, _wiki, users, _ts_start, _ts_end|
@@ -295,14 +298,42 @@ describe UpdateTimeslicesCourseUser do
       end
       expect(Sentry).to receive(:capture_message)
 
-      described_class.new(course).run
+      this_update_start = Time.zone.now.to_datetime
+      # Earlier update steps (uploads, categories, article status) take time in production
+      travel 1.minute do
+        described_class.new(course).run
+        # The update finishes and is logged, as UpdateCourseStats does
+        UpdateLogger.update_course(course, 'start_time' => this_update_start,
+                                           'end_time' => Time.zone.now.to_datetime)
+      end
 
       # The failed user is still considered new, so the next update retries them;
       # the successfully processed user is not redone
       expect(CoursesUsers.find_by(course:, user: user2).created_at)
-        .to be >= course.last_update_start_time
+        .to be >= course.reload.last_update_start_time
       expect(CoursesUsers.find_by(course:, user: user3).created_at)
         .to be < course.last_update_start_time
+    end
+
+    it 'stops immediately, without touching remaining users, on a Replica rate limit' do
+      JoinCourse.new(course:, user: user3, role: CoursesUsers::Roles::STUDENT_ROLE)
+      fake_response = double('response', code: '429', body: 'rate limited') # rubocop:disable RSpec/VerifiedDoubles
+      allow(fake_response).to receive(:[]).with('Retry-After').and_return(nil)
+      allow_any_instance_of(CourseRevisionUpdater)
+        .to receive(:fetch_revisions_for_new_users) do |_updater, _wiki, users, _ts_start, _ts_end|
+        raise Replica::RateLimitedError, fake_response if users.first.id == user2.id
+        []
+      end
+
+      expect { described_class.new(course).run }.to raise_error(Replica::RateLimitedError)
+
+      # Neither the rate-limited user nor the one after them (never reached)
+      # was marked processed -- both are retried on the next update, instead
+      # of user3 being silently skipped the way a swallowed error would.
+      expect(CoursesUsers.find_by(course:, user: user2).created_at)
+        .to be >= course.last_update_start_time
+      expect(CoursesUsers.find_by(course:, user: user3).created_at)
+        .to be >= course.last_update_start_time
     end
   end
 end

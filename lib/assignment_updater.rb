@@ -30,10 +30,17 @@ class AssignmentUpdater
   end
 
   # This method will update the assignments to match the Article title, in
-  # case the Article moved titles.
+  # case the Article moved titles. If it moved out of mainspace (for example,
+  # to the Draft namespace), there is no longer a live article for the
+  # assignment, so we clean the article_id and keep the mainspace title.
+  # If it moves back, update_assignment_article_ids_and_titles relinks it.
   def self.update_assignments_for_article(article)
     article.assignments.each do |assignment|
-      update_assignment_from_article(assignment, article)
+      if article.mainspace?
+        update_assignment_from_article(assignment, article)
+      else
+        assignment.update(article_id: nil)
+      end
     end
   end
 

@@ -17,6 +17,7 @@ const ConfigureSiteNotice = (props) => {
   const form = (
     <SiteNoticeForm
       handlePopoverClose={open}
+      isOpen={isOpen}
       updateSiteNotice={updateSiteNotice}
       currentStatus={props.currentSiteNotice.status}
       currentSiteNotice={props.currentSiteNotice}

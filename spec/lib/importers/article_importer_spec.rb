@@ -26,6 +26,16 @@ describe ArticleImporter do
         expect(article.title).to eq('Alnus')
       end
     end
+
+    it 'treats a Replica rate limit like any other failed chunk, without raising' do
+      fake_response = double('response', code: '429', body: 'rate limited') # rubocop:disable RSpec/VerifiedDoubles
+      allow(fake_response).to receive(:[]).with('Retry-After').and_return(nil)
+      allow_any_instance_of(Replica).to receive(:get_existing_articles_by_id)
+        .and_raise(Replica::RateLimitedError.new(fake_response))
+
+      expect { described_class.new(en_wiki).import_articles [46349871] }.not_to raise_error
+      expect(Article.find_by(mw_page_id: 46349871)).to be_nil
+    end
   end
 
   describe '.import_articles_by_title' do

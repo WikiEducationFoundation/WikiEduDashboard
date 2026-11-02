@@ -22,6 +22,7 @@
 #
 
 require_dependency "#{Rails.root}/lib/word_count"
+require_dependency "#{Rails.root}/lib/revision_stat_timeslice"
 
 #= Course + User join model
 class CoursesUsers < ApplicationRecord
@@ -99,11 +100,10 @@ class CoursesUsers < ApplicationRecord
     role.positive? && user.permissions == 1 && user.greeter == false
   end
 
-  def update_values_from_timeslices
+  def update_values_from_timeslices(excluded_wiki_ids)
     # Character sums represent prose added to wikitext wikis, so timeslices for
     # excluded wikis do not count towards them. See WordCount::EXCLUDED_PROJECTS.
     # Reference and revision counts still include every wiki the course tracks.
-    excluded_wiki_ids = WordCount.excluded_wiki_ids
     counted = course_user_wiki_timeslices.reject do |timeslice|
       excluded_wiki_ids.include?(timeslice.wiki_id)
     end
@@ -114,18 +114,17 @@ class CoursesUsers < ApplicationRecord
     self.revision_count = course_user_wiki_timeslices.sum(&:revision_count)
   end
 
-  def update_cache_from_timeslices
+  def update_cache_from_timeslices(excluded_wiki_ids, upload_counts_by_user:,
+                                   first_assigned_titles_by_user:, revision_stat_timeslice:)
     # total_uploads is not implemented yet as a timeslice attribute
-    self.total_uploads = course.uploads.where(user_id:).count
+    self.total_uploads = upload_counts_by_user.fetch(user_id, 0)
 
-    update_values_from_timeslices
+    update_values_from_timeslices(excluded_wiki_ids)
 
     # recent_revisions field doesn't belong to timeslices
-    self.recent_revisions = RevisionStatTimeslice.new(course)
-                                                 .recent_revisions_for_courses_user(self)
+    self.recent_revisions = revision_stat_timeslice.recent_revisions_for_courses_user(self)
     # assigned_article_title field doesn't belong to timeslices
-    assignments = user.assignments.where(course_id:)
-    self.assigned_article_title = assignments.empty? ? '' : assignments.first.article_title
+    self.assigned_article_title = first_assigned_titles_by_user.fetch(user_id, '')
     save
   end
 
@@ -142,6 +141,25 @@ class CoursesUsers < ApplicationRecord
   # Class methods #
   #################
   def self.update_all_caches_from_timeslices(courses_users)
-    courses_users.includes(:user).find_each(&:update_cache_from_timeslices)
+    # Look up the excluded wiki ids once for the batch, not once per user. Per-course
+    # lookups are built once per distinct course, not passed via the course itself: a
+    # courses_user's #course can be the same in-memory instance across the whole batch
+    # (Rails reuses the inverse association), so caching them there would leak stale
+    # values across repeated calls on that instance.
+    excluded_wiki_ids = WordCount.excluded_wiki_ids
+    update_caches_by_course = Hash.new { |hash, course| hash[course] = build_update_caches(course) }
+    courses_users.includes(:user, :course).find_each do |courses_user|
+      update_caches = update_caches_by_course[courses_user.course]
+      courses_user.update_cache_from_timeslices(excluded_wiki_ids, **update_caches)
+    end
+  end
+
+  def self.build_update_caches(course)
+    {
+      upload_counts_by_user: course.uploads.group('commons_uploads.user_id').count,
+      first_assigned_titles_by_user: course.assignments.order(:id).group_by(&:user_id)
+                                           .transform_values { |a| a.first.article_title },
+      revision_stat_timeslice: RevisionStatTimeslice.new(course)
+    }
   end
 end

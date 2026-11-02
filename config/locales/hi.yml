@@ -64,8 +64,6 @@ hi:
     change: बदलें
     details: विवरण
     confirm: ठीक है
-    opt_in: हाँ
-    opt_out: नहीं
     opt_yes: हाँ
     opt_no: नहीं
     print: प्रिंट करें
@@ -237,6 +235,8 @@ hi:
       देने की योजना बनाते हैं।
     select: चयन करें
     submit: जमा करें
+  assignments_tab:
+    progress: प्रगति
   blocks:
     milestones:
       title: मील के पत्थर
@@ -263,6 +263,8 @@ hi:
     course_already_removed: '"%{campaign_title}" अभियान से "%{title}" पहले से ही निकाल
       दिया गया था'
     course: कोर्स
+    all_data: सभी
+    export: निर्यात
     course_removed: '"%{campaign_title}" अभियान से "%{title}" हटा दिया गया है'
     create_campaign: नया अभियान बनाए
     create_my_campaign: अपना अभियान बनाएं!
@@ -459,6 +461,10 @@ hi:
     sub_navigation:
       assignments_and_exercises: कार्य और अभ्यास
       student_overview: '%{prefix} अवलोकन'
+  downloads:
+    title: डाउनलोड
+    ready: तैयार
+    download: डाउनलोड
   training_status:
     completed: पूर्ण
     not_started: प्रारम्भ नहीं हुआ

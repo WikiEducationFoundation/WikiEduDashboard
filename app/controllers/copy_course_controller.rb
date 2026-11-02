@@ -3,6 +3,7 @@
 #= Controller for Copy Course tool
 class CopyCourseController < ApplicationController
   respond_to :html
+  before_action :require_signed_in
   before_action :require_admin_if_wiki_ed
   def index; end
 
@@ -14,14 +15,21 @@ class CopyCourseController < ApplicationController
                   flash: { error: "Course not created: #{response[:error]}" })
     else
       course = response[:course]
-      course.flags = course.flags.merge(timeline_enabled: true)
-      course.update(
-        cloned_status: 3,
-        expected_students: course.expected_students || 0,
-        term: ''
-      )
+      mark_as_copy(course) unless response[:existing]
       redirect_to "/courses/#{course.slug}"
     end
+  end
+
+  private
+
+  def mark_as_copy(course)
+    course.flags = course.flags.merge(timeline_enabled: true,
+                                      copied_by_user_id: current_user.id)
+    course.update(
+      cloned_status: 3,
+      expected_students: course.expected_students || 0,
+      term: ''
+    )
   end
 
   def require_admin_if_wiki_ed

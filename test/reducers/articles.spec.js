@@ -73,7 +73,7 @@ describe('articles reducer', () => {
   });
 
   test('sorts articles via SORT_ARTICLES', () => {
-    const initialState = { articles: articles_array, sort: { sorKey: null } };
+    const initialState = { articles: articles_array, sort: { sortKey: null } };
     deepFreeze(initialState);
     const mockedAction = {
       type: SORT_ARTICLES,

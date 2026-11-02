@@ -97,6 +97,13 @@ When user-facing text is needed but the operator hasn't supplied it yet, leave a
 inventing copy — invented text must never ship. Use this exact marker everywhere
 (greppable as `[PLACEHOLDER`) so pending copy is trivial to find and fill in.
 
+## Translations
+
+Add strings to `config/locales/en.yml` only (other locales come from
+translatewiki.net). JS reads them from an export that `yarn start` doesn't
+refresh; after editing `en.yml`, run `bundle exec i18n export -c config/i18n-js.yml`.
+Details: `docs/i18n.md`.
+
 ## WikiApi usage
 
 Use `WikiApi.new(wiki)` for MediaWiki API calls. The standard public methods
@@ -209,3 +216,31 @@ orphan branch. Say what was pushed.
 Never push to a permanent branch (`master`, `production`, `wmflabs`,
 `staging`); merging a PR or fast-forwarding a deploy branch counts. Force-push
 a feature branch or delete a remote branch only when the current message asks.
+
+## Keeping the checkout clean
+
+`git status` should show only work in progress. Before finishing a task,
+account for every file you created: commit it, delete it, or move it out of the
+repo. Don't leave untracked files for a later session to puzzle over.
+
+- **Analytics and research scripts** go in `docs/analytics_scripts/<project>/`,
+  with a README saying what each script does, when it was run and why. Commit
+  them, either with the PR for the work they support or in a PR of their own
+  once they've been run. One-time production fixes go in
+  `docs/cleanup_scripts/`.
+- **Data never goes in the tracked tree** (`lib/`, `app/`, `config/`, `spec/`).
+  Exports, spreadsheets, caches and intermediate results go in the project's
+  `data/` directory, which `.gitignore` covers, or outside the repo. Raw
+  production dumps, and anything else holding users' emails, real names, or
+  student writing that isn't public on a wiki, go outside the repo (for
+  example `~/<project>/`). Console scripts write to `~` by default.
+- **Ignore rules that protect data** go in the committed `.gitignore`, or in
+  `.git/info/exclude` if they only matter on this machine. Never leave one as
+  an uncommitted edit: workflows that switch branches stash uncommitted
+  changes, and a rule left in a stash protects nothing.
+- **Untracked screenshot specs** (`spec/features/*_screenshots_spec.rb`, from
+  `prepare-pr`'s Strategy A) are deleted once their PR merges. Delete any you
+  find whose PR has merged.
+- **Stashes:** pop what you stash before finishing, and report any you leave.
+- **Local branches:** `review/<number>` and `pr-screenshots/<branch>` branches
+  are disposable once their PR is merged or closed.

@@ -68,8 +68,6 @@ ps:
     change: بدلول
     details: سپيناوي
     confirm: ښه
-    opt_in: هو
-    opt_out: نه
     opt_yes: هو
     opt_no: نه
     print: چاپول
@@ -436,6 +434,8 @@ ps:
   settings:
     categories:
       users: کارنان
+  status:
+    status: دريځ
   timeline:
     add_week: اوونۍ ورگډول
     block_in_class: په ټولگي کې

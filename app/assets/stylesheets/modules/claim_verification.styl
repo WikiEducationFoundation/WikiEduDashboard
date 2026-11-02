@@ -182,8 +182,8 @@
   margin-top 6px
   font-size .9em
 
-// "Submitted response" popover on the students-tab exercise rows: the claim
-// and the form answers, shown in place of navigating anywhere.
+// "Submitted response" popover on the students-tab exercise rows: the claim,
+// its source and the form answers, shown in place of navigating anywhere.
 .cv-response-pop
   .pop
     max-height 420px
@@ -199,13 +199,6 @@
       padding 16px 18px
       white-space normal
       overflow-wrap break-word
-
-  &__item blockquote
-    margin 0 0 12px 0
-    padding 0 0 0 12px
-    border-left 3px solid $brand_primary
-    font-family $header-font
-    color $text_dk
 
   &__item + &__item
     margin-top 18px
@@ -423,6 +416,69 @@
       line-height 1.5
       max-width 44em
 
+// The claim and its source where an instructor reads a response (the
+// submissions page's cards, the Assignments tab grader and the students-tab
+// popover): the same two focal cards the student worked from, compacted to sit
+// inside a card of their own — the claim as a quoted sentence on its accent
+// rail, the source as a shaded panel holding the citation and the button that
+// opens it.
+.cv-response-card,
+.cv-grader,
+.cv-response-pop
+  .claim-verification-exercise__claim
+    margin-bottom 18px
+    padding 0 0 0 14px
+    border 0
+    border-left 3px solid $brand_primary
+    border-radius 0
+    background transparent
+
+  .claim-verification-exercise__claim-text
+    font-size 1.15em
+    line-height 1.45
+
+  .claim-verification-exercise__label
+    margin-bottom 8px
+
+  .claim-verification-exercise__article-link
+    margin-top 8px
+
+  .claim-verification-exercise__context
+    margin-top 10px
+
+  .claim-verification-exercise__source
+    margin-bottom 0
+    padding 16px 18px
+
+  .claim-verification-exercise__citation
+    margin-bottom 14px
+    font-size 1em
+
+// A submitted response's answers, below the claim and source it answers.
+.cv-claim-response__answers
+  margin-top 22px
+
+// One student's work in the Assignments tab grader: each response (and a
+// claim taken but not yet answered), dated, one after another.
+.cv-grader
+  &__item + &__item
+    margin-top 28px
+    padding-top 24px
+    border-top 1px solid $border_lt
+
+  &__date
+    margin 0 0 14px 0
+    color $text_med
+    font-size .88em
+
+// The popover is narrower still, and its answers follow the source directly.
+.cv-response-pop
+  .claim-verification-exercise__claim-text
+    font-size 1em
+
+  .cv-response
+    margin-top 18px
+
 // A heading with its action alongside: the submissions page's "open the
 // exercise", and the taken claim's "choose a different claim". Wraps so the
 // action drops below the heading rather than crushing it on a narrow screen.
@@ -468,22 +524,23 @@
     color $text_med
     font-size .88em
 
+  // The article the claim comes from, under the student's name (and under a
+  // pending row's claim).
+  &__article-title
+    margin 4px 0 0 0
+    color $text_med
+    font-size .9em
+
+  // A pending row's claim: the sentence alone, with its article.
   &__claim
-    margin-bottom 18px
     blockquote
-      margin 0 0 8px 0
+      margin 0
       padding 0 0 0 14px
       border-left 3px solid $brand_primary
       font-family $header-font
       font-size 1.05em
       line-height 1.45
       color $text_dk
-
-  &__claim-links
-    margin 0
-    font-size .9em
-    a
-      margin-right 16px
 
   &--pending
     background $bg_light_gray

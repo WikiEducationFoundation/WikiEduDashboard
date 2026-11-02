@@ -361,7 +361,10 @@ module SurveysHelper
   # For preview mode, fall back to the course_select dropdown.
   # For a real survey, fall back to the user's latest course.
   def set_course
-    @course = find_course_by_slug(params[:course_slug]) if course_slug?
+    if course_slug?
+      @course = find_course_by_slug(params[:course_slug])
+      require_course_visible(@course)
+    end
     @course ||= @notification.course if @notification.instance_of?(SurveyNotification)
     return if @course
     if preview_mode?
@@ -371,8 +374,9 @@ module SurveysHelper
     end
   end
 
+  # Preview is open to logged-out users, so private courses stay out of the list.
   def set_course_via_select
-    @courses = Course.all
+    @courses = current_user&.admin? ? Course.all : Course.nonprivate
     render 'course_select'
   end
 

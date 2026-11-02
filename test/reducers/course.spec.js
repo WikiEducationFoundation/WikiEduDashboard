@@ -90,7 +90,7 @@ describe('course reducer', () => {
     expect(finalState.description).toBe('a new description');
   });
 
-  test('updates course with receive data via PERSITED_COURSE', () => {
+  test('updates course with receive data via PERSISTED_COURSE', () => {
     const initialState = { description: 'initial description' };
     deepFreeze(initialState);
     const mockedAction = {
@@ -160,7 +160,7 @@ describe('course reducer', () => {
   );
 
   test(
-    'updates state when a campaing is deleted or added with ADD_CAMAPAIGN and DELETE_CAMPAIGN',
+    'updates state when a campaign is deleted or added with ADD_CAMPAIGN and DELETE_CAMPAIGN',
     () => {
       const initialState = { title: 'title' };
       deepFreeze(initialState);
@@ -236,7 +236,7 @@ describe('course reducer', () => {
   });
 
   test(
-    'reset state attributes and returns updated state with response via SYLLABUS UPLOAD SUCCESS ',
+    'reset state attributes and returns updated state with response via SYLLABUS_UPLOAD_SUCCESS',
     () => {
       const initialState = {
         title: 'title',

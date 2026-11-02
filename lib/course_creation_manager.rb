@@ -91,9 +91,20 @@ class CourseCreationManager
   end
 
   def set_passcode
-    @overrides[:passcode] = '' if @course_params[:passcode] == 'no-passcode'
-    return if @course_params[:passcode].present?
-    @overrides[:passcode] = GeneratePasscode.call
+    passcode = @course_params[:passcode].presence || initial_campaign_passcode
+    @overrides[:passcode] = case passcode
+                            when 'no-passcode' then ''
+                            when nil then GeneratePasscode.call
+                            else passcode
+                            end
+  end
+
+  # Only campaign organizers receive a campaign's default passcode in the
+  # course creator, so it is applied here for everyone else.
+  def initial_campaign_passcode
+    return unless Features.open_course_creation? && @initial_campaign_params.present?
+    campaign = Campaign.find_by(id: @initial_campaign_params[:initial_campaign_id])
+    campaign&.default_passcode.presence
   end
 
   def set_course_type

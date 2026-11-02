@@ -114,6 +114,8 @@ se:
     cancel: Gaskkalduhte
     save: Vurke
   instructor_view:
+    assignments_table:
+      article_name: Namma
     bad_work:
       learn_more_button: Lassedieđut
   metrics:
@@ -177,7 +179,7 @@ se:
     name: Namma
     username: Geavaheaddjinamma
     username_placeholder: Geavaheaddjinamma
-    useremail_placeholder: E-poastačujuhus
+    useremail_placeholder: Čále e-poastačujuhusa
   wizard:
     read_more: Čájet eambbo
   error_404:

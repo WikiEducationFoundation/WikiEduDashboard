@@ -92,7 +92,8 @@ describe('ExperimentOptInInvitation', () => {
     install_copy_button: 'Copy it',
     install_copied: 'On your clipboard',
     install_verify_button: "I've saved it",
-    install_not_found: 'Not found yet.'
+    install_not_found: 'Not found yet.',
+    install_help: '[Stuck? Read the FAQ](/faq/32)'
   };
 
   const installInvitation = userscript => ({
@@ -184,5 +185,33 @@ describe('ExperimentOptInInvitation', () => {
     expect(container.querySelector('.experiment-opt-in__panel')).not.toBeNull();
     expect(container.querySelector('.experiment-opt-in__not-found').textContent)
       .toEqual('Not found yet.');
+  });
+
+  it('links to the installation walkthrough and troubleshooting FAQ', async () => {
+    request.mockResolvedValue(installInvitation({
+      install_url: 'https://en.wikipedia.org/w/index.php?title=User:S/common.js&action=edit',
+      import_line: 'importScript("x");'
+    }));
+    const container = await renderComponent(eligibleCourse, student);
+    const link = container.querySelector('.experiment-opt-in__help a');
+    expect(link.getAttribute('href')).toEqual('/faq/32');
+    expect(link.textContent).toEqual('Stuck? Read the FAQ');
+  });
+
+  it('leaves the site and course navs usable during the install step', async () => {
+    const nav = document.createElement('div');
+    nav.className = 'course_navigation';
+    nav.getBoundingClientRect = () => ({ bottom: 112 });
+    document.body.appendChild(nav);
+    request.mockResolvedValue(installInvitation({
+      install_url: 'https://en.wikipedia.org/w/index.php?title=User:S/common.js&action=edit',
+      import_line: 'importScript("x");'
+    }));
+    const container = await renderComponent(eligibleCourse, student);
+    const overlay = container.querySelector('.experiment-opt-in--install');
+    expect(overlay.getAttribute('aria-modal')).toBeNull();
+    expect(overlay.style.top).toEqual('112px');
+    expect(document.body.classList).toContain('experiment-install-open');
+    nav.remove();
   });
 });

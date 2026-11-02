@@ -8,3 +8,6 @@ export const onEnterOrSpace = handler => (e) => {
     handler(e);
   }
 };
+
+export const isTyping = target => ['INPUT', 'SELECT', 'TEXTAREA'].includes(target.tagName)
+  || target.isContentEditable;

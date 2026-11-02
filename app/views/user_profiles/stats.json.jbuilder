@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 json.user_recent_uploads @user_uploads.each do |upload|
-  json.call(upload, :id, :uploaded_at, :usage_count, :url, :thumburl)
+  json.call(upload, :id, :uploaded_at, :usage_count, :url, :thumburl, :thumbwidth,
+            :thumbheight, :deleted)
   json.file_name pretty_filename(upload)
   json.uploader upload.user.username
 end
@@ -49,6 +50,14 @@ if @user.course_student?
     json.individual_upload_usage_count number_to_human @individual_stats_presenter
       .individual_upload_usage_count
   end
+end
+
+json.articles_by_language @articles_by_language do |lang_data|
+  json.language lang_data[:language]
+  json.project lang_data[:project]
+  json.word_count number_to_human lang_data[:word_count]
+  json.references_count number_to_human lang_data[:references_count]
+  json.article_count lang_data[:article_count]
 end
 
 json.max_project @max_project

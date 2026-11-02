@@ -169,8 +169,8 @@ describe TrainingProgressManager do
 
       after { t_module.update(kind: TrainingModule::Kinds::TRAINING) }
 
-      it 'returns nil' do
-        expect(subject).to be_nil
+      it 'returns Completed when module is completed' do
+        expect(subject).to eq(I18n.t('training_status.completed'))
       end
     end
 

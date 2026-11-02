@@ -93,6 +93,42 @@ describe TimesliceCleaner do
     end
   end
 
+  describe '#delete_timeslices_for_purge' do
+    let(:deleted_article) { create(:article, wiki_id: enwiki.id, deleted: true) }
+    let(:other_course) { create(:course, slug: 'Other/Course_(Term)') }
+
+    before do
+      [course, other_course].each do |some_course|
+        create(:course_wiki_timeslice, course: some_course, wiki: enwiki)
+        create(:course_user_wiki_timeslice, course: some_course, user_id: 1, wiki: enwiki)
+        [article1, deleted_article].each do |article|
+          create(:article_course_timeslice, course: some_course, article:)
+          create(:article_course_user_wiki_timeslice, course: some_course, wiki: enwiki,
+                 article:, user_id: 1)
+        end
+      end
+      timeslice_cleaner.delete_timeslices_for_purge
+    end
+
+    it 'deletes the course wiki and course user wiki timeslices' do
+      expect(CourseWikiTimeslice.where(course:)).to be_empty
+      expect(CourseUserWikiTimeslice.where(course:)).to be_empty
+    end
+
+    it 'keeps only the ACT and ACUWT records of deleted articles' do
+      expect(ArticleCourseTimeslice.where(course:).pluck(:article_id))
+        .to eq([deleted_article.id])
+      expect(ArticleCourseUserWikiTimeslice.where(course:).pluck(:article_id))
+        .to eq([deleted_article.id])
+    end
+
+    it 'leaves other courses alone' do
+      expect(CourseWikiTimeslice.where(course: other_course).count).to eq(1)
+      expect(ArticleCourseTimeslice.where(course: other_course).count).to eq(2)
+      expect(ArticleCourseUserWikiTimeslice.where(course: other_course).count).to eq(2)
+    end
+  end
+
   describe '#delete_timeslices_for_period' do
     let(:start_date) { DateTime.new(2024, 3, 29) }
     let(:end_date) { DateTime.new(2024, 3, 30) }

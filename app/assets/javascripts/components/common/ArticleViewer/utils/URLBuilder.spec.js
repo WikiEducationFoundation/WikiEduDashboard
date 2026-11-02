@@ -34,6 +34,13 @@ describe('URLBuilder', () => {
     });
   });
 
+  describe('#revisionURL', () => {
+    it('should link to the given revision on the article\'s wiki', () => {
+      const helper = new URLBuilder({ article: defaults.article });
+      expect(helper.revisionURL(123456)).toEqual('https://en.wikipedia.org/w/index.php?oldid=123456');
+    });
+  });
+
   describe('#wikiURL', () => {
     it('should create a wikiURL when given a valid article', () => {
       const helper = new URLBuilder({ article: defaults.article });

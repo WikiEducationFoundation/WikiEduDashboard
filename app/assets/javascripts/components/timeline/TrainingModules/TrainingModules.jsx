@@ -7,6 +7,7 @@ import selectStyles from '../../../styles/select';
 
 // Components
 import ModuleRow from './ModuleRow/ModuleRow';
+import DiscussionModule from './DiscussionModule';
 import { EXERCISE_KIND, DISCUSSION_KIND } from '../../../constants';
 
 const TrainingModules = createReactClass({
@@ -85,7 +86,8 @@ const TrainingModules = createReactClass({
       return this.trainingSelector();
     }
 
-    const modules = this.props.block_modules.map(module => (
+    const isDiscussion = module => module.kind === DISCUSSION_KIND;
+    const modules = this.props.block_modules.filter(module => !isDiscussion(module)).map(module => (
       <ModuleRow
         key={module.id}
         isStudent={this.props.isStudent}
@@ -94,8 +96,11 @@ const TrainingModules = createReactClass({
         trainingLibrarySlug={this.props.trainingLibrarySlug}
       />
     ));
+    const discussions = this.props.block_modules.filter(isDiscussion).map(module => (
+      <DiscussionModule key={module.id} module={module} />
+    ));
 
-    if (!modules.length) { return null; }
+    if (!modules.length && !discussions.length) { return null; }
 
     const header = this.props.header || 'Training';
     const headerId = header.toLowerCase().split(/[^a-z]/).join('-');
@@ -103,11 +108,14 @@ const TrainingModules = createReactClass({
       <div className="block__training-modules">
         <div>
           {this.props.header ? <h4 id={headerId}>{header}</h4> : null}
-          <table className="table table--small">
-            <tbody>
-              {modules}
-            </tbody>
-          </table>
+          {modules.length ? (
+            <table className="table table--small">
+              <tbody>
+                {modules}
+              </tbody>
+            </table>
+          ) : null}
+          {discussions}
         </div>
       </div>
     );

@@ -13,9 +13,17 @@ class LocalReportCsvStore
     File.exist? path_for(filename)
   end
 
+  def read(filename)
+    File.binread path_for(filename)
+  end
+
   def write(filename, data)
     FileUtils.mkdir_p @directory
-    File.write path_for(filename), data
+    if data.respond_to?(:path) && File.exist?(data.path)
+      FileUtils.cp data.path, path_for(filename)
+    else
+      File.binwrite path_for(filename), data
+    end
   end
 
   def url_for(filename)

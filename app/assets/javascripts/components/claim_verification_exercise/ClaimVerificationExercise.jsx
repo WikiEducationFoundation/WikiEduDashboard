@@ -8,16 +8,16 @@ import { fetchTimeline } from '~/app/assets/javascripts/actions/timeline_actions
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
 import ArticlePicker from './ArticlePicker.jsx';
 import TakenClaim from './TakenClaim.jsx';
-import InstructorResponses from './InstructorResponses.jsx';
+import ResponsesPage from './ResponsesPage.jsx';
 
 /*
   The claim-verification exercise, as a nested route of the course SPA.
   `/verify_claim` is the exercise itself, for every role — instructors can walk
   through (and even complete) it exactly as a student would. The instructor
-  view of everyone's submissions lives on its own sub-page,
-  `/verify_claim/responses`, linked from the timeline module row and from each
-  student's exercise listing (the JSON behind it is instructor-gated
-  server-side).
+  view of everyone's submissions starts at its own sub-page,
+  `/verify_claim/responses`, linked from the timeline module row (the JSON
+  behind it is instructor-gated server-side), which forwards to the
+  Assignments tab grader where the course has one.
 
   For the exercise it fetches the state once and drives the whole flow
   client-side with no page reloads. The article picker is the resting view:
@@ -53,7 +53,7 @@ const ClaimVerificationExercise = ({ course }) => {
       .catch(() => setState({ assignment: null, response: null, form: null, articles: [] }));
   }, [course.slug, responsesPage]);
 
-  if (responsesPage) { return <InstructorResponses course={course} />; }
+  if (responsesPage) { return <ResponsesPage course={course} />; }
   if (!state) { return <Loading />; }
 
   // The article opened via the shell's ?showArticle= permalink (deep link or

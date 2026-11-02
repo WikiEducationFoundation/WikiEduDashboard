@@ -55,5 +55,18 @@ describe CourseCloneController, type: :request do
         expect(response.status).to eq(401)
       end
     end
+
+    context 'when the course is private and the user is not a participant' do
+      before do
+        allow(Features).to receive(:wiki_ed?).and_return(false)
+        course.update(private: true)
+      end
+
+      it 'refuses to clone it, even on P&E' do
+        expect(CourseCloneManager).not_to receive(:new)
+        post "/clone_course/#{course.id}", params: { format: :json, id: course.id }
+        expect(response.status).to eq(404)
+      end
+    end
   end
 end

@@ -1,7 +1,8 @@
 = javascript_include_tag '/assets/javascripts/jquery.min.js'
 = hot_javascript_tag 'editable'
 #profile
-  = form_for(@user_profile, url: {action: "update", :username => @user.username}, html: { class: 'rails_editable',  multipart: true }) do
+  = form_for(@user_profile, url: update_user_profile_path, method: :post, html: { class: 'rails_editable', multipart: true }) do |f|
+    = hidden_field_tag :username, @user.username
     #disclaimer
       .module
         .module__data
@@ -16,8 +17,8 @@
             %img{:src => "/assets/images/user.svg", :alt => "user default logo"}
         - if @user.profile_image
           = link_to "Remove profile image", delete_profile_image_path(username: @user.username), method: :delete, class: 'rails_editable-input button small', id: "remove_link"
-        = file_field(:user_profile, :image, class: 'rails_editable-input')
-        = text_field(:user_profile, :image_file_link, class: 'rails_editable-input', placeholder: t("user_profiles.image_link_placeholder"), size: "30")
+        = f.file_field(:image, class: 'rails_editable-input')
+        = f.text_field(:image_file_link, class: 'rails_editable-input', placeholder: t("user_profiles.image_link_placeholder"), size: "30")
 
     #profile_right
       .header
@@ -36,11 +37,11 @@
             #user_bio
               %p.rails_editable-content
                 = preserve @user&.user_profile&.bio
-              = text_area(:user_profile, :bio, class: 'rails_editable-input', placeholder: t("user_profiles.bio_placeholder"))
+              = f.text_area(:bio, class: 'rails_editable-input', placeholder: t("user_profiles.bio_placeholder"))
 
         #details_right
 
-          .section
+          .section.info-pill{class: ('has-content' if @user.email.present? && (current_user == @user || current_user&.admin?))}
             #user_email
               - if current_user == @user || current_user&.admin?
                 - if @user.email.present?
@@ -52,7 +53,7 @@
                       = @user.email
                   = text_area(:email, :email, class: 'rails_editable-input', placeholder: t("users.useremail_placeholder"), autocomplete: 'email')
 
-          .section
+          .section.info-pill{class: ('has-content' if @user&.user_profile&.location.present? || current_user == @user)}
             #user_location
               - if @user&.user_profile&.location.present?
                 #icon
@@ -61,20 +62,20 @@
                 - if @user&.user_profile&.location.present?
                   %p.rails_editable-content
                     = @user.user_profile.location
-                = text_area(:user_profile, :location, class: 'rails_editable-input', placeholder: t("user_profiles.location_placeholder"))
+                = f.text_area(:location, class: 'rails_editable-input', placeholder: t("user_profiles.location_placeholder"))
 
-          .section
+          .section.info-pill{class: ('has-content' if @user&.user_profile&.institution.present? || current_user == @user)}
             #user_institution
-              -if @user&.user_profile&.institution.present?
+              - if @user&.user_profile&.institution.present?
                 #icon
                   %img{:src => "/assets/images/institution.svg", :alt => "institution logo"}
               .rails_editable-field
                 - if @user&.user_profile&.institution.present?
                   %p.rails_editable-content
                     = @user.user_profile.institution
-                = text_area(:user_profile, :institution, class: 'rails_editable-input', placeholder:t("user_profiles.institution_placeholder"))
+                = f.text_area(:institution, class: 'rails_editable-input', placeholder:t("user_profiles.institution_placeholder"))
 
-          .section
+          .section.info-pill{class: ('has-content' if @last_courses_user)}
             #profile_user_contributions
               - if @last_courses_user
                 %p

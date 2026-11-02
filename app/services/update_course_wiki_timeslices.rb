@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/course_revision_updater"
 require_dependency "#{Rails.root}/lib/timeslice_manager"
 require_dependency "#{Rails.root}/lib/data_cycle/update_debugger"
 require_dependency "#{Rails.root}/lib/revision_scanner"
+require_dependency "#{Rails.root}/lib/replica"
 
 #= Pulls in new revisions for a single course and updates the corresponding timeslices records.
 # It updates all the tracked wikis for the course, from the latest start time for every wiki
@@ -70,6 +71,7 @@ class UpdateCourseWikiTimeslices
       # that were not fully reprocessed in this cycle.
       reaggregate_timeslices_from_acuwt(wiki) if @course.use_acuwt?
     end
+    # Replica::RequestFailedError propagates to UpdateCourseStats, which stops the update.
   end
 
   def fetch_data_and_process_timeslices(wiki, first_start, latest_start)
@@ -81,15 +83,20 @@ class UpdateCourseWikiTimeslices
       # If the timeslice was reprocessed in this update, then skip it
       next if timeslice_reprocessed?(wiki.id, t.start)
 
-      begin
-        processed = handle_timeslice(wiki, t.start, t.end, only_new: true)
-        @processed_timeslices_count += processed.count
-      rescue StandardError => e
-        log_error(e, t.start, t.end, wiki.id)
-        t.update(needs_update: true) # No effect if t has split
-      end
+      process_timeslice(wiki, t)
     end
     @debugger.log_update_progress :"timeslices_processed_#{wiki.id}"
+  end
+
+  def process_timeslice(wiki, t)
+    processed = handle_timeslice(wiki, t.start, t.end, only_new: true)
+    @processed_timeslices_count += processed.count
+  rescue Replica::RequestFailedError
+    t.update(needs_update: true) # No effect if t has split
+    raise
+  rescue StandardError => e
+    log_error(e, t.start, t.end, wiki.id)
+    t.update(needs_update: true) # No effect if t has split
   end
 
   # Skips timeslices that a wide-window Replica query shows to contain no
@@ -136,14 +143,20 @@ class UpdateCourseWikiTimeslices
         next
       end
 
-      begin
-        reprocessed_dates = handle_timeslice(wiki, t.start, t.end, only_new: false)
-        @reprocessed_timeslices[wiki.id] += reprocessed_dates
-      rescue StandardError => e
-        log_error(e, t.start, t.end, wiki.id)
-      end
+      reprocess_timeslice(wiki, t)
     end
     @debugger.log_update_progress :"timeslices_reprocessed_#{wiki.id}"
+  end
+
+  def reprocess_timeslice(wiki, t)
+    reprocessed_dates = handle_timeslice(wiki, t.start, t.end, only_new: false)
+    @reprocessed_timeslices[wiki.id] += reprocessed_dates
+  rescue Replica::RequestFailedError
+    # Re-flag explicitly rather than rely on the flag still being set.
+    t.update(needs_update: true) # No effect if t has split
+    raise
+  rescue StandardError => e
+    log_error(e, t.start, t.end, wiki.id)
   end
 
   # Given a wiki and limits of the timeslice, it fetches data for it

@@ -41,7 +41,7 @@ class IndividualStatisticsTimeslicePresenter
   end
 
   def individual_article_count
-    @article_course_data.length
+    @individual_article_count
   end
 
   private
@@ -57,11 +57,10 @@ class IndividualStatisticsTimeslicePresenter
     end
   end
 
+  # Counted in SQL because some users match millions of rows.
   def set_data_from_article_course
-    @article_course_data = {}
-    article_course_records(individual_courses.pluck(:id)).each do |article_course|
-      @article_course_data[article_course.article_id] = 1
-    end
+    @individual_article_count = article_course_records(individual_courses.pluck(:id))
+                                .distinct.count(:article_id)
   end
 
   def set_upload_usage_counts
@@ -89,7 +88,6 @@ class IndividualStatisticsTimeslicePresenter
       .where(course_id:)
       .joins(:article)
       .where(articles: { namespace: Article::Namespaces::MAINSPACE, deleted: false })
-      .select(:article_id)
   end
 
   def course_user_records(course_id)

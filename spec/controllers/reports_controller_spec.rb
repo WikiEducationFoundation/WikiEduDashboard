@@ -224,6 +224,41 @@ describe ReportsController, :report_csv_files, type: :request do
       get "/campaigns/#{campaign.slug}/courses", params: request_params
       expect(response.body).to include('file is being generated')
     end
+
+    it 'returns all campaign reports in a ZIP archive' do
+      expect(CsvCleanupWorker).to receive(:perform_at).at_least(:once)
+      get "/campaigns/#{campaign.slug}/all_csv"
+      expect(response.body).to include('file is being generated')
+
+      get "/campaigns/#{campaign.slug}/all_csv"
+      follow_redirect!
+
+      archive = Zip::File.open_buffer(response.body)
+      expect(archive.entries.map(&:name)).to match_array([
+        'students.csv',
+        'students-by-course.csv',
+        'instructors-by-course.csv',
+        'courses.csv',
+        'pages-edited.csv'
+      ])
+      expect(archive.read('courses.csv')).to include(course.slug)
+      expect(archive.read('pages-edited.csv')).to include('course_slug')
+    end
+
+    context 'when requested with JSON format' do
+      it 'returns 202 when generating and 200 with url when ready' do
+        expect(CsvCleanupWorker).to receive(:perform_at)
+        get "/campaigns/#{campaign.slug}/courses", headers: { 'Accept' => 'application/json' }
+        expect(response).to have_http_status(:accepted)
+        expect(Oj.load(response.body)).to eq('status' => 'generating')
+
+        get "/campaigns/#{campaign.slug}/courses", headers: { 'Accept' => 'application/json' }
+        expect(response).to have_http_status(:ok)
+        json = Oj.load(response.body)
+        expect(json['status']).to eq('ready')
+        expect(json['url']).to include('campaign_courses')
+      end
+    end
   end
 
   describe 'CSV actions' do

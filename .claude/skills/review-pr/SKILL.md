@@ -6,7 +6,8 @@ description: Walk through a structured PR review workflow. Use this skill when r
 # Review PR
 
 A structured workflow for reviewing pull requests. The coding agent surfaces
-information and runs commands; the reviewer makes all judgments.
+information and runs commands, and closes with its own merge verdict (see
+Phase 7); the reviewer makes all final decisions.
 
 In clients with skill commands, invoke as `/review-pr` (to list open PRs) or
 `/review-pr 6797` (specific PR). In other clients, ask to use the `review-pr`
@@ -47,19 +48,23 @@ Once a PR is selected, gather orientation in parallel:
 Present a concise orientation summary: what the PR does (from the
 description), who wrote it, CI status, and scope (files/lines changed).
 
+Get the reviewer's GitHub login with `gh api user --jq .login` (`$ME`
+below). If the PR author is `$ME`, this is a **self-review** (see
+Phase 7's verdict).
+
 ### Re-review detection
 
 After gathering orientation, check for existing reviews from us:
 ```bash
 gh api repos/WikiEducationFoundation/WikiEduDashboard/pulls/<number>/reviews \
-  --jq '[.[] | select(.user.login == "ragesoss")] | sort_by(.submitted_at) | last | {state, submitted_at: .submitted_at, commit_id: .commit_id}'
+  --jq "[.[] | select(.user.login == \"$ME\")] | sort_by(.submitted_at) | last | {state, submitted_at: .submitted_at, commit_id: .commit_id}"
 ```
 
 Also fetch our prior review comments and PR comments:
 ```bash
 gh api repos/WikiEducationFoundation/WikiEduDashboard/pulls/<number>/comments \
-  --jq '[.[] | select(.user.login == "ragesoss")] | .[].body'
-gh pr view <number> --json comments --jq '.comments[] | select(.author.login == "ragesoss") | .body'
+  --jq "[.[] | select(.user.login == \"$ME\")] | .[].body"
+gh pr view <number> --json comments --jq ".comments[] | select(.author.login == \"$ME\") | .body"
 ```
 
 If a prior review exists, compare the review's `commit_id` against the
@@ -368,8 +373,19 @@ Summarize the review status:
 - Pre-merge checklist results (from above)
 - Coverage confidence assessment highlights
 - Any open concerns the reviewer noted during the process
-- Whether the reviewer is ready to approve, request changes, or needs
-  more information
+
+### Verdict
+
+Close the summary with the agent's own verdict, leading with one line:
+**Ready to approve and merge** or **Not ready to merge** — no middle
+option. If it's not clear-cut, explain after that line: for "ready",
+why the caveats don't justify holding the PR; for "not ready", what
+should change or be waited for first, and, if it was a close call, the
+limited downside of merging as-is.
+
+**Self-reviews:** if ready, decide whether posting a comment adds value
+as documentation of findings and process. If it wouldn't, recommend
+merging without a comment.
 
 If the reviewer wants to leave a review, help draft it (see below),
 then submit via:

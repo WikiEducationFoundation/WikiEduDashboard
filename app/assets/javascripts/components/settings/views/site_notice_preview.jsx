@@ -1,39 +1,29 @@
 import React from 'react';
 
-const SiteNoticePreview = ({ message, enabled }) => {
-    const hasMessage = !!message && message.trim().length > 0;
+// Renders the message the same way app/views/shared/_flash.html.haml does —
+// as raw HTML inside the banner's own classes — so the preview matches what
+// visitors will see, including link colors and collapsed whitespace.
+const SiteNoticePreview = ({ message }) => {
+  const hasMessage = !!message && message.trim().length > 0;
 
-    return (
-      <div style={{ marginTop: 10, marginBottom: 10, width: '100%', maxWidth: '100%', boxSizing: 'border-box' }}>
-        <div style={{ fontSize: 12, opacity: 0.8, marginBottom: 6 }}>
-          {I18n.t('settings.common_settings_components.headings.site_notice_preview')}
-        </div>
+  return (
+    <div className="site-notice-preview">
+      <div className="site-notice-preview__heading">
+        {I18n.t('settings.common_settings_components.headings.site_notice_preview')}
+      </div>
 
-        {enabled && hasMessage ? (
-          <div
-            style={{
-            border: '1px solid #ddd',
-            padding: '10px 12px',
-            borderRadius: 4,
-            whiteSpace: 'pre-wrap',
-            overflowWrap: 'anywhere',
-            wordBreak: 'break-all',
-            width: '100%',
-            maxWidth: '100%',
-            boxSizing: 'border-box'
-          }}
-          >
-            {message}
-          </div>
+      {hasMessage ? (
+        <div
+          className="notification sitenotice"
+          dangerouslySetInnerHTML={{ __html: message }}
+        />
       ) : (
-        <div style={{ fontSize: 12, opacity: 0.7 }}>
-          {!enabled
-            ? 'Preview is hidden because the notice is disabled.'
-            : 'Type a message to see the preview.'}
+        <div className="site-notice-preview__empty">
+          Type a message to see the preview.
         </div>
       )}
-      </div>
-    );
+    </div>
+  );
 };
 
 export default SiteNoticePreview;

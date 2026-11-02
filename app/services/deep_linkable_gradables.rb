@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/timeline"
+
 # The set of gradables an instructor can attach to Canvas assignments via the
 # LTI deep-linking picker: the "Wikipedia account" setup indicator (always), the
 # rolled-up "Wikipedia trainings" option (when the course has any training
@@ -45,25 +47,11 @@ class DeepLinkableGradables
   SETUP_LABEL = 'Wikipedia account'
   PEER_REVIEW_LABEL = 'Wikipedia peer review'
 
-  # How the peer-review stage is identified on the timeline: by block title. The
-  # wizard writes "Peer review an article" / "…two articles" / "…three articles"
-  # for the work itself and "Peer reviews are complete" for the milestone closing
-  # the stage — and none of those blocks carries a training module, peer review
-  # having neither an exercise nor an assigned training.
-  #
-  # An earlier version of this looked for a `peer-review` training module and
-  # found nothing on any real timeline, so the column silently lost its due date
-  # and sorted to the end of the picker (found in the 2026-08-04 walkthrough;
-  # title-matching confirmed by the operator as the intended signal).
-  #
-  # Anchored at the start on purpose: "Respond to your peer review" is a separate,
-  # later block and must not be mistaken for the stage's end.
-  PEER_REVIEW_TITLE = /\Apeer review/i
-
   attr_reader :result
 
   def initialize(course)
     @course = course
+    @timeline = StudentProgress::Timeline.new(StudentProgress::Roster.new(course:, user_ids: []))
     @result = perform
   end
 
@@ -84,20 +72,19 @@ class DeepLinkableGradables
   # The two roll-up columns stay pinned in front (see #perform): they cover the
   # whole course rather than sitting at a point in it.
   def timeline_gradables
-    items = exercise_blocks.map { |block| [timeline_position(block), gradable_for_block(block)] }
-    items << [peer_review_position, peer_review_stage] if peer_reviews_expected?
+    items = @timeline.exercise_blocks.map do |block|
+      [@timeline.position(block), gradable_for_block(block)]
+    end
+    items << [peer_review_position, peer_review_stage] if @timeline.peer_reviews_expected?
     items.sort_by(&:first).map(&:last)
-  end
-
-  def timeline_position(block)
-    [block.week.order, block.order]
   end
 
   # A course can expect peer reviews without its timeline mentioning them, in
   # which case there is no position to sort into and the stage goes last — the
   # same place it used to go unconditionally.
   def peer_review_position
-    peer_review_block ? timeline_position(peer_review_block) : [Float::INFINITY, 0]
+    block = @timeline.peer_review_block
+    block ? @timeline.position(block) : [Float::INFINITY, 0]
   end
 
   def setup_indicator
@@ -123,63 +110,27 @@ class DeepLinkableGradables
   # one's deadline is the column's. Nil if none of the training blocks yields a
   # date, rather than a guess.
   def last_training_due_date
-    training_blocks.filter_map(&:calculated_due_date).max
+    @timeline.training_blocks.filter_map(&:calculated_due_date).max
   end
 
   # The peer-review stage as its own column. Offered on the strength of the
   # course's expected-review count rather than a timeline block, because that
   # setting is what says the stage is part of the course; the block is only where
   # the due date comes from, and a course can expect reviews with the block
-  # retitled or moved.
+  # retitled or moved. Without such a block (see
+  # StudentProgress::Timeline#peer_review_block) the column is still offered,
+  # just without a date, and sorts last.
   def peer_review_stage
     Gradable.new(resource: LtiLineItem::PEER_REVIEW_TYPE,
                  gradable_type: LtiLineItem::PEER_REVIEW_TYPE,
                  gradable_id: nil, label: PEER_REVIEW_LABEL,
-                 due_date: peer_review_block&.calculated_due_date)
+                 due_date: @timeline.peer_review_block&.calculated_due_date)
   end
 
-  def peer_reviews_expected?
-    @course.peer_review_count.to_i.positive?
-  end
-
-  # The LAST peer-review block by timeline position. The stage spans a couple of
-  # blocks — the reviewing itself, then the milestone that closes it — and what
-  # the column's deadline means is "your reviews are done by here", so the end of
-  # the stage is the date to carry. Deterministic by position rather than by
-  # whatever order the rows come back in.
-  #
-  # nil when the course expects reviews but no block is titled for them (an
-  # instructor who retitled the block, or a hand-built timeline): the column is
-  # still offered, just without a date, and sorts last.
-  def peer_review_block
-    @peer_review_block ||= @course.blocks.includes(:week).to_a
-                                  .select { |block| block.title.to_s.match?(PEER_REVIEW_TITLE) }
-                                  .max_by { |block| timeline_position(block) }
-  end
-
-  # In timeline order (week, then block position) so the picker mirrors
-  # the timeline rather than row-insertion order.
-  def gradable_blocks
-    @gradable_blocks ||=
-      @course.blocks.includes(:week).to_a
-             .select { |b| b.training_module_ids.any? }
-             .sort_by { |b| [b.week.order, b.order] }
-  end
-
-  def exercise_blocks
-    gradable_blocks.select { |b| b.training_modules.any?(&:exercise?) }
-  end
-
-  # The blocks the trainings roll-up covers — training-kind modules only, the
-  # same set LtiTrainingProgress scores. Exercises have their own columns.
-  def training_blocks
-    gradable_blocks.select do |b|
-      b.training_modules.any? { |m| m.kind == TrainingModule::Kinds::TRAINING }
-    end
-  end
-
+  # The trainings roll-up covers training-kind modules only; exercises have
+  # their own columns.
   def any_trainings?
-    training_blocks.any?
+    @timeline.training_blocks.any?
   end
 
   def label_for_block(block)

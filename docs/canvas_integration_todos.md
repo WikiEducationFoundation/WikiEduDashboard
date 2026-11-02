@@ -199,8 +199,10 @@ launch + Wikipedia OAuth is the only linking path.
 >    Selected during registration, it is stored as `overlay.privacy_level:
 >    anonymous`, yet the tool installs as `privacy_level: public`. Reproduced
 >    twice (tool 5 in February, tool 9 on 2026-07-27). So an institution that
->    does the right thing still sends us names and emails. Report to
->    Instructure, and treat the LTIAAS-side fix as the real remedy.
+>    does the right thing still sends us names and emails. Reported to
+>    Instructure as
+>    [instructure/canvas-lms#2655](https://github.com/instructure/canvas-lms/issues/2655)
+>    (2026-07-28); treat the LTIAAS-side fix as the real remedy.
 >    - **Resolved 2026-07-29: set the level as a query parameter on the
 >      registration URL** —
 >      `https://<tenant>.ltiaas.com/lti/register?privacyLevel=anonymous`. That takes
@@ -1490,7 +1492,7 @@ now rebasing links against the wiki origin) and the roster/own-panel split.
   (`AssignmentViewContext::ARTICLE_PANEL_SLUGS`); every `editing` assignment is
   listed, so a student with two articles gets two; the live-article numbers are
   characters, references and edits, from `article_course_timeslices` filtered to
-  that student. Data assembly lives in `AssignedArticleWork`, built once per
+  that student. Data assembly lives in `StudentProgress::ArticleFacts`, built once per
   drill-down for the whole roster rather than per row. Stale statuses were left as
   they are — `CheckAssignmentStatus` is the source, and the panel's own preview
   fetch is the live check._

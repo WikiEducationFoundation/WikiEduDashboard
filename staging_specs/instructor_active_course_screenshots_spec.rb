@@ -25,8 +25,9 @@ require_relative 'spec_helper'
 # (JoinCourse) happens when the roster sync processes that linked context, which
 # is why the after shots run one first. The panel lives in the course sidebar, so
 # the course-home shots are full-page captures (save_full_page_screenshot_to) to
-# include it — RUN THIS SPEC HEADLESS (HEADLESS=1): the full-page capture grows the
-# window past a nested Xephyr screen's fixed height.
+# include it. The full-page capture grows the window past the nested Xephyr
+# screen's fixed height, so bin/staging-feature-spec runs this spec headless
+# (FULL_PAGE_SPECS) wherever it would otherwise use the nested display.
 #
 # Two browser personas (instructor default profile + student profile); both must
 # be bootstrapped once — see docs/staging_feature_specs.md.

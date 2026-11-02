@@ -1,6 +1,7 @@
 import { safeDecodeURIComponent } from './strings';
 import { find } from 'lodash-es';
 import ArrayUtils from './array_utils';
+import { ASSIGNED_ROLE } from '../constants/assignments';
 
 export default class CourseUtils {
   // Given a course object with title, school and term properties,
@@ -333,13 +334,13 @@ export default class CourseUtils {
   // By the end of 2019, we should hopefully be able to remove this method
   // assuming messages are now serialized as a hash in the DB.
   static formatOnboardingAlertMessage(message) {
-    // Split on main categories and remove an empy array position that will
-    // appear at the very end.
+    // Split on main categories, only at blank lines followed by a heading,
+    // so that blank lines inside an instructor's answer stay in that answer.
     // e.g. [ 'HEARD FROM:\nassociation (name)', 'WHY HERE:\nteach', ... ]
-    const categories = message.split('\n\n').slice(0, -1);
+    const categories = message.trim().split(/\n\n(?=[A-Z][A-Z ]*:(?:\n|$))/);
     return categories.map((category) => {
       // Grab the content after the category heading
-      const [, content] = category.split(':');
+      const content = category.slice(category.indexOf(':') + 1);
       // If there is content, return it, otherwise return N/A
       return content.trim() ? category : `${category.trim()}\nN/A`;
     });
@@ -363,6 +364,42 @@ export default class CourseUtils {
       return title.split(':')[1];
     }
     return title;
+  }
+
+  // Finds the classmate's assignment whose sandbox draft is the page in
+  // `parsedInput` (the output of articleFromTitleInput), so that pasting a
+  // classmate's sandbox URL or title can add a peer review of their article.
+  // Assignments belonging to `userId` don't count; you can't review your own.
+  static assignmentForSandbox(parsedInput, assignments, userId) {
+    const normalize = title => title.replace(/_/g, ' ').trim().replace(/^user:/i, 'User:');
+    const inputTitle = normalize(parsedInput.title || '');
+    if (!inputTitle) { return undefined; }
+
+    return assignments.find((assignment) => {
+      if (assignment.role !== ASSIGNED_ROLE || !assignment.sandbox_url) { return false; }
+      if (!assignment.user_id || assignment.user_id === userId) { return false; }
+      const sandbox = this.articleFromTitleInput(assignment.sandbox_url);
+      if (normalize(sandbox.title) !== inputTitle) { return false; }
+      // A pasted URL names its wiki, which has to be the sandbox's wiki.
+      if (parsedInput.language && parsedInput.language !== sandbox.language) { return false; }
+      return !parsedInput.project || parsedInput.project === sandbox.project;
+    });
+  }
+
+  // Finds the classmate's assignment whose sandbox holds the draft that the
+  // peer review `review` is for: someone else's assignment for the same new
+  // article. A review of a new article that no classmate is drafting has no
+  // draft, so this returns undefined.
+  static draftForReview(review, assignments) {
+    if (review.article_id) { return undefined; }
+
+    return assignments.find((assignment) => {
+      if (assignment.role !== ASSIGNED_ROLE || assignment.article_id || !assignment.sandbox_url) { return false; }
+      if (!assignment.user_id || assignment.user_id === review.user_id) { return false; }
+      return assignment.article_title === review.article_title
+        && assignment.language === review.language
+        && assignment.project === review.project;
+    });
   }
 }
 

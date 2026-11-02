@@ -21,7 +21,8 @@ describe BuildAiDetectionSampleFromRecentScores do
   before do
     campaign.courses << course
     allow(GetRevisionPlaintext).to receive(:new)
-      .and_return(instance_double(GetRevisionPlaintext, plain_text: text))
+      .and_return(instance_double(GetRevisionPlaintext, plain_text: text,
+                                  changed_wikitext: 'Added wikitext.'))
   end
 
   it 'samples production-scored edits from each score band with their context' do

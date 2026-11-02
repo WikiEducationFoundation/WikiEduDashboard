@@ -10,14 +10,25 @@ module ClaimVerificationHelper
     claim.source_url.presence || claim.archive_url.presence
   end
 
-  # URL of the source Wikipedia article, anchored at the cited footnote (ref_id,
-  # eg "cite_note-5") so the student lands on the citation and can use its caret
-  # backlink to find where the claim sits in the prose. The anchor is
-  # best-effort against the current article and may drift as the article
-  # changes. Nil when we have no article title to link to.
+  # URL of the claim's Wikipedia article as of the flagged revision the claim
+  # was harvested from — the version the student read in the exercise — anchored
+  # at the cited footnote (ref_id, eg "cite_note-5") so the reader lands on the
+  # citation and can use its caret backlink to find where the claim sits in the
+  # prose. The flagged edit may since have been reverted or reworded, so the
+  # current article is only the fallback, for a claim with no recorded revision.
+  # Nil when there is neither a revision nor a title to link to.
   def claim_article_url(claim)
-    return if claim.article_title.blank? || claim.wiki.nil?
-    url = "#{claim.wiki.base_url}/wiki/#{url_encoded_mediawiki_title(claim.article_title)}"
+    url = claim_page_url(claim)
+    return if url.nil?
     claim.ref_id.present? ? "#{url}##{claim.ref_id}" : url
+  end
+
+  private
+
+  def claim_page_url(claim)
+    return if claim.wiki.nil?
+    return "#{claim.wiki.base_url}/w/index.php?oldid=#{claim.mw_rev_id}" if claim.mw_rev_id
+    return if claim.article_title.blank?
+    "#{claim.wiki.base_url}/wiki/#{url_encoded_mediawiki_title(claim.article_title)}"
   end
 end

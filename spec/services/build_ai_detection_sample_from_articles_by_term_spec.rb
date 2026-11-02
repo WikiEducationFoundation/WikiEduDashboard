@@ -18,7 +18,8 @@ describe BuildAiDetectionSampleFromArticlesByTerm do
                              character_sum: 100)
     allow_any_instance_of(CumulativeDiff).to receive(:revision_target).and_return(target)
     allow(GetRevisionPlaintext).to receive(:new)
-      .and_return(instance_double(GetRevisionPlaintext, plain_text: text))
+      .and_return(instance_double(GetRevisionPlaintext, plain_text: text,
+                                  changed_wikitext: 'Added wikitext.'))
   end
 
   it 'adds the cumulative course diff of substantial articles, labeled by term' do

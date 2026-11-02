@@ -622,6 +622,14 @@ describe 'the course page', type: :feature, js: true do
         expect(first('.tracking').find('input').disabled?).to eq(false)
       end
 
+      it 'does not allow articles to be marked for tracking when the course metadata is locked' do
+        course.update(flags: { finalized: true })
+        login_as(admin)
+        js_visit "/courses/#{course.slug}/articles"
+        expect(page).to have_content 'History of biology' # article list has loaded
+        expect(page).not_to have_css('.tracking')
+      end
+
       it 'marks an article to be excluded once it is untracked' do
         login_as(admin)
         js_visit "/courses/#{course.slug}/articles"

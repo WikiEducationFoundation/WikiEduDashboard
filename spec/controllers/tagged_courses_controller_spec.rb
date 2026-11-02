@@ -39,6 +39,19 @@ describe TaggedCoursesController, type: :request do
       get "/tagged_courses/#{tag_name}/articles"
       expect(assigns(:page)).to be_nil
     end
+
+    it 'says on the last page served that the list goes on' do
+      allow_any_instance_of(CoursesPresenter).to receive(:tag_articles_count).and_return(5001)
+      get "/tagged_courses/#{tag_name}/articles?page=200"
+      expect(response.status).to eq(200)
+      expect(Capybara.string(response.body)).to have_css('p.notice')
+    end
+
+    it 'returns a 404 past the last page served, before building the presenter' do
+      expect(CoursesPresenter).not_to receive(:new)
+      get "/tagged_courses/#{tag_name}/articles?page=201"
+      expect(response.status).to eq(404)
+    end
   end
 
   describe '#programs' do

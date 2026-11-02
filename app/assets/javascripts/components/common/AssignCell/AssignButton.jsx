@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import Popover from '../popover.jsx';
@@ -78,8 +78,25 @@ const getArticle = (assignment, course, labels) => {
   return article;
 };
 
+// A new article being reviewed exists only as the author's sandbox draft,
+// so peer review rows link there instead of to the missing mainspace page.
+const isReviewOfDraft = (assignment, role) => {
+  return role === REVIEWING_ROLE && !assignment.article_id && Boolean(assignment.sandbox_url);
+};
+
+const reviewRowUrl = (assignment, article, role) => {
+  return isReviewOfDraft(assignment, role) ? assignment.sandbox_url : article.url;
+};
+
+// A review the student already has links to the draft of the classmate whose
+// article it is. If no classmate is drafting it, it links to the article.
+const assignedReviewUrl = (review, article, role, courseAssignments) => {
+  const draft = role === REVIEWING_ROLE && CourseUtils.draftForReview(review, courseAssignments);
+  return draft ? draft.sandbox_url : article.url;
+};
+
 const AssignedAssignmentRows = ({
-  assignments = [], course, permitted, role, wikidataLabels, project, unassign // functions
+  assignments = [], courseAssignments = [], course, permitted, role, wikidataLabels, project, unassign // functions
 }) => {
   const elements = assignments.map((assignment) => {
     const article = getArticle(assignment, course, wikidataLabels);
@@ -87,7 +104,7 @@ const AssignedAssignmentRows = ({
     return (
       <tr key={assignment.id} className="assignment">
         <td>
-          <ArticleLink articleUrl={article.url} title={article.title} />
+          <ArticleLink articleUrl={assignedReviewUrl(assignment, article, role, courseAssignments)} title={article.title} />
           {
             permitted
             && <RemoveAssignmentButton
@@ -124,7 +141,11 @@ const PotentialAssignmentRows = ({
     return (
       <tr key={assignment.id} className="assignment">
         <td>
-          <ArticleLink articleUrl={article.url} title={article.title} />
+          <ArticleLink articleUrl={reviewRowUrl(assignment, article, role)} title={article.title} />
+          {
+            isReviewOfDraft(assignment, role) && assignment.username
+            && <small className="review-draft-owner">{I18n.t('assignments.review_classmate_draft', { username: assignment.username })}</small>
+          }
           {
             permitted
             && <AddAssignmentButton
@@ -217,6 +238,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
   assignments, unassigned, student, allowMultipleArticles, current_user, isStudentsPage,
   permitted, tooltip_message }) => {
   const dispatch = useDispatch();
+  const courseAssignments = useSelector(state => state.assignments.assignments);
   const [language, setLanguage] = useState('');
   const [project, setProject] = useState('');
   const [title, setTitle] = useState('');
@@ -302,14 +324,16 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
   };
 
 
+  // Mainspace validation applies to Wikipedia articles in ClassroomProgramCourse only.
+  // Other projects (Commons, Wiktionary, etc.) have different namespace conventions.
+  const requiresMainspace = (assignment) => {
+    if (course.type !== 'ClassroomProgramCourse') return false;
+    return !assignment.project || assignment.project === 'wikipedia';
+  };
+
   // Validates if Course type is ClassroomProgramCourse and verify articles using verifyMainSpaceArticle
   const validateMainspaceArticles = async (assignment) => {
-    if (course.type !== 'ClassroomProgramCourse') {
-      return { valid: true };
-    }
-    // Mainspace validation only applies to Wikipedia articles.
-    // Other projects (Commons, Wiktionary, etc.) have different namespace conventions.
-    if (assignment.project && assignment.project !== 'wikipedia') {
+    if (!requiresMainspace(assignment)) {
       return { valid: true };
     }
 
@@ -358,6 +382,30 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
         }
 
         const studentId = student?.id ?? null;
+
+        if (role === REVIEWING_ROLE) {
+          // A classmate's sandbox URL or title stands for their assigned
+          // article, which is what a peer review is assigned to.
+          const draftAssignment = CourseUtils.assignmentForSandbox(parsed, courseAssignments, studentId);
+          if (draftAssignment) {
+            dispatch(addAssignment({
+              ...assignment,
+              title: draftAssignment.article_title,
+              language: draftAssignment.language || assignment.language,
+              project: draftAssignment.project || assignment.project,
+              user_id: studentId
+            }));
+            return;
+          }
+          if (requiresMainspace(assignment) && /^user:/i.test(assignment.title)) {
+            notifications.push({
+              message: I18n.t('assignments.review_sandbox_not_found', { title: assignment.title }),
+              type: 'error',
+              closable: true,
+            });
+            return;
+          }
+        }
 
         const validation = await validateMainspaceArticles(assignment);
 
@@ -537,6 +585,7 @@ const AssignButton = ({ course, role, course_id, wikidataLabels = {}, hideAssign
     assignmentRows.push(
       <AssignedAssignmentRows
         assignments={assignments}
+        courseAssignments={courseAssignments}
         key="assigned"
         unassign={unassign}
         course={course}

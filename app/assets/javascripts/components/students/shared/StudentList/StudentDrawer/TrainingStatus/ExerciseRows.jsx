@@ -12,10 +12,12 @@ import { format } from 'date-fns';
 // Helper Components
 import ResponsePopover from '@components/claim_verification_exercise/ResponsePopover.jsx';
 
-const ExerciseStatusCell = ({ status, sandboxUrl, responsePopover }) => {
+const ExerciseStatusCell = ({ status, sandboxUrl, article, responsePopover }) => {
   let exerciseLink;
   if (sandboxUrl && status === 'complete') {
     exerciseLink = <> &nbsp; &nbsp; <a className="assignment-links" target="_blank" href={sandboxUrl}>Exercise Sandbox</a></>;
+  } else if (article.url && status === 'complete') {
+    exerciseLink = <> &nbsp; &nbsp; <a className="assignment-links" target="_blank" href={article.url}>{article.title}</a></>;
   }
 
   return (
@@ -35,6 +37,7 @@ const generateRow = popoverFor => (exercise) => {
       <ExerciseStatusCell
         status={exerciseStatus}
         sandboxUrl={exercise.sandbox_url}
+        article={{ url: exercise.exercise_article_url, title: exercise.flags?.exercise_article_title }}
         responsePopover={popoverFor(exercise, exerciseStatus)}
       />
     </tr>

@@ -121,6 +121,22 @@ body.lti-iframe
   color #5a6b7b
   font-size 13px
 
+// The sign-out "link" is a button in a form (signing out takes a DELETE);
+// it keeps the look of the link it replaced (see `a` in _base).
+.lti-setup__alt-form
+  display inline
+
+.lti-setup__alt-link
+  padding 0
+  border 0
+  background none
+  color bayoux
+  font inherit
+  text-decoration underline
+  cursor pointer
+  &:hover
+    color darken(bayoux, 10%)
+
 // Assignment_view drill-down (instructor roster / student panel) and the
 // instructor status view. Top-aligned plain content, no card chrome — the
 // default Canvas assignment iframe is small, and a bordered/padded card

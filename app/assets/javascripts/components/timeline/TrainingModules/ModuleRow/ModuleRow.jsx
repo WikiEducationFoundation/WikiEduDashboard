@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import {
-  DISCUSSION_KIND, EXERCISE_KIND, TRAINING_MODULE_KIND
-} from '../../../../constants';
+import { EXERCISE_KIND, TRAINING_MODULE_KIND } from '../../../../constants';
 
 // Components
 import ModuleStatus from './ModuleStatus/ModuleStatus';
@@ -22,13 +20,12 @@ const calcProgressClass = (progress) => {
 export const ModuleRow = ({ isStudent, isStaff, module, trainingLibrarySlug }) => {
   const isTrainingModule = module.kind === TRAINING_MODULE_KIND;
   const isExercise = module.kind === EXERCISE_KIND;
-  const isDiscussion = module.kind === DISCUSSION_KIND;
 
   let iconClassName = 'icon ';
   let progressClass;
   let linkText;
 
-  if (isExercise || isDiscussion) {
+  if (isExercise) {
     progressClass = calcProgressClass(module.module_progress);
     linkText = I18n.t('training_status.view');
     iconClassName += 'icon-rt_arrow_purple_training';

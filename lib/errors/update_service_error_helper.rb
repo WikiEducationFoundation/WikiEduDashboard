@@ -29,6 +29,13 @@ module UpdateServiceErrorHelper
     @too_many_requests_count = too_many_requests_count + count
   end
 
+  # True the first time a given Replica failure kind is seen in this update,
+  # false for every repeat (see Replica#report_failure).
+  def first_replica_failure?(kind)
+    @replica_failures_seen ||= Set.new
+    !@replica_failures_seen.add?(kind).nil?
+  end
+
   def sentry_tags
     { update_service_id: sentry_tag_uuid, course: @course.slug }
   end

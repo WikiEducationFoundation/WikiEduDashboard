@@ -8,7 +8,8 @@ describe ImportDetectorComparisonCsv do
 
   before do
     allow(GetRevisionPlaintext).to receive(:new)
-      .and_return(instance_double(GetRevisionPlaintext, plain_text: text))
+      .and_return(instance_double(GetRevisionPlaintext, plain_text: text,
+                                  changed_wikitext: 'Added wikitext.'))
   end
 
   it 'creates the units and the scores the CSV already holds' do

@@ -41,8 +41,6 @@ scn:
     change: Cancia
     details: Dittagghî
     confirm: OK
-    opt_in: Sì
-    opt_out: "No"
     opt_yes: sì
     opt_no: "no"
   article_statuses:

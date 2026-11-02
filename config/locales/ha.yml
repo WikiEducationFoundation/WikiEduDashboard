@@ -63,8 +63,6 @@ ha:
     change: Canji
     details: Karin bayani akan abu
     confirm: OK
-    opt_in: Ea
-    opt_out: A'a
     opt_yes: ea
     opt_no: a'a
   article_statuses:

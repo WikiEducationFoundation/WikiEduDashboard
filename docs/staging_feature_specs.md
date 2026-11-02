@@ -115,11 +115,19 @@ bin/staging-feature-spec staging_specs/canary_spec.rb            # one spec
 bin/staging-feature-spec staging_specs/                          # all staging specs
 
 HEADLESS=1 bin/staging-feature-spec staging_specs/canary_spec.rb # no visible browser
+XEPHYR=0 bin/staging-feature-spec staging_specs/canary_spec.rb   # browser on your own desktop
 ```
 
 Default is HEADED — visible browser, because the whole point is
-visual iteration. Set `HEADLESS=1` if you're running over SSH or
-just want quieter output.
+visual iteration. The browser opens inside a nested Xephyr window
+(`staging_specs/nested_display.rb`), so its window raises and focus
+grabs stay there and you can keep working elsewhere; click into it
+only to clear a Wikipedia login challenge. Without Xephyr installed
+(`apt install xserver-xephyr`), the browser opens on your normal display.
+Set `HEADLESS=1` if you're running over SSH or just want quieter
+output. Specs that take full-page screenshots
+(`instructor_active_course_screenshots_spec.rb`) run headless instead,
+since they grow the window past the nested screen.
 
 The standard `bundle exec rspec` invocation does NOT pick up
 `staging_specs/`: it lives outside RSpec's default `spec/` path, so
@@ -183,6 +191,9 @@ bin/harvest-canvas-screenshots                 # every known role
 bin/harvest-canvas-screenshots instructor      # just one role
 HEADLESS=1 bin/harvest-canvas-screenshots      # no visible browser
 ```
+
+As with single specs, the browser runs in one nested Xephyr window for
+the whole harvest (`XEPHYR=0` to use your own desktop).
 
 Or run a single role spec directly:
 

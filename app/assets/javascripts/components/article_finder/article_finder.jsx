@@ -11,6 +11,7 @@ import TextInput from '../common/text_input.jsx';
 import ArticleFinderRow from './article_finder_row.jsx';
 import List from '../common/list.jsx';
 import Loading from '../common/loading.jsx';
+import Notifications from '../common/notifications.jsx';
 
 import { STUDENT_ROLE } from '../../constants';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../../utils/article_finder_language_mappings.js';
@@ -171,8 +172,12 @@ const ArticleFinder = (props) => {
       );
     }
 
+    // A search whose first query failed has no results to show, as opposed to
+    // one that found none.
+    const showResults = isSubmitted && !props.loading && !props.searchFailed;
+
     let filterBlock;
-    if (isSubmitted && !props.loading) {
+    if (showResults) {
       filterBlock = (
         <div className="filter-block">
           <div className="filter-button-block">
@@ -232,7 +237,7 @@ const ArticleFinder = (props) => {
     }
 
     let list;
-    if (isSubmitted && !props.loading) {
+    if (showResults) {
       const modifiedAssignmentsArray = map(props.assignments, (element) => {
           if (!element.language && !element.project) {
             return {
@@ -296,7 +301,7 @@ const ArticleFinder = (props) => {
     }
 
     let searchStats;
-    if (!props.loading && isSubmitted) {
+    if (showResults) {
       const fetchedCount = Object.keys(props.unfilteredArticles).length;
       const filteredCount = Object.keys(props.articles).length;
       searchStats = (
@@ -350,6 +355,8 @@ const ArticleFinder = (props) => {
 
     return (
       <div className="container">
+        {/* The course page renders its own. */}
+        {!props.course_id && <Notifications />}
         <header>
           <h1 className="title">{I18n.t(`article_finder.${ArticleUtils.projectSuffix(props.selectedWiki.project, 'article_finder')}`)}</h1>
           <div>
@@ -394,6 +401,7 @@ const mapStateToProps = state => ({
   unfilteredArticles: state.articleFinder.articles,
   wikidataLabels: state.wikidataLabels.labels,
   loading: state.articleFinder.loading,
+  searchFailed: state.articleFinder.searchFailed,
   search_term: state.articleFinder.search_term,
   min_views: state.articleFinder.min_views,
   article_quality: state.articleFinder.article_quality,

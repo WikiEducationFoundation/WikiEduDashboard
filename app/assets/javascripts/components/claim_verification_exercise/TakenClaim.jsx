@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
+import ClaimAndSource from './ClaimAndSource.jsx';
 import VerificationForm from './VerificationForm.jsx';
 import ResponseSummary from './ResponseSummary.jsx';
 import { formPropType } from './formDefinition';
@@ -39,42 +40,7 @@ export const TakenClaim = ({
         </button>
       </div>
 
-      <section className="claim-verification-exercise__claim">
-        <h2 className="claim-verification-exercise__label">{I18n.t('claim_verification.claim')}</h2>
-        <blockquote className="claim-verification-exercise__claim-text">{claim.sentence}</blockquote>
-        {claim.article_url && (
-          <p className="claim-verification-exercise__article-link">
-            <a href={claim.article_url} target="_blank" rel="noopener noreferrer">
-              {I18n.t('claim_verification.find_in_article')}
-            </a>
-          </p>
-        )}
-        {claim.context && (
-          <details className="claim-verification-exercise__context">
-            <summary>{I18n.t('claim_verification.show_surrounding')}</summary>
-            <p>{claim.context}</p>
-          </details>
-        )}
-      </section>
-
-      <section className="claim-verification-exercise__source">
-        <h2 className="claim-verification-exercise__label">{I18n.t('claim_verification.cited_source')}</h2>
-        {claim.cite_text && <p className="claim-verification-exercise__citation">{claim.cite_text}</p>}
-        {claim.source_url ? (
-          <a
-            href={claim.source_url}
-            className="button dark claim-verification-exercise__source-link"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {I18n.t('claim_verification.source_url')}
-          </a>
-        ) : (
-          <p className="claim-verification-exercise__no-source">
-            {I18n.t('claim_verification.no_online_source')}
-          </p>
-        )}
-      </section>
+      <ClaimAndSource claim={claim} />
 
       {response && !editing ? (
         <section className="claim-verification-exercise__response">

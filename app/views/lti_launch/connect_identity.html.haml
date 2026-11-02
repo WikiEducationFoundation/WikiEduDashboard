@@ -27,6 +27,10 @@
     %button.button.dark.lti-iframe__button{ type: 'submit' }= t('lti.connect_identity.confirm')
   - # The full Dashboard keeps its SAMEORIGIN framing, so signing out has to
   - # leave the iframe rather than blank it.
-  %p.lti-setup__alt-path
-    = link_to t('lti.connect_identity.wrong_account'), destroy_user_session_path,
-              target: '_blank', rel: 'noopener', class: 'lti-setup__alt-link'
+  - # A form rather than a link: signing out takes a DELETE, and this layout
+  - # loads no rails-ujs to turn a link into one. A div, since a <p> can't
+  - # contain a form.
+  %div.lti-setup__alt-path
+    = button_to destroy_user_session_path, method: :delete, class: 'lti-setup__alt-link',
+                form: { target: '_blank', class: 'lti-setup__alt-form' } do
+      = t('lti.connect_identity.wrong_account')

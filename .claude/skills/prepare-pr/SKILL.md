@@ -214,7 +214,8 @@ no terminal to prompt — agents never have one.) It will:
 3. Rewrite the description to reference each screenshot by its
    `raw.githubusercontent.com` URL on that orphan branch.
 4. Create (or update, if the branch already has an open PR) a draft PR with
-   the full rewritten description.
+   the full rewritten description. An update leaves the title as it was; to
+   change it, run `gh pr edit --title "<PR title>"`.
 
 The result: a draft PR with screenshots rendered inline, in a single pass,
 with no manual drag-and-drop.

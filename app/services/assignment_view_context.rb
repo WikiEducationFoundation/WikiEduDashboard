@@ -1,5 +1,10 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/student_progress/article_facts"
+require_dependency "#{Rails.root}/lib/student_progress/exercise_facts"
+require_dependency "#{Rails.root}/lib/student_progress/links"
+require_dependency "#{Rails.root}/lib/student_progress/timeline"
+
 # Bundles the data the in-Canvas `assignment_view` needs for one gradebook
 # line item, so the controller action and its views stay thin. Produces a
 # single student's row (student-facing panel) or one row per linked student
@@ -18,18 +23,14 @@ class AssignmentViewContext
     end
   end
 
-  # Exercises whose outcome is *which article* the student took on, not whether
-  # they ticked a box. "Completed" is a useless thing to report for these: the
-  # instructor wants to know that this student is writing about Foo, and that
-  # this other student hasn't chosen anything yet. Both current selection
-  # exercises are listed — one where students pick from an instructor's list
-  # (no sandbox of its own) and one where they draft candidates in a sandbox
-  # (which still renders alongside).
-  #
-  # Keyed on module slug, the same way the fact-verification in-progress check
-  # keys on exercise_path. Wiki Ed's training library only; the integration is
-  # gated to that deployment.
-  ARTICLE_SELECTION_SLUGS = %w[choose-topic-exercise choose-topic-from-list-exercise].freeze
+  # Exercises whose outcome is *which article* the student took on
+  # (StudentProgress::Timeline::ARTICLE_SELECTION_SLUGS). "Completed" is a
+  # useless thing to report for these: the instructor wants to know that this
+  # student is writing about Foo, and that this other student hasn't chosen
+  # anything yet. Both current selection exercises are listed — one where
+  # students pick from an instructor's list (no sandbox of its own) and one
+  # where they draft candidates in a sandbox (which still renders alongside).
+  ARTICLE_SELECTION_SLUGS = StudentProgress::Timeline::ARTICLE_SELECTION_SLUGS
 
   # The stages of the writing process where the shared article panel belongs —
   # the whole state of the student's article (bibliography, outline, draft, and
@@ -81,11 +82,7 @@ class AssignmentViewContext
 
   # One row per linked student on this binding, for the instructor roster.
   def roster
-    completions_by_user = roster_completions
-    student_contexts.map do |context|
-      row_for(context.user, name: context.user.username,
-              completions: completions_by_user[context.user_id] || {})
-    end
+    student_contexts.map { |context| row_for(context.user, name: context.user.username) }
   end
 
   # Some exercises happen at a dedicated in-app page (e.g. the fact
@@ -96,7 +93,7 @@ class AssignmentViewContext
     mod = exercise_modules.find { |m| m.exercise_path.present? }
     return unless mod
 
-    "/courses/#{@course.slug}/#{mod.exercise_path}"
+    StudentProgress::Links.exercise_path_url(@course, mod)
   end
 
   # Sandbox-based (mark-complete) exercises keep their how-to instructions in
@@ -108,8 +105,7 @@ class AssignmentViewContext
     mod = exercise_modules.find(&:sandbox_location)
     return unless mod
 
-    "/training/#{@course.training_library_slug}/#{mod.slug}" \
-      "?return_to=#{CGI.escape("/courses/#{@course.slug}")}"
+    StudentProgress::Links.training_url(@course, mod)
   end
 
   private
@@ -124,9 +120,9 @@ class AssignmentViewContext
     @exercise_modules ||= @block ? @block.training_modules.select(&:exercise?) : []
   end
 
-  def row_for(user, name:, completions: nil)
+  def row_for(user, name:)
     StudentRow.new(name:, username: user.username,
-                   progress_state: progress_state_for(user, completions:),
+                   progress_state: progress_state_for(user),
                    sandbox_url: sandbox_url_for(user),
                    assigned_articles: assigned_articles_for(user))
   end
@@ -140,12 +136,15 @@ class AssignmentViewContext
     article_work.articles_for(user)
   end
 
-  # Built once for the roster plus the panel's own user, so a 30-student roster
-  # doesn't run four queries per row.
   def article_work
-    @article_work ||= AssignedArticleWork.new(
-      course: @course,
-      user_ids: student_contexts.map(&:user_id) + [@user&.id]
+    @article_work ||= StudentProgress::ArticleFacts.new(progress_roster)
+  end
+
+  # Everything the rows read, loaded once for the roster plus the panel's own
+  # user, so a 30-student roster doesn't run queries per row.
+  def progress_roster
+    @progress_roster ||= StudentProgress::Roster.new(
+      course: @course, user_ids: student_contexts.map(&:user_id) + [@user&.id]
     )
   end
 
@@ -153,34 +152,32 @@ class AssignmentViewContext
   # exercise is under way (the student has started but not submitted), else
   # :none — so the pill and next-step read truthfully rather than showing
   # "not started" to someone mid-exercise.
-  def progress_state_for(user, completions: nil)
-    return :complete if completed_for?(user, completions:)
+  def progress_state_for(user)
+    return :complete if completed_for?(user)
     return :partial if exercise_in_progress?(user)
 
     :none
   end
 
   # Reuses the same completion logic that drives the pushed AGS score, so the
-  # roster can't disagree with the gradebook. `completions` is the user's
-  # preloaded TrainingModulesUsers when the roster batched them.
-  def completed_for?(user, completions: nil)
+  # roster can't disagree with the gradebook.
+  def completed_for?(user)
     return false if @block.nil?
 
-    LtiBlockProgress.new(@block, user, completions:).score_given >= 1.0
+    LtiBlockProgress.new(@block, user, completions: progress_roster.completions_for(user.id),
+                                       training_modules: exercise_modules)
+                    .score_given >= 1.0
   end
 
-  # In-progress is only detectable for the fact-verification exercise: taking a
-  # claim creates a VerificationClaimAssignment (a re-pointable cursor), and
-  # submitting the response is what marks the module complete. Sandbox exercises
-  # have no comparable "started" signal, so they stay :none until complete.
+  # Only the fact-verification exercise has a "started" signal (see
+  # StudentProgress::ExerciseFacts#in_progress?); sandbox exercises stay :none
+  # until complete.
   def exercise_in_progress?(user)
-    return false unless fact_verification_block?
-
-    taken_claim_user_ids.include?(user.id)
+    exercise_modules.any? { |mod| exercise_facts.in_progress?(user, mod) }
   end
 
-  def fact_verification_block?
-    exercise_modules.any? { |mod| mod.exercise_path == 'verify_claim' }
+  def exercise_facts
+    @exercise_facts ||= StudentProgress::ExerciseFacts.new(progress_roster)
   end
 
   # Built even before the student starts, so the link points to where their
@@ -189,27 +186,7 @@ class AssignmentViewContext
     mod = exercise_modules.find(&:sandbox_location)
     return unless mod
 
-    "#{@course.home_wiki.base_url}/wiki/User:#{user.url_encoded_username}/#{mod.sandbox_location}"
-  end
-
-  # One query: every roster student's TrainingModulesUsers for this block's
-  # modules, keyed { user_id => { training_module_id => tmu } }, so
-  # LtiBlockProgress reads completion in memory instead of per-(student, module).
-  def roster_completions
-    return {} if @block.nil?
-
-    TrainingModulesUsers
-      .where(user_id: student_contexts.map(&:user_id),
-             training_module_id: @block.training_module_ids)
-      .group_by(&:user_id)
-      .transform_values { |tmus| tmus.index_by(&:training_module_id) }
-  end
-
-  # One query for the whole roster: users who have taken a claim, so
-  # exercise_in_progress? is a set-membership test, not a per-student exists?.
-  def taken_claim_user_ids
-    @taken_claim_user_ids ||=
-      VerificationClaimAssignment.where(course_id: @course.id).pluck(:user_id).to_set
+    StudentProgress::Links.exercise_sandbox_url(@course, user, mod)
   end
 
   # Wikipedia-linked students on this binding, excluding instructors/admins,

@@ -7,6 +7,7 @@ import CampaignOresPlot from './campaign_ores_plot.jsx';
 import CampaignNavbar from '../common/campaign_navbar';
 import CampaignStats from './campaign_stats';
 import WikidataOverviewStats from '../common/wikidata_overview_stats';
+import Notifications from '../common/notifications.jsx';
 import CampaignStatsDownloadModal from './campaign_stats_download_modal';
 
 export const Campaign = () => {
@@ -26,7 +27,7 @@ export const Campaign = () => {
   if (window.location.href.match(/overview/)) {
     campaignHandler = (
       <div className="high-modal">
-        <CampaignStatsDownloadModal campaign_slug={campaign_slug} />
+        <CampaignStatsDownloadModal campaign_slug={campaign_slug} campaign={campaign} />
       </div>
     );
     overviewStats = (
@@ -44,6 +45,7 @@ export const Campaign = () => {
       <CampaignNavbar
         campaign={campaign}
       />
+      <Notifications />
       <div className="container campaign_main">
         {overviewStats}
         {campaignHandler}

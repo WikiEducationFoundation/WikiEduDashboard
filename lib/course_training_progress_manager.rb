@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'ostruct'
+require_dependency "#{Rails.root}/lib/student_progress/links"
 
 class CourseTrainingProgressManager
   # Courses before Spring 2016 used the old on-wiki training
@@ -79,9 +80,15 @@ class CourseTrainingProgressManager
     training_module = TrainingModule.find(id)
     OpenStruct.new(
       title: training_module.name,
-      link: "/training/students/#{training_module.slug}",
+      link: module_link(training_module),
       due_date: due_date(training_module).strftime('%Y-%m-%d')
     )
+  end
+
+  # A slide-less in-app exercise has no training page, so link the exercise.
+  def module_link(training_module)
+    return "/training/students/#{training_module.slug}" if training_module.training_page?
+    StudentProgress::Links.exercise_path_url(@course, training_module)
   end
 
   def due_date(training_module)

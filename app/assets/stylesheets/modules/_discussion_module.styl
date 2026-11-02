@@ -1,0 +1,91 @@
+// A discussion module, on the timeline or the Resources tab: set apart from
+// the training rows, with a button that opens its prompts in a modal.
+.discussion-module
+  align-items center
+  background-color rgba($brand_primary, .08)
+  border-left 4px solid $brand_primary
+  display flex
+  gap 14px
+  margin-bottom 10px
+  padding 12px 16px
+  &:last-child
+    margin-bottom 0
+
+.discussion-module__icon
+  background url('../images/message.svg') center no-repeat
+  background-size contain
+  flex-shrink 0
+  height 18px
+  width 23px
+
+.discussion-module__text
+  display flex
+  flex 1
+  flex-direction column
+  min-width 0
+
+.discussion-module__kind
+  color $brand_primary
+  font-size 12px
+  font-weight 600
+  letter-spacing .05em
+  text-transform uppercase
+
+.discussion-module__name
+  color $text_dk
+  overflow-wrap anywhere
+
+.discussion-module__view
+  flex-shrink 0
+
+.wizard.discussion-modal
+  .discussion-modal__panel
+    background-color white
+    box-shadow 0 0 15px 0 rgba(0, 0, 0, .2)
+    display inline-block
+    margin 0 auto 40px
+    max-width 720px
+    padding 30px
+    text-align left
+    width 92%
+
+.discussion-modal__header
+  align-items flex-start
+  display flex
+  gap 14px
+  margin-bottom 20px
+  .discussion-module__icon
+    margin-top 4px
+  h2
+    color $text_dk
+    font-size 1.563em
+    font-weight 300
+    margin 0
+
+.discussion-modal__heading
+  display flex
+  flex 1
+  flex-direction column
+  min-width 0
+
+.discussion-modal__close
+  flex-shrink 0
+
+.discussion-modal__slide
+  color $text_dk
+  h3
+    font-size 1.1em
+    font-weight 600
+    margin 10px 0
+  p, ul, ol
+    margin-bottom 1em
+  ul, ol
+    padding-left 1.5em
+  li
+    margin-bottom .5em
+
+.discussion-modal__actions
+  border-top 1px solid zircon
+  margin-top 10px
+  padding-top 20px
+  text-align right

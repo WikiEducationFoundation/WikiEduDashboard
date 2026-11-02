@@ -81,7 +81,7 @@ class AiToolsController < ApplicationController
   end
 
   def latest_revision
-    WikiApi::ArticleContent.new(@wiki).latest_revision_id(CGI.unescape(@article_title))
+    WikiApi::ArticleContent.new(@wiki).latest_revision_id(@article_title)
   end
 
   def create_revision_ai_scores_for_multiple_resources

@@ -40,6 +40,82 @@ describe CoursesPresenter do
     end
   end
 
+  describe 'the article pages' do
+    let(:campaign) { create(:campaign) }
+    let(:course) { create(:course) }
+    let(:private_course) { create(:course, slug: 'Private/Course_(term)', private: true) }
+    let(:page) { nil }
+    let(:presenter) do
+      described_class.new(current_user: nil, campaign_param: campaign.slug, page:)
+    end
+
+    before do
+      create(:campaigns_course, campaign:, course:)
+      create(:campaigns_course, campaign:, course: private_course)
+      create(:articles_course, course:, article: create(:article), tracked: true)
+      create(:articles_course, course: private_course, article: create(:article, title: 'Hidden'),
+                               tracked: true)
+    end
+
+    it 'counts the articles of the courses it lists, so a private course adds no page' do
+      expect(presenter.campaign_articles_count).to eq(1)
+    end
+
+    it 'reads the count from the cache' do
+      original_cache = Rails.cache
+      Rails.cache = ActiveSupport::Cache::MemoryStore.new
+      begin
+        Rails.cache.write(campaign.articles_count_cache_key, 42)
+        expect(presenter.campaign_articles_count).to eq(42)
+      ensure
+        Rails.cache = original_cache
+      end
+    end
+
+    context 'with more articles than 200 pages hold' do
+      before do
+        allow(presenter).to receive(:campaign_articles_count).and_return(5001)
+      end
+
+      it 'links no page past the last one served' do
+        pages = presenter.campaign_articles[:articles_courses]
+        expect(pages.total_entries).to eq(5000)
+        expect(pages.total_pages).to eq(200)
+      end
+
+      context 'on the last page served' do
+        let(:page) { 200 }
+
+        it 'says the list goes on' do
+          expect(presenter.articles_list_truncated?).to be(true)
+        end
+      end
+
+      context 'on the page before it' do
+        let(:page) { 199 }
+
+        it 'says nothing' do
+          expect(presenter.articles_list_truncated?).to be(false)
+        end
+      end
+    end
+
+    context 'for a tag' do
+      let(:presenter) do
+        described_class.new(current_user: nil, tag: 'a_tag', courses_list: Course.all, page: 200)
+      end
+
+      before do
+        allow(presenter).to receive(:tag_articles_count).and_return(5001)
+      end
+
+      it 'links no page past the last one served, and says the list goes on' do
+        expect(presenter.campaign_articles.total_pages).to eq(200)
+        expect(presenter.articles_list_truncated?).to be(true)
+      end
+    end
+  end
+
   describe '#user_courses' do
     subject { described_class.new(current_user: user, campaign_param: campaign).user_courses }
 

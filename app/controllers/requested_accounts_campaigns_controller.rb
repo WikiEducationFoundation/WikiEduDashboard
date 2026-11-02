@@ -5,7 +5,7 @@ class RequestedAccountsCampaignsController < ApplicationController
   respond_to :html
   before_action :set_campaign
   before_action :check_creation_permissions,
-                only: %i[index create_accounts enable_account_requests]
+                only: %i[index create_accounts enable_account_requests disable_account_requests]
 
   # Sets the flag on a course so that clicking 'Sign Up' opens the Request Account
   # modal instead of redirecting to the mediawiki account creation flow.

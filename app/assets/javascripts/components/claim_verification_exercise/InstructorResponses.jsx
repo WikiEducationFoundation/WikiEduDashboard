@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 
 import Loading from '@components/common/loading.jsx';
 import ClaimVerificationAPI from '@components/common/ArticleViewer/claim_verification/ClaimVerificationAPI';
-import ResponseSummary from './ResponseSummary.jsx';
+import ClaimResponse from './ClaimResponse.jsx';
 
 const formatDate = isoDate => format(new Date(isoDate), 'MMM do, yyyy');
 
@@ -15,41 +15,33 @@ const studentName = ({ username, real_name: realName }) => (
   realName ? `${realName} (${username})` : username
 );
 
-// The claim a card is about: the sentence, plus article/source links when the
-// listing includes them (submitted responses do; pending rows keep it short).
-const ClaimContext = ({ claim }) => (
+// A pending row's claim: just the sentence and its article, since there are no
+// answers yet to check against the source.
+const PendingClaim = ({ claim }) => (
   <div className="cv-response-card__claim">
     <blockquote>{claim.sentence}</blockquote>
-    <p className="cv-response-card__claim-links">
-      {claim.article_url && (
-        <a href={claim.article_url} target="_blank" rel="noopener noreferrer">
-          {claim.article_title}
-        </a>
-      )}
-      {claim.source_url && (
-        <a href={claim.source_url} target="_blank" rel="noopener noreferrer">
-          {I18n.t('claim_verification.cited_source')}
-        </a>
-      )}
-    </p>
+    {claim.article_title && (
+      <p className="cv-response-card__article-title">{claim.article_title}</p>
+    )}
   </div>
 );
 
-ClaimContext.propTypes = {
+PendingClaim.propTypes = {
   claim: PropTypes.shape({
     sentence: PropTypes.string,
     article_title: PropTypes.string,
-    article_url: PropTypes.string,
-    source_url: PropTypes.string,
   }).isRequired,
 };
 
 /*
-  The instructor view of student submissions, at /verify_claim/responses
-  (linked from the timeline module row and from each student's exercise
-  listing): every submitted response as a card (the student, their claim, and
-  their answers rendered with the same question wording the student saw),
-  followed by students who have taken a claim but not yet submitted. A
+  Every student's submissions on one page, at /verify_claim/responses, where
+  the course has no Assignments tab to grade them in one student at a time
+  (see ResponsesPage, which otherwise forwards there): every submitted
+  response as a card — the student, then their claim
+  and its cited source exactly as the student saw them (so each answer can be
+  checked against the citation and the source itself), then their answers
+  rendered with the same question wording the student saw — followed by
+  students who have taken a claim but not yet submitted. A
   `?student=<username>` param narrows the page to one student — that's the
   per-student deep link — with a back link to the full list. The preview link
   opens the exercise itself, which instructors can do (and even complete) like
@@ -69,7 +61,7 @@ const InstructorResponses = ({ course }) => {
   if (failed) {
     return (
       <div className="container narrow claim-verification-responses">
-        <p role="alert">{I18n.t('claim_verification.form.submit_failed')}</p>
+        <p role="alert">{I18n.t('system_stats.errors.fetch_failed')}</p>
       </div>
     );
   }
@@ -104,14 +96,18 @@ const InstructorResponses = ({ course }) => {
       {responses.map(response => (
         <article className="cv-response-card" key={response.id}>
           <header className="cv-response-card__header">
-            <h2>{studentName(response)}</h2>
+            <div>
+              <h2>{studentName(response)}</h2>
+              {response.claim.article_title && (
+                <p className="cv-response-card__article-title">{response.claim.article_title}</p>
+              )}
+            </div>
             <span className="cv-response-card__date">
               {I18n.t('claim_verification.responses.submitted_at',
                       { date: formatDate(response.created_at) })}
             </span>
           </header>
-          <ClaimContext claim={response.claim} />
-          <ResponseSummary form={data.form} response={response} />
+          <ClaimResponse form={data.form} response={response} headingLevel={3} />
         </article>
       ))}
 
@@ -127,7 +123,7 @@ const InstructorResponses = ({ course }) => {
                           { date: formatDate(assignment.taken_at) })}
                 </span>
               </header>
-              <ClaimContext claim={assignment.claim} />
+              <PendingClaim claim={assignment.claim} />
             </article>
           ))}
         </section>

@@ -10,6 +10,7 @@ class CoursesByWikiController < ApplicationController
       format.html { render }
       format.json do
         courses_list = Course.where(home_wiki: @wiki).order(id: :desc)
+        courses_list = courses_list.nonprivate unless current_user&.admin?
         # rubocop:disable Layout/LineLength
         courses_list = courses_list.where("year(created_at) = #{params[:year].to_i}") if params[:year]
         # rubocop:enable Layout/LineLength

@@ -96,4 +96,8 @@ class ClassroomProgramCourse < Course
   def progress_tracker_enabled?
     true
   end
+
+  def assignments_tab_enabled?
+    true
+  end
 end

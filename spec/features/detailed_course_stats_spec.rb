@@ -19,7 +19,9 @@ describe 'Detailed course overview stats', type: :feature, js: true do
         },
         'en.wikipedia.org-namespace-0': {
           'new_count' => 16,
-          'edited_count' => 103
+          'edited_count' => 103,
+          'reference_count' => 12,
+          'view_count' => 340
         }
     })
 
@@ -54,5 +56,7 @@ describe 'Detailed course overview stats', type: :feature, js: true do
       .not_to have_content('en.wikibooks.org - Cookbook')
     expect(page.find('.content-container .title')).to have_content('en.wikipedia.org - Mainspace')
     expect(page.find('.content-container')).to have_content("16\nArticles Created")
+    expect(page.find('.content-container')).to have_content("12\nReferences Added")
+    expect(page.find('.content-container')).to have_content("340\nArticle Views")
   end
 end

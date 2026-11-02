@@ -8,6 +8,49 @@ describe CampaignsController, type: :request do
       get '/campaigns'
       expect(response.status).to eq(200)
     end
+
+    context 'with json format' do
+      before do
+        30.times do |i|
+          create(:campaign, title: "Campaign #{i + 1}", slug: "campaign_#{i + 1}")
+        end
+      end
+
+      it 'returns 25 campaigns per page and pagination metadata' do
+        get '/campaigns.json', params: { page: 1 }
+        expect(response.status).to eq(200)
+        body = JSON.parse(response.body)
+        expect(body['campaigns'].length).to eq(25)
+        expect(body['total_pages']).to eq(2)
+        expect(body['current_page']).to eq(1)
+      end
+
+      it 'returns the remaining campaigns on the second page' do
+        total = Campaign.count
+        get '/campaigns.json', params: { page: 2 }
+        expect(response.status).to eq(200)
+        body = JSON.parse(response.body)
+        expect(body['campaigns'].length).to eq(total - 25)
+        expect(body['current_page']).to eq(2)
+      end
+
+      it 'filters campaigns by search query' do
+        get '/campaigns.json', params: { search: 'Campaign 10' }
+        expect(response.status).to eq(200)
+        body = JSON.parse(response.body)
+        expect(body['campaigns'].length).to eq(1)
+        expect(body['campaigns'].first['title']).to eq('Campaign 10')
+      end
+
+      it 'includes campaign statistics attributes' do
+        get '/campaigns.json', params: { page: 1 }
+        expect(response.status).to eq(200)
+        campaign = JSON.parse(response.body)['campaigns'].first
+        expect(campaign).to include('course_count', 'new_article_count', 'article_count',
+                                    'word_count', 'references_count', 'view_sum',
+                                    'user_count', 'creation_date', 'human_course_count')
+      end
+    end
   end
 
   describe '#create' do
@@ -433,6 +476,23 @@ describe CampaignsController, type: :request do
           expect(response.status).to eq(404)
         end
       end
+
+      context 'past the last page served' do
+        it 'returns a 404 before counting the articles' do
+          expect(CoursesPresenter).not_to receive(:new)
+          get "/campaigns/#{campaign.slug}/articles?page=201"
+          expect(response.status).to eq(404)
+        end
+
+        it 'still serves the last page, saying the list goes on in the CSV' do
+          allow_any_instance_of(CoursesPresenter).to receive(:campaign_articles_count)
+            .and_return(5001)
+          get "/campaigns/#{campaign.slug}/articles?page=200"
+          expect(response.status).to eq(200)
+          notice = Capybara.string(response.body).find('p.notice')
+          expect(notice).to have_link(href: "/campaigns/#{campaign.slug}/articles_csv.csv")
+        end
+      end
     end
   end
 
@@ -448,15 +508,18 @@ describe CampaignsController, type: :request do
         key = campaign.course_sums_cache_key
 
         Rails.cache.write(key, { courses_count: 42 })
+        Rails.cache.write(campaign.articles_count_cache_key, 5001)
         expect(Rails.cache.read(key)).not_to be_nil, 'Cache write failed'
 
         # Trigger the refresh (should clear)
+        login_as create(:admin)
         get "/campaigns/#{campaign.slug}/refresh"
 
         expect(response).to redirect_to(overview_campaign_path(campaign.slug))
         expect(flash[:notice]).to eq('Campaign stats refreshed successfully')
 
         expect(Rails.cache.read(key)).to be_nil
+        expect(Rails.cache.read(campaign.articles_count_cache_key)).to be_nil
       ensure
         Rails.cache = original_cache
       end
