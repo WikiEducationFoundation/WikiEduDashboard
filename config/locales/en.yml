@@ -1733,8 +1733,8 @@ en:
     due_default: Due next week
     due_date: Due date
     due_date_default: Default
-    due_date_default_explanation: "[PLACEHOLDER - explains how the default due date is calculated: the end (Saturday) of the block's week, counting from the assignment start and skipping weeks with no class meetings]"
-    due_date_modules_note: "[PLACEHOLDER - explains that a block with training modules or exercises always has a due date, so 'no due date' isn't available while it assigns any]"
+    due_date_default_explanation: Default due dates are the end (Saturday) of the block's week in the Timeline.
+    due_date_modules_note: A default or manual due date is required for exercises and trainings.
     due_date_none: No due date
     due_date_none_explanation: "[PLACEHOLDER - explains that the block will show no due date on the timeline]"
     due_date_specific: Set a date

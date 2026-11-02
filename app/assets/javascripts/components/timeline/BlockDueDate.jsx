@@ -51,7 +51,12 @@ const BlockDueDate = ({ block, updateBlock, weekStart, toggleFocused }) => {
 
   return (
     <fieldset className="block__block-due-date">
-      <legend>{I18n.t('timeline.due_date')}</legend>
+      <legend>
+        {I18n.t('timeline.due_date')}
+        {withModules && (
+          <small className="block__due-date-note">{I18n.t('timeline.due_date_modules_note')}</small>
+        )}
+      </legend>
       <div className="block__due-date-option">
         <label>
           <input type="radio" name={name} checked={mode === 'blank'} onChange={chooseBlank} />
@@ -80,9 +85,6 @@ const BlockDueDate = ({ block, updateBlock, weekStart, toggleFocused }) => {
           />
         )}
       </div>
-      {withModules && (
-        <small className="block__due-date-help">{I18n.t('timeline.due_date_modules_note')}</small>
-      )}
     </fieldset>
   );
 };
