@@ -61,8 +61,6 @@ io:
     change: Modifiko
     details: Detali
     confirm: O.K.
-    opt_in: "Yes"
-    opt_out: "No"
     opt_yes: "yes"
     opt_no: "no"
   article_statuses:

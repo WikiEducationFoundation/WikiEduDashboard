@@ -88,8 +88,6 @@ zh-TW:
     details: 詳細資訊
     confirm: 好
     confirm_generic: 您確定要這麼做嗎？
-    opt_in: 是
-    opt_out: 否
     opt_yes: 是
     opt_no: 否
     print: 列印
@@ -705,7 +703,6 @@ zh-TW:
       URL。
     data_revisions_info: 修訂資料包含課程修訂次數、修訂 ID、條目 ID，該頁面為新的頁面和頁面瀏覽次數總計。
     data_download_info: 以 CSV 格式下載資料。
-    data_download_warning: 此課程尚未在新系統中更新，統計內容可能會不完整。在下載前，請安排此課程的資料更新並等待更新完成。如果這是一門持續的課程，請等待目前的更新完成。
     data_overview: 概要資料
     data_overview_info: 概要資料提供出整體專案的累計統計。
     data_edits: 編輯資料

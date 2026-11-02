@@ -83,8 +83,6 @@ fi:
     change: Muuta
     details: Tiedot
     confirm: OK
-    opt_in: Kyllä
-    opt_out: Ei
     opt_yes: kyllä
     opt_no: ei
     print: Tulosta

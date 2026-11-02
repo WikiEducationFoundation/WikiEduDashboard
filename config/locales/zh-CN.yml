@@ -6,6 +6,7 @@
 # Author: A Chinese Wikipedian
 # Author: A Retired User
 # Author: AYZ04
+# Author: Anterdc99
 # Author: BlackShadowG
 # Author: Camilali0609
 # Author: Endermoon
@@ -101,8 +102,6 @@ zh-CN:
     change: 更改
     details: 详情
     confirm: 确定
-    opt_in: 是
-    opt_out: 否
     opt_yes: 是
     opt_no: 否
     print: 打印
@@ -171,7 +170,7 @@ zh-CN:
     deleted: （已删除）
     does_not_exist: 条目不存在。创建沙盒页面并将您分配给该页面以接收建议。
     edited: 编辑的条目
-    edited_by: 编辑者：
+    edited_by: 由%{author}编辑
     edited_mobile: 条目
     edited_none: 还没有任何已编辑的条目。
     filter:
@@ -1075,6 +1074,7 @@ zh-CN:
     supplementary:
       header: 您是怎么知道我们的？
       where_did_you_hear: 何处、来自谁、还是您第一次听说维基教育计划？
+      primary_reason: 你决定做维基百科作业的主要原因是什么？
       why_are_you_here: 您想做什么？
   article_finder:
     add_available_article: 添加为可用条目

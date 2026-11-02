@@ -67,8 +67,6 @@ sl:
     change: Spremeni
     details: Podrobnosti
     confirm: V redu
-    opt_in: Da
-    opt_out: Ne
     opt_yes: da
     opt_no: ne
     print: Natisni

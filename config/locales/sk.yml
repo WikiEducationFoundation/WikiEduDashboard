@@ -78,8 +78,6 @@ sk:
     details: Podrobnosti
     confirm: OK
     confirm_generic: Naozaj to chcete urobiť?
-    opt_in: Áno
-    opt_out: Nie
     opt_yes: áno
     opt_no: nie
     print: Tlačiť
@@ -863,10 +861,6 @@ sk:
     data_revisions_info: Údaje o revíziách zahŕňajú počet revízií kurzu, ID revízie,
       ID článku, ktoré stránky sú nové a celkové počty zobrazení stránok.
     data_download_info: Stiahnuť údaje vo formáte CSV.
-    data_download_warning: Tento kurz ešte nie je v novom systéme aktuálny. Štatistiky
-      môžu byť neúplné. Pred ich stiahnutím naplánujte aktualizáciu údajov pre tento
-      kurz a počkajte, kým sa dokončí. Ak ide o prebiehajúci kurz, počkajte, kým sa
-      dokončí aktuálna aktualizácia.
     data_overview: Prehľadové údaje
     data_overview_info: Prehľadové údaje poskytujú kumulatívne štatistiky za celý
       projekt.
@@ -2522,6 +2516,7 @@ sk:
     supplementary:
       header: Ako ste sa o nás dozvedeli?
       where_did_you_hear: Kde alebo od koho ste sa prvýkrát dozvedeli o Wiki Education?
+      primary_reason: Aký je hlavný dôvod, prečo ste sa rozhodli zadať úlohu na Wikipédii?
       why_are_you_here: Čo by ste chceli robiť?
   article_finder:
     add_available_article: Pridať ako dostupný článok

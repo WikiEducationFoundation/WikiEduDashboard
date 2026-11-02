@@ -5,6 +5,7 @@
 # Author: Ajeje Brazorf
 # Author: Ceirios
 # Author: Cymrodor
+# Author: GwennoG
 # Author: Robin Owain
 # Author: Troswr
 ---
@@ -61,8 +62,6 @@ cy:
     change: Newid
     details: Manylion
     confirm: Iawn
-    opt_in: Ydw
-    opt_out: Nac ydw
     opt_yes: Ydw
     print: Argraffu
   dashboard:
@@ -96,7 +95,7 @@ cy:
       myfyrwyr cofrestredig yn ystod y cyfnod dan sylw
     deleted: (dilewyd)
     edited: Erthyglau a Olygwyd
-    edited_by: 'Golygwyd gan:'
+    edited_by: 'Golygwyd gan: %{author}'
     edited_mobile: Erthyglau
     filter:
       wiki_all: Y Cyfan

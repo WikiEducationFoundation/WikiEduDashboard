@@ -109,8 +109,6 @@ pt-br:
     change: Mudar
     details: Detalhes
     confirm: OK
-    opt_in: Sim
-    opt_out: Não
     opt_yes: sim
     opt_no: não
     print: Imprimir
@@ -772,10 +770,6 @@ pt-br:
       o identificador da revisão, o identificador do artigo, que páginas são novas
       e os totais de visitas às páginas.
     data_download_info: Baixar os dados no formato CSV.
-    data_download_warning: Esse curso ainda não está atualizado dentro do novo sistema.
-      As estatísticas estão incompletas. Antes de baixá-las, por favor, agende uma
-      atualização de dados para esse curso e aguarde até que ela termine. Se o curso
-      estiver em andamento, por favor, aguarde até que a atualização esteja completa.
     data_overview: Dados do resumo
     data_overview_info: Os dados do resumo fornecem as estatísticas acumuladas para
       todo o projeto.

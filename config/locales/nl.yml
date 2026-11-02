@@ -102,8 +102,6 @@ nl:
     details: Details
     confirm: OK
     confirm_generic: Weet u zeker dat u dit wilt doen?
-    opt_in: Ja
-    opt_out: Nee
     opt_yes: ja
     opt_no: nee
     print: Afdrukken
@@ -916,10 +914,6 @@ nl:
     data_revisions_info: Versiegegevens omvatten het aantal versies van de cursus,
       versie-ID, pagina-ID, welke pagina's nieuw zijn en het totale aantal paginaweergaven.
     data_download_info: Gegevens downloaden in CSV-indeling.
-    data_download_warning: Deze cursus is nog niet bijgewerkt in het nieuwe systeem.
-      Statistieken kunnen onvolledig zijn. Plan een gegevensupdate voor deze cursus
-      en wacht tot deze is voltooid voordat u ze downloadt. Als dit een lopende cursus
-      is, wacht dan tot de huidige update is voltooid.
     data_overview: Overzichtsgegevens
     data_overview_info: Overzichtsgegevens bieden cumulatieve statistieken voor het
       hele project.

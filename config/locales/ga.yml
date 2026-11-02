@@ -76,8 +76,6 @@ ga:
     change: Athraigh
     details: Sonraí
     confirm: OK
-    opt_in: Tá
-    opt_out: Níl
     opt_yes: tá
     opt_no: níl
     print: Priontáil
@@ -871,10 +869,6 @@ ga:
       an chúrsa, athbhreithniú an ailt, cé na leathanaigh atá nua agus iomláin na
       n-amharc leathanaigh.
     data_download_info: Íoslódáil na sonraí i bhfoirm CSV
-    data_download_warning: Níl an cúrsa seo cothrom le dáta laistigh den chóras nua
-      go fóill. Seans nach bhfuil na staitisticí iomlána. Sula ndéanann tú iad a íoslódáil,
-      sceidealaigh nuashonrú sonraí don chúrsa seo agus fan go mbeidh sé críochnaithe.
-      Más cúrsa leanúnach é seo, fan go dtí go mbeidh an nuashonrú reatha críochnaithe.
     data_overview: Sonraí forléargais
     data_overview_info: Soláthraíonn sonraí forbhreathnaithe staitisticí carnacha
       don tionscadal ar fad.
