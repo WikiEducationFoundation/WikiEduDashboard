@@ -18,9 +18,14 @@ class BlockDateManager
 
   def due_date
     return @block.due_date if @block.due_date.present?
-    # an assignment due the end of the first week
-    # is due the end of the week the timeline starts
-    # (0 weeks from timeline start)
+    default_due_date
+  end
+
+  # The due date a block has when the instructor hasn't set one:
+  # an assignment due the end of the first week
+  # is due the end of the week the timeline starts
+  # (0 weeks from timeline start)
+  def default_due_date
     (@course.timeline_start + weeks_from_start.weeks)
       .to_date.end_of_week(:sunday)
   end
