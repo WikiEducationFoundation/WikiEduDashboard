@@ -145,12 +145,16 @@
       outline 2px solid $brand_primary
       outline-offset 2px
 
-    > span:last-child
-      color $brand_primary
-      font-size 24px
-      font-weight 300
-      line-height 1
+    .icon-arrow-toggle
+      flex-shrink 0
       margin-left 12px
+      transition transform 250ms ease
+
+    &[aria-expanded="true"] .icon-arrow-toggle
+      transform rotateZ(180deg)
+
+  &.collapsed.course-overview
+    width fit-content
 
   .wikidata-display
     width 100%

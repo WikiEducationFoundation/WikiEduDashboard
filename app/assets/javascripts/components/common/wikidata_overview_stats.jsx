@@ -228,12 +228,12 @@ const WikidataOverviewStats = ({
       onClick={() => setUserExpanded(!expanded)}
     >
       <span className="wikidata-stats-title">{title}</span>
-      <span aria-hidden="true">{expanded ? '−' : '+'}</span>
+      <span className="icon icon-arrow-toggle" aria-hidden="true" />
     </button>
   );
 
   return (
-    <div className={`wikidata-stats-container${isCourseOverview ? ' course-overview' : ''}`}>
+    <div className={`wikidata-stats-container${isCourseOverview ? ' course-overview' : ''}${expanded ? '' : ' collapsed'}`}>
       <h2 className={isCourseOverview ? 'title' : 'wikidata-stats-heading'}>
         {toggleButton}
       </h2>

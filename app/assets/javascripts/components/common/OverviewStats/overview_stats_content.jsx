@@ -4,19 +4,22 @@ import PropTypes from 'prop-types';
 import WikidataOverviewStats from '../wikidata_overview_stats';
 import NamespaceOverviewStats from './namespace_overview_stats';
 
-const OverviewStatsContent = ({ course, content }) => {
+const OverviewStatsContent = ({ course, content, isInitialTab }) => {
   const title = content.statsTitle;
   const data = content.statsData;
 
-  // This logic checks if the course home wiki is Wikidata
   const homeWikiIsWikidata = course?.home_wiki?.project === 'wikidata';
+
+  // Expanded when the home wiki is Wikidata, or when the user clicked over
+  // to the Wikidata tab. Collapsed only if it's the initial (only) stats tab.
+  const defaultExpanded = homeWikiIsWikidata || !isInitialTab;
 
   const statistics = (title === 'www.wikidata.org')
     ? (
       <WikidataOverviewStats
         statistics={data}
         isCourseOverview={true}
-        defaultExpanded={homeWikiIsWikidata}
+        defaultExpanded={defaultExpanded}
       />
     )
     : <NamespaceOverviewStats course={course} statistics={data} />;
@@ -32,7 +35,9 @@ const OverviewStatsContent = ({ course, content }) => {
 };
 
 OverviewStatsContent.propTypes = {
-  content: PropTypes.object.isRequired
+  course: PropTypes.object,
+  content: PropTypes.object.isRequired,
+  isInitialTab: PropTypes.bool
 };
 
 export default OverviewStatsContent;
