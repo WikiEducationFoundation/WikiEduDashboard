@@ -220,11 +220,14 @@ describe 'ticket dashboard', type: :feature, js: true do
       visit '/tickets/dashboard'
       expect(page).to have_content 'A first subject'
 
+      # Rows are keyed by ticket id, so React reorders the existing <tr> nodes
+      # instead of rewriting them. Query the first row on every retry rather than
+      # holding on to whichever node was first before the sort re-rendered.
       find('th.created_at').click
-      expect(first('tbody tr')).to have_content 'A first subject'
+      expect(page).to have_css('tbody tr:first-child', text: 'A first subject')
 
       find('th.created_at').click
-      expect(first('tbody tr')).to have_content 'I will not come back'
+      expect(page).to have_css('tbody tr:first-child', text: 'I will not come back')
     end
 
     it 'shows the creation date in search results' do
