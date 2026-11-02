@@ -54,6 +54,7 @@ const AddSpecialUserForm = ({ submittingNewSpecialUser, upgradeSpecialUser: upgr
     { value: 'communications_manager', label: 'communications_manager' },
     { value: 'classroom_program_manager', label: 'classroom_program_manager' },
     { value: 'outreach_manager', label: 'outreach_manager' },
+    { value: 'scholars_and_scientists_manager', label: 'scholars_and_scientists_manager' },
     { value: 'wikipedia_experts', label: 'wikipedia_experts' },
     { value: 'technical_help_staff', label: 'technical_help_staff' },
     { value: 'survey_alerts_recipient', label: 'survey_alerts_recipient' },

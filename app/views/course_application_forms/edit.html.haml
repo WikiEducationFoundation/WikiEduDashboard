@@ -30,6 +30,14 @@
       = f.label :intro, t('course_application_forms.intro'), for: 'course_application_form_intro'
       = f.text_area :intro, value: @form.intro, rows: 6, id: 'course_application_form_intro'
 
+    .form-group
+      = f.label :acceptance_email, t('course_application_forms.acceptance_email'),
+                for: 'course_application_form_acceptance_email'
+      %p#course_application_form_acceptance_email_help= t('course_application_forms.acceptance_email_help')
+      = f.text_area :acceptance_email, value: @form.acceptance_email, rows: 10,
+                    id: 'course_application_form_acceptance_email',
+                    aria: { describedby: 'course_application_form_acceptance_email_help' }
+
     %h2= t('course_application_forms.question_groups')
     %p= t('course_application_forms.positions_help')
     - if @question_group_choices.empty?

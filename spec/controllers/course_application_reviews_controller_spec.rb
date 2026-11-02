@@ -16,7 +16,8 @@ describe CourseApplicationReviewsController, type: :request do
     create(:q_long, question_group:, question_text: 'Describe your research background')
   end
   let!(:application) do
-    CourseApplicationForm.create!(course:, open: true, question_group_ids: [question_group.id])
+    CourseApplicationForm.create!(course:, open: true, question_group_ids: [question_group.id],
+                                  acceptance_email: 'See you at the first meeting.')
     SubmitCourseApplication.new(course:, user: applicant, answers: {
                                   question.id.to_s => { answer_text: '<b>I study elections.</b>' }
                                 }).application
@@ -88,6 +89,29 @@ describe CourseApplicationReviewsController, type: :request do
       expect(response).to redirect_to(application_path)
       expect(flash[:error]).to eq(I18n.t('courses.join_failure_details.not_yet_approved'))
       expect(application.reload).to be_submitted
+    end
+
+    it 'offers no accept button until the form has an acceptance email' do
+      course.campaigns << create(:campaign)
+      course.course_application_form.update!(acceptance_email: '')
+      get application_path
+      expect(response.body).to include("/courses/#{course.slug}/application_form")
+      expect(response.body).not_to include("#{application_path}/accept")
+    end
+
+    it 'refuses, with the reason, until the form has an acceptance email' do
+      course.campaigns << create(:campaign)
+      course.course_application_form.update!(acceptance_email: '')
+      post "#{application_path}/accept"
+      expect(flash[:error])
+        .to eq(I18n.t('course_application_reviews.acceptance_email_missing'))
+      expect(application.reload).to be_submitted
+    end
+
+    it 'asks for confirmation before accepting' do
+      course.campaigns << create(:campaign)
+      get application_path
+      expect(response.body).to include('data-confirm')
     end
 
     it 'accepts and enrolls once the course is approved' do

@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 # Admin-only settings for a Scholars & Scientists course's application form:
-# whether it is open, the intro applicants see, and which Rapidfire question
-# groups it asks, in order. Wiki Education Dashboard only: the program, and the
-# application review that follows, exist only there.
+# whether it is open, the intro applicants see, which Rapidfire question groups
+# it asks, in order, and the email accepted applicants are sent. Wiki Education
+# Dashboard only: the program, and the application review that follows, exist
+# only there.
 class CourseApplicationFormsController < ApplicationController
   layout 'admin'
   before_action :require_wiki_ed
@@ -38,7 +39,7 @@ class CourseApplicationFormsController < ApplicationController
 
   def form_params
     form = params.fetch(:course_application_form, {})
-    { open: form[:open] == '1', intro: form[:intro],
+    { open: form[:open] == '1', intro: form[:intro], acceptance_email: form[:acceptance_email],
       question_group_ids: ordered_question_group_ids }
   end
 

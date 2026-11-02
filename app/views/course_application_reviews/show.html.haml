@@ -30,14 +30,20 @@
 
   .course-application-review__decision
     - if @application.submitted? || @application.declined?
-      - if @course.approved?
-        = button_to t('course_application_reviews.accept'), "#{application_path}/accept",
-                    class: 'button dark'
-      - else
+      - if !@course.approved?
         %p= t('courses.join_failure_details.not_yet_approved')
+      - elsif @course.course_application_form&.acceptance_email.blank?
+        %p
+          = t('course_application_reviews.acceptance_email_missing')
+          = link_to t('course_application_forms.title'), "#{base_path}/application_form"
+      - else
+        = button_to t('course_application_reviews.accept'), "#{application_path}/accept",
+                    class: 'button dark',
+                    data: { confirm: t('course_application_reviews.accept_confirm') }
     - if @application.submitted?
       = button_to t('course_application_reviews.decline'), "#{application_path}/decline",
-                  class: 'button'
+                  class: 'button',
+                  data: { confirm: t('course_application_reviews.decline_confirm') }
 
   %h2= t('course_application_reviews.answers')
   - @answer_groups.each do |answer_group|

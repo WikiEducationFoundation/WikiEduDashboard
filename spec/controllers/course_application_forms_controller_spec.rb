@@ -48,7 +48,9 @@ describe CourseApplicationFormsController, type: :request do
       expect(response.body).to include('for="course_application_form_open"',
                                        'id="course_application_form_open"',
                                        'for="course_application_form_intro"',
-                                       'id="course_application_form_intro"')
+                                       'id="course_application_form_intro"',
+                                       'for="course_application_form_acceptance_email"',
+                                       'id="course_application_form_acceptance_email"')
     end
 
     it 'creates nothing just by being viewed' do
@@ -58,8 +60,9 @@ describe CourseApplicationFormsController, type: :request do
   end
 
   describe 'PATCH' do
-    def submit(positions:, open: '0', intro: 'Welcome')
-      patch path, params: { course_application_form: { open:, intro:, positions: } }
+    def submit(positions:, open: '0', intro: 'Welcome', acceptance_email: 'See you Tuesday')
+      patch path, params: { course_application_form: { open:, intro:, acceptance_email:,
+                                                        positions: } }
     end
 
     it 'saves the form, asking the groups in position order and skipping blanks' do
@@ -70,6 +73,7 @@ describe CourseApplicationFormsController, type: :request do
       form = course.reload.course_application_form
       expect(form).to be_open
       expect(form.intro).to eq('Welcome')
+      expect(form.acceptance_email).to eq('See you Tuesday')
       expect(form.question_group_ids).to eq([base_group.id, theme_group.id])
     end
 

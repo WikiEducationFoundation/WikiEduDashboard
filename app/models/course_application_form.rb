@@ -10,6 +10,7 @@
 #  question_group_ids :text(65535)
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
+#  acceptance_email   :text(65535)
 #
 
 # The application form for a Scholars & Scientists course (Wiki Education
