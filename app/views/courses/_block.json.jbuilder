@@ -3,6 +3,8 @@
 user ||= current_user
 json.call(block, :id, :kind, :content, :week_id, :title,
           :order, :due_date, :training_module_ids, :points)
+# What the due date falls back to when due_date is blank, shown in the editor.
+json.default_due_date block.default_due_date if block.week
 if block.training_module_ids.present?
   json.training_modules block.training_modules do |tm|
     # The available training modules may change over time, especially on

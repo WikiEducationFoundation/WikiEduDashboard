@@ -1731,6 +1731,13 @@ en:
     delete_timeline_and_start_over: Delete Timeline
     done: Done
     due_default: Due next week
+    due_date: Due date
+    due_date_default: Default
+    due_date_default_explanation: "[PLACEHOLDER - explains how the default due date is calculated: the end (Saturday) of the block's week, counting from the assignment start and skipping weeks with no class meetings]"
+    due_date_modules_note: "[PLACEHOLDER - explains that a block with training modules or exercises always has a due date, so 'no due date' isn't available while it assigns any]"
+    due_date_none: No due date
+    due_date_none_explanation: "[PLACEHOLDER - explains that the block will show no due date on the timeline]"
+    due_date_specific: Set a date
     edit_titles: Edit Week Titles
     edit_titles_info: Edit week titles in timeline. Only weeks with scheduled meetings can be given custom titles. If any custom titles are used, weeks with no meetings will be dated instead of numbered.
     # FIXME: lego message. This one is hard to work around because it has inline components.

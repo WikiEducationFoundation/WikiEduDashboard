@@ -67,6 +67,10 @@ class Block < ApplicationRecord
     date_manager.due_date
   end
 
+  def default_due_date
+    date_manager.default_due_date
+  end
+
   private
 
   def enqueue_lti_line_item_sync
