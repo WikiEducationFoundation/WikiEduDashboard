@@ -1,0 +1,741 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&prop=revisions&revids=1382963012&rvprop=ids
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 7ad3986ccba748c29e4ae78f826128c8-f593106f667b42f9
+      Baggage:
+      - sentry-trace_id=7ad3986ccba748c29e4ae78f826128c8,sentry-sample_rand=0.551299,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Nov 2026 22:01:11 GMT
+      Server:
+      - mw-api-ext.codfw.main-795bf5f7c7-pzs2s
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      X-Cache:
+      - cp4043 miss, cp4043 pass
+      X-Cache-Status:
+      - pass
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=REDACTED; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=REDACTED;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=REDACTED;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Fri,
+        04 Dec 2026 12:00:00 GMT
+      - WMF-Last-Access=REDACTED;Path=/;HttpOnly;secure;Expires=Fri, 04 Dec 2026
+        12:00:00 GMT
+      - WMF-Uniq=REDACTED;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        02 Nov 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 174.21.39.153
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Content-Length:
+      - '163'
+      X-Request-Id:
+      - aa0defd0-8e33-4aa1-ae71-1d7e2d741941
+      X-Analytics:
+      - ''
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4043",co_id;desc="4177197279"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"pages":{"46339345":{"pageid":46339345,"ns":0,"title":"4D
+        reconstruction","revisions":[{"revid":1382963012,"parentid":1382953687}]}}}}'
+  recorded_at: Mon, 02 Nov 2026 22:01:11 GMT
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&meta=tokens&type=csrf
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 7ad3986ccba748c29e4ae78f826128c8-f593106f667b42f9
+      Baggage:
+      - sentry-trace_id=7ad3986ccba748c29e4ae78f826128c8,sentry-sample_rand=0.551299,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Nov 2026 22:01:11 GMT
+      Server:
+      - mw-api-ext.codfw.main-795bf5f7c7-wnqjf
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      X-Cache:
+      - cp4043 miss, cp4043 pass
+      X-Cache-Status:
+      - pass
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=REDACTED; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=REDACTED;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=REDACTED;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Fri,
+        04 Dec 2026 12:00:00 GMT
+      - WMF-Last-Access=REDACTED;Path=/;HttpOnly;secure;Expires=Fri, 04 Dec 2026
+        12:00:00 GMT
+      - WMF-Uniq=REDACTED;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        02 Nov 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 174.21.39.153
+      Vary:
+      - Accept-Encoding,User-Agent
+      Content-Length:
+      - '59'
+      X-Request-Id:
+      - cb943427-c411-42ad-b9e0-019501ad8581
+      X-Analytics:
+      - ''
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4043",co_id;desc="1070507215"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"tokens":{"csrftoken":"+\\"}}}'
+  recorded_at: Mon, 02 Nov 2026 22:01:11 GMT
+- request:
+    method: post
+    uri: https://en.wikipedia.org/w/api.php
+    body:
+      encoding: UTF-8
+      string: action=compare&difftype=table&format=json&fromrev=1382953687&token=%2B%5C&torev=1382963012
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Cookie:
+      - GeoIP=REDACTED; NetworkProbeLimit=REDACTED; WMF-Last-Access=REDACTED;
+        WMF-Last-Access-Global=REDACTED; WMF-Uniq=REDACTED
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 7ad3986ccba748c29e4ae78f826128c8-f593106f667b42f9
+      Baggage:
+      - sentry-trace_id=7ad3986ccba748c29e4ae78f826128c8,sentry-sample_rand=0.551299,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Nov 2026 22:01:11 GMT
+      Server:
+      - mw-api-ext.codfw.main-795bf5f7c7-cgxh6
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      X-Cache:
+      - cp4043 miss, cp4043 pass
+      X-Cache-Status:
+      - pass
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      X-Client-Ip:
+      - 174.21.39.153
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Set-Cookie:
+      - WMF-Uniq=REDACTED;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        02 Nov 2027 00:00:00 GMT
+      Transfer-Encoding:
+      - chunked
+      X-Request-Id:
+      - c3470998-c58d-4bfc-991a-55a00f7831f7
+      X-Analytics:
+      - ''
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4043",co_id;desc="1094100241"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"warnings":{"main":{"*":"Unrecognized parameter: token."}},"compare":{"fromid":46339345,"fromrevid":1382953687,"fromns":0,"fromtitle":"4D
+        reconstruction","toid":46339345,"torevid":1382963012,"tons":0,"totitle":"4D
+        reconstruction","*":"<tr>\n  <td colspan=\"2\" class=\"diff-lineno\">Line
+        13:</td>\n  <td colspan=\"2\" class=\"diff-lineno\">Line 13:</td>\n</tr>\n<tr>\n  <td
+        class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-deleted\"><div>==
+        4D Gaussian splatting ==</div></td>\n  <td class=\"diff-marker\"></td>\n  <td
+        class=\"diff-context diff-side-added\"><div>== 4D Gaussian splatting ==</div></td>\n</tr>\n<tr>\n  <td
+        class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-deleted\"><div>{{excerpt|Gaussian
+        splatting|3D temporal Gaussian splatting}}</div></td>\n  <td class=\"diff-marker\"></td>\n  <td
+        class=\"diff-context diff-side-added\"><div>{{excerpt|Gaussian splatting|3D
+        temporal Gaussian splatting}}</div></td>\n</tr>\n<tr>\n  <td colspan=\"2\"
+        class=\"diff-empty diff-side-deleted\"></td>\n  <td class=\"diff-marker\"
+        data-marker=\"+\"></td>\n  <td class=\"diff-addedline diff-side-added\"><br
+        /></td>\n</tr>\n<tr>\n  <td colspan=\"2\" class=\"diff-empty diff-side-deleted\"></td>\n  <td
+        class=\"diff-marker\" data-marker=\"+\"></td>\n  <td class=\"diff-addedline
+        diff-side-added\"><div>== Application ==</div></td>\n</tr>\n<tr>\n  <td colspan=\"2\"
+        class=\"diff-empty diff-side-deleted\"></td>\n  <td class=\"diff-marker\"
+        data-marker=\"+\"></td>\n  <td class=\"diff-addedline diff-side-added\"><div>In
+        immersive media, 4D reconstruction is used for free viewpoint video. That
+        means a performance can be recorded by many cameras at the same time. It will
+        generate a 3D video that can be compressed and played online. So viewers can
+        choose their own viewing angle for free.&lt;ref&gt;{{Cite journal |last=Collet
+        |first=Alvaro |last2=Chuang |first2=Ming |last3=Sweeney |first3=Pat |last4=Gillett
+        |first4=Don |last5=Evseev |first5=Dennis |last6=Calabrese |first6=David |last7=Hoppe
+        |first7=Hugues |last8=Kirk |first8=Adam |last9=Sullivan |first9=Steve |date=2015-07-27
+        |title=High-quality streamable free-viewpoint video |url=https://dl.acm.org/doi/10.1145/2766945
+        |journal=ACM Transactions on Graphics (TOG) |location=New York, NY, USA |publisher=Association
+        for Computing Machinery |volume=34 |issue=4 |pages=69:1\u201369:13 |doi=10.1145/2766945
+        |issn=0730-0301}}&lt;/ref&gt; It can also be used for telepresence. That means
+        a person is reconstructed as a 3D model in real time. And send it to a far-away
+        place. And someone wearing a mixed reality headset can see this person like
+        they are standing in front of them and can interact with them.&lt;ref&gt;{{Cite
+        journal |last=Orts-Escolano |first=Sergio |last2=Rhemann |first2=Christoph
+        |last3=Fanello |first3=Sean |last4=Chang |first4=Wayne |last5=Kowdle |first5=Adarsh
+        |last6=Degtyarev |first6=Yury |last7=Kim |first7=David |last8=Davidson |first8=Philip
+        L. |last9=Khamis |first9=Sameh |last10=Dou |first10=Mingsong |last11=Tankovich
+        |first11=Vladimir |last12=Loop |first12=Charles |last13=Cai |first13=Qin |last14=Chou
+        |first14=Philip A. |last15=Mennicken |first15=Sarah |date=2016-10-16 |title=Holoportation:
+        Virtual 3D Teleportation in Real-time |url=https://dl.acm.org/doi/10.1145/2984511.2984517
+        |journal=Proceedings of the 29th Annual Symposium on User Interface Software
+        and Technology |series=UIST ''16 |location=New York, NY, USA |publisher=Association
+        for Computing Machinery |pages=741\u2013754 |doi=10.1145/2984511.2984517 |isbn=978-1-4503-4189-9}}&lt;/ref&gt;
+        In virtual reality, a musician''s performance can be recorded and compressed
+        into a very small view, and then viewers wearing a VR headset can watch it
+        from any angle.&lt;ref name=\"JiangShenHongGuo2024-1\"&gt;{{Cite journal |last=Jiang
+        |first=Yuheng |last2=Shen |first2=Zhehao |last3=Hong |first3=Yu |last4=Guo
+        |first4=Chengcheng |last5=Wu |first5=Yize |last6=Zhang |first6=Yingliang |last7=Yu
+        |first7=Jingyi |last8=Xu |first8=Lan |date=2024-11-19 |title=Robust Dual Gaussian
+        Splatting for Immersive Human-centric Volumetric Videos |url=https://dl.acm.org/doi/10.1145/3687926
+        |journal=ACM Transactions on Graphics (TOG) |location=New York, NY, USA |publisher=Association
+        for Computing Machinery |volume=43 |issue=6 |pages=265:1\u2013265:15 |doi=10.1145/3687926
+        |issn=0730-0301}}&lt;/ref&gt; Researchers were developing 3D live streaming
+        for sports. The players in the basketball game are reconstructed, so viewers
+        can move around in the 3D scene when they are watching the live streaming
+        game.&lt;ref&gt;{{Cite web |title=Echoes of the Coliseum: Towards 3D Live
+        streaming of Sports Events - Robotics Institute Carnegie Mellon University
+        |url=https://publications.ri.cmu.edu/echoes-of-the-coliseum-towards-3d-live-streaming-of-sports-events
+        |access-date=2026-10-31 |website=publications.ri.cmu.edu |language=en}}&lt;/ref&gt;</div></td>\n</tr>\n<tr>\n  <td
+        colspan=\"2\" class=\"diff-empty diff-side-deleted\"></td>\n  <td class=\"diff-marker\"
+        data-marker=\"+\"></td>\n  <td class=\"diff-addedline diff-side-added\"><br
+        /></td>\n</tr>\n<tr>\n  <td colspan=\"2\" class=\"diff-empty diff-side-deleted\"></td>\n  <td
+        class=\"diff-marker\" data-marker=\"+\"></td>\n  <td class=\"diff-addedline
+        diff-side-added\"><div>In simulation, our real city street can be turned into
+        virtual digital twins. Self-driving cars can be tested there without driving
+        on railroads. This approach also costs lower than testing on real streets.
+        For example, StreetGaussians uses videos to reconstruct the street and moving
+        vehicles as the simulation environment for training self-driving vehicles.&lt;ref&gt;{{Citation
+        |last=Yan |first=Yunzhi |title=Street Gaussians: Modeling Dynamic Urban Scenes
+        with Gaussian Splatting |date=2025 |work=Computer Vision \u2013 ECCV 2024
+        |volume=15131 |pages=156\u2013173 |editor-last=Leonardis |editor-first=Ale\u0161
+        |url=https://link.springer.com/10.1007/978-3-031-73464-9_10 |access-date=2026-10-31
+        |place=Cham |publisher=Springer Nature Switzerland |language=en |doi=10.1007/978-3-031-73464-9_10
+        |isbn=978-3-031-73463-2 |last2=Lin |first2=Haotong |last3=Zhou |first3=Chenxu
+        |last4=Wang |first4=Weijie |last5=Sun |first5=Haiyang |last6=Zhan |first6=Kun
+        |last7=Lang |first7=Xianpeng |last8=Zhou |first8=Xiaowei |last9=Peng |first9=Sida
+        |editor2-last=Ricci |editor2-first=Elisa |editor3-last=Roth |editor3-first=Stefan
+        |editor4-last=Russakovsky |editor4-first=Olga}}&lt;/ref&gt;</div></td>\n</tr>\n<tr>\n  <td
+        colspan=\"2\" class=\"diff-empty diff-side-deleted\"></td>\n  <td class=\"diff-marker\"
+        data-marker=\"+\"></td>\n  <td class=\"diff-addedline diff-side-added\"><br
+        /></td>\n</tr>\n<tr>\n  <td colspan=\"2\" class=\"diff-empty diff-side-deleted\"></td>\n  <td
+        class=\"diff-marker\" data-marker=\"+\"></td>\n  <td class=\"diff-addedline
+        diff-side-added\"><div>In content production, 4D reconstruction can create
+        new viewers for free film and extended reality. It can capture dynamic content
+        used for games and extended reality directly from our real sense to save a
+        lot of manual modeling work.&lt;ref name=\"YunusLenssenNiemeyerLiao2024-1\"
+        /&gt; And it''s used to make digital humans, such as turning a real person''s
+        movement into the digital world.&lt;ref name=\"JiangShenHongGuo2024-1\" /&gt;&lt;ref&gt;{{Cite
+        journal |last=Han |first=Dong |last2=Su |first2=Cheng-Ye |last3=Zeng |first3=Fan-Yi
+        |last4=Zhang |first4=Fang-Lue |last5=Wang |first5=Miao |date=2026-11 |title=Dynamic
+        scene representation in the era of neural rendering: from NeRFs to 3DGSs |url=https://link.springer.com/10.1007/s11704-025-50389-x
+        |journal=Frontiers of Computer Science |language=en |volume=20 |issue=11 |pages=2011708
+        |doi=10.1007/s11704-025-50389-x |issn=2095-2228}}&lt;/ref&gt;</div></td>\n</tr>\n<tr>\n  <td
+        class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-deleted\"><br
+        /></td>\n  <td class=\"diff-marker\"></td>\n  <td class=\"diff-context diff-side-added\"><br
+        /></td>\n</tr>\n<tr>\n  <td class=\"diff-marker\"></td>\n  <td class=\"diff-context
+        diff-side-deleted\"><div>== In medical imaging ==</div></td>\n  <td class=\"diff-marker\"></td>\n  <td
+        class=\"diff-context diff-side-added\"><div>== In medical imaging ==</div></td>\n</tr>\n"}}'
+  recorded_at: Mon, 02 Nov 2026 22:01:11 GMT
+- request:
+    method: get
+    uri: https://en.wikipedia.org/w/api.php?action=query&format=json&meta=tokens&type=csrf
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 7ad3986ccba748c29e4ae78f826128c8-f593106f667b42f9
+      Baggage:
+      - sentry-trace_id=7ad3986ccba748c29e4ae78f826128c8,sentry-sample_rand=0.551299,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Nov 2026 22:01:12 GMT
+      Server:
+      - mw-api-ext.codfw.main-795bf5f7c7-czptd
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      X-Cache:
+      - cp4043 miss, cp4043 pass
+      X-Cache-Status:
+      - pass
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      Set-Cookie:
+      - GeoIP=REDACTED; Path=/; secure; Domain=.wikipedia.org
+      - NetworkProbeLimit=REDACTED;Path=/;Secure;SameSite=None;Max-Age=3600
+      - WMF-Last-Access-Global=REDACTED;Path=/;Domain=.wikipedia.org;HttpOnly;secure;Expires=Fri,
+        04 Dec 2026 12:00:00 GMT
+      - WMF-Last-Access=REDACTED;Path=/;HttpOnly;secure;Expires=Fri, 04 Dec 2026
+        12:00:00 GMT
+      - WMF-Uniq=REDACTED;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        02 Nov 2027 00:00:00 GMT
+      X-Client-Ip:
+      - 174.21.39.153
+      Vary:
+      - Accept-Encoding,User-Agent
+      Content-Length:
+      - '59'
+      X-Request-Id:
+      - b5fd8b10-81a8-42a6-afac-4b6924079d39
+      X-Analytics:
+      - ''
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4043",co_id;desc="3412207782"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"batchcomplete":"","query":{"tokens":{"csrftoken":"+\\"}}}'
+  recorded_at: Mon, 02 Nov 2026 22:01:12 GMT
+- request:
+    method: post
+    uri: https://en.wikipedia.org/w/api.php
+    body:
+      encoding: UTF-8
+      string: action=parse&contentmodel=wikitext&disableeditsection=true&format=json&text=%3D%3D+Application+%3D%3D%0A%0AIn+immersive+media%2C+4D+reconstruction+is+used+for+free+viewpoint+video.+That+means+a+performance+can+be+recorded+by+many+cameras+at+the+same+time.+It+will+generate+a+3D+video+that+can+be+compressed+and+played+online.+So+viewers+can+choose+their+own+viewing+angle+for+free.%3Cref%3E%7B%7BCite+journal+%7Clast%3DCollet+%7Cfirst%3DAlvaro+%7Clast2%3DChuang+%7Cfirst2%3DMing+%7Clast3%3DSweeney+%7Cfirst3%3DPat+%7Clast4%3DGillett+%7Cfirst4%3DDon+%7Clast5%3DEvseev+%7Cfirst5%3DDennis+%7Clast6%3DCalabrese+%7Cfirst6%3DDavid+%7Clast7%3DHoppe+%7Cfirst7%3DHugues+%7Clast8%3DKirk+%7Cfirst8%3DAdam+%7Clast9%3DSullivan+%7Cfirst9%3DSteve+%7Cdate%3D2015-07-27+%7Ctitle%3DHigh-quality+streamable+free-viewpoint+video+%7Curl%3Dhttps%3A%2F%2Fdl.acm.org%2Fdoi%2F10.1145%2F2766945+%7Cjournal%3DACM+Transactions+on+Graphics+%28TOG%29+%7Clocation%3DNew+York%2C+NY%2C+USA+%7Cpublisher%3DAssociation+for+Computing+Machinery+%7Cvolume%3D34+%7Cissue%3D4+%7Cpages%3D69%3A1%E2%80%9369%3A13+%7Cdoi%3D10.1145%2F2766945+%7Cissn%3D0730-0301%7D%7D%3C%2Fref%3E+It+can+also+be+used+for+telepresence.+That+means+a+person+is+reconstructed+as+a+3D+model+in+real+time.+And+send+it+to+a+far-away+place.+And+someone+wearing+a+mixed+reality+headset+can+see+this+person+like+they+are+standing+in+front+of+them+and+can+interact+with+them.%3Cref%3E%7B%7BCite+journal+%7Clast%3DOrts-Escolano+%7Cfirst%3DSergio+%7Clast2%3DRhemann+%7Cfirst2%3DChristoph+%7Clast3%3DFanello+%7Cfirst3%3DSean+%7Clast4%3DChang+%7Cfirst4%3DWayne+%7Clast5%3DKowdle+%7Cfirst5%3DAdarsh+%7Clast6%3DDegtyarev+%7Cfirst6%3DYury+%7Clast7%3DKim+%7Cfirst7%3DDavid+%7Clast8%3DDavidson+%7Cfirst8%3DPhilip+L.+%7Clast9%3DKhamis+%7Cfirst9%3DSameh+%7Clast10%3DDou+%7Cfirst10%3DMingsong+%7Clast11%3DTankovich+%7Cfirst11%3DVladimir+%7Clast12%3DLoop+%7Cfirst12%3DCharles+%7Clast13%3DCai+%7Cfirst13%3DQin+%7Clast14%3DChou+%7Cfirst14%3DPhilip+A.+%7Clast15%3DMennicken+%7Cfirst15%3DSarah+%7Cdate%3D2016-10-16+%7Ctitle%3DHoloportation%3A+Virtual+3D+Teleportation+in+Real-time+%7Curl%3Dhttps%3A%2F%2Fdl.acm.org%2Fdoi%2F10.1145%2F2984511.2984517+%7Cjournal%3DProceedings+of+the+29th+Annual+Symposium+on+User+Interface+Software+and+Technology+%7Cseries%3DUIST+%2716+%7Clocation%3DNew+York%2C+NY%2C+USA+%7Cpublisher%3DAssociation+for+Computing+Machinery+%7Cpages%3D741%E2%80%93754+%7Cdoi%3D10.1145%2F2984511.2984517+%7Cisbn%3D978-1-4503-4189-9%7D%7D%3C%2Fref%3E+In+virtual+reality%2C+a+musician%27s+performance+can+be+recorded+and+compressed+into+a+very+small+view%2C+and+then+viewers+wearing+a+VR+headset+can+watch+it+from+any+angle.%3Cref+name%3D%22JiangShenHongGuo2024-1%22%3E%7B%7BCite+journal+%7Clast%3DJiang+%7Cfirst%3DYuheng+%7Clast2%3DShen+%7Cfirst2%3DZhehao+%7Clast3%3DHong+%7Cfirst3%3DYu+%7Clast4%3DGuo+%7Cfirst4%3DChengcheng+%7Clast5%3DWu+%7Cfirst5%3DYize+%7Clast6%3DZhang+%7Cfirst6%3DYingliang+%7Clast7%3DYu+%7Cfirst7%3DJingyi+%7Clast8%3DXu+%7Cfirst8%3DLan+%7Cdate%3D2024-11-19+%7Ctitle%3DRobust+Dual+Gaussian+Splatting+for+Immersive+Human-centric+Volumetric+Videos+%7Curl%3Dhttps%3A%2F%2Fdl.acm.org%2Fdoi%2F10.1145%2F3687926+%7Cjournal%3DACM+Transactions+on+Graphics+%28TOG%29+%7Clocation%3DNew+York%2C+NY%2C+USA+%7Cpublisher%3DAssociation+for+Computing+Machinery+%7Cvolume%3D43+%7Cissue%3D6+%7Cpages%3D265%3A1%E2%80%93265%3A15+%7Cdoi%3D10.1145%2F3687926+%7Cissn%3D0730-0301%7D%7D%3C%2Fref%3E+Researchers+were+developing+3D+live+streaming+for+sports.+The+players+in+the+basketball+game+are+reconstructed%2C+so+viewers+can+move+around+in+the+3D+scene+when+they+are+watching+the+live+streaming+game.%3Cref%3E%7B%7BCite+web+%7Ctitle%3DEchoes+of+the+Coliseum%3A+Towards+3D+Live+streaming+of+Sports+Events+-+Robotics+Institute+Carnegie+Mellon+University+%7Curl%3Dhttps%3A%2F%2Fpublications.ri.cmu.edu%2Fechoes-of-the-coliseum-towards-3d-live-streaming-of-sports-events+%7Caccess-date%3D2026-10-31+%7Cwebsite%3Dpublications.ri.cmu.edu+%7Clanguage%3Den%7D%7D%3C%2Fref%3E%0A%0AIn+simulation%2C+our+real+city+street+can+be+turned+into+virtual+digital+twins.+Self-driving+cars+can+be+tested+there+without+driving+on+railroads.+This+approach+also+costs+lower+than+testing+on+real+streets.+For+example%2C+StreetGaussians+uses+videos+to+reconstruct+the+street+and+moving+vehicles+as+the+simulation+environment+for+training+self-driving+vehicles.%3Cref%3E%7B%7BCitation+%7Clast%3DYan+%7Cfirst%3DYunzhi+%7Ctitle%3DStreet+Gaussians%3A+Modeling+Dynamic+Urban+Scenes+with+Gaussian+Splatting+%7Cdate%3D2025+%7Cwork%3DComputer+Vision+%E2%80%93+ECCV+2024+%7Cvolume%3D15131+%7Cpages%3D156%E2%80%93173+%7Ceditor-last%3DLeonardis+%7Ceditor-first%3DAle%C5%A1+%7Curl%3Dhttps%3A%2F%2Flink.springer.com%2F10.1007%2F978-3-031-73464-9_10+%7Caccess-date%3D2026-10-31+%7Cplace%3DCham+%7Cpublisher%3DSpringer+Nature+Switzerland+%7Clanguage%3Den+%7Cdoi%3D10.1007%2F978-3-031-73464-9_10+%7Cisbn%3D978-3-031-73463-2+%7Clast2%3DLin+%7Cfirst2%3DHaotong+%7Clast3%3DZhou+%7Cfirst3%3DChenxu+%7Clast4%3DWang+%7Cfirst4%3DWeijie+%7Clast5%3DSun+%7Cfirst5%3DHaiyang+%7Clast6%3DZhan+%7Cfirst6%3DKun+%7Clast7%3DLang+%7Cfirst7%3DXianpeng+%7Clast8%3DZhou+%7Cfirst8%3DXiaowei+%7Clast9%3DPeng+%7Cfirst9%3DSida+%7Ceditor2-last%3DRicci+%7Ceditor2-first%3DElisa+%7Ceditor3-last%3DRoth+%7Ceditor3-first%3DStefan+%7Ceditor4-last%3DRussakovsky+%7Ceditor4-first%3DOlga%7D%7D%3C%2Fref%3E%0A%0AIn+content+production%2C+4D+reconstruction+can+create+new+viewers+for+free+film+and+extended+reality.+It+can+capture+dynamic+content+used+for+games+and+extended+reality+directly+from+our+real+sense+to+save+a+lot+of+manual+modeling+work.%3Cref+name%3D%22YunusLenssenNiemeyerLiao2024-1%22+%2F%3E+And+it%27s+used+to+make+digital+humans%2C+such+as+turning+a+real+person%27s+movement+into+the+digital+world.%3Cref+name%3D%22JiangShenHongGuo2024-1%22+%2F%3E%3Cref%3E%7B%7BCite+journal+%7Clast%3DHan+%7Cfirst%3DDong+%7Clast2%3DSu+%7Cfirst2%3DCheng-Ye+%7Clast3%3DZeng+%7Cfirst3%3DFan-Yi+%7Clast4%3DZhang+%7Cfirst4%3DFang-Lue+%7Clast5%3DWang+%7Cfirst5%3DMiao+%7Cdate%3D2026-11+%7Ctitle%3DDynamic+scene+representation+in+the+era+of+neural+rendering%3A+from+NeRFs+to+3DGSs+%7Curl%3Dhttps%3A%2F%2Flink.springer.com%2F10.1007%2Fs11704-025-50389-x+%7Cjournal%3DFrontiers+of+Computer+Science+%7Clanguage%3Den+%7Cvolume%3D20+%7Cissue%3D11+%7Cpages%3D2011708+%7Cdoi%3D10.1007%2Fs11704-025-50389-x+%7Cissn%3D2095-2228%7D%7D%3C%2Fref%3E&token=%2B%5C
+    headers:
+      User-Agent:
+      - WikiEduDashboard Dev/1.0 (https://github.com/WikiEducationFoundation/WikiEduDashboard)
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Cookie:
+      - GeoIP=REDACTED; NetworkProbeLimit=REDACTED; WMF-Last-Access=REDACTED;
+        WMF-Last-Access-Global=REDACTED; WMF-Uniq=REDACTED
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      Sentry-Trace:
+      - 7ad3986ccba748c29e4ae78f826128c8-f593106f667b42f9
+      Baggage:
+      - sentry-trace_id=7ad3986ccba748c29e4ae78f826128c8,sentry-sample_rand=0.551299,sentry-environment=test
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 02 Nov 2026 22:01:12 GMT
+      Server:
+      - mw-api-ext.codfw.main-795bf5f7c7-vmtvd
+      X-Content-Type-Options:
+      - nosniff
+      Content-Security-Policy:
+      - default-src 'self'; script-src 'none'; object-src 'none'
+      X-Frame-Options:
+      - DENY
+      Content-Disposition:
+      - inline; filename=api-result.json
+      Cache-Control:
+      - private, must-revalidate, max-age=0
+      Content-Type:
+      - application/json; charset=utf-8
+      Age:
+      - '0'
+      X-Cache:
+      - cp4043 miss, cp4043 pass
+      X-Cache-Status:
+      - pass
+      Strict-Transport-Security:
+      - max-age=106384710; includeSubDomains; preload
+      Report-To:
+      - '{ "group": "wm_nel", "max_age": 604800, "endpoints": [{ "url": "https://intake-logging.wikimedia.org/v1/events?stream=w3c.reportingapi.network_error&schema_uri=/w3c/reportingapi/network_error/1.0.0"
+        }] }'
+      Nel:
+      - '{ "report_to": "wm_nel", "max_age": 604800, "failure_fraction": 0.05, "success_fraction":
+        0.0}'
+      X-Client-Ip:
+      - 174.21.39.153
+      Vary:
+      - Accept-Encoding,X-Subdomain,Treat-as-Untrusted,X-Forwarded-Proto,Cookie,Authorization,User-Agent
+      Set-Cookie:
+      - WMF-Uniq=REDACTED;Domain=.wikipedia.org;Path=/;HttpOnly;secure;SameSite=None;Expires=Tue,
+        02 Nov 2027 00:00:00 GMT
+      Transfer-Encoding:
+      - chunked
+      X-Request-Id:
+      - bc4e0fac-d3ee-4af9-821c-2420838440d6
+      X-Analytics:
+      - ''
+      Server-Timing:
+      - cache;desc="pass", host;desc="cp4043",co_id;desc="632324245"
+    body:
+      encoding: ASCII-8BIT
+      string: '{"warnings":{"main":{"*":"Unrecognized parameter: token."}},"parse":{"title":"API","pageid":27697009,"text":{"*":"<div
+        class=\"mw-content-ltr mw-parser-output\" lang=\"en\" dir=\"ltr\"><div class=\"mw-heading
+        mw-heading2\"><h2 id=\"Application\">Application</h2></div>\n<p>In immersive
+        media, 4D reconstruction is used for free viewpoint video. That means a performance
+        can be recorded by many cameras at the same time. It will generate a 3D video
+        that can be compressed and played online. So viewers can choose their own
+        viewing angle for free.<sup id=\"cite&#95;ref-1\" class=\"reference\"><a href=\"#cite_note-1\"><span
+        class=\"cite-bracket\">&#91;</span>1<span class=\"cite-bracket\">&#93;</span></a></sup>
+        It can also be used for telepresence. That means a person is reconstructed
+        as a 3D model in real time. And send it to a far-away place. And someone wearing
+        a mixed reality headset can see this person like they are standing in front
+        of them and can interact with them.<sup id=\"cite&#95;ref-2\" class=\"reference\"><a
+        href=\"#cite_note-2\"><span class=\"cite-bracket\">&#91;</span>2<span class=\"cite-bracket\">&#93;</span></a></sup>
+        In virtual reality, a musician''s performance can be recorded and compressed
+        into a very small view, and then viewers wearing a VR headset can watch it
+        from any angle.<sup id=\"cite&#95;ref-JiangShenHongGuo2024-1&#95;3-0\" class=\"reference\"><a
+        href=\"#cite_note-JiangShenHongGuo2024-1-3\"><span class=\"cite-bracket\">&#91;</span>3<span
+        class=\"cite-bracket\">&#93;</span></a></sup> Researchers were developing
+        3D live streaming for sports. The players in the basketball game are reconstructed,
+        so viewers can move around in the 3D scene when they are watching the live
+        streaming game.<sup id=\"cite&#95;ref-4\" class=\"reference\"><a href=\"#cite_note-4\"><span
+        class=\"cite-bracket\">&#91;</span>4<span class=\"cite-bracket\">&#93;</span></a></sup>\n</p><p>In
+        simulation, our real city street can be turned into virtual digital twins.
+        Self-driving cars can be tested there without driving on railroads. This approach
+        also costs lower than testing on real streets. For example, StreetGaussians
+        uses videos to reconstruct the street and moving vehicles as the simulation
+        environment for training self-driving vehicles.<sup id=\"cite&#95;ref-5\"
+        class=\"reference\"><a href=\"#cite_note-5\"><span class=\"cite-bracket\">&#91;</span>5<span
+        class=\"cite-bracket\">&#93;</span></a></sup>\n</p><p>In content production,
+        4D reconstruction can create new viewers for free film and extended reality.
+        It can capture dynamic content used for games and extended reality directly
+        from our real sense to save a lot of manual modeling work.<sup id=\"cite&#95;ref-YunusLenssenNiemeyerLiao2024-1&#95;6-0\"
+        class=\"reference\"><a href=\"#cite_note-YunusLenssenNiemeyerLiao2024-1-6\"><span
+        class=\"cite-bracket\">&#91;</span>6<span class=\"cite-bracket\">&#93;</span></a></sup>
+        And it''s used to make digital humans, such as turning a real person''s movement
+        into the digital world.<sup id=\"cite&#95;ref-JiangShenHongGuo2024-1&#95;3-1\"
+        class=\"reference\"><a href=\"#cite_note-JiangShenHongGuo2024-1-3\"><span
+        class=\"cite-bracket\">&#91;</span>3<span class=\"cite-bracket\">&#93;</span></a></sup><sup
+        id=\"cite&#95;ref-7\" class=\"reference\"><a href=\"#cite_note-7\"><span class=\"cite-bracket\">&#91;</span>7<span
+        class=\"cite-bracket\">&#93;</span></a></sup>\n</p>\n<div class=\"mw-references-wrap\"><ol
+        class=\"references\">\n<li id=\"cite&#95;note-1\"><span class=\"mw-cite-backlink\"><b><a
+        href=\"#cite_ref-1\">^</a></b></span> <span class=\"reference-text\"><style
+        data-mw-deduplicate=\"TemplateStyles:r1333433106\">.mw-parser-output cite.citation{font-style:inherit;word-wrap:break-word}.mw-parser-output
+        .citation q{quotes:\"\\\"\"\"\\\"\"\"''\"\"''\"}.mw-parser-output .citation:target{background-color:rgba(0,127,255,0.133)}.mw-parser-output
+        .id-lock-free.id-lock-free a{background:url(\"//upload.wikimedia.org/wikipedia/commons/6/65/Lock-green.svg\")right
+        0.1em center/9px no-repeat}.mw-parser-output .id-lock-limited.id-lock-limited
+        a,.mw-parser-output .id-lock-registration.id-lock-registration a{background:url(\"//upload.wikimedia.org/wikipedia/commons/d/d6/Lock-gray-alt-2.svg\")right
+        0.1em center/9px no-repeat}.mw-parser-output .id-lock-subscription.id-lock-subscription
+        a{background:url(\"//upload.wikimedia.org/wikipedia/commons/a/aa/Lock-red-alt-2.svg\")right
+        0.1em center/9px no-repeat}.mw-parser-output .cs1-ws-icon a{background:url(\"//upload.wikimedia.org/wikipedia/commons/4/4c/Wikisource-logo.svg\")right
+        0.1em center/12px no-repeat}body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output
+        .id-lock-free a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output
+        .id-lock-limited a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output
+        .id-lock-registration a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output
+        .id-lock-subscription a,body:not(.skin-timeless):not(.skin-minerva) .mw-parser-output
+        .cs1-ws-icon a{background-size:contain;padding:0 1em 0 0}.mw-parser-output
+        .cs1-code{color:inherit;background:inherit;border:none;padding:inherit}.mw-parser-output
+        .cs1-hidden-error{display:none;color:var(--color-error,#bf3c2c)}.mw-parser-output
+        .cs1-visible-error{color:var(--color-error,#bf3c2c)}.mw-parser-output .cs1-maint{display:none;color:#085;margin-left:0.3em}.mw-parser-output
+        .cs1-kern-left{padding-left:0.2em}.mw-parser-output .cs1-kern-right{padding-right:0.2em}.mw-parser-output
+        .citation .mw-selflink{font-weight:inherit}@media screen{.mw-parser-output
+        .cs1-format{font-size:95%}html.skin-theme-clientpref-night .mw-parser-output
+        .cs1-maint{color:#18911f}}@media screen and (prefers-color-scheme:dark){html.skin-theme-clientpref-os
+        .mw-parser-output .cs1-maint{color:#18911f}}</style><cite id=\"CITEREFColletChuangSweeneyGillett2015\"
+        class=\"citation journal cs1\">Collet, Alvaro; Chuang, Ming; Sweeney, Pat;
+        Gillett, Don; Evseev, Dennis; Calabrese, David; Hoppe, Hugues; Kirk, Adam;
+        Sullivan, Steve (2015-07-27). <a rel=\"nofollow\" class=\"external text\"
+        href=\"https://dl.acm.org/doi/10.1145/2766945\">\"High-quality streamable
+        free-viewpoint video\"</a>. <i>ACM Transactions on Graphics (TOG)</i>. <b>34</b>
+        (4). New York, NY, USA: Association for Computing Machinery: 69:1\u201369:13.
+        <a href=\"/wiki/Doi_(identifier)\" class=\"mw-redirect\" title=\"Doi (identifier)\">doi</a>:<a
+        rel=\"nofollow\" class=\"external text\" href=\"https://doi.org/10.1145%2F2766945\">10.1145/2766945</a>.
+        <a href=\"/wiki/ISSN_(identifier)\" class=\"mw-redirect\" title=\"ISSN (identifier)\">ISSN</a>&#160;<a
+        rel=\"nofollow\" class=\"external text\" href=\"https://search.worldcat.org/issn/0730-0301\">0730-0301</a>.</cite><span
+        title=\"ctx&#95;ver=Z39.88-2004&amp;rft&#95;val&#95;fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=ACM+Transactions+on+Graphics+%28TOG%29&amp;rft.atitle=High-quality+streamable+free-viewpoint+video&amp;rft.volume=34&amp;rft.issue=4&amp;rft.pages=69%3A1-69%3A13&amp;rft.date=2015-07-27&amp;rft&#95;id=info%3Adoi%2F10.1145%2F2766945&amp;rft.issn=0730-0301&amp;rft.aulast=Collet&amp;rft.aufirst=Alvaro&amp;rft.au=Chuang%2C+Ming&amp;rft.au=Sweeney%2C+Pat&amp;rft.au=Gillett%2C+Don&amp;rft.au=Evseev%2C+Dennis&amp;rft.au=Calabrese%2C+David&amp;rft.au=Hoppe%2C+Hugues&amp;rft.au=Kirk%2C+Adam&amp;rft.au=Sullivan%2C+Steve&amp;rft&#95;id=https%3A%2F%2Fdl.acm.org%2Fdoi%2F10.1145%2F2766945&amp;rfr&#95;id=info%3Asid%2Fen.wikipedia.org%3AAPI\"
+        class=\"Z3988\"></span></span>\n</li>\n<li id=\"cite&#95;note-2\"><span class=\"mw-cite-backlink\"><b><a
+        href=\"#cite_ref-2\">^</a></b></span> <span class=\"reference-text\"><link
+        rel=\"mw-deduplicated-inline-style\" href=\"mw-data:TemplateStyles:r1333433106\"
+        /><cite id=\"CITEREFOrts-EscolanoRhemannFanelloChang2016\" class=\"citation
+        journal cs1\">Orts-Escolano, Sergio; Rhemann, Christoph; Fanello, Sean; Chang,
+        Wayne; Kowdle, Adarsh; Degtyarev, Yury; Kim, David; Davidson, Philip L.; Khamis,
+        Sameh; Dou, Mingsong; Tankovich, Vladimir; Loop, Charles; Cai, Qin; Chou,
+        Philip A.; Mennicken, Sarah (2016-10-16). <a rel=\"nofollow\" class=\"external
+        text\" href=\"https://dl.acm.org/doi/10.1145/2984511.2984517\">\"Holoportation:
+        Virtual 3D Teleportation in Real-time\"</a>. <i>Proceedings of the 29th Annual
+        Symposium on User Interface Software and Technology</i>. UIST ''16. New York,
+        NY, USA: Association for Computing Machinery: <span class=\"nowrap\">741\u2013</span>754.
+        <a href=\"/wiki/Doi_(identifier)\" class=\"mw-redirect\" title=\"Doi (identifier)\">doi</a>:<a
+        rel=\"nofollow\" class=\"external text\" href=\"https://doi.org/10.1145%2F2984511.2984517\">10.1145/2984511.2984517</a>.
+        <a href=\"/wiki/ISBN_(identifier)\" class=\"mw-redirect\" title=\"ISBN (identifier)\">ISBN</a>&#160;<a
+        href=\"/wiki/Special:BookSources/978-1-4503-4189-9\" title=\"Special:BookSources/978-1-4503-4189-9\"><bdi>978-1-4503-4189-9</bdi></a>.</cite><span
+        title=\"ctx&#95;ver=Z39.88-2004&amp;rft&#95;val&#95;fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Proceedings+of+the+29th+Annual+Symposium+on+User+Interface+Software+and+Technology&amp;rft.atitle=Holoportation%3A+Virtual+3D+Teleportation+in+Real-time&amp;rft.pages=741-754&amp;rft.date=2016-10-16&amp;rft&#95;id=info%3Adoi%2F10.1145%2F2984511.2984517&amp;rft.isbn=978-1-4503-4189-9&amp;rft.aulast=Orts-Escolano&amp;rft.aufirst=Sergio&amp;rft.au=Rhemann%2C+Christoph&amp;rft.au=Fanello%2C+Sean&amp;rft.au=Chang%2C+Wayne&amp;rft.au=Kowdle%2C+Adarsh&amp;rft.au=Degtyarev%2C+Yury&amp;rft.au=Kim%2C+David&amp;rft.au=Davidson%2C+Philip+L.&amp;rft.au=Khamis%2C+Sameh&amp;rft.au=Dou%2C+Mingsong&amp;rft.au=Tankovich%2C+Vladimir&amp;rft.au=Loop%2C+Charles&amp;rft.au=Cai%2C+Qin&amp;rft.au=Chou%2C+Philip+A.&amp;rft.au=Mennicken%2C+Sarah&amp;rft&#95;id=https%3A%2F%2Fdl.acm.org%2Fdoi%2F10.1145%2F2984511.2984517&amp;rfr&#95;id=info%3Asid%2Fen.wikipedia.org%3AAPI\"
+        class=\"Z3988\"></span><span class=\"cs1-maint citation-comment\"><code class=\"cs1-code\">{{<a
+        href=\"/wiki/Template:Cite_journal\" title=\"Template:Cite journal\">cite
+        journal</a>}}</code>:  CS1 maint: periodical has ISBN (<a href=\"/wiki/Category:CS1_maint:_periodical_has_ISBN\"
+        title=\"Category:CS1 maint: periodical has ISBN\">link</a>)</span></span>\n</li>\n<li
+        id=\"cite&#95;note-JiangShenHongGuo2024-1-3\"><span class=\"mw-cite-backlink\">^
+        <a href=\"#cite_ref-JiangShenHongGuo2024-1_3-0\"><sup><i><b>a</b></i></sup></a>
+        <a href=\"#cite_ref-JiangShenHongGuo2024-1_3-1\"><sup><i><b>b</b></i></sup></a></span>
+        <span class=\"reference-text\"><link rel=\"mw-deduplicated-inline-style\"
+        href=\"mw-data:TemplateStyles:r1333433106\" /><cite id=\"CITEREFJiangShenHongGuo2024\"
+        class=\"citation journal cs1\">Jiang, Yuheng; Shen, Zhehao; Hong, Yu; Guo,
+        Chengcheng; Wu, Yize; Zhang, Yingliang; Yu, Jingyi; Xu, Lan (2024-11-19).
+        <a rel=\"nofollow\" class=\"external text\" href=\"https://dl.acm.org/doi/10.1145/3687926\">\"Robust
+        Dual Gaussian Splatting for Immersive Human-centric Volumetric Videos\"</a>.
+        <i>ACM Transactions on Graphics (TOG)</i>. <b>43</b> (6). New York, NY, USA:
+        Association for Computing Machinery: 265:1\u2013265:15. <a href=\"/wiki/Doi_(identifier)\"
+        class=\"mw-redirect\" title=\"Doi (identifier)\">doi</a>:<a rel=\"nofollow\"
+        class=\"external text\" href=\"https://doi.org/10.1145%2F3687926\">10.1145/3687926</a>.
+        <a href=\"/wiki/ISSN_(identifier)\" class=\"mw-redirect\" title=\"ISSN (identifier)\">ISSN</a>&#160;<a
+        rel=\"nofollow\" class=\"external text\" href=\"https://search.worldcat.org/issn/0730-0301\">0730-0301</a>.</cite><span
+        title=\"ctx&#95;ver=Z39.88-2004&amp;rft&#95;val&#95;fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=ACM+Transactions+on+Graphics+%28TOG%29&amp;rft.atitle=Robust+Dual+Gaussian+Splatting+for+Immersive+Human-centric+Volumetric+Videos&amp;rft.volume=43&amp;rft.issue=6&amp;rft.pages=265%3A1-265%3A15&amp;rft.date=2024-11-19&amp;rft&#95;id=info%3Adoi%2F10.1145%2F3687926&amp;rft.issn=0730-0301&amp;rft.aulast=Jiang&amp;rft.aufirst=Yuheng&amp;rft.au=Shen%2C+Zhehao&amp;rft.au=Hong%2C+Yu&amp;rft.au=Guo%2C+Chengcheng&amp;rft.au=Wu%2C+Yize&amp;rft.au=Zhang%2C+Yingliang&amp;rft.au=Yu%2C+Jingyi&amp;rft.au=Xu%2C+Lan&amp;rft&#95;id=https%3A%2F%2Fdl.acm.org%2Fdoi%2F10.1145%2F3687926&amp;rfr&#95;id=info%3Asid%2Fen.wikipedia.org%3AAPI\"
+        class=\"Z3988\"></span></span>\n</li>\n<li id=\"cite&#95;note-4\"><span class=\"mw-cite-backlink\"><b><a
+        href=\"#cite_ref-4\">^</a></b></span> <span class=\"reference-text\"><link
+        rel=\"mw-deduplicated-inline-style\" href=\"mw-data:TemplateStyles:r1333433106\"
+        /><cite class=\"citation web cs1\"><a rel=\"nofollow\" class=\"external text\"
+        href=\"https://publications.ri.cmu.edu/echoes-of-the-coliseum-towards-3d-live-streaming-of-sports-events\">\"Echoes
+        of the Coliseum: Towards 3D Live streaming of Sports Events - Robotics Institute
+        Carnegie Mellon University\"</a>. <i>publications.ri.cmu.edu</i><span class=\"reference-accessdate\">.
+        Retrieved <span class=\"nowrap\">2026-10-31</span></span>.</cite><span title=\"ctx&#95;ver=Z39.88-2004&amp;rft&#95;val&#95;fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=unknown&amp;rft.jtitle=publications.ri.cmu.edu&amp;rft.atitle=Echoes+of+the+Coliseum%3A+Towards+3D+Live+streaming+of+Sports+Events+-+Robotics+Institute+Carnegie+Mellon+University&amp;rft&#95;id=https%3A%2F%2Fpublications.ri.cmu.edu%2Fechoes-of-the-coliseum-towards-3d-live-streaming-of-sports-events&amp;rfr&#95;id=info%3Asid%2Fen.wikipedia.org%3AAPI\"
+        class=\"Z3988\"></span></span>\n</li>\n<li id=\"cite&#95;note-5\"><span class=\"mw-cite-backlink\"><b><a
+        href=\"#cite_ref-5\">^</a></b></span> <span class=\"reference-text\"><link
+        rel=\"mw-deduplicated-inline-style\" href=\"mw-data:TemplateStyles:r1333433106\"
+        /><cite id=\"CITEREFYanLinZhouWang2025\" class=\"citation cs2\">Yan, Yunzhi;
+        Lin, Haotong; Zhou, Chenxu; Wang, Weijie; Sun, Haiyang; Zhan, Kun; Lang, Xianpeng;
+        Zhou, Xiaowei; Peng, Sida (2025), Leonardis, Ale\u0161; Ricci, Elisa; Roth,
+        Stefan; Russakovsky, Olga (eds.), <a rel=\"nofollow\" class=\"external text\"
+        href=\"https://link.springer.com/10.1007/978-3-031-73464-9_10\">\"Street Gaussians:
+        Modeling Dynamic Urban Scenes with Gaussian Splatting\"</a>, <i>Computer Vision
+        \u2013 ECCV 2024</i>, vol.&#160;15131, Cham: Springer Nature Switzerland,
+        pp.&#160;<span class=\"nowrap\">156\u2013</span>173, <a href=\"/wiki/Doi_(identifier)\"
+        class=\"mw-redirect\" title=\"Doi (identifier)\">doi</a>:<a rel=\"nofollow\"
+        class=\"external text\" href=\"https://doi.org/10.1007%2F978-3-031-73464-9_10\">10.1007/978-3-031-73464-9_10</a>,
+        <a href=\"/wiki/ISBN_(identifier)\" class=\"mw-redirect\" title=\"ISBN (identifier)\">ISBN</a>&#160;<a
+        href=\"/wiki/Special:BookSources/978-3-031-73463-2\" title=\"Special:BookSources/978-3-031-73463-2\"><bdi>978-3-031-73463-2</bdi></a><span
+        class=\"reference-accessdate\">, retrieved <span class=\"nowrap\">2026-10-31</span></span></cite><span
+        title=\"ctx&#95;ver=Z39.88-2004&amp;rft&#95;val&#95;fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Computer+Vision+%E2%80%93+ECCV+2024&amp;rft.atitle=Street+Gaussians%3A+Modeling+Dynamic+Urban+Scenes+with+Gaussian+Splatting&amp;rft.volume=15131&amp;rft.pages=156-173&amp;rft.date=2025&amp;rft&#95;id=info%3Adoi%2F10.1007%2F978-3-031-73464-9&#95;10&amp;rft.isbn=978-3-031-73463-2&amp;rft.aulast=Yan&amp;rft.aufirst=Yunzhi&amp;rft.au=Lin%2C+Haotong&amp;rft.au=Zhou%2C+Chenxu&amp;rft.au=Wang%2C+Weijie&amp;rft.au=Sun%2C+Haiyang&amp;rft.au=Zhan%2C+Kun&amp;rft.au=Lang%2C+Xianpeng&amp;rft.au=Zhou%2C+Xiaowei&amp;rft.au=Peng%2C+Sida&amp;rft&#95;id=https%3A%2F%2Flink.springer.com%2F10.1007%2F978-3-031-73464-9&#95;10&amp;rfr&#95;id=info%3Asid%2Fen.wikipedia.org%3AAPI\"
+        class=\"Z3988\"></span><span class=\"cs1-maint citation-comment\"><code class=\"cs1-code\">{{<a
+        href=\"/wiki/Template:Citation\" title=\"Template:Citation\">citation</a>}}</code>:  CS1
+        maint: work parameter with ISBN (<a href=\"/wiki/Category:CS1_maint:_work_parameter_with_ISBN\"
+        title=\"Category:CS1 maint: work parameter with ISBN\">link</a>)</span></span>\n</li>\n<li
+        id=\"cite&#95;note-YunusLenssenNiemeyerLiao2024-1-6\"><span class=\"mw-cite-backlink\"><b><a
+        href=\"#cite_ref-YunusLenssenNiemeyerLiao2024-1_6-0\">^</a></b></span> <span
+        class=\"reference-text\"> <span class=\"error mw-ext-cite-error\" lang=\"en\"
+        dir=\"ltr\">Cite error: The named reference <code>YunusLenssenNiemeyerLiao2024-1</code>
+        was invoked but never defined (see the <a href=\"/wiki/Help:Cite_errors/Cite_error_references_no_text\"
+        title=\"Help:Cite errors/Cite error references no text\">help page</a>).</span></span>\n</li>\n<li
+        id=\"cite&#95;note-7\"><span class=\"mw-cite-backlink\"><b><a href=\"#cite_ref-7\">^</a></b></span>
+        <span class=\"reference-text\"><link rel=\"mw-deduplicated-inline-style\"
+        href=\"mw-data:TemplateStyles:r1333433106\" /><cite id=\"CITEREFHanSuZengZhang\"
+        class=\"citation journal cs1\">Han, Dong; Su, Cheng-Ye; Zeng, Fan-Yi; Zhang,
+        Fang-Lue; Wang, Miao (2026-11). <a rel=\"nofollow\" class=\"external text\"
+        href=\"https://link.springer.com/10.1007/s11704-025-50389-x\">\"Dynamic scene
+        representation in the era of neural rendering: from NeRFs to 3DGSs\"</a>.
+        <i>Frontiers of Computer Science</i>. <b>20</b> (11): 2011708. <a href=\"/wiki/Doi_(identifier)\"
+        class=\"mw-redirect\" title=\"Doi (identifier)\">doi</a>:<a rel=\"nofollow\"
+        class=\"external text\" href=\"https://doi.org/10.1007%2Fs11704-025-50389-x\">10.1007/s11704-025-50389-x</a>.
+        <a href=\"/wiki/ISSN_(identifier)\" class=\"mw-redirect\" title=\"ISSN (identifier)\">ISSN</a>&#160;<a
+        rel=\"nofollow\" class=\"external text\" href=\"https://search.worldcat.org/issn/2095-2228\">2095-2228</a>.</cite><span
+        title=\"ctx&#95;ver=Z39.88-2004&amp;rft&#95;val&#95;fmt=info%3Aofi%2Ffmt%3Akev%3Amtx%3Ajournal&amp;rft.genre=article&amp;rft.jtitle=Frontiers+of+Computer+Science&amp;rft.atitle=Dynamic+scene+representation+in+the+era+of+neural+rendering%3A+from+NeRFs+to+3DGSs&amp;rft.volume=20&amp;rft.issue=11&amp;rft.pages=2011708&amp;rft&#95;id=info%3Adoi%2F10.1007%2Fs11704-025-50389-x&amp;rft.issn=2095-2228&amp;rft.aulast=Han&amp;rft.aufirst=Dong&amp;rft.au=Su%2C+Cheng-Ye&amp;rft.au=Zeng%2C+Fan-Yi&amp;rft.au=Zhang%2C+Fang-Lue&amp;rft.au=Wang%2C+Miao&amp;rft&#95;id=https%3A%2F%2Flink.springer.com%2F10.1007%2Fs11704-025-50389-x&amp;rfr&#95;id=info%3Asid%2Fen.wikipedia.org%3AAPI\"
+        class=\"Z3988\"></span> <span class=\"cs1-visible-error citation-comment\"><code
+        class=\"cs1-code\">{{<a href=\"/wiki/Template:Cite_journal\" title=\"Template:Cite
+        journal\">cite journal</a>}}</code>: </span><span class=\"cs1-visible-error
+        citation-comment\">Check date values in: <code class=\"cs1-code\">&#124;date=</code>
+        (<a href=\"/wiki/Help:CS1_errors#bad_date\" title=\"Help:CS1 errors\">help</a>)</span></span>\n</li>\n</ol></div>\n<!--
+        \nNewPP limit report\nParsed by mw\u2010api\u2010ext.codfw.main\u2010795bf5f7c7\u2010vmtvd\nCached
+        time: 20261102220112\nCache expiry: 2592000\nCache expiry source: Module:Citation/CS1
+        (os.date(%Y))\nReduced expiry: false\nComplications: [vary\u2010revision\u2010sha1,
+        vary\u2010revision\u2010exists]\nCPU time usage: 0.219 seconds\nReal time
+        usage: 0.248 seconds\nPreprocessor visited node count: 514/1000000\nRevision
+        size: 5336/2097152 bytes\nPost\u2010expand include size: 19445/2097152 bytes\nTemplate
+        argument size: 760/2097152 bytes\nHighest expansion depth: 12/100\nExpensive
+        parser function count: 1/500\nUnstrip recursion depth: 0/20\nUnstrip post\u2010expand
+        size: 14648/5000000 bytes\nLua time usage: 0.132/10.000 seconds\nLua memory
+        usage: 4334814/52428800 bytes\nNumber of Wikibase entities loaded: 0/500\n-->\n<!--\nTransclusion
+        expansion time report (%,ms,calls,template)\n100.00%  175.292      1 -total\n
+        73.12%  128.167      4 Template:Cite_journal\n 26.42%   46.312      2 Template:Broken_ref\n  9.50%   16.654      1
+        Template:Citation\n  2.65%    4.638      1 Template:Cite_web\n  1.12%    1.962      1
+        Template:Broken_ref/lang\n  0.96%    1.686      1 Template:Broken_ref/cat\n-->\n\n<!--
+        Render ID ea8cc902-d708-11f1-a44e-cfc4d3b55435 -->\n</div>"},"langlinks":[{"lang":"ar","url":"https://ar.wikipedia.org/wiki/%D9%88%D8%A7%D8%AC%D9%87%D8%A9_%D8%A8%D8%B1%D9%85%D8%AC%D8%A9_%D8%A7%D9%84%D8%AA%D8%B7%D8%A8%D9%8A%D9%82%D8%A7%D8%AA","langname":"Arabic","autonym":"\u0627\u0644\u0639\u0631\u0628\u064a\u0629","*":"\u0648\u0627\u062c\u0647\u0629
+        \u0628\u0631\u0645\u062c\u0629 \u0627\u0644\u062a\u0637\u0628\u064a\u0642\u0627\u062a"},{"lang":"ast","url":"https://ast.wikipedia.org/wiki/Interfaz_de_programaci%C3%B3n_d%27aplicaciones","langname":"Asturian","autonym":"asturianu","*":"Interfaz
+        de programaci\u00f3n d''aplicaciones"},{"lang":"az","url":"https://az.wikipedia.org/wiki/T%C9%99tbiqi_proqramla%C5%9Fd%C4%B1rma_interfeysi","langname":"Azerbaijani","autonym":"az\u0259rbaycanca","*":"T\u0259tbiqi
+        proqramla\u015fd\u0131rma interfeysi"},{"lang":"bar","url":"https://bar.wikipedia.org/wiki/API","langname":"Bavarian","autonym":"Boarisch","*":"API"},{"lang":"be","url":"https://be.wikipedia.org/wiki/API","langname":"Belarusian","autonym":"\u0431\u0435\u043b\u0430\u0440\u0443\u0441\u043a\u0430\u044f","*":"API"},{"lang":"bg","url":"https://bg.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%BB%D0%BE%D0%B6%D0%BD%D0%BE-%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%B5%D0%BD_%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81","langname":"Bulgarian","autonym":"\u0431\u044a\u043b\u0433\u0430\u0440\u0441\u043a\u0438","*":"\u041f\u0440\u0438\u043b\u043e\u0436\u043d\u043e-\u043f\u0440\u043e\u0433\u0440\u0430\u043c\u0435\u043d
+        \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441"},{"lang":"bn","url":"https://bn.wikipedia.org/wiki/%E0%A6%85%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%AA%E0%A7%8D%E0%A6%B2%E0%A6%BF%E0%A6%95%E0%A7%87%E0%A6%B6%E0%A6%A8_%E0%A6%AA%E0%A7%8D%E0%A6%B0%E0%A7%8B%E0%A6%97%E0%A7%8D%E0%A6%B0%E0%A6%BE%E0%A6%AE%E0%A6%BF%E0%A6%82_%E0%A6%87%E0%A6%A8%E0%A7%8D%E0%A6%9F%E0%A6%BE%E0%A6%B0%E0%A6%AB%E0%A7%87%E0%A6%B8","langname":"Bangla","autonym":"\u09ac\u09be\u0982\u09b2\u09be","*":"\u0985\u09cd\u09af\u09be\u09aa\u09cd\u09b2\u09bf\u0995\u09c7\u09b6\u09a8
+        \u09aa\u09cd\u09b0\u09cb\u0997\u09cd\u09b0\u09be\u09ae\u09bf\u0982 \u0987\u09a8\u09cd\u099f\u09be\u09b0\u09ab\u09c7\u09b8"},{"lang":"bs","url":"https://bs.wikipedia.org/wiki/Aplikativni_programski_interfejs","langname":"Bosnian","autonym":"bosanski","*":"Aplikativni
+        programski interfejs"},{"lang":"ca","url":"https://ca.wikipedia.org/wiki/Interf%C3%ADcie_de_programaci%C3%B3_d%27aplicacions","langname":"Catalan","autonym":"catal\u00e0","*":"Interf\u00edcie
+        de programaci\u00f3 d''aplicacions"},{"lang":"ckb","url":"https://ckb.wikipedia.org/wiki/%D9%86%D8%A7%D9%88%D8%A8%DB%95%D8%B3%D8%AA%DB%8C_%D8%A8%DB%95%D8%B1%D9%86%D8%A7%D9%85%DB%95%D8%B3%D8%A7%D8%B2%DB%8C%DB%8C_%D8%A8%DB%95%D8%B1%D9%86%D8%A7%D9%85%DB%95%DB%8C_%D8%A8%DB%95%DA%A9%D8%A7%D8%B1%D8%A8%DB%95%D8%B1%DB%8C","langname":"Central
+        Kurdish","autonym":"\u06a9\u0648\u0631\u062f\u06cc","*":"\u0646\u0627\u0648\u0628\u06d5\u0633\u062a\u06cc
+        \u0628\u06d5\u0631\u0646\u0627\u0645\u06d5\u0633\u0627\u0632\u06cc\u06cc \u0628\u06d5\u0631\u0646\u0627\u0645\u06d5\u06cc
+        \u0628\u06d5\u06a9\u0627\u0631\u0628\u06d5\u0631\u06cc"},{"lang":"cs","url":"https://cs.wikipedia.org/wiki/API","langname":"Czech","autonym":"\u010de\u0161tina","*":"API"},{"lang":"da","url":"https://da.wikipedia.org/wiki/Application_programming_interface","langname":"Danish","autonym":"dansk","*":"Application
+        programming interface"},{"lang":"de","url":"https://de.wikipedia.org/wiki/Programmierschnittstelle","langname":"German","autonym":"Deutsch","*":"Programmierschnittstelle"},{"lang":"el","url":"https://el.wikipedia.org/wiki/%CE%94%CE%B9%CE%B5%CF%80%CE%B1%CF%86%CE%AE_%CF%80%CF%81%CE%BF%CE%B3%CF%81%CE%B1%CE%BC%CE%BC%CE%B1%CF%84%CE%B9%CF%83%CE%BC%CE%BF%CF%8D_%CE%B5%CF%86%CE%B1%CF%81%CE%BC%CE%BF%CE%B3%CF%8E%CE%BD","langname":"Greek","autonym":"\u0395\u03bb\u03bb\u03b7\u03bd\u03b9\u03ba\u03ac","*":"\u0394\u03b9\u03b5\u03c0\u03b1\u03c6\u03ae
+        \u03c0\u03c1\u03bf\u03b3\u03c1\u03b1\u03bc\u03bc\u03b1\u03c4\u03b9\u03c3\u03bc\u03bf\u03cd
+        \u03b5\u03c6\u03b1\u03c1\u03bc\u03bf\u03b3\u03ce\u03bd"},{"lang":"eo","url":"https://eo.wikipedia.org/wiki/Aplikprograma_interfaco","langname":"Esperanto","autonym":"Esperanto","*":"Aplikprograma
+        interfaco"},{"lang":"es","url":"https://es.wikipedia.org/wiki/API","langname":"Spanish","autonym":"espa\u00f1ol","*":"API"},{"lang":"et","url":"https://et.wikipedia.org/wiki/Rakendusliides","langname":"Estonian","autonym":"eesti","*":"Rakendusliides"},{"lang":"eu","url":"https://eu.wikipedia.org/wiki/API","langname":"Basque","autonym":"euskara","*":"API"},{"lang":"fa","url":"https://fa.wikipedia.org/wiki/%D9%88%D8%A7%D8%B3%D8%B7_%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87%E2%80%8C%D9%86%D9%88%DB%8C%D8%B3%DB%8C_%DA%A9%D8%A7%D8%B1%D8%A8%D8%B1%D8%AF%DB%8C","langname":"Persian","autonym":"\u0641\u0627\u0631\u0633\u06cc","*":"\u0648\u0627\u0633\u0637
+        \u0628\u0631\u0646\u0627\u0645\u0647\u200c\u0646\u0648\u06cc\u0633\u06cc \u06a9\u0627\u0631\u0628\u0631\u062f\u06cc"},{"lang":"fi","url":"https://fi.wikipedia.org/wiki/Ohjelmointirajapinta","langname":"Finnish","autonym":"suomi","*":"Ohjelmointirajapinta"},{"lang":"fr","url":"https://fr.wikipedia.org/wiki/Interface_de_programmation","langname":"French","autonym":"fran\u00e7ais","*":"Interface
+        de programmation"},{"lang":"frr","url":"https://frr.wikipedia.org/wiki/API","langname":"Northern
+        Frisian","autonym":"Nordfriisk","*":"API"},{"lang":"ga","url":"https://ga.wikipedia.org/wiki/Comh%C3%A9adan_feidhmchl%C3%A1ir","langname":"Irish","autonym":"Gaeilge","*":"Comh\u00e9adan
+        feidhmchl\u00e1ir"},{"lang":"gl","url":"https://gl.wikipedia.org/wiki/Interface_de_programaci%C3%B3n_de_aplicaci%C3%B3n","langname":"Galician","autonym":"galego","*":"Interface
+        de programaci\u00f3n de aplicaci\u00f3n"},{"lang":"ha","url":"https://ha.wikipedia.org/wiki/API","langname":"Hausa","autonym":"Hausa","*":"API"},{"lang":"he","url":"https://he.wikipedia.org/wiki/%D7%9E%D7%9E%D7%A9%D7%A7_%D7%AA%D7%9B%D7%A0%D7%95%D7%AA_%D7%99%D7%99%D7%A9%D7%95%D7%9E%D7%99%D7%9D","langname":"Hebrew","autonym":"\u05e2\u05d1\u05e8\u05d9\u05ea","*":"\u05de\u05de\u05e9\u05e7
+        \u05ea\u05db\u05e0\u05d5\u05ea \u05d9\u05d9\u05e9\u05d5\u05de\u05d9\u05dd"},{"lang":"hi","url":"https://hi.wikipedia.org/wiki/%E0%A4%8F%E0%A4%AA%E0%A5%80%E0%A4%86%E0%A4%88","langname":"Hindi","autonym":"\u0939\u093f\u0928\u094d\u0926\u0940","*":"\u090f\u092a\u0940\u0906\u0908"},{"lang":"hr","url":"https://hr.wikipedia.org/wiki/API","langname":"Croatian","autonym":"hrvatski","*":"API"},{"lang":"hu","url":"https://hu.wikipedia.org/wiki/Alkalmaz%C3%A1sprogramoz%C3%A1si_fel%C3%BClet","langname":"Hungarian","autonym":"magyar","*":"Alkalmaz\u00e1sprogramoz\u00e1si
+        fel\u00fclet"},{"lang":"hy","url":"https://hy.wikipedia.org/wiki/Application_Programming_Interface_(API)","langname":"Armenian","autonym":"\u0570\u0561\u0575\u0565\u0580\u0565\u0576","*":"Application
+        Programming Interface (API)"},{"lang":"id","url":"https://id.wikipedia.org/wiki/Antarmuka_pemrograman_aplikasi","langname":"Indonesian","autonym":"Bahasa
+        Indonesia","*":"Antarmuka pemrograman aplikasi"},{"lang":"ig","url":"https://ig.wikipedia.org/wiki/API","langname":"Igbo","autonym":"Igbo","*":"API"},{"lang":"io","url":"https://io.wikipedia.org/wiki/Aplikala_programif-interkonekto","langname":"Ido","autonym":"Ido","*":"Aplikala
+        programif-interkonekto"},{"lang":"it","url":"https://it.wikipedia.org/wiki/Application_programming_interface","langname":"Italian","autonym":"italiano","*":"Application
+        programming interface"},{"lang":"ja","url":"https://ja.wikipedia.org/wiki/%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%95%E3%82%A7%E3%83%BC%E3%82%B9","langname":"Japanese","autonym":"\u65e5\u672c\u8a9e","*":"\u30a2\u30d7\u30ea\u30b1\u30fc\u30b7\u30e7\u30f3\u30d7\u30ed\u30b0\u30e9\u30df\u30f3\u30b0\u30a4\u30f3\u30bf\u30d5\u30a7\u30fc\u30b9"},{"lang":"ka","url":"https://ka.wikipedia.org/wiki/%E1%83%90%E1%83%9E%E1%83%9A%E1%83%98%E1%83%99%E1%83%90%E1%83%AA%E1%83%98%E1%83%98%E1%83%A1_%E1%83%9E%E1%83%A0%E1%83%9D%E1%83%92%E1%83%A0%E1%83%90%E1%83%9B%E1%83%98%E1%83%A0%E1%83%94%E1%83%91%E1%83%98%E1%83%A1_%E1%83%98%E1%83%9C%E1%83%A2%E1%83%94%E1%83%A0%E1%83%A4%E1%83%94%E1%83%98%E1%83%A1%E1%83%98","langname":"Georgian","autonym":"\u10e5\u10d0\u10e0\u10d7\u10e3\u10da\u10d8","*":"\u10d0\u10de\u10da\u10d8\u10d9\u10d0\u10ea\u10d8\u10d8\u10e1
+        \u10de\u10e0\u10dd\u10d2\u10e0\u10d0\u10db\u10d8\u10e0\u10d4\u10d1\u10d8\u10e1
+        \u10d8\u10dc\u10e2\u10d4\u10e0\u10e4\u10d4\u10d8\u10e1\u10d8"},{"lang":"kk","url":"https://kk.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%D0%BB%D1%8B%D2%9B_%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81","langname":"Kazakh","autonym":"\u049b\u0430\u0437\u0430\u049b\u0448\u0430","*":"\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430\u043b\u044b\u049b
+        \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441"},{"lang":"ko","url":"https://ko.wikipedia.org/wiki/API","langname":"Korean","autonym":"\ud55c\uad6d\uc5b4","*":"API"},{"lang":"lt","url":"https://lt.wikipedia.org/wiki/Aplikacij%C5%B3_programavimo_s%C4%85saja","langname":"Lithuanian","autonym":"lietuvi\u0173","*":"Aplikacij\u0173
+        programavimo s\u0105saja"},{"lang":"lv","url":"https://lv.wikipedia.org/wiki/Lietojumprogrammas_saskarne","langname":"Latvian","autonym":"latvie\u0161u","*":"Lietojumprogrammas
+        saskarne"},{"lang":"ml","url":"https://ml.wikipedia.org/wiki/%E0%B4%86%E0%B4%AA%E0%B5%8D%E0%B4%B2%E0%B4%BF%E0%B4%95%E0%B5%8D%E0%B4%95%E0%B5%87%E0%B4%B7%E0%B5%BB_%E0%B4%AA%E0%B5%8D%E0%B4%B0%E0%B5%8B%E0%B4%97%E0%B5%8D%E0%B4%B0%E0%B4%BE%E0%B4%AE%E0%B4%BF%E0%B4%99%E0%B5%8D_%E0%B4%87%E0%B4%A8%E0%B5%8D%E0%B4%B1%E0%B5%BC%E0%B4%AB%E0%B5%87%E0%B4%B8%E0%B5%8D","langname":"Malayalam","autonym":"\u0d2e\u0d32\u0d2f\u0d3e\u0d33\u0d02","*":"\u0d06\u0d2a\u0d4d\u0d32\u0d3f\u0d15\u0d4d\u0d15\u0d47\u0d37\u0d7b
+        \u0d2a\u0d4d\u0d30\u0d4b\u0d17\u0d4d\u0d30\u0d3e\u0d2e\u0d3f\u0d19\u0d4d \u0d07\u0d28\u0d4d\u0d31\u0d7c\u0d2b\u0d47\u0d38\u0d4d"},{"lang":"mn","url":"https://mn.wikipedia.org/wiki/API","langname":"Mongolian","autonym":"\u043c\u043e\u043d\u0433\u043e\u043b","*":"API"},{"lang":"ms","url":"https://ms.wikipedia.org/wiki/Antara_muka_pengaturcaraan_aplikasi","langname":"Malay","autonym":"Bahasa
+        Melayu","*":"Antara muka pengaturcaraan aplikasi"},{"lang":"nl","url":"https://nl.wikipedia.org/wiki/Application_programming_interface","langname":"Dutch","autonym":"Nederlands","*":"Application
+        programming interface"},{"lang":"nn","url":"https://nn.wikipedia.org/wiki/Programmeringsgrensesnitt","langname":"Norwegian
+        Nynorsk","autonym":"norsk nynorsk","*":"Programmeringsgrensesnitt"},{"lang":"no","url":"https://no.wikipedia.org/wiki/Programmeringsgrensesnitt","langname":"Norwegian","autonym":"norsk","*":"Programmeringsgrensesnitt"},{"lang":"pl","url":"https://pl.wikipedia.org/wiki/Interfejs_programowania_aplikacji","langname":"Polish","autonym":"polski","*":"Interfejs
+        programowania aplikacji"},{"lang":"pms","url":"https://pms.wikipedia.org/wiki/API","langname":"Piedmontese","autonym":"Piemont\u00e8is","*":"API"},{"lang":"pt","url":"https://pt.wikipedia.org/wiki/Interface_de_programa%C3%A7%C3%A3o_de_aplica%C3%A7%C3%B5es","langname":"Portuguese","autonym":"portugu\u00eas","*":"Interface
+        de programa\u00e7\u00e3o de aplica\u00e7\u00f5es"},{"lang":"qu","url":"https://qu.wikipedia.org/wiki/API","langname":"Quechua","autonym":"Runa
+        Simi","*":"API"},{"lang":"ro","url":"https://ro.wikipedia.org/wiki/Application_Programming_Interface","langname":"Romanian","autonym":"rom\u00e2n\u0103","*":"Application
+        Programming Interface"},{"lang":"ru","url":"https://ru.wikipedia.org/wiki/API","langname":"Russian","autonym":"\u0440\u0443\u0441\u0441\u043a\u0438\u0439","*":"API"},{"lang":"sh","url":"https://sh.wikipedia.org/wiki/API","langname":"Serbo-Croatian","autonym":"srpskohrvatski
+        / \u0441\u0440\u043f\u0441\u043a\u043e\u0445\u0440\u0432\u0430\u0442\u0441\u043a\u0438","*":"API"},{"lang":"simple","url":"https://simple.wikipedia.org/wiki/Application_programming_interface","langname":"Simple
+        English","autonym":"Simple English","*":"Application programming interface"},{"lang":"sk","url":"https://sk.wikipedia.org/wiki/Application_programming_interface","langname":"Slovak","autonym":"sloven\u010dina","*":"Application
+        programming interface"},{"lang":"sl","url":"https://sl.wikipedia.org/wiki/Vmesnik_za_namensko_programiranje","langname":"Slovenian","autonym":"sloven\u0161\u010dina","*":"Vmesnik
+        za namensko programiranje"},{"lang":"sq","url":"https://sq.wikipedia.org/wiki/Interfejsi_p%C3%ABr_programimin_e_aplikacioneve","langname":"Albanian","autonym":"shqip","*":"Interfejsi
+        p\u00ebr programimin e aplikacioneve"},{"lang":"sr","url":"https://sr.wikipedia.org/wiki/API","langname":"Serbian","autonym":"\u0441\u0440\u043f\u0441\u043a\u0438
+        / srpski","*":"API"},{"lang":"sv","url":"https://sv.wikipedia.org/wiki/Applikationsprogrammeringsgr%C3%A4nssnitt","langname":"Swedish","autonym":"svenska","*":"Applikationsprogrammeringsgr\u00e4nssnitt"},{"lang":"sw","url":"https://sw.wikipedia.org/wiki/Kikusa_cha_Uprogramishaji_cha_Programu_tumizi","langname":"Swahili","autonym":"Kiswahili","*":"Kikusa
+        cha Uprogramishaji cha Programu tumizi"},{"lang":"ta","url":"https://ta.wikipedia.org/wiki/%E0%AE%9A%E0%AF%86%E0%AE%AF%E0%AE%B2%E0%AE%BF_%E0%AE%A8%E0%AE%BF%E0%AE%B0%E0%AE%B2%E0%AE%BE%E0%AE%95%E0%AF%8D%E0%AE%95_%E0%AE%87%E0%AE%9F%E0%AF%88%E0%AE%AE%E0%AF%81%E0%AE%95%E0%AE%AE%E0%AF%8D","langname":"Tamil","autonym":"\u0ba4\u0bae\u0bbf\u0bb4\u0bcd","*":"\u0b9a\u0bc6\u0baf\u0bb2\u0bbf
+        \u0ba8\u0bbf\u0bb0\u0bb2\u0bbe\u0b95\u0bcd\u0b95 \u0b87\u0b9f\u0bc8\u0bae\u0bc1\u0b95\u0bae\u0bcd"},{"lang":"th","url":"https://th.wikipedia.org/wiki/%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B8%95%E0%B9%88%E0%B8%AD%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%AA%E0%B8%B2%E0%B8%99%E0%B9%82%E0%B8%9B%E0%B8%A3%E0%B9%81%E0%B8%81%E0%B8%A3%E0%B8%A1%E0%B8%9B%E0%B8%A3%E0%B8%B0%E0%B8%A2%E0%B8%B8%E0%B8%81%E0%B8%95%E0%B9%8C","langname":"Thai","autonym":"\u0e44\u0e17\u0e22","*":"\u0e2a\u0e48\u0e27\u0e19\u0e15\u0e48\u0e2d\u0e1b\u0e23\u0e30\u0e2a\u0e32\u0e19\u0e42\u0e1b\u0e23\u0e41\u0e01\u0e23\u0e21\u0e1b\u0e23\u0e30\u0e22\u0e38\u0e01\u0e15\u0e4c"},{"lang":"tl","url":"https://tl.wikipedia.org/wiki/Application_programming_interface","langname":"Tagalog","autonym":"Tagalog","*":"Application
+        programming interface"},{"lang":"tr","url":"https://tr.wikipedia.org/wiki/Uygulama_programlama_aray%C3%BCz%C3%BC","langname":"Turkish","autonym":"T\u00fcrk\u00e7e","*":"Uygulama
+        programlama aray\u00fcz\u00fc"},{"lang":"uk","url":"https://uk.wikipedia.org/wiki/%D0%9F%D1%80%D0%B8%D0%BA%D0%BB%D0%B0%D0%B4%D0%BD%D0%B8%D0%B9_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BD%D0%B8%D0%B9_%D1%96%D0%BD%D1%82%D0%B5%D1%80%D1%84%D0%B5%D0%B9%D1%81","langname":"Ukrainian","autonym":"\u0443\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430","*":"\u041f\u0440\u0438\u043a\u043b\u0430\u0434\u043d\u0438\u0439
+        \u043f\u0440\u043e\u0433\u0440\u0430\u043c\u043d\u0438\u0439 \u0456\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441"},{"lang":"ur","url":"https://ur.wikipedia.org/wiki/%D8%A7%DB%8C%D9%BE%D9%84%DB%8C%DA%A9%DB%8C%D8%B4%D9%86_%D9%BE%D8%B1%D9%88%DA%AF%D8%B1%D8%A7%D9%85%D9%86%DA%AF_%D8%A7%D9%86%D9%B9%D8%B1%D9%81%DB%8C%D8%B3","langname":"Urdu","autonym":"\u0627\u0631\u062f\u0648","*":"\u0627\u06cc\u067e\u0644\u06cc\u06a9\u06cc\u0634\u0646
+        \u067e\u0631\u0648\u06af\u0631\u0627\u0645\u0646\u06af \u0627\u0646\u0679\u0631\u0641\u06cc\u0633"},{"lang":"uz","url":"https://uz.wikipedia.org/wiki/API","langname":"Uzbek","autonym":"o\u02bbzbekcha
+        / \u045e\u0437\u0431\u0435\u043a\u0447\u0430","*":"API"},{"lang":"vi","url":"https://vi.wikipedia.org/wiki/Giao_di%E1%BB%87n_l%E1%BA%ADp_tr%C3%ACnh_%E1%BB%A9ng_d%E1%BB%A5ng","langname":"Vietnamese","autonym":"Ti\u1ebfng
+        Vi\u1ec7t","*":"Giao di\u1ec7n l\u1eadp tr\u00ecnh \u1ee9ng d\u1ee5ng"},{"lang":"wuu","url":"https://wuu.wikipedia.org/wiki/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3","langname":"Wu","autonym":"\u5434\u8bed","*":"\u5e94\u7528\u7a0b\u5e8f\u63a5\u53e3"},{"lang":"xmf","url":"https://xmf.wikipedia.org/wiki/%E1%83%90%E1%83%9E%E1%83%9A%E1%83%98%E1%83%99%E1%83%90%E1%83%AA%E1%83%98%E1%83%90%E1%83%A8_%E1%83%9E%E1%83%A0%E1%83%9D%E1%83%92%E1%83%A0%E1%83%90%E1%83%9B%E1%83%98%E1%83%A0%E1%83%94%E1%83%91%E1%83%90%E1%83%A8_%E1%83%98%E1%83%9C%E1%83%A2%E1%83%94%E1%83%A0%E1%83%A4%E1%83%94%E1%83%98%E1%83%A1%E1%83%98","langname":"Mingrelian","autonym":"\u10db\u10d0\u10e0\u10d2\u10d0\u10da\u10e3\u10e0\u10d8","*":"\u10d0\u10de\u10da\u10d8\u10d9\u10d0\u10ea\u10d8\u10d0\u10e8
+        \u10de\u10e0\u10dd\u10d2\u10e0\u10d0\u10db\u10d8\u10e0\u10d4\u10d1\u10d0\u10e8
+        \u10d8\u10dc\u10e2\u10d4\u10e0\u10e4\u10d4\u10d8\u10e1\u10d8"},{"lang":"zh-yue","url":"https://zh-yue.wikipedia.org/wiki/%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E4%BB%8B%E9%9D%A2","langname":"Cantonese","autonym":"\u7cb5\u8a9e","*":"\u61c9\u7528\u7a0b\u5f0f\u4ecb\u9762"},{"lang":"zh","url":"https://zh.wikipedia.org/wiki/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E6%8E%A5%E5%8F%A3","langname":"Chinese","autonym":"\u4e2d\u6587","*":"\u5e94\u7528\u7a0b\u5e8f\u63a5\u53e3"}],"categories":[{"sortkey":"","hidden":"","*":"Pages_with_reference_errors"},{"sortkey":"","hidden":"","*":"CS1_maint:_periodical_has_ISBN"},{"sortkey":"","hidden":"","*":"CS1_maint:_work_parameter_with_ISBN"},{"sortkey":"API","hidden":"","*":"Pages_with_broken_reference_names"},{"sortkey":"","hidden":"","*":"CS1_errors:_dates"}],"links":[{"ns":10,"exists":"","*":"Template:Cite
+        journal"},{"ns":10,"exists":"","*":"Template:Citation"},{"ns":0,"exists":"","*":"Doi
+        (identifier)"},{"ns":0,"exists":"","*":"ISBN (identifier)"},{"ns":0,"exists":"","*":"ISSN
+        (identifier)"},{"ns":12,"exists":"","*":"Help:CS1 errors"},{"ns":12,"exists":"","*":"Help:Cite
+        errors/Cite error references no text"},{"ns":14,"exists":"","*":"Category:CS1
+        maint: periodical has ISBN"},{"ns":14,"exists":"","*":"Category:CS1 maint:
+        work parameter with ISBN"}],"templates":[{"ns":10,"exists":"","*":"Template:Cite
+        journal"},{"ns":10,"exists":"","*":"Template:Cite web"},{"ns":10,"exists":"","*":"Template:Citation"},{"ns":10,"exists":"","*":"Template:Broken
+        ref"},{"ns":10,"exists":"","*":"Template:Broken ref/lang"},{"ns":10,"exists":"","*":"Template:Broken
+        ref/cat"},{"ns":828,"exists":"","*":"Module:Citation/CS1"},{"ns":828,"exists":"","*":"Module:Citation/CS1/Configuration"},{"ns":828,"exists":"","*":"Module:Citation/CS1/Whitelist"},{"ns":828,"exists":"","*":"Module:Citation/CS1/Utilities"},{"ns":828,"exists":"","*":"Module:Citation/CS1/Date
+        validation"},{"ns":828,"exists":"","*":"Module:Citation/CS1/Identifiers"},{"ns":828,"exists":"","*":"Module:Citation/CS1/COinS"},{"ns":828,"exists":"","*":"Module:Citation/CS1/styles.css"},{"ns":828,"exists":"","*":"Module:Namespace
+        detect"},{"ns":828,"exists":"","*":"Module:Namespace detect/data"},{"ns":828,"exists":"","*":"Module:Namespace
+        detect/config"},{"ns":828,"exists":"","*":"Module:Yesno"},{"ns":828,"exists":"","*":"Module:Arguments"}],"images":[],"externallinks":["https://dl.acm.org/doi/10.1145/2766945","https://doi.org/10.1145%2F2766945","https://search.worldcat.org/issn/0730-0301","https://dl.acm.org/doi/10.1145/2984511.2984517","https://doi.org/10.1145%2F2984511.2984517","https://dl.acm.org/doi/10.1145/3687926","https://doi.org/10.1145%2F3687926","https://publications.ri.cmu.edu/echoes-of-the-coliseum-towards-3d-live-streaming-of-sports-events","https://link.springer.com/10.1007/978-3-031-73464-9_10","https://doi.org/10.1007%2F978-3-031-73464-9_10","https://link.springer.com/10.1007/s11704-025-50389-x","https://doi.org/10.1007%2Fs11704-025-50389-x","https://search.worldcat.org/issn/2095-2228"],"sections":[{"toclevel":1,"level":"2","line":"Application","number":"1","index":"1","fromtitle":"API","byteoffset":0,"anchor":"Application","linkAnchor":"Application"}],"tocdata":{"sections":[{"tocLevel":1,"hLevel":2,"line":"Application","number":"1","index":"1","fromTitle":"API","codepointOffset":0,"anchor":"Application"}],"extensionData":[]},"parsewarnings":["Script
+        warning: <span style=\"color:#085\"><code style=\"color: inherit; background:
+        inherit; border: none; padding: inherit;\">&#123;{[[Template:cite journal|cite
+        journal]]}}</code>: this [[#CITEREFOrts-EscolanoRhemannFanelloChang2016|reference]]
+        has maintenance messages</span>; messages may be hidden ([[Help:CS1_errors#Controlling_error_message_display|help]]).","Script
+        warning: <span style=\"color:#085\"><code style=\"color: inherit; background:
+        inherit; border: none; padding: inherit;\">&#123;{[[Template:citation|citation]]}}</code>:
+        this [[#CITEREFYanLinZhouWang2025|reference]] has maintenance messages</span>;
+        messages may be hidden ([[Help:CS1_errors#Controlling_error_message_display|help]]).","Script
+        warning: <span style=\"color:#d33\"><code style=\"color: inherit; background:
+        inherit; border: none; padding: inherit;\">&#123;{[[Template:cite journal|cite
+        journal]]}}</code>: this [[#CITEREFHanSuZengZhang|reference]] has errors</span>;
+        messages may be hidden ([[Help:CS1_errors#Controlling_error_message_display|help]])."],"displaytitle":"<span
+        lang=\"en\" dir=\"ltr\"><span class=\"mw-page-title-main\">API</span></span>","iwlinks":[],"properties":[{"name":"wikibase_item","*":"Q165194"}]}}'
+  recorded_at: Mon, 02 Nov 2026 22:01:12 GMT
+recorded_with: VCR 6.1.0

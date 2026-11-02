@@ -262,6 +262,18 @@ describe GetRevisionPlaintext do
     end
   end
 
+  # The diff adds an 'Application' section heading.
+  context 'with a real Wikipedia diff that adds a section heading' do
+    it 'keeps the heading but not its section edit links' do
+      VCR.use_cassette 'cached/get_revision_plaintext/4d_reconstruction' do
+        plain_text = described_class.new(1382963012, en_wiki).plain_text
+        expect(plain_text).to include('Application')
+        expect(plain_text).not_to include('edit source')
+        expect(plain_text).not_to include('[edit')
+      end
+    end
+  end
+
   context 'when revision content is suppressed between scheduling and fetch' do
     it 'returns nil plain_text without raising' do
       allow_any_instance_of(WikiApi::ArticleContent)
