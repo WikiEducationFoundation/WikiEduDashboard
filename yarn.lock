@@ -6148,9 +6148,9 @@ __metadata:
   linkType: hard
 
 "decode-uri-component@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "decode-uri-component@npm:0.5.0"
-  checksum: b5ea6417714cf2da39a4e59095a9572fe3a47aab08abbbe08a330ba11a96d937d3948565e5739fb9c7f48f278222e69a4e4e6356eb6f7b88643eba264f1d07b8
+  version: 0.5.1
+  resolution: "decode-uri-component@npm:0.5.1"
+  checksum: 4bfb8fbb106f1b10114e96d3a5fe557865a1748d6cff3478ae3410eca8b20107967e520bffd46786516978b7efd10325f5ae310ebb3d64029d5647849ed2507a
   languageName: node
   linkType: hard
 
@@ -7463,12 +7463,12 @@ __metadata:
   linkType: hard
 
 "follow-redirects@npm:^1.16.1":
-  version: 1.16.1
-  resolution: "follow-redirects@npm:1.16.1"
+  version: 1.16.2
+  resolution: "follow-redirects@npm:1.16.2"
   peerDependenciesMeta:
     debug:
       optional: true
-  checksum: d42ff9158fe6c66692567b712fd4bba25ef8736253c1436439642884f9c218df05fe946928d1944367b1b72f7ca5e5d277c26608159e2adf1bad9e42b12d2c30
+  checksum: 08f5c20c94945cd35d1b135b560cce7eb597c5f7b758f196467ac75b99ab7c28cb4fe28030467ed5ba386499a48030d804d47f559d32f103ad11336ed5402086
   languageName: node
   linkType: hard
 
