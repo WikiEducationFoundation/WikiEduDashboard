@@ -52,7 +52,7 @@ class AcceptCourseApplication
     # point of accepting them.
     return true if result['success'] || result['failure'] == 'cannot_join_twice'
 
-    @failure = "courses.join_failure_details.#{result['failure']}"
+    @failure = JoinCourse.failure_message_key(result['failure'])
     false
   end
 end

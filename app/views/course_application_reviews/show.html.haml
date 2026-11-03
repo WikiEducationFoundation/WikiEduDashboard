@@ -39,11 +39,13 @@
       - else
         = button_to t('course_application_reviews.accept'), "#{application_path}/accept",
                     class: 'button dark',
-                    data: { confirm: t('course_application_reviews.accept_confirm') }
+                    data: { confirm: t('course_application_reviews.accept_confirm',
+                                       username: user.username) }
     - if @application.submitted?
       = button_to t('course_application_reviews.decline'), "#{application_path}/decline",
                   class: 'button',
-                  data: { confirm: t('course_application_reviews.decline_confirm') }
+                  data: { confirm: t('course_application_reviews.decline_confirm',
+                                     username: user.username) }
 
   %h2= t('course_application_reviews.answers')
   - @answer_groups.each do |answer_group|

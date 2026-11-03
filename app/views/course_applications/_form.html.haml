@@ -3,7 +3,7 @@
 -# hides conditional questions; without it, every question is shown.
 - if @invalid
   .module.course-application__invalid{ role: 'alert' }
-    %p= t('course_applications.invalid')
+    %p= t('error.form_errors')
 
 = form_with url: "/courses/#{@course.slug}/apply", method: :post, local: true,
             html: { class: 'course-application__form', data: { course_application_form: true } } do

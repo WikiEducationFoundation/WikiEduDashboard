@@ -48,6 +48,24 @@ describe CourseApplicationMailer do
     end
   end
 
+  describe '.sender_description' do
+    it "names the manager and their email" do
+      manager.update!(real_name: 'Sam Manager')
+      SpecialUsers.set_user('scholars_and_scientists_manager', manager.username)
+      expect(described_class.sender_description).to eq('Sam Manager (manager@wikiedu.org)')
+    end
+
+    it "gives the Dashboard's own address while there is no manager" do
+      expect(described_class.sender_description).to eq("dashboard@#{ENV['dashboard_url']}")
+    end
+
+    it "gives the Dashboard's own address when the manager has no email" do
+      manager.update!(email: nil)
+      SpecialUsers.set_user('scholars_and_scientists_manager', manager.username)
+      expect(described_class.sender_description).to eq("dashboard@#{ENV['dashboard_url']}")
+    end
+  end
+
   describe '.send_decline' do
     let(:mail) { described_class.send_decline(application) }
 
@@ -56,6 +74,20 @@ describe CourseApplicationMailer do
       expect(mail.to).to eq(['ada@example.edu'])
       expect(mail.from).to eq(['manager@wikiedu.org'])
       expect(mail.subject).to eq('Elections workshop update')
+    end
+
+    it "greets the applicant and signs off as the manager" do
+      manager.update!(real_name: 'Sam Manager')
+      SpecialUsers.set_user('scholars_and_scientists_manager', manager.username)
+      body = mail.html_part.body.to_s
+      expect(body).to include('Hi Ada Applicant,', 'learn.wikiedu.org', 'Sam Manager',
+                              'Scholars &amp; Scientists Program Manager', 'manager@wikiedu.org')
+    end
+
+    it 'signs off as the organization while there is no manager' do
+      body = mail.html_part.body.to_s
+      expect(body).to include('WikiEducation')
+      expect(body).not_to include('Program Manager')
     end
   end
 end

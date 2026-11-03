@@ -1,5 +1,7 @@
--# Available: @name (the applicant's real name, or username), @course.title,
--# and @manager (the scholars_and_scientists_manager, possibly nil).
+-# The S&S program's rejection template (from Sage, 2026-10-29). Available:
+-# @name (the applicant's real name, or username), @course, and @manager (the
+-# scholars_and_scientists_manager; nil while the email comes from the
+-# Dashboard's own address, in which case the signature is the organization).
 %link{rel: 'stylesheet', href:'/mailer.css'}
 %table.row
   %tbody
@@ -8,5 +10,27 @@
         %table
           %tr
             %td.main-content
+              %p.paragraph= "Hi #{@name},"
               %p.paragraph
-                [PLACEHOLDER - decline email body: greeting with the applicant's name, the course title, a pointer to other course opportunities, and a sign-off from the Scholars & Scientists manager]
+                Thanks so much for your interest in our Wiki Scholars course. We had a large
+                number of applicants for this course, and unfortunately, we are unable to move
+                forward with your application at this time. We will be in touch if this changes
+                for any reason.
+              %p.paragraph
+                For now, please check
+                %a.link{href: 'https://learn.wikiedu.org'} learn.wikiedu.org
+                for more course opportunities.
+              %p.paragraph
+                \--
+                %br
+                - if @manager
+                  = @manager.real_name.presence || @manager.username
+                  %br
+                  Scholars &amp; Scientists Program Manager
+                  %br
+                WikiEducation
+                %br
+                @wikieducation
+                - if @manager
+                  %br
+                  %a.link{href: "mailto:#{@manager.email}"}= @manager.email

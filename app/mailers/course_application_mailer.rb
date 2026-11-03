@@ -20,6 +20,22 @@ class CourseApplicationMailer < ApplicationMailer
     Features.email? && application.user.email.present?
   end
 
+  # The manager the emails come from, or nil when they come from the
+  # Dashboard's own address (no manager set, or the manager has no email).
+  def self.manager_sender
+    manager = SpecialUsers.scholars_and_scientists_manager
+    manager if manager&.email.present?
+  end
+
+  # Who the emails come from, as shown to staff: "Name (email)", or the
+  # Dashboard's own address.
+  def self.sender_description
+    manager = manager_sender
+    return default_params[:from] unless manager
+
+    "#{manager.real_name.presence || manager.username} (#{manager.email})"
+  end
+
   def accepted(application)
     set_up(application)
     @message = @course.course_application_form&.acceptance_email
@@ -37,11 +53,11 @@ class CourseApplicationMailer < ApplicationMailer
     @course = application.course
     @user = application.user
     @name = @user.real_name.presence || @user.username
-    @manager = SpecialUsers.scholars_and_scientists_manager
+    @manager = self.class.manager_sender
   end
 
   def addressing
-    return { to: @user.email } if @manager&.email.blank?
+    return { to: @user.email } unless @manager
 
     { to: @user.email, from: @manager.email, reply_to: @manager.email }
   end

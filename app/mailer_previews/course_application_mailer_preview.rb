@@ -5,10 +5,9 @@ require_relative 'mailer_preview_helpers'
 class CourseApplicationMailerPreview < ActionMailer::Preview
   include MailerPreviewHelpers
 
-  DESCRIPTION = '[PLACEHOLDER - one-line description of the Scholars & Scientists application decision emails]' # rubocop:disable Layout/LineLength
   METHOD_DESCRIPTIONS = {
-    accepted: '[PLACEHOLDER - label for the acceptance email preview]',
-    declined: '[PLACEHOLDER - label for the decline email preview]'
+    accepted: 'Acceptance email for applicants',
+    declined: 'Decline email for applicants'
   }.freeze
   RECIPIENTS = 'applicant'
 
@@ -25,8 +24,10 @@ class CourseApplicationMailerPreview < ActionMailer::Preview
   def example_application
     course = FellowsCohort.new(title: 'Wiki Scholars: Elections and Voting',
                                slug: 'Wiki_Education/Elections_and_Voting_(Spring_2027)')
+    # The body is each course's own staff-written text.
     course.build_course_application_form(
-      acceptance_email: '[PLACEHOLDER - sample acceptance email for the preview]'
+      acceptance_email: "[the course's acceptance email, written by staff in its " \
+                        'application form settings]'
     )
     CourseApplication.new(course:, user: example_instructor)
   end
