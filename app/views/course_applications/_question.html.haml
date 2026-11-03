@@ -9,32 +9,33 @@
 - field_id = "answer_#{question.id}"
 - text_id = "#{field_id}_text"
 - errors_id = "#{field_id}_errors"
--# A missing answer gets the Dashboard's own "required" message rather than
--# Rails' "Answer text can't be blank"; other errors keep Rails' text.
-- error_message = ->(error) { error.type == :blank ? t('application.field_required') : error.full_message }
-- errors = answer ? answer.errors.map(&error_message).uniq : []
+- errors = application_answer_errors(answer)
 - value = answer&.answer_text
 - required = question.rules[:presence].to_i == 1
 - required_attribute = required && question.conditionals.blank?
 - described_by = errors.any? ? errors_id : nil
 
-.course-application__question{ id: "question_#{question.id}",
-                               data: { conditional: question.conditionals.presence } }
-  - if question.is_a?(Rapidfire::Questions::Text)
-    .course-application__text= sanitize(question_text_html_from_markdown(question.question_text))
-  - else
+- if question.is_a?(Rapidfire::Questions::Text)
+  -# Display-only text, such as a section heading and instructions, between cards.
+  .course-application__text{ id: "question_#{question.id}",
+                             data: { conditional: question.conditionals.presence } }
+    = sanitize(question_text_html_from_markdown(question.question_text))
+- else
+  .module.course-application__question{ id: "question_#{question.id}",
+                                        class: ('course-application__question--invalid' if errors.any?),
+                                        data: { conditional: question.conditionals.presence } }
     .course-application__question-text{ id: text_id }
       = sanitize(question_text_html_from_markdown(question.question_text))
       - unless required
-        %span.contextual= t('course_applications.optional')
+        %span.course-application__optional= t('course_applications.optional')
 
     - case question
     - when Rapidfire::Questions::Radio, Rapidfire::Questions::Checkbox
       - checkbox = question.is_a?(Rapidfire::Questions::Checkbox)
       - checked_values = value.to_s.split(Rapidfire.answers_delimiter)
-      %div{ role: checkbox ? 'group' : 'radiogroup',
-            aria: { labelledby: text_id, describedby: described_by,
-                    required: (required_attribute && !checkbox) || nil } }
+      %div.course-application__options{ role: checkbox ? 'group' : 'radiogroup',
+                                        aria: { labelledby: text_id, describedby: described_by,
+                                                required: (required_attribute && !checkbox) || nil } }
         - question.options.each_with_index do |option, index|
           - option_value = strip_tags(option).strip
           - option_id = "#{field_id}_#{index}"
@@ -70,7 +71,8 @@
 
     - if question.follow_up_question_text.present?
       - follow_up_id = "#{field_id}_follow_up"
-      = label_tag follow_up_id, question.follow_up_question_text
+      = label_tag follow_up_id, question.follow_up_question_text,
+                  class: 'course-application__follow-up-label'
       = text_area_tag "answers[#{question.id}][follow_up_answer_text]",
                       answer&.follow_up_answer_text, rows: 3, id: follow_up_id
 

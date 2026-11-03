@@ -1,16 +1,20 @@
 # frozen_string_literal: true
 
-# The public apply page for a Scholars & Scientists course, at
-# /courses/<slug>/apply. Anyone can see it; applying takes a Wikipedia login.
-# Depending on who is looking, it shows the login prompt, the form, a closed
-# notice, or — once someone has applied — a confirmation (and nothing more:
-# decisions are not shown here). Wiki Education Dashboard only.
+# The application form for a Scholars & Scientists course (Wiki Education
+# Dashboard only). The apply link, /courses/<slug>/apply, is the course page
+# with an application card at the top (ApplyCard, fed by the course JSON's
+# `application` block): it explains logging in, says when the form is closed
+# or already submitted, and otherwise links here, to /courses/<slug>/apply/form.
+# This page is only the form; anyone who can't use it right now goes back to
+# the card, and a successful submission does too.
 class CourseApplicationsController < ApplicationController
   before_action :require_wiki_ed
   before_action :set_course_and_form
   before_action :send_enrolled_students_to_course
 
   def show
+    return redirect_to apply_path unless current_user && may_apply?
+
     @answers_by_question_id = {}
   end
 
