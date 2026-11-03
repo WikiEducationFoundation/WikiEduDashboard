@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils';
 import CourseAlert from './course_alert';
 import { isAfter, startOfDay } from 'date-fns';
 import { toDate } from '../../utils/date_utils';
+import { initiateConfirm } from '../../actions/confirm_actions';
 
 const CourseAlerts = ({
   userRoles,
@@ -17,6 +19,7 @@ const CourseAlerts = ({
   persistCourse,
   dismissNotification
 }) => {
+  const dispatch = useDispatch();
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
@@ -183,11 +186,16 @@ const CourseAlerts = ({
     updateAlerts();
   }, [userRoles, course, courseAlerts, weeks, courseLinkParams, usersLoaded, studentCount]);
 
+  // Use the in-page Confirm modal rather than window.confirm(): when a browser
+  // suppresses native dialogs, confirm() returns false without showing
+  // anything, and the Submit button silently does nothing.
   const submit = (e) => {
     e.preventDefault();
-    if (!confirm(I18n.t('courses.warn_mirrored'))) { return; }
-    updateCourse({ submitted: true });
-    return persistCourse(course.slug);
+    const onConfirm = () => {
+      updateCourse({ submitted: true });
+      return persistCourse(course.slug);
+    };
+    dispatch(initiateConfirm({ confirmMessage: I18n.t('courses.warn_mirrored'), onConfirm }));
   };
 
   const dismissSurvey = (surveyNotificationId) => {
