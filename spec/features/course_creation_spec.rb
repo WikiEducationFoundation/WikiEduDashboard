@@ -340,8 +340,10 @@ describe 'New course creation and editing', type: :feature do
       expect(page).to have_content 'Week 12'
 
       # Now submit the course
-      accept_confirm do
-        first('a.button').click
+      first('a.button').click
+      within('.confirm-modal') do
+        expect(page).to have_content 'Upon submission, this course will be automatically posted'
+        click_button 'OK'
       end
       expect(page).to have_content 'Your course has been successfully submitted.'
 
