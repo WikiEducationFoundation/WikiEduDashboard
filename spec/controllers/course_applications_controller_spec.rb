@@ -110,6 +110,22 @@ describe CourseApplicationsController, type: :request do
       expect(application_json).to include('applied' => true)
     end
 
+    it 'gives no application counts to a non-admin' do
+      expect(application_json).not_to have_key('total_count')
+    end
+
+    context 'when the viewer is an admin' do
+      # A fresh wiki token skips CoursesController#verify_edit_credentials' API check.
+      let(:viewer) { create(:admin, wiki_token: 'token') }
+
+      it 'gives the total and still-undecided application counts, for the Admin box' do
+        CourseApplication.create!(course:, user:, status: :submitted)
+        CourseApplication.create!(course:, user: create(:user, username: 'Other'),
+                                  status: :accepted)
+        expect(application_json).to include('total_count' => 2, 'submitted_count' => 1)
+      end
+    end
+
     it 'is left out for a course type that does not take applications' do
       classroom = create(:course, slug: 'School/Classroom_(2027)')
       get "/courses/#{classroom.slug}/course.json"

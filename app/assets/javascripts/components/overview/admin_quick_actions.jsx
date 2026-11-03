@@ -22,6 +22,23 @@ const DetailsText = ({ flags }) => (
   </p>
 );
 
+// Scholars & Scientists application counts, linking to the review page.
+// Admins only; course.application.total_count is absent for everyone else.
+const ApplicationCounts = ({ course }) => {
+  const application = course.application;
+  if (!application || application.total_count === undefined) { return null; }
+
+  return (
+    <p className="admin-quick-actions__applications">
+      <a href={`/courses/${course.slug}/applications`}>
+        {I18n.t('course_application_reviews.title')}: <strong>{application.total_count}</strong>
+      </a>
+      <br />
+      {I18n.t('course_application_reviews.statuses.submitted')}: <strong>{application.submitted_count}</strong>
+    </p>
+  );
+};
+
 const isCourseClosed = flags => !!(flags && flags.closed_date);
 
 // checks if the closed date is a boolean
@@ -95,7 +112,13 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
           <br />
         </>
       )}
-      {current_user.admin && <div><NotesPanel /><AdminStatusPanel course={course} /></div>}
+      {current_user.admin && (
+        <div>
+          <ApplicationCounts course={course} />
+          <NotesPanel />
+          <AdminStatusPanel course={course} />
+        </div>
+      )}
     </div>
   );
 };

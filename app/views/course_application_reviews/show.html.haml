@@ -67,3 +67,8 @@
     = f.text_area :staff_notes, value: @application.staff_notes, rows: 5,
                   id: 'course_application_staff_notes'
     = f.submit t('course_application_reviews.save_notes'), class: 'button'
+
+  .course-application-review__delete
+    = button_to t('course_application_reviews.delete'), application_path,
+                method: :delete, class: 'button danger',
+                data: { confirm: t('users.remove_confirmation', username: user.username) }

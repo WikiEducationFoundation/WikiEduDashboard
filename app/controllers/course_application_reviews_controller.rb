@@ -4,13 +4,13 @@ require_dependency "#{Rails.root}/lib/analytics/course_applications_csv_builder"
 
 # Admin-only review of the applications to a Scholars & Scientists course: the
 # list, each application's answers and staff notes, accepting (which enrolls
-# the applicant) and declining, and a CSV export. Wiki Education Dashboard only.
+# the applicant), declining, deleting, and a CSV export. Wiki Education Dashboard only.
 class CourseApplicationReviewsController < ApplicationController
   layout 'admin'
   before_action :require_wiki_ed
   before_action :require_admin_permissions
   before_action :set_course
-  before_action :set_application, only: %i[show update accept decline]
+  before_action :set_application, only: %i[show update accept decline destroy]
 
   def index
     respond_to do |format|
@@ -46,6 +46,13 @@ class CourseApplicationReviewsController < ApplicationController
   def decline
     DeclineCourseApplication.new(application: @application, staff: current_user)
     redirect_to application_path, status: :see_other
+  end
+
+  # Removes the application and its answers, so the applicant can apply again.
+  # An accepted applicant stays enrolled.
+  def destroy
+    @application.destroy!
+    redirect_to "/courses/#{@course.slug}/applications", status: :see_other
   end
 
   private
