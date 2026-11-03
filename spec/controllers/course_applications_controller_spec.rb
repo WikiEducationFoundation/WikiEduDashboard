@@ -41,10 +41,10 @@ describe CourseApplicationsController, type: :request do
     context 'when nobody is signed in' do
       let(:viewer) { nil }
 
-      it 'shows the intro and asks the visitor to log in, without the questions' do
+      it 'shows the intro and the log-in and sign-up buttons, without the questions' do
         get path
-        expect(response.body).to include('A six-week workshop.',
-                                         I18n.t('course_applications.log_in_to_apply'))
+        expect(response.body).to include('A six-week workshop.', I18n.t('courses.please_log_in'),
+                                         '/users/auth/mediawiki_signup')
         expect(response.body).not_to include('Describe your research background')
       end
     end
