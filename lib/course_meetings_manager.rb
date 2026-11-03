@@ -96,18 +96,18 @@ class CourseMeetingsManager
 
   # Returns an arry of arrays, one per week, representing the meeting days
   # of each calendar week in the course from timeline start to timeline end.
+  # Weeks run Sunday through Saturday from @beginning_of_first_week (a Sunday),
+  # so each meeting's week is found arithmetically in one pass. A nested
+  # week-by-meeting scan was quadratic, which took about a second per call for
+  # a multi-year timeline with no meeting days (treated as meeting daily).
   def calculate_week_meeting_dates
-    meetings = []
-    @timeline_week_count.times do |wk|
-      week_start = @beginning_of_first_week + wk.weeks
-      # This excludes Sunday, putting the end of the week at Saturday.
-      week_end = week_start.end_of_week(:sunday)
-      week_mtgs = []
-      @meeting_dates.each do |meeting|
-        next if (meeting < @course.timeline_start) || (@course.timeline_end < meeting)
-        week_mtgs << meeting if date_is_between(meeting, week_start, week_end)
-      end
-      meetings.push week_mtgs
+    # The count is negative when timeline_end precedes timeline_start; no weeks.
+    meetings = Array.new([@timeline_week_count, 0].max) { [] }
+    @meeting_dates.each do |meeting|
+      next if (meeting < @course.timeline_start) || (@course.timeline_end < meeting)
+      week_index = (meeting - @beginning_of_first_week).to_i.div(7)
+      next unless week_index.between?(0, @timeline_week_count - 1)
+      meetings[week_index] << meeting
     end
     meetings
   end
@@ -131,10 +131,6 @@ class CourseMeetingsManager
 
   def course_has_timeline_dates?
     @course.timeline_start.present? && @course.timeline_end.present?
-  end
-
-  def date_is_between(date, min, max)
-    min <= date && date <= max
   end
 
   def calculate_beginning_of_first_week
