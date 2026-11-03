@@ -102,9 +102,18 @@ describe CourseApplicationsController, type: :request do
       other = create(:q_short, question_group:, question_text: 'Current title')
       post path, params: { answers: }
       expect(response).to have_http_status(:unprocessable_content)
-      expect(response.body).to include(I18n.t('course_applications.invalid'),
-                                       'I study elections.', "answer_#{other.id}_errors")
+      expect(response.body).to include(I18n.t('error.form_errors'),
+                                       'I study elections.', "answer_#{other.id}_errors",
+                                       I18n.t('application.field_required'))
+      expect(response.body).not_to include("can't be blank", 'can&#39;t be blank')
       expect(CourseApplication.count).to eq(0)
+    end
+
+    it 'gives a length error in its own words' do
+      question.update!(validation_rules: question.rules.merge(minimum: '50'))
+      post path, params: { answers: }
+      expect(response.body).to include('too short')
+      expect(response.body).not_to include(I18n.t('application.field_required'))
     end
 
     context 'when nobody is signed in' do

@@ -53,6 +53,17 @@ describe CourseApplicationFormsController, type: :request do
                                        'id="course_application_form_acceptance_email"')
     end
 
+    it 'links to creating a question group when none can be offered' do
+      get path
+      expect(response.body).to include(I18n.t('question_groups.none'),
+                                       '/surveys/rapidfire/question_groups/new')
+    end
+
+    it 'says who the acceptance email comes from' do
+      get path
+      expect(response.body).to include("Sender: dashboard@#{ENV['dashboard_url']}")
+    end
+
     it 'creates nothing just by being viewed' do
       get path
       expect(CourseApplicationForm.count).to eq(0)

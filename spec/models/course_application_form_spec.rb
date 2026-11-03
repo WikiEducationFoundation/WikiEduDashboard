@@ -26,7 +26,7 @@ describe CourseApplicationForm do
     it 'refuses to open with no question groups' do
       form = described_class.new(course:, open: true)
       expect(form).not_to be_valid
-      expect(form.errors[:base]).to be_present
+      expect(form.errors[:base]).to eq([I18n.t('wizard.minimum_options', count: 1)])
     end
 
     it 'opens once it has a question group' do

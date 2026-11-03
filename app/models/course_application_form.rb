@@ -84,6 +84,7 @@ class CourseApplicationForm < ApplicationRecord
   def open_form_has_question_groups
     return unless open && question_group_ids.empty?
 
-    errors.add(:base, I18n.t('course_application_forms.no_question_groups_error'))
+    # The course wizard's "at least one" message.
+    errors.add(:base, I18n.t('wizard.minimum_options', count: 1))
   end
 end

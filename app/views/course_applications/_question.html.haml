@@ -9,7 +9,10 @@
 - field_id = "answer_#{question.id}"
 - text_id = "#{field_id}_text"
 - errors_id = "#{field_id}_errors"
-- errors = answer&.errors&.full_messages || []
+-# A missing answer gets the Dashboard's own "required" message rather than
+-# Rails' "Answer text can't be blank"; other errors keep Rails' text.
+- error_message = ->(error) { error.type == :blank ? t('application.field_required') : error.full_message }
+- errors = answer ? answer.errors.map(&error_message).uniq : []
 - value = answer&.answer_text
 - required = question.rules[:presence].to_i == 1
 - required_attribute = required && question.conditionals.blank?

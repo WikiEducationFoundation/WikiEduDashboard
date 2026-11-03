@@ -7,6 +7,14 @@ require_dependency "#{Rails.root}/lib/timeslice_manager"
 class JoinCourse
   attr_reader :result
 
+  # The i18n key explaining a failure reason. A join refused because the course
+  # takes applications gets the generic "not authorized" message.
+  def self.failure_message_key(reason)
+    return 'error_401.explanation' if reason == 'application_required'
+
+    "courses.join_failure_details.#{reason}"
+  end
+
   # A course with a Scholars & Scientists application form takes students only
   # through an accepted application or an admin adding them; those two callers
   # pass `skip_application_check: true`. Every other path is refused, including

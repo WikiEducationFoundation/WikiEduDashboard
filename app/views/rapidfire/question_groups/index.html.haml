@@ -6,4 +6,5 @@
     %ul.list.survey__admin__row-container= render partial: "question_group", collection: @question_groups.reverse
   - else
     %p.light-text
-      No Question Groups. #{link_to "Create One", new_question_group_path}
+      = t('question_groups.none')
+      = link_to t('question_groups.create_one'), new_question_group_path

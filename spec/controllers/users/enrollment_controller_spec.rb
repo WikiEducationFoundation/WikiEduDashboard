@@ -130,6 +130,7 @@ describe Users::EnrollmentController, type: :request do
         create(:courses_user, user:, course: cohort, role: CoursesUsers::Roles::INSTRUCTOR_ROLE)
         post "/courses/#{cohort.slug}/user", params: post_params
         expect(subject).to eq(404)
+        expect(response.parsed_body['message']).to eq(I18n.t('error_401.explanation'))
         expect(cohort.students).to be_empty
       end
 

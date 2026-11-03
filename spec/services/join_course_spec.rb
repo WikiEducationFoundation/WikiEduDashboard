@@ -190,6 +190,13 @@ describe JoinCourse do
       expect(course.students).to be_empty
     end
 
+    it 'explains the refusal with the generic "not authorized" message' do
+      expect(described_class.failure_message_key('application_required'))
+        .to eq('error_401.explanation')
+      expect(described_class.failure_message_key('not_yet_approved'))
+        .to eq('courses.join_failure_details.not_yet_approved')
+    end
+
     it 'enrolls a student when the caller skips the application check' do
       result = described_class.new(course:, user: second_user,
                                    role: CoursesUsers::Roles::STUDENT_ROLE,

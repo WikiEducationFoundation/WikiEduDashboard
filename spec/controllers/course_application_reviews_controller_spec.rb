@@ -111,7 +111,8 @@ describe CourseApplicationReviewsController, type: :request do
     it 'asks for confirmation before accepting' do
       course.campaigns << create(:campaign)
       get application_path
-      expect(response.body).to include('data-confirm')
+      expect(response.body)
+        .to include('Accept and enroll Historian, and send the acceptance email?')
     end
 
     it 'accepts and enrolls once the course is approved' do
@@ -121,6 +122,11 @@ describe CourseApplicationReviewsController, type: :request do
       expect(application.reload).to be_accepted
       expect(course.students).to include(applicant)
     end
+  end
+
+  it 'asks for confirmation before declining' do
+    get application_path
+    expect(response.body).to include('Decline Historian, and send the decline email?')
   end
 
   it 'declines' do
