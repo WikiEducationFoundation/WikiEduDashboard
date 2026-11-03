@@ -1134,7 +1134,6 @@ en:
     optional: (optional)
     submitted: "[PLACEHOLDER - confirmation shown to someone who has applied to this course]"
     closed: "[PLACEHOLDER - message when this course is not accepting applications]"
-    log_in_to_apply: "[PLACEHOLDER - prompt to log in with a Wikipedia account (or create one) in order to apply]"
     invalid: "[PLACEHOLDER - error summary when some answers need fixing before the application can be submitted]"
 
   course_application_reviews:

@@ -22,8 +22,15 @@
       = render 'form'
     - else
       .module
-        %p= t('course_applications.log_in_to_apply')
-        = button_to user_mediawiki_omniauth_authorize_path, params: { origin: request.path },
-                    class: 'button dark' do
-          %span= t('application.log_in')
-          %span= t('application.sign_up_log_in_extended')
+        %p= t('courses.please_log_in')
+        -# The homepage's pair of buttons. Both come back here after Wikipedia:
+        -# sign-up returns through the same callback as log-in.
+        .course-application__auth
+          = button_to user_mediawiki_omniauth_authorize_path, params: { origin: request.path },
+                      class: 'button dark auth' do
+            %i.icon.icon-wiki-white
+            = t('home.log_in')
+          = button_to user_mediawiki_signup_omniauth_authorize_path,
+                      params: { origin: request.path }, class: 'button auth signup' do
+            %i.icon.icon-wiki-purple
+            = t('home.sign_up')
