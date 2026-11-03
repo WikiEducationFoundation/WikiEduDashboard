@@ -80,6 +80,11 @@ json.course do
                    @course.course_applications.exists?(user: current_user)
       json.intro_html simple_format(application_form.intro) if application_form&.intro.present?
       json.form_url "/courses/#{@course.slug}/apply/form"
+      # For the Admin box: all applications, and those still awaiting a decision.
+      if current_user&.admin?
+        json.total_count @course.course_applications.count
+        json.submitted_count @course.course_applications.submitted.count
+      end
     end
   end
 

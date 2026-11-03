@@ -269,6 +269,8 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/, id: /\d+/ }
     patch 'courses/:slug/applications/:id' => 'course_application_reviews#update',
           constraints: { slug: /.*/, id: /\d+/ }
+    delete 'courses/:slug/applications/:id' => 'course_application_reviews#destroy',
+           constraints: { slug: /.*/, id: /\d+/ }
     post 'courses/:slug/applications/:id/accept' => 'course_application_reviews#accept',
          constraints: { slug: /.*/, id: /\d+/ }
     post 'courses/:slug/applications/:id/decline' => 'course_application_reviews#decline',

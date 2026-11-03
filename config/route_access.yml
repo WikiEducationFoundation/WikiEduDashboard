@@ -160,6 +160,7 @@ course_application_forms#update: admin
 
 course_application_reviews#accept: admin
 course_application_reviews#decline: admin
+course_application_reviews#destroy: admin
 course_application_reviews#index: admin
 course_application_reviews#show: admin
 course_application_reviews#update: admin

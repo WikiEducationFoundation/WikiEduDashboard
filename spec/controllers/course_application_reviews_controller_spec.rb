@@ -134,4 +134,39 @@ describe CourseApplicationReviewsController, type: :request do
     expect(response).to redirect_to(application_path)
     expect(application.reload).to be_declined
   end
+
+  describe 'deleting' do
+    it 'asks for confirmation before deleting' do
+      get application_path
+      expect(response.body)
+        .to include(I18n.t('users.remove_confirmation', username: 'Historian'))
+    end
+
+    it 'deletes the application and its answers, then returns to the list' do
+      answer_group_ids = application.answer_groups.pluck(:id)
+      delete application_path
+      expect(response).to redirect_to(base_path)
+      expect(CourseApplication.exists?(application.id)).to be false
+      expect(Rapidfire::AnswerGroup.where(id: answer_group_ids)).to be_empty
+      expect(Rapidfire::Answer.where(answer_group_id: answer_group_ids)).to be_empty
+    end
+
+    it 'lets the applicant apply again' do
+      delete application_path
+      SubmitCourseApplication.new(course:, user: applicant, answers: {
+                                    question.id.to_s => { answer_text: 'Second try' }
+                                  })
+      expect(course.course_applications.where(user: applicant).count).to eq(1)
+    end
+
+    context 'when the viewer is not an admin' do
+      let(:viewer) { applicant }
+
+      it 'refuses' do
+        delete application_path
+        expect(response).to have_http_status(:unauthorized)
+        expect(CourseApplication.exists?(application.id)).to be true
+      end
+    end
+  end
 end
