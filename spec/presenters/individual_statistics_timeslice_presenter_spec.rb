@@ -47,7 +47,8 @@ describe IndividualStatisticsTimeslicePresenter do
                                                                 revision_data)
         ArticleCourseTimeslice.update_article_course_timeslices(course2, article.id,
                                                                 revision_data)
-        ArticlesCourses.update_all_caches_from_timeslices(ArticlesCourses.all)
+        ArticlesCourses.update_all_caches_from_timeslices(course1, course1.articles_courses)
+        ArticlesCourses.update_all_caches_from_timeslices(course2, course2.articles_courses)
         course1.update_cache_from_timeslices
         course2.update_cache_from_timeslices
       end
