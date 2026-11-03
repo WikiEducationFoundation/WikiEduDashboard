@@ -105,4 +105,41 @@ describe PersonalData::PersonalDataCsvBuilder, type: :request do
       expect(csv_content).not_to include('Name (from LMS)')
     end
   end
+
+  describe 'course application info' do
+    let(:cohort) { create(:fellows_cohort, slug: 'Wiki_Education/Workshop_(2027)') }
+    let(:base) { create(:question_group, name: 'Base') }
+    let(:theme) { create(:question_group, name: 'Theme') }
+    let!(:background) do
+      create(:q_long, question_group: base, question_text: 'Describe your research background')
+    end
+    let!(:topics) do
+      create(:q_short, question_group: theme, question_text: 'Topics you would work on',
+                       follow_up_question_text: 'Anything else?')
+    end
+
+    before do
+      CourseApplicationForm.create!(course: cohort, open: true,
+                                    question_group_ids: [base.id, theme.id])
+      application = SubmitCourseApplication.new(course: cohort, user:, answers: {
+        background.id.to_s => { answer_text: 'I study elections.' },
+        topics.id.to_s => { answer_text: 'Voting rights', follow_up_answer_text: 'Maps' }
+      }).application
+      application.update!(staff_notes: 'Strong fit')
+    end
+
+    it 'exports each application with its answers, in form order' do
+      csv = CSV.parse(described_class.new(user).generate_csv)
+      start = csv.index(['Application', 'Status', 'Submitted At', 'Decided At'])
+      expect(csv[start + 1].first(2)).to eq(['Wiki_Education/Workshop_(2027)', 'submitted'])
+      expect(csv[start + 3]).to eq(['Describe your research background', 'I study elections.',
+                                    nil, nil])
+      expect(csv[start + 5]).to eq(['Topics you would work on', 'Voting rights',
+                                    'Anything else?', 'Maps'])
+    end
+
+    it 'leaves out staff notes' do
+      expect(described_class.new(user).generate_csv).not_to include('Strong fit')
+    end
+  end
 end
