@@ -59,8 +59,10 @@ class CourseMeetingsManager
   def all_actual_meetings
     # Exceptions are positive (Tue/Thu class meeting on Wed)
     # or negative (Tue/Thu class doesn't meet on Tue)
-    positive_exceptions = exceptions_as_dates - all_potential_meetings
-    all_potential_meetings - exceptions_as_dates + positive_exceptions
+    potential = all_potential_meetings
+    exceptions = exceptions_as_dates
+    positive_exceptions = exceptions - potential
+    potential - exceptions + positive_exceptions
   end
 
   # Returns an array of Date objects representing all days

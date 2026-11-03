@@ -6,7 +6,10 @@ class BlockDateManager
   def initialize(block, meetings_manager = nil)
     @block = block
     @week = @block.week
-    @course = @block.course
+    # Through the week rather than block.course, so blocks loaded from a
+    # course's weeks share that Course object and its memoized meetings
+    # manager; building one per block was most of a long timeline's render.
+    @course = @week.course
     @meetings_manager = meetings_manager
   end
 
