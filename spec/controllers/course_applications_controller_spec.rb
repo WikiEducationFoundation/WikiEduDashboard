@@ -24,78 +24,104 @@ describe CourseApplicationsController, type: :request do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(viewer)
   end
 
+  let(:form_path) { "/courses/#{course.slug}/apply/form" }
+
   describe 'which page it is' do
     it '404s on the Programs & Events Dashboard' do
       allow(Features).to receive(:wiki_ed?).and_return(false)
-      get path
+      get form_path
       expect(response).to have_http_status(:not_found)
     end
 
     it '404s for a course type that does not take applications' do
-      get "/courses/#{create(:course, slug: 'School/Classroom_(2027)').slug}/apply"
+      get "/courses/#{create(:course, slug: 'School/Classroom_(2027)').slug}/apply/form"
       expect(response).to have_http_status(:not_found)
     end
   end
 
-  describe 'GET' do
+  # The apply link itself is the course page; the form page only serves
+  # someone who can apply, and sends everyone else back to the card there.
+  describe 'GET the form' do
+    it 'shows a signed-in user the intro and the questions' do
+      get form_path
+      expect(response.body).to include('A six-week workshop.', 'Describe your research background')
+    end
+
     context 'when nobody is signed in' do
       let(:viewer) { nil }
 
-      it 'shows the intro and the log-in and sign-up buttons, without the questions' do
-        get path
-        expect(response.body).to include('A six-week workshop.', I18n.t('courses.please_log_in'),
-                                         '/users/auth/mediawiki_signup')
-        expect(response.body).not_to include('Describe your research background')
+      it 'returns to the apply card' do
+        get form_path
+        expect(response).to redirect_to(path)
       end
     end
 
-    it 'shows a signed-in user the questions' do
-      get path
-      expect(response.body).to include('Describe your research background')
-    end
-
-    it 'says applications are closed when the form is not open' do
+    it 'returns to the apply card when the form is not open' do
       form.update!(open: false)
-      get path
-      expect(response.body).to include(I18n.t('course_applications.closed'))
-      expect(response.body).not_to include('Describe your research background')
+      get form_path
+      expect(response).to redirect_to(path)
     end
 
-    it 'says applications are closed once the course has ended' do
+    it 'returns to the apply card once the course has ended' do
       course.update!(end: 1.day.ago)
-      get path
-      expect(response.body).to include(I18n.t('course_applications.closed'))
+      get form_path
+      expect(response).to redirect_to(path)
     end
 
-    it 'says applications are closed for a course with no form' do
+    it 'returns to the apply card for a course with no form' do
       form.destroy
-      get path
-      expect(response.body).to include(I18n.t('course_applications.closed'))
+      get form_path
+      expect(response).to redirect_to(path)
     end
 
-    # Decisions are not shown on the page, only that the person applied.
-    it 'confirms an existing application, whatever its status, even once closed' do
-      CourseApplication.create!(course:, user:, status: :declined)
-      form.update!(open: false)
-      get path
-      expect(response.body).to include(I18n.t('course_applications.submitted'))
-      expect(response.body).not_to include('Describe your research background')
+    it 'returns to the apply card once the user has applied' do
+      CourseApplication.create!(course:, user:)
+      get form_path
+      expect(response).to redirect_to(path)
     end
 
     it 'sends a student already in the course to the course page' do
       create(:courses_user, course:, user:, role: CoursesUsers::Roles::STUDENT_ROLE)
-      get path
+      get form_path
       expect(response).to redirect_to("/courses/#{course.slug}")
     end
   end
 
+  describe 'the apply card, from the course JSON' do
+    def application_json
+      get "/courses/#{course.slug}/course.json"
+      response.parsed_body.dig('course', 'application')
+    end
+
+    it 'gives an open form, its intro, and the form link' do
+      expect(application_json).to include('has_form' => true, 'open' => true, 'applied' => false,
+                                          'form_url' => form_path)
+      expect(application_json['intro_html']).to include('A six-week workshop.')
+    end
+
+    it 'says when the form is closed' do
+      form.update!(open: false)
+      expect(application_json).to include('open' => false)
+    end
+
+    # Decisions are not shown, only that the person applied.
+    it 'says the user has applied, whatever the decision' do
+      CourseApplication.create!(course:, user:, status: :declined)
+      expect(application_json).to include('applied' => true)
+    end
+
+    it 'is left out for a course type that does not take applications' do
+      classroom = create(:course, slug: 'School/Classroom_(2027)')
+      get "/courses/#{classroom.slug}/course.json"
+      expect(response.parsed_body['course']).not_to have_key('application')
+    end
+  end
+
   describe 'POST' do
-    it 'saves the application and returns to the page, which confirms it' do
+    it 'saves the application and returns to the apply card' do
       post path, params: { answers: }
       expect(response).to redirect_to(path)
       expect(CourseApplication.find_by(course:, user:)).to be_submitted
-      follow_redirect!
-      expect(response.body).to include(I18n.t('course_applications.submitted'))
     end
 
     it 're-shows the form with the answers kept when one is missing' do

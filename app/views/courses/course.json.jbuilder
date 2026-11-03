@@ -69,6 +69,20 @@ json.course do
   json.updates average_delay: @course.flags['average_update_delay'],
                last_update: @course.flags['update_logs']&.values&.last
 
+  # For the application card on the apply link (Scholars & Scientists courses,
+  # Wiki Education Dashboard only). See CourseApplicationsController.
+  if Features.wiki_ed? && @course.applications_allowed?
+    application_form = @course.course_application_form
+    json.application do
+      json.has_form application_form.present?
+      json.open application_form&.accepting_applications? || false
+      json.applied current_user.present? &&
+                   @course.course_applications.exists?(user: current_user)
+      json.intro_html simple_format(application_form.intro) if application_form&.intro.present?
+      json.form_url "/courses/#{@course.slug}/apply/form"
+    end
+  end
+
   if [CoursesUsers::Roles::STUDENT_ROLE, CoursesUsers::Roles::INSTRUCTOR_ROLE].include? user_role
     json.incomplete_assigned_modules @course.training_progress_manager
                                             .incomplete_assigned_modules(current_user)

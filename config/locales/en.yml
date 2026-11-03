@@ -1127,6 +1127,9 @@ en:
     acceptance_email_help: "This will be emailed to an applicant upon acceptance. Sender: %{sender}"
 
   course_applications:
+    apply: Apply
+    accepting: This course is now accepting applications.
+    account_needed: To apply, first log in with your Wikipedia account or create one now.
     submit: Submit application
     optional: (optional)
     submitted: "Your application is submitted. Thanks!"

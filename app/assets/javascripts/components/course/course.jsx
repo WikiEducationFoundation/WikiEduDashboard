@@ -23,6 +23,7 @@ import { restoreStudentView, exitStudentView, leaveStudentView } from '../../act
 import Affix from '../common/affix.jsx';
 import CourseUtils from '../../utils/course_utils.js';
 import EnrollCard from '../enroll/enroll_card.jsx';
+import ApplyCard from '../enroll/apply_card.jsx';
 import CourseNavbar from '../common/course_navbar.jsx';
 import Notifications from '../common/notifications.jsx';
 import CourseAlerts from './course_alerts';
@@ -81,6 +82,17 @@ const Course = withRouter((props) => {
     return false;
   };
 
+  // The apply link, /courses/<slug>/apply, is the course page with the
+  // application card on top. A course with an application form is joined only
+  // by applying, so there the application card also takes the enroll card's
+  // place, which would otherwise offer a "Join" the server refuses.
+  const onApplyPage = () => /\/apply\/?$/.test(props.router.location.pathname);
+  const showApplyCard = (course) => {
+    if (!course.application || props.currentUser.isEnrolled) { return false; }
+    if (onApplyPage()) { return true; }
+    return course.application.has_form && showEnrollCard(course);
+  };
+
   const _courseLinkParams = () => `/courses/${props.router.params.course_school}/${props.router.params.course_title}`;
 
   const courseSlug = getCourseSlug();
@@ -103,8 +115,11 @@ const Course = withRouter((props) => {
   // //////////////////
   // Enrollment modal /
   // //////////////////
+  let applyCard;
   let enrollCard;
-  if (showEnrollCard(course)) {
+  if (showApplyCard(course)) {
+    applyCard = <ApplyCard user={props.currentUser} course={course} />;
+  } else if (showEnrollCard(course) && !course.application?.has_form) {
     const query = parse(props.router.location.search);
     enrollCard = (
       <EnrollCard
@@ -150,10 +165,12 @@ const Course = withRouter((props) => {
       <div className="course_main container">
         <Confirm />
         {courseApprovalForm}
+        {applyCard}
         {enrollCard}
         <Routes>
           <Route path="/" element={<OverviewHandler {...courseProps} />} />
           <Route path="home" element={<OverviewHandler {...courseProps} />} />
+          <Route path="apply" element={<OverviewHandler {...courseProps} />} />
           {/* The overview route path should not be removed in order to preserve the default url */}
           <Route path="overview" element={<OverviewHandler {...courseProps} />} />
           <Route path="activity/*" element={<ActivityHandler {...courseProps} users={props.users} usersLoaded={props.usersLoaded} />}/>

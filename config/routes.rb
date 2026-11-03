@@ -254,8 +254,11 @@ Rails.application.routes.draw do
         constraints: { slug: /.*/ }
     patch 'courses/:slug/application_form' => 'course_application_forms#update',
           constraints: { slug: /.*/ }
-    # The public Scholars & Scientists apply page. See CourseApplicationsController.
-    get 'courses/:slug/apply' => 'course_applications#show',
+    # Scholars & Scientists applications. GET /courses/<slug>/apply is the
+    # course page itself (the courses#show catch-all), where an application
+    # card sits at the top; the form is its own page. See
+    # CourseApplicationsController.
+    get 'courses/:slug/apply/form' => 'course_applications#show',
         constraints: { slug: /.*/ }
     post 'courses/:slug/apply' => 'course_applications#create',
          constraints: { slug: /.*/ }
