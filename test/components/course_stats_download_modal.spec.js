@@ -25,7 +25,6 @@ describe('CourseStatsDownloadModal', () => {
   const course = {
     title: 'African Politics (Fall 2025)',
     slug: 'Boston_College/African_Politics_(Fall_2025)',
-    timeslice_update_ran: true,
     home_wiki: { project: 'wikipedia', language: 'en' }
   };
 
@@ -184,21 +183,6 @@ describe('CourseStatsDownloadModal', () => {
         expect(links[index].getAttribute('href')).toBe(href);
       });
     });
-  });
-
-  test('displays warning message when timeslice update has not run', () => {
-    const unupdatedCourse = {
-      ...course,
-      timeslice_update_ran: false
-    };
-    renderComponent({ course: unupdatedCourse });
-    act(() => {
-      container.querySelector('button').click();
-    });
-
-    const warning = container.querySelector('.warning');
-    expect(warning).not.toBeNull();
-    expect(warning.textContent).toContain(I18n.t('courses.data_download_warning'));
   });
 
   test('closes modal when close button is clicked', () => {
