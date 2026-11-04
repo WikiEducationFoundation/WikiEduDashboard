@@ -20,17 +20,22 @@ describe CourseApplicationsCsvBuilder do
   before do
     CourseApplicationForm.create!(course:, open: true,
                                   question_group_ids: [base_group.id, theme_group.id])
-    SubmitCourseApplication.new(course:, user: applicant, answers: {
-                                  background.id.to_s => { answer_text: '=HYPERLINK("x")',
-                                                          follow_up_answer_text: 'No' },
-                                  topics.id.to_s => { answer_text: %w[Elections] }
-                                })
+    answers = built_in_application_answers(last_name: 'Ortega').merge(
+      background.id.to_s => { answer_text: '=HYPERLINK("x")', follow_up_answer_text: 'No' },
+      topics.id.to_s => { answer_text: %w[Elections] }
+    )
+    SubmitCourseApplication.new(course:, user: applicant, answers:)
   end
 
   let(:csv) { CSV.parse(described_class.new(course).generate_csv, headers: true) }
 
   it 'has a column per question and follow-up, in the form order' do
+    expect(csv.headers[8]).to eq('First Name')
     expect(csv.headers.last(3)).to eq(['Background', 'Anything else?', 'Topics'])
+  end
+
+  it 'includes the built-in questions\' answers' do
+    expect(csv.first['Last Name']).to eq('Ortega')
   end
 
   it 'has a row per applicant with their details and answers' do

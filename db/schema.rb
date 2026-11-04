@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_02_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_04_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -295,6 +295,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_02_120000) do
     t.text "staff_notes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "salesforce_contact_id"
+    t.string "salesforce_course_contact_id"
     t.index ["course_id", "user_id"], name: "index_course_applications_on_course_id_and_user_id", unique: true
     t.index ["user_id"], name: "index_course_applications_on_user_id"
   end

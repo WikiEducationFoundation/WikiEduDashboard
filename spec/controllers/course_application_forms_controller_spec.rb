@@ -120,10 +120,9 @@ describe CourseApplicationFormsController, type: :request do
       expect(course.reload.course_application_form.question_group_ids).to eq([])
     end
 
-    it 'refuses to open a form with no question groups, saving nothing' do
+    it 'opens a form with only the built-in questions' do
       submit(open: '1', ids: [])
-      expect(response).to have_http_status(:unprocessable_content)
-      expect(CourseApplicationForm.count).to eq(0)
+      expect(course.reload.course_application_form).to be_open
     end
 
     it 'refuses a group used in a survey' do

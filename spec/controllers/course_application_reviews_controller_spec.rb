@@ -18,9 +18,10 @@ describe CourseApplicationReviewsController, type: :request do
   let!(:application) do
     CourseApplicationForm.create!(course:, open: true, question_group_ids: [question_group.id],
                                   acceptance_email: 'See you at the first meeting.')
-    SubmitCourseApplication.new(course:, user: applicant, answers: {
-                                  question.id.to_s => { answer_text: '<b>I study elections.</b>' }
-                                }).application
+    answers = built_in_application_answers.merge(
+      question.id.to_s => { answer_text: '<b>I study elections.</b>' }
+    )
+    SubmitCourseApplication.new(course:, user: applicant, answers:).application
   end
   let(:application_path) { "#{base_path}/#{application.id}" }
 
@@ -159,9 +160,10 @@ describe CourseApplicationReviewsController, type: :request do
 
     it 'lets the applicant apply again' do
       delete application_path
-      SubmitCourseApplication.new(course:, user: applicant, answers: {
-                                    question.id.to_s => { answer_text: 'Second try' }
-                                  })
+      answers = built_in_application_answers.merge(
+        question.id.to_s => { answer_text: 'Second try' }
+      )
+      SubmitCourseApplication.new(course:, user: applicant, answers:)
       expect(course.course_applications.where(user: applicant).count).to eq(1)
     end
 
