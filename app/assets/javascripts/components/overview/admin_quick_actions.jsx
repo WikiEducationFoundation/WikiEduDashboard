@@ -6,6 +6,7 @@ import { format, toDate, parseISO } from 'date-fns';
 import { getUTCDateString } from '../../utils/date_utils.js';
 import NotesPanel from '../../components/admin_notes/notes_panel.jsx';
 import AdminStatusPanel from '../../components/overview/admin_status_panel.jsx';
+import MissingExpectedModules from './missing_expected_modules.jsx';
 import { updateCourse } from '@actions/course_actions.js';
 
 // Helper Functions
@@ -95,7 +96,13 @@ export const AdminQuickActions = ({ course, current_user, persistCourse, greetSt
           <br />
         </>
       )}
-      {current_user.admin && <div><NotesPanel /><AdminStatusPanel course={course} /></div>}
+      {current_user.admin && (
+        <div>
+          <NotesPanel />
+          <AdminStatusPanel course={course} />
+          <MissingExpectedModules missingModules={course.missing_expected_modules} />
+        </div>
+      )}
     </div>
   );
 };
