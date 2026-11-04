@@ -927,6 +927,7 @@ en:
     leave_course: Leave course
     loading: Loading…
     milestones_none: This course does not currently have any milestones.
+    missing_expected_modules: Missing from timeline
     my_articles: My Articles
     my_articles_wikidata: My Items
     needs_update: Schedule Data Update

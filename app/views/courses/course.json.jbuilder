@@ -74,6 +74,10 @@ json.course do
                                             .incomplete_assigned_modules(current_user)
   end
 
+  if current_user&.admin?
+    json.missing_expected_modules FindMissingExpectedModules.new(@course).missing_module_names
+  end
+
   if user_role >= 0 # user enrolled in course
     json.survey_notifications(current_user.survey_notifications.active) do |notification|
       if notification.course.id == @course.id

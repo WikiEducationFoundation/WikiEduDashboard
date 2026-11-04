@@ -49,6 +49,21 @@ describe 'course overview page', type: :feature, js: true do
       expect(page).to have_content 'Schedule Data Update'
     end
 
+    context 'when a research-and-write timeline is missing an expected module' do
+      before do
+        TrainingModule.load_all
+        Tag.create(course_id: course.id, key: 'index', tag: 'research_write_assignment')
+        block.update(training_module_ids: [1, 28, 7, 71, 72, 73, 64])
+        visit "/courses/#{course.slug}"
+      end
+
+      it 'warns admins about the missing module' do
+        within '.missing-expected-modules' do
+          expect(page).to have_content 'Plagiarism'
+        end
+      end
+    end
+
     context 'when the course is finalized' do
       before do
         course.update(flags: { finalized: true })
