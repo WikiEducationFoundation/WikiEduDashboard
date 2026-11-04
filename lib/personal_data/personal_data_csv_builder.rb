@@ -114,7 +114,8 @@ module PersonalData
     end
 
     def application_answers(application)
-      group_order = application.course.course_application_form&.question_group_ids || []
+      form = application.course.course_application_form
+      group_order = CourseApplicationForm.answer_group_order(form)
       application.answer_groups.includes(answers: :question).flat_map(&:answers).sort_by do |a|
         question = a.question
         [group_order.index(question.question_group_id) || group_order.size,

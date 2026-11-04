@@ -44,8 +44,8 @@ class SubmitCourseApplication
 
   def build_answer_groups
     question_groups.each do |group|
-      answer_group = @application.answer_groups.build(question_group: group, user: @user,
-                                                      course_id: @course.id)
+      answer_group = @application.answer_groups.build(**reference(:question_group, group),
+                                                      user: @user, course_id: @course.id)
       group.questions.each { |question| build_answer(answer_group, question) }
     end
   end
@@ -56,7 +56,7 @@ class SubmitCourseApplication
     return unless visibility.visible?(question)
 
     submitted = @answers[question.id.to_s] || {}
-    answer_group.answers.build(question:,
+    answer_group.answers.build(**reference(:question, question),
                                answer_text: answer_text(submitted[:answer_text]),
                                follow_up_answer_text: submitted[:follow_up_answer_text])
   end
@@ -66,6 +66,12 @@ class SubmitCourseApplication
   def answer_text(submitted)
     return submitted unless submitted.is_a?(Array)
     submitted.map(&:strip).compact_blank.join(Rapidfire.answers_delimiter)
+  end
+
+  # The built-in questions and their group aren't database records, so they're
+  # referenced by id: assigning an unsaved record would make Rails save it too.
+  def reference(name, record)
+    record.persisted? ? { name => record } : { "#{name}_id": record.id }
   end
 
   def question_groups

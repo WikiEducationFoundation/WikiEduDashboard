@@ -18,7 +18,9 @@ describe CourseApplicationsController, type: :request do
     CourseApplicationForm.create!(course:, open: true, intro: 'A six-week workshop.',
                                   question_group_ids: [question_group.id])
   end
-  let(:answers) { { question.id.to_s => { answer_text: 'I study elections.' } } }
+  let(:answers) do
+    built_in_application_answers.merge(question.id.to_s => { answer_text: 'I study elections.' })
+  end
 
   before do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(viewer)
