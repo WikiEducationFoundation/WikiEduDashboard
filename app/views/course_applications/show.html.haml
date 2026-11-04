@@ -1,0 +1,16 @@
+-# The application form, at /courses/<slug>/apply/form. Only someone who can
+-# apply gets here (see CourseApplicationsController); the log-in prompt,
+-# closed notice and confirmation are on the course page's application card.
+-# Expects @course, @form, @answers_by_question_id, and @invalid after a failed
+-# submission.
+- content_for :before_title, "#{@course.title} — "
+
+%header.main-page
+  .container
+    %h1= @course.title
+    %p= "#{l(@course.start.to_date, format: :long)} – #{l(@course.end.to_date, format: :long)}"
+
+.container.narrow.course-application
+  - if @form.intro.present?
+    .module.course-application__intro= simple_format(@form.intro)
+  = render 'form'

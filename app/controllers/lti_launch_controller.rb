@@ -260,7 +260,8 @@ class LtiLaunchController < ApplicationController
   # Approved, not-yet-ended courses the instructor teaches, minus any already
   # bound to another LMS course — a Dashboard course backs only one LMS course
   # (unique index on course_id), so listing a linked one would dead-end the
-  # setup POST. complete_setup guards the same case server-side.
+  # setup POST — and minus course types the integration is not offered for.
+  # complete_setup guards the same cases server-side.
   def linkable_courses
     # The course_id filter is load-bearing: `NOT IN (subquery)` would exclude
     # every course if the subquery yielded a NULL.
@@ -271,7 +272,7 @@ class LtiLaunchController < ApplicationController
                 .where(withdrawn: false)
                 .where('courses.end > ?', Time.zone.now)
                 .where.not(id: bound)
-                .distinct.order(start: :desc).to_a
+                .distinct.order(start: :desc).select(&:lms_integration_allowed?)
   end
 
   # In-iframe setup (Firefox lets the iframe keep the session) can't redirect

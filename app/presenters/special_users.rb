@@ -30,6 +30,12 @@ class SpecialUsers
     User.find_by(username: special_users[:outreach_manager])
   end
 
+  # Runs the Scholars & Scientists program; application decision emails come
+  # from this person.
+  def self.scholars_and_scientists_manager
+    User.find_by(username: special_users[:scholars_and_scientists_manager])
+  end
+
   def self.wikipedia_experts
     User.where(username: special_users[:wikipedia_experts])
   end

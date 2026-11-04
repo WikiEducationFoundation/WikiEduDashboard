@@ -1,0 +1,107 @@
+// Admin review of Scholars & Scientists applications (course_application_reviews/).
+.course-application-reviews__counts
+  span
+    margin-right 1.5em
+
+.course-application-review__details
+  display grid
+  grid-template-columns max-content 1fr
+  gap 0.25em 1em
+  dt
+    font-weight 600
+  dd
+    margin 0
+
+.course-application-review__decision
+  display flex
+  align-items center
+  gap 1em
+  margin 1.5em 0
+  form
+    margin 0
+
+.course-application-review__delete
+  margin 2.5em 0 1.5em
+
+.course-application-review__answer
+  margin-bottom 1.25em
+
+.course-application-review__question
+  font-weight 600
+  p
+    margin 0 0 0.25em
+
+.course-application-review
+  h2
+    margin-top 1.5em
+  // Question group names, under the Answers heading.
+  h3
+    font-size 1.15em
+    margin 1.25em 0 0.75em
+  textarea
+    width 100%
+    margin-bottom 0.5em
+
+// Application form settings (course_application_forms/edit): room for the
+// intro and the acceptance email, which run to several paragraphs.
+.course-application-form
+  textarea
+    width 100%
+    max-width 48em
+
+// The question group list: drag-and-drop or the Move buttons reorder it. The
+// rows are flex boxes, which lose their list markers, so a counter numbers them.
+.course-application-form__groups
+  max-width 48em
+  padding-left 0
+  margin 1em 0
+  list-style none
+  counter-reset question-group
+
+.course-application-form__group
+  display flex
+  flex-wrap wrap
+  align-items center
+  gap 0.5em
+  padding 0.5em
+  margin-bottom 0.25em
+  border 1px solid #ddd
+  border-radius 3px
+  background white
+  cursor move
+  counter-increment question-group
+  &::before
+    content counter(question-group) "."
+    min-width 1.5em
+    font-weight 600
+
+.course-application-form__group--dragging
+  opacity 0.5
+
+.course-application-form__handle
+  color #888
+
+.course-application-form__group-name
+  flex 1
+  font-weight 600
+
+.course-application-form__group-actions
+  display flex
+  flex-wrap wrap
+  gap 0.25em
+  cursor auto
+
+.course-application-form__add
+  display flex
+  flex-wrap wrap
+  align-items center
+  gap 0.5em
+  max-width 48em
+  margin-bottom 1.5em
+  label
+    font-weight 600
+  select, .ts-wrapper
+    flex 1
+    min-width 12em
+  .ts-control
+    min-height 2.6em
