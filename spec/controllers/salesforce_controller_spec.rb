@@ -22,6 +22,17 @@ describe SalesforceController, type: :request do
         expect(course.reload.flags[:salesforce_id]).to eq('a0f1a000001Wyar')
       end
 
+      it 'pushes a Scholars & Scientists course\'s existing applications' do
+        cohort = create(:fellows_cohort)
+        application = CourseApplication.create!(course: cohort, user:)
+        allow_any_instance_of(Restforce::Data::Client).to receive(:update!).and_return(true)
+        allow(PushCourseApplicationToSalesforceWorker).to receive(:perform_async)
+        put "/salesforce/link/#{cohort.id}",
+            params: { course_id: cohort.id, salesforce_id: 'a0f1a000001Wyar' }
+        expect(PushCourseApplicationToSalesforceWorker).to have_received(:perform_async)
+          .with(application.id)
+      end
+
       it 'raises an error for an invalid Salesforce ID' do
         put route, params: { course_id: course.id, salesforce_id: '1234' }
         expect(response.status).to eq(500).or eq(422)
