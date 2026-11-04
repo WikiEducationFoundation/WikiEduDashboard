@@ -35,12 +35,23 @@ describe CourseApplicationFormsController, type: :request do
   end
 
   describe 'GET' do
-    it 'offers every question group not used in a survey' do
+    it 'offers to add every question group not used in a survey' do
       base_group
       theme_group
       get path
       expect(response.body).to include('Base questions', 'Theme questions')
       expect(response.body).not_to include('Survey-only questions')
+    end
+
+    it 'lists the groups on the form in order, and does not offer them again' do
+      CourseApplicationForm.create!(course:, question_group_ids: [theme_group.id, base_group.id])
+      create(:question_group, name: 'Spare questions')
+      get path
+      page = Nokogiri::HTML(response.body)
+      expect(page.css('[data-question-group-list] .course-application-form__group-name')
+                 .map(&:text)).to eq(['Theme questions', 'Base questions'])
+      expect(page.css('[data-question-group-add-select] option').map(&:text))
+        .to eq(['', 'Spare questions'])
     end
 
     it 'labels its fields' do
@@ -71,14 +82,16 @@ describe CourseApplicationFormsController, type: :request do
   end
 
   describe 'PATCH' do
-    def submit(positions:, open: '0', intro: 'Welcome', acceptance_email: 'See you Tuesday')
-      patch path, params: { course_application_form: { open:, intro:, acceptance_email:,
-                                                        positions: } }
+    # As the page submits them: a leading blank id, then the list in order.
+    def submit(ids:, add: '', open: '0', intro: 'Welcome', acceptance_email: 'See you Tuesday')
+      patch path, params: { course_application_form: {
+        open:, intro:, acceptance_email:,
+        question_group_ids: [''] + ids.map(&:to_s), add_question_group_id: add.to_s
+      } }
     end
 
-    it 'saves the form, asking the groups in position order and skipping blanks' do
-      unused = create(:question_group, name: 'Unused')
-      submit(open: '1', positions: { base_group.id => '1', theme_group.id => '2', unused.id => '' })
+    it 'saves the form, asking the groups in list order' do
+      submit(open: '1', ids: [base_group.id, theme_group.id])
       expect(response).to redirect_to(path)
 
       form = course.reload.course_application_form
@@ -89,20 +102,32 @@ describe CourseApplicationFormsController, type: :request do
     end
 
     it 'reorders the groups on a later save' do
-      submit(positions: { base_group.id => '1', theme_group.id => '2' })
-      submit(positions: { base_group.id => '2', theme_group.id => '1' })
+      submit(ids: [base_group.id, theme_group.id])
+      submit(ids: [theme_group.id, base_group.id])
       expect(course.reload.course_application_form.question_group_ids)
         .to eq([theme_group.id, base_group.id])
     end
 
+    it 'adds the picked group to the end, as when JavaScript is off' do
+      submit(ids: [base_group.id], add: theme_group.id)
+      expect(course.reload.course_application_form.question_group_ids)
+        .to eq([base_group.id, theme_group.id])
+    end
+
+    it 'removes every group when the list comes back empty' do
+      submit(ids: [base_group.id])
+      submit(ids: [])
+      expect(course.reload.course_application_form.question_group_ids).to eq([])
+    end
+
     it 'refuses to open a form with no question groups, saving nothing' do
-      submit(open: '1', positions: { base_group.id => '' })
+      submit(open: '1', ids: [])
       expect(response).to have_http_status(:unprocessable_content)
       expect(CourseApplicationForm.count).to eq(0)
     end
 
     it 'refuses a group used in a survey' do
-      submit(positions: { survey_group.id => '1' })
+      submit(ids: [survey_group.id])
       expect(response).to have_http_status(:unprocessable_content)
       expect(CourseApplicationForm.count).to eq(0)
     end

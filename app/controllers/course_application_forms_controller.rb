@@ -43,25 +43,20 @@ class CourseApplicationFormsController < ApplicationController
       question_group_ids: ordered_question_group_ids }
   end
 
-  # Each offered group has a position field, keyed by group id. Groups left
-  # blank are not on the form; the rest are asked in position order.
+  # The groups on the form, in page order, then the one picked to add, if any.
+  # The model drops blanks and repeats and checks the ids.
   def ordered_question_group_ids
-    group_ids = Rapidfire::QuestionGroup.pluck(:id).map(&:to_s)
-    positions = params.dig(:course_application_form, :positions)&.permit(*group_ids).to_h
-    positions.compact_blank
-             .sort_by { |id, position| [position.to_i, id.to_i] }
-             .map(&:first)
+    form = params.fetch(:course_application_form, {})
+    Array(form[:question_group_ids]) + [form[:add_question_group_id]]
   end
 
-  # The groups already on the form, in order, then every other group that may
-  # join it: anything not used in a survey. A group can be on many courses'
-  # forms, so groups on other forms are offered too.
+  # The groups that may join the form: anything not on it and not used in a
+  # survey. A group can be on many courses' forms, so groups on other forms are
+  # offered too.
   def set_question_group_choices
-    on_form = @form.question_groups
     in_surveys = SurveysQuestionGroup.select(:rapidfire_question_group_id)
-    others = Rapidfire::QuestionGroup.where.not(id: on_form.map(&:id))
-                                     .where.not(id: in_surveys)
-                                     .order(:name)
-    @question_group_choices = on_form + others.to_a
+    @question_group_choices = Rapidfire::QuestionGroup.where.not(id: @form.question_group_ids)
+                                                      .where.not(id: in_surveys)
+                                                      .order(:name).to_a
   end
 end

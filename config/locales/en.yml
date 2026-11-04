@@ -1119,11 +1119,14 @@ en:
     intro: Intro
     question_groups: Question groups
     question_group: Question group
-    position: Position
     edit_question_group: Edit
+    move_up: Move up
+    move_down: Move down
+    remove: Remove
+    add: Add
     save: Save
     saved: Saved
-    positions_help: Which question groups make up the application form for this course? Number them in order.
+    question_groups_help: Drag to reorder
     acceptance_email: Acceptance email
     acceptance_email_help: "This will be emailed to an applicant upon acceptance. Sender: %{sender}"
 
