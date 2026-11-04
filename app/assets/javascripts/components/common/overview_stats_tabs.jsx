@@ -50,10 +50,17 @@ const OverviewStatsTabs = ({ course, statistics }) => {
     index += 1;
   });
 
-  const selectedTab = statsList[currentTabId] || statsList[0];
+  const selectedIndex = statsList[currentTabId] ? currentTabId : 0;
+  const selectedTab = statsList[selectedIndex];
   if (!selectedTab) return null;
 
-  const content = <OverviewStatsContent course={course} content={selectedTab} />;
+  const content = (
+    <OverviewStatsContent
+      course={course}
+      content={selectedTab}
+      isInitialTab={selectedIndex === 0}
+    />
+  );
   // Hide tabs container if there is only one tab
   const tabsClass = `tabs-container${(tabsList.length === 1) ? ' hide' : ''}`;
 
