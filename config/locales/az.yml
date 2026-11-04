@@ -68,8 +68,6 @@ az:
     change: Dəyişdir
     details: Detallar
     confirm: Oldu
-    opt_in: Bəli
-    opt_out: Xeyr
     opt_yes: bəli
     opt_no: xeyr
     print: Çap

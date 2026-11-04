@@ -85,8 +85,7 @@ class GetRevisionPlaintext
     @cleaned_html = remove_non_prose_html_elements(@diff_html || @rev_html)
     # Convert the HTML to plain text
     @plain_text = ActionView::Base.full_sanitizer.sanitize(@cleaned_html)
-    # Remove the edit button leftovers
-    @plain_text = @plain_text.gsub('[edit]', '').strip
+    @plain_text = @plain_text.strip
     # Remove inline citation leftovers
     @plain_text = @plain_text.gsub(/\[\d+\]/, '')
   end

@@ -87,8 +87,6 @@ he:
     change: שינוי
     details: פרטים
     confirm: אישור
-    opt_in: כן
-    opt_out: לא
     opt_yes: כן
     opt_no: לא
     print: הדפסה
@@ -171,7 +169,7 @@ he:
     does_not_exist: הערך לא קיים. נא ליצור דף ארגז חול ולהקצות את עצמך אליו כדי לקבל
       הצעות.
     edited: ערכים שנערכו
-    edited_by: 'נערך על־ידי:'
+    edited_by: נערך על־ידי %{author}
     edited_mobile: ערכים
     edited_none: שום ערך לא נערך.
     filter:

@@ -14,6 +14,15 @@ class StoreTimesliceEditCounts
     store
   end
 
+  # Removes the stored counts, once the course has timeslices again.
+  def self.clear(course)
+    course_stat = course.course_stat
+    return unless course_stat
+
+    course_stat.stats_hash.except!(*STATS_HASH_KEYS)
+    course_stat.save!
+  end
+
   private
 
   def store

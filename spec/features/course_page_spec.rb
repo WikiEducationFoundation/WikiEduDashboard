@@ -129,7 +129,7 @@ describe 'the course page', type: :feature, js: true do
            content: 'blocky block')
 
     ArticlesCourses.update_from_course_revisions(course, array_revisions)
-    ArticlesCourses.update_all_caches_from_timeslices(course.articles_courses)
+    ArticlesCourses.update_all_caches_from_timeslices(course, course.articles_courses)
     CoursesUsers.update_all_caches_from_timeslices(course.courses_users)
     course.update_cache_from_timeslices
 
@@ -620,6 +620,14 @@ describe 'the course page', type: :feature, js: true do
         login_as(admin)
         js_visit "/courses/#{course.slug}/articles"
         expect(first('.tracking').find('input').disabled?).to eq(false)
+      end
+
+      it 'does not allow articles to be marked for tracking when the course metadata is locked' do
+        course.update(flags: { finalized: true })
+        login_as(admin)
+        js_visit "/courses/#{course.slug}/articles"
+        expect(page).to have_content 'History of biology' # article list has loaded
+        expect(page).not_to have_css('.tracking')
       end
 
       it 'marks an article to be excluded once it is untracked' do

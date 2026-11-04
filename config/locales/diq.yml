@@ -55,8 +55,6 @@ diq:
     change: Bıvurne
     details: Teferuati
     confirm: TEMAM
-    opt_in: Eya
-    opt_out: Nê
     opt_yes: eya
     opt_no: nê
   article_statuses:

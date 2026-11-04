@@ -80,8 +80,6 @@ nb:
     change: Endre
     details: Detaljer
     confirm: OK
-    opt_in: Ja
-    opt_out: Nei
     opt_yes: ja
     opt_no: nei
     print: Skriv ut
@@ -797,10 +795,6 @@ nb:
     data_revisions_info: Sideversjonsdata inkluderer sideversjonsantall for kurset,
       sideversjons-ID, artikkel-ID, hvilke sider som er nye og totalt antall sidevisninger.
     data_download_info: Last ned data i CSV-format.
-    data_download_warning: Dette kurset er ikke oppdatert i det nye systemet ennå.
-      Statistikken kan være ufullstendig. Før du laster den ned, må du planlegge en
-      dataoppdatering for dette kurset og vente til den er ferdig. Hvis dette er et
-      pågående kurs, må du vente til den nåværende oppdateringen er fullført.
     data_overview: Oversiktsdata
     data_overview_info: Oversiktsdata gir kumulativ statistikk for hele prosjektet.
     data_edits: Redigeringsdata

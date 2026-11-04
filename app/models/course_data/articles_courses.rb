@@ -70,19 +70,28 @@ class ArticlesCourses < ApplicationRecord
       return course.articles_courses.pluck(:article_id)
     end
     Rails.logger.info "Updating partial ArticlesCourses caches for #{course.title}"
-    course.article_course_timeslices.where('updated_at >= ?', last_update)
-          .distinct
-          .pluck(:article_id)
+    articles_with_updated_timeslices(course, last_update)
+  end
+
+  # Reads the same table the caches are computed from, so that the articles selected
+  # here and the stats written for them cannot disagree.
+  def self.articles_with_updated_timeslices(course, last_update)
+    timeslices = if course.use_acuwt?
+                   ArticleCourseUserWikiTimeslice.where(course_id: course.id)
+                 else
+                   course.article_course_timeslices
+                 end
+    timeslices.where('updated_at >= ?', last_update).distinct.pluck(:article_id)
   end
 
   def self.update_required_caches_from_timeslices(course)
     update_all_caches_from_timeslices(
-      where(course:, article_id: articles_courses_to_update(course))
+      course, where(course:, article_id: articles_courses_to_update(course))
     )
   end
 
-  def self.update_all_caches_from_timeslices(articles_courses)
-    ArticlesCoursesCacheManager.new(articles_courses).update_caches_from_timeslices
+  def self.update_all_caches_from_timeslices(course, articles_courses)
+    ArticlesCoursesCacheManager.new(course, articles_courses).update_caches_from_timeslices
   end
 
   # Creates missing ArticlesCourses records for the given course revisions whose
@@ -104,9 +113,7 @@ class ArticlesCourses < ApplicationRecord
 
     # Add new ArticlesCourses
     article_ids_without_ac = revision_article_ids - course_article_ids
-    tracked_wiki_ids = course.wikis.pluck(:id)
-    new_article_ids = Article.where(id: article_ids_without_ac, wiki_id: tracked_wiki_ids)
-                             .pluck(:id)
+    new_article_ids = Article.where(id: article_ids_without_ac, wiki: course.wikis).pluck(:id)
     create_records_and_mark_acuwt(course, new_article_ids)
   end
 

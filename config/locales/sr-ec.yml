@@ -84,8 +84,6 @@ sr-ec:
     change: Промени
     details: Детаљи
     confirm: У реду
-    opt_in: Да
-    opt_out: Не
     opt_yes: да
     opt_no: не
     print: Штампај

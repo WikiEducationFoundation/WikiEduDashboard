@@ -66,8 +66,6 @@ lb:
     change: Änneren
     details: Detailer
     confirm: OK
-    opt_in: Jo
-    opt_out: Nee
     opt_yes: jo
     opt_no: nee
     print: Drécken
@@ -722,6 +720,8 @@ lb:
         lead: 'Hei ass e Beispill:'
       edit_response: Äntwert änneren
       submit_failed: Feeler! Är Äntwert gouf net gespäichert.
+    responses:
+      pending_heading: Amgaang
     admin:
       status: 'Status: %{status}'
   update_username:
@@ -952,7 +952,10 @@ lb:
     identity:
       signed_in_as: 'Wikipedia-Kont: %{username}'
     assignment_view:
+      status:
+        in_progress: Amgaang
       open_on_wikipedia: Op Wikipedia opmaachen
+      show: Weisen
       hide: Verstoppen
       sandbox_preview:
         loading: …

@@ -6,8 +6,6 @@
 kiu:
   application:
     cancel: Bıtexelne
-    opt_in: Heya
-    opt_out: Nê
   courses:
     cancel: Bıtexelne
   courses_generic:
