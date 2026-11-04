@@ -42,6 +42,8 @@ const DropdownSortSelect = ({ keys, sortSelect }) => {
         onChange={onChangeHandler}
         options={options}
         styles={sortSelectStyles}
+        menuPosition="fixed"
+        menuPortalTarget={document.body}
       />
     </div>
   );
