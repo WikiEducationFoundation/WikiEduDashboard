@@ -12,6 +12,8 @@
 #  staff_notes   :text(65535)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
+#  salesforce_contact_id        :string(255)
+#  salesforce_course_contact_id :string(255)
 #
 
 # One person's application to one Scholars & Scientists course. The answers are
@@ -34,7 +36,16 @@ class CourseApplication < ApplicationRecord
 
   validates :user_id, uniqueness: { scope: :course_id }
 
+  # Salesforce gets the application when it's submitted, and its status at
+  # each decision (see PushCourseApplicationToSalesforce).
+  after_commit :push_to_salesforce, if: -> { previously_new_record? || saved_change_to_status? }
+
   private
+
+  def push_to_salesforce
+    return unless Features.wiki_ed? && course.flags[:salesforce_id]
+    PushCourseApplicationToSalesforceWorker.perform_async(id)
+  end
 
   def delete_answers
     Rapidfire::Answer.where(answer_group_id: answer_groups.select(:id)).delete_all
