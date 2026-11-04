@@ -129,6 +129,12 @@ describe CourseApplicationReviewsController, type: :request do
     expect(response.body).to include('Decline Historian, and send the decline email?')
   end
 
+  it 'offers no decline button once an admin has added the applicant to the course' do
+    create(:courses_user, course:, user: applicant, role: CoursesUsers::Roles::STUDENT_ROLE)
+    get application_path
+    expect(response.body).not_to include("#{application_path}/decline")
+  end
+
   it 'declines' do
     post "#{application_path}/decline"
     expect(response).to redirect_to(application_path)

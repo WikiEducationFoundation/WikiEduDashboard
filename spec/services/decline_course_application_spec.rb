@@ -23,6 +23,14 @@ describe DeclineCourseApplication do
     expect(CourseApplicationMailer).not_to have_received(:send_decline)
   end
 
+  it 'refuses, sending nothing, once an admin has added the applicant to the course' do
+    create(:courses_user, course:, user: application.user,
+                          role: CoursesUsers::Roles::STUDENT_ROLE)
+    described_class.new(application:, staff:)
+    expect(application.reload).to be_submitted
+    expect(CourseApplicationMailer).not_to have_received(:send_decline)
+  end
+
   it 'leaves an accepted application accepted' do
     application.update!(status: :accepted)
     described_class.new(application:, staff:)

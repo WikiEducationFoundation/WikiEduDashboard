@@ -41,7 +41,8 @@
                     class: 'button dark',
                     data: { confirm: t('course_application_reviews.accept_confirm',
                                        username: user.username) }
-    - if @application.submitted?
+    -# Not for someone an admin already added to the course; see DeclineCourseApplication.
+    - if @application.submitted? && !user.student?(@course)
       = button_to t('course_application_reviews.decline'), "#{application_path}/decline",
                   class: 'button',
                   data: { confirm: t('course_application_reviews.decline_confirm',

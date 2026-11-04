@@ -36,6 +36,31 @@ describe 'Recent survey responses', type: :request do
     expect(response.body).to include('OpenRespondent')
   end
 
+  describe 'application answers' do
+    let(:applicant) { create(:user, username: 'Applicant') }
+    let(:application) do
+      CourseApplication.create!(course: create(:fellows_cohort), user: applicant)
+    end
+    let!(:application_answers) do
+      Rapidfire::AnswerGroup.create!(question_group: create(:question_group), user: applicant,
+                                     course_application: application)
+    end
+
+    before { login_as create(:super_admin) }
+
+    it 'leaves them out of the list' do
+      get '/survey/responses'
+      expect(response.body).to include('OpenRespondent')
+      expect(response.body).not_to include('Applicant')
+    end
+
+    it 'refuses to delete them' do
+      delete "/survey/responses/#{application_answers.id}/delete"
+      expect(response).to have_http_status(:not_found)
+      expect(Rapidfire::AnswerGroup.exists?(application_answers.id)).to be true
+    end
+  end
+
   it 'lists every response for a super admin' do
     login_as create(:super_admin)
     get '/survey/responses'
