@@ -14,13 +14,17 @@
 #
 
 # The application form for a Scholars & Scientists course (Wiki Education
-# Dashboard only). Its questions are Rapidfire question groups, in order: a base
-# group shared by every course, then any narrower groups for a course theme or a
-# single course. Applications themselves are CourseApplication records.
+# Dashboard only). Its questions are the built-in questions every form asks
+# (CourseApplicationDefaultQuestions, from the codebase), then the Rapidfire
+# question groups admins add, in order, for a course theme or a single course.
+# `question_group_ids` holds only the admin-added groups. Applications
+# themselves are CourseApplication records.
 #
 # A group on any course's form is kept out of surveys, so its answers come only
 # from applications, and Rapidfire refuses to delete it (see
 # config/initializers/surveys.rb).
+require_dependency "#{Rails.root}/lib/course_application_default_questions"
+
 class CourseApplicationForm < ApplicationRecord
   belongs_to :course
 
@@ -32,7 +36,6 @@ class CourseApplicationForm < ApplicationRecord
   validate :course_takes_applications
   validate :question_groups_exist
   validate :question_groups_outside_surveys
-  validate :open_form_has_question_groups
 
   # Every question group on any course's form. Few forms ever exist, so this
   # reads them all rather than querying a join table.
@@ -49,10 +52,22 @@ class CourseApplicationForm < ApplicationRecord
     open && !course.withdrawn && course.end > Time.zone.now
   end
 
-  # The form's Rapidfire question groups, in form order.
+  # Every question group the form asks, in order: the built-in group, then the
+  # admin-added ones.
   def question_groups
+    [CourseApplicationDefaultQuestions.group] + added_question_groups
+  end
+
+  # The admin-added Rapidfire question groups, in form order.
+  def added_question_groups
     groups_by_id = Rapidfire::QuestionGroup.where(id: question_group_ids).index_by(&:id)
     question_group_ids.filter_map { |id| groups_by_id[id] }
+  end
+
+  # Group ids in the order their answers are shown: the built-in group first.
+  # Groups since removed from the form sort after these.
+  def self.answer_group_order(form)
+    [CourseApplicationDefaultQuestions::GROUP_ID] + (form&.question_group_ids || [])
   end
 
   private
@@ -79,12 +94,5 @@ class CourseApplicationForm < ApplicationRecord
     return if in_surveys.empty?
 
     errors.add(:question_group_ids, "include groups used in surveys: #{in_surveys.join(', ')}")
-  end
-
-  def open_form_has_question_groups
-    return unless open && question_group_ids.empty?
-
-    # The course wizard's "at least one" message.
-    errors.add(:base, I18n.t('wizard.minimum_options', count: 1))
   end
 end

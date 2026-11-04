@@ -23,15 +23,9 @@ describe CourseApplicationForm do
       expect(described_class.new(course:)).not_to be_valid
     end
 
-    it 'refuses to open with no question groups' do
-      form = described_class.new(course:, open: true)
-      expect(form).not_to be_valid
-      expect(form.errors[:base]).to eq([I18n.t('wizard.minimum_options', count: 1)])
-    end
-
-    it 'opens once it has a question group' do
-      expect(described_class.new(course:, open: true, question_group_ids: [base_group.id]))
-        .to be_valid
+    # Every form asks the built-in questions.
+    it 'opens with no question groups added' do
+      expect(described_class.new(course:, open: true)).to be_valid
     end
 
     it 'refuses question group ids that do not exist' do
@@ -58,9 +52,21 @@ describe CourseApplicationForm do
   end
 
   describe '#question_groups' do
-    it 'returns the groups in form order' do
+    it 'returns the built-in group, then the added groups in form order' do
       form = described_class.create!(course:, question_group_ids: [theme_group.id, base_group.id])
-      expect(form.question_groups).to eq([theme_group, base_group])
+      expect(form.question_groups)
+        .to eq([CourseApplicationDefaultQuestions.group, theme_group, base_group])
+      expect(form.added_question_groups).to eq([theme_group, base_group])
+    end
+  end
+
+  describe '.answer_group_order' do
+    it 'puts the built-in group first, with or without a form' do
+      form = described_class.create!(course:, question_group_ids: [base_group.id])
+      expect(described_class.answer_group_order(form))
+        .to eq([CourseApplicationDefaultQuestions::GROUP_ID, base_group.id])
+      expect(described_class.answer_group_order(nil))
+        .to eq([CourseApplicationDefaultQuestions::GROUP_ID])
     end
   end
 

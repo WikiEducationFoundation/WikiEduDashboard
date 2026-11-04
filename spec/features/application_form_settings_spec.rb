@@ -18,8 +18,43 @@ describe 'application form settings', type: :feature, js: true do
     all('[data-question-group-list] .course-application-form__group-name').map(&:text)
   end
 
+  # Drags `source` over the top quarter of `target`, as a person dropping it
+  # above that row would. (Html5DndHelper drops on the exact middle, where
+  # rounding decides above or below.)
+  def drag_above(source, target)
+    page.execute_script(<<~JS, source.native, target.native)
+      const [source, target] = arguments;
+      const transfer = new DataTransfer();
+      const rect = target.getBoundingClientRect();
+      const fire = (element, type) => element.dispatchEvent(new DragEvent(type, {
+        dataTransfer: transfer, bubbles: true, cancelable: true,
+        clientX: rect.left + rect.width / 2, clientY: rect.top + rect.height / 4
+      }));
+      fire(source, 'dragstart');
+      fire(target, 'dragover');
+      fire(target, 'drop');
+      fire(source, 'dragend');
+    JS
+  end
+
   def saved_groups
-    course.reload.course_application_form.question_groups.map(&:name)
+    course.reload.course_application_form.added_question_groups.map(&:name)
+  end
+
+  it 'lists the built-in questions first, with nothing to move or remove' do
+    built_in = find('.course-application-form__group--built-in')
+    expect(built_in).to have_content(CourseApplicationDefaultQuestions.group.name)
+    expect(built_in).to have_no_button
+  end
+
+  it 'reorders by drag-and-drop' do
+    theme_row = find('[data-question-group-id]', text: 'Theme questions')
+    base_row = find('[data-question-group-id]', text: 'Base questions')
+    drag_above(theme_row, base_row)
+    expect(listed_groups).to eq(['Theme questions', 'Base questions'])
+    click_button 'Save'
+    expect(page).to have_content('Saved')
+    expect(saved_groups).to eq(['Theme questions', 'Base questions'])
   end
 
   it 'reorders with the Move buttons' do

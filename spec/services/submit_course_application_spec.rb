@@ -33,11 +33,11 @@ describe SubmitCourseApplication do
   end
 
   let(:valid_answers) do
-    {
+    built_in_application_answers.merge(
       background.id.to_s => { answer_text: 'Historian of elections' },
       pronouns.id.to_s => { answer_text: 'She/her' },
       topics.id.to_s => { answer_text: ['', 'Elections', 'Civic information'] }
-    }
+    )
   end
 
   context 'with every shown question answered' do
@@ -50,7 +50,9 @@ describe SubmitCourseApplication do
 
     it 'saves one answer group per question group, linked to the application and course' do
       groups = submission.application.answer_groups
-      expect(groups.map(&:question_group_id)).to contain_exactly(base_group.id, theme_group.id)
+      expect(groups.map(&:question_group_id))
+        .to contain_exactly(CourseApplicationDefaultQuestions::GROUP_ID, base_group.id,
+                            theme_group.id)
       expect(groups.map(&:course_id).uniq).to eq([course.id])
       expect(groups.map(&:user_id).uniq).to eq([user.id])
     end
@@ -65,6 +67,32 @@ describe SubmitCourseApplication do
     it 'saves no answer for a question the applicant was not shown' do
       submission
       expect(Rapidfire::Answer.where(question: [own_pronouns, intro_text])).to be_empty
+    end
+  end
+
+  describe 'the built-in questions' do
+    let(:last_name) { CourseApplicationDefaultQuestions.entry(:last_name).question }
+
+    it 'saves their answers, which resolve to the built-in questions when read back' do
+      expect(submit(valid_answers)).to be_success
+      answer = Rapidfire::Answer.find_by(question_id: last_name.id)
+      expect(answer.question).to equal(last_name)
+      expect(answer.answer_group.question_group).to equal(CourseApplicationDefaultQuestions.group)
+    end
+
+    it 'requires the required ones' do
+      submission = submit(valid_answers.except(last_name.id.to_s))
+      expect(submission).not_to be_success
+      expect(submission.answers_by_question_id[last_name.id].errors).to be_present
+    end
+
+    it 'applies their conditionals' do
+      pronouns_other = CourseApplicationDefaultQuestions.entry(:pronouns_other).question
+      answers = valid_answers.merge(
+        built_in_application_answers(pronouns: 'Something else', pronouns_other: 'xe/xem')
+      )
+      submit(answers)
+      expect(Rapidfire::Answer.find_by(question_id: pronouns_other.id).answer_text).to eq('xe/xem')
     end
   end
 

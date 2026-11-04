@@ -24,13 +24,28 @@ Rails.application.config.to_prepare do
     end
   end
 
+  require_dependency "#{Rails.root}/lib/course_application_default_questions"
+
   Rapidfire::AnswerGroup.class_eval do
     belongs_to :user
     belongs_to :course_application, optional: true
+
+    # The built-in application questions' group isn't a database record.
+    def question_group
+      return CourseApplicationDefaultQuestions.group if
+        CourseApplicationDefaultQuestions.built_in_group_id?(question_group_id)
+      super
+    end
   end
 
   Rapidfire::Answer.class_eval do
     has_one :user, through: :answer_group
+
+    # An answer to a built-in application question points at a question that
+    # isn't a database record (see CourseApplicationDefaultQuestions).
+    def question
+      CourseApplicationDefaultQuestions.question(question_id) || super
+    end
 
     def notification(survey_id, curr_user=nil)
       if curr_user.nil?

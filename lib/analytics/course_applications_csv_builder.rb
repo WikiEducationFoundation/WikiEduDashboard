@@ -51,7 +51,7 @@ class CourseApplicationsCsvBuilder
   end
 
   def questions
-    group_order = @course.course_application_form&.question_group_ids || []
+    group_order = CourseApplicationForm.answer_group_order(@course.course_application_form)
     answers.values.map(&:question).uniq.sort_by do |question|
       [group_order.index(question.question_group_id) || group_order.size,
        question.question_group_id, question.position.to_i, question.id]
