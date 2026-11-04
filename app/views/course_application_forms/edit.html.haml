@@ -1,7 +1,6 @@
 -# Admin-only settings for a Scholars & Scientists course's application form.
 -# See CourseApplicationFormsController. Expects @course, @form and
--# @question_group_choices (the groups on the form, in order, then the others
--# that may join it).
+-# @question_group_choices (the groups that may join the form).
 - content_for :before_title, "#{t('course_application_forms.title')} — "
 
 %header.main-page
@@ -41,30 +40,35 @@
                     aria: { describedby: 'course_application_form_acceptance_email_help' }
 
     %h2= t('course_application_forms.question_groups')
-    %p= t('course_application_forms.positions_help')
-    - if @question_group_choices.empty?
+    %p= t('course_application_forms.question_groups_help')
+    -# The groups on the form, asked in list order. application_form_settings.js
+    -# adds drag-and-drop reordering and the Move, Remove and Add buttons. The
+    -# blank id keeps the list present in the params when every group is removed.
+    = hidden_field_tag 'course_application_form[question_group_ids][]', '', id: nil
+    %ol.course-application-form__groups{ data: { question_group_list: true } }
+      - @form.question_groups.each do |group|
+        = render 'question_group_row', group:, edit_path: rapidfire.edit_question_group_path(group)
+    %template{ data: { question_group_row_template: true } }
+      = render 'question_group_row', group: Rapidfire::QuestionGroup.new(id: 0, name: ''),
+               edit_path: rapidfire.edit_question_group_path('ID')
+
+    - if @question_group_choices.empty? && @form.question_group_ids.empty?
       -# The same message as the Rapidfire question group admin's empty state.
       %p
         = t('question_groups.none')
         = link_to t('question_groups.create_one'), rapidfire.new_question_group_path
     - else
-      %table.table
-        %thead
-          %tr
-            %th= t('course_application_forms.position')
-            %th= t('course_application_forms.question_group')
-            %th
-        %tbody
-          - @question_group_choices.each do |group|
-            - index = @form.question_group_ids.index(group.id)
-            %tr
-              %td
-                = number_field_tag "course_application_form[positions][#{group.id}]",
-                                   index && index + 1, min: 1,
-                                   aria: { label: "#{t('course_application_forms.position')}: #{group.name}" }
-              %td= group.name
-              %td
-                = link_to t('course_application_forms.edit_question_group'),
-                          rapidfire.edit_question_group_path(group)
+      -# Shown even with nothing to offer yet, so a removed group can be added back.
+      -# Without JavaScript, the chosen group joins the end of the list on save.
+      .course-application-form__add
+        = label_tag 'course_application_form_add_question_group_id',
+                    t('course_application_forms.question_group')
+        = select_tag 'course_application_form[add_question_group_id]',
+                     options_from_collection_for_select(@question_group_choices, :id, :name),
+                     include_blank: true, id: 'course_application_form_add_question_group_id',
+                     data: { question_group_add_select: true }
+        %button.button{ type: 'button', data: { question_group_add: true } }
+          = t('course_application_forms.add')
 
     = f.submit t('course_application_forms.save'), class: 'button dark'
+= hot_javascript_tag 'application_form_settings'
