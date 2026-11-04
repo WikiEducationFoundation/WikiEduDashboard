@@ -58,15 +58,16 @@ describe 'applying to a Scholars & Scientists course', type: :feature, js: true 
       expect(page).to have_content('What are your pronouns?')
       expect(page).to have_no_content('Please share your pronouns')
 
-      choose 'Something else'
+      within("#question_#{pronouns.id}") { choose 'Something else' }
       expect(page).to have_content('Please share your pronouns')
 
-      choose 'She/her'
+      within("#question_#{pronouns.id}") { choose 'She/her' }
       expect(page).to have_no_content('Please share your pronouns')
     end
 
     it 'submits the answers and returns to the card, which confirms it' do
-      choose 'Something else'
+      fill_in_built_in_application_questions
+      within("#question_#{pronouns.id}") { choose 'Something else' }
       fill_in "answer_#{own_pronouns.id}", with: 'xe/xem'
       click_button 'Submit application'
 
@@ -75,7 +76,8 @@ describe 'applying to a Scholars & Scientists course', type: :feature, js: true 
       end
       application = CourseApplication.find_by(course:, user:)
       expect(Rapidfire::Answer.find_by(question: own_pronouns).answer_text).to eq('xe/xem')
-      expect(application.answer_groups.count).to eq(1)
+      # The built-in questions' group and the course's own.
+      expect(application.answer_groups.count).to eq(2)
     end
   end
 
@@ -107,7 +109,8 @@ describe 'applying to a Scholars & Scientists course', type: :feature, js: true 
         find("#answer_#{statements.first.id}_2").click
         find("#answer_#{statements.last.id}_0").click
       end
-      choose 'She/her'
+      within("#question_#{pronouns.id}") { choose 'She/her' }
+      fill_in_built_in_application_questions
       click_button 'Submit application'
 
       within('.apply-card') do

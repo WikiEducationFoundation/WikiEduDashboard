@@ -82,7 +82,7 @@ class CourseApplicationReviewsController < ApplicationController
 
   # In the form's group order, then any groups since removed from the form.
   def ordered_answer_groups
-    group_order = @course.course_application_form&.question_group_ids || []
+    group_order = CourseApplicationForm.answer_group_order(@course.course_application_form)
     @application.answer_groups.includes(:question_group, answers: :question)
                 .sort_by { |group| group_order.index(group.question_group_id) || group_order.size }
   end

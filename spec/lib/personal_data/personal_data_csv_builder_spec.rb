@@ -121,10 +121,11 @@ describe PersonalData::PersonalDataCsvBuilder, type: :request do
     before do
       CourseApplicationForm.create!(course: cohort, open: true,
                                     question_group_ids: [base.id, theme.id])
-      application = SubmitCourseApplication.new(course: cohort, user:, answers: {
+      answers = built_in_application_answers(last_name: 'Ortega').merge(
         background.id.to_s => { answer_text: 'I study elections.' },
         topics.id.to_s => { answer_text: 'Voting rights', follow_up_answer_text: 'Maps' }
-      }).application
+      )
+      application = SubmitCourseApplication.new(course: cohort, user:, answers:).application
       application.update!(staff_notes: 'Strong fit')
     end
 
@@ -132,10 +133,14 @@ describe PersonalData::PersonalDataCsvBuilder, type: :request do
       csv = CSV.parse(described_class.new(user).generate_csv)
       start = csv.index(['Application', 'Status', 'Submitted At', 'Decided At'])
       expect(csv[start + 1].first(2)).to eq(['Wiki_Education/Workshop_(2027)', 'submitted'])
-      expect(csv[start + 3]).to eq(['Describe your research background', 'I study elections.',
-                                    nil, nil])
-      expect(csv[start + 5]).to eq(['Topics you would work on', 'Voting rights',
-                                    'Anything else?', 'Maps'])
+      answer_rows = csv[(start + 2)..].each_slice(2).map(&:last)
+      # The built-in questions come first.
+      expect(answer_rows.first).to eq(['First Name', 'Sample answer to -1', nil, nil])
+      expect(answer_rows).to include(['Last Name', 'Ortega', nil, nil])
+      expect(answer_rows.last(2)).to eq(
+        [['Describe your research background', 'I study elections.', nil, nil],
+         ['Topics you would work on', 'Voting rights', 'Anything else?', 'Maps']]
+      )
     end
 
     it 'leaves out staff notes' do

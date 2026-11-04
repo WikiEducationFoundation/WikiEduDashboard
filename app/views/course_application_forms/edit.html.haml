@@ -45,9 +45,16 @@
     -# adds drag-and-drop reordering and the Move, Remove and Add buttons. The
     -# blank id keeps the list present in the params when every group is removed.
     = hidden_field_tag 'course_application_form[question_group_ids][]', '', id: nil
-    %ol.course-application-form__groups{ data: { question_group_list: true } }
-      - @form.question_groups.each do |group|
-        = render 'question_group_row', group:, edit_path: rapidfire.edit_question_group_path(group)
+    -# The built-in questions (CourseApplicationDefaultQuestions) are always
+    -# first and can't be moved or removed, so they're a list of their own;
+    -# the numbering carries on into the admin-added groups.
+    .course-application-form__group-lists
+      %ol.course-application-form__groups
+        %li.course-application-form__group.course-application-form__group--built-in
+          %span.course-application-form__group-name= CourseApplicationDefaultQuestions.group.name
+      %ol.course-application-form__groups{ data: { question_group_list: true } }
+        - @form.added_question_groups.each do |group|
+          = render 'question_group_row', group:, edit_path: rapidfire.edit_question_group_path(group)
     %template{ data: { question_group_row_template: true } }
       = render 'question_group_row', group: Rapidfire::QuestionGroup.new(id: 0, name: ''),
                edit_path: rapidfire.edit_question_group_path('ID')
