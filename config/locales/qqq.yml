@@ -88,7 +88,8 @@ qqq:
       Button for logging out (for registered users)
       {{Identical|Log out}}
     my_dashboard: My Dashboard link
-    navigation_menu: Accessible name for the button that opens and closes the main navigation menu.
+    navigation_menu: Accessible name for the button that opens and closes the main
+      navigation menu.
     recent_activity: Link to recent activity (for registered users)
     request_account: '{{Identical|Request an account}}'
     search: Input box for Frequently Asked Questions search (Wiki Ed only)

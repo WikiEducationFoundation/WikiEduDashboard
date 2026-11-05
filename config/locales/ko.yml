@@ -208,7 +208,7 @@ ko:
     deleted: (삭제됨)
     does_not_exist: 문서가 존재하지 않습니다. 연습장 문서를 만들고 자신을 배정한 다음 제안을 받아보세요.
     edited: 문서 편집됨
-    edited_by: '편집자:'
+    edited_by: '편집자: %{author}'
     edited_mobile: 문서
     edited_none: 아직 편집한 문서가 없습니다.
     filter:
