@@ -7,14 +7,16 @@ describe TimesliceEditCounts do
   let(:en_wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
   let(:wikidata) { create(:wiki, project: 'wikidata', language: nil) }
   let(:course) { create(:course) }
+  let(:user) { create(:user) }
 
   def article(title, namespace: Article::Namespaces::MAINSPACE, wiki: en_wiki)
     create(:article, title:, namespace:, wiki:)
   end
 
   def add_edits(course, article, revision_count, tracked: true)
-    create(:article_course_timeslice, course:, article:, revision_count:, tracked:,
-                                      start: 1.month.ago, end: 1.month.ago + 1.day)
+    create(:article_course_user_wiki_timeslice, course:, article:, revision_count:, tracked:,
+                                                user:, wiki: article.wiki,
+                                                start: 1.month.ago, end: 1.month.ago + 1.day)
   end
 
   describe '.by_namespace' do
