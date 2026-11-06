@@ -42,7 +42,7 @@ const DiffViewer = createReactClass({
   // fetch the MediaWiki user ids, which are used for coloration. Those can't be
   // fetched until the usernames are available, so 'show' will fetch the usernames
   // first in that case. In that case, componentDidUpdate fetches the
-  // user ids as soon as usernames are avaialable.
+  // user ids as soon as usernames are available.
   componentDidUpdate(prevProps, prevState) {
     if (this.shouldShowDiff(this.props) && !prevState.fetched) {
       this.fetchRevisionDetails(this.props);
@@ -263,13 +263,13 @@ const DiffViewer = createReactClass({
     let lastRevTime;
     let timeSpan;
     let editDate;
-    let formatedDate;
+    let formattedDate;
     let charactersCount;
     let finalDate;
 
     if (!this.props.first_revision) {
-      formatedDate = formatDateWithTime(this.props.revision.date);
-      editDate = I18n.t('revisions.edited_on', { edit_date: formatedDate });
+      formattedDate = formatDateWithTime(this.props.revision.date);
+      editDate = I18n.t('revisions.edited_on', { edit_date: formattedDate });
       finalDate = <div className="diff-viewer-legend" style={{ width: '66%' }}>{editDate}</div>;
       charactersCount = <div className="diff-viewer-legend">{this.props.revision.characters} {I18n.t('revisions.chars_added')}</div>;
     } else if (this.state.fetched) {
