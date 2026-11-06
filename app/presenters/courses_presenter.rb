@@ -62,6 +62,11 @@ class CoursesPresenter
   end
 
   PER_PAGE = 25
+  # Pages past this are not served: an OFFSET reads and discards every row
+  # before it, and the CSV download already holds the whole list.
+  MAX_ARTICLE_PAGE = 200
+  MAX_LISTED_ARTICLES = MAX_ARTICLE_PAGE * PER_PAGE
+
   # Returns a scoped query for ranked articles_courses using a deferred join via RankedArticlesCoursesQuery # rubocop:disable Layout/LineLength
   def articles_courses_scope
     return @articles_courses_scope unless @articles_courses_scope.nil?
@@ -89,9 +94,17 @@ class CoursesPresenter
 
   # Create paginated collection for articles_courses data
   def paginated_articles_courses
-    WillPaginate::Collection.create(current_page, PER_PAGE, campaign_articles_count) do |pager|
+    total = listed_count(campaign_articles_count)
+    WillPaginate::Collection.create(current_page, PER_PAGE, total) do |pager|
       pager.replace(articles_courses_scope)
     end
+  end
+
+  # The last page that is served lists the end of what is served, not of
+  # the articles; the view says so and points to the CSV.
+  def articles_list_truncated?
+    return false if current_page < MAX_ARTICLE_PAGE
+    (@tag ? tag_articles_count : campaign_articles_count) > MAX_LISTED_ARTICLES
   end
 
   # Current page number with fallback to 1
@@ -110,15 +123,33 @@ class CoursesPresenter
     @too_many ||= campaign_articles_count > ARTICLE_LIMIT
   end
 
+  # Counted over the courses the listing shows, so private courses do not
+  # add pages. Cached for a day: it only moves when a course updates, and
+  # a crawler spreads its requests over every campaign.
   def campaign_articles_count
-    @campaign_articles_count ||= campaign.articles_courses.where(tracked: true).count
+    @campaign_articles_count ||= Rails.cache.fetch(campaign.articles_count_cache_key,
+                                                   expires_in: 1.day) do
+      ArticlesCourses.where(course_id: course_ids_and_slugs.map(&:id), tracked: true).count
+    end
   end
 
   def tag_articles
+    tag_articles_scope.paginate(page: current_page, per_page: PER_PAGE,
+                                total_entries: listed_count(tag_articles_count))
+  end
+
+  def tag_articles_scope
     ArticlesCourses.tracked.includes(article: :wiki)
                    .includes(:course).where(courses: { private: false })
                    .where(course: @courses_list)
-                   .paginate(page: @page, per_page: 25)
+  end
+
+  def tag_articles_count
+    @tag_articles_count ||= tag_articles_scope.count
+  end
+
+  def listed_count(count)
+    [count, MAX_LISTED_ARTICLES].min
   end
 
   def can_remove_course?
@@ -187,11 +218,17 @@ class CoursesPresenter
   def course_sums
     @course_sums ||= if campaign
                        Rails.cache.fetch(campaign.course_sums_cache_key, expires_in: 1.day) do
-                         courses.pick(Arel.sql(COURSE_SUMS_SQL))
+                         aggregated_courses.pick(Arel.sql(COURSE_SUMS_SQL))
                        end
                      else
-                       courses.pick(Arel.sql(COURSE_SUMS_SQL))
+                       aggregated_courses.pick(Arel.sql(COURSE_SUMS_SQL))
                      end
+  end
+
+  # Campaign aggregates are cached under the campaign and shown to every
+  # viewer, so they leave out private courses whoever fills the cache.
+  def aggregated_courses
+    campaign ? campaign.courses.nonprivate : courses
   end
 
   def word_count
@@ -256,7 +293,8 @@ class CoursesPresenter
   end
 
   def combined_wikidata_stats
-    @stats ||= courses.includes(:course_stat).where.not(course_stat: nil).filter_map do |course|
+    @stats ||= aggregated_courses.includes(:course_stat).where.not(course_stat: nil)
+                                 .filter_map do |course|
       course.course_stat&.stats_hash&.[]('www.wikidata.org')
     end
 

@@ -64,8 +64,6 @@ sd:
     change: بدلايو
     details: تفصيلَ
     confirm: ٺيڪ
-    opt_in: ها
-    opt_out: نہ
     opt_yes: ھا
     opt_no: نہ
   article_statuses:

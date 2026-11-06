@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(bundle exec rspec:*)",
+      "Bash(timeout 600 bundle exec rspec:*)",
+      "Bash(timeout 900 bundle exec rspec:*)",
+      "Bash(timeout 1200 bundle exec rspec:*)",
+      "Bash(timeout 1800 bundle exec rspec:*)",
+      "Bash(timeout 2400 bundle exec rspec:*)",
+      "Bash(timeout 3000 bundle exec rspec:*)",
+      "Bash(timeout 3600 bundle exec rspec:*)",
+      "Bash(bundle exec rubocop:*)",
+      "Bash(bin/feature-spec:*)",
+      "Bash(HEADED=1 bin/feature-spec *)",
+      "Bash(HEADED=1 SLOW=0.3 bin/feature-spec:*)",
+      "Bash(HEADED=1 SLOW=0.5 bin/feature-spec:*)",
+      "Bash(HEADED=1 SLOW=1 bin/feature-spec:*)",
+      "Bash(HEADED=1 SLOW=2 bin/feature-spec:*)",
+      "Bash(HEADED=1 SLOW=10 bin/feature-spec:*)",
+      "Bash(HEADED=1 SLOW=30 bin/feature-spec:*)",
+      "Bash(timeout 240 bin/feature-spec:*)",
+      "Bash(timeout 300 bin/feature-spec:*)",
+      "Bash(timeout 360 bin/feature-spec:*)",
+      "Bash(timeout 600 bin/feature-spec:*)",
+      "Bash(timeout 900 bin/feature-spec:*)",
+      "Bash(bin/pr-screenshots:*)",
+      "Bash(bin/staging-feature-spec:*)",
+      "Bash(HEADLESS=1 bin/staging-feature-spec *)",
+      "Bash(HEADLESS=1 timeout 600 bin/staging-feature-spec:*)",
+      "Bash(HEADLESS=1 timeout 900 bin/staging-feature-spec:*)",
+      "Bash(bin/harvest-canvas-screenshots:*)",
+      "Bash(HEADLESS=1 bin/harvest-canvas-screenshots *)",
+      "Bash(yarn build:*)",
+      "Bash(yarn test:*)",
+      "Bash(yarn eslint:*)",
+      "Bash(yarn lint-non-build:*)"
+    ]
+  }
+}

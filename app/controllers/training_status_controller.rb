@@ -18,9 +18,9 @@ class TrainingStatusController < ApplicationController
   private
 
   def can_see_training_status?
-    return true if current_user&.can_edit?(@course)
-    return true if current_user&.id == @user.id
-
-    false
+    return false unless current_user && @user
+    return true if current_user.id == @user.id || current_user.admin?
+    # Course editors see the status of the course's own participants only.
+    @user.course_roles(@course).any? && current_user.can_edit?(@course)
   end
 end

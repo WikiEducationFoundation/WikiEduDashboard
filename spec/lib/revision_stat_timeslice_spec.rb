@@ -55,6 +55,15 @@ describe RevisionStatTimeslice do
         it 'does include in scope' do
           expect(subject).to eq(19)
         end
+
+        it 'queries the course timeslices once for all wikis' do
+          statements = []
+          callback = ->(event) { statements << event.payload[:sql] }
+          ActiveSupport::Notifications.subscribed(callback, 'sql.active_record') do
+            expect(subject).to eq(19)
+          end
+          expect(statements.grep(/FROM `course_wiki_timeslices`/).count).to eq(1)
+        end
       end
     end
 
@@ -149,6 +158,19 @@ describe RevisionStatTimeslice do
 
         it 'does include in scope' do
           expect(subject).to eq(19)
+        end
+
+        it 'queries the timeslices once for all users of the course' do
+          stats = described_class.new(course)
+          courses_user2 = create(:courses_user, course:, user: user2)
+          statements = []
+          callback = ->(event) { statements << event.payload[:sql] }
+          ActiveSupport::Notifications.subscribed(callback, 'sql.active_record') do
+            expect(stats.recent_revisions_for_courses_user(courses_user)).to eq(19)
+            expect(stats.recent_revisions_for_courses_user(courses_user2)).to eq(13)
+          end
+          expect(statements.grep(/FROM `course_user_wiki_timeslices`/).count).to eq(1)
+          expect(statements.grep(/FROM `course_wiki_timeslices`/).count).to eq(1)
         end
       end
     end

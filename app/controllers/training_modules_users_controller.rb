@@ -1,13 +1,19 @@
 # frozen_string_literal: true
 
 class TrainingModulesUsersController < ApplicationController
+  include CourseHelper
   respond_to :json
   before_action :require_signed_in, only: [:create_or_update, :mark_exercise_complete,
                                             :verify_exercise_article]
 
   def index
     course = Course.find(params[:course_id])
-    user = User.find_by(id: params[:user_id]) if params[:user_id]
+    require_course_visible(course)
+    user = progress_user(course)
+    # Without this, the blocks partial would fall back to the viewer's own
+    # progress and show it as the requested user's. The Students tab asks
+    # for any viewer, so this returns nothing rather than an error.
+    return render json: { blocks: [] } if params[:user_id] && user.nil?
     render 'courses/_blocks', locals: { blocks: course.blocks, course:, user: }
   end
 
@@ -33,10 +39,11 @@ class TrainingModulesUsersController < ApplicationController
   end
 
   def mark_exercise_complete
-    set_training_module
-    set_training_module_user
     block = Block.find(params[:block_id])
     @course = block.course
+    raise ParticipatingUserError unless current_user.nonvisitor?(@course)
+    set_training_module
+    set_training_module_user
     if marking_complete?
       verify_exercise_article_recorded { return }
       verify_exercise_sandbox { return }
@@ -47,6 +54,16 @@ class TrainingModulesUsersController < ApplicationController
   end
 
   private
+
+  # A user's progress goes only to that user and, for the course's own
+  # participants, to people who can edit the course, as in
+  # TrainingStatusController.
+  def progress_user(course)
+    user = User.find_by(id: params[:user_id]) if params[:user_id]
+    return unless user && current_user
+    return user if current_user.id == user.id || current_user.admin?
+    return user if user.course_roles(course).any? && current_user.can_edit?(course)
+  end
 
   def set_training_module
     @training_module = TrainingModule.find_by(slug: params[:module_id])
@@ -122,8 +139,14 @@ class TrainingModulesUsersController < ApplicationController
   # Verifying from a course timeline covers just that course. From the training
   # slides, it covers each current course that assigns the module.
   def courses_for_exercise_article
-    return [Block.find(params[:block_id]).course] if params[:block_id].present?
+    return [block_course_for_exercise_article] if params[:block_id].present?
     VerifyExerciseArticle.current_courses(user: current_user, training_module: @training_module)
+  end
+
+  def block_course_for_exercise_article
+    course = Block.find(params[:block_id]).course
+    raise ParticipatingUserError unless current_user.nonvisitor?(course)
+    course
   end
 
   # The sandbox check only guards against premature completion, so unmarking an

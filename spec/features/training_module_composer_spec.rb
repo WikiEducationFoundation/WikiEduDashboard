@@ -67,6 +67,41 @@ describe 'Training Module Composer', type: :feature, js: true do
     expect(page).to have_content('Second')
   end
 
+  context 'with an existing module' do
+    include_context 'training content fixture'
+
+    it 'copies the module into an update draft and lists the files the update changes' do
+      visit '/training_module_drafts'
+      select 'Ponds (ponds)', from: 'Module'
+      click_button 'Copy module'
+
+      expect(page).to have_content('Slides (3)')
+      expect(page).to have_content("#{content_path}/modules/ponds.yml")
+      expect(page).to have_button('Export zip', disabled: true)
+      expect(page).not_to have_css('.training_module_composer__sidebar__collision')
+
+      # A copied slide keeps its slug, even when its title changes.
+      fill_in 'Slide title', with: 'Welcome to ponds'
+      expect(page).to have_field('Slide slug', with: 'pond-intro', readonly: true)
+      click_button 'Save draft'
+      expect(page).to have_content('Draft saved.')
+      expect(page).to have_content("#{ponds_slides_path}/9101-pond-intro.yml")
+      expect(page).to have_link('Export zip')
+      expect(page).to be_axe_clean
+
+      # A changed file that also changed on disk since the copy is flagged.
+      write_training_file('slides/91-ponds/9101-pond-intro.yml', "#{pond_intro_text}# edited\n")
+      visit current_path
+      within('.training_module_composer__changes') do
+        expect(page).to have_content('changed since copy')
+      end
+
+      # A slide that another module also lists says so.
+      click_button 'What is a wetland?'
+      expect(page).to have_content('Also used in: wetlands')
+    end
+  end
+
   it 'rejects non-admins' do
     logout(admin)
     login_as(create(:user))

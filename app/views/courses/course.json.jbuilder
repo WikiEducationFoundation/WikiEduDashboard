@@ -14,7 +14,6 @@ json.course do
 
   json.wikis @course.wikis, :language, :project
   json.namespaces format_wiki_namespaces(@course.course_wiki_namespaces)
-  json.timeslice_update_ran @course.timeslice_update_ran?
   json.timeline_enabled @course.timeline_enabled?
   json.disable_student_emails @course.disable_student_emails?
   json.academic_system @course.academic_system
@@ -43,9 +42,13 @@ json.course do
   json.returning_instructor @course.returning_instructor?
   json.eligible_for_active_research_experiment @course.eligible_for_active_research_experiment?
   json.research_experiment_open_to_students @course.research_experiment_open_to_students?
+  json.metadata_locked @course.metadata_locked?
 
-  if @course&.course_stat&.stats_hash.present?
-    formatted_stats = format_course_stats(@course.course_stat.stats_hash)
+  # The stored edit counts are CSV data, not overview stats.
+  displayed_stats = @course&.course_stat&.stats_hash
+                           &.except(*StoreTimesliceEditCounts::STATS_HASH_KEYS)
+  if displayed_stats.present?
+    formatted_stats = format_course_stats(displayed_stats)
     json.course_stats do
       json.id @course.course_stat.id
       json.stats_hash formatted_stats
@@ -69,6 +72,10 @@ json.course do
   if [CoursesUsers::Roles::STUDENT_ROLE, CoursesUsers::Roles::INSTRUCTOR_ROLE].include? user_role
     json.incomplete_assigned_modules @course.training_progress_manager
                                             .incomplete_assigned_modules(current_user)
+  end
+
+  if current_user&.admin?
+    json.missing_expected_modules FindMissingExpectedModules.new(@course).missing_module_names
   end
 
   if user_role >= 0 # user enrolled in course

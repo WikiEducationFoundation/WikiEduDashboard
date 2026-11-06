@@ -45,6 +45,18 @@ RSpec.describe TrainingModuleDraftsController, type: :controller do
       get :export, params: { slug: 'whatever' }
       expect(response.status).to eq(401)
     end
+
+    it 'returns 401 for a non-admin on copy' do
+      allow(controller).to receive(:current_user).and_return(user)
+      post :copy, params: { module_slug: 'whatever' }
+      expect(response.status).to eq(401)
+    end
+
+    it 'returns 401 for a non-admin on existing_modules' do
+      allow(controller).to receive(:current_user).and_return(user)
+      get :existing_modules, format: :json
+      expect(response.status).to eq(401)
+    end
   end
 
   context 'as an admin' do
@@ -208,6 +220,103 @@ RSpec.describe TrainingModuleDraftsController, type: :controller do
         ).save
         get :collisions, params: { slug: 'alpha' }
         expect(response.parsed_body['collisions']).to eq(['intro'])
+      end
+    end
+
+    context 'with an update draft' do
+      include_context 'training content fixture'
+
+      let(:quiz_path) { "#{ponds_slides_path}/9103-pond-quiz.yml" }
+
+      describe '#existing_modules' do
+        it 'lists the modules that have files' do
+          get :existing_modules, format: :json
+          expect(response.parsed_body['modules']).to eq(
+            [{ 'slug' => 'ponds', 'name' => 'Ponds', 'id' => 91 },
+             { 'slug' => 'wetlands', 'name' => 'Wetlands', 'id' => 92 }]
+          )
+        end
+      end
+
+      describe '#copy' do
+        it 'creates an update draft from the module' do
+          post :copy, params: { module_slug: 'ponds' }
+          expect(response).to have_http_status(:created)
+          draft = response.parsed_body['draft']
+          expect(draft['slug']).to eq('ponds')
+          expect(draft['slides'].pluck('id')).to eq([9101, 9102, 9103])
+        end
+
+        it 'returns 422 for an unknown module' do
+          post :copy, params: { module_slug: 'lakes' }
+          expect(response).to have_http_status(:unprocessable_content)
+        end
+      end
+
+      describe '#show' do
+        before { CopyTrainingModuleToDraft.new('ponds') }
+
+        it 'describes the source module without its file snapshot' do
+          get :show, params: { slug: 'ponds' }, format: :json
+          source = response.parsed_body.dig('draft', 'source')
+          expect(source).not_to have_key('files')
+          expect(source['module_path']).to eq("#{content_path}/modules/ponds.yml")
+          expect(source['changes']).to eq([])
+          expect(source['stale_paths']).to eq([])
+        end
+
+        it 'describes the slides that are shared or have fields the composer cannot edit' do
+          get :show, params: { slug: 'ponds' }, format: :json
+          slides = response.parsed_body.dig('draft', 'source', 'slides').index_by { |s| s['id'] }
+          expect(slides[9102]['shared_with']).to eq(['wetlands'])
+          expect(slides[9103]['preserved_keys']).to eq(%w[assessment translations])
+          expect(slides[9103]['filename']).to eq('9103-pond-quiz.yml')
+        end
+
+        it 'lists files that changed on disk since the copy' do
+          write_training_file('slides/91-ponds/9103-pond-quiz.yml', "#{pond_quiz_text}# edited\n")
+          get :show, params: { slug: 'ponds' }, format: :json
+          expect(response.parsed_body.dig('draft', 'source', 'stale_paths')).to eq([quiz_path])
+        end
+      end
+
+      describe '#update' do
+        before { CopyTrainingModuleToDraft.new('ponds') }
+
+        it 'keeps slide ids and reports the resulting changes' do
+          patch :update, params: { slug: 'ponds', draft: { slides: [
+            { id: 9101, slug: 'pond-intro', title: 'Pond intro',
+              content: "Ponds are small.\n\nThey hold water.\n" },
+            { id: 9102, slug: 'what-is-a-wetland', title: 'What is a wetland?',
+              content: 'Wetlands are wet.' }
+          ] } }, as: :json
+          draft = response.parsed_body['draft']
+          expect(draft['slides'].pluck('id')).to eq([9101, 9102])
+          expect(draft.dig('source', 'changes')).to contain_exactly(
+            { 'path' => "#{content_path}/modules/ponds.yml", 'status' => 'modified' },
+            { 'path' => quiz_path, 'status' => 'deleted' }
+          )
+        end
+      end
+
+      describe '#export' do
+        before { CopyTrainingModuleToDraft.new('ponds') }
+
+        it 'returns a zip of the changed files' do
+          draft = TrainingModuleDraft.find('ponds')
+          draft.name = 'Ponds and pools'
+          draft.save
+          get :export, params: { slug: 'ponds' }
+          expect(response).to have_http_status(:ok)
+          expect(response.headers['Content-Type']).to eq('application/zip')
+          expect(response.headers['Content-Disposition']).to include('ponds-update-')
+          expect(response.body[0, 2]).to eq('PK') # Zip magic number
+        end
+
+        it 'returns 422 when there is nothing to export' do
+          get :export, params: { slug: 'ponds' }
+          expect(response).to have_http_status(:unprocessable_content)
+        end
       end
     end
 

@@ -64,8 +64,6 @@ ast:
     change: Camudar
     details: Detalles
     confirm: Aceutar
-    opt_in: Sí
-    opt_out: Non
     opt_yes: sí
     opt_no: non
   article_statuses:

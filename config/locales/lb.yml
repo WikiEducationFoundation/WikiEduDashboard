@@ -45,6 +45,7 @@ lb:
     log_in: Aloggen
     log_out: Ausloggen
     my_dashboard: Meng Iwwersiichtssäit
+    navigation_menu: Navigatiounsmenü
     okay: OK
     recent_activity: Rezent Aktivitéit
     report_problem: E Problem mellen
@@ -66,8 +67,6 @@ lb:
     change: Änneren
     details: Detailer
     confirm: OK
-    opt_in: Jo
-    opt_out: Nee
     opt_yes: jo
     opt_no: nee
     print: Drécken
@@ -151,7 +150,7 @@ lb:
     project: Projet
     deleted: (geläscht)
     edited: Geännert Artikelen
-    edited_by: 'Geännert vum:'
+    edited_by: Geännert vum %{author}
     edited_mobile: Artikelen
     edited_none: Et gëtt nach keng geännert Artikelen.
     filter:
@@ -722,6 +721,8 @@ lb:
         lead: 'Hei ass e Beispill:'
       edit_response: Äntwert änneren
       submit_failed: Feeler! Är Äntwert gouf net gespäichert.
+    responses:
+      pending_heading: Amgaang
     admin:
       status: 'Status: %{status}'
   update_username:
@@ -952,7 +953,10 @@ lb:
     identity:
       signed_in_as: 'Wikipedia-Kont: %{username}'
     assignment_view:
+      status:
+        in_progress: Amgaang
       open_on_wikipedia: Op Wikipedia opmaachen
+      show: Weisen
       hide: Verstoppen
       sandbox_preview:
         loading: …

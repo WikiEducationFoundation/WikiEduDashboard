@@ -151,6 +151,16 @@ describe CopyCourse do
   end
 
   describe '#make_copy' do
+    it 'flags a course whose slug already existed, so callers leave it alone' do
+      existing = create(:course, slug: existent_prod_course_slug)
+      stub_request(:get, course_url)
+        .to_return(status: 200, body: course_response_body, headers: {})
+
+      result = subject
+      expect(result[:course]).to eq(existing)
+      expect(result[:existing]).to be true
+    end
+
     it 'returns an error if /course.json request fails' do
       stub_request(:get, course_url)
         .to_return(status: 404, body: '', headers: {})

@@ -7,6 +7,7 @@ class TaggedCoursesController < ApplicationController
 
   def articles
     set_page
+    reject_deep_page
     set_courses_and_presenter
   end
 
@@ -38,6 +39,12 @@ class TaggedCoursesController < ApplicationController
   def set_page
     @page = params[:page]&.to_i
     @page = nil unless @page&.positive?
+  end
+
+  # Before the presenter, so a rejected page never counts the articles.
+  def reject_deep_page
+    return unless @page && @page > CoursesPresenter::MAX_ARTICLE_PAGE
+    raise ActionController::RoutingError, 'Not Found'
   end
 
   def set_tag

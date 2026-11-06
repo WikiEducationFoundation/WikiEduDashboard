@@ -61,6 +61,63 @@ describe ArticleStatusManager do
       end
     end
 
+    context 'when an assigned article has no timeslices' do
+      it 'marks it deleted and cleans its Assignment records' do
+        VCR.use_cassette 'article_status_manager/main' do
+          article = create(:article, id: 1, mw_page_id: 1, title: 'Noarticle', namespace: 0,
+                           updated_at: 2.days.ago)
+          assignment = create(:assignment, article_title: 'Noarticle', article:, course:)
+
+          described_class.update_article_status_for_course(course)
+          expect(article.reload.deleted).to be true
+          expect(assignment.reload.article_id).to be_nil
+        end
+      end
+
+      it 'updates the titles of its Assignment records when it is moved' do
+        VCR.use_cassette 'article_status_manager/main' do
+          article = create(:article, id: 848, mw_page_id: 848,
+                           title: 'Audi_Cars', # 'Audi' is the actual title
+                           namespace: 0, updated_at: 2.days.ago)
+          assignment = create(:assignment, article_title: 'Audi_Cars', article:, course:)
+
+          described_class.update_article_status_for_course(course)
+          expect(article.reload.title).to eq('Audi')
+          expect(assignment.reload.article_title).to eq('Audi')
+        end
+      end
+
+      it 'cleans its Assignment records when it is moved to the Draft namespace' do
+        article = create(:article, id: 848, mw_page_id: 848, title: 'Audi', namespace: 0,
+                         updated_at: 2.days.ago)
+        assignment = create(:assignment, article_title: 'Audi', article:, course:)
+        replica = instance_double(Replica, get_existing_articles_by_id: [
+                                    { 'page_id' => '848', 'page_title' => 'Audi',
+                                      'page_namespace' => '118' }
+                                  ])
+        allow(Replica).to receive(:new).and_return(replica)
+
+        described_class.update_article_status_for_course(course)
+        expect(article.reload.namespace).to eq(Article::Namespaces::DRAFT)
+        expect(assignment.reload.article_id).to be_nil
+        expect(assignment.article_title).to eq('Audi')
+      end
+    end
+
+    it 'checks an assigned article that also has timeslices only once' do
+      VCR.use_cassette 'article_status_manager/main' do
+        article = create(:article, id: 848, mw_page_id: 848, title: 'Audi', namespace: 0,
+                         updated_at: 2.days.ago)
+        create(:assignment, article_title: 'Audi', article:, course:)
+        create(:article_course_timeslice, course:, article_id: 848,
+               start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
+        allow(described_class).to receive(:new).and_call_original
+
+        described_class.update_article_status_for_course(course)
+        expect(described_class).to have_received(:new).once
+      end
+    end
+
     it 'updates the mw_page_ids of articles' do
       VCR.use_cassette 'article_status_manager/mw_page_ids' do
         # en.wikipedia - article 100 does not exist

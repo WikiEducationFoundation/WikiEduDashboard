@@ -550,3 +550,111 @@ describe('courseUtils.formattedArticleTitle', () => {
     );
   });
 });
+
+describe('courseUtils.assignmentForSandbox', () => {
+  const classmateDraft = {
+    id: 1, role: 0, user_id: 2, article_id: null, article_title: 'The Teaching of Love',
+    sandbox_url: 'https://en.wikipedia.org/wiki/User:Classmate/The_Teaching_of_Love'
+  };
+  const ownDraft = {
+    id: 2, role: 0, user_id: 3, article_id: null, article_title: 'River Pond',
+    sandbox_url: 'https://en.wikipedia.org/wiki/User:Student/River_Pond'
+  };
+  const classmateReview = {
+    id: 3, role: 1, user_id: 4, article_id: null, article_title: 'The Teaching of Love',
+    sandbox_url: 'https://en.wikipedia.org/wiki/User:Classmate/The_Teaching_of_Love'
+  };
+  const assignments = [classmateReview, classmateDraft, ownDraft];
+  const find = input => courseUtils.assignmentForSandbox(
+    courseUtils.articleFromTitleInput(input), assignments, 3
+  );
+
+  test('finds the classmate assignment for a pasted sandbox URL', () => {
+    expect(find('https://en.wikipedia.org/wiki/User:Classmate/The_Teaching_of_Love')).toBe(classmateDraft);
+  });
+
+  test('finds it from a sandbox title, with spaces or underscores', () => {
+    expect(find('User:Classmate/The Teaching of Love')).toBe(classmateDraft);
+    expect(find('user:Classmate/The_Teaching_of_Love')).toBe(classmateDraft);
+  });
+
+  test('ignores the student\'s own sandbox', () => {
+    expect(find('User:Student/River_Pond')).toBeUndefined();
+  });
+
+  test('ignores a sandbox URL on a different wiki', () => {
+    expect(find('https://es.wikipedia.org/wiki/User:Classmate/The_Teaching_of_Love')).toBeUndefined();
+  });
+
+  test('ignores pages that are not anyone\'s sandbox', () => {
+    expect(find('User:Classmate/sandbox')).toBeUndefined();
+    expect(find('The Teaching of Love')).toBeUndefined();
+  });
+});
+
+describe('courseUtils.draftForReview', () => {
+  const classmateDraft = {
+    id: 1, role: 0, user_id: 2, article_id: null, article_title: 'The Teaching of Love',
+    sandbox_url: 'https://en.wikipedia.org/wiki/User:Classmate/The_Teaching_of_Love'
+  };
+  const classmateExisting = {
+    id: 2, role: 0, user_id: 2, article_id: 10, article_title: 'Interlude',
+    sandbox_url: 'https://en.wikipedia.org/wiki/User:Classmate/Interlude'
+  };
+  const assignments = [classmateDraft, classmateExisting];
+  const review = attrs => ({ id: 3, role: 1, user_id: 3, article_id: null, ...attrs });
+
+  test('finds the classmate draft for a review of a new article', () => {
+    const reviewOfDraft = review({ article_title: 'The Teaching of Love' });
+    expect(courseUtils.draftForReview(reviewOfDraft, assignments)).toBe(classmateDraft);
+  });
+
+  test('finds no draft for a new article that no classmate is drafting', () => {
+    const reviewOfUndrafted = review({
+      article_title: 'Nobody Drafting',
+      sandbox_url: 'https://en.wikipedia.org/wiki/User:Student/Nobody_Drafting'
+    });
+    expect(courseUtils.draftForReview(reviewOfUndrafted, assignments)).toBeUndefined();
+  });
+
+  test('finds no draft for a review of an existing article', () => {
+    const reviewOfExisting = review({ article_title: 'Interlude', article_id: 10 });
+    expect(courseUtils.draftForReview(reviewOfExisting, assignments)).toBeUndefined();
+  });
+
+  test('ignores a classmate assignment on a different wiki', () => {
+    const reviewOnEswiki = review({
+      article_title: 'The Teaching of Love', language: 'es', project: 'wikipedia'
+    });
+    expect(courseUtils.draftForReview(reviewOnEswiki, assignments)).toBeUndefined();
+  });
+});
+
+describe('courseUtils.formatOnboardingAlertMessage', () => {
+  test('splits the message into one entry per category', () => {
+    const message = 'HEARD FROM:\nweb \n\nPRIMARY REASON:\nai \n\nWHY HERE:\nteach this term\n\nOTHER:\nMore to say\n';
+    expect(courseUtils.formatOnboardingAlertMessage(message)).toEqual([
+      'HEARD FROM:\nweb ',
+      'PRIMARY REASON:\nai ',
+      'WHY HERE:\nteach this term',
+      'OTHER:\nMore to say'
+    ]);
+  });
+
+  test('shows N/A for unanswered categories', () => {
+    const message = 'HEARD FROM:\n \n\nWHY HERE:\nteach this term\n\nOTHER:\n\n';
+    expect(courseUtils.formatOnboardingAlertMessage(message)).toEqual([
+      'HEARD FROM:\nN/A',
+      'WHY HERE:\nteach this term',
+      'OTHER:\nN/A'
+    ]);
+  });
+
+  test('keeps blank lines inside an answer', () => {
+    const message = 'PRIMARY REASON:\nother (First.\n\nSecond: more.)\n\nOTHER:\n\n';
+    expect(courseUtils.formatOnboardingAlertMessage(message)).toEqual([
+      'PRIMARY REASON:\nother (First.\n\nSecond: more.)',
+      'OTHER:\nN/A'
+    ]);
+  });
+});

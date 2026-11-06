@@ -5,7 +5,6 @@ require 'rails_helper'
 describe 'AI detector comparison page', type: :feature, js: true do
   include_context 'published detector comparison data'
 
-  let(:admin) { create(:admin) }
   let(:generated_cell) { "a[aria-label^='GPT-6 Astra, Assignment, Glacial stream']" }
 
   # Earlier specs can leave the window another size, such as 1920x1920. In a window that tall
@@ -41,9 +40,7 @@ describe 'AI detector comparison page', type: :feature, js: true do
     FileUtils.rm_f(content)
   end
 
-  describe 'as an admin' do
-    before { login_as(admin) }
-
+  describe 'for a visitor who is not logged in' do
     it 'shows the default selection and lets the grid be filtered' do
       visit '/detector_comparison/topics'
       expect(page).to have_css 'h1', text: 'Texts on 16 topics'
@@ -137,9 +134,16 @@ describe 'AI detector comparison page', type: :feature, js: true do
 
     it 'links the AI-written explanations to their authorship note' do
       visit '/detector_comparison/topics'
-      find("h2 a[href='#detector-comparison-authorship']", text: '†').click
+      find("h2 a[href='#detector-comparison-authorship']", text: '‡').click
       expect(page).to have_css '#detector-comparison-authorship',
                                text: 'from "How to read this page" to the end of the page'
+    end
+
+    it 'links the page title to the thanks for donated credits' do
+      visit '/detector_comparison'
+      find("h1 a[href='#detector-comparison-credits']", text: '†').click
+      expect(page).to have_css '#detector-comparison-credits',
+                               text: 'donated credits from Pangram and originality.ai'
     end
 
     it 'follows a link in a view description to a section of the explanations' do
@@ -188,12 +192,12 @@ describe 'AI detector comparison page', type: :feature, js: true do
     end
   end
 
-  describe 'as a non-admin' do
+  describe 'as a user who is not an admin' do
     before { login_as(create(:user)) }
 
-    it 'is not authorized' do
-      visit '/detector_comparison'
-      expect(page).not_to have_content 'AI detector comparison'
+    it 'shows the page' do
+      visit '/detector_comparison/topics'
+      expect(page).to have_css 'h1', text: 'Texts on 16 topics'
     end
   end
 end

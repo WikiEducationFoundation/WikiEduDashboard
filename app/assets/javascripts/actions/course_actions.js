@@ -79,7 +79,7 @@ export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) =>
 };
 
 const needsUpdatePromise = (courseSlug) => {
-  return API.fetch(courseSlug, 'needs_update')
+  return API.needsUpdate(courseSlug)
   .then((data) => {
       return data;
   })
@@ -140,12 +140,6 @@ export const updateSalesforceRecord = courseId => (dispatch) => {
 
 export const deleteCourse = courseSlug => (dispatch) => {
   return API.deleteCourse(courseSlug)
-    .then(data => dispatch({ type: 'DELETED_COURSE', data }))
-    .catch(data => dispatch({ type: API_FAIL, data }));
-};
-
-export const removeAndDeleteCourse = (courseSlug, campaignTitle, campaignId, campaignSlug) => (dispatch) => {
-  return API.removeAndDeleteCourse(courseSlug, campaignTitle, campaignId, campaignSlug)
     .then(data => dispatch({ type: 'DELETED_COURSE', data }))
     .catch(data => dispatch({ type: API_FAIL, data }));
 };

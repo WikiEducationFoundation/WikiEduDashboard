@@ -143,7 +143,7 @@ const EditSizeGraph = (props) => {
       ]
     };
 
-    // emded the visualization in the container with id vega-graph-article_id
+    // embed the visualization in the container with id vega-graph-article_id
     vegaEmbed(`#${props.graphid}`, vegaSpec, { defaultStyle: true, actions: { source: false } });
   };
 

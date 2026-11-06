@@ -72,8 +72,6 @@ hu:
     change: Módosítás
     details: Részletek
     confirm: Rendben
-    opt_in: Igen
-    opt_out: Nem
     opt_yes: igen
     opt_no: nem
   article_statuses:

@@ -89,6 +89,27 @@ describe AssignmentUpdater do
         expect(Assignment.find(duplicate_assignment.id).article_id).to eq(nil)
       end
     end
+
+    context 'when the article has moved out of mainspace' do
+      let!(:article) do
+        create(:article, title: 'Deep_Sea_Fishing', namespace: Article::Namespaces::DRAFT)
+      end
+
+      before { assignment.update(article_id: article.id) }
+
+      it 'cleans the article id and keeps the mainspace title' do
+        described_class.update_assignments_for_article(article)
+        expect(assignment.reload.article_id).to be_nil
+        expect(assignment.article_title).to eq('Deep_Sea_Fishing')
+      end
+
+      it 'relinks the assignment once the article is back in mainspace' do
+        described_class.update_assignments_for_article(article)
+        article.update(namespace: Article::Namespaces::MAINSPACE)
+        described_class.update_assignment_article_ids_and_titles
+        expect(assignment.reload.article_id).to eq(article.id)
+      end
+    end
   end
 
   describe '.clean_assignment_for_deleted_article' do

@@ -24,7 +24,10 @@ class CopyCourse # rubocop:disable Metrics/ClassLength
     copy_timeline_data
     return { course: @course, error: nil }
   rescue ActiveRecord::RecordNotUnique
-    return { course: Course.find_by(slug: @course_data['slug']), error: nil }
+    # @course is unset if Course.create! hit an existing course's slug.
+    # Callers must not treat that course as the new copy.
+    return { course: Course.find_by(slug: @course_data['slug']), error: nil,
+             existing: @course.nil? }
   rescue ActiveRecord::RecordInvalid, StandardError => e
     return { course: nil, error: e.message }
   end

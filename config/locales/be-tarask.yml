@@ -76,8 +76,6 @@ be-tarask:
     change: Зьмяніць
     details: Падрабязнасьці
     confirm: Добра
-    opt_in: Так
-    opt_out: Не
     opt_yes: так
     opt_no: не
     print: Друкаваць
@@ -320,6 +318,7 @@ be-tarask:
   categories:
     name: Назва
     category_name: Назва катэгорыі
+    remove: Прыбраць
   courses:
     activity: Актыўнасьць
     active_courses: Актыўныя курсы
@@ -497,6 +496,8 @@ be-tarask:
           enable_button: Увамкнуць
     categories:
       featured_campaigns: Абраныя кампаніі
+    disallowed_users:
+      remove_button: Прыбраць
   status:
     status: Статус
   timeline:

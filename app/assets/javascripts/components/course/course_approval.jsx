@@ -244,7 +244,7 @@ const CourseApproval = (props) => {
       </div>
       <div className="group-right">
         <Select
-          id={'program_manager'}
+          inputId={'program_manager'}
           value={programManager}
           onChange={null}
           options={[]}
@@ -263,7 +263,7 @@ const CourseApproval = (props) => {
       </div>
       <div className="group-right">
         <Select
-          id={'wiki_expert'}
+          inputId={'wiki_expert'}
           value={wikiExpertOptions.empty ? null : selectedWikiExpert}
           onChange={handleWikiExpertChange}
           options={wikiExpertOptions}
@@ -282,7 +282,7 @@ const CourseApproval = (props) => {
       </div>
       <div className="group-right">
         <CreatableSelect
-          id={'tags'}
+          inputId={'tags'}
           value={selectedTags}
           placeholder={I18n.t('courses.tag_select')}
           onChange={handleTagChange}
@@ -303,7 +303,7 @@ const CourseApproval = (props) => {
       </div>
       <div className="group-right">
         <Select
-          id={'campaign'}
+          inputId={'campaign'}
           value={campaignOptions.empty ? null : selectedCampaigns}
           placeholder={I18n.t('courses.campaign_select')}
           onChange={handleCampaignsChange}

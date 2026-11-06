@@ -138,6 +138,8 @@ class Course < ApplicationRecord
     # initiated, but not completed.
     PENDING = 1
     COMPLETED = 2
+    # Made by CopyCourseController; set up by whoever copied it.
+    COPIED = 3
   end
 
   ##########
@@ -318,6 +320,12 @@ class Course < ApplicationRecord
     campaigns.any? && !withdrawn
   end
 
+  # Private courses are visible only to admins and the course's participants.
+  def visible_to?(user)
+    return true unless private
+    user.present? && user.nonvisitor?(self)
+  end
+
   def closed?
     flags[:closed_date].present?
   end
@@ -342,17 +350,8 @@ class Course < ApplicationRecord
                                   .collect(&:training_module_ids).flatten
   end
 
-  def tracked_article_course_timeslices
-    # This method tries to replicate the idea of "tracked revisions"
-    # 'revision_count > 0' condition is because we may create empty timeslices
-    # due to system revisions
-    # 'tracked: true' condition is to avoid timeslices for untracked articles courses
-    article_course_timeslices.where('revision_count > 0')
-                             .where(tracked: true)
-  end
-
   def tracked_namespaces
-    courses_wikis.map do |course_wiki|
+    courses_wikis.includes(:wiki, :course_wiki_namespaces).map do |course_wiki|
       wiki = course_wiki.wiki
       wiki_namespaces = course_wiki.course_wiki_namespaces
       if wiki_namespaces.empty?
@@ -543,6 +542,9 @@ class Course < ApplicationRecord
     flags['format']
   end
 
+  EDIT_SETTING_KEYS = %w[
+    wiki_course_page_enabled assignment_edits_enabled enrollment_edits_enabled
+  ].freeze
   def edit_settings_present?
     flags.key?('edit_settings')
   end
@@ -646,6 +648,10 @@ class Course < ApplicationRecord
     flags && flags[:declined].present?
   end
 
+  def metadata_locked?
+    flags[:purgeable].present? || flags[:finalized].present?
+  end
+
   def clear_declined_if_submitted
     return unless submitted? && flags && flags[:declined]
     flags.delete(:declined)
@@ -685,14 +691,6 @@ class Course < ApplicationRecord
   # last_update_start_time for why coercion is needed.
   def last_update_end_time
     time_from_last_update_log('end_time')
-  end
-
-  # Determines if at least one timeslice update ran for the course based on the
-  # 'processed' field into update_logs flag.
-  def timeslice_update_ran?
-    update_logs = flags['update_logs']
-    return false unless update_logs
-    update_logs.values.any? { |f| f.key?('processed') }
   end
 
   # Overridden for ClassroomProgramCourse

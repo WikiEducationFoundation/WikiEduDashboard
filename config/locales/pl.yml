@@ -87,8 +87,6 @@ pl:
     change: Zmień
     details: Szczegóły
     confirm: Okej
-    opt_in: Tak
-    opt_out: Nie
     opt_yes: tak
     opt_no: nie
     print: Drukuj

@@ -63,6 +63,7 @@ class TrainingController < ApplicationController
   end
 
   def reload
+    require_admin_for_full_reload
     render plain: TrainingUpdate.new(module_slug: params[:module]).result
   rescue TrainingBase::DuplicateSlugError,
          TrainingModule::ModuleNotFound, WikiTrainingLoader::NoMatchingWikiPagesFound,
@@ -80,6 +81,15 @@ class TrainingController < ApplicationController
   end
 
   private
+
+  # Reloading every module at once is slow and fetches from the wiki on P&E,
+  # so it is for admins, except on a new installation that has no modules
+  # yet and may have no admin either (see docs/user_roles.md).
+  def require_admin_for_full_reload
+    return unless params[:module] == 'all'
+    return unless TrainingModule.exists?
+    require_admin_permissions
+  end
 
   # Only site-relative paths ('/...', but not protocol-relative '//...'),
   # so the end-of-training redirect can't become an open redirect.

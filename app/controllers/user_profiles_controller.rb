@@ -7,13 +7,13 @@ class UserProfilesController < ApplicationController
 
   before_action :set_user
   before_action :set_user_profile, only: [:update, :update_email_preferences]
-  before_action :require_write_permissions, only: [:update]
+  before_action :require_write_permissions, only: [:update, :delete_profile_image]
 
   def taught_courses_articles
     user = User.find_by(username: params[:username])
     return render json: { error: 'User not found' }, status: :not_found if user.nil?
 
-    data = user.taught_courses_with_edited_articles
+    data = user.taught_courses_with_edited_articles(viewer: current_user)
 
     render json: data, status: :ok
   end

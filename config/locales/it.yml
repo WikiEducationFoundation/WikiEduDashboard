@@ -70,6 +70,7 @@ it:
     log_in: Accedi
     log_out: Esci
     my_dashboard: Il mio cruscotto
+    navigation_menu: Menu di navigazione
     okay: Ok
     recent_activity: Attività recente
     report_problem: Segnala un problema
@@ -92,8 +93,6 @@ it:
     details: Dettagli
     confirm: OK
     confirm_generic: Sei sicuro di volerlo fare?
-    opt_in: Sì
-    opt_out: "No"
     opt_yes: sì
     opt_no: "no"
     print: Stampa
@@ -175,7 +174,7 @@ it:
     does_not_exist: La voce non esiste. Crea una pagina delle prove e assegnatela
       per ricevere suggerimenti.
     edited: Voci modificate
-    edited_by: 'Modificato da:'
+    edited_by: Modificato da %{author}
     edited_mobile: Voci
     edited_none: Non ci sono voci modificate ancora.
     filter:
@@ -967,6 +966,10 @@ it:
     discard_all_changes: Scarta tutte le modifiche
     delete_timeline_and_start_over: Cancella la cronologia degli eventi
     due_default: Previsto per la prossima settimana
+    due_date: Scadenza
+    due_date_default: Predefinito
+    due_date_none: Nessuna data di scadenza
+    due_date_specific: Imposta una data
     empty_week_1: Per iniziare,
     empty_week_2: avvia la modifica di questa settimana
     empty_week_3: o

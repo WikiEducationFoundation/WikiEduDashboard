@@ -14,14 +14,16 @@ class CourseRevisionUpdater
   end
 
   def no_point_in_importing_revisions?
-    return true if @course.students.empty?
+    return @no_point_in_importing_revisions if defined?(@no_point_in_importing_revisions)
     # If there are no assignments or categories being tracked,
     # there's no point in importing revisions.
     # This avoids treating every update as a 'new users' update
     # for an ArcticleScopedProgram with highly active users
     # but no tracked articles.
-    return false unless @course.only_scoped_articles_course?
-    @course.assignments.none? && @course.categories.none?
+    @no_point_in_importing_revisions =
+      @course.students.empty? ||
+      (@course.only_scoped_articles_course? &&
+        @course.assignments.none? && @course.categories.none?)
   end
 
   # Returns a hash with start, end, new_data and revisions (without scores) fetched by wiki.

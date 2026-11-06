@@ -91,8 +91,6 @@ ko:
     change: 수정
     details: 세부 정보
     confirm: 확인
-    opt_in: 예
-    opt_out: 아니오
     opt_yes: 예
     opt_no: 아니오
     print: 인쇄
@@ -210,7 +208,7 @@ ko:
     deleted: (삭제됨)
     does_not_exist: 문서가 존재하지 않습니다. 연습장 문서를 만들고 자신을 배정한 다음 제안을 받아보세요.
     edited: 문서 편집됨
-    edited_by: '편집자:'
+    edited_by: '편집자: %{author}'
     edited_mobile: 문서
     edited_none: 아직 편집한 문서가 없습니다.
     filter:
@@ -686,8 +684,6 @@ ko:
       값은 과정의 종료시점이 기준이므로 WMF Tool Labs 페이지뷰 도구의 URL이 포함됩니다.
     data_revisions_info: 수정내역 데이터는 과정 진행중의 수정횟수, 판 번호, 문서 번호, 새 문서 여부, 조회수 합계를 포함합니다.
     data_download_info: 데이터를 CSV 형식으로 다운로드합니다.
-    data_download_warning: 이 과정은 아직 새 시스템에서 최신 상태가 아닙니다. 통계가 불완전할 수 있습니다. 다운로드하기 전에
-      이 과정의 데이터 업데이트를 예약하고 완료될 때까지 기다리세요. 진행 중인 과정이라면 현재 업데이트가 완료될 때까지 기다리세요.
     data_overview: 개요 데이터
     data_overview_info: 개요 데이터는 전체 프로젝트에 대한 누적 통계량을 제공합니다.
     data_edits: 편집 데이터

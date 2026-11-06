@@ -58,11 +58,15 @@ export default function uploads(state = initialState, action) {
       });
       const updatedUploads = state.uploads.map((upload) => {
         if (fetchedData && fetchedData[upload.id]) {
-          upload.credit = get(fetchedData, `${upload.id}.imageinfo[0].extmetadata.Credit.value`, 'Not found');
-          if (!upload.thumburl) {
-            upload.thumburl = get(fetchedData, `${upload.id}.imageinfo[0].thumburl`);
-          }
-          upload.fetchState = true;
+          return {
+            ...upload,
+            credit: get(fetchedData, `${upload.id}.imageinfo[0].extmetadata.Credit.value`, 'Not found'),
+            thumburl: upload.thumburl || get(fetchedData, `${upload.id}.imageinfo[0].thumburl`),
+            fetchState: true,
+          };
+        }
+        if (action.requestedIds?.includes(upload.id) && !upload.fetchState) {
+          return { ...upload, credit: 'Not found', fetchState: 'failed' };
         }
         return upload;
       });

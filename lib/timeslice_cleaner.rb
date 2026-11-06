@@ -12,13 +12,26 @@ class TimesliceCleaner
   end
 
   # Deletes every timeslice record for the course across the four timeslice
-  # tables (ACUWT, ACT, CUWT, CWT). Used both when fully deleting a course and
-  # when purging timeslices for old courses that are no longer updated.
+  # tables (ACUWT, ACT, CUWT, CWT). Used when fully deleting a course.
   # Deletes in primary-key batches so each transaction stays small and ids are
   # never loaded into memory wholesale.
   def delete_all_timeslices_for_course
     delete_all_article_course_user_wiki_timeslices
     delete_all_article_course_timeslices
+    delete_all_course_user_wiki_timeslices
+    delete_all_course_wiki_timeslices
+  end
+
+  # Deletes the timeslices of an old course that is no longer updated, keeping the
+  # ACUWT and ACT records of its deleted articles: their articles_courses records
+  # are already gone, so those timeslices are the only source of their Articles
+  # CSV rows. ACUWT is kept too, since ACT is meant to be replaced by it.
+  def delete_timeslices_for_purge
+    kept_article_ids = deleted_article_ids
+    delete_in_batches(ArticleCourseUserWikiTimeslice.where(course: @course)
+                                                    .where.not(article_id: kept_article_ids))
+    delete_in_batches(ArticleCourseTimeslice.where(course: @course)
+                                            .where.not(article_id: kept_article_ids))
     delete_all_course_user_wiki_timeslices
     delete_all_course_wiki_timeslices
   end
@@ -95,11 +108,11 @@ class TimesliceCleaner
   end
 
   # Deletes article course user wiki timeslices records with a start date later than
-  # the specific given date
+  # the specific given date (the surviving rows for affected articles are touched)
   def delete_article_course_user_wiki_timeslices_after_date(wikis, date)
     timeslices = ArticleCourseUserWikiTimeslice.where(course: @course).where(wiki: wikis)
                                                .where('start > ?', date)
-    delete_in_batches(timeslices)
+    delete_acuwt_and_touch_articles(timeslices)
   end
 
   # Deletes article course timeslices records with a start date later than the
@@ -125,10 +138,11 @@ class TimesliceCleaner
   end
 
   # Deletes article course user wiki timeslices records with a date prior to the
-  # current start date
+  # current start date (the surviving rows for affected articles are touched)
   def delete_article_course_user_wiki_timeslices_prior_to_start_date
-    delete_in_batches(ArticleCourseUserWikiTimeslice.where(course: @course)
-                                                    .where('end <= ?', @course.start))
+    timeslices = ArticleCourseUserWikiTimeslice.where(course: @course)
+                                               .where('end <= ?', @course.start)
+    delete_acuwt_and_touch_articles(timeslices)
   end
 
   # Deletes article course user wiki timeslices records with a start date later than
@@ -201,12 +215,14 @@ class TimesliceCleaner
     delete_article_course_user_wiki_timeslices_for_pairs(wikis_and_starts)
   end
 
-  # Deletes ACUWT records for users removed from the course.
+  # Deletes ACUWT records for users removed from the course (the surviving rows for
+  # affected articles are touched).
   # Takes a collection of user ids.
   def delete_acuwt_for_deleted_course_users(user_ids)
     return if user_ids.empty?
 
-    delete_in_batches(ArticleCourseUserWikiTimeslice.where(course: @course, user_id: user_ids))
+    delete_acuwt_and_touch_articles(ArticleCourseUserWikiTimeslice.where(course: @course,
+                                                                         user_id: user_ids))
   end
 
   # Resets course wiki timeslices. This involves:
@@ -243,6 +259,14 @@ class TimesliceCleaner
   end
 
   private
+
+  # Ids of the deleted articles among the course's timeslices. Only ACT is checked:
+  # every course has ACT records for all its articles (ACUWT courses rebuild them from
+  # ACUWT), and it is much smaller than ACUWT.
+  def deleted_article_ids
+    act_article_ids = ArticleCourseTimeslice.where(course: @course).select(:article_id)
+    Article.where(deleted: true, id: act_article_ids).pluck(:id)
+  end
 
   # Deletes existing course wiki timeslices for a collection of wiki ids
   def delete_existing_course_wiki_timeslices(wiki_ids)
@@ -287,6 +311,20 @@ class TimesliceCleaner
 
   def delete_course_user_wiki_timeslices_for_acuwt_pairs(wikis_and_starts)
     delete_in_batches(timeslices_for_pairs(CourseUserWikiTimeslice, :wiki_id, wikis_and_starts))
+  end
+
+  # Deletes the given ACUWT records and touches the surviving ACUWT rows of the
+  # affected articles, so their articles courses caches are updated during the
+  # next update (see ArticlesCourses.articles_with_updated_timeslices).
+  def delete_acuwt_and_touch_articles(timeslices)
+    article_ids = timeslices.distinct.pluck(:article_id)
+    delete_in_batches(timeslices)
+    # rubocop:disable Rails/SkipsModelValidations
+    article_ids.each_slice(DELETE_BATCH_SIZE) do |slice|
+      ArticleCourseUserWikiTimeslice.where(course: @course, article_id: slice)
+                                    .touch_all(:updated_at)
+    end
+    # rubocop:enable Rails/SkipsModelValidations
   end
 
   def delete_article_course_user_wiki_timeslices_for_pairs(wikis_and_starts)

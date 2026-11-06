@@ -97,7 +97,19 @@ export default function (state = initialState, action) {
     }
     case RECEIVE_TICKETS: {
       const allTickets = state.all.concat(action.data);
-      const sorted = sortByKey(allTickets, 'updated_at', null, true).newModels; // Show recently updated tickets first.
+      // Tickets arrive in several batches, so keep any sort the user picked
+      // while earlier batches were showing. Otherwise, show recently updated
+      // tickets first.
+      const { key, sortKey } = state.sort;
+      let sorted;
+      if (key) {
+        // SORT_TICKETS sets sortKey on the first click of a column (default
+        // direction) and clears it on the next click (reversed).
+        const desc = Boolean(SORT_DESCENDING[key]) === Boolean(sortKey);
+        sorted = sortByKey(allTickets, key, null, desc, false, true).newModels;
+      } else {
+        sorted = sortByKey(allTickets, 'updated_at', null, true).newModels;
+      }
       return {
         ...state,
         all: sorted,

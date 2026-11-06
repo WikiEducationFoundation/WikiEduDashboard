@@ -47,9 +47,12 @@
         max-width 560px
         gap 6px
 
-    input[type="text"]
+    input[type="text"], select
         padding 8px 10px
         font-size 1em
+
+    .button
+        margin-left 0
 
 .training_module_composer__existing
     table
@@ -92,6 +95,31 @@
         color #b2671d
         font-size 0.8em
         font-weight normal
+
+    .training_module_composer__source
+        color #555
+
+.training_module_composer__changes
+    margin-bottom 14px
+
+    h2
+        font-size 1em
+        margin 0 0 6px
+
+    ul
+        margin 0
+        padding 0
+        list-style none
+        font-family "Menlo", "Consolas", monospace
+        font-size 0.85em
+
+    li
+        padding 2px 0
+
+    .training_module_composer__changes__stale
+        color #8a5a00
+        font-family inherit
+        margin-left 8px
 
 .training_module_composer__metadata
     background #fff
@@ -188,6 +216,10 @@
     textarea
         font-family inherit
         resize vertical
+
+    input[readonly]
+        background #f6f6f6
+        color #555
 
     small
         display block
@@ -326,6 +358,18 @@
 
         +below(tablet)
             grid-template-columns 1fr
+
+    .training_module_composer__editor__source_notes
+        display flex
+        flex-direction column
+        gap 6px
+        margin -8px 0 18px
+
+        small
+            color #555
+
+        code
+            margin-right 4px
 
     .training_module_composer__editor__panes
         display flex

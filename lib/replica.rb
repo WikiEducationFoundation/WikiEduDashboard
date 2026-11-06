@@ -240,7 +240,10 @@ class Replica # rubocop:disable Metrics/ClassLength
                     read_timeout: READ_TIMEOUT) { |http| http.request(req) }
   end
 
-  REPLICA_TOOL_URL = 'https://replica-revision-tools.wmcloud.org/'
+  # Moved from https://replica-revision-tools.wmcloud.org/ on 2026-10-23: Cloud VPS was taken
+  # offline for a PHP security update, so the endpoint now runs on Toolforge with patched PHP.
+  # https://wikitech.wikimedia.org/wiki/Incidents/2026-10-21_PHP_security_update/Community
+  REPLICA_TOOL_URL = 'https://wikiedudashboard.toolforge.org/'
 
   def do_post(endpoint, key, data)
     url = URI.parse "#{REPLICA_TOOL_URL}#{endpoint}"

@@ -32,7 +32,7 @@ const renderComponent = (props = {}) => {
     });
 
     return container;
-}
+};
 
 
 describe('DatePicker timezone handling', () => {

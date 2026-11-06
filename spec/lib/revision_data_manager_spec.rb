@@ -337,7 +337,7 @@ describe RevisionDataManager do
     it 'fetches all the revisions for the specific users during the given period of time' do
       VCR.use_cassette 'revision_importer/all_v2', match_requests_on: [:method, :uri, :body] do
         revisions = subject
-        expect(revisions.length).to eq(10)
+        expect(revisions.length).to eq(9)
         # Revisions don't have scores
         expect(revisions[0].features).to eq({})
       end

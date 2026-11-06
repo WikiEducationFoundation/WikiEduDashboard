@@ -64,7 +64,7 @@ describe SalesforceController, type: :request do
       end
 
       let(:subject) do
-        get '/salesforce/create_media', params: {
+        post '/salesforce/create_media', params: {
           course_id: course.id,
           username: user.username,
           article_id:  article.id,
@@ -86,7 +86,7 @@ describe SalesforceController, type: :request do
       end
 
       it 'does not allow the action' do
-        get '/salesforce/create_media'
+        post '/salesforce/create_media'
         expect(response.code).to eq('401')
       end
     end

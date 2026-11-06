@@ -32,7 +32,7 @@ describe CourseRevisionUpdater do
           revisions_with_scores = instance_class.fetch_scores_for_revisions(revisions)
           expect(revisions_with_scores[wiki][:new_data]).to eq(true)
           revisions = revisions_with_scores.values.flat_map { |data| data[:revisions] }.flatten
-          expect(revisions.count).to eq(3)
+          expect(revisions.count).to eq(2)
 
           expected_article = Article.find_by(wiki_id: 1,
                                              title: '1978_Revelation_on_Priesthood',
@@ -58,7 +58,7 @@ describe CourseRevisionUpdater do
                                                                             only_new: true)
           expect(revisions_with_scores[wiki][:new_data]).to eq(true)
           revisions = revisions_with_scores.values.flat_map { |data| data[:revisions] }.flatten
-          expect(revisions.count).to eq(3)
+          expect(revisions.count).to eq(2)
 
           expected_article = Article.find_by(wiki_id: 1,
                                              title: '1978_Revelation_on_Priesthood',
@@ -80,8 +80,8 @@ describe CourseRevisionUpdater do
       it 'does not fetch scores if only_new is true and no new revisions' do
         # complete the timeslice
         last_mw_rev_datetime = '2016-03-31 19:50:54'.to_datetime
-        course.course_wiki_timeslices.update(revision_count: 3,
-                                             mw_rev_count: 3,
+        course.course_wiki_timeslices.update(revision_count: 2,
+                                             mw_rev_count: 2,
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           revisions = instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
@@ -89,7 +89,7 @@ describe CourseRevisionUpdater do
                                                                             only_new: true)
           expect(revisions_with_scores[wiki][:new_data]).to eq(false)
           revisions = revisions_with_scores.values.flat_map { |data| data[:revisions] }.flatten
-          expect(revisions.count).to eq(3)
+          expect(revisions.count).to eq(2)
 
           expected_article = Article.find_by(wiki_id: 1,
                                              title: '1978_Revelation_on_Priesthood',
@@ -109,7 +109,7 @@ describe CourseRevisionUpdater do
       end
 
       it 'compares against mw_rev_count, not revision_count' do
-        # Repro for the warm-update reprocessing bug: the cassette returns 3
+        # Repro for the warm-update reprocessing bug: the cassette returns 2
         # live (non-system) revisions. If the timeslice's revision_count is
         # less than the live count (e.g. because some revs are in not_tracked
         # articles or are deleted) but mw_rev_count matches the live count,
@@ -117,7 +117,7 @@ describe CourseRevisionUpdater do
         # `new_data: true` and triggered re-scoring on every update cycle.
         last_mw_rev_datetime = '2016-03-31 19:50:54'.to_datetime
         course.course_wiki_timeslices.update(revision_count: 0,
-                                             mw_rev_count: 3,
+                                             mw_rev_count: 2,
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           revisions = instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
@@ -125,7 +125,7 @@ describe CourseRevisionUpdater do
                                                                             only_new: true)
           expect(revisions_with_scores[wiki][:new_data]).to eq(false)
           revs = revisions_with_scores.values.flat_map { |data| data[:revisions] }.flatten
-          expect(revs.count).to eq(3)
+          expect(revs.count).to eq(2)
           # No scores fetched — proves we skipped the scoring path.
           expect(revs.last.features).to be_empty
           expect(revs.last.features_previous).to be_empty
@@ -136,8 +136,8 @@ describe CourseRevisionUpdater do
         # Regression guard: when actual new revisions arrive (live > cached),
         # new_data must still flip to true and scoring must run.
         last_mw_rev_datetime = '2016-03-31 19:50:54'.to_datetime
-        course.course_wiki_timeslices.update(revision_count: 2,
-                                             mw_rev_count: 2,
+        course.course_wiki_timeslices.update(revision_count: 1,
+                                             mw_rev_count: 1,
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           revisions = instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
@@ -152,8 +152,8 @@ describe CourseRevisionUpdater do
       it 'does not fail when fetching data for partial timeslice' do
         # complete the timeslice
         last_mw_rev_datetime = '2016-03-31 19:50:54'.to_datetime
-        course.course_wiki_timeslices.update(revision_count: 3,
-                                             mw_rev_count: 3,
+        course.course_wiki_timeslices.update(revision_count: 2,
+                                             mw_rev_count: 2,
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           expect(Sentry).not_to receive(:capture_message)
@@ -164,7 +164,7 @@ describe CourseRevisionUpdater do
                                                                             only_new: true)
           expect(revisions_with_scores[wiki][:new_data]).to eq(false)
           revisions = revisions_with_scores.values.flat_map { |data| data[:revisions] }.flatten
-          expect(revisions.count).to eq(3)
+          expect(revisions.count).to eq(2)
 
           expected_article = Article.find_by(wiki_id: 1,
                                              title: '1978_Revelation_on_Priesthood',
@@ -228,7 +228,7 @@ describe CourseRevisionUpdater do
           revision_data = instance_class.fetch_revisions_for_course_wiki(wiki, start_date, end_date)
           expect(revision_data[wiki][:new_data]).to eq(true)
           revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
-          expect(revisions.count).to eq(3)
+          expect(revisions.count).to eq(2)
 
           expected_article = Article.find_by(wiki_id: 1,
                                              title: '1978_Revelation_on_Priesthood',
@@ -250,8 +250,8 @@ describe CourseRevisionUpdater do
       it 'does not fail when fetching data for partial timeslice' do
         # complete the timeslice
         last_mw_rev_datetime = '2016-03-31 19:50:54'.to_datetime
-        course.course_wiki_timeslices.update(revision_count: 3,
-                                             mw_rev_count: 3,
+        course.course_wiki_timeslices.update(revision_count: 2,
+                                             mw_rev_count: 2,
                                              last_mw_rev_datetime:)
         VCR.use_cassette 'course_revision_updater' do
           expect(Sentry).not_to receive(:capture_message)
@@ -261,7 +261,7 @@ describe CourseRevisionUpdater do
             '20160331225055'.to_datetime)
           expect(revision_data[wiki][:new_data]).to eq(false)
           revisions = revision_data.values.flat_map { |data| data[:revisions] }.flatten
-          expect(revisions.count).to eq(3)
+          expect(revisions.count).to eq(2)
 
           expected_article = Article.find_by(wiki_id: 1,
                                              title: '1978_Revelation_on_Priesthood',

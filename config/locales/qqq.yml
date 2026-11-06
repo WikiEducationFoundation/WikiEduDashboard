@@ -88,6 +88,8 @@ qqq:
       Button for logging out (for registered users)
       {{Identical|Log out}}
     my_dashboard: My Dashboard link
+    navigation_menu: Accessible name for the button that opens and closes the main
+      navigation menu.
     recent_activity: Link to recent activity (for registered users)
     request_account: '{{Identical|Request an account}}'
     search: Input box for Frequently Asked Questions search (Wiki Ed only)
@@ -109,8 +111,6 @@ qqq:
       Heading for part of the interface that shows details about something
       {{Identical|Details}}
     confirm: '{{Identical|OK}}'
-    opt_in: '{{Identical|Yes}}'
-    opt_out: '{{Identical|No}}'
   dashboard:
     create_note: |-
       Instructions on how to create a course.

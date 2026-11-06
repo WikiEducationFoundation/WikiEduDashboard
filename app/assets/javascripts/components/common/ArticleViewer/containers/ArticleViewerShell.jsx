@@ -24,6 +24,7 @@ import ArticleViewerAPI from '@components/common/ArticleViewer/utils/ArticleView
 // Actions
 import { resetBadWorkAlert, submitBadWorkAlert } from '~/app/assets/javascripts/actions/alert_actions.js';
 import { crossCheckArticleTitle } from '@actions/article_actions';
+import { isTyping } from '~/app/assets/javascripts/utils/keyboard_handlers';
 
 /*
   ArticleViewerShell is the generic, annotation-agnostic article viewer: it opens
@@ -90,6 +91,19 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
       document.addEventListener('mousedown', handleClickOutside);
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showArticle]);
+
+  // The claim panel coordinates nested Escape handling in the capture phase.
+  useEffect(() => {
+    if (!showArticle) return undefined;
+    const handleKeyDown = (event) => {
+      if (isTyping(event.target)) { return; }
+      if (event.key === 'Escape') {
+        hideArticle(event);
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [showArticle]);
 
   // This runs when the user accesses the articleViewer directly from a permalink

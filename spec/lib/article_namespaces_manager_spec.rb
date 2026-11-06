@@ -222,5 +222,14 @@ describe ArticleNamespacesManager do
 
       expect(course.article_course_timeslices.where(article: article4)).not_to be_empty
     end
+
+    it 'looks up tracked namespaces once for the whole update, not once per wiki or batch' do
+      statements = []
+      callback = ->(event) { statements << event.payload[:sql] }
+      ActiveSupport::Notifications.subscribed(callback, 'sql.active_record') do
+        described_class.new(course, statuses_synced: true)
+      end
+      expect(statements.grep(/FROM `courses_wikis`/).count).to eq(1)
+    end
   end
 end

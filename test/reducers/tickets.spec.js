@@ -4,7 +4,9 @@ import {
   DELETE_TICKET,
   MESSAGE_KIND_NOTE_DELETE,
   RECEIVE_TICKET,
+  RECEIVE_TICKETS,
   SET_MESSAGES_TO_READ,
+  SORT_TICKETS,
   UPDATE_TICKET
 } from '../../app/assets/javascripts/constants/tickets';
 import '../testHelper';
@@ -32,6 +34,33 @@ describe('tickets reducer', () => {
       expect(state.selected).toEqual(ticket(1));
       expect(state.all).toEqual([]);
       expect(state.loading).toBe(true);
+    });
+  });
+
+  describe('RECEIVE_TICKETS', () => {
+    const dated = (id, created_at, updated_at) => ({ id, created_at, updated_at });
+    const first = dated(1, '2026-01-01', '2026-03-01');
+    const second = dated(2, '2026-02-01', '2026-01-01');
+    const third = dated(3, '2026-03-01', '2026-02-01');
+    const receive = (state, ...data) => tickets(deepFreeze(state), { type: RECEIVE_TICKETS, data });
+    const sortBy = (state, key) => tickets(deepFreeze(state), { type: SORT_TICKETS, key });
+
+    test('shows the most recently updated tickets first', () => {
+      const state = receive(initialState, second, first, third);
+      expect(state.all.map(t => t.id)).toEqual([1, 3, 2]);
+    });
+
+    test('keeps a sort chosen before a later batch arrives', () => {
+      const sorted = sortBy(receive(initialState, first, second), 'created_at');
+      const state = receive(sorted, third);
+      expect(state.all.map(t => t.id)).toEqual([3, 2, 1]);
+    });
+
+    test('keeps a reversed sort chosen before a later batch arrives', () => {
+      const loaded = receive(initialState, first, second);
+      const reversed = sortBy(sortBy(loaded, 'created_at'), 'created_at');
+      const state = receive(reversed, third);
+      expect(state.all.map(t => t.id)).toEqual([1, 2, 3]);
     });
   });
 

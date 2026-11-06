@@ -1,0 +1,24 @@
+# Training modules and exercises that Wiki Education expects on the timeline of
+# every research-and-write ClassroomProgramCourse. Nothing enforces them; admins
+# see a warning on the course Home tab when any are missing.
+#
+# Each entry lists module ids, and is met when the timeline includes any one of
+# them (so variants such as individual vs group work are listed together).
+#
+# An entry with `one_of` is a set of alternatives, each a list of such id lists.
+# It is met when every list in any one alternative is. When none is complete,
+# the alternative the timeline comes closest to is reported, and the first one
+# listed wins a tie.
+expected:
+  - [1]  # Wikipedia policies
+  - [28] # How to edit
+  - [7]  # Evaluating articles and sources
+  - [71] # Using AI tools with Wikipedia
+  - [15] # Plagiarism
+  - [72] # Exercise: Bibliography
+  - [73] # Exercise: Outline
+  - one_of:
+      # Sandboxes: drafting, then moving work out (individual or group version)
+      - [[30, 31], [32, 33]]
+      # No sandboxes: working live
+      - [[64]]

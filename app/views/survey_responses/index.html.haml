@@ -17,7 +17,7 @@
     %tbody.list
       - @responses.each do |response|
         %tr
-          %td= response[:user].username
+          %td= response[:user]&.username
           %td= response[:question_group].name
           %td= response[:answer_group].created_at
           %td

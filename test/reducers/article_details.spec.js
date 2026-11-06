@@ -16,7 +16,7 @@ describe('article_details reducer', () => {
   });
 
   test(
-    'should reutrn a new state if action type is RECEIVE_ARTICLE_DETAILS',
+    'should return a new state if action type is RECEIVE_ARTICLE_DETAILS',
     () => {
       const mockAction = {
         type: RECEIVE_ARTICLE_DETAILS,

@@ -231,8 +231,9 @@ class User < ApplicationRecord
     article_maps.uniq { |article| article[:article_id] }
   end
 
-  def taught_courses_with_edited_articles
+  def taught_courses_with_edited_articles(viewer: nil)
     courses = instructed_courses.includes(articles_courses: :article, courses_users: :user)
+    courses = courses.select { |course| course.visible_to?(viewer) }
 
     courses.map do |course|
       {
@@ -244,10 +245,13 @@ class User < ApplicationRecord
     end
   end
 
-  # Exclude tokens/secrets from json output
-  def to_json(options = {})
-    options[:except] ||= %i[wiki_token wiki_secret remember_token]
-    super(options)
+  SECRET_ATTRIBUTES = %w[wiki_token wiki_secret remember_token chat_password].freeze
+
+  # Exclude tokens/secrets from json output. Overriding serializable_hash
+  # rather than to_json also covers as_json, users inside a rendered hash,
+  # and jbuilder views that pass users through.
+  def serializable_hash(options = nil)
+    super.except(*SECRET_ATTRIBUTES)
   end
 
   def profile_image

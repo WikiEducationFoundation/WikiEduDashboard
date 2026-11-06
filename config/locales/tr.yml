@@ -102,8 +102,6 @@ tr:
     change: Değiştir
     details: Ayrıntılar
     confirm: Tamam
-    opt_in: Evet
-    opt_out: Hayır
     opt_yes: evet
     opt_no: hayır
     print: Yazdır
@@ -788,8 +786,6 @@ tr:
       madde kimliğini, sayfaların yeni olduğunu ve sayfa görüntüleme toplamlarını
       içerir.
     data_download_info: Verileri CSV formatında indirin.
-    data_download_warning: Bu kurs henüz yeni sistem içinde güncel değil. İstatistikler
-      eksik olabilir. İndirmeden önce lütfen bir veri güncellemesi planlayın.
     data_overview: Genel bakış verileri
     data_overview_info: Genel bakış verileri, tüm proje için toplu istatistikler sağlar.
     data_edits: Düzenleme verileri

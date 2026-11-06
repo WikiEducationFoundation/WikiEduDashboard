@@ -56,8 +56,7 @@ class ApplicationController < ActionController::Base
     non_redirect_paths = [onboarding_path,
                           onboard_path,
                           new_user_session_path,
-                          destroy_user_session_path,
-                          true_destroy_user_session_path]
+                          destroy_user_session_path]
     return if non_redirect_paths.any? { |path| full_path.starts_with? path }
     redirect_to onboarding_path(return_to: full_path)
   end
@@ -66,9 +65,13 @@ class ApplicationController < ActionController::Base
     raise NotSignedInError unless user_signed_in?
   end
 
+  # Checks the course named in the route. Query and body params are ignored
+  # here: actions load the course from their own route param, so a course
+  # named any other way could differ from the one the action changes.
   def require_permissions
     require_signed_in
-    course = Course.find_by!(slug: params[:id] || params[:slug] || params[:course_id])
+    path = request.path_parameters
+    course = Course.find_by!(slug: path[:id] || path[:slug] || path[:course_id])
     raise NotPermittedError unless current_user.can_edit? course
   end
 

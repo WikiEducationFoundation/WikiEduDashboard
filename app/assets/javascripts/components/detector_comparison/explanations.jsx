@@ -1,5 +1,5 @@
 /* eslint-disable i18next/no-literal-string */
-// English-only admin research page: no i18n, by decision (see descriptions.js). Written by
+// English-only research page: no i18n, by decision (see descriptions.js). Written by
 // Claude Code at Sage Ross's direction (2026-10-12).
 import React from 'react';
 import PropTypes from 'prop-types';

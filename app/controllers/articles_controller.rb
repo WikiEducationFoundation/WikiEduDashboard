@@ -2,17 +2,23 @@
 require_dependency "#{Rails.root}/lib/revision_score_manager"
 
 class ArticlesController < ApplicationController
+  include CourseHelper
   respond_to :json
   before_action :set_course, except: :revision_score
+  before_action :require_course_editor, only: :update_tracked_status
 
   # Scores the given revisions for the article development graphs. The frontend
   # fetches the revision list itself (client-side, from the MediaWiki API) and
   # POSTs the ids here for wp10 scoring.
   #   params: { rev_ids: [123, 456] }  ->  { "123": 0.5, "456": null }
+  # Each uncached revision is a LiftWing request. The article graph asks for
+  # at most 51 (MAX_REVISIONS plus a baseline), so more than that is dropped.
+  MAX_SCORED_REVISIONS = 60
   def revision_score
     @article = Article.find(params[:article_id])
     rev_manager = RevisionScoreManager.new(@article)
-    render json: rev_manager.scores_for(params[:rev_ids]), root: false
+    rev_ids = Array(params[:rev_ids]).first(MAX_SCORED_REVISIONS)
+    render json: rev_manager.scores_for(rev_ids), root: false
   end
 
   # returns details about how an article changed during a course
@@ -33,6 +39,12 @@ class ArticlesController < ApplicationController
 
   def set_course
     @course = Course.find(params[:course_id])
+    require_course_visible(@course)
+  end
+
+  def require_course_editor
+    require_signed_in
+    raise NotPermittedError unless current_user.can_edit?(@course)
   end
 
 end

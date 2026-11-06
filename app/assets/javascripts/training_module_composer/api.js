@@ -56,4 +56,14 @@ export const getExistingSlideSlugs = () =>
   request(`${base}/existing_slide_slugs.json`, { headers: jsonHeaders })
     .then(handleResponse);
 
+export const listExistingModules = () =>
+  request(`${base}/existing_modules.json`, { headers: jsonHeaders }).then(handleResponse);
+
+export const copyModule = moduleSlug =>
+  request(`${base}/copy`, {
+    method: 'POST',
+    body: JSON.stringify({ module_slug: moduleSlug }),
+    headers: jsonHeaders
+  }).then(handleResponse);
+
 export const exportUrl = slug => `${base}/${encodeURIComponent(slug)}/export`;

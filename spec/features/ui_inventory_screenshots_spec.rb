@@ -259,18 +259,12 @@ if ENV['SCREENSHOTS']
         # ---------- Timeline Wizard (Research and write) ----------
         sleep 3
         shoot('course_wizard_dates', wait: 0)
-        # Pick a weekday, then "no blackout dates" so we can advance.
+        # Pick a weekday, then advance.
         find('span[title="Wednesday"]', match: :first).click
-        find('.wizard__form.course-dates input[type=checkbox]', match: :first)
-          .set(true)
         wizard_next
 
         shoot('course_wizard_path', wait: 0)
         pick_first_wizard_option # Research and write
-        wizard_next
-
-        shoot('course_wizard_training', wait: 0)
-        pick_first_wizard_option # Training graded
         wizard_next
 
         shoot('course_wizard_ai', wait: 0)
@@ -282,6 +276,10 @@ if ENV['SCREENSHOTS']
 
         shoot('course_wizard_representation', wait: 0)
         wizard_next # accept defaults
+
+        shoot('course_wizard_stem_biographies', wait: 0)
+        pick_first_wizard_option # Yes/STEM biographies
+        wizard_next
 
         shoot('course_wizard_sandboxes', wait: 0)
         pick_first_wizard_option # Draft in sandboxes
@@ -299,6 +297,10 @@ if ENV['SCREENSHOTS']
         pick_first_wizard_option # Yes/medical
         wizard_next
 
+        shoot('course_wizard_non_english', wait: 0)
+        pick_first_wizard_option # Yes/non-English
+        wizard_next
+
         shoot('course_wizard_handouts', wait: 0)
         omniclick find('.wizard__option', match: :first).find('button', match: :first)
         wizard_next
@@ -313,13 +315,8 @@ if ENV['SCREENSHOTS']
         find('h3', text: 'Extra credit assignment').click
         wizard_next
 
-        shoot('course_wizard_expectations', wait: 0)
-        omniclick find('.wizard__option', match: :first).find('button', match: :first)
-        wizard_next
-
-        shoot('course_wizard_weight', wait: 0)
-        omniclick find('.wizard__option', match: :first).find('button', match: :first)
-        wizard_next
+        shoot('course_wizard_instructor_learner', wait: 0)
+        wizard_next # default "Yes"
 
         shoot('course_wizard_summary', wait: 0)
         click_button 'Generate Timeline'

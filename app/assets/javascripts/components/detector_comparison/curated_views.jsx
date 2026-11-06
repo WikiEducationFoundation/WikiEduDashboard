@@ -1,5 +1,5 @@
 /* eslint-disable i18next/no-literal-string */
-// English-only admin research page: no i18n, by decision (see descriptions.js).
+// English-only research page: no i18n, by decision (see descriptions.js).
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation, useNavigate, useSearchParams } from 'react-router-dom';

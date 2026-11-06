@@ -5,8 +5,9 @@ require_dependency "#{Rails.root}/lib/assignment_updater"
 
 #= Updates articles to reflect deletion and page moves on Wikipedia
 # It iterates over the articles derived from the course's timeslices to sync them
-# (ACUWT rows for ACUWT courses, article course timeslices otherwise). This updates
-# title, namespace, deleted and mw_page_id fields.
+# (ACUWT rows for ACUWT courses, article course timeslices otherwise), plus the
+# course's assigned articles, which have no timeslices if no student has edited
+# them. This updates title, namespace, deleted and mw_page_id fields.
 # Resetting articles according to their new status (so they are included in or
 # excluded from course statistics) is mostly handled by ArticleNamespacesManager,
 # which runs after this class during the course update. The exception is articles
@@ -29,25 +30,36 @@ class ArticleStatusManager
       # Retrieve articles based on timeslices to also include current untracked articles.
       # For ACUWT courses this reads ACUWT rows (which exist for tracked and untracked
       # articles alike); for legacy courses it falls back to the ACT-based query.
-      course.articles_from_timeslices(wiki.id)
-            # Updating only those articles which are updated more than 1 day ago
-            .where('articles.updated_at < ?', 1.day.ago)
-            .in_batches do |article_batch|
-        # Using in_batches so that the update_at of all articles in the batch can be
-        # excuted in a single query, otherwise if we use find_in_batches, query for
-        # each article for updating the same would be required
-        new(course, wiki).update_status(article_batch)
-        # Touch through a fresh, non-distinct relation: `articles_from_timeslices`
-        # applies `.distinct`, and combining `.distinct` with `update_all` is
-        # deprecated in Rails 8.1 and will raise in 8.2. `update_status` above
-        # has already loaded the batch (it iterates `articles.map(&:mw_page_id)`),
-        # so `map(&:id)` reuses cached records instead of issuing a SELECT.
-        # rubocop:disable Rails/SkipsModelValidations
-        Article.where(id: article_batch.map(&:id)).touch_all(:updated_at)
-        # rubocop:enable Rails/SkipsModelValidations
-      end
+      update_status_in_batches(course, wiki, course.articles_from_timeslices(wiki.id))
+      # Assigned articles may have no timeslices, for example a page created
+      # by an instructor and then deleted, or an existing article no student
+      # has edited yet. Without this, their assignments keep pointing at them
+      # after they are deleted or moved. Articles already synced by the
+      # timeslice pass were just touched, so the updated_at filter skips them.
+      assigned_articles = Article.where(id: course.assignments.select(:article_id),
+                                        wiki_id: wiki.id)
+      update_status_in_batches(course, wiki, assigned_articles)
     end
   end
+
+  def self.update_status_in_batches(course, wiki, articles)
+    # Updating only those articles which are updated more than 1 day ago
+    articles.where('articles.updated_at < ?', 1.day.ago).in_batches do |article_batch|
+      # Using in_batches so that the update_at of all articles in the batch can be
+      # excuted in a single query, otherwise if we use find_in_batches, query for
+      # each article for updating the same would be required
+      new(course, wiki).update_status(article_batch)
+      # Touch through a fresh, non-distinct relation: `articles_from_timeslices`
+      # applies `.distinct`, and combining `.distinct` with `update_all` is
+      # deprecated in Rails 8.1 and will raise in 8.2. `update_status` above
+      # has already loaded the batch (it iterates `articles.map(&:mw_page_id)`),
+      # so `map(&:id)` reuses cached records instead of issuing a SELECT.
+      # rubocop:disable Rails/SkipsModelValidations
+      Article.where(id: article_batch.map(&:id)).touch_all(:updated_at)
+      # rubocop:enable Rails/SkipsModelValidations
+    end
+  end
+  private_class_method :update_status_in_batches
 
   ####################
   # Per-wiki methods #
