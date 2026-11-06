@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useId } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -70,6 +70,8 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
   const dispatch = useDispatch();
   const ref = useRef();
   const isFirstRender = useRef(true);
+  const titleId = useId();
+  const dialogRef = useRef();
 
   // The shell owns parsed/visibility/revision/title state; the highlight feature
   // is told to (re)run via `parsedSettle` and can ask the shell to re-verify the
@@ -89,6 +91,7 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
   useEffect(() => {
     if (showArticle) {
       document.addEventListener('mousedown', handleClickOutside);
+      dialogRef.current?.focus();
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [showArticle]);
@@ -261,7 +264,12 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
 
   return (
     <div ref={ref}>
-      <div className={`article-viewer ${showArticle ? '' : 'hidden'}`}>
+      <div className={`article-viewer ${showArticle ? '' : 'hidden'}`}
+      role="dialog"
+      ref={dialogRef}
+      aria-label={titleId}
+      tabIndex={-1}
+      >
         <div className="article-header">
           <p>
             <span className="article-viewer-title">{trunc(article.title, 56)}</span>

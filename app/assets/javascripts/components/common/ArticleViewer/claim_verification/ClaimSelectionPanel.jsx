@@ -37,7 +37,7 @@ export const ClaimSelectionPanel = ({ claim, onTake, taking, error, onClose }) =
   }, [onClose, taking]);
 
   return (
-    <aside
+    <div
       ref={panelRef}
       tabIndex={-1}
       className="cv-selection-panel"
@@ -71,7 +71,7 @@ export const ClaimSelectionPanel = ({ claim, onTake, taking, error, onClose }) =
       <button type="button" className="button dark cv-selection-panel__take" onClick={onTake} disabled={taking}>
         {I18n.t('claim_verification.select_claim')}
       </button>
-    </aside>
+    </div>
   );
 };
 
