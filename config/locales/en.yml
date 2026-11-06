@@ -831,6 +831,7 @@ en:
       included.
     data_revisions_info: Revision data includes revision count of the course, revision id, article id, which pages are new and pageviews totals.
     data_download_info: Download data in CSV format.
+    data_download_generating: The file is being generated. You will be notified when it is ready to download.
     data_overview: Overview data
     data_overview_info: Overview data provides cumulative statistics for the whole project.
     data_edits: Edits data
