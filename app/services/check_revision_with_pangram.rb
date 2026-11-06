@@ -37,6 +37,7 @@ class CheckRevisionWithPangram
     plaintext_service = GetRevisionPlaintext.new(@mw_rev_id, @wiki)
     @article_title = plaintext_service.article_title
     @plain_text = plaintext_service.plain_text
+    @parent_rev_id = plaintext_service.from_rev
   end
 
   # Determines whether the check was already performed for the given revision,
@@ -132,11 +133,12 @@ class CheckRevisionWithPangram
     @parser = detector.parse(@pangram_result)
   end
 
+  # As a start, we'll just look at the most-likely window.
+  # In many cases, the max is 1.0, but we'll be a little
+  # more conservative.
+  AI_LIKELY_THRESHOLD = 0.9
   def ai_likely?
-    # As a start, we'll just look at the most-likely window.
-    # In many cases, the max is 1.0, but we'll be a little
-    # more conservative.
-    @parser.max_ai_likelihood > 0.9
+    @parser.max_ai_likelihood > AI_LIKELY_THRESHOLD
   end
 
   # Don't generate an alert for old edits.
@@ -144,17 +146,41 @@ class CheckRevisionWithPangram
   def generate_alert
     return if @rev_datetime < MAX_DAYS_FOR_ALERT.days.ago
     return if alert_already_exists?
+    return check_origin_edits if preexisting_flagged_text.all_preexisting?
 
     AiEditAlert.generate_alert_from_pangram(revision_id: @mw_rev_id,
                                             user_id: @user_id,
                                             course_id: @course_id,
                                             article_id: @article.id,
                                             article_title: @article_title,
-                                            pangram_details: @parser.pangram_details)
+                                            pangram_details: alert_details)
+  end
+
+  def alert_details
+    @parser.pangram_details.merge(flagged_text_preexisting: false)
+  end
+
+  def preexisting_flagged_text
+    @preexisting_flagged_text ||=
+      FindPreexistingFlaggedText.new(windows: @parser.windows, text: @plain_text,
+                                     parent_rev_id: @parent_rev_id, wiki: @wiki,
+                                     threshold: AI_LIKELY_THRESHOLD)
+  end
+
+  # All the flagged text was already on the page. The earlier edits that added
+  # it may hold more AI text than the part this edit included, so the alert
+  # waits until they have been checked; see CheckOriginEditsWithPangram.
+  def check_origin_edits
+    OriginEditAiCheckWorker.schedule(
+      'mw_rev_id' => @mw_rev_id, 'wiki_id' => @wiki.id, 'article_id' => @article.id,
+      'course_id' => @course_id, 'user_id' => @user_id, 'article_title' => @article_title,
+      'parent_rev_id' => @parent_rev_id, 'passages' => preexisting_flagged_text.preexisting_passages
+    )
   end
 
   def alert_already_exists?
-    AiEditAlert.exists?(revision_id: @mw_rev_id)
+    AiEditAlert.exists?(revision_id: @mw_rev_id) ||
+      PreexistingAiTextAlert.exists?(revision_id: @mw_rev_id)
   end
 
   # Imports the scored result into the RevisionAiScores table, over any failure row

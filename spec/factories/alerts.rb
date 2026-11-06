@@ -42,4 +42,6 @@ FactoryBot.define do
   factory :unsubmitted_course_alert, class: 'UnsubmittedCourseAlert'
 
   factory :ai_edit_alert, class: 'AiEditAlert'
+
+  factory :preexisting_ai_text_alert, class: 'PreexistingAiTextAlert'
 end

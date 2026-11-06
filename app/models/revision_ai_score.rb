@@ -51,6 +51,8 @@ class RevisionAiScore < ApplicationRecord
   COURSE_UPDATE_ORIGIN = 'course_update' # Production checks that can generate alerts
   AI_TOOL_ORIGIN = 'ai_tool' # Admin AI tools page
   DETECTOR_COMPARISON_ORIGIN = 'detector_comparison' # Scored as part of an AiDetectionSample
+  # An earlier edit that added text flagged in a production check (CheckOriginEditsWithPangram)
+  ORIGIN_EDIT_ORIGIN = 'origin_edit'
 
   PANGRAM_KEYS = [
     PANGRAM_V3_KEY,
