@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   getLastUpdateSummary,
-  getTotaUpdatesMessage,
+  getTotalUpdatesMessage,
   getUpdateLogs,
   nextUpdateExpected
 } from '../../utils/statistic_update_info_utils';
@@ -22,7 +22,7 @@ const UpdateLogs = ({
   const erroredUpdatesCount = updateLogs.filter(log => log.error_count !== undefined && log.error_count > 0).length;
 
   const lastUpdateSummary = getLastUpdateSummary(course);
-  const totalUpdatesMessage = getTotaUpdatesMessage(course);
+  const totalUpdatesMessage = getTotalUpdatesMessage(course);
 
   const recentUpdatesSummary = I18n.t('metrics.recent_updates_summary', {
     total: updateLogs.length,

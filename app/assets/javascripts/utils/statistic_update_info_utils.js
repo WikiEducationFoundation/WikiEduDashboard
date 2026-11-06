@@ -110,7 +110,7 @@ const getLastUpdateSummary = (course) => {
   }
 };
 
-const getTotaUpdatesMessage = (course) => {
+const getTotalUpdatesMessage = (course) => {
   if (!course.flags.update_logs) {
     return `${I18n.t('metrics.total_updates')}: 0.`;
   }
@@ -163,4 +163,4 @@ const computeTrackingDescription = (course) => {
    + `The dashboard will continue updating statistics until ${updateUntilFormatted}.`;
 };
 
-export { getUpdateMessage, getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment, nextUpdateExpected, getLastUpdateSummary, getTotaUpdatesMessage, getUpdateLogs, computeTrackingDescription };
+export { getUpdateMessage, getLastUpdateMessage, getFirstUpdateMessage, firstUpdateTime, lastSuccessfulUpdateMoment, nextUpdateExpected, getLastUpdateSummary, getTotalUpdatesMessage, getUpdateLogs, computeTrackingDescription };
