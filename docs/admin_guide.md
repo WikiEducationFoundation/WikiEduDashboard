@@ -83,7 +83,7 @@ Below is a breakdown of the key servers and their roles within the infrastructur
 
 ### Other Integrated APIs and Third-Party Dependencies
 
-- **[PetScan](https://petscan.wmcloud.org/)**  
+- **[PetScan](https://petscan.toolforge.org/)**
   The PetScan API is used in the Dashboard to integrate dynamic lists of articles based on user-defined queries. Users can enter PetScan IDs (PSIDs) or URLs to fetch a list of articles relevant to a course. The [`PetScanApi`](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/lib/petscan_api.rb#L5) class handles retrieving the list of page titles associated with a given PSID by querying PetScan's API. This data is used for scoping course materials to specific sets of articles - see [petscan_scoping.jsx](https://github.com/WikiEducationFoundation/WikiEduDashboard/blob/wmflabs/app/assets/javascripts/components/course_creator/scoping_methods/petscan_scoping.jsx), ensuring the Dashboard reflects the most up-to-date information from PetScan queries. The system ensures proper error handling for invalid or unreachable PSIDs to avoid disrupting the course creation process.  
 
   **[[Source Code](https://github.com/magnusmanske/petscan_rs), [Documentation](https://meta.wikimedia.org/wiki/PetScan/en)]**
