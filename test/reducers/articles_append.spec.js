@@ -1,6 +1,6 @@
 import deepFreeze from 'deep-freeze';
 import articles from '../../app/assets/javascripts/reducers/articles';
-import { RECEIVE_MORE_ARTICLES } from '../../app/assets/javascripts/constants/articles';
+import { RECEIVE_ARTICLES, RECEIVE_MORE_ARTICLES } from '../../app/assets/javascripts/constants/articles';
 import '../testHelper';
 
 const article = (id, characterSum, extra = {}) => ({
@@ -68,7 +68,7 @@ describe('articles reducer: RECEIVE_MORE_ARTICLES', () => {
     const newState = articles(state, moreArticles([article(2, 20), article(3, 10)]));
 
     expect(newState.articles.map(a => a.id)).toEqual([1, 2, 3]);
-    expect(newState.limit).toBe(3);
+    expect(newState.limit).toBe(4);
   });
 
   test('sets limitReached only when a page comes back short', () => {
@@ -78,5 +78,19 @@ describe('articles reducer: RECEIVE_MORE_ARTICLES', () => {
 
     expect(fullPage.limitReached).toBe(false);
     expect(shortPage.limitReached).toBe(true);
+  });
+
+  test('keeps limit above the number loaded after a short page, so a refresh keeps limitReached true', () => {
+    const state = stateWith([article(1, 30), article(2, 20)]);
+    const afterShortPage = articles(state, moreArticles([article(3, 10)], 2));
+    expect(afterShortPage.articles).toHaveLength(3);
+    expect(afterShortPage.limit).toBeGreaterThan(afterShortPage.articles.length);
+
+    const refreshed = articles(afterShortPage, {
+      type: RECEIVE_ARTICLES,
+      data: { course: { articles: afterShortPage.articles } },
+      limit: afterShortPage.limit
+    });
+    expect(refreshed.limitReached).toBe(true);
   });
 });

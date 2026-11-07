@@ -117,7 +117,9 @@ export default function articles(state = initialState, action) {
       return {
         ...state,
         articles: sorted,
-        limit: sorted.length,
+        // Count the requested page even when it came back short, so a refresh that asks
+        // for this many articles gets fewer back and limitReached stays true.
+        limit: state.limit + action.pageSize,
         // A full page means there may be more; a short page means we are done.
         limitReached: page.length < action.pageSize,
         wikis: uniqWith(map(sorted, mapWikis), isEqual),
