@@ -633,14 +633,14 @@ module RequestHelpers
     )
   end
 
-  def stub_es_wikipedia_reference_counter_reponse
+  def stub_es_wikipedia_reference_counter_response
     stub_reference_counter_batch_response(
       project: 'wikipedia', language: 'es',
       num_refs: { '157412237' => 111, '157417768' => 42 }
     )
   end
 
-  def stub_en_wikipedia_reference_counter_reponse
+  def stub_en_wikipedia_reference_counter_response
     stub_reference_counter_batch_response(
       project: 'wikipedia', language: 'en',
       num_refs: { '829840090' => 132, '829840091' => 1 }

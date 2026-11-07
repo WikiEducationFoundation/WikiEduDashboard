@@ -8,7 +8,7 @@ describe RevisionScoreApiHandler do
     # LiftWing is no longer called during updates. wp10 / prediction are always nil;
     # features comes solely from ReferenceCounterApi (num_ref).
     before do
-      stub_en_wikipedia_reference_counter_reponse
+      stub_en_wikipedia_reference_counter_response
     end
 
     let(:handler) { described_class.new(wiki: Wiki.find(1)) }
@@ -88,7 +88,7 @@ describe RevisionScoreApiHandler do
   context 'when the wiki is available only for reference-counter API' do
     before do
       stub_wiki_validation
-      stub_es_wikipedia_reference_counter_reponse
+      stub_es_wikipedia_reference_counter_response
     end
 
     let(:wiki) { create(:wiki, project: 'wikipedia', language: 'es') }

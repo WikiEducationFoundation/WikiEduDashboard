@@ -52,7 +52,7 @@ describe('lastSuccessfulUpdateMoment', () => {
     }
   );
   test(
-    'if no succesfull updates, returns null',
+    'if no successful updates, returns null',
     () => {
       const update_logs = {
         269: {
@@ -126,7 +126,7 @@ describe('getLastUpdateMessage', () => {
     }
   );
   test(
-    'if no succesfull updates, it will still return an array',
+    'if no successful updates, it will still return an array',
     () => {
       const course = {
         id: 1,

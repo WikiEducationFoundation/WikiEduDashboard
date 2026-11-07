@@ -25,7 +25,7 @@ class UpdateCourseStats
     sidekiq_status_logger.pause_until_no_backup unless sidekiq_status_logger.nil?
     @course = course
     # If the upate was explicitly requested by a user,
-    # it could be because the dates or other paramters were just changed.
+    # it could be because the dates or other parameters were just changed.
     # In that case, do a full update rather than just fetching the most
     # recent revisions.
     @full_update = @course.needs_update
