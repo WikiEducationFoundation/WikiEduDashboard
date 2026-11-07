@@ -43,15 +43,29 @@ const sortSelectStyles = {
     }),
     menu: styles => ({
       ...styles,
-      width: '170px',
-      position: 'relative',
-      top: '0%',
-      left: '50%',
-      right: '0%',
-      transform: 'translate(-50%)',
+      width: '100%',
       marginTop: '0px',
       marginBottom: '8px',
     }),
+    menuPortal: (styles, { rect }) => {
+      const viewportWidth = typeof window !== 'undefined' ? window.innerWidth : 1024;
+      const menuWidth = Math.min(170, viewportWidth - 16);
+
+      const left = Math.max(
+        8,
+        Math.min(
+          rect.left + rect.width - menuWidth,
+          viewportWidth - menuWidth - 8
+        )
+      );
+
+      return {
+        ...styles,
+        left,
+        width: `${menuWidth}px`,
+        zIndex: 9999,
+      };
+    },
     container: styles => ({
       ...styles,
       width: '60px',
