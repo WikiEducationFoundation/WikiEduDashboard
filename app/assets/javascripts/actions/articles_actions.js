@@ -4,8 +4,13 @@ import { fetchWikidataLabelsForArticles } from './wikidata_actions';
 import request from '../utils/request';
 import { DONE_REFRESHING_DATA } from '../constants';
 
-const fetchArticlesPromise = (courseId, limit) => {
-  return request(`/courses/${courseId}/articles.json?limit=${limit}`)
+// The server returns at most this many articles per request. Asking for more
+// than that at once is what used to make large courses hit the article cap.
+const ARTICLES_PAGE_SIZE = 500;
+
+const fetchArticlesPage = (courseId, pageSize, afterId) => {
+  const afterParam = afterId ? `&after_id=${afterId}` : '';
+  return request(`/courses/${courseId}/articles.json?limit=${pageSize}${afterParam}`)
     .then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
@@ -16,6 +21,25 @@ const fetchArticlesPromise = (courseId, limit) => {
       logErrorMessage(error);
       return error;
     });
+};
+
+// Loads up to `limit` articles one page at a time, using the articles_course_id
+// of the last article received as the cursor for the next page.
+const fetchArticlesPromise = async (courseId, limit) => {
+  let articles = [];
+  let response = { course: {} };
+  while (articles.length < limit) {
+    const pageSize = Math.min(ARTICLES_PAGE_SIZE, limit - articles.length);
+    const afterId = articles.length ? articles[articles.length - 1].articles_course_id : null;
+    const pageResponse = await fetchArticlesPage(courseId, pageSize, afterId);
+    const page = pageResponse?.course?.articles;
+    // A failed request resolves to the error, which the caller already handles.
+    if (!page) { return pageResponse; }
+    response = pageResponse;
+    articles = articles.concat(page);
+    if (page.length < pageSize) { break; }
+  }
+  return { ...response, course: { ...response.course, articles } };
 };
 
 export const fetchArticles = (courseId, limit, refresh = false) => {
@@ -38,6 +62,30 @@ export const fetchArticles = (courseId, limit, refresh = false) => {
         // Now that we received the articles data, query wikidata.org for the labels
         // of any Wikidata entries that are among the articles.
         fetchWikidataLabelsForArticles(resp.course.articles, dispatch);
+      })
+      .catch((response) => {
+        dispatch({ type: types.API_FAIL, data: response });
+      });
+  };
+};
+
+// Loads the next page of articles after the ones already loaded. The cursor is
+// the highest articles_course_id loaded, not the last row of the list, because
+// the user can sort the list in any order.
+export const fetchMoreArticles = (courseId) => {
+  return (dispatch, getState) => {
+    const loaded = getState().articles.articles;
+    const afterId = loaded.reduce((max, article) => Math.max(max, article.articles_course_id || 0), 0);
+    return fetchArticlesPage(courseId, ARTICLES_PAGE_SIZE, afterId)
+      .then((resp) => {
+        const page = resp?.course?.articles;
+        if (!page) { throw resp; }
+        dispatch({
+          type: types.RECEIVE_MORE_ARTICLES,
+          data: resp,
+          pageSize: ARTICLES_PAGE_SIZE,
+        });
+        fetchWikidataLabelsForArticles(page, dispatch);
       })
       .catch((response) => {
         dispatch({ type: types.API_FAIL, data: response });

@@ -115,6 +115,7 @@ class CoursesController < ApplicationController
   def articles
     set_course
     set_limit
+    set_after_id
   end
 
   def users
@@ -556,6 +557,13 @@ class CoursesController < ApplicationController
     limit = params[:limit].to_i
     limit = DEFAULT_ARTICLES_LIMIT unless limit.positive?
     @limit = [limit, MAX_ARTICLES_LIMIT].min
+  end
+
+  # Cursor for paging through articles.json: only articles_courses with an id
+  # greater than this are returned. A missing or invalid value means the first page.
+  def set_after_id
+    after_id = params[:after_id].to_i
+    @after_id = after_id if after_id.positive?
   end
 
   # If the user could make an edit to the course, this verifies that

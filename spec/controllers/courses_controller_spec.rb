@@ -86,6 +86,49 @@ describe CoursesController, type: :request do
       expect(article_count(limit: -1)).to eq(2)
       expect(article_count(limit: 'all')).to eq(2)
     end
+
+    def articles_page(params = {})
+      get "/courses/#{course.slug}/articles.json", params: params
+      expect(response.status).to eq(200)
+      JSON.parse(response.body)['course']['articles']
+    end
+
+    it 'returns articles in a stable order' do
+      ids = articles_page(limit: 3).pluck('articles_course_id')
+      expect(ids).to eq(ids.sort)
+    end
+
+    it 'returns the next page after a given id, without overlap' do
+      first_page = articles_page(limit: 2)
+      second_page = articles_page(limit: 2, after_id: first_page.last['articles_course_id'])
+
+      expect(second_page.length).to eq(2)
+      expect(first_page.pluck('articles_course_id') & second_page.pluck('articles_course_id'))
+        .to be_empty
+    end
+
+    it 'covers every article across all pages' do
+      seen = []
+      after_id = nil
+      10.times do
+        page = articles_page({ limit: 2, after_id: }.compact)
+        break if page.empty?
+        seen += page.pluck('articles_course_id')
+        after_id = page.last['articles_course_id']
+      end
+
+      expect(seen).to eq(course.articles_courses.order(:id).pluck(:id))
+    end
+
+    it 'returns an empty page after the last article' do
+      last_id = course.articles_courses.maximum(:id)
+      expect(articles_page(after_id: last_id)).to be_empty
+    end
+
+    it 'ignores an after_id that is not a positive number' do
+      expect(articles_page(after_id: 'abc').length).to eq(2)
+      expect(articles_page(after_id: -5).length).to eq(2)
+    end
   end
 
   describe '#destroy' do
