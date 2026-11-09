@@ -52,7 +52,7 @@ class CourseApplicationReviewsController < ApplicationController
   # An accepted applicant stays enrolled.
   def destroy
     @application.destroy!
-    redirect_to "/courses/#{@course.slug}/applications", status: :see_other
+    redirect_to applications_path, status: :see_other
   end
 
   private
@@ -73,6 +73,11 @@ class CourseApplicationReviewsController < ApplicationController
   # The application's page: this request's path, less any action segment.
   def application_path
     request.path.sub(%r{/(accept|decline)\z}, '')
+  end
+
+  # The course's application list: this request's path, less the application id.
+  def applications_path
+    request.path.sub(%r{/\d+\z}, '')
   end
 
   # In the form's group order, then any groups since removed from the form.
