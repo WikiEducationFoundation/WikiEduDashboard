@@ -118,7 +118,19 @@ class CourseArticlesCsvBuilder
   # If the Article record is missing or the ACT is empty or it's untracked
   # then we don't want to take that ACT into account for the report.
   def valid_timeslice(act)
-    act.article && act.revision_count.positive? && act.tracked
+    act.article && act.revision_count.positive? && act.tracked && reported_namespace?(act.article)
+  end
+
+  # Finalized courses only report articles in tracked namespaces, as their other rows come
+  # from articles_courses
+  def reported_namespace?(article)
+    return true unless @course.finalized?
+    tracked_namespace_pairs.include?([article.wiki_id, article.namespace])
+  end
+
+  def tracked_namespace_pairs
+    @tracked_namespace_pairs ||=
+      @course.tracked_namespaces.map { |wiki_ns| [wiki_ns[:wiki].id, wiki_ns[:namespace]] }
   end
 
   def to_usernames(user_ids)
