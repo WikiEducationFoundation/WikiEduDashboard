@@ -34,6 +34,16 @@ describe CourseApplicationDefaultQuestions do
       end
     end
 
+    it 'gives the length of every Salesforce field a text answer goes to' do
+      lengths = config['salesforce_field_lengths']
+      config['questions'].each do |q|
+        next unless %w[Short Long].include?(q['type'])
+        Array(q['salesforce']).each do |field|
+          expect(lengths[field]).to be_a(Integer), "#{q['key']}: no length for #{field}"
+        end
+      end
+    end
+
     it 'loads options as strings' do
       options = config['questions'].flat_map { |q| Array(q['options']) }
       expect(options).to all(be_a(String))

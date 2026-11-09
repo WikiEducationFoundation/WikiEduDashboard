@@ -38,6 +38,11 @@ class CourseApplicationDefaultQuestions
       registry[:by_key].values
     end
 
+    # The length of a Salesforce text field ('Object.Field'), or nil.
+    def salesforce_field_length(target)
+      registry[:field_lengths][target]
+    end
+
     def built_in_group_id?(id)
       id == GROUP_ID
     end
@@ -60,7 +65,8 @@ class CourseApplicationDefaultQuestions
       resolve_conditionals(entries, config.fetch('questions'))
       attach(group, entries)
       { group:, by_id: entries.index_by { |e| e.question.id },
-        by_key: entries.index_by(&:key) }
+        by_key: entries.index_by(&:key),
+        field_lengths: config.fetch('salesforce_field_lengths', {}) }
     end
 
     def build_entry(attributes, position)

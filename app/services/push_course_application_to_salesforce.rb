@@ -142,7 +142,8 @@ class PushCourseApplicationToSalesforce
 
       entry.salesforce_fields.each do |target|
         target_object, field = target.split('.')
-        fields[field.to_sym] = salesforce_value(entry, answer) if target_object == object
+        next unless target_object == object
+        fields[field.to_sym] = fit_to_field(target, salesforce_value(entry, answer))
       end
     end
   end
@@ -154,6 +155,13 @@ class PushCourseApplicationToSalesforce
       entry.salesforce_values.fetch(value, value)
     end
     values.join(';')
+  end
+
+  # Salesforce rejects a value longer than its field, so a long answer is cut
+  # to fit. The full answer stays on the Dashboard, at the review URL.
+  def fit_to_field(target, value)
+    length = CourseApplicationDefaultQuestions.salesforce_field_length(target)
+    length ? value.truncate(length, omission: '…') : value
   end
 
   def answers_by_question_id

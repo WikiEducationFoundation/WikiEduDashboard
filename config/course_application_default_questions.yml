@@ -23,6 +23,24 @@
 #              Course Contact for this course.
 #   salesforce_values  option → Salesforce picklist value, where they differ
 
+# The length of each text field the answers go to. Salesforce rejects a longer
+# value, so the sync cuts an answer to fit; the full answer stays on the
+# Dashboard, which the Course Contact's Application_Response_URL__c links to.
+# Check a field's length with `sf sobject describe -s <Object>`.
+salesforce_field_lengths:
+  Contact.Form_Assembly_First_Name__c: 40
+  Contact.Nickname__c: 255
+  Contact.LastName: 80
+  Contact.Title: 128
+  Contact.Pronouns_Other__c: 100
+  Contact.Ethnicity_Other__c: 80
+  Course_Contact__c.Title__c: 80
+  Course_Contact__c.Background__c: 255
+  Course_Contact__c.How_Did_You_Hear_About_Us__c: 80
+  Course_Contact__c.Prior_Wikipedia_Experience__c: 1000
+  Course_Contact__c.Article_Interest__c: 1000
+  Course_Contact__c.Application_Comments__c: 1000
+
 group:
   id: -1
   name: Standard questions

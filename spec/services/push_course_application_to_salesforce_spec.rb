@@ -74,6 +74,27 @@ describe PushCourseApplicationToSalesforce do
       ))
     end
 
+    context 'with answers longer than their Salesforce fields' do
+      let(:application) do
+        CourseApplicationForm.create!(course:, open: true)
+        answers = built_in_application_answers(background: 'a' * 300, title: 't' * 100)
+        allow(PushCourseApplicationToSalesforceWorker).to receive(:perform_async)
+        SubmitCourseApplication.new(course:, user:, answers:).application
+      end
+
+      it 'cuts each to fit its field, and keeps the full answer on the Dashboard' do
+        expect(client).to have_received(:create!).with('Course_Contact__c', hash_including(
+          Background__c: "#{'a' * 254}…", Title__c: "#{'t' * 79}…"
+        ))
+        # Contact.Title holds 128 characters.
+        expect(client).to have_received(:create!)
+          .with('Contact', hash_including(Title: 't' * 100))
+        background = CourseApplicationDefaultQuestions.entry(:background).question
+        expect(Rapidfire::Answer.find_by(question_id: background.id).answer_text)
+          .to eq('a' * 300)
+      end
+    end
+
     it 'saves both Salesforce ids on the application' do
       expect(application.reload).to have_attributes(
         salesforce_contact_id: 'new-contact', salesforce_course_contact_id: 'new-course-contact'
