@@ -409,7 +409,7 @@ Rails.application.routes.draw do
   get 'campaigns/:slug/refresh' => 'campaigns#refresh_stats'
 
   # Courses by tag
-  resources :tagged_courses, param: :tag, only: [] do
+  resources :tagged_courses, param: :tag, only: [:index] do
     member do
       get 'programs'
       get 'articles'
