@@ -473,6 +473,7 @@ system_status#index: public
 
 tagged_courses#alerts: admin
 tagged_courses#articles: admin
+tagged_courses#index: admin
 tagged_courses#programs: admin
 tagged_courses#stats: admin
 
