@@ -3,7 +3,12 @@
 #= Controller for collections of courses with a common tag
 class TaggedCoursesController < ApplicationController
   before_action :require_admin_permissions
-  before_action :set_tag
+  before_action :set_tag, except: :index
+
+  def index
+    @query = params[:q].to_s.strip
+    @tags = Tag.summaries(query: @query)
+  end
 
   def articles
     set_page
