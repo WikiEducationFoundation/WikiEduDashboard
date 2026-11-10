@@ -11,6 +11,7 @@ require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
 require_dependency "#{Rails.root}/app/workers/announce_course_worker"
 require_dependency "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
 require_dependency "#{Rails.root}/lib/errors/rescue_errors"
+require_dependency "#{Rails.root}/lib/grant_id_list"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -51,6 +52,7 @@ class CoursesController < ApplicationController
     validate
     slug_from_params if should_set_slug?
     reject_rename_of_event_synced_course { return }
+    reject_invalid_grant_id { return }
     handle_course_announcement(@course.instructors.first)
     @course.update update_params
     update_courses_wikis
@@ -380,6 +382,29 @@ class CoursesController < ApplicationController
     yield
   end
 
+  # A new grant ID must be on the grant ID spreadsheet. The course's current ID
+  # is not checked again, because the client sends it back with every save,
+  # and a course can always clear its grant ID.
+  def reject_invalid_grant_id
+    return unless course_params.key?(:grant_id)
+    grant_id = normalized_grant_id
+    return if grant_id.nil? || grant_id == @course.grant_id
+    message = grant_id_error(grant_id)
+    return unless message
+    render json: { message: }, status: :unprocessable_content
+    yield
+  end
+
+  def grant_id_error(grant_id)
+    return I18n.t('courses.error.grant_ids_unavailable') unless GrantIdList.available?
+    return if GrantIdList.include?(grant_id)
+    I18n.t('courses.error.invalid_grant_id', grant_id:)
+  end
+
+  def normalized_grant_id
+    course_params[:grant_id].to_s.strip.presence
+  end
+
   def ensure_passcode_set
     return unless course_params[:passcode].nil?
     @course.update(passcode: GeneratePasscode.call)
@@ -526,7 +551,8 @@ class CoursesController < ApplicationController
       .permit(:id, :title, :description, :school, :term, :slug, :subject,
               :expected_students, :start, :end, :submitted, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
-              :no_day_exceptions, :cloned_status, :type, :level, :private, :withdrawn)
+              :no_day_exceptions, :cloned_status, :type, :level, :private, :withdrawn,
+              :grant_id)
   end
 
   def update_params
@@ -539,6 +565,7 @@ class CoursesController < ApplicationController
     end
 
     course_attributes.delete(:passcode) if params[:course][:passcode] == '****'
+    course_attributes[:grant_id] = normalized_grant_id if course_attributes.key?(:grant_id)
 
     course_attributes
   end

@@ -886,11 +886,15 @@ en:
       duplicate_slug: "Another program called %{slug} already exists."
       event_sync_delete: This page is linked to Wikimedia Event Registration and cannot be deleted.
       event_sync_rename: This page is linked to Wikimedia Event Registration and cannot be renamed.
+      invalid_grant_id: "%{grant_id} is not a recognized grant ID. Please check the ID in the Grantee Portal (Fluxx) or on the grant's Meta page, and enter only the numbers and dashes (for example, 1111-1111)."
+      grant_ids_unavailable: "Grant IDs can't be checked right now. Please try again later."
     expected_students: Expected Students
     features_feedback: "Automated Suggestions:"
     feedback: Feedback
     feedback_loading: Please wait while suggestions are Loading...
     finalized_notice: This course has been finalized. Its data will no longer be updated automatically, and it can no longer be modified. Participants can still schedule a new update.
+    grant_id: Grant ID
+    grant_id_help: "If this program or event is supported by a grant from the Wikimedia Foundation, please provide your Grant ID, which you can find in the Grantee Portal (Fluxx) or grant Meta page. Please enter the numbers and dashes in your grant ID, but exclude the letters. For example, if your grant ID is G-1111-1111, please enter 1111-1111."
     gradeables_none: This course has no gradeable assignments.
     home_wiki: Home Wiki
     multi_wiki: Tracked Wikis

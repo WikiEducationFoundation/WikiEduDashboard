@@ -48,7 +48,12 @@ const persistAndRedirect = (course, courseSlug, newSlug, dispatch) => {
   return API.saveCourse({ course }, courseSlug)
     .then(resp => dispatch({ type: PERSISTED_COURSE, data: resp }))
     .then(() => redirectCourse(newSlug))
-    .catch(data => dispatch({ type: API_FAIL, data }));
+    .catch((data) => {
+      dispatch({ type: API_FAIL, data });
+      // The Details panel has already left edit mode, so put back the saved
+      // values rather than showing rejected ones (e.g. an invalid grant ID).
+      dispatch(resetCourse());
+    });
 };
 
 export const persistCourse = (courseSlug = null, redirect = false) => (dispatch, getState) => {

@@ -528,6 +528,26 @@ const Details = createReactClass({
       );
     }
 
+    let grantIdInput;
+    if (!Features.wikiEd && (this.props.editable || this.props.course.grant_id)) {
+      grantIdInput = (
+        <div className="grant-id">
+          <TextInput
+            id="course-grant-id"
+            onChange={this.updateDetails}
+            value={this.props.course.grant_id || ''}
+            value_key="grant_id"
+            editable={this.props.editable}
+            type="text"
+            label={I18n.t('courses.grant_id')}
+          />
+          {this.props.editable && (
+            <p className="form-help-text">{I18n.t('courses.grant_id_help')}</p>
+          )}
+        </div>
+      );
+    }
+
     // Users who can rename a course can enable Online Volunteers to join
     if (canRename && !Features.wikiEd) {
       onlineVolunteersToggle = (
@@ -664,6 +684,7 @@ const Details = createReactClass({
               {timelineStart}
               {timelineEnd}
               {subject}
+              {grantIdInput}
               {courseLevelSelector}
               {courseFormatSelector}
               {tags}
