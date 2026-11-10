@@ -73,7 +73,7 @@ class Campaign < ApplicationRecord
   def users_to_csv(role, opts = {})
     headers = opts[:course] ? %w[username course registered_at] : ['username']
     csv_data = [headers]
-    courses.nonprivate.each do |course|
+    courses_for_csv(opts[:include_private]).each do |course|
       users = course.send(role)
       users.each do |user|
         line = [user.username]
@@ -155,6 +155,13 @@ class Campaign < ApplicationRecord
   end
 
   private
+
+  # Campaign reports leave private courses out, because each one is cached once
+  # and served to everyone who asks; the variant that includes them is only
+  # generated for admins and organizers (ReportsController).
+  def courses_for_csv(include_private)
+    include_private ? courses : courses.nonprivate
+  end
 
   def validate_dates
     # It's fine to have no dates at all.
