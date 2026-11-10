@@ -1,8 +1,12 @@
 # frozen_string_literal: true
 
 json.course do
-  json.articles @course.articles_courses.includes(article: :wiki).limit(@limit) do |ac|
+  articles_courses = @course.articles_courses.includes(article: :wiki).order(:id)
+  # Always apply the cursor (0 for the first page): it keeps the query on the course index.
+  articles_courses = articles_courses.where('articles_courses.id > ?', @after_id || 0)
+  json.articles articles_courses.limit(@limit) do |ac|
     article = ac.article
+    json.articles_course_id ac.id
     json.call(ac, :character_sum, :references_count, :view_count, :new_article, :tracked, :user_ids)
     json.call(article, :id, :namespace, :deleted, :mw_page_id, :url)
     json.view_count calculate_view_count(ac.first_revision, ac.average_views, article.average_views,
