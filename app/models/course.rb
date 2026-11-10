@@ -128,7 +128,7 @@ class Course < ApplicationRecord
 
   has_many :sandboxes, lambda {
     distinct.sandbox
-  }, source: :article, through: :article_course_timeslices
+  }, source: :article, through: :article_course_user_wiki_timeslices
 
   serialize :flags, type: Hash
 
