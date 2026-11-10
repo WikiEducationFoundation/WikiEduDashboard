@@ -17,7 +17,7 @@
             %img{:src => "/assets/images/user.svg", :alt => "user default logo"}
         - if @user.profile_image
           = link_to "Remove profile image", delete_profile_image_path(username: @user.username), method: :delete, class: 'rails_editable-input button small', id: "remove_link"
-        = f.file_field(:image, class: 'rails_editable-input')
+        = f.file_field(:image, class: 'rails_editable-input', accept:'image/*')
         = f.text_field(:image_file_link, class: 'rails_editable-input', placeholder: t("user_profiles.image_link_placeholder"), size: "30")
 
     #profile_right
