@@ -89,4 +89,28 @@ describe 'Article Viewer', type: :feature, js: true do
 
     pass_pending_spec
   end
+    it 'exposes the viewer as a labelled modal dialog' do
+    login_as user
+    visit "/courses/#{course.slug}/articles"
+    find('button.icon-article-viewer').click
+
+    dialog = find('.article-viewer[role="dialog"]')
+    expect(dialog['aria-modal']).to eq('true')
+
+    title_id = dialog['aria-labelledby']
+    expect(title_id).to be_present
+    expect(page).to have_css("[id=\"#{title_id}\"].article-viewer-title")
+
+    expect(page).to have_css('.article-viewer:focus, .article-viewer :focus')
+  end
+    it 'returns focus to the opener when closed with Escape' do
+    login_as user
+    visit "/courses/#{course.slug}/articles"
+    find('button.icon-article-viewer').click
+    expect(page).to have_css('.article-viewer')
+
+    find('body').send_keys(:escape)
+    expect(page).to have_no_css('.article-viewer')
+    expect(page).to have_css('button.icon-article-viewer:focus')
+  end
 end
