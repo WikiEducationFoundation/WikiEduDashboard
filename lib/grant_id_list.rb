@@ -14,6 +14,8 @@ class GrantIdList
   ID_COLUMN = 'base_request_id'
   SHEET_ID_PATTERN = %r{docs\.google\.com/spreadsheets/d/([\w-]+)}
   TIMEOUT = 30
+  REFRESH_INTERVAL = 5.minutes
+  REFRESH_CACHE_KEY = 'grant_id_list_refresh_attempted'
   TYPICAL_ERRORS = [Faraday::TimeoutError, Faraday::ConnectionFailed].freeze
 
   class SpreadsheetError < StandardError; end
@@ -29,13 +31,24 @@ class GrantIdList
     new.refresh
   end
 
-  # Whether grant IDs can be checked. Fetches the list if none is stored yet.
-  def self.available?
-    ValidGrantId.exists? || refresh.present?
+  # Refreshes the list while a save waits for it, so this happens at most once
+  # per REFRESH_INTERVAL, whether or not the sheet could be read.
+  def self.refresh_unless_recent
+    return if Rails.cache.exist?(REFRESH_CACHE_KEY)
+    Rails.cache.write(REFRESH_CACHE_KEY, true, expires_in: REFRESH_INTERVAL)
+    refresh
   end
 
+  # Whether grant IDs can be checked. Fetches the list if none is stored yet.
+  def self.available?
+    ValidGrantId.exists? || refresh_unless_recent.present?
+  end
+
+  # An ID that is not stored may have been added to the sheet since the last
+  # refresh, so the list is fetched again before the ID is turned down.
   def self.include?(grant_id)
-    ValidGrantId.exists?(grant_id:)
+    return true if ValidGrantId.exists?(grant_id:)
+    refresh_unless_recent.present? && ValidGrantId.exists?(grant_id:)
   end
 
   def refresh

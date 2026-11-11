@@ -55,7 +55,7 @@ mark_purgeable_courses:
 
 # Copy the valid grant IDs from the grant ID spreadsheet (P&E only).
 refresh_grant_ids:
-  cron: "0 2 * * 0" # every Sunday at 2am UTC
+  cron: "0 2 * * *" # every day at 2am UTC
   class: "RefreshGrantIdsWorker"
   queue: default
 

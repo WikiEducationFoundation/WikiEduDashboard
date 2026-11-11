@@ -105,11 +105,47 @@ describe GrantIdList do
   end
 
   describe '.include?' do
-    before { ValidGrantId.replace_all(%w[1546-24563]) }
+    # The test environment has no cache, so the limit on refreshes needs one.
+    let(:cache) { ActiveSupport::Cache::MemoryStore.new }
+
+    before do
+      allow(Rails).to receive(:cache).and_return(cache)
+      ValidGrantId.replace_all(%w[1546-24563])
+      stub_request(:get, export_url).to_return(status: 200, body: sheet_csv)
+    end
 
     it 'only matches an ID exactly as listed' do
       expect(described_class.include?('1546-24563')).to be(true)
       expect(described_class.include?('G-1546-24563')).to be(false)
+    end
+
+    it 'does not fetch the sheet for an ID that is already stored' do
+      described_class.include?('1546-24563')
+      expect(a_request(:get, export_url)).not_to have_been_made
+    end
+
+    it 'finds an ID added to the sheet since the last refresh' do
+      expect(described_class.include?('2001-00042')).to be(true)
+    end
+
+    it 'fetches the sheet only once for IDs that are not on it' do
+      described_class.include?('9999-99999')
+      described_class.include?('8888-88888')
+      expect(a_request(:get, export_url)).to have_been_made.once
+    end
+
+    it 'fetches the sheet again once the refresh interval has passed' do
+      described_class.include?('9999-99999')
+      travel_to(Time.zone.now + described_class::REFRESH_INTERVAL + 1.second) do
+        described_class.include?('8888-88888')
+      end
+      expect(a_request(:get, export_url)).to have_been_made.twice
+    end
+
+    it 'does not keep fetching a sheet that cannot be read' do
+      stub_request(:get, export_url).to_return(status: 500)
+      2.times { expect(described_class.include?('9999-99999')).to be(false) }
+      expect(a_request(:get, export_url)).to have_been_made.once
     end
   end
 end

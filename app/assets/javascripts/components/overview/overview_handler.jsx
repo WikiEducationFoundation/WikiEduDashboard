@@ -200,6 +200,7 @@ const mapStateToProps = state => ({
   allWeeksDates: getAllWeekDates(state),
   loading: state.timeline.loading || state.course.loading,
   firstErrorMessage: firstValidationErrorMessage(state),
+  grantIdValidation: state.validations.validations.grant_id,
   isValid: isValid(state),
   courseCreationNotice: state.courseCreator.courseCreationNotice
 });

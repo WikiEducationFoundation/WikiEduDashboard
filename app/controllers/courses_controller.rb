@@ -391,7 +391,7 @@ class CoursesController < ApplicationController
     return if grant_id.nil? || grant_id == @course.grant_id
     message = grant_id_error(grant_id)
     return unless message
-    render json: { message: }, status: :unprocessable_content
+    render json: { message:, field: 'grant_id' }, status: :unprocessable_content
     yield
   end
 
@@ -401,8 +401,10 @@ class CoursesController < ApplicationController
     I18n.t('courses.error.invalid_grant_id', grant_id:)
   end
 
+  # The grant ID list holds only the numbers and dashes, so the G- prefix
+  # that grant IDs are usually written with is dropped.
   def normalized_grant_id
-    course_params[:grant_id].to_s.strip.presence
+    course_params[:grant_id].to_s.strip.sub(/\Ag-\s*/i, '').presence
   end
 
   def ensure_passcode_set

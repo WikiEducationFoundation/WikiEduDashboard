@@ -280,14 +280,21 @@ describe CoursesController, type: :request do
         expect(response).to have_http_status(:unprocessable_content)
         expect(response.parsed_body['message'])
           .to eq(I18n.t('courses.error.invalid_grant_id', grant_id: '9999-99999'))
+        expect(response.parsed_body['field']).to eq('grant_id')
         expect(course.reload.grant_id).to be_nil
         expect(course.title).not_to eq('New title')
       end
 
-      it 'refuses a grant ID entered with its G- prefix' do
-        save_grant_id('G-1546-24563')
-        expect(response).to have_http_status(:unprocessable_content)
-        expect(course.reload.grant_id).to be_nil
+      it 'saves a grant ID entered with its G- prefix, without the prefix' do
+        save_grant_id(' g-1546-24563')
+        expect(response).to have_http_status(:ok)
+        expect(course.reload.grant_id).to eq('1546-24563')
+      end
+
+      it 'leaves the G- prefix out of the error for an ID that is not on the list' do
+        save_grant_id('G-9999-99999')
+        expect(response.parsed_body['message'])
+          .to eq(I18n.t('courses.error.invalid_grant_id', grant_id: '9999-99999'))
       end
 
       it "still saves other changes when the course's grant ID has left the list" do

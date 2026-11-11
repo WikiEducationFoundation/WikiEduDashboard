@@ -380,8 +380,9 @@ en:
     tracked_articles: Tracked Articles
     view_articles: View Articles
     no_tracked_articles: This category has no tracked articles
-    not_choosen_article:  You have not chosen an article to work on. When you have found an
-        article to work on, use the button above to assign it.
+    not_choosen_article:
+      You have not chosen an article to work on. When you have found an
+      article to work on, use the button above to assign it.
     use_dashboard: How to use the Dashboard
     how_to_find: How to find an article
     evaluate_and_source: Evaluating articles and sources
@@ -503,10 +504,10 @@ en:
     invalid_username: 'The username "%{username}" is invalid Or the username does not exist.'
     change_sandbox_instructions: Enter a Wikipedia username to update the sandbox URLs for this assignment. This will change the sandbox from the current username to the one you specify.
     username_label: Wikipedia Username
-    username_placeholder: 'Enter username (e.g., YourUsername)'
+    username_placeholder: "Enter username (e.g., YourUsername)"
     username_or_url_label: Wikipedia Username or URL
-    username_or_url_placeholder: 'Enter username or full sandbox URL'
-    preview_label: 'Preview of new URLs:'
+    username_or_url_placeholder: "Enter username or full sandbox URL"
+    preview_label: "Preview of new URLs:"
     sandbox_label: Sandbox
     bibliography_label: Bibliography
     outline_label: Outline
@@ -886,7 +887,7 @@ en:
       duplicate_slug: "Another program called %{slug} already exists."
       event_sync_delete: This page is linked to Wikimedia Event Registration and cannot be deleted.
       event_sync_rename: This page is linked to Wikimedia Event Registration and cannot be renamed.
-      invalid_grant_id: "%{grant_id} is not a recognized grant ID. Please check the ID in the Grantee Portal (Fluxx) or on the grant's Meta page, and enter only the numbers and dashes (for example, 1111-1111)."
+      invalid_grant_id: "%{grant_id} is not a recognized grant ID. Please check the ID in the Grantee Portal (Fluxx) or on the grant's Meta page."
       grant_ids_unavailable: "Grant IDs can't be checked right now. Please try again later."
     expected_students: Expected Students
     features_feedback: "Automated Suggestions:"
@@ -894,7 +895,8 @@ en:
     feedback_loading: Please wait while suggestions are Loading...
     finalized_notice: This course has been finalized. Its data will no longer be updated automatically, and it can no longer be modified. Participants can still schedule a new update.
     grant_id: Grant ID
-    grant_id_help: "If this program or event is supported by a grant from the Wikimedia Foundation, please provide your Grant ID, which you can find in the Grantee Portal (Fluxx) or grant Meta page. Please enter the numbers and dashes in your grant ID, but exclude the letters. For example, if your grant ID is G-1111-1111, please enter 1111-1111."
+    grant_id_checking: "Checking..."
+    grant_id_help: "If this program or event is supported by a grant from the Wikimedia Foundation, please provide your Grant ID, which you can find in the Grantee Portal (Fluxx) or grant Meta page."
     gradeables_none: This course has no gradeable assignments.
     home_wiki: Home Wiki
     multi_wiki: Tracked Wikis
@@ -1636,7 +1638,6 @@ en:
         confirm: "Are you sure you want to remove %{username} from the disallowed users list?"
     actions: Actions
 
-
   status:
     active_jobs: Active jobs
     active_jobs_doc: The number of currently processing jobs.
@@ -1795,7 +1796,6 @@ en:
     sandbox_mode_unmatched: "Expected block(s) not found. Title(s) may have been edited."
     sandbox_mode_unresolved: "These blocks also depend on an unknown wizard answer, and have not been changed."
 
-
   training:
     continue: Continue (%{progress})
     start: Start
@@ -1807,7 +1807,7 @@ en:
     table_of_contents: Table of Contents
     training_library: Training Library
     additional_training: Additional training modules
-    orientation_modules:  Instructor orientation modules
+    orientation_modules: Instructor orientation modules
     logged_out: "You are logged out. You will not receive credit for completing this module unless you log in."
     done: Done!
     invalid: Sorry that slide does not exist!
@@ -1954,7 +1954,7 @@ en:
         verified_heading: "Example: The source backs up the claim"
         verified_article_alt: 'Screenshot of the Wikipedia article "The Bicycle Tree". The sentence with the example claim is highlighted.'
         verified_claim: "Claim reads: “In 2013, The Bicycle Tree launched a crowdfunding campaign to open a storefront.[1]”"
-        verified_source: "Source: DKELSEN (2016-06-08). \"Bicycle Tree Celebrates a Decade of Bike Activism in SanTana\". OC Weekly. Archived from the original on 2019-12-09. Retrieved 2026-05-29."
+        verified_source: 'Source: DKELSEN (2016-06-08). "Bicycle Tree Celebrates a Decade of Bike Activism in SanTana". OC Weekly. Archived from the original on 2019-12-09. Retrieved 2026-05-29.'
         verified_source_alt: "Screenshot of an OC Weekly article, with the browser’s find bar matching “crowd” in the sentence about the crowdfunding campaign"
         # `%{source_link}` is the link text below, linked to the source (an `_html` string).
         verified_conclusion_html: "You can see the %{source_link} explicitly contains the information in the claim."
@@ -2330,8 +2330,8 @@ en:
     new_downloads: You have new downloads.
     no_downloads: You have no new downloads.
     aria_label: Downloads
-    csv: 'Download CSV'
-    json: 'Download JSON'
+    csv: "Download CSV"
+    json: "Download JSON"
 
   survey:
     login_message: "Thank you for your time. Please log in to the Dashboard to take the survey."
@@ -2517,7 +2517,7 @@ en:
     JSONP_request_failed: "The request to fetch data from Wikipedia has timed out. This may be due to a slow internet connection or temporary server issues. Please try again later."
 
   tagged_courses:
-    download_csv: 'Download CSV'
+    download_csv: "Download CSV"
 
   weekday_picker:
     aria:
@@ -2669,7 +2669,6 @@ en:
     # write-once, so `wrong_account` — signing out and back in as the right
     # account — is the escape hatch that keeps a mistake from needing staff.
     connect_identity:
-
       header: "Connect your Wikipedia account to this course"
       explanation: "Connecting will report your Wikipedia work in %{course} to this Canvas course, using your Wiki Education Dashboard account %{username}. This connection cannot be changed later without help from Wiki Education staff, so check that the account below is the one you want to use."
       canvas_course: "Canvas course"

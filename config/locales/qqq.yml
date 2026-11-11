@@ -468,6 +468,8 @@ qqq:
         loaded, so a grant ID cannot be checked
     feedback: '{{Identical|Feedback}}'
     grant_id: Label for the field where a program's grant ID is entered (P&E only)
+    grant_id_checking: Shown under the grant ID field while the grant ID entered is
+      being checked against the list of valid grant IDs
     grant_id_help: Instructions shown under the grant ID field while editing a program's
       details
     gradeables_none: Message indicating that the course has no gradeable items in

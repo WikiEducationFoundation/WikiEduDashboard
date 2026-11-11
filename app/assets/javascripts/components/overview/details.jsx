@@ -57,7 +57,8 @@ const Details = createReactClass({
     editable: PropTypes.bool,
     updateCourse: PropTypes.func.isRequired,
     refetchCourse: PropTypes.func.isRequired,
-    firstErrorMessage: PropTypes.string
+    firstErrorMessage: PropTypes.string,
+    grantIdValidation: PropTypes.object
   },
 
   getInitialState() {
@@ -83,6 +84,13 @@ const Details = createReactClass({
       [valueKey]: value
     };
     return this.props.updateCourse(updatedCourse);
+  },
+
+  // A grant ID the server turned down stays marked until it is changed.
+  updateGrantId(valueKey, value) {
+    const { grantIdValidation } = this.props;
+    if (grantIdValidation && !grantIdValidation.valid) { this.props.setValid(valueKey); }
+    return this.updateDetails(valueKey, value);
   },
 
   updateSlugPart(valueKey, value) {
@@ -528,22 +536,33 @@ const Details = createReactClass({
       );
     }
 
+    // The grant ID is checked by the server when the details are saved. Its
+    // field shows that the check is running, and then the error if there is one.
+    const grantIdValidation = this.props.grantIdValidation || {};
+    const grantIdError = grantIdValidation.valid === false && grantIdValidation.message;
     let grantIdInput;
     if (!Features.wikiEd && (this.props.editable || this.props.course.grant_id)) {
+      let grantIdStatus;
+      if (this.props.editable && grantIdValidation.validating) {
+        grantIdStatus = <p className="form-help-text" role="status">{I18n.t('courses.grant_id_checking')}</p>;
+      } else if (this.props.editable && grantIdError) {
+        grantIdStatus = <p className="red" role="alert">{grantIdError}</p>;
+      }
       grantIdInput = (
         <div className="grant-id">
+          {this.props.editable && (
+            <p className="form-help-text">{I18n.t('courses.grant_id_help')}</p>
+          )}
           <TextInput
             id="course-grant-id"
-            onChange={this.updateDetails}
+            onChange={this.updateGrantId}
             value={this.props.course.grant_id || ''}
             value_key="grant_id"
             editable={this.props.editable}
             type="text"
             label={I18n.t('courses.grant_id')}
           />
-          {this.props.editable && (
-            <p className="form-help-text">{I18n.t('courses.grant_id_help')}</p>
-          )}
+          {grantIdStatus}
         </div>
       );
     }
@@ -644,7 +663,9 @@ const Details = createReactClass({
               {online}
               {campus}
               {staff}
-              <div><p className="red">{this.props.firstErrorMessage}</p></div>
+              {this.props.firstErrorMessage !== grantIdError && (
+                <div><p className="red">{this.props.firstErrorMessage}</p></div>
+              )}
               {school}
               {title}
               {term}
