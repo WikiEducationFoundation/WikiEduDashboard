@@ -32,10 +32,13 @@ const NeedHelpTickets = ({ tickets, hiddenCount, keys, sortBy, showAll }) => {
   }
 
   return (
-    <section className="need-help-tickets">
-      <h2>Priority alerts</h2>
-      {content}
-    </section>
+    <>
+      <section className="need-help-tickets">
+        <h2>Priority alerts</h2>
+        {content}
+      </section>
+      <hr className="need-help-tickets__divider" />
+    </>
   );
 };
 

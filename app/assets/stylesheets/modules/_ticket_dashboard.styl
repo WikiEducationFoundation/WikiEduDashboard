@@ -46,26 +46,28 @@
     line-height 1.4
     margin-top 2px
     padding 0 4px
-  // Open NeedHelpAlert tickets sit under a title bar above the main table.
-  // Nothing wraps the table itself, so both tables get the same width and
-  // their columns line up.
+  // Open NeedHelpAlert tickets sit under a small heading above the main
+  // table, with a rule between them. Nothing wraps the table itself, so both
+  // tables get the same width and their columns line up.
+  // The heading and the row borders share the brand colour, which ties them
+  // together and marks these rows as priority without signalling danger.
   .need-help-tickets
-    margin-bottom 2rem
     h2
-      background athens
-      border-left 4px solid suit
-      color $text_dk
-      font-size 1.25em
-      margin 0
-      padding 0.6rem 12px
+      color $brand_primary
+      font-size 1em
+      font-weight 700
+      margin 0 0 0.25rem
+    table.tickets > tbody > tr > td
+      border-color $brand_primary
+  .need-help-tickets__divider
+    border-color suit
+    margin 1.5rem 0
   .need-help-tickets__hidden
     align-items center
-    border 1px solid $border_lt
-    border-top none
     display flex
     gap 1rem
     margin-bottom 0
-    padding 0.75rem 12px
+    padding 0.25rem 0
   .reply-header
     h3.subject
       color $text
