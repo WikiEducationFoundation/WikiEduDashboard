@@ -22,7 +22,7 @@ const NeedHelpTickets = ({ tickets, hiddenCount, keys, sortBy, showAll }) => {
     content = (
       <p className="need-help-tickets__hidden">
         <span>
-          {`[PLACEHOLDER - note that none of the ${hiddenCount} open NeedHelpAlert tickets match the current filters]`}
+          {`None of the ${hiddenCount} open priority alerts match current filters.`}
         </span>
         <button type="button" className="button small" onClick={showAll}>
           Show all
@@ -33,7 +33,7 @@ const NeedHelpTickets = ({ tickets, hiddenCount, keys, sortBy, showAll }) => {
 
   return (
     <section className="need-help-tickets">
-      <h2>[PLACEHOLDER - heading for the table of open NeedHelpAlert tickets]</h2>
+      <h2>Priority alerts</h2>
       {content}
     </section>
   );
