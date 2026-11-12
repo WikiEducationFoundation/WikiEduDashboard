@@ -64,7 +64,11 @@ class PushCourseApplicationToSalesforce
     contact.Id
   end
 
+  # A blank email would match Contacts with an empty email field, so an
+  # applicant without one always gets a new Contact.
   def matching_contact
+    return if @application.user.email.blank?
+
     email = soql_string(@application.user.email)
     @client.query('SELECT Id, Wiki_Username__c FROM Contact ' \
                   "WHERE Email = #{email} OR npe01__WorkEmail__c = #{email} " \

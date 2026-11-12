@@ -102,6 +102,20 @@ describe PushCourseApplicationToSalesforce do
     end
   end
 
+  context 'when the applicant has no email' do
+    let(:user) { create(:user, username: 'Election_scholar', email: nil) }
+    # What a search on a blank email could match: some Contact without one.
+    let(:existing_contacts) { [double(Id: 'unrelated-contact', Wiki_Username__c: nil)] }
+
+    before { described_class.new(application) }
+
+    it 'creates a new Contact rather than searching by email' do
+      expect(client).not_to have_received(:query).with(/FROM Contact /)
+      expect(client).not_to have_received(:update!).with('Contact', anything)
+      expect(application.reload.salesforce_contact_id).to eq('new-contact')
+    end
+  end
+
   context 'with a Contact for the applicant\'s email' do
     let(:existing_contacts) { [double(Id: 'old-contact', Wiki_Username__c: nil)] }
 
