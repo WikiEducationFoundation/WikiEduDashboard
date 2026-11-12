@@ -31,10 +31,14 @@ export function fetchArticleDetails(articleId, courseId) {
 
                 // Re-fetch the article details using the cross-checked title for accuracy.
                 fetchArticleDetailsAgain(crossCheckedArticleTitle, articleId, courseId, dispatch);
+                return;
               }
-            } else {
-              dispatch({ type: types.RECEIVE_ARTICLE_DETAILS, articleId, details, revisionRange });
             }
+            // With no title to cross-check (e.g. an assigned article that no one in
+            // the course has edited, so it is absent from the course's articles),
+            // the details must still arrive: the article viewer waits on the editor
+            // list, even an empty one, before it can finish loading.
+            dispatch({ type: types.RECEIVE_ARTICLE_DETAILS, articleId, details, revisionRange });
           });
       })
       .catch(response => (dispatch({ type: types.API_FAIL, data: response })));

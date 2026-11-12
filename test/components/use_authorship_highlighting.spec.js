@@ -171,6 +171,18 @@ describe('useAuthorshipHighlighting hook: WhoColor and user-id ordering', () => 
     expect(html()).not.toContain('title="Ragesoss"');
   });
 
+  test('highlights the assigned students when no course editors are known', async () => {
+    // An assigned article no one in the course has edited, as on the Students tab.
+    await render({ users: [], assignedUsers: ['Ragesoss'] });
+
+    await act(async () => { mockWhoColorRequest.resolve(whoColorResponse); });
+    expect(pending()).toEqual('pending');
+
+    await act(async () => { mockUserIdsRequest.resolve(userIdsResponse); });
+    expect(pending()).toEqual('settled');
+    expect(html()).toContain('title="Ragesoss" class="editor-token token-editor-123');
+  });
+
   test('does not wait for user ids in finder mode, where none are requested', async () => {
     await render({ users: null, showArticleFinder: true });
 
