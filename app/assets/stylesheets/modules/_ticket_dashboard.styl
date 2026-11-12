@@ -37,6 +37,37 @@
       overflow-wrap anywhere
     td.subject .clamp
       -webkit-line-clamp 3
+  td.sender .sender-role
+    border 1px solid $border_lt
+    border-radius 3px
+    color $text_med
+    display inline-block
+    font-size 0.75em
+    line-height 1.4
+    margin-top 2px
+    padding 0 4px
+  // Open NeedHelpAlert tickets sit under a small heading above the main
+  // table, with a rule between them. Nothing wraps the table itself, so both
+  // tables get the same width and their columns line up.
+  // The heading and the row borders share the brand colour, which ties them
+  // together and marks these rows as priority without signalling danger.
+  .need-help-tickets
+    h2
+      color $brand_primary
+      font-size 1em
+      font-weight 700
+      margin 0 0 0.25rem
+    table.tickets > tbody > tr > td
+      border-color $brand_primary
+  .need-help-tickets__divider
+    border-color suit
+    margin 1.5rem 0
+  .need-help-tickets__hidden
+    align-items center
+    display flex
+    gap 1rem
+    margin-bottom 0
+    padding 0.25rem 0
   .reply-header
     h3.subject
       color $text

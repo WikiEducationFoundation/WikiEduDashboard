@@ -88,6 +88,28 @@ describe 'ticket dashboard', type: :feature, js: true do
       visit '/tickets/dashboard'
     end
 
+    it "shows the sender's role in the course" do
+      within('tr', text: 'A first subject') do
+        expect(page).to have_css('.sender-role', text: 'Student')
+      end
+    end
+
+    it 'shows no role for a sender who is not in the course' do
+      within('tr', text: 'Do no miss my return') do
+        expect(page).to have_no_css('.sender-role')
+      end
+    end
+
+    it 'does not label an admin who is not in the course as an instructor' do
+      TicketDispenser::Dispenser.call(content: 'Checking on this course', owner_id: admin.id,
+                                      sender_id: admin.id, project_id: course.id,
+                                      details: { subject: 'Staff check-in' })
+      visit '/tickets/dashboard'
+      within('tr', text: 'Staff check-in') do
+        expect(page).to have_no_css('.sender-role')
+      end
+    end
+
     it 'clears search when button is pressed after a search occurs' do
       fill_in 'tickets_search_email_or_username', with: 'aron@packers.nfl.org'
       click_button 'search_tickets'
@@ -274,6 +296,59 @@ describe 'ticket dashboard', type: :feature, js: true do
       # The default filter shows open tickets only, so the resolved one drops out.
       expect(page).to have_content 'A second subject'
       expect(page).to have_no_content 'A first subject'
+    end
+  end
+  context 'with NeedHelpAlert tickets' do
+    let(:other_admin) { create(:admin, username: 'OtherAdmin', email: 'other@wikiedu.org') }
+
+    let(:create_need_help_ticket) do
+      lambda do |owner:, content:, status: TicketDispenser::Ticket::Statuses::OPEN|
+        ticket = TicketDispenser::Dispenser.call(
+          content:,
+          owner_id: owner.id,
+          sender_id: user.id,
+          project_id: course.id,
+          details: { subject: 'NeedHelpAlert' }
+        )
+        ticket.update!(status:)
+        ticket
+      end
+    end
+
+    it 'leaves out the NeedHelpAlert table when none are open' do
+      create_ticket
+      create_need_help_ticket.call(owner: admin, content: 'Already sorted',
+                                   status: TicketDispenser::Ticket::Statuses::RESOLVED)
+      visit '/tickets/dashboard'
+
+      expect(page).to have_content 'A first subject'
+      expect(page).to have_no_css('.need-help-tickets')
+    end
+
+    it 'lists open NeedHelpAlert tickets in their own table' do
+      create_ticket
+      create_need_help_ticket.call(owner: admin, content: 'Please help')
+      visit '/tickets/dashboard'
+
+      within('.need-help-tickets') do
+        expect(page).to have_css('tbody tr', count: 1)
+        expect(page).to have_content 'NeedHelpAlert'
+        expect(page).to have_no_content 'A first subject'
+      end
+      expect(page).to have_css('table.tickets', text: 'NeedHelpAlert', count: 1)
+      expect(page).to have_css('table.tickets', text: 'A first subject', count: 1)
+    end
+
+    it 'shows all open NeedHelpAlert tickets when the filters hide them' do
+      create_need_help_ticket.call(owner: other_admin, content: 'Help me, other admin')
+      visit '/tickets/dashboard'
+
+      within('.need-help-tickets') do
+        expect(page).to have_no_css('tbody tr')
+        click_button 'Show all'
+        expect(page).to have_css('tbody tr', count: 1)
+        expect(page).to have_content other_admin.username
+      end
     end
   end
 end

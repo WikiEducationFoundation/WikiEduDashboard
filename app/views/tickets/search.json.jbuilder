@@ -9,6 +9,7 @@ json.tickets do
       json.real_name ticket.sender[:real_name]
       json.email ticket.sender[:email]
       json.role ticket.sender[:role]
+      json.course_role ticket.sender[:course_role]
     end
     json.owner do
       json.id ticket.owner&.id
