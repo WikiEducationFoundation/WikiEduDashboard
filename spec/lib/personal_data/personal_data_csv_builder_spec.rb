@@ -105,4 +105,46 @@ describe PersonalData::PersonalDataCsvBuilder, type: :request do
       expect(csv_content).not_to include('Name (from LMS)')
     end
   end
+
+  describe 'course application info' do
+    let(:cohort) { create(:fellows_cohort, slug: 'Wiki_Education/Workshop_(2027)') }
+    let(:base) { create(:question_group, name: 'Base') }
+    let(:theme) { create(:question_group, name: 'Theme') }
+    let!(:background) do
+      create(:q_long, question_group: base, question_text: 'Describe your research background')
+    end
+    let!(:topics) do
+      create(:q_short, question_group: theme, question_text: 'Topics you would work on',
+                       follow_up_question_text: 'Anything else?')
+    end
+
+    before do
+      CourseApplicationForm.create!(course: cohort, open: true,
+                                    question_group_ids: [base.id, theme.id])
+      answers = built_in_application_answers(last_name: 'Ortega').merge(
+        background.id.to_s => { answer_text: 'I study elections.' },
+        topics.id.to_s => { answer_text: 'Voting rights', follow_up_answer_text: 'Maps' }
+      )
+      application = SubmitCourseApplication.new(course: cohort, user:, answers:).application
+      application.update!(staff_notes: 'Strong fit')
+    end
+
+    it 'exports each application with its answers, in form order' do
+      csv = CSV.parse(described_class.new(user).generate_csv)
+      start = csv.index(['Application', 'Status', 'Submitted At', 'Decided At'])
+      expect(csv[start + 1].first(2)).to eq(['Wiki_Education/Workshop_(2027)', 'submitted'])
+      answer_rows = csv[(start + 2)..].each_slice(2).map(&:last)
+      # The built-in questions come first.
+      expect(answer_rows.first).to eq(['First Name', 'Sample answer to -1', nil, nil])
+      expect(answer_rows).to include(['Last Name', 'Ortega', nil, nil])
+      expect(answer_rows.last(2)).to eq(
+        [['Describe your research background', 'I study elections.', nil, nil],
+         ['Topics you would work on', 'Voting rights', 'Anything else?', 'Maps']]
+      )
+    end
+
+    it 'leaves out staff notes' do
+      expect(described_class.new(user).generate_csv).not_to include('Strong fit')
+    end
+  end
 end

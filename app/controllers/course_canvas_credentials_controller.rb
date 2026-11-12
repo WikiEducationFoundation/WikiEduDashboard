@@ -69,9 +69,11 @@ class CourseCanvasCredentialsController < ApplicationController
     head :not_found
   end
 
+  # Not Found as well for a course type the integration is not offered for:
+  # the page does not exist for that course.
   def set_course
     @course = Course.find_by(slug: params[:slug])
-    raise ActionController::RoutingError, 'Not Found' if @course.nil?
+    raise ActionController::RoutingError, 'Not Found' unless @course&.lms_integration_allowed?
   end
 
   # Instructors of the course only, and only once the course is approved —

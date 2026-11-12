@@ -1,0 +1,19 @@
+-# One question group on the application form settings page. Locals: group,
+-# edit_path. Also the template application_form_settings.js fills in (id 0,
+-# with ID in edit_path) when a group is added. The buttons are described by
+-# the group name, so a screen reader says which group each one acts on.
+- name_id = "question_group_name_#{group.id}"
+- described = { describedby: name_id }
+%li.course-application-form__group{ draggable: 'true', data: { question_group_id: group.id } }
+  %span.course-application-form__handle{ aria: { hidden: 'true' } } ☰
+  = hidden_field_tag 'course_application_form[question_group_ids][]', group.id, id: nil
+  %span.course-application-form__group-name{ id: name_id }= group.name
+  %span.course-application-form__group-actions
+    %button.button.small{ type: 'button', data: { question_group_move: 'up' }, aria: described }
+      = t('course_application_forms.move_up')
+    %button.button.small{ type: 'button', data: { question_group_move: 'down' }, aria: described }
+      = t('course_application_forms.move_down')
+    = link_to t('course_application_forms.edit_question_group'), edit_path,
+              class: 'button small', aria: described
+    %button.button.small{ type: 'button', data: { question_group_remove: true }, aria: described }
+      = t('course_application_forms.remove')

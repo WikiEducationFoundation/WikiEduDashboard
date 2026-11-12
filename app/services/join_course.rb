@@ -7,14 +7,28 @@ require_dependency "#{Rails.root}/lib/timeslice_manager"
 class JoinCourse
   attr_reader :result
 
+  # The i18n key explaining a failure reason. A join refused because the course
+  # takes applications gets the generic "not authorized" message.
+  def self.failure_message_key(reason)
+    return 'error_401.explanation' if reason == 'application_required'
+
+    "courses.join_failure_details.#{reason}"
+  end
+
+  # A course with a Scholars & Scientists application form takes students only
+  # through an accepted application or an admin adding them; those two callers
+  # pass `skip_application_check: true`. Every other path is refused, including
+  # any added later.
   # rubocop:disable Metrics/ParameterLists
-  def initialize(course:, user:, role:, real_name: nil, role_description: nil, event_sync: false)
+  def initialize(course:, user:, role:, real_name: nil, role_description: nil, event_sync: false,
+                 skip_application_check: false)
     @course = course
     @user = user
     @role = role
     @real_name = real_name
     @role_description = role_description
     @event_sync = event_sync
+    @skip_application_check = skip_application_check
     process_join_request
   end
   # rubocop:enable Metrics/ParameterLists
@@ -40,6 +54,8 @@ class JoinCourse
       @result = { 'failure' => 'not_yet_approved' }
     elsif user_disallowed?
       @result = { 'failure' => 'disallowed_user' }
+    elsif application_required?
+      @result = { 'failure' => 'application_required' }
     else
       return
     end
@@ -77,6 +93,11 @@ class JoinCourse
   def student_joining_before_approval?
     return false unless student_role?
     !@course.approved?
+  end
+
+  def application_required?
+    return false if @skip_application_check || !student_role?
+    @course.course_application_form.present?
   end
 
   def student_role?

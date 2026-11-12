@@ -275,6 +275,32 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_09_120100) do
     t.index ["user_id"], name: "index_commons_uploads_on_user_id"
   end
 
+  create_table "course_application_forms", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.boolean "open", default: false, null: false
+    t.text "intro"
+    t.text "question_group_ids"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "acceptance_email"
+    t.index ["course_id"], name: "index_course_application_forms_on_course_id", unique: true
+  end
+
+  create_table "course_applications", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "user_id", null: false
+    t.integer "status", default: 0, null: false
+    t.integer "decided_by_id"
+    t.datetime "decided_at"
+    t.text "staff_notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "salesforce_contact_id"
+    t.string "salesforce_course_contact_id"
+    t.index ["course_id", "user_id"], name: "index_course_applications_on_course_id_and_user_id", unique: true
+    t.index ["user_id"], name: "index_course_applications_on_user_id"
+  end
+
   create_table "course_stats", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.text "stats_hash"
     t.integer "course_id"
@@ -569,6 +595,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_09_120100) do
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
     t.integer "course_id"
+    t.bigint "course_application_id"
+    t.index ["course_application_id"], name: "index_rapidfire_answer_groups_on_course_application_id"
     t.index ["question_group_id"], name: "index_rapidfire_answer_groups_on_question_group_id"
     t.index ["user_id", "user_type"], name: "index_rapidfire_answer_groups_on_user_id_and_user_type"
   end
@@ -950,6 +978,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_09_120100) do
   end
 
   add_foreign_key "admin_course_notes", "courses", column: "courses_id"
+  add_foreign_key "course_application_forms", "courses", on_delete: :cascade
   add_foreign_key "course_stats", "courses"
   add_foreign_key "course_wiki_namespaces", "courses_wikis", column: "courses_wikis_id", on_delete: :cascade
   add_foreign_key "facilitator_stats", "users"
