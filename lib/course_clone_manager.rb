@@ -56,6 +56,7 @@ class CourseCloneManager
     @clone.passcode = GeneratePasscode.call
     @clone.submitted = false
     @clone.flags = {}
+    @clone.grant_id = nil # A new edition is usually supported by a different grant.
     # If a legacy course is cloned, switch the type to ClassroomProgramCourse.
     @clone.type = 'ClassroomProgramCourse' if @clone.legacy?
     @clone.save!
