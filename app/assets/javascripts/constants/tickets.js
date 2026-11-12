@@ -21,3 +21,7 @@ export const MESSAGE_KIND_REPLY = 0;
 export const MESSAGE_KIND_NOTE = 1;
 
 export const MESSAGE_KIND_NOTE_DELETE = 'MESSAGE_KIND_NOTE_DELETE';
+
+// Tickets created by AlertsController#generate_ticket use the alert type as
+// their subject. Open NeedHelpAlert tickets get their own, more prominent table.
+export const NEED_HELP_ALERT_SUBJECT = 'NeedHelpAlert';

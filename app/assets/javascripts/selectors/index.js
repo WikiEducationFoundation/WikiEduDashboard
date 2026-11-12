@@ -6,6 +6,7 @@ import UserUtils from '../utils/user_utils.js';
 import { PageAssessmentGrades } from '../utils/article_finder_language_mappings.js';
 import CourseDateUtils from '../utils/course_date_utils.js';
 import DateCalculator from '../utils/date_calculator';
+import { isOpenNeedHelpTicket } from '../components/tickets/util';
 
 const getUsers = state => state.users.users;
 const getCurrentUserFromHtml = state => state.currentUserFromHtml;
@@ -390,6 +391,10 @@ export const getFilteredTickets = createSelector(
       .filter(ownerFilter)
       .filter(statusFilter);
   }
+);
+
+export const getOpenNeedHelpTickets = createSelector(
+  [getTickets], tickets => tickets.all.filter(isOpenNeedHelpTicket)
 );
 
 export const getTicketsById = createSelector(

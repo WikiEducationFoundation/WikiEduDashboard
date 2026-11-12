@@ -10,7 +10,7 @@ json.course do
             :home_wiki, :character_sum,  :upload_count, :uploads_in_use_count,
             :upload_usages_count, :cloned_status, :flags, :level, :format, :private,
             :closed?, :training_library_slug, :peer_review_count, :needs_update,
-            :update_until, :withdrawn, :created_at)
+            :update_until, :withdrawn, :created_at, :grant_id)
 
   json.wikis @course.wikis, :language, :project
   json.namespaces format_wiki_namespaces(@course.course_wiki_namespaces)

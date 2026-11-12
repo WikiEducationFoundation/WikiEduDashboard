@@ -86,6 +86,49 @@ describe CoursesController, type: :request do
       expect(article_count(limit: -1)).to eq(2)
       expect(article_count(limit: 'all')).to eq(2)
     end
+
+    def articles_page(params = {})
+      get "/courses/#{course.slug}/articles.json", params: params
+      expect(response.status).to eq(200)
+      JSON.parse(response.body)['course']['articles']
+    end
+
+    it 'returns articles in a stable order' do
+      ids = articles_page(limit: 3).pluck('articles_course_id')
+      expect(ids).to eq(ids.sort)
+    end
+
+    it 'returns the next page after a given id, without overlap' do
+      first_page = articles_page(limit: 2)
+      second_page = articles_page(limit: 2, after_id: first_page.last['articles_course_id'])
+
+      expect(second_page.length).to eq(2)
+      expect(first_page.pluck('articles_course_id') & second_page.pluck('articles_course_id'))
+        .to be_empty
+    end
+
+    it 'covers every article across all pages' do
+      seen = []
+      after_id = nil
+      10.times do
+        page = articles_page({ limit: 2, after_id: }.compact)
+        break if page.empty?
+        seen += page.pluck('articles_course_id')
+        after_id = page.last['articles_course_id']
+      end
+
+      expect(seen).to eq(course.articles_courses.order(:id).pluck(:id))
+    end
+
+    it 'returns an empty page after the last article' do
+      last_id = course.articles_courses.maximum(:id)
+      expect(articles_page(after_id: last_id)).to be_empty
+    end
+
+    it 'ignores an after_id that is not a positive number' do
+      expect(articles_page(after_id: 'abc').length).to eq(2)
+      expect(articles_page(after_id: -5).length).to eq(2)
+    end
   end
 
   describe '#destroy' do
@@ -211,6 +254,82 @@ describe CoursesController, type: :request do
         expect(response).to have_http_status(:ok)
         expect(course.reload.description).to eq('New description')
       end
+    end
+
+    context 'with a grant ID on P&E' do
+      let(:user) { create(:user) }
+
+      before do
+        allow(Features).to receive(:wiki_ed?).and_return(false)
+        ValidGrantId.replace_all(%w[1546-24563 2001-00042])
+      end
+
+      def save_grant_id(grant_id)
+        params = { id: course.slug, course: { title: 'New title', grant_id: } }
+        put "/courses/#{course.slug}", params:, as: :json
+      end
+
+      it 'saves a grant ID from the grant ID list, without surrounding spaces' do
+        save_grant_id(' 1546-24563 ')
+        expect(response).to have_http_status(:ok)
+        expect(course.reload.grant_id).to eq('1546-24563')
+      end
+
+      it 'refuses a grant ID that is not on the list, and saves nothing' do
+        save_grant_id('9999-99999')
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['message'])
+          .to eq(I18n.t('courses.error.invalid_grant_id', grant_id: '9999-99999'))
+        expect(response.parsed_body['field']).to eq('grant_id')
+        expect(course.reload.grant_id).to be_nil
+        expect(course.title).not_to eq('New title')
+      end
+
+      it 'saves a grant ID entered with its G- prefix, without the prefix' do
+        save_grant_id(' g-1546-24563')
+        expect(response).to have_http_status(:ok)
+        expect(course.reload.grant_id).to eq('1546-24563')
+      end
+
+      it 'leaves the G- prefix out of the error for an ID that is not on the list' do
+        save_grant_id('G-9999-99999')
+        expect(response.parsed_body['message'])
+          .to eq(I18n.t('courses.error.invalid_grant_id', grant_id: '9999-99999'))
+      end
+
+      it "still saves other changes when the course's grant ID has left the list" do
+        course.update!(grant_id: '0000-00001')
+        save_grant_id('0000-00001')
+        expect(response).to have_http_status(:ok)
+        expect(course.reload.title).to eq('New title')
+      end
+
+      it 'clears the grant ID when the field is emptied' do
+        course.update!(grant_id: '1546-24563')
+        save_grant_id('')
+        expect(response).to have_http_status(:ok)
+        expect(course.reload.grant_id).to be_nil
+      end
+
+      it 'refuses a new grant ID when the grant ID list cannot be loaded' do
+        ValidGrantId.delete_all
+        allow(GrantIdList).to receive(:refresh).and_return(nil)
+        save_grant_id('1546-24563')
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body['message'])
+          .to eq(I18n.t('courses.error.grant_ids_unavailable'))
+        expect(course.reload.grant_id).to be_nil
+      end
+    end
+
+    it 'ignores a grant ID on Wiki Ed, even from an admin' do
+      allow(Features).to receive(:wiki_ed?).and_return(true)
+      ValidGrantId.replace_all(%w[1546-24563])
+      params = { id: course.slug, course: { title: 'New title', grant_id: '1546-24563' } }
+      put "/courses/#{course.slug}", params:, as: :json
+      expect(response).to have_http_status(:ok)
+      expect(course.reload.title).to eq('New title')
+      expect(course.grant_id).to be_nil
     end
 
     it 'does not post the details to the announcement page or the userpage' do
@@ -455,6 +574,13 @@ describe CoursesController, type: :request do
         it 'sets slug correctly' do
           post '/courses', params: { course: course_params }, as: :json
           expect(Course.last.slug).to eq(expected_slug)
+        end
+
+        it 'ignores a grant ID, which is only set from the Details panel' do
+          allow(Features).to receive(:wiki_ed?).and_return(false)
+          post '/courses', params: { course: course_params.merge(grant_id: '9999-99999') },
+                           as: :json
+          expect(Course.last.grant_id).to be_nil
         end
 
         it 'sets instructor role description correctly' do

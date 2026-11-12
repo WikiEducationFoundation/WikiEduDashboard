@@ -2,7 +2,8 @@ import {
   ADD_NOTIFICATION, API_FAIL, UPDATE_COURSE, RECEIVE_COURSE, RECEIVE_COURSE_UPDATE,
   PERSISTED_COURSE, DISMISS_SURVEY_NOTIFICATION, TOGGLE_EDITING_SYLLABUS,
   START_SYLLABUS_UPLOAD, SYLLABUS_UPLOAD_SUCCESS, LINKED_TO_SALESFORCE, COURSE_SLUG_EXISTS, RECEIVE_COURSE_SEARCH_RESULTS, SORT_COURSE_SEARCH_RESULTS, FETCH_COURSE_SEARCH_RESULTS, RECEIVE_ACTIVE_COURSES, SORT_ACTIVE_COURSES,
-  RECEIVE_CAMPAIGN_ACTIVE_COURSES, RECEIVE_WIKI_COURSES, SORT_WIKI_COURSES
+  RECEIVE_CAMPAIGN_ACTIVE_COURSES, RECEIVE_WIKI_COURSES, SORT_WIKI_COURSES,
+  SET_VALID, SET_INVALID, SET_VALIDATING
 } from '../constants/index';
 import API from '../utils/api.js';
 import CourseUtils from '../utils/course_utils';
@@ -44,15 +45,44 @@ const redirectCourse = (newSlug) => {
   window.location = `/courses/${newSlug}`;
 };
 
-const persistAndRedirect = (course, courseSlug, newSlug, dispatch) => {
+// The server names the field when it turns down a save because of one field,
+// so that the error can be shown on that field.
+const fieldError = (data, field) => {
+  try {
+    const response = JSON.parse(data.responseText);
+    return response.field === field ? response.message : null;
+  } catch (_error) {
+    return null;
+  }
+};
+
+// Resolves to whether the course was saved. A failed save leaves the unsaved
+// edits in place, so that they can be corrected and saved again.
+// A new grant ID is checked by the server as part of the save. The result of
+// that check is kept with the validations, which is what marks the field.
+const persistAndRedirect = (course, courseSlug, newSlug, dispatch, checkGrantId = false) => {
+  if (checkGrantId) { dispatch({ type: SET_VALIDATING, key: 'grant_id' }); }
   return API.saveCourse({ course }, courseSlug)
     .then(resp => dispatch({ type: PERSISTED_COURSE, data: resp }))
+    .then(() => { if (checkGrantId) { dispatch({ type: SET_VALID, key: 'grant_id' }); } })
     .then(() => redirectCourse(newSlug))
-    .catch(data => dispatch({ type: API_FAIL, data }));
+    .then(() => true)
+    .catch((data) => {
+      const grantIdError = fieldError(data, 'grant_id');
+      if (grantIdError) {
+        dispatch({ type: SET_INVALID, key: 'grant_id', message: grantIdError });
+        return false;
+      }
+      if (checkGrantId) { dispatch({ type: SET_VALID, key: 'grant_id' }); }
+      dispatch({ type: API_FAIL, data });
+      return false;
+    });
 };
 
 export const persistCourse = (courseSlug = null, redirect = false) => (dispatch, getState) => {
   let course = getState().course;
+  const savedGrantId = getState().persistedCourse.grant_id || '';
+  const checkGrantId = !!course.grant_id && course.grant_id !== savedGrantId;
 
   let newSlug;
   if (redirect) {
@@ -60,7 +90,7 @@ export const persistCourse = (courseSlug = null, redirect = false) => (dispatch,
     newSlug = CourseUtils.generateTempId(course);
     course.slug = newSlug;
   }
-  return persistAndRedirect(course, courseSlug, newSlug, dispatch);
+  return persistAndRedirect(course, courseSlug, newSlug, dispatch, checkGrantId);
 };
 
 export const updateClonedCourse = (course, courseSlug, newSlug) => (dispatch) => {

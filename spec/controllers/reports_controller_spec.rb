@@ -305,6 +305,99 @@ describe ReportsController, :report_csv_files, type: :request do
     end
   end
 
+  describe 'campaign reports including private courses' do
+    let(:admin) { create(:admin) }
+    let(:organizer) { create(:user, username: 'Organizer') }
+    let(:outsider) { create(:user, username: 'Outsider') }
+    let(:private_course) do
+      create(:course, slug: 'Hidden/Hidden_course_(term)', title: 'Hidden course', private: true)
+    end
+    let(:request_params) { { slug: campaign.slug, include_private: true, format: :csv } }
+
+    before do
+      campaign.courses << private_course
+      create(:campaigns_user, campaign:, user: organizer,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+    end
+
+    def download(path, params)
+      get path, params: params
+      get path, params: params
+      follow_redirect!
+      response.body.force_encoding('utf-8')
+    end
+
+    it 'is refused to a signed-in user who is neither admin nor organizer' do
+      expect(ReportCsvWorker).not_to receive(:generate_csv)
+      login_as outsider
+      get "/campaigns/#{campaign.slug}/courses", params: request_params
+      expect(response.status).to eq(404)
+    end
+
+    it 'still serves that user the public report' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      login_as outsider
+      csv = download("/campaigns/#{campaign.slug}/courses", { slug: campaign.slug, format: :csv })
+      expect(csv).to include(course.slug)
+      expect(csv).not_to include(private_course.slug)
+    end
+
+    it 'includes the private course for an admin' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      login_as admin
+      csv = download("/campaigns/#{campaign.slug}/courses", request_params)
+      expect(csv).to include(course.slug)
+      expect(csv).to include(private_course.slug)
+    end
+
+    it 'includes the private course for an organizer of the campaign' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      article = create(:article, title: 'Hidden_course_article')
+      create(:article_course_timeslice, course: private_course, article:, revision_count: 1)
+      login_as organizer
+      csv = download("/campaigns/#{campaign.slug}/articles_csv", request_params)
+      expect(csv).to include('Hidden_course_article')
+      expect(csv).to include(private_course.slug)
+    end
+
+    it 'leaves the private course out of the public report even for an admin' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      login_as admin
+      csv = download("/campaigns/#{campaign.slug}/courses", { slug: campaign.slug, format: :csv })
+      expect(csv).not_to include(private_course.slug)
+    end
+
+    it 'serves the variant from its own cached name' do
+      expect(CsvCleanupWorker).to receive(:perform_at)
+      login_as admin
+      headers = { 'Accept' => 'application/json' }
+      get "/campaigns/#{campaign.slug}/courses", params: { include_private: true },
+                                                 headers: headers
+      expect(response).to have_http_status(:accepted)
+      get "/campaigns/#{campaign.slug}/courses", params: { include_private: true },
+                                                 headers: headers
+      expect(Oj.load(response.body)['url']).to include('with_private_courses')
+    end
+
+    it 'includes the private course in the variant archive' do
+      expect(CsvCleanupWorker).to receive(:perform_at).at_least(:once)
+      login_as admin
+      get "/campaigns/#{campaign.slug}/all_csv", params: { include_private: true }
+      expect(response.body).to include('file is being generated')
+      get "/campaigns/#{campaign.slug}/all_csv", params: { include_private: true }
+      follow_redirect!
+      archive = Zip::File.open_buffer(response.body)
+      expect(archive.read('courses.csv')).to include(private_course.slug)
+    end
+
+    it 'refuses the variant archive to an outsider' do
+      expect(ReportCsvWorker).not_to receive(:generate_csv)
+      login_as outsider
+      get "/campaigns/#{campaign.slug}/all_csv", params: { include_private: true }
+      expect(response.status).to eq(404)
+    end
+  end
+
   describe '#set_sidekiq_job_context' do
     context 'when user is signed in' do
       let(:signed_in_user) { create(:user, username: 'wiki_edu_') }

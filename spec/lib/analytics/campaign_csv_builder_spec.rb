@@ -19,5 +19,28 @@ describe CampaignCsvBuilder do
       expect(csv).to include('Open_course')
       expect(csv).not_to include('Hidden_course')
     end
+
+    it 'includes private courses in the variant for admins and organizers' do
+      csv = described_class.new(campaign, include_private: true).courses_to_csv
+      expect(csv).to include('Open_course')
+      expect(csv).to include('Hidden_course')
+    end
+  end
+
+  describe '#wikidata_to_csv' do
+    before do
+      create(:course_stats, course: hidden_course,
+                           stats_hash: { 'www.wikidata.org' => { 'claims created' => 3 } })
+    end
+
+    it 'leaves out private courses' do
+      csv = described_class.new(campaign).wikidata_to_csv
+      expect(csv).not_to include(hidden_course.title)
+    end
+
+    it 'includes private courses in the variant for admins and organizers' do
+      csv = described_class.new(campaign, include_private: true).wikidata_to_csv
+      expect(csv).to include(hidden_course.title)
+    end
   end
 end

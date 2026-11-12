@@ -8,7 +8,7 @@ import ArticleList from './article_list.jsx';
 import AssignmentList from '../assignments/assignment_list.jsx';
 import AvailableArticles from '../articles/available_articles.jsx';
 import CategoryHandler from '../categories/category_handler.jsx';
-import { fetchArticles, sortArticles, filterArticles, filterNewness, filterTrackedStatus } from '../../actions/articles_actions.js';
+import { fetchArticles, fetchMoreArticles, sortArticles, filterArticles, filterNewness, filterTrackedStatus } from '../../actions/articles_actions.js';
 import { fetchAssignments } from '../../actions/assignment_actions';
 import { getArticlesByPage } from '../../selectors';
 import { delayFetchAssignmentsAndArticles } from '../util/helpers';
@@ -97,6 +97,7 @@ ArticlesHandler.propTypes = {
   current_user: PropTypes.object,
   course: PropTypes.object,
   fetchArticles: PropTypes.func,
+  fetchMoreArticles: PropTypes.func,
   limitReached: PropTypes.bool,
   limit: PropTypes.number,
   articles: PropTypes.array,
@@ -123,6 +124,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchArticles,
+  fetchMoreArticles,
   sortArticles,
   filterArticles,
   filterNewness,

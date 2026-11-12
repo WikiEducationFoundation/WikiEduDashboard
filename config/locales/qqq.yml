@@ -440,6 +440,9 @@ qqq:
         (Wiki Ed only)
         {{Identical|Subject}}
     current: Label for the list of current courses
+    data_download_generating: Notification message informing the user that their requested
+      export file is currently being generated and they will be notified when it is
+      ready to download.
     delete_course: Button to delete a course
     delete_suggestion: '{{Identical|Delete}}'
     dismiss_survey: |-
@@ -459,7 +462,16 @@ qqq:
         do not correspond to a valid wiki
       invalid_slug: Error message indicating blank school/title in course slug.
       duplicate_slug: Error message indicating duplicate course slug.
+      invalid_grant_id: Error shown when the grant ID entered is not on the list of
+        valid grant IDs. %{grant_id} is the ID that was entered.
+      grant_ids_unavailable: Error shown when the list of valid grant IDs cannot be
+        loaded, so a grant ID cannot be checked
     feedback: '{{Identical|Feedback}}'
+    grant_id: Label for the field where a program's grant ID is entered (P&E only)
+    grant_id_checking: Shown under the grant ID field while the grant ID entered is
+      being checked against the list of valid grant IDs
+    grant_id_help: Instructions shown under the grant ID field while editing a program's
+      details
     gradeables_none: Message indicating that the course has no gradeable items in
       the timeline (Wiki Ed only)
     instructor: |-

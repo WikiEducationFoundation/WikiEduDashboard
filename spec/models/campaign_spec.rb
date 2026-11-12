@@ -157,4 +157,34 @@ describe Campaign do
       expect(result).to eq('courses')
     end
   end
+
+  describe '#users_to_csv' do
+    let(:campaign) { create(:campaign) }
+    let(:open_course) { create(:course, slug: 'Open/Open_course_(term)') }
+    let(:hidden_course) { create(:course, slug: 'Hidden/Hidden_course_(term)', private: true) }
+    let(:open_student) { create(:user, username: 'OpenStudent') }
+    let(:hidden_student) { create(:user, username: 'HiddenStudent') }
+
+    before do
+      campaign.courses << open_course
+      campaign.courses << hidden_course
+      create(:courses_user, course: open_course, user: open_student,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+      create(:courses_user, course: hidden_course, user: hidden_student,
+                            role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    it 'leaves out the users of private courses' do
+      csv = campaign.users_to_csv(:students, course: true)
+      expect(csv).to include('OpenStudent')
+      expect(csv).not_to include('HiddenStudent')
+    end
+
+    it 'includes the users of private courses in the variant for admins and organizers' do
+      csv = campaign.users_to_csv(:students, course: true, include_private: true)
+      expect(csv).to include('OpenStudent')
+      expect(csv).to include('HiddenStudent')
+      expect(csv).to include('Hidden/Hidden_course_(term)')
+    end
+  end
 end
