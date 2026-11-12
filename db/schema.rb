@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_07_120000) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_09_120100) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -369,6 +369,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_120000) do
     t.boolean "private", default: false
     t.boolean "withdrawn", default: false
     t.integer "references_count", default: 0
+    t.string "grant_id"
     t.index ["slug"], name: "index_courses_on_slug", unique: true
   end
 
@@ -866,6 +867,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_07_120000) do
     t.datetime "registered_at", precision: nil
     t.datetime "first_login", precision: nil
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "valid_grant_ids", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "grant_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["grant_id"], name: "index_valid_grant_ids_on_grant_id", unique: true
   end
 
   create_table "verification_claim_assignments", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

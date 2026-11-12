@@ -23,6 +23,7 @@ class RestrictCourseParams
   def initialize(course_params:, user:, course:)
     @course_params = course_params
     @course = course
+    drop_grant_id
     restrict unless user.admin?
   end
 
@@ -36,6 +37,13 @@ class RestrictCourseParams
     # Instructors may submit a course and finish setting up a clone, but not undo either.
     drop %w[submitted] unless @course_params[:submitted] == true
     drop %w[cloned_status] unless @course_params[:cloned_status] == Course::ClonedStatus::COMPLETED
+  end
+
+  # The grant ID field is only offered on P&E, in the Details panel of an existing
+  # course, where CoursesController#update checks it against GrantIdList.
+  # This applies to admins too.
+  def drop_grant_id
+    drop %w[grant_id] if Features.wiki_ed? || @course.nil?
   end
 
   def in_setup?

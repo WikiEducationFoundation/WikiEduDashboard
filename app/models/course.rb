@@ -47,6 +47,7 @@
 #  private               :boolean          default(FALSE)
 #  withdrawn             :boolean          default(FALSE)
 #  references_count      :integer          default(0)
+#  grant_id              :string(255)
 #
 
 require_dependency "#{Rails.root}/lib/course_cache_manager"
