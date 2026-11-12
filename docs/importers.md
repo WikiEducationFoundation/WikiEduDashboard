@@ -21,7 +21,7 @@ Imported data is persisted in the database.
 
 #### Category Sources Importers
 - **[CategoryImporter](../lib/importers/category_importer.rb):** Imports article titles from a specified category.
-- **[PagePileApi](../lib/page_pile_api.rb):** Imports article titles from a pile id.
+- **[PagePileApi](../lib/pagepile_api.rb):** Imports article titles from a pile id.
 - **[PetScanApi](../lib/pet_scan_api.rb):** Imports article titles from a pet scan id.
 - **[TransclusionImporter](../lib/importers/transclusion_importer.rb):** Imports article titles that transclude a given page.
 

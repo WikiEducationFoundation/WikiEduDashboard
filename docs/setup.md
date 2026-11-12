@@ -108,7 +108,7 @@ If you know your way around Rails, here's the very short version. Some additiona
        - Install [Ruby DevKit](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
 - Install Node:
   - Debian: `sudo apt install nodejs`
-  - OSX: `brew install node` (this assumes you are using [homebrew](brew.sh))
+  - OSX: `brew install node` (this assumes you are using [homebrew](https://brew.sh))
   - Windows: [Download the installer](https://nodejs.org/)
 
 - Create mysql development and test database:
