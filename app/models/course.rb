@@ -128,7 +128,7 @@ class Course < ApplicationRecord
 
   has_many :sandboxes, lambda {
     distinct.sandbox
-  }, source: :article, through: :article_course_timeslices
+  }, source: :article, through: :article_course_user_wiki_timeslices
 
   serialize :flags, type: Hash
 
@@ -386,10 +386,10 @@ class Course < ApplicationRecord
       assigned_article_page_ids(wiki).include?(mw_page_id)
   end
 
-  # Returns article course timeslices for scoped articles only.
+  # Returns article course user wiki timeslices for scoped articles only.
   def scoped_article_timeslices
-    return article_course_timeslices unless only_scoped_articles_course?
-    article_course_timeslices.where(article_id: scoped_article_ids)
+    return article_course_user_wiki_timeslices unless only_scoped_articles_course?
+    article_course_user_wiki_timeslices.where(article_id: scoped_article_ids)
   end
 
   # A Set rather than a uniq'd Array because scoped_article? looks a title up once per

@@ -96,6 +96,8 @@ describe 'Article scoped flag behavior', type: :model do
   end
 
   describe '#scoped_article_timeslices with flag' do
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:user) { create(:user) }
     let(:course) do
       create(:basic_course, start: '2024-01-01', end: '2024-12-31',
                             flags: { article_scoped: true })
@@ -106,10 +108,10 @@ describe 'Article scoped flag behavior', type: :model do
     before do
       create(:assignment, course: course, article: article,
                           article_title: article.title)
-      create(:article_course_timeslice, course: course, article: article,
-                                        start: course.start, end: course.end)
-      create(:article_course_timeslice, course: course, article: other_article,
-                                        start: course.start, end: course.end)
+      create(:article_course_user_wiki_timeslice, wiki:, course: course, article: article,
+                                        user:, start: course.start, end: course.end)
+      create(:article_course_user_wiki_timeslice, wiki:, course: course, article: other_article,
+                                        user:, start: course.start, end: course.end)
     end
 
     it 'only returns timeslices for scoped articles' do
@@ -119,15 +121,17 @@ describe 'Article scoped flag behavior', type: :model do
   end
 
   describe '#scoped_article_timeslices without flag' do
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+    let(:user) { create(:user) }
     let(:course) { create(:basic_course, start: '2024-01-01', end: '2024-12-31') }
     let(:article) { create(:article) }
     let(:other_article) { create(:article) }
 
     before do
-      create(:article_course_timeslice, course: course, article: article,
-                                        start: course.start, end: course.end)
-      create(:article_course_timeslice, course: course, article: other_article,
-                                        start: course.start, end: course.end)
+      create(:article_course_user_wiki_timeslice, wiki:, course: course, article: article,
+                                        user:, start: course.start, end: course.end)
+      create(:article_course_user_wiki_timeslice, wiki:, course: course, article: other_article,
+                                        user:, start: course.start, end: course.end)
     end
 
     it 'returns all timeslices when flag is not set' do
