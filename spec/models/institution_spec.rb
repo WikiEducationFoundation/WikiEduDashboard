@@ -15,4 +15,11 @@ describe Institution, type: :model do
     create(:institution, name: 'Test University')
     expect(build(:institution, name: 'Test University')).not_to be_valid
   end
+
+  it 'refuses to be deleted while it still has courses' do
+    institution = create(:institution)
+    create(:course, institution: institution)
+    expect(institution.destroy).to be false
+    expect(Institution.exists?(institution.id)).to be true
+  end
 end
