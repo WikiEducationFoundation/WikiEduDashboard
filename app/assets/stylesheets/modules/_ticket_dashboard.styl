@@ -37,24 +37,35 @@
       overflow-wrap anywhere
     td.subject .clamp
       -webkit-line-clamp 3
-  // Open NeedHelpAlert tickets sit in their own box above the main table, so
-  // they stand out from routine tickets.
+  td.sender .sender-role
+    border 1px solid $border_lt
+    border-radius 3px
+    color $text_med
+    display inline-block
+    font-size 0.75em
+    line-height 1.4
+    margin-top 2px
+    padding 0 4px
+  // Open NeedHelpAlert tickets sit under a title bar above the main table.
+  // Nothing wraps the table itself, so both tables get the same width and
+  // their columns line up.
   .need-help-tickets
-    border 1px solid suit
-    border-left-width 4px
     margin-bottom 2rem
-    padding 1rem
     h2
+      background athens
+      border-left 4px solid suit
       color $text_dk
       font-size 1.25em
-      margin-bottom 0.75rem
-    .table-responsive
-      margin-bottom 0
+      margin 0
+      padding 0.6rem 12px
   .need-help-tickets__hidden
     align-items center
+    border 1px solid $border_lt
+    border-top none
     display flex
     gap 1rem
     margin-bottom 0
+    padding 0.75rem 12px
   .reply-header
     h3.subject
       color $text

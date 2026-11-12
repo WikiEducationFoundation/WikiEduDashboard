@@ -88,6 +88,28 @@ describe 'ticket dashboard', type: :feature, js: true do
       visit '/tickets/dashboard'
     end
 
+    it "shows the sender's role in the course" do
+      within('tr', text: 'A first subject') do
+        expect(page).to have_css('.sender-role', text: 'Student')
+      end
+    end
+
+    it 'shows no role for a sender who is not in the course' do
+      within('tr', text: 'Do no miss my return') do
+        expect(page).to have_no_css('.sender-role')
+      end
+    end
+
+    it 'does not label an admin who is not in the course as an instructor' do
+      TicketDispenser::Dispenser.call(content: 'Checking on this course', owner_id: admin.id,
+                                      sender_id: admin.id, project_id: course.id,
+                                      details: { subject: 'Staff check-in' })
+      visit '/tickets/dashboard'
+      within('tr', text: 'Staff check-in') do
+        expect(page).to have_no_css('.sender-role')
+      end
+    end
+
     it 'clears search when button is pressed after a search occurs' do
       fill_in 'tickets_search_email_or_username', with: 'aron@packers.nfl.org'
       click_button 'search_tickets'
