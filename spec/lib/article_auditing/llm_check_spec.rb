@@ -81,4 +81,42 @@ describe ArticleAuditing::LlmCheck do
       expect(llm_check.prompt).to be_present
     end
   end
+
+  describe 'checks with artifacts' do
+    it 'adds artifact properties to the schema as required fields' do
+      schema = ArticleAuditing::Checks::SourceTable.new.schema
+      expect(schema[:required]).to eq(%w[findings sources])
+      expect(schema.dig(:properties, :sources, :items, :properties, :reliability, :enum))
+        .to include('unreliable')
+    end
+
+    it 'returns everything but findings as artifacts' do
+      json = { 'findings' => [], 'notability' => { 'assessment' => 'unclear' } }
+      allow(adapter).to receive(:complete)
+        .and_return(llm_response.with(json:))
+      output = ArticleAuditing::Checks::Notability.new.run(context)
+      expect(output.artifacts).to eq('notability' => { 'assessment' => 'unclear' })
+    end
+  end
+
+  describe 'checks that apply only to some pages' do
+    def page(mainspace:, creation: false, wikitext: '')
+      instance_double(ArticleAuditing::Context, mainspace?: mainspace, page_creation?: creation,
+                                                wikitext:)
+    end
+
+    it 'runs new-article checks on drafts and new pages only' do
+      check = ArticleAuditing::Checks::Notability.new
+      expect(check.applies_to?(page(mainspace: false))).to be(true)
+      expect(check.applies_to?(page(mainspace: true, creation: true))).to be(true)
+      expect(check.applies_to?(page(mainspace: true))).to be(false)
+    end
+
+    it 'proposes a short description for established articles only when they lack one' do
+      check = ArticleAuditing::Checks::ShortDescription.new
+      expect(check.applies_to?(page(mainspace: true, wikitext: 'Text'))).to be(true)
+      described = page(mainspace: true, wikitext: '{{Short description|Cat}} Text')
+      expect(check.applies_to?(described)).to be(false)
+    end
+  end
 end

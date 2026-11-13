@@ -139,6 +139,7 @@ en:
       suggestion: Suggestion
       info: Info
     categories:
+      flags: Page status
       sourcing: Sourcing
       tone: Tone
       structure: Structure
@@ -166,6 +167,10 @@ en:
           missing_list:
             title: "[PLACEHOLDER - title: reference list missing]"
             explanation: "[PLACEHOLDER - explanation: page uses <ref> tags but has no {{Reflist}} or <references /> to show them]"
+        page_numbers:
+          missing_pages:
+            title: "[PLACEHOLDER - title: book citation without page numbers (%{count} in article)]"
+            explanation: "[PLACEHOLDER - explanation: give page numbers for book citations so readers can verify the claim]"
       mos:
         reference_placement:
           before_punctuation:
@@ -177,6 +182,27 @@ en:
           no_space_after:
             title: "[PLACEHOLDER - title: no space after a citation (%{count} in article)]"
             explanation: "[PLACEHOLDER - explanation: text following a citation needs a space after it]"
+        emphasis:
+          bold:
+            title: "[PLACEHOLDER - title: bold text in the body]"
+            explanation: "[PLACEHOLDER - explanation: bold is for the title in the lead, not for emphasis in the body]"
+          underline:
+            title: "[PLACEHOLDER - title: underlined text]"
+            explanation: "[PLACEHOLDER - explanation: articles don't use underlining]"
+          font:
+            title: "[PLACEHOLDER - title: font size or font markup]"
+            explanation: "[PLACEHOLDER - explanation: articles don't change font size or font in running text]"
+        date_format:
+          mismatch:
+            title: "[PLACEHOLDER - title: date not in the page's declared %{declared} format (%{count} in article)]"
+            explanation: "[PLACEHOLDER - explanation: the page declares a date format with a Use dates template; write all dates that way]"
+          mixed:
+            title: "[PLACEHOLDER - title: mixed date formats (%{dmy} day-month, %{mdy} month-day)]"
+            explanation: "[PLACEHOLDER - explanation: use one date format consistently throughout the article]"
+        sentence_spacing:
+          missing_space:
+            title: "[PLACEHOLDER - title: no space between sentences (%{count} in article)]"
+            explanation: "[PLACEHOLDER - explanation: put a space after the full stop that ends a sentence]"
         appendix_sections:
           rename:
             title: "[PLACEHOLDER - title: rename %{heading} section to %{standard}]"
@@ -195,11 +221,53 @@ en:
           intro_heading:
             title: "[PLACEHOLDER - title: %{heading} section heading]"
             explanation: "[PLACEHOLDER - explanation: the introduction belongs in the untitled lead, not under its own heading]"
+        drafting_leftovers:
+          template:
+            title: "[PLACEHOLDER - title: sandbox template still on the page]"
+            explanation: "[PLACEHOLDER - explanation: remove Wiki Education sandbox templates before the content goes live]"
+          heading:
+            title: "[PLACEHOLDER - title: draft scaffolding heading]"
+            explanation: "[PLACEHOLDER - explanation: remove headings from the draft template, such as Article Draft or Article body, before the content goes live]"
+          text:
+            title: "[PLACEHOLDER - title: draft marker left in text]"
+            explanation: "[PLACEHOLDER - explanation: remove drafting markers such as [TEMP] before the content goes live]"
       links:
         external_links_in_body:
           link_in_body:
             title: "[PLACEHOLDER - title: external link in article body]"
             explanation: "[PLACEHOLDER - explanation: external links belong in a citation or the External links section, not in the body]"
+        inappropriate_external_links:
+          flagged_link:
+            title: "[PLACEHOLDER - title: link to %{domain} in External links]"
+            explanation: "[PLACEHOLDER - explanation: social media, shopping and user-generated sites are normally not suitable external links]"
+        duplicate_links:
+          repeated_link:
+            title: "[PLACEHOLDER - title: %{target} linked %{count} times in the body]"
+            explanation: "[PLACEHOLDER - explanation: link a term once in the lead and once at its first mention in the body]"
+      language:
+        not_english:
+          not_english:
+            title: "[PLACEHOLDER - title: draft is not in English]"
+            explanation: "[PLACEHOLDER - explanation: English Wikipedia content must be written in English]"
+      external:
+        ai_detection:
+          ai_likely:
+            title: "[PLACEHOLDER - title: text likely AI-generated (Pangram max %{max}%)]"
+            explanation: "[PLACEHOLDER - explanation: the AI detector rates part of this text as likely AI-generated; AI-generated text is not acceptable]"
+      flags:
+        page_status:
+          featured_article:
+            title: "[PLACEHOLDER - title: this is a Featured article]"
+            explanation: "[PLACEHOLDER - explanation: Featured articles meet the highest standards; discuss substantial changes on the talk page first]"
+          good_article:
+            title: "[PLACEHOLDER - title: this is a Good article]"
+            explanation: "[PLACEHOLDER - explanation: Good articles have passed review; keep changes to that standard]"
+          current_event:
+            title: "[PLACEHOLDER - title: article is about a current event]"
+            explanation: "[PLACEHOLDER - explanation: the article may change rapidly; take care with recent information]"
+          recent_death:
+            title: "[PLACEHOLDER - title: subject recently died]"
+            explanation: "[PLACEHOLDER - explanation: BLP standards still apply to people who died recently]"
   article_statuses:
     not_yet_started: Getting Started
     in_progress: Working in Sandbox

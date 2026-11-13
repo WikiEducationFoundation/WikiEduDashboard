@@ -6,7 +6,8 @@ module ArticleAuditing
   # blank out markup (templates, refs, comments, tables) that prose-level
   # checks should ignore.
   class Wikitext
-    Section = Data.define(:level, :title, :body, :line)
+    # offset is the index in #text where the section's body starts.
+    Section = Data.define(:level, :title, :body, :line, :offset)
 
     HEADING = /^(={2,6})[ \t]*(.+?)[ \t]*\1[ \t]*$/
     COMMENT = /<!--.*?-->/m
@@ -30,6 +31,16 @@ module ArticleAuditing
       sections.first
     end
 
+    # The section containing character +index+ of #text.
+    def section_at(index)
+      sections.reverse.find { |section| section.offset <= index } || lead
+    end
+
+    # The masked body text of +section+.
+    def masked_body(section)
+      masked[section.offset, section.body.length]
+    end
+
     def headings
       sections.drop(1)
     end
@@ -48,6 +59,17 @@ module ArticleAuditing
       @masked ||= mask_markup(text)
     end
 
+    # Top-level templates (not nested in another template) whose name matches
+    # +name_pattern+, as [offset, template_text] pairs. Templates inside refs
+    # count as top level.
+    def templates(name_pattern)
+      outermost_spans(without_comments, '{{', '}}').filter_map do |span|
+        template = without_comments[span]
+        name = template[2..].split(/[|}]/, 2).first.to_s.strip
+        [span.begin, template] if name.match?(name_pattern)
+      end
+    end
+
     # Text with comments removed but refs and templates intact.
     def without_comments
       @without_comments ||= text.gsub(COMMENT) { |m| ' ' * m.length }
@@ -57,12 +79,15 @@ module ArticleAuditing
 
     def split_sections
       result = []
-      current = { level: 1, title: nil, line: 1, lines: [] }
+      current = { level: 1, title: nil, line: 1, lines: [], offset: 0 }
+      position = 0
       text.each_line.with_index(1) do |line, number|
+        position += line.length
         match = line.match(HEADING)
         if match
           result << build_section(current)
-          current = { level: match[1].length, title: match[2], line: number, lines: [] }
+          current = { level: match[1].length, title: match[2], line: number, lines: [],
+                      offset: position }
         else
           current[:lines] << line
         end
@@ -72,7 +97,7 @@ module ArticleAuditing
 
     def build_section(attrs)
       Section.new(level: attrs[:level], title: attrs[:title], body: attrs[:lines].join,
-                  line: attrs[:line])
+                  line: attrs[:line], offset: attrs[:offset])
     end
 
     def mask_markup(source)

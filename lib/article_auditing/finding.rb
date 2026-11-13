@@ -5,7 +5,9 @@ module ArticleAuditing
   # matter which engine runs it. Findings are stored as plain Hashes (string
   # keys) on ArticleAuditCheckResult#findings.
   module Finding
-    CATEGORIES = %w[sourcing tone structure mos infobox links policy new_article external].freeze
+    CATEGORIES = %w[
+      flags sourcing tone structure mos infobox links policy new_article external
+    ].freeze
     # Ordered most to least serious.
     SEVERITIES = %w[must_fix should_fix suggestion info].freeze
 

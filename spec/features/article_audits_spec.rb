@@ -13,6 +13,9 @@ describe 'Article Audit admin pages', type: :feature, js: true do
                     title: 'Acme', namespace: 2, page_id: 9,
                     parsed_wikitext: ArticleAuditing::Wikitext.new(wikitext),
                     wikitext:, plaintext: 'Introduction Acme is a world-class company.',
+                    prose_text: 'Acme is a world-class company.', mainspace?: false,
+                    page_creation?: true, mw_rev_id: 42,
+                    wiki: Wiki.get_or_create(language: 'en', project: 'wikipedia'),
                     llm_system_blocks: [{ text: 'article', cache: true }])
   end
   let(:adapter) { instance_double(Llm::AnthropicAdapter) }
@@ -24,6 +27,9 @@ describe 'Article Audit admin pages', type: :feature, js: true do
 
   before do
     allow(Features).to receive(:article_audit?).and_return(true)
+    # Never call Pangram for real, even if a key is configured locally.
+    allow(ENV).to receive(:[]).and_call_original
+    allow(ENV).to receive(:[]).with('pangram_api_key').and_return(nil)
     allow(ArticleAuditing::Context).to receive(:new).and_return(context)
     allow(context).to receive(:preload).and_return(context)
     allow(Llm::Client).to receive(:adapter).and_return(adapter)

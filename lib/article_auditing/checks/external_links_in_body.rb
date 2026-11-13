@@ -24,15 +24,12 @@ module ArticleAuditing
 
       private
 
-      # Walks sections in order, tracking each one's offset in the masked
-      # text (where refs, templates and comments are blanked out).
+      # Searches each section's masked text (refs, templates and comments
+      # blanked out), skipping the sections where external links belong.
       def link_findings(wikitext)
-        offset = 0
         wikitext.sections.flat_map do |section|
-          start = wikitext.text.index(section.body, offset) || offset
-          offset = start + section.body.length
           next [] if section.title && LINK_SECTIONS.include?(section.title.downcase)
-          section_findings(wikitext.masked[start, section.body.length], section)
+          section_findings(wikitext.masked_body(section), section)
         end
       end
 

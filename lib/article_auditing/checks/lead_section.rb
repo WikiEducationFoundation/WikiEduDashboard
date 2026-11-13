@@ -11,6 +11,7 @@ module ArticleAuditing
       CATEGORY = 'structure'
 
       INTRO_HEADINGS = %w[introduction intro lead lede].freeze
+      NON_PROSE_LINKS = /\[\[(?:File|Image|Category):[^\]]*\]\]/i
 
       def run(context)
         wikitext = context.parsed_wikitext
@@ -36,9 +37,8 @@ module ArticleAuditing
       # Text before the first heading that is more than templates, comments
       # and whitespace.
       def lead_empty?(wikitext)
-        lead_length = wikitext.lead.body.length
-        wikitext.masked[0, lead_length].gsub(/\[\[(?:File|Image|Category):[^\]]*\]\]/i, 
-'').strip.empty?
+        lead = wikitext.masked[0, wikitext.lead.body.length]
+        lead.gsub(NON_PROSE_LINKS, '').strip.empty?
       end
 
       def intro_headings(wikitext)

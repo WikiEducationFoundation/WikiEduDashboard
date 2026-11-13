@@ -12,7 +12,7 @@ const t = (key, options) => I18n.t(`article_audit.${key}`, options);
 
 const POLL_MS = 4000;
 const ACTIVE_STATUSES = ['queued', 'running'];
-const CATEGORY_ORDER = ['sourcing', 'policy', 'tone', 'structure', 'new_article', 'infobox', 'links', 'mos', 'external'];
+const CATEGORY_ORDER = ['flags', 'sourcing', 'policy', 'tone', 'structure', 'new_article', 'infobox', 'links', 'mos', 'external'];
 const SEVERITY_ORDER = ['must_fix', 'should_fix', 'suggestion', 'info'];
 
 const byOrder = (order, value) => {

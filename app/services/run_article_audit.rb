@@ -46,11 +46,19 @@ class RunArticleAudit
   end
 
   def run_checks
-    applicable = @checks.select { |check| check.applies_to?(@context) }
+    applicable = @checks.select { |check| applies?(check) }
     llm_checks, other_checks = applicable.partition { |check| check.is_a?(ArticleAuditing::LlmCheck) }
     runner = ArticleAuditing::CheckRunner.new(audit: @audit, context: @context)
     other_checks.each { |check| runner.run(check) }
     run_llm_checks(llm_checks, runner)
+  end
+
+  # A check whose applicability test fails is run anyway, so that the error
+  # it hits is recorded on its own result row instead of stopping the audit.
+  def applies?(check)
+    check.applies_to?(@context)
+  rescue StandardError
+    true
   end
 
   def run_llm_checks(checks, runner)

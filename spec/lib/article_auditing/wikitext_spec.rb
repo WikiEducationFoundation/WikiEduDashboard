@@ -28,6 +28,13 @@ describe ArticleAuditing::Wikitext do
     expect(masked.index('Done.')).to eq(text.index('Done.'))
   end
 
+  it 'locates sections by character offset' do
+    expect(wikitext.section_at(text.index('Born.')).title).to eq('Early life')
+    expect(wikitext.section_at(text.index('Done.')).title).to eq('Education')
+    expect(wikitext.section_at(0).title).to be_nil
+    expect(wikitext.masked_body(wikitext.sections[1])).to start_with('Born.')
+  end
+
   it 'counts ref tags' do
     expect(wikitext.ref_count).to eq(2)
   end

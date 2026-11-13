@@ -104,8 +104,8 @@ module Llm
     end
 
     def client
-      @client ||= Anthropic::Client.new(api_key: ENV['anthropic_api_key'], 
-max_retries: @max_retries)
+      @client ||= Anthropic::Client.new(api_key: ENV['anthropic_api_key'],
+                                        max_retries: @max_retries)
     end
   end
 end

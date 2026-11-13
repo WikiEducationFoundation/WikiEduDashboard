@@ -123,9 +123,8 @@ describe Llm::AnthropicAdapter do
 
   context 'when rate limited' do
     before do
-      stub_messages(status: 429, body: { type: 'error',
-                                         error: { type: 'rate_limit_error', 
-message: 'slow down' } })
+      error = { type: 'rate_limit_error', message: 'slow down' }
+      stub_messages(status: 429, body: { type: 'error', error: })
     end
 
     it 'raises a RetryableError' do

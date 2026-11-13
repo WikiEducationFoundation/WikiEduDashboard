@@ -29,8 +29,8 @@ describe CreateArticleAudit do
   end
 
   it 'links a tracked article with the same title' do
-    article = create(:article, title: 'Selfie', 
-wiki: Wiki.get_or_create(language: 'en', project: 'wikipedia'))
+    wiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
+    article = create(:article, title: 'Selfie', wiki:)
     creator = described_class.new(url: 'https://en.wikipedia.org/w/index.php?title=Selfie&oldid=1',
                                   requester: admin)
     expect(creator.audit.article).to eq(article)

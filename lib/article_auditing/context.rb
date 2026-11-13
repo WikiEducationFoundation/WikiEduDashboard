@@ -21,11 +21,13 @@ module ArticleAuditing
       @mw_rev_id = mw_rev_id
     end
 
-    # Fetches every input the LLM checks and quote validation use.
+    # Fetches every input the checks use, so that the Context can be shared
+    # across threads.
     def preload
       revision_info
       wikitext
       plaintext
+      prose_text
       self
     end
 
@@ -75,6 +77,12 @@ module ArticleAuditing
       @plaintext ||= html_to_plaintext(html)
     end
 
+    # Running prose only, without infoboxes, tables, figures or citations:
+    # the text AI detectors score, matching GetRevisionPlaintext.
+    def prose_text
+      @prose_text ||= html_to_plaintext(html, extra_selectors: 'table, figure, img, cite')
+    end
+
     # The system prompt blocks shared by every LLM check for this revision:
     # the stable instructions, then the article itself. The article block is
     # a cache breakpoint, so every LLM check after the first reads it from
@@ -111,9 +119,11 @@ module ArticleAuditing
       ARTICLE
     end
 
-    def html_to_plaintext(source)
+    def html_to_plaintext(source, extra_selectors: nil)
       doc = Nokogiri::HTML(source)
-      doc.css('style, link, sup.reference, ol.references, .mw-editsection, .reflist').each(&:remove)
+      selectors = ['style, link, sup.reference, ol.references, .mw-editsection, .reflist',
+                   extra_selectors].compact.join(', ')
+      doc.css(selectors).each(&:remove)
       doc.text.gsub(/[ \t]+/, ' ').gsub(/\n{3,}/, "\n\n").strip
     end
   end

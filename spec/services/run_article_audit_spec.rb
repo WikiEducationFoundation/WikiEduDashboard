@@ -73,6 +73,25 @@ describe RunArticleAudit do
     end
   end
 
+  context 'when a check raises while deciding whether it applies' do
+    let(:broken_check) { ArticleAuditing::Checks::ReferenceList.new }
+    let(:checks) { [broken_check, ArticleAuditing::Checks::Tone.new] }
+
+    before do
+      allow(adapter).to receive(:complete).and_return(llm_response)
+      allow(broken_check).to receive(:applies_to?).and_raise(NoMethodError, 'boom')
+      allow(broken_check).to receive(:run).and_raise(NoMethodError, 'boom')
+    end
+
+    it 'records that check as failed and runs the rest' do
+      described_class.new(audit, checks:)
+      expect(audit.reload.status).to eq(ArticleAudit::PARTIAL)
+      expect(audit.check_results.find_by(check_key: 'tone')).to be_succeeded
+      expect(audit.check_results.find_by(check_key: 'sourcing.reference_list').error)
+        .to include('boom')
+    end
+  end
+
   context 'when the revision does not exist' do
     let(:revision_info) { nil }
 
