@@ -290,6 +290,22 @@ describe SystemCsvBuilder do
     end
   end
 
+  describe 'grant_id column' do
+    let(:rows) { CSV.parse(described_class.new(filters: {}).generate_csv, headers: true) }
+
+    before { active_en_course.update!(grant_id: '1546-24563') }
+
+    it "gives each course's grant ID" do
+      course_row = rows.find { |r| r['course_slug'] == active_en_course.slug }
+      expect(course_row['grant_id']).to eq('1546-24563')
+    end
+
+    it 'leaves the column blank for courses without a grant ID' do
+      course_row = rows.find { |r| r['course_slug'] == archived_fr_course.slug }
+      expect(course_row['grant_id']).to be_blank
+    end
+  end
+
   describe 'revision counts aggregation' do
     let!(:stale_course) do
       create(:course, slug: 'school/stale_cache_(term)',

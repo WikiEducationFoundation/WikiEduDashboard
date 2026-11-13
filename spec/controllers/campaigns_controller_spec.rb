@@ -317,6 +317,40 @@ describe CampaignsController, type: :request do
     end
   end
 
+  describe '#show.json' do
+    let(:campaign) { create(:campaign) }
+    let(:organizer) { create(:user, username: 'Organizer') }
+
+    before do
+      create(:campaigns_user, campaign:, user: organizer,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+    end
+
+    def editable
+      get "/campaigns/#{campaign.slug}.json"
+      Oj.load(response.body)['campaign']['editable']
+    end
+
+    it 'marks the campaign editable for an admin' do
+      login_as create(:admin)
+      expect(editable).to be(true)
+    end
+
+    it 'marks the campaign editable for one of its organizers' do
+      login_as organizer
+      expect(editable).to be(true)
+    end
+
+    it 'does not mark it editable for another signed-in user' do
+      login_as create(:user, username: 'Outsider')
+      expect(editable).to be(false)
+    end
+
+    it 'does not mark it editable for a logged-out visitor' do
+      expect(editable).to be(false)
+    end
+  end
+
   describe '#programs' do
     let(:course) { create(:course) }
     let(:course2) { create(:course, title: 'course2', slug: 'foo/course2') }

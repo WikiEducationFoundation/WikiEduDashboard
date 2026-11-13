@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useId } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -70,6 +70,10 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
   const dispatch = useDispatch();
   const ref = useRef();
   const isFirstRender = useRef(true);
+  const titleId = useId();
+  const dialogRef = useRef();
+  const openerRef = useRef(null);
+  const restoreFocusRef = useRef(false);
 
   // The shell owns parsed/visibility/revision/title state; the highlight feature
   // is told to (re)run via `parsedSettle` and can ask the shell to re-verify the
@@ -89,8 +93,18 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
   useEffect(() => {
     if (showArticle) {
       document.addEventListener('mousedown', handleClickOutside);
+      dialogRef.current?.focus();
     }
     return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showArticle]);
+
+  // On close, return focus to the opener. Runs after the commit in which the
+  // opener is mounted again, so openerRef.current is the new button.
+  useEffect(() => {
+    if (!showArticle && restoreFocusRef.current) {
+      restoreFocusRef.current = false;
+      openerRef.current?.focus();
+    }
   }, [showArticle]);
 
   // The claim panel coordinates nested Escape handling in the capture phase.
@@ -153,6 +167,7 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
 
   const hideArticle = (e) => {
     if (!showArticle) { return; }
+    restoreFocusRef.current = e?.type !== 'mousedown';
     setShowBadArticleAlert(false);
     setShowArticle(false);
     dispatch(resetBadWorkAlert());
@@ -236,7 +251,7 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
   // button or the icon.
   if (!showArticle) {
     if (renderOpener) {
-      return renderOpener({ open: openArticle });
+      return renderOpener({ open: openArticle, openerRef });
     }
     // If a title was provided, show the article viewer with the title.
     if (title) {
@@ -246,6 +261,7 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
           showButtonClass={showButtonClass}
           showButtonLabel={getShowButtonLabel}
           title={title}
+          buttonRef={openerRef}
         />
       );
     }
@@ -255,16 +271,24 @@ const ArticleViewerShell = ({ showOnMount, users, showArticleFinder, showButtonL
         showButtonClass={showButtonClass}
         showButtonLabel={getShowButtonLabel}
         article={article}
+        buttonRef={openerRef}
       />
     );
   }
 
   return (
     <div ref={ref}>
-      <div className={`article-viewer ${showArticle ? '' : 'hidden'}`}>
+      <div
+        className={`article-viewer ${showArticle ? '' : 'hidden'}`}
+        role="dialog"
+        ref={dialogRef}
+        aria-modal="true"
+        aria-labelledby={titleId}
+        tabIndex={-1}
+      >
         <div className="article-header">
           <p>
-            <span className="article-viewer-title">{trunc(article.title, 56)}</span>
+            <span id={titleId} className="article-viewer-title">{trunc(article.title, 56)}</span>
             {
               showPermalink && <Permalink articleId={article.id} />
             }

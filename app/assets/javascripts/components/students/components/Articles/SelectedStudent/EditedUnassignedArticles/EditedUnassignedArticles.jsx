@@ -39,7 +39,7 @@ const EditedUnassignedArticles = ({
 
 
   const showMore = () => {
-    return props.actions.fetchArticles(course.slug, props.limit + 500);
+    return props.actions.fetchMoreArticles(course.slug);
   };
   return (
     <div className="list__wrapper">

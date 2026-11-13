@@ -584,6 +584,7 @@ en:
     data_editor_usernames_info: List of editor usernames, one per line
     data_wikidata: Wikidata stats
     data_wikidata_info: Detailed breakdown of Wikidata activity, based on edit summaries
+    data_include_private_courses: Include private courses
     default_course_type: Default Course Type
     default_passcode: Default Passcode
     default_passcode_explanation: "By default, new programs in this campaign should have:"
@@ -831,6 +832,7 @@ en:
       included.
     data_revisions_info: Revision data includes revision count of the course, revision id, article id, which pages are new and pageviews totals.
     data_download_info: Download data in CSV format.
+    data_download_generating: The file is being generated. You will be notified when it is ready to download.
     data_overview: Overview data
     data_overview_info: Overview data provides cumulative statistics for the whole project.
     data_edits: Edits data
@@ -884,11 +886,16 @@ en:
       duplicate_slug: "Another program called %{slug} already exists."
       event_sync_delete: This page is linked to Wikimedia Event Registration and cannot be deleted.
       event_sync_rename: This page is linked to Wikimedia Event Registration and cannot be renamed.
+      invalid_grant_id: "%{grant_id} is not a recognized grant ID. Please check the ID in the Grantee Portal (Fluxx) or on the grant's Meta page."
+      grant_ids_unavailable: "Grant IDs can't be checked right now. Please try again later."
     expected_students: Expected Students
     features_feedback: "Automated Suggestions:"
     feedback: Feedback
     feedback_loading: Please wait while suggestions are Loading...
     finalized_notice: This course has been finalized. Its data will no longer be updated automatically, and it can no longer be modified. Participants can still schedule a new update.
+    grant_id: Grant ID
+    grant_id_checking: "Checking..."
+    grant_id_help: "If this program or event is supported by a grant from the Wikimedia Foundation, please provide your Grant ID, which you can find in the Grantee Portal (Fluxx) or grant Meta page."
     gradeables_none: This course has no gradeable assignments.
     home_wiki: Home Wiki
     multi_wiki: Tracked Wikis
@@ -1112,6 +1119,56 @@ en:
     survey:
       notification_message: Take our survey for this course.
       link: Take Survey
+
+  course_application_forms:
+    title: Application form
+    open: Accepting applications
+    intro: Intro
+    question_groups: Question groups
+    question_group: Question group
+    edit_question_group: Edit
+    move_up: Move up
+    move_down: Move down
+    remove: Remove
+    add: Add
+    save: Save
+    saved: Saved
+    question_groups_help: Drag to reorder
+    acceptance_email: Acceptance email
+    acceptance_email_help: "This will be emailed to an applicant upon acceptance. Sender: %{sender}"
+
+  course_applications:
+    apply: Apply
+    accepting: This course is now accepting applications.
+    account_needed: To apply, first log in with your Wikipedia account or create one now.
+    submit: Submit application
+    optional: (optional)
+    submitted: "Your application is submitted. Thanks!"
+    closed: "This course is not open for applications."
+
+  course_application_reviews:
+    title: Applications
+    statuses:
+      submitted: Submitted
+      accepted: Accepted
+      declined: Declined
+    applicant: Applicant
+    real_name: Real name
+    email: Email
+    status: Status
+    submitted_at: Submitted
+    decided_by: Decided by
+    accept: Accept and enroll
+    decline: Decline
+    delete: Delete
+    answers: Answers
+    staff_notes: Staff notes
+    save_notes: Save notes
+    notes_saved: Saved
+    download_csv: Download CSV
+    accept_confirm: "Accept and enroll %{username}, and send the acceptance email?"
+    decline_confirm: "Decline %{username}, and send the decline email?"
+    acceptance_email_missing: Acceptance email missing
 
   course_instructor_notification:
     notify_instructors: Email Instructors
@@ -2521,6 +2578,8 @@ en:
 
   question_groups:
     edit_question_group: "Edit Question Group"
+    none: No Question Groups.
+    create_one: Create One
 
   form_search:
     search: "Search"

@@ -15,6 +15,7 @@ module PersonalData
         add_course_info(csv)
         add_campaign_info(csv)
         add_lti_context_info(csv)
+        add_course_application_info(csv)
       end
     end
 
@@ -92,6 +93,33 @@ module PersonalData
         csv << [context.lms_family, context.user_lti_id,
                 Array(context.roles).join(', '), context.lms_membership_status,
                 context.linked_at]
+      end
+    end
+
+    # Scholars & Scientists applications (Wiki Education Dashboard only), each
+    # followed by its answers in form order. Staff notes are left out: they're
+    # staff's working notes about the application, not data the user provided.
+    def add_course_application_info(csv)
+      CourseApplication.where(user: @user).includes(:course).find_each do |application|
+        csv << ['Application', 'Status', 'Submitted At', 'Decided At']
+        csv << [application.course.slug, application.status, application.created_at,
+                application.decided_at]
+        application_answers(application).each do |answer|
+          csv << ['Question', 'Answer', 'Follow-up Question', 'Follow-up Answer']
+          csv << [answer.question.question_text, answer.answer_text,
+                  answer.question.follow_up_question_text.presence,
+                  answer.follow_up_answer_text]
+        end
+      end
+    end
+
+    def application_answers(application)
+      form = application.course.course_application_form
+      group_order = CourseApplicationForm.answer_group_order(form)
+      application.answer_groups.includes(answers: :question).flat_map(&:answers).sort_by do |a|
+        question = a.question
+        [group_order.index(question.question_group_id) || group_order.size,
+         question.question_group_id, question.position.to_i, question.id]
       end
     end
   end

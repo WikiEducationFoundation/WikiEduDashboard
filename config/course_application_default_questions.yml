@@ -1,0 +1,185 @@
+# The built-in questions on every Scholars & Scientists application form, asked
+# before any question groups an admin adds for the course. They aren't Rapidfire
+# database records: CourseApplicationDefaultQuestions builds them from this file
+# as unsaved Rapidfire question objects, and answers to them point at the ids
+# below. So:
+#   - An id is permanent. Never reuse or change one; old answers point at it.
+#   - Never delete a question. Set `retired: true` to stop asking it; its
+#     answers still show on the review page and in exports.
+#   - Rewording a question changes how its old answers are labelled too.
+#
+# Wording follows the FormAssembly form these replace (tfaforms 4727686).
+#
+# Per question:
+#   key        stable name, used by `shown_if` and the Salesforce sync
+#   id         negative, so it can't collide with a Rapidfire question record
+#   type       a Rapidfire::Questions class: Short, Long, Radio, Checkbox, Text…
+#   text       the question (Markdown)
+#   options    choices, for Radio / Checkbox / Select
+#   required   true or false
+#   shown_if   { question: <key>, equals: <option> }; asked only when met
+#   salesforce fields the answer is copied to, as Object.Field. Contact fields
+#              go on the applicant's Contact; Course_Contact__c fields on their
+#              Course Contact for this course.
+#   salesforce_values  option → Salesforce picklist value, where they differ
+
+# The length of each text field the answers go to. Salesforce rejects a longer
+# value, so the sync cuts an answer to fit; the full answer stays on the
+# Dashboard, which the Course Contact's Application_Response_URL__c links to.
+# Check a field's length with `sf sobject describe -s <Object>`.
+salesforce_field_lengths:
+  Contact.Form_Assembly_First_Name__c: 40
+  Contact.Nickname__c: 255
+  Contact.LastName: 80
+  Contact.Title: 128
+  Contact.Pronouns_Other__c: 100
+  Contact.Ethnicity_Other__c: 80
+  Course_Contact__c.Title__c: 80
+  Course_Contact__c.Background__c: 255
+  Course_Contact__c.How_Did_You_Hear_About_Us__c: 80
+  Course_Contact__c.Prior_Wikipedia_Experience__c: 1000
+  Course_Contact__c.Article_Interest__c: 1000
+  Course_Contact__c.Application_Comments__c: 1000
+
+group:
+  id: -1
+  name: Standard questions
+
+questions:
+  - key: first_name
+    id: -1
+    type: Short
+    text: First Name
+    required: true
+    salesforce: [Contact.Form_Assembly_First_Name__c]
+
+  - key: preferred_name
+    id: -2
+    type: Short
+    text: Preferred Name
+    required: false
+    salesforce: [Contact.Nickname__c]
+
+  - key: last_name
+    id: -3
+    type: Short
+    text: Last Name
+    required: true
+    salesforce: [Contact.LastName]
+
+  - key: affiliation
+    id: -4
+    type: Short
+    text: What is your institutional affiliation/current employer?
+    required: true
+
+  - key: title
+    id: -5
+    type: Short
+    text: What is your current title (e.g., Professor, Graduate Student, Digital Collections Manager, etc.)?
+    required: true
+    salesforce: [Contact.Title, Course_Contact__c.Title__c]
+
+  - key: background
+    id: -6
+    type: Long
+    text: Describe your academic and/or research background, especially as it relates to this course topic.
+    required: true
+    salesforce: [Course_Contact__c.Background__c]
+
+  - key: pronouns
+    id: -7
+    type: Radio
+    text: What are your pronouns?
+    options: [She/her, He/him, They/them, Something else]
+    required: true
+    salesforce: [Contact.Pronouns__c]
+    salesforce_values:
+      She/her: She/Her
+      He/him: He/Him
+      They/them: They/Them
+
+  - key: pronouns_other
+    id: -8
+    type: Short
+    text: Please share your pronoun(s)
+    required: false
+    shown_if: { question: pronouns, equals: Something else }
+    salesforce: [Contact.Pronouns_Other__c]
+
+  - key: ethnicity
+    id: -9
+    type: Checkbox
+    text: Please specify your ethnicity. (check all that apply)
+    options:
+      - White
+      - Hispanic or Latinx
+      - Black or African American
+      - Native American or American Indian
+      - Asian / Pacific Islander
+      - Something else
+      - Prefer Not to Say
+    required: true
+    salesforce: [Contact.Ethnicity__c]
+    salesforce_values:
+      Something else: Other
+
+  - key: ethnicity_other
+    id: -10
+    type: Short
+    text: Please describe your ethnicity.
+    required: false
+    shown_if: { question: ethnicity, equals: Something else }
+    salesforce: [Contact.Ethnicity_Other__c]
+
+  - key: disability
+    id: -11
+    type: Radio
+    text: Do you identify as an individual with a disability(ies)? (By disability we mean a condition that impacts your major life activities)
+    options: ['Yes', 'No', 'Prefer Not to Say']
+    required: true
+    salesforce: [Contact.Has_Disability__c]
+
+  - key: first_generation
+    id: -12
+    type: Radio
+    text: Are you/were you a first generation college student?
+    options: ['Yes', 'No', 'Prefer Not to Say']
+    required: true
+    salesforce: [Contact.First_Generation_College_Student__c]
+
+  - key: works_with_students
+    id: -13
+    type: Radio
+    text: In your professional role, do you work with students in a classroom setting?
+    options: ['Yes', 'No', 'Prefer Not to Say']
+    required: true
+    salesforce: [Contact.Works_With_Students__c]
+
+  - key: how_did_you_hear
+    id: -14
+    type: Short
+    text: How did you hear about this course? (e.g., American Physical Society, the Smithsonian Institution, specific listserv, etc.)
+    required: false
+    salesforce: [Course_Contact__c.How_Did_You_Hear_About_Us__c]
+
+  - key: prior_experience
+    id: -15
+    type: Long
+    text: Do you have any experience contributing to Wikipedia, Wikimedia Commons, or Wikidata?
+    required: true
+    salesforce: [Course_Contact__c.Prior_Wikipedia_Experience__c]
+
+  - key: article_interest
+    id: -16
+    type: Long
+    text: Please explain what general topics or specific Wikipedia articles, images for Wikimedia Commons, or Wikidata items you'd like to work on during this course.
+    required: true
+    salesforce: [Course_Contact__c.Article_Interest__c]
+
+  - key: comments
+    id: -17
+    type: Long
+    text: Do you have any other comments or questions we can answer?
+    required: false
+    salesforce: [Course_Contact__c.Application_Comments__c]

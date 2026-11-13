@@ -17,6 +17,7 @@ describe CourseCloneManager do
            timeline_end: 9.months.ago,
            slug: 'School/Title_(Term)',
            passcode: 'code',
+           grant_id: '1546-24563',
            flags: { first_flag: 'something', peer_review_count: 3 })
     create(:campaign, id: 1)
     create(:campaigns_course, course_id: 1, campaign_id: 1)
@@ -133,6 +134,11 @@ describe CourseCloneManager do
       ScheduleCourseAdviceEmails.new(clone).schedule_emails
       expect(CourseAdviceEmailWorker).to have_received(:schedule_email)
         .with(hash_including(course: clone, subject: 'biographies'))
+    end
+
+    it 'does not carry over the grant ID' do
+      expect(original.grant_id).to eq('1546-24563')
+      expect(clone.grant_id).to be_nil
     end
 
     it 'marks the cloned status as PENDING' do

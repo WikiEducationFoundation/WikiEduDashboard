@@ -155,6 +155,19 @@ copy_available_articles#preview: editor
 copy_course#copy: signed_in  # admin on Wiki Ed
 copy_course#index: signed_in  # admin on Wiki Ed
 
+course_application_forms#edit: admin
+course_application_forms#update: admin
+
+course_application_reviews#accept: admin
+course_application_reviews#decline: admin
+course_application_reviews#destroy: admin
+course_application_reviews#index: admin
+course_application_reviews#show: admin
+course_application_reviews#update: admin
+
+course_applications#create: signed_in
+course_applications#show: public
+
 course_canvas_credentials#create: editor
 course_canvas_credentials#show: editor
 
@@ -473,6 +486,7 @@ system_status#index: public
 
 tagged_courses#alerts: admin
 tagged_courses#articles: admin
+tagged_courses#index: admin
 tagged_courses#programs: admin
 tagged_courses#stats: admin
 

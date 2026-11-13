@@ -333,6 +333,7 @@ it:
     customize_passcode: un codice di accesso di default
     data_articles: Pagine modificate
     data_instructors: Insegnanti
+    data_include_private_courses: Includi corsi privati
     default_course_type: Tipo di corso di default
     default_passcode: Codice di accesso di default
     default_passcode_explanation: 'Di default, i nuovi programma di questa campagna
@@ -542,6 +543,8 @@ it:
       sono già terminati, pertanto è incluso un URL dello strumento Visualizzazione
       di pagina di WMF Tool Labs.
     data_download_info: Scarica dati in formato CSV.
+    data_download_generating: Il file è in fase di generazione. Riceverai una notifica
+      quando sarà pronto per il download.
     data_overview: Dati generali
     data_overview_info: I dati generali comprendono le statistiche cumulative di tutto
       il progetto.

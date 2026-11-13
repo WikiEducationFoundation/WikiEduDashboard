@@ -63,6 +63,7 @@ zh-TW:
     log_in: 登入
     log_out: 登出
     my_dashboard: 我的功能面板
+    navigation_menu: 導覽選單
     okay: 了解
     recent_activity: 最近活動
     report_problem: 回報問題
@@ -78,12 +79,12 @@ zh-TW:
     font_label: 字型
     font_sans: 無襯線體
     font_serif: 襯線字體
-    sign_up_extended: 註冊維基百科
+    sign_up_extended: 透過維基百科註冊
     sign_up_wikipedia: 或在維基百科註冊
-    sign_up_log_in_extended: 參與維基百科
+    sign_up_log_in_extended: 透過維基百科
     sign_up: 註冊
-    submit: 送出
-    training: 培訓
+    submit: 提交
+    training: 訓練
     change: 變更
     details: 詳細資訊
     confirm: 好
@@ -97,24 +98,24 @@ zh-TW:
     in_progress: 在沙盒裡作業
     ready_for_review: 擴充草稿
     ready_for_mainspace: 移動作業到主空間
-    assignment_completed: 分配標記為已完成
+    assignment_completed: 指派作業已標記為完成
     reading_the_article: 閱讀條目
     providing_feedback: 提供意見回饋
-    post_to_talk: 發布到討論頁
-    peer_review_completed: 審核完成
+    post_to_talk: 發佈到討論頁
+    peer_review_completed: 評審完成
   dashboard:
     create_note: 點選「建立課程」以建立您的第一次課程
-    create_preparation_note: 請您在開始之前，確認手上有學校的行事曆，分配作業設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)
-      ，好讓時間線能適合您選擇的日期範圍。記住，您可以隨時編輯時間軸，以符合您的需求。
+    create_preparation_note: 請您在開始之前，確認手上有學校的行事曆，指派的作業設計工具會用到您課堂的會議日期 (包括所有校內停課日和假日)
+      ，好讓時間線能適合您選擇的日期範圍。請記住，您可以隨時編輯時間軸，以符合您的需求。
     explore_course_pages: 瀏覽課程頁面
     explore_examples: 瀏覽例子
-    join_note: 一旦您從您的導師那獲得選課代碼，點選尋找您的課程來搜尋並加入
+    join_note: 一旦您從您的導師那獲得選課代碼，請點選「尋找您的課程」來搜尋並加入。
     no_courses_instructor: 您似乎沒有任何課程
     no_courses_student: 您似乎尚未加入課程
-    opt_out: 請求不參加新手導覽
-    orientation_notice: 在建立課程之前，讓我們順過新手導覽以幫助你開頭。 (約需 30 分鐘來完成此項導覽。)
-    review_orientation: 審核新手導覽
-    start_orientation: 開始新手導覽
+    opt_out: 請求不參加新生訓練
+    orientation_notice: 在建立課程之前，讓我們順過新生訓練以幫助你入門。(約需30分鐘來完成。)
+    review_orientation: 評審新生入學指導
+    start_orientation: 開始新生入學指導
     blog_headline: 來自 Wiki 教育的最新消息
     about_programs: 此網站經由學程來追蹤wiki的各個活動 —— 例如像是編輯松或學院課程之類的各別活動。任一學程皆為某個、或多個競賽裡的一部份內容，而競賽則提供了各學程之間的匯總統計資料。
     about_creating_programs: 如果您在運作一個單一、獨立的活動，您可以現在來建立一個學程。如果您的活動，是某件更大活動裡的一部份，請為它找尋或建立一個競賽，然後您就可以從競賽頁面裡創建一個新學程。
@@ -171,10 +172,10 @@ zh-TW:
     title: 修訂版 AI 分數統計
     graphs:
       daily_checks: 依命名空間的每日檢查
-      avg_likelihood: 每日平均 AI 可能性分佈
-      max_likelihood: 每日最大 AI 可能性分佈
-      overall_avg_likelihood: 整體平均 AI 可能性分佈
-      overall_max_likelihood: 整體最大 AI 可能性分佈
+      avg_likelihood: 每日平均 AI 概似分佈
+      max_likelihood: 每日最大 AI 概似分佈
+      overall_avg_likelihood: 整體平均 AI 概似分佈
+      overall_max_likelihood: 整體最大 AI 概似分佈
   system_stats:
     title: 系統與協調者統計資料
     filters:
@@ -254,22 +255,24 @@ zh-TW:
     article_not_found: 尚未建立此條目。
     article_development: （條目發展）
     articles_shown: 顯示 %{total} 個條目裡的 %{count} 個
-    assigned: 已分配條目
-    assignments_none: 還沒有分配的條目。
-    available: 尚待分配的條目
-    no_available: 沒有可用的條目
+    assigned: 已指派的條目
+    assignments_none: 目前尚無已指派的條目。
+    available: 尚待指派的條目
+    no_available: 沒有待指派的條目
     next: 下一個
     page_info: '%{total_pages}頁的第%{current}頁（%{total}的%{count}）'
     permalink: 固定連結
     previous: 上一個
     article_title: 條目標題
-    assigned_to: 分配給
+    language: 語言
+    project: 專案
+    assigned_to: 指派給
     character_doc: 開始到結束日之間由登記編輯者在條目中增加的字元總和。
-    cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。功能面板從此學程的首頁wiki來取出貢獻內容，以及和其它任何有著分配作業或可用條目的wiki。
+    cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。功能面板從此學程的首頁wiki來取出貢獻內容，以及和其它任何有著指派作業或尚未指派條目的wiki。
     deleted: (已刪除)
-    does_not_exist: 該條目不存在。請創建一個沙盒頁面並分配給您自己來接收建議。
+    does_not_exist: 該條目不存在。請建立一個沙盒頁面並指派您自己來接收建議。
     edited: 編輯的條目
-    edited_by: 編輯自：
+    edited_by: 由 %{author} 編輯
     edited_mobile: 條目
     edited_none: 還沒有編輯過的條目。
     filter:
@@ -300,7 +303,7 @@ zh-TW:
     preview: 條目簡要預覽
     quality_checklist: 品質檢查表
     rating: 等級
-    rating_doc: 這個條目的等級已經由維基百科上的對應專題分配。這些等級可能對應到很早期的版本，所以只能當成條目成熟度的粗略指標。
+    rating_doc: 維基百科上的「維基專題」為各條目所賦予的評級。這些評級可能對應於更早的版本，因此僅能作為條目成熟度的粗略指標。
     rating_docs:
       fa: '%{class}（典範條目） — 維基百科的最高評級，但可能過於完善而不適合作為新編輯者的主要專案。'
       fl: '%{class}（特色列表） — 維基百科中用於列表的最高評級'
@@ -351,13 +354,12 @@ zh-TW:
     items: 項目
     lexeme: 詞位
     article_not_found: 此項目尚未建立。
-    assigned: 已分配項目
-    assignments_none: 還沒有分配的項目。
-    available: 可用項目
+    assigned: 已指派的項目
+    assignments_none: 無尚待指派的項目。
+    available: 尚待指派的項目
     character_doc: 開始到結束日之間由登記編輯者在項目中增加的字元總和。
-    cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。功能面板從此學程的首頁 wiki 來取出貢獻內容，以及和其它任何有著分配作業或可用項目的
-      wiki。
-    does_not_exist: 該項目不存在。請建立一個沙盒頁面並分配給您自己來接收建議。
+    cross_wiki_tracking: 以下列出主空間頁面於起始和結束日期期間的編輯。功能面板從此學程的首頁 wiki 來取出貢獻內容，以及和其它任何有著某個指派作業或尚待指派項目的wiki。
+    does_not_exist: 該項目不存在。請建立一個沙盒頁面並指派您自己來接收建議。
     edited: 已編輯項目
     edited_none: 還沒有編輯過的項目。
     find: 尋找項目
@@ -372,70 +374,72 @@ zh-TW:
   articles_generic:
     articles_short: 頁面
   assignments:
-    article: 條目%{title}現在已被分配給您。
+    article: 條目%{title}現在已被指派給您。
     article_link: 條目
     article_link_wikidata: 項目
-    blocked_assignment: 無法分配%{title}，因為這在維基百科社群的 Wiki 教育分配黑名單中。
-    already_exists: 此分配作業已存在！
-    title_too_large: 標題不可超出 255 個字元
-    max_group_size_exceeded: 課程%{title}已分配給 %{current} 名學生。該課程的群組最多人數為 %{max}。
-    assignees: 被分配者
-    assign_other: 分配/移除條目
-    assign_other_wikidata: 分配/移除項目
+    blocked_assignment: 無法指派%{title}，因為它是在維基百科社群的"Wiki教育指派黑名單"中。
+    already_exists: 此指派作業已存在！
+    title_too_large: 標題不可超出255個字元
+    max_group_size_exceeded: 課程%{title}已指派給 %{current} 名學生。該課程的群組最多人數為 %{max}。
+    assignees: 被指派者
+    assign_other: 指派/移除條目
+    assign_other_wikidata: 指派/移除項目
     add_available: 加入可用的條目
-    add_available_wikidata: 添加可用項目
-    add_available_placeholder: 在每行添加一個條目標題或 URL
-    add_available_placeholder_wikidata: 在每行添加一個項目標題或 URL
-    add_available_submit: 添加條目
-    add_available_submit_wikidata: 添加項目
-    add_placeholder: 輸入條目標題或 URL
-    assign_self: 指定自己一個條目
+    add_available_wikidata: 加入可用項目
+    add_available_placeholder: 在每行添加一個條目標題或URL
+    add_available_placeholder_wikidata: 在每行添加一個項目標題或URL
+    add_available_submit: 加入條目
+    add_available_submit_wikidata: 加入項目
+    add_placeholder: 輸入條目標題或URL
+    assign_self: 指派自己一個條目
     invalid_mainspace_article: 這必須是一篇有效的主空間條目。
-    assign_self_wikidata: 給自己分配一個項目
-    assign_tooltip: 一個是您計劃創建、或改善的已分配條目
-    assign_tooltip_wikidata: 分配的是您計劃建立或改善的項目。
+    assign_self_wikidata: 指派自己一個項目
+    assign_tooltip: 一個是您計劃要創建、或要改善的已指派條目
+    assign_tooltip_wikidata: 已指派的是您計劃要建立或要改善的項目。
     bibliography: 參考書目
     clone: 複製
     confirm_add_available: 確定要加入 %{title} 嗎？
-    confirm_addition: 確定要將 %{title}分配給 %{username}？
-    confirm_deletion: 確定要刪除分配作業嗎？
+    confirm_addition: 確定要將 %{title}指派給 %{username}？
+    confirm_deletion: 確定要刪除這個指派作業嗎？
     copy_available: 從另一個課程匯入
     copy_available_url_placeholder: 課程網址
     copy_available_select_placeholder: 選擇一個課程
-    copy_available_include_student_assigned: 是否包含指定的條目？
+    copy_available_include_student_assigned: 是否包含指派的條目？
     delete: 移除然後刪除
-    editors: 分配給
+    editors: 指派給
     change_sandbox_url: 更改沙盒
     group_members: 群組成員
-    label: 分配
-    label_all: 分配全部
-    loading: 載入分配作業中...
-    none_short: 沒有分配任何條目
-    none_short_wikidata: 沒有已分配的項目
-    none: 這個課程還沒有任何條目被分派。
-    no_available: 此課程沒有任何尚待分配的條目。
+    label: 指派
+    label_all: 指派全部
+    loading: 載入指派作業中...
+    none_short: 沒有指派任何的條目
+    none_short_wikidata: 沒有已指派的項目
+    none: 這個課程還沒有任何條目被指派。
+    no_available: 此課程沒有任何尚待指派的條目。
     outline: 大綱
     peer_review_count: '%{currentCount}/%{total} 已選'
-    peer_review_count_tooltip: 您必須選擇 %{total} 個條目來同行評審。
-    peer_review_link: 同行評審
-    peer_review_link_personalized: '%{username}的同行評審'
+    peer_review_count_tooltip: 您必須選擇 %{total} 個條目來同儕評審。
+    peer_review_link: 同儕評審
+    peer_review_link_personalized: '%{username}的同儕評審'
     random_peer_review:
-      confirm_addition: 在大部分情況下，您應只在所有學生都有分配到他們的主條目時使用。您也可以讓您的學生挑選他們的同行評審，或著用手動的方式，採用透過點擊學生的所在列，然後使用「分配/移除同行評審」按鈕來分配同行評審。點擊「確認」後，這將會分配一共
-        %{count} 額外的同行評審，每位學生可從同學們的條目裡最多挑選出 %{maximum} 個。
-      confirm_addition_wikidata: 在大部分情況下，您應只在所有學生都有分配到他們的主項目時使用。您也可以讓您的學生挑選他們的同行評審，或著用手動的方式，採用透過點擊學生的所在列，然後使用「分配/移除同行評審」按鈕來分配同行評審。點擊「確認」後，這將會分配一共
-        %{count} 額外的同行評審，每位學生可從同學們的項目裡最多挑選出 %{maximum} 個。
-      heading: 分配隨機同行評審
-      tooltip_message: 分配隨機條目（以同行評審數為最大數目）給各學生。
-      tooltip_message_wikidata: 分配隨機項目（以同行評審數為最大數目）給各學生。
-      limit_exceeded: 每位學生至少已檢閱 %{maximum} 個條目。
-      limit_exceeded_wikidata: 每位學生至少已審核 %{maximum} 個項目。
+      confirm_addition: 在大部份情況下，您應只在所有學生都有分配到他們的主條目時使用。或者，您也可以要求您的學生挑選他們的同儕評審，或著用手動的方式，採用透過點擊學生的所在列，然後使用「分配/移除同儕評審」按鈕來分配同儕評審。點擊「確認」後，這將會分配一共
+        %{count} 額外的同儕評審，每位學生可從同學們的條目裡最多挑選出 %{maximum} 個。
+      confirm_addition_wikidata: 在大部份情況下，您應只在所有學生都有分配到他們的主項目時使用。您也可以讓您的學生挑選他們的同儕評審，或著用手動的方式，採用透過點擊學生的所在列，然後使用「分配/移除同行評審」按鈕來分配同儕評審。點擊「確認」後，這將會分配一共
+        %{count} 額外的同儕評審，每位學生可從同學們的項目裡最多挑選出 %{maximum} 個。
+      heading: 隨機指派同儕評審
+      tooltip_message: 隨機指派條目（以同儕評審數為最大數目）給各個學生。
+      tooltip_message_wikidata: 隨機指派項目（以同儕評審數為最大數目）給各個學生。
+      limit_exceeded: 每位學生至少已評審 %{maximum} 個條目。
+      limit_exceeded_wikidata: 每位學生至少已評審 %{maximum} 個項目。
     remove: 移除
-    reviewers: 審核者
-    review_other: 分配／移除同行評審
-    review_self: 審核條目
-    review_self_wikidata: 審核項目
-    review_tooltip: 這是用於您打算同行評審、或是提供意見回饋的條目。
-    review_tooltip_wikidata: 這是用於您打算同行評審、或是提供意見回饋的項目。
+    reviewers: 評審者
+    review_classmate_draft: （%{username} 的沙盒草稿）
+    review_other: 指派／移除同儕評審
+    review_sandbox_not_found: '%{title} 不是給同學的指定條目。'
+    review_self: 評審條目
+    review_self_wikidata: 評審項目
+    review_tooltip: 這是用於您打算同儕評審、或是提供意見回饋的條目。
+    review_tooltip_wikidata: 這是用於您打算同儕評審、或是提供意見回饋的項目。
     sandbox_draft_link: 沙盒草稿
     sandbox_redlink_info: 此連結因頁面尚未建立，以紅色呈現。（如果是最近建立的，面板不久後會更新資料。）
     select: 選擇
@@ -443,7 +447,7 @@ zh-TW:
     invalid_url: 無法更新沙盒的 URL。%{url} 不是有效的維基百科 URL。
     mismatched_wiki: 無法更新沙盒的 URL。%{url} 不在相同的 wiki 上。
     invalid_username: 使用者名稱「%{username}」無效或該使用者名稱不存在。
-    change_sandbox_instructions: 輸入維基百科使用者名稱來更新此分配的沙盒網址。這會把目前使用者名稱的沙盒更改為您指定的內容。
+    change_sandbox_instructions: 輸入維基百科使用者名稱來更新此指派的沙盒網址。這會把目前使用者名稱的沙盒更改為您指定的內容。
     username_label: 維基百科使用者名稱
     username_placeholder: 請輸入使用者名稱（例如：您的使用者名稱）
     username_or_url_label: 維基百科使用者名稱或網址
@@ -453,6 +457,15 @@ zh-TW:
     bibliography_label: 參考書目
     outline_label: 大綱
     warning_untracked_wiki: 請留意您所挑選的條目是位在沒被此課程追蹤的 wiki 上。要追蹤對於此條目的貢獻，導師必須添加以下wiki到此課程裡：%{wiki}
+  assignments_tab:
+    label: 指派作業
+    overdue: 逾期
+    progress: 進度
+    assigned: 已指派
+    live_article: 即時條目
+    stage_assigned: 指派的條目
+    stage_live: 編輯後的即時條目
+    view_training: 檢視訓練
   blocks:
     milestones:
       title: 里程碑
@@ -567,19 +580,19 @@ zh-TW:
     remove: 移除
     tracked_categories: 已追蹤分類、PSID、頁面檔案 ID 與模板
     timestamp: 最後更新於
-    category_error: 此範圍方法需要更新的項目過多。請嘗試使用較少的項目。
+    category_error: 此範圍界定方法中待更新的項目過多。請嘗試使用較小的項目。
   courses:
     school_system: 學院系統
-    assignment_edits_enabled: 分配編輯已啟用
-    assignment_edits_enabled_tooltip: 若有啟用，面板會對各分配條目發布討論頁模板。
+    assignment_edits_enabled: 指派作業的編輯已啟用
+    assignment_edits_enabled_tooltip: 若有啟用，面板會對各指派的條目發佈討論頁模板。
     accounts_generation_enabled: 帳號申請產生已啟用
     accounts_generation_explanation: 這將允許參與者輸入他們的電子郵件地址，以及想要的使用者名稱，而不是讓他們自行建立新的帳號。您之後可從此份功能面板來建立帳號，並同時將他們新增為方案參與者。
     accounts_generation_confirm_message: 您確定您要啟用帳號申請嗎？
     activity: 活躍度
     active_courses: 啟動課程
-    add_trainings: 請添加學生培訓至您分配到的時間軸。分配培訓模組是 Wiki 教育最佳實踐的重要部分。
+    add_trainings: 請加入學生的訓練至您指派作業的時間軸。指派訓練模組是Wiki教育最佳實踐的重要部份。
     alerts: 提醒
-    does_not_exist: 該項目不存在。請建立一個沙盒頁面並分配給您自己來接收建議。
+    does_not_exist: 該項目不存在。請建立一個沙盒頁面並指派您自己來接收建議。
     all_courses: 所有課程
     already_enrolled: 您已經成為「%{title}」課程的一份子！
     already_exists: 已存在於該課程中！
@@ -598,17 +611,17 @@ zh-TW:
     new_tag_button_aria_label: 建立或更新標籤按鈕
     enroll_button_aria_label: 登記按鈕
     assignment_headings:
-      assigned_articles: 已分配條目
-      assigned_articles_wikidata: 已分配項目
-      assigned_reviews: 已分配審核
+      assigned_articles: 已指派條目
+      assigned_articles_wikidata: 已指派項目
+      assigned_reviews: 已指派審核
       available_articles: 可用的條目
       available_articles_wikidata: 可用項目
       available_reviews: 同學的條目
       available_reviews_wikidata: 同學的項目
-    assignment_end: 分配作業結束
-    assignment_start: 分配作業開始
+    assignment_end: 指派作業結束
+    assignment_start: 指派作業開始
     calendar:
-      legend: 說明
+      legend: 圖例
       legend_class_canceled: 假日/取消
       legend_class_meeting: 班級會議
       legend_class_not_meeting: 無預定的會議
@@ -634,9 +647,9 @@ zh-TW:
     start_date: 起始日期
     creator:
       already_exists: 課程已經存在。請嘗試變更課程名稱、開課學校、或是開課學期，讓課程不會重複。
-      assignment_end: 分配作業截止
+      assignment_end: 指派作業截止
       assignment_end_placeholder: YYYY-MM-DD
-      assignment_start: 分配作業開始繳交
+      assignment_start: 指派作業開始
       assignment_start_placeholder: YYYY-MM-DD
       cancel_course_clone: 取消課程複製
       cancel_course_clone_confirm: 您確定要停止複製這個課程嗎？
@@ -650,7 +663,7 @@ zh-TW:
       copy_successful: 替複製的課程更新詳細資訊
       clone_successful_details: 您的課程已經被複製，包含時間軸的各種內容 (所有的星期以及障礙) 。請確認所增加的日期沒有延續。您的課程還有哪些更動嗎？歡迎您現在更新。
       copy_successful_details: 已複製您的課程，包含時間軸的各元素（星期與區塊）。請確認所添加的日期沒有延期。您還有哪些課程有更動到嗎？歡迎您現在更新。
-      course_dates_info: 輸入您課程的起始和結束日期。在下個步驟裡，您可以從時間範圍來挑選何時開始作維基百科分配。
+      course_dates_info: 輸入您課程的起始和結束日期。在下個步驟裡，您可以從時間範圍來挑選何時開始作維基百科指派作業。
       course_description: 課程說明
       course_description_placeholder: 您的課程會涵蓋什麼？必且會讓學生們在維基百科上做出那些事情？請包含足夠的詳細內容，讓其他維基百科編者能有充分理解的感覺，來方便您的學生做出貢獻。
       course_private: 非公開學程（僅可被管理員和主持者檢視）
@@ -666,7 +679,7 @@ zh-TW:
         edit_a_thon_name: Edit-A-Thon
         edit_a_thon_description: 編輯松學程將會追蹤任何條目或主空間頁面的編輯，按預設不會對此學程做出自動化編輯。
         article_scoped_program_name: 條目範圍學程
-        article_scoped_program_description: 此方案僅會追蹤分配的條目或分類的編輯。若您想要對已知條目或主題領域收集做出統計方面的限制，請使用此類型。按預設會開啟自動化
+        article_scoped_program_description: 此方案僅會追蹤指派的條目或分類的編輯。若您想要對已知條目或主題領域收集做出統計方面的限制，請使用此類型。按預設會開啟自動化
           wiki 編輯。
         single_user_name: 個人編輯者
         single_user_description: 此學程類型旨在透過簡化介面來追蹤您自己的貢獻。如果您不需要追蹤其他使用者的編輯，請使用此類型。
@@ -682,7 +695,7 @@ zh-TW:
       find: 查找您的課程
       intro: 您所選擇的課程標題、學校、和學期將會構成您課程頁面的 URL，並且不可更改。除了以上三者之外，其餘項目皆可稍後編輯。點選 「建立我的課程！」
         開始規劃您的維基百科分配作業時間軸。
-      new_or_clone: 點'創建新的課程'來透過分配事項精靈來創建新的課程，你的時間軸會包括維基教育專案推薦訓練模組的最新選項，以及其他資源。如果您擁有來自先前課程的高度自定義時間軸而想重新使用，您可以使用新的日期來複製複本。您也可以使用複製選項來替您先前設定好的課程創建額外部份。
+      new_or_clone: 點「建立新的課程」來透過指派作業精靈來建立新的課程，你的時間軸會包括維基教育專案推薦訓練模組的最新選項，以及其他資源。如果您擁有來自先前課程的高度自定義時間軸而想重新使用，您可以使用新的日期來複製複本。您也可以使用複製選項來替您先前設定好的課程創建額外部份。
       no_class_holidays: 我的課程沒有遭遇假日
       role_description: 您在課程裡的身份
       role_description_options:
@@ -756,10 +769,10 @@ zh-TW:
     features_feedback: 自動化建議：
     feedback: 意見回饋
     feedback_loading: 建議載入中請等待...
-    gradeables_none: 此項課程沒有可批閱的分配作業。
-    home_wiki: 主 wiki
-    multi_wiki: 追蹤的 wiki
-    namespaces: 追蹤命名空間
+    gradeables_none: 此項課程沒有可批閱的指派作業。
+    home_wiki: 首頁wiki
+    multi_wiki: 已追蹤的wiki
+    namespaces: 已追蹤命名空間
     instructor:
       other: 導師
     instructors: 導師
@@ -812,12 +825,12 @@ zh-TW:
     nocourse: 未參與任何課程。
     none: 無
     not_permitted: 您不被允許編輯此課程。
-    notify_untrained_confirmation: 這將會在所有沒有完成已經交派培訓模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
-    no_available_actions: 沒有可執行的項目
-    online_volunteers_enabled: 線上志工已啟用
-    online_volunteers_tooltip: 啟用線上志工能允許使用者編輯者來加入為志工。他們所做出的編輯會不被追蹤。
-    ores_plot: ORES
-    ores_plot_description: 此圖表視覺化展示出學生首次編輯條目之前到最近一次編輯期間條目的擴充進度。結構完整性評級是基於機器學習專案（%{ores_link}），該專案根據條目內文數量、維基連結數量、圖片和章節標題、以及其他特徵來評估條目的品質評級。（%{refresh_link}）
+    notify_untrained_confirmation: 這將會在所有尚未完成已經指派的訓練模組作業學生的討論頁上發表提醒宣告。您確定您想要進行嗎？
+    no_available_actions: 沒有可執行的操作
+    online_volunteers_enabled: 線上義工已啟用
+    online_volunteers_tooltip: 啟用線上義工可讓使用者的編輯者們來加入為義工。他們所做出的編輯會不被追蹤。
+    ores_plot: 客觀修訂評估服務(ORES)圖
+    ores_plot_description: 此圖表視覺化展示出學生首次編輯條目之前到最近一次編輯期間條目的擴充進度。結構完整性評級是基於機器學習專案（%{ores_link}），該專案根據條目文字數量、維基連結數量、圖片和章節標題、以及其他特徵來評估條目的品質評級。（%{refresh_link}）
     ores_plot_no_data: 沒有可用的結構完整性資料
     ores_plot_refresh_data: 重整快取資料
     ores_plot_show_button: 結構完整性的變化
@@ -841,10 +854,7 @@ zh-TW:
     retain_available_articles_info: 當啟用後，選擇一個不會從清單裡刪除的可用條目，允許學生群組來選擇同一條目。
     retain_available_articles_info_wikidata: 當啟用後，選擇一個不會從清單裡刪除的可用項目，允許學生群組來選擇同一項目。
     retention_predictors: 留存率預測因子
-    review_timeline: |-
-      現在，請確認您的分配計畫時間表，並自訂內容來符合您的需求。
-      一旦您確認時間軸無誤，您可以提交來給維基教育成員審核。
-      一旦審核透過，您將會收到一個登記過的 URL 讓學生能夠參與課程並取用培訓（註：您仍可稍後編輯此項課程）。
+    review_timeline: 現在，請確認您的指派計畫時間表，並自訂內容來符合您的需求。一旦您確認時間軸無誤，您可以提交來給維基教育成員審核。一旦審核透過，您將會收到一個登記過的URL讓學生能夠參與課程並存取訓練（註：您仍可稍後編輯此項課程）。
     revisions_doc: 依據最近期間的平均每天編輯數，最近 %{timeframe} 天內的預估編輯數量。%{timeframe}。
     revisions_none: 此課程最近沒有編輯。
     school: 學校
@@ -858,12 +868,13 @@ zh-TW:
     max_group_size_tooltip: 同一篇條目可讓多名學生共同協作的最多人數。留空表示人數不限。
     student: 學生
     students: 學生
-    students_taught: 學生教導
+    students_taught: 教導的學生
     students_count: 學生數
     student_editors: 學生編輯者
     students_none: 此課程尚未有學生。
     students_short: 學生
-    submitted_admin: 這個課程已經由建立者發佈開設申請。想要准許申請的話，請在概述頁添增競賽。
+    student_view_action_blocked: 在「以學生身份檢視」模式下，您無法執行此操作。
+    submitted_admin: 這個課程已經由建立者發佈開設申請。想要准許申請的話，請在概述頁中添增競賽。
     submitted_and_pending_heading: 已送出，待批閱
     submitted_heading: 已送出的課程。
     submitted_note: 您的課程已成功送出。維基教育的成員將審核此課程，若有任何問題會與您聯繫。與此同時，你可以透過閱覽教師與學生的完整列表，查閱維基教育的訓練教材。
@@ -888,18 +899,20 @@ zh-TW:
     tag_select: 選擇或建立一個標籤
     tags: 標籤：
     term: 學期
-    timeline: 分配作業細節
+    timeline: 指派作業的細節
     timeline_enabled: 時間軸已啟用
     timeline_link: 時間軸
-    timeline_tooltip: 啟用時間軸能讓您指定各週活動以及分配培訓模組。這對於教育學程的課程以及其它長時間、高度結構化學程很有用。
+    timeline_tooltip: 啟用時間軸能讓您指定各週活動以及指派培訓模組。這對於教育學程的課程以及其它長時間、高度結構化學程很有用。
     timeline_nav: 前往時間軸
     time_zone_message: 開始及結束時間會以您的本地時區顯示。
     title: 標題
-    training_due: 培訓模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
-    training_nav: 前往培訓
-    training_overdue: 培訓模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
+    training_due: 訓練模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
+    training_nav: 前往訓練
+    training_overdue: 練模組 "%{title}" 已經發派到這個課程中，截止日期為 %{date}。
     unsubmitted: 尚未送出的課程。
-    untrained: 未受訓
+    unsubmitted_show_all: 顯示全部
+    unsubmitted_show_recent: 顯示最近
+    untrained: 未訓練
     update_stats: 更新統計內容
     uploads_none: 此班級未上傳任何圖片或媒體檔案至維基共享資源。
     user_uploads_none: 此使用者未上傳任何圖片或媒體檔案至維基共享資源。
@@ -916,14 +929,13 @@ zh-TW:
     weeks_none: 此課程尚未建立時間軸。
     warn_mirrored: 在呈交後，此課程會使用您的使用者名稱自動地發佈到維基百科。在發布之後，在設定的時間軸上的所有新編輯將會複製一份到維基百科上。您確定想要執行嗎？
     wiki_course_page_enabled: 已啟用 wiki 課程頁面
-    wiki_course_page_enabled_tooltip: 若有啟用，無論學程或是其使用者及分配是否有更改，頁面 wiki 鏡像將會更新。
-    wiki_edits_enabled: 已啟用 wiki 編輯
-    wiki_edits_enabled_tooltip: 若 wiki 編輯被啟用，此學程會自動進行 wiki 編輯。若您不想要模板新增到使用者頁面、已分配條目的討論頁等等，請停用
-      wiki 編輯。
-    wiki_staff: 維基教育成員
-    withdrawn: 沒有分配
-    word_count_doc: 在課程期間由選課學生所添增到主命名空間條目的增加字詞估計量。（不包含維基數據的編輯。）
-    word_count_doc_wikidata: 在課程期間由選課學生所添增到主命名空間項目的增加字詞估計量
+    wiki_course_page_enabled_tooltip: 若有啟用，無論學程或是其使用者及指派是否有更改，頁面wiki鏡像都會更新。
+    wiki_edits_enabled: 已啟用wiki編輯
+    wiki_edits_enabled_tooltip: 若wiki編輯被啟用，此學程會自動進行wiki編輯。若您不想要模板新增到使用者頁面、已指派條目的討論頁等等，請停用wiki編輯。
+    wiki_staff: 維基教育職員
+    withdrawn: 沒有完成作業
+    word_count_doc: 在課程期間由選課學生所加入到主命名空間條目的增加字詞估計量。（不包含維基數據的編輯。）
+    word_count_doc_wikidata: 在課程期間由選課學生所加入到主命名空間項目的增加字詞估計量
     yourcourses: 您的課程
     declined_note: 此課程已被放棄。若有任何疑問，請聯絡 Wiki Education 成員。
     decline_course: 放棄課程
@@ -954,8 +966,8 @@ zh-TW:
       available_reviews: 可供審核
       available_reviews_wikidata: 可供審核
     assignment_end: 活動結束
-    assignments_none: 此專案沒有任何條目被分配。
-    assignment_start: 事項起始
+    assignments_none: 此專案沒有任何已指派的條目。
+    assignment_start: 活動起始
     cancel: 取消
     course: 學程
     courses: 學程
@@ -998,9 +1010,7 @@ zh-TW:
       scoping_methods:
         scoping_methods: 範圍界定方法
         configure: 配置範圍界定方法
-        about: |-
-          對於條目範圍學程，控制面板僅會追蹤您為其配置的條目的編輯。在您建立頁面後，您可以添加單獨條目來追蹤分配給各編輯者的條目，或是透過將它們添加為可用條目。對於較大的條目集合，您可以使用這些任一工具來定義要追蹤的條目。
-          選擇您現在要配置的任何範圍界定方法。您還可以事後從條目分頁來添加範圍界定方法。
+        about: 對於條目範圍學程，控制面板僅會追蹤您為其配置的條目的編輯。在您建立頁面後，您可以添加單獨條目來追蹤分配給各編輯者的條目，或是透過將它們加入為可用條目。對於較大的條目集合，您可以使用這些任一工具來定義要追蹤的條目。選擇您現在要配置的任何範圍界定方法。您還可以事後從條目分頁來增加範圍界定方法。
         categories: 分類
         categories_short_desc: wiki 上的分類功能用於收集相關條目。您可以使用分類名稱來讓控制面板追蹤該分類裡的所有條目。
         categories_desc: |-
@@ -1073,13 +1083,13 @@ zh-TW:
     edit_template: 編輯模板
     rename_confirmation: 來自 URL 的課程欄位已更改。這將會更改 URL 並且中斷任何連入的連結。您是否確定要這樣做？
   instructor_view:
-    article_assignments: '%{prefix}分配'
+    article_assignments: '%{prefix}指派作業'
     assignments_table:
       article_name: 名稱
       current_stage: 目前階段
       relevant_links: 相關連結
-    assigned_articles: 已分配條目
-    assigned_articles_wikidata: 已分配項目
+    assigned_articles: 已指派的條目
+    assigned_articles_wikidata: 已指派的項目
     bad_work:
       learn_more: 如果學生的作業反而讓條目變得不好，我們鼓勵您自行編輯。或者是讓我們了解問題，以便事後修正。
       learn_more_wikidata: 如果學生的作業反而讓項目變得不好，我們鼓勵您自行編輯。或者是讓我們了解問題，以便事後修正。
@@ -1091,16 +1101,16 @@ zh-TW:
       quality_problems_button: 品質問題？
       notify_wiki_expert: 通知 wiki 專家
     exercises_and_trainings: '%{prefix}練習與培訓'
-    no_assignments: 此學生目前沒有分配到條目。
-    can_assign_assignments: 您可以使用上面的按鈕來分配條目。
-    no_assignments_wikidata: 此學生目前沒有分配到項目，您可以透過使用以上按鈕來分配項目給對方。
+    no_assignments: 此學生目前沒有指派的條目。
+    can_assign_assignments: 您可以使用上面的按鈕來指派條目。
+    no_assignments_wikidata: 此學生目前沒有指派的項目，您可以透過使用以上按鈕來指派項目給對方。
     overview: '%{prefix}概要'
     reviewing_articles: 審核條目中
     reviewing_articles_wikidata: 審核項目
     select_student:
       title: 選擇%{prefix}
-      content: 分配與檢視條目分配
-      content_wikidata: 分配與檢視項目分配
+      content: 指派與檢視條目指派作業
+      content_wikidata: 指派與檢視項目指派作業
   metrics:
     editors_doc: 這是編輯過課程條目的不重複使用者數量。
     program_date_doc: 這是學程日期。
@@ -1122,8 +1132,8 @@ zh-TW:
     articles_edited_wikidata: 項目已編輯
     articles_edited_generic: 已編輯的頁面
     articles_edited_generic_wikidata: 項目已編輯
-    article_scoped_program_info: 此為「條目範圍學程」，這只會計算所分配到條目與分類的編輯次數。
-    article_scoped_program_info_wikidata: 此為「條目範圍學程」，這只會計算所分配到項目與分類的編輯次數。
+    article_scoped_program_info: 此為「條目範圍學程」，這只會計算所指派到條目與分類的編輯次數。
+    article_scoped_program_info_wikidata: 此為「條目範圍學程」，這只會計算所指派到項目與分類的編輯次數。
     bytes_added: 已添加位元組
     characters: 字元
     char_added: 新增的字元
@@ -1415,13 +1425,13 @@ zh-TW:
     search_bar_placeholder: 搜尋 ticket
     chose_search_type: 選擇搜尋類型
   timeline:
-    add_assignment: 添加分配
+    add_assignment: 增加指派作作
     add_week: 增加週
     arrange_timeline: 安排時間軸
     arrange_timeline_instructions: 以 "拖曳" 區塊至預期的位置、或週間來編排時間軸，或以卡片上的箭頭來重新定位區塊。
-    assignment_dates_instructions: 選擇維基百科分配作業時間軸的起始結束日期。更改起始日期將一同異動整個時間軸。
+    assignment_dates_instructions: 選擇維基百科指派作業時間軸的起始結束日期。更改起始日期將一同異動整個時間軸。
     blackout_week_created: 本週有已排程的區塊。在您刪除本週最後班級會議之前，請先移動它們至別週。
-    block_assignment: 分配作業
+    block_assignment: 指派作業
     block_custom: 自訂
     block_in_class: 課程中
     block_milestone: 里程碑
@@ -1429,7 +1439,7 @@ zh-TW:
     block_resources: 資源
     block_type: 區塊類型用於傳遞給您的學生有關此項目在他們的時間軸上狀況，並為您建立可用工具 (如概述頁面上的里程碑)
     course_dates: 課程日期
-    course_dates_instructions: 選擇整個課程起始和結束日期 （而不是僅有維基百科的分配作業）。
+    course_dates_instructions: 選擇整個課程起始和結束日期 （而不是僅有維基百科的指派作業）。
     course_end: 課程結束
     course_start: 課程開始
     delete_week_confirmation: |-
@@ -1449,11 +1459,11 @@ zh-TW:
     empty_week_1: 要開始，
     empty_week_2: 開始編輯本週內容
     empty_week_3: 或
-    empty_week_4: 使用分配作業精靈來建立時間軸。
-    empty_week_drag_items: 空週。你可以在這裡從另一個星期移動一個區塊。
+    empty_week_4: 使用指派作業精靈來建立時間軸。
+    empty_week_drag_items: 空白週。你可以在這裡從另一個星期移動一個區塊到這裡。
     first_week_title: 活躍首週
     gradeable_value: 數值
-    gradeables_none: 此時間軸上沒有分配作業被標註分級。
+    gradeables_none: 此時間軸上沒有指派作業被標註分級。
     grading_header: 分級中（總計：%{total}）
     move_block_down: 區塊下移
     move_block_up: 區塊上移
@@ -1466,14 +1476,31 @@ zh-TW:
     save_all_changes: 儲存全部
     this_week_title_default: 本週
     title: 時間軸
-    too_many_weeks_warning: 警告！距離分配截止日期前的非假日週數不足！您可以點選「編輯課程日期」來設定會議日期和假日日期。
-    unable_to_add_week: 在時間軸已滿的狀況下，您無法新增週數。刪除至少一週或修改您的分配作業日期來為新一週挪出空間。
+    too_many_weeks_warning: 警告！距離指派作業截止日期前的非假日週數不足！您可以點選「編輯課程日期」來設定會議日期和假日日期。
+    unable_to_add_week: 在時間軸已滿的狀況下，您無法新增週數。刪除至少一週或修改您的指派作業日期來為新一週挪出空間。
     view_full_timeline: 查看完整時間表
     week_number: 第 %{number} 週
-    add_block: 新增封鎖
+    add_block: 新增區塊
     delete_week: 刪除週
+    add_standard_block: 新增標準區塊
+    standard_blocks: 標準區塊
+    standard_block_add: 新增
+    standard_block_filter: 過濾區塊
+    standard_block_matches: 相符
+    standard_block_does_not_match: 不匹配
+    standard_block_match_unknown: 未知
+    standard_block_already_added: 已在時間軸中
+    sandbox_mode: 沙盒模式
+    sandbox_mode_current_sandboxes: 在沙盒環境中進行草稿設計
+    sandbox_mode_current_live: 編輯即時條目
+    sandbox_mode_switch_to_live: 切換到即時編輯
+    sandbox_mode_switch_to_sandboxes: 切換到沙盒環境
+    sandbox_mode_added: 已新增區塊
+    sandbox_mode_removed: 已移除區塊
+    sandbox_mode_unmatched: 未找到預期的區塊。標題可能已被編輯過。
+    sandbox_mode_unresolved: 這些區塊同樣取決於一個未知的精靈答案，且尚未進行任何變更。
   training:
-    continue: 進度 (%{progress})
+    continue: 繼續 (%{progress})
     start: 開始
     view: 檢視
     next: 下一頁
@@ -1500,13 +1527,14 @@ zh-TW:
     no_training_library_records_wiki_ed_mode: 資料庫裡沒有 TrainingLibrary 紀錄。請點擊<a href="%{url}">此處</a>從
       training_content/yaml 檔案載入培訓資料。
     no_training_library_records_non_wiki_ed_mode: 資料庫裡沒有 TrainingLibrary 紀錄。
-    search_training_resources: 培訓資源搜尋
-    no_training_resource_match_your_search: 沒有符合您要搜尋的培訓資源
+    search_training_resources: 搜尋訓練資源
+    no_training_resource_match_your_search: 沒有符合您要搜尋的訓練資源
     exercise_sandbox: 練習沙盒
+    exercise_needs_assigned_article: 你必須先指派你自己一篇條目才能完成這項任務。
     remaining_exercise: 剩下 %{count} 個額外練習。
     view_all: 查看所有練習
     take_your_time: 請不用急！
-    alert_content: 徹底學習您的培訓內容至關重要。
+    alert_content: 徹底學習您的訓練內容至關重要。
     close: 關閉
     loading: 載入中…
     wiki_source: wiki 來源
@@ -1553,15 +1581,18 @@ zh-TW:
     view_commons: 在維基共享資源檢視
     wiki_big: Wiki
   users:
-    already_enrolled: 這位使用者已經登記！
+    back_to_profile: 返回個人檔案
+    back_to_stats: 傳回統計數據
+    already_enrolled: 這位使用者已經登記了！
     assign_articles: 分配條目
     assign_articles_wikidata: 分配項目
     assign_articles_done: 完成
     assigned: 已分配條目
     assigned_wikidata: 已分配項目
     assignees: 被分配者
-    loading_authorship_data: 載入作者資料中
-    authorship_data_not_fetched: 無法索取作者資料
+    loading_authorship_data: 正在載入作者資料中
+    scroll_to_users_edits: 向下捲動至下一則由 %{username} 編輯的內容
+    authorship_data_not_fetched: 無法取得作者資料
     character_doc: 加入此命名空間的內容加入總數。計算方式是把所有編輯的增加頁面文字量的編輯進行加總。這個數字並不完全代表使用者所增加的新內容，還原原本的內容也會被計算為加入總數之中。（不包含維基數據的編輯。）
     chars_added: 已增加字元<br> (條目|使用者|草稿)
     chars_added_wikidata: 新增的字元<br> (條目|使用者|草稿)
@@ -1569,6 +1600,7 @@ zh-TW:
     contributions_history_full: 檢視完整的貢獻歷史
     contributions_more: 檢視更多貢獻
     contribution_statistics: 貢獻統計
+    contributions_by_language: 按語言/專案分類的貢獻
     course_passcode: 選課代碼：
     editors: 編輯者
     edits: 編輯次數
@@ -1607,12 +1639,23 @@ zh-TW:
     profile: 個人檔案
     recent_revisions: 近期編輯
     references_count: 參考來源已添加
-    training_modules: 培訓模組
+    training_modules: 訓練模組
     remove_confirmation: 您確定要移除 %{username}嗎？
     request_confirmation: 你確定要申請此帳號嗎？
     requested_account_status:
       success_message: 成功：%{result_description}
       failure_message: 失敗：%{result_description}
+      user_exists: '%{wiki} 已存在名為 %{username} 的帳號，因此已移除 %{email} 的註冊請求 (%{code})。參與者可使用該帳號登入，或申請其他使用者名稱。'
+      user_exists_enrolled: '%{wiki} 已有名為 %{existing_username} 的帳號，且該使用者已報名參加此課程，因此已移除針對
+        %{email} 的請求 (%{code})。'
+      name_conflict_enrolled: '%{wiki} 未為 %{username} (%{email}) 建立帳號：%{message} (%{code})。%{existing_username}
+        已報名參加此課程，因此該學員可能已有帳號。'
+      throttled: 目前帳戶建立功能已受到速率限制，因此無法建立 %{username} (%{email}) 的帳戶 (%{code})。此情況通常發生在短時間內建立大量帳戶時。該請求已保留。請等待幾分鐘後再試一次。
+      captcha_required: '%{wiki} 在為 %{username} (%{email}) 建立帳號時要求輸入驗證碼 (CAPTCHA)，儀表板無法回答該驗證碼
+        (%{code})。此情況通常發生在短時間內建立大量帳號時。該請求已保留。請稍等幾分鐘後再試一次。'
+      rejected: '%{wiki} 並未為 %{username} (%{email}) 建立帳號：%{message} (%{code})'
+      api_error: 在為 %{username} (%{email}) 建立帳戶時，%{wiki} 發生錯誤：%{message} (%{code})。該請求已保留。
+      unexpected: 在為 %{username} (%{email}) 建立帳號時，%{wiki} 傳回了意外的回應：%{response}。該請求已保留、且問題已通報。
     revision_characters_and_views: 增加的字元：%{characters}，檢視數：%{views}
     revisions_doc: 依據最近期間每天平均編輯數，此編輯者在過去 7 天的預估編輯次數
     references_doc: 由此編輯者所添加或移除的參考來源數量
@@ -1633,26 +1676,26 @@ zh-TW:
         error_message: 無法將%{prefix}添加到監視清單。請稍後再試。
     total_uploads: 上傳總數
     training_complete:
-      one: 最新培訓
-      other: 最新培訓
+      one: 已完成最新訓練
+      other: 已完成最新訓練
     training_complete_count:
-      one: '%{count}最近的培訓'
-      other: '%{count}最近的培訓'
-    training_doc: 完成所有已到期的分配培訓模組之編輯者可視為完成最近培訓。
-    training_incomplete: 未完成的培訓
+      one: '%{count}訓練已更新'
+      other: '%{count}訓練已更新'
+    training_doc: 已完成所有已到期的指派訓練模組之編輯者可視為完成最新培訓。
+    training_incomplete: 訓練未完成
     training_modules_completed:
-      one: '%{completed_count}/%{count}培訓模組完成'
-      other: '%{completed_count}/%{count}培訓模組完成'
-    training_module_name: 培訓模組
+      one: '%{completed_count}/%{count}訓練模組完成'
+      other: '%{completed_count}/%{count}訓練模組完成'
+    training_module_name: 訓練模組
     training_module_status: 狀態
     training_module_time:
       minutes: 分
       seconds: 秒
-    user_training_status: 培訓狀態
-    user_no_training_status: 此使用者尚未完成任何培訓模組
-    up_to_date_with_training: 最近培訓
+    user_training_status: 訓練狀態
+    user_no_training_status: 此使用者尚未完成任何訓練模組
+    up_to_date_with_training: 保持訓練的最新狀態
     uploads_doc: 上傳到維基共享資源的檔案數量
-    ungreeted: 不歡迎
+    ungreeted: 不受歡迎
     username: 使用者名稱
     username_placeholder: 使用者名稱
     useremail_placeholder: 請輸入電子郵件
@@ -1664,12 +1707,18 @@ zh-TW:
       visitor: 訪客
       student: 學生
       instructor: 導師
-      campus_volunteer: 校園志工
-      online_volunteer: 線上志工
-      wiki_ed_staff: 維基教育成員
-    email_required_instructor: 僅限現有導師使用。課程結束後，您可以移除您的電子郵件地址。
+      campus_volunteer: 校園義工
+      online_volunteer: 線上義工
+      wiki_ed_staff: 維基教育職員
+    email_required_instructor: 僅限現有的導師使用。課程結束後，您可以移除您的電子郵件地址。
     email_invalid: 無效：請輸入有效的電子郵件
+    imagemagick_not_installed: 由於未安裝 ImageMagick，因此無法處理上傳的圖片。
   user_profiles:
+    detailed_impact: 詳細的影響
+    words_added_per_article: 每篇條目新增的字數
+    references_added_per_article: 每篇條目新增的參考文獻
+    articles_edited_detail: 編輯的條目
+    no_articles_edited: 此使用者目前尚無資料可在此區段顯示。
     student_impact: 由%{username}以學生身份做出的所有影響
     instructor_impact: 由%{username}以導師身份做出的所有影響
     instructors_student_impact: 由%{username}的學生做出的所有影響
@@ -1744,6 +1793,22 @@ zh-TW:
     no_notifications: 你沒有新的通知。
     aria_label:
       bell: 通知
+  downloads:
+    available_in_bell: 您的檔案已準備就緒。請前往下載通知頁面。
+    title: 下載
+    none: 您目前尚未下載任何檔案。
+    generating: 產生中…
+    ready: 就緒
+    error: 失敗
+    timeout: 仍在處理中…
+    retry: 再次檢查
+    download: 下載
+    dismiss: 關閉
+    new_downloads: 您有新的下載項目。
+    no_downloads: 您沒有新的下載項目。
+    aria_label: 下載
+    csv: 下載 CSV
+    json: 下載 JSON
   survey:
     login_message: 感謝您挪出時間。請登入教育功能面板來填寫問卷。
     notification_explanation: 若下方已選取使用者會依通知排程時間接收到電子郵件訊息，並額外會在瀏覽器上顯示訊息。反之若不，僅會顯示訊息於瀏覽器裡。
