@@ -37,8 +37,8 @@ module ArticleAuditing
     end
 
     def run(context)
-      response = adapter.complete(system_blocks: context.llm_system_blocks, user: prompt,
-                                  json_schema: schema, model:, effort:)
+      response = adapter.complete(system_blocks: context.llm_system_blocks,
+                                  user: user_content(context), json_schema: schema, model:, effort:)
       json = response.json || {}
       findings = build_findings(json['findings'])
       unverified = QuoteValidator.new(context).mark!(findings)
@@ -62,6 +62,13 @@ module ArticleAuditing
     end
 
     private
+
+    # The request's user message: the check's prompt, plus any data the check
+    # gathered about the wiki (see checks that override this). The article
+    # itself is in the cached system blocks.
+    def user_content(_context)
+      prompt
+    end
 
     def provider
       config.fetch('provider', 'anthropic')

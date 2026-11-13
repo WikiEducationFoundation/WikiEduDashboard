@@ -100,23 +100,62 @@ describe ArticleAuditing::LlmCheck do
   end
 
   describe 'checks that apply only to some pages' do
-    def page(mainspace:, creation: false, wikitext: '')
-      instance_double(ArticleAuditing::Context, mainspace?: mainspace, page_creation?: creation,
+    def page(mainspace:, new_article: false, wikitext: '')
+      instance_double(ArticleAuditing::Context, mainspace?: mainspace, new_article?: new_article,
                                                 wikitext:)
     end
 
-    it 'runs new-article checks on drafts and new pages only' do
+    it 'runs notability only on new articles' do
       check = ArticleAuditing::Checks::Notability.new
-      expect(check.applies_to?(page(mainspace: false))).to be(true)
-      expect(check.applies_to?(page(mainspace: true, creation: true))).to be(true)
+      expect(check.applies_to?(page(mainspace: false, new_article: true))).to be(true)
+      expect(check.applies_to?(page(mainspace: false))).to be(false)
       expect(check.applies_to?(page(mainspace: true))).to be(false)
     end
 
-    it 'proposes a short description for established articles only when they lack one' do
+    it 'proposes a short description for new articles and articles that lack one' do
       check = ArticleAuditing::Checks::ShortDescription.new
+      expect(check.applies_to?(page(mainspace: false, new_article: true))).to be(true)
       expect(check.applies_to?(page(mainspace: true, wikitext: 'Text'))).to be(true)
       described = page(mainspace: true, wikitext: '{{Short description|Cat}} Text')
       expect(check.applies_to?(described)).to be(false)
+      expect(check.applies_to?(page(mainspace: false, wikitext: 'Draft of an existing article')))
+        .to be(false)
+    end
+  end
+
+  describe 'checks that send gathered wiki data' do
+    let(:wiki_context) { instance_double(ArticleAuditing::WikiContext, target_title: 'Topic') }
+
+    before { allow(context).to receive(:wiki_context).and_return(wiki_context) }
+
+    it 'sends existing-coverage search results after the prompt' do
+      allow(wiki_context).to receive(:related_articles).and_return([
+        { title: 'Topic (film)', description: 'A film', extract: 'Topic is a 2001 film.' }
+      ])
+      check = ArticleAuditing::Checks::ExistingCoverage.new
+      check.run(context)
+      expect(adapter).to have_received(:complete).with(hash_including(user: a_string_including(
+        check.prompt, '<result title="Topic (film)" description="A film">', 'Topic is a 2001 film.'
+      )))
+    end
+
+    it 'sends candidate categories and marks proposed categories that do not exist' do
+      allow(context).to receive(:parsed_wikitext)
+        .and_return(ArticleAuditing::Wikitext.new('See [[Cats]] and [[Dogs]]. [[Category:Pets]]'))
+      allow(wiki_context).to receive(:category_counts).with(%w[Cats Dogs])
+                                                       .and_return('Category:Mammals' => 2)
+      allow(wiki_context).to receive(:existing_titles).and_return('Category:Mammals' => {})
+      allow(adapter).to receive(:complete).and_return(llm_response.with(json: {
+        'findings' => [], 'categories' => [{ 'name' => 'Mammals', 'reason' => 'r' },
+                                           { 'name' => 'Made up', 'reason' => 'r' }]
+      }))
+      output = ArticleAuditing::Checks::Categories.new.run(context.tap do |c|
+        allow(c).to receive(:wikitext).and_return('[[Category:Pets]]')
+      end)
+      expect(adapter).to have_received(:complete)
+        .with(hash_including(user: a_string_including('Category:Mammals (2)', 'Category:Pets')))
+      expect(output.artifacts['categories'].map { |c| c['exists'] }).to eq([true, false])
+      expect(output.usage['nonexistent_categories']).to eq(1)
     end
   end
 end

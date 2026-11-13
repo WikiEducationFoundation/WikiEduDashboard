@@ -14,7 +14,12 @@ describe 'Article Audit admin pages', type: :feature, js: true do
                     parsed_wikitext: ArticleAuditing::Wikitext.new(wikitext),
                     wikitext:, plaintext: 'Introduction Acme is a world-class company.',
                     prose_text: 'Acme is a world-class company.', mainspace?: false,
-                    page_creation?: true, mw_rev_id: 42,
+                    page_creation?: true, new_article?: true, mw_rev_id: 42,
+                    wiki_context: instance_double(
+                      ArticleAuditing::WikiContext, target_title: nil, target_page: nil,
+                      target_exists?: false, talk_page: nil, target_first_revision_text: nil,
+                      existing_titles: {}, category_counts: {}
+                    ),
                     wiki: Wiki.get_or_create(language: 'en', project: 'wikipedia'),
                     llm_system_blocks: [{ text: 'article', cache: true }])
   end

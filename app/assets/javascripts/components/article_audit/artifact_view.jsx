@@ -2,7 +2,7 @@ import React from 'react';
 
 // Renders a check's artifacts (structured output that isn't a finding, such
 // as a proposed short description or a table of sources) generically: strings
-// as text, objects of plain values as label/value lists, arrays of objects as
+// as text, objects as label/value lists (recursively), arrays of objects as
 // tables, and anything else as JSON.
 
 const isRecordList = value => Array.isArray(value) && value.length > 0
@@ -32,13 +32,20 @@ const RecordTable = ({ records }) => {
 
 const isLink = value => typeof value === 'string' && /^https?:\/\//.test(value);
 
-// An object of scalar values, such as a notability assessment, as label/value pairs.
+const ScalarValue = ({ value }) => (
+  isLink(value) ? <a href={value} target="_blank" rel="noopener noreferrer">{value}</a> : cellText(value)
+);
+
+const isPlainObject = value => value && typeof value === 'object' && !Array.isArray(value);
+
+// An object, such as a notability assessment, as label/value pairs; values
+// that are themselves lists or objects render recursively.
 const FieldList = ({ fields }) => (
   <dl className="article-audit-artifact__fields">
     {Object.entries(fields).map(([name, value]) => (
       <React.Fragment key={name}>
         <dt>{name}</dt>
-        <dd>{isLink(value) ? <a href={value} target="_blank" rel="noopener noreferrer">{value}</a> : cellText(value)}</dd>
+        <dd>{isScalar(value) ? <ScalarValue value={value} /> : <ArtifactValue value={value} />}</dd>
       </React.Fragment>
     ))}
   </dl>
@@ -46,13 +53,12 @@ const FieldList = ({ fields }) => (
 
 const ArtifactValue = ({ value }) => {
   if (typeof value === 'string') return <p>{value}</p>;
-  if (value && typeof value === 'object' && !Array.isArray(value) && Object.values(value).every(isScalar)) {
-    return <FieldList fields={value} />;
-  }
+  if (isPlainObject(value)) return <FieldList fields={value} />;
   if (isRecordList(value)) return <RecordTable records={value} />;
   if (Array.isArray(value) && value.every(item => typeof item === 'string')) {
     return <ul>{value.map(item => <li key={item}>{item}</li>)}</ul>;
   }
+  if (Array.isArray(value) && value.length === 0) return <p>—</p>;
   return <pre>{JSON.stringify(value, null, 2)}</pre>;
 };
 

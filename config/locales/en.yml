@@ -167,6 +167,13 @@ en:
           missing_list:
             title: "[PLACEHOLDER - title: reference list missing]"
             explanation: "[PLACEHOLDER - explanation: page uses <ref> tags but has no {{Reflist}} or <references /> to show them]"
+        author_links:
+          author:
+            title: "[PLACEHOLDER - title: link author %{name} to the article %{article}]"
+            explanation: "[PLACEHOLDER - explanation: the author may have a Wikipedia article; if it is the same person, add author-link]"
+          work:
+            title: "[PLACEHOLDER - title: link %{name} to the article %{article}]"
+            explanation: "[PLACEHOLDER - explanation: the publication has a Wikipedia article; link it from the citation]"
         page_numbers:
           missing_pages:
             title: "[PLACEHOLDER - title: book citation without page numbers (%{count} in article)]"
@@ -199,6 +206,10 @@ en:
           mixed:
             title: "[PLACEHOLDER - title: mixed date formats (%{dmy} day-month, %{mdy} month-day)]"
             explanation: "[PLACEHOLDER - explanation: use one date format consistently throughout the article]"
+        engvar:
+          mismatch:
+            title: "[PLACEHOLDER - title: %{word} is not %{variety} spelling]"
+            explanation: "[PLACEHOLDER - explanation: the article is established in %{variety} English; keep its spelling consistent]"
         sentence_spacing:
           missing_space:
             title: "[PLACEHOLDER - title: no space between sentences (%{count} in article)]"
@@ -236,6 +247,17 @@ en:
           link_in_body:
             title: "[PLACEHOLDER - title: external link in article body]"
             explanation: "[PLACEHOLDER - explanation: external links belong in a citation or the External links section, not in the body]"
+        navboxes:
+          missing_navbox:
+            title: "[PLACEHOLDER - title: navbox %{navbox} links here but isn't on the page]"
+            explanation: "[PLACEHOLDER - explanation: a navigation box normally appears on every article it links to]"
+        incoming_links:
+          few_links:
+            title: "[PLACEHOLDER - title: only %{count} articles link here]"
+            explanation: "[PLACEHOLDER - explanation: articles with few incoming links are hard for readers to find; add links from related articles]"
+          unlinked_mentions:
+            title: "[PLACEHOLDER - title: %{count} articles mention this topic without linking it]"
+            explanation: "[PLACEHOLDER - explanation: consider adding links from articles such as %{examples}]"
         inappropriate_external_links:
           flagged_link:
             title: "[PLACEHOLDER - title: link to %{domain} in External links]"
@@ -254,7 +276,42 @@ en:
           ai_likely:
             title: "[PLACEHOLDER - title: text likely AI-generated (Pangram max %{max}%)]"
             explanation: "[PLACEHOLDER - explanation: the AI detector rates part of this text as likely AI-generated; AI-generated text is not acceptable]"
+      new_article:
+        wikidata:
+          no_item:
+            title: "[PLACEHOLDER - title: article has no Wikidata item]"
+            explanation: "[PLACEHOLDER - explanation: connect the article to a Wikidata item, creating one if none exists]"
+          item_has_article:
+            title: "[PLACEHOLDER - title: Wikidata item %{id} is already linked to %{article}]"
+            explanation: "[PLACEHOLDER - explanation: a matching Wikidata item already has an English Wikipedia article; check whether it covers this topic]"
+          possible_item:
+            title: "[PLACEHOLDER - title: %{count} possible Wikidata items for this topic]"
+            explanation: "[PLACEHOLDER - explanation: after publishing, link the article to the matching Wikidata item]"
+      infobox:
+        speciesbox:
+          use_speciesbox:
+            title: "[PLACEHOLDER - title: use Speciesbox instead of Taxobox]"
+            explanation: "[PLACEHOLDER - explanation: species articles use the automatic Speciesbox, which fills in the classification]"
+          needs_taxonomy_template:
+            title: "[PLACEHOLDER - title: Template:Taxonomy/%{genus} doesn't exist]"
+            explanation: "[PLACEHOLDER - explanation: create the genus taxonomy template before switching to Speciesbox]"
       flags:
+        target_status:
+          featured_article:
+            title: "[PLACEHOLDER - title: %{article} is a Featured article]"
+            explanation: "[PLACEHOLDER - explanation: discuss substantial changes on the talk page before adding them]"
+          good_article:
+            title: "[PLACEHOLDER - title: %{article} is a Good article]"
+            explanation: "[PLACEHOLDER - explanation: keep changes to Good article standard]"
+          featured_list:
+            title: "[PLACEHOLDER - title: %{article} is a Featured list]"
+            explanation: "[PLACEHOLDER - explanation: discuss substantial changes on the talk page before adding them]"
+          contentious:
+            title: "[PLACEHOLDER - title: contentious topic (%{notice})]"
+            explanation: "[PLACEHOLDER - explanation: stricter editing rules apply to this topic; read the talk page notice]"
+          active_talk:
+            title: "[PLACEHOLDER - title: active talk page (%{edits} edits in 30 days)]"
+            explanation: "[PLACEHOLDER - explanation: read the current talk page discussion before making changes]"
         page_status:
           featured_article:
             title: "[PLACEHOLDER - title: this is a Featured article]"

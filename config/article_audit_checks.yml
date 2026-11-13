@@ -64,6 +64,36 @@ links.inappropriate_external_links:
   class: ArticleAuditing::Checks::InappropriateExternalLinks
   enabled: true
 
+# Wiki-context checks: these look up the article's surroundings on the wiki
+# (see lib/article_auditing/wiki_context.rb).
+new_article.wikidata:
+  class: ArticleAuditing::Checks::WikidataItem
+  enabled: true
+
+links.navboxes:
+  class: ArticleAuditing::Checks::Navboxes
+  enabled: true
+
+links.incoming_links:
+  class: ArticleAuditing::Checks::IncomingLinks
+  enabled: true
+
+sourcing.author_links:
+  class: ArticleAuditing::Checks::AuthorLinks
+  enabled: true
+
+mos.engvar:
+  class: ArticleAuditing::Checks::EnglishVariety
+  enabled: true
+
+infobox.speciesbox:
+  class: ArticleAuditing::Checks::Speciesbox
+  enabled: true
+
+flags.target_status:
+  class: ArticleAuditing::Checks::TargetStatus
+  enabled: true
+
 # Pangram AI detection; skipped when pangram_api_key isn't set.
 external.ai_detection:
   class: ArticleAuditing::Checks::AiDetection
@@ -148,6 +178,20 @@ new_article.notability:
 
 new_article.short_description:
   class: ArticleAuditing::Checks::ShortDescription
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: low
+
+new_article.existing_coverage:
+  class: ArticleAuditing::Checks::ExistingCoverage
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: medium
+
+new_article.categories:
+  class: ArticleAuditing::Checks::Categories
   enabled: true
   provider: anthropic
   model: claude-opus-5-5

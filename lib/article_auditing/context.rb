@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/wiki_api"
 require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 require_dependency "#{Rails.root}/lib/article_auditing/wikitext"
 require_dependency "#{Rails.root}/lib/article_auditing/llm_check"
+require_dependency "#{Rails.root}/lib/article_auditing/wiki_context"
 
 module ArticleAuditing
   # Everything a check might want to know about the audited revision,
@@ -28,6 +29,7 @@ module ArticleAuditing
       wikitext
       plaintext
       prose_text
+      wiki_context.target_page
       self
     end
 
@@ -56,6 +58,20 @@ module ArticleAuditing
 
     def mainspace?
       namespace == Article::Namespaces::MAINSPACE
+    end
+
+    # The page's surroundings on the wiki, including the mainspace article
+    # it is a draft of. See WikiContext.
+    def wiki_context
+      @wiki_context ||= WikiContext.new(wiki:, title:, namespace:)
+    end
+
+    # The content is a new article rather than an improvement to an existing
+    # one: a mainspace page's first revision, or a draft whose target article
+    # doesn't exist yet (or whose target can't be told from its title).
+    def new_article?
+      return page_creation? if mainspace?
+      !wiki_context.target_exists?
     end
 
     def wikitext
@@ -113,10 +129,17 @@ module ArticleAuditing
 
     def article_block
       <<~ARTICLE
-        <article title="#{title}" namespace="#{namespace}" revision="#{mw_rev_id}" wiki="#{wiki.domain}">
+        <article #{article_attributes}>
         #{wikitext}
         </article>
       ARTICLE
+    end
+
+    def article_attributes
+      attributes = { title:, namespace:, revision: mw_rev_id, wiki: wiki.domain,
+                     target_title: wiki_context.target_title,
+                     target_exists: (wiki_context.target_exists? if wiki_context.target_title) }
+      attributes.compact.map { |name, value| %(#{name}="#{CGI.escapeHTML(value.to_s)}") }.join(' ')
     end
 
     def html_to_plaintext(source, extra_selectors: nil)
