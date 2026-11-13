@@ -143,6 +143,18 @@ of that session. Only add `SLOW=` when the user explicitly requests slow mode.
 
 Never commit without being asked, even after a spec run succeeds.
 
+## Screen reader specs
+
+Specs tagged `:screen_reader` drive Orca, a real screen reader, and assert on
+what it says. Run them with `bin/screen-reader-spec <spec_file>`; every other
+run, CI included, leaves them out. They need Linux and a recent Orca (tested
+with 51.1); the script's header lists the packages, and the helpers are in
+`spec/support/screen_reader.rb`. Orca's debug log from the last run is
+`tmp/screen_reader/orca.log`.
+
+Reach for one when a change is about what a screen reader announces. The
+Chrome accessibility tree shows structure, not what gets spoken or when.
+
 ## Specs
 
 - Always `require 'rails_helper'`
