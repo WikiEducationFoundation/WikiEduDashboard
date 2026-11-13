@@ -1,0 +1,130 @@
+// Admin Article Audit pages (/article_audits). Variables come from
+// _variables.styl (globally in scope via _shared). The severity and status
+// colors are darker than $warning_text / $success_text so that small text
+// on the light backgrounds meets WCAG AA contrast.
+
+$audit_red = #A63A3A
+$audit_amber = #855200
+$audit_green = #22705B
+
+.article-audit
+  margin-top 40px
+  margin-bottom 60px
+
+  h2
+    margin-top 32px
+
+  &__intro,
+  &__meta,
+  &__notice
+    color $text_med
+
+  &__form
+    display flex
+    gap 8px
+    align-items center
+    max-width 800px
+    input
+      flex 1
+
+  &__error
+    color $audit_red
+
+  &__status
+    display inline-block
+    padding 2px 8px
+    border-radius 10px
+    background $bg_med
+    font-size .85em
+    &--complete
+      color $audit_green
+    &--partial,
+    &--failed
+      color $audit_red
+
+  &__findings
+    list-style none
+    margin 0
+    padding 0
+
+  &__checks
+    margin-top 32px
+
+.article-audit-finding
+  border 1px solid $border_lt
+  border-left-width 4px
+  border-radius 4px
+  padding 12px 16px
+  margin-bottom 12px
+
+  &--must_fix
+    border-left-color $audit_red
+  &--should_fix
+    border-left-color #E0A040
+  &--suggestion
+    border-left-color $brand_primary
+  &--info
+    border-left-color $border_med_dk
+
+  &__header
+    display flex
+    flex-wrap wrap
+    gap 8px
+    align-items baseline
+
+  &__severity
+    text-transform uppercase
+    letter-spacing .05em
+    font-size .75em
+    font-weight 600
+    &--must_fix
+      color $audit_red
+    &--should_fix
+      color $audit_amber
+    &--suggestion
+      color $brand_primary
+    &--info
+      color $text_med
+
+  &__title
+    font-weight 600
+
+  &__section
+    color $text_med
+    font-size .9em
+
+  &__quote
+    margin 8px 0
+    padding 6px 12px
+    background $bg_light_gray
+    border-left 3px solid $border_med
+    font-family monospace
+    font-size .9em
+    white-space pre-wrap
+
+  &__unverified
+    display block
+    color $audit_red
+    font-family inherit
+    font-size .85em
+
+  &__suggestion pre
+    background $bg_light_gray
+    padding 6px 12px
+    white-space pre-wrap
+
+  &__label
+    font-size .8em
+    color $text_med
+
+  &__meta
+    display flex
+    flex-wrap wrap
+    gap 10px
+    font-size .85em
+    color $text_med
+    code
+      color $text_dk
+
+.article-audit-artifact
+  margin-top 24px

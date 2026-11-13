@@ -1,0 +1,12 @@
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table.main-content
+          %tr
+            %td
+              %p.paragraph
+                = t('article_audit.email.body', title: @audit.article_title, status: @audit.status)
+              %p.paragraph
+                %a.button{href: @report_link}= t('article_audit.email.view_report')

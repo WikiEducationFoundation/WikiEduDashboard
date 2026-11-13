@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_09_120100) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_12_120100) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -67,6 +67,44 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_09_120100) do
     t.index ["revision_id"], name: "index_alerts_on_revision_id"
     t.index ["target_user_id"], name: "index_alerts_on_target_user_id"
     t.index ["user_id"], name: "index_alerts_on_user_id"
+  end
+
+  create_table "article_audit_check_results", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "article_audit_id", null: false
+    t.string "check_key", null: false
+    t.string "check_version"
+    t.string "engine"
+    t.string "status", default: "running", null: false
+    t.text "error"
+    t.text "findings", size: :medium
+    t.text "artifacts", size: :medium
+    t.text "usage"
+    t.integer "duration_ms"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_audit_id"], name: "index_article_audit_check_results_on_article_audit_id"
+  end
+
+  create_table "article_audits", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.integer "wiki_id", null: false
+    t.integer "mw_rev_id", null: false
+    t.integer "mw_page_id"
+    t.integer "namespace"
+    t.string "article_title"
+    t.string "url", limit: 1000
+    t.integer "article_id"
+    t.integer "requester_id"
+    t.integer "course_id"
+    t.integer "user_id"
+    t.string "status", default: "queued", null: false
+    t.text "error"
+    t.text "usage"
+    t.datetime "started_at"
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["requester_id"], name: "index_article_audits_on_requester_id"
+    t.index ["wiki_id", "mw_rev_id"], name: "index_article_audits_on_wiki_id_and_mw_rev_id"
   end
 
   create_table "article_course_timeslices", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|

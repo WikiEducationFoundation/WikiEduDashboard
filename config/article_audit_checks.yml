@@ -1,0 +1,43 @@
+# Article Audit check registry. See lib/article_auditing/registry.rb.
+#
+# Each key is a check's KEY. Checks run in the order listed here:
+# deterministic checks first, then LLM checks (the first LLM check runs alone
+# so it writes the prompt cache; the rest run in parallel).
+#
+# For LLM checks, `provider`, `model` and `effort` choose the engine. Moving a
+# check to another engine is a change here (plus a new check class if the
+# implementation changes, eg from a prompt to plain code).
+
+sourcing.reference_list:
+  class: ArticleAuditing::Checks::ReferenceList
+  enabled: true
+
+mos.reference_placement:
+  class: ArticleAuditing::Checks::ReferencePlacement
+  enabled: true
+
+structure.lead_section:
+  class: ArticleAuditing::Checks::LeadSection
+  enabled: true
+
+mos.appendix_sections:
+  class: ArticleAuditing::Checks::AppendixSections
+  enabled: true
+
+links.external_links_in_body:
+  class: ArticleAuditing::Checks::ExternalLinksInBody
+  enabled: true
+
+sourcing.unsourced_claims:
+  class: ArticleAuditing::Checks::UnsourcedClaims
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: medium
+
+tone:
+  class: ArticleAuditing::Checks::Tone
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: medium

@@ -1,0 +1,84 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+require "#{Rails.root}/lib/article_auditing/context"
+require "#{Rails.root}/lib/article_auditing/registry"
+
+describe ArticleAuditing::LlmCheck do
+  let(:check) { ArticleAuditing::Checks::Tone.new('model' => 'claude-opus-5-5', 'effort' => 'low') }
+  let(:system_blocks) { [{ text: 'system', cache: false }, { text: 'article', cache: true }] }
+  let(:context) do
+    instance_double(ArticleAuditing::Context,
+                    llm_system_blocks: system_blocks,
+                    wikitext: "'''Acme''' is a [[world-class]] company.<ref>x</ref>",
+                    plaintext: 'Acme is a world-class company.')
+  end
+  let(:adapter) { instance_double(Llm::AnthropicAdapter) }
+  let(:llm_findings) do
+    [
+      { 'severity' => 'should_fix', 'title' => 'Peacock term', 'explanation' => 'Puffery.',
+        'section' => 'Lead', 'quote' => 'is a world-class   company', 'suggestion' => '',
+        'policy_refs' => ['WP:PEACOCK'] },
+      { 'severity' => 'urgent', 'title' => 'Invented', 'explanation' => 'x', 'section' => '',
+        'quote' => 'text that is not in the article', 'suggestion' => 'y', 'policy_refs' => [] }
+    ]
+  end
+  let(:llm_response) do
+    Llm::Response.new(text: '{}', json: { 'findings' => llm_findings }, model: 'claude-opus-5-5',
+                      usage: { 'input_tokens' => 10, 'output_tokens' => 5 })
+  end
+
+  before do
+    allow(Llm::Client).to receive(:adapter).with('anthropic').and_return(adapter)
+    allow(adapter).to receive(:complete).and_return(llm_response)
+  end
+
+  it 'sends the shared system blocks, its own prompt, schema, model and effort' do
+    check.run(context)
+    expect(adapter).to have_received(:complete).with(
+      system_blocks:, user: check.prompt, json_schema: check.schema,
+      model: 'claude-opus-5-5', effort: 'low'
+    )
+    expect(check.prompt).to include('tone')
+  end
+
+  it 'maps findings into the shared shape' do
+    findings = check.run(context).findings
+    expect(findings.first).to include('check' => 'tone', 'category' => 'tone',
+                                      'severity' => 'should_fix', 'suggestion' => nil)
+    expect(findings.first['location']).to include('section' => 'Lead')
+  end
+
+  it 'replaces an unknown severity' do
+    expect(check.run(context).findings.last['severity']).to eq('suggestion')
+  end
+
+  it 'marks quotes that do not appear in the article and counts them' do
+    output = check.run(context)
+    expect(output.findings.map { |f| f.dig('location', 'quote_verified') }).to eq([true, false])
+    expect(output.usage).to include('unverified_quotes' => 1, 'input_tokens' => 10,
+                                    'model' => 'claude-opus-5-5')
+  end
+
+  it 'reports its engine and a version that tracks the prompt' do
+    expect(check.engine).to eq('anthropic:claude-opus-5-5')
+    original_version = check.version
+    allow(File).to receive(:read).and_call_original
+    allow(File).to receive(:read).with(described_class::PROMPT_DIR.join('tone.md'))
+                                 .and_return('a different prompt')
+    expect(ArticleAuditing::Checks::Tone.new.version).not_to eq(original_version)
+  end
+
+  it 'has a version that also tracks the shared system prompt' do
+    original_version = check.version
+    allow(described_class).to receive(:system_prompt).and_return('different instructions')
+    expect(ArticleAuditing::Checks::Tone.new.version).not_to eq(original_version)
+  end
+
+  it 'has a prompt file for every LLM check in the registry' do
+    ArticleAuditing::Registry.keys.map { |key| ArticleAuditing::Registry.check(key) }
+                             .grep(described_class).each do |llm_check|
+      expect(llm_check.prompt).to be_present
+    end
+  end
+end
