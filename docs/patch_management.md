@@ -105,8 +105,6 @@ automatically; application-level fixes ship through the normal deploy after CI p
 
 ## Current exceptions
 
-- Staging (`dashboard-testing.wikiedu.org`) is on Debian 10, which is past end of life, and
-  is to be rebuilt on a current release. It holds no production data and sits behind the
-  same firewall rules as production.
+None.
 
 (Document written by Claude Code.)
