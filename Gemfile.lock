@@ -243,7 +243,7 @@ GEM
       base64
       ssrf_filter (~> 1.5)
     csv (3.3.5)
-    dalli (3.2.15)
+    dalli (3.2.17)
       logger
     date (3.5.1)
     debug_inspector (1.1.0)
@@ -408,7 +408,7 @@ GEM
     minitest (6.0.5)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.4)
+    msgpack (1.8.7)
     multipart-post (2.4.1)
     mysql2 (0.5.4)
     nenv (0.3.0)
@@ -453,11 +453,11 @@ GEM
     oj (3.17.3)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
-    omniauth (2.1.4)
-      hashie (>= 3.4.6)
+    omniauth (2.4.1)
+      hashie (>= 3.5.2)
       logger
-      rack (>= 2.2.3)
-      rack-protection
+      rack (>= 2.2.8)
+      rack-protection (>= 2.2.0)
     omniauth-oauth (1.2.1)
       oauth
       omniauth (>= 1.0, < 3)
@@ -497,7 +497,7 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (7.2.1)
+    puma (7.2.2)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
