@@ -10,6 +10,7 @@
 # Author: LNDDYL
 # Author: Liuxinyu970226
 # Author: LowensteinYang
+# Author: PacmanD
 # Author: Reke
 # Author: S8321414
 # Author: Shangkuanlc
@@ -393,6 +394,7 @@ zh-TW:
     add_placeholder: 輸入條目標題或URL
     assign_self: 指派自己一個條目
     invalid_mainspace_article: 這必須是一篇有效的主空間條目。
+    invalid_title_format: 「%{title}」不是一個有效的標題格式。
     assign_self_wikidata: 指派自己一個項目
     assign_tooltip: 一個是您計劃要創建、或要改善的已指派條目
     assign_tooltip_wikidata: 已指派的是您計劃要建立或要改善的項目。
@@ -943,6 +945,24 @@ zh-TW:
     survey:
       notification_message: 採用我們替於此課程作的調查
       link: 參加調查
+  course_application_forms:
+    intro: 介紹
+    add: 新增
+    acceptance_email_help: 接受後，此內容將以電郵送至申請者。送件人：%{sender}
+  course_applications:
+    apply: 申請
+    submit: 提交申請
+    closed: 此課程未開放申請。
+  course_application_reviews:
+    title: 申請
+    statuses:
+      submitted: 已提交
+      accepted: 已接受
+    status: 狀態
+    submitted_at: 已提交
+    decided_by: 決定於
+    decline: 拒絕
+    acceptance_email_missing: 接受電郵不存在
   course_instructor_notification:
     notify_instructors: 發送電子郵件給導師
     notify_instructors_feature_description: 透過電子郵件向導師寄送訊息

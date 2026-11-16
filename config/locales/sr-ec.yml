@@ -754,6 +754,8 @@ sr-ec:
     survey:
       notification_message: Уради анкету за овај курс.
       link: Уради анкету
+  course_applications:
+    optional: (необавезно)
   course_instructor_notification:
     send_notification_button_text: Пошаљи
     write_subject: Тема

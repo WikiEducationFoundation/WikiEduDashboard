@@ -619,6 +619,8 @@ pl:
     survey:
       notification_message: Wypełnij naszą ankietę dotyczącą tego kursu.
       link: Wypełnij ankietę
+  course_application_forms:
+    question_groups: S
   courses_generic:
     add_campaign: Dodaj kampanię
     all_courses: Wszystkie programy

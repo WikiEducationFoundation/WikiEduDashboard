@@ -920,6 +920,8 @@ skr-arab:
     features_feedback: 'خود کار تجویزاں:'
     feedback: تہاڈی رائے
     feedback_loading: مہربانی کرکے انتظار کرو جڈاں تجویزاں لوڈ تھیندیاں پئین۔
+    grant_id: گرانٹ آئی ڈی
+    grant_id_checking: جانچ تھیندی پئی ہے...
     gradeables_none: ایں کورس وچ کوئی گریڈ کرݨ آلیاں تفویضاں ناہیں۔
     home_wiki: ہوم وکی
     multi_wiki: کھوج کرݨ آلیاں وکیاں
@@ -1163,6 +1165,29 @@ skr-arab:
     survey:
       notification_message: این کورس کیتے ساݙا سروے کرو۔
       link: سروے ݙیو
+  course_application_forms:
+    intro: تعارف
+    edit_question_group: لکھو
+    move_up: اُتے ونڄو
+    move_down: ہیٹھاں گھن آؤ
+    remove: ہٹاؤ
+    add: شامل کرو
+    save: بچاؤ
+    saved: محفوظ
+  course_applications:
+    apply: لاگو کرو
+  course_application_reviews:
+    statuses:
+      submitted: جمع تھی ڳیا
+      accepted: منظور تھیا
+      declined: انکار تھی ڳیا
+    real_name: اصلی ناں
+    email: ای میل
+    status: حیثیت
+    submitted_at: جمع تھی ڳیا
+    decline: انکار کرو
+    delete: مٹاؤ
+    download_csv: CSV ڈاؤن لوڈ کرو
   course_instructor_notification:
     notify_instructors: انسٹرکٹرز کوں ای میل کرو
     notify_instructors_feature_description: انسٹرکٹرز کوں ای میل دے ذریعے پیغام بھیجو

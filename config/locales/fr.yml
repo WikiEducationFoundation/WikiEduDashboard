@@ -45,6 +45,7 @@
 # Author: Trial
 # Author: Tuxxic
 # Author: Urhixidur
+# Author: Uriel
 # Author: VIGNERON
 # Author: Verdy p
 # Author: Wladek92
@@ -69,6 +70,7 @@ fr:
   application:
     back: Retour
     cancel: Annuler
+    close: Fermer
     next: Suivant
     skip_to_main_content: Aller au contenu principal
     cookie_consent: Ce site utilise des témoins (''cookies'') pour vous maintenir
@@ -96,6 +98,7 @@ fr:
     log_in: Se connecter
     log_out: Se déconnecter
     my_dashboard: Mon tableau de bord
+    navigation_menu: Menu de navigation
     okay: Ok
     recent_activity: Activité récente
     report_problem: Signaler un problème
@@ -243,6 +246,7 @@ fr:
       export_csv: Exporter au format CSV
       export_daily_csv: Exporter les statistiques quotidiennes au format CSV
       course_csv_tab: Exportations au niveau de la formation
+      daily_stats_tab: Instantanés quotidiens du système
       generating: Génération de l'exportation en cours...
       generation_queued: Votre exportation CSV est en cours de génération en arrière-plan.
         Nouvelle tentative en cours...
@@ -269,10 +273,40 @@ fr:
     charts:
       monthly_trends: Tendances mensuelles d'activité
       wiki_trends: Tendances wiki (Top 5)
+      plot_metric: 'Métrique du graphique :'
     tables:
+      wiki_breakdown: Analyse des statistiques Wiki
+      wiki: Wiki
+      edits: Modifications
+      programs: Programmes
+      articles_created: Articles créés
+      new_editors: Nouveaux contributeurs (préinscription de moins de 60 jours)
       retained_new_editors: Rédacteurs retenus
     facilitators:
+      title: Tableau de bord de l’animateur
+      username: Nom d’utilisateurice
+      courses: Cours
+      active: Actif ou active
+      students: Étudiant·e·s
       retained_new_editors: Rédacteurs retenus
+      active_in_year: Actifs et actives dans l'année
+      "yes": Oui
+      "no": Non
+    pagination:
+      previous: Précédent
+      next: Suivante
+    loading:
+      data: Chargement des données depuis le serveur...
+      wiki_stats: Je charge les statistiques du wiki...
+      wiki_trends: Je télécharge les tendances de wiki...
+    empty:
+      no_trend_data: Aucune donnée sur la tendance n'est disponible.
+      no_wiki_trend_data: Aucune donnée sur la tendance du wiki n'est disponible.
+      no_wiki_stats: Aucunes statistiques sur le projet wiki ne sont disponible.
+      no_facilitators: Aucun facilitateur ni facilitatrice n'ont été trouvé·e·s.
+    errors:
+      fetch_failed: Échec à charger les données. Veuillez s'il vous plait féactualiser
+        la page.
   activity:
     all: Activité
     edited_by: Modifié par
@@ -291,6 +325,8 @@ fr:
     permalink: Lien permanent
     previous: Précédent
     article_title: Titre de l’article
+    language: Langue
+    project: Projet
     assigned_to: Affecté à
     character_doc: Le total du nombre de caractères ajoutés aux articles par les rédacteurs
       inscrits entre les dates de début et de fin
@@ -302,7 +338,7 @@ fr:
     does_not_exist: L’article n’existe pas. Créez une page de bac à sable et affectez-vous
       y pour recevoir des suggestions.
     edited: Articles modifiés
-    edited_by: 'Modifié par :'
+    edited_by: Édité par %{author}
     edited_mobile: Articles
     edited_none: Il n’y a encore aucun article modifié.
     filter:
@@ -464,6 +500,8 @@ fr:
     add_placeholder: Saisir un titre d’article ou une URL
     assign_self: M’affecter un article
     invalid_mainspace_article: Cela doit être un article de l'espace principal valide.
+    not_mainspace_article: '%{title} n''est pas un article de l''espace principal
+      (seules les pages des articles réguliers sont autorisées)'
     assign_self_wikidata: M’affecter un élément
     assign_tooltip: Un article affecté est un article que vous prévoyez de créer ou
       d’améliorer.
@@ -966,6 +1004,7 @@ fr:
     features_feedback: 'Suggestions automatisées :'
     feedback: Commentaire
     feedback_loading: Veuillez patienter durant le chargement des suggestions...
+    grant_id_checking: Vérification en cours...
     gradeables_none: Ce cours n’a aucune affectation notable.
     home_wiki: Wiki principal
     multi_wiki: Wikis tracés
@@ -1218,6 +1257,51 @@ fr:
     survey:
       notification_message: Répondez au sondage pour ce cours.
       link: Participer au sondage
+  course_application_forms:
+    title: Formulaire de candidature
+    open: Nous acceptions les candidatures
+    intro: Introduction
+    question_groups: Groupes de questions
+    question_group: Groupe de questions
+    edit_question_group: Modifier
+    move_up: Remonter
+    move_down: Descendre
+    remove: Supprimer
+    add: Ajouter
+    save: Enregistrer
+    saved: Enregistré
+    question_groups_help: Faire glisser pour réorganiser
+    acceptance_email: Courriel d'acceptation
+  course_applications:
+    apply: Appliquer
+    accepting: Ce cours accepte maintenant les candidatures.
+    account_needed: Pour postuler, connectez-vous avec votre compte Wikipédia ou créer-en
+      un.
+    submit: Déposer une candidature
+    optional: (facultatif)
+    submitted: Votre candidature a bien été soumise. Merci!
+    closed: ' Ce cours n''est pas ouvert aux candidatures.'
+  course_application_reviews:
+    title: Applications
+    statuses:
+      submitted: Soumis
+      accepted: Accepté
+      declined: Refusé
+    applicant: Demandeur
+    real_name: Nom réel
+    email: Courriel
+    status: État
+    submitted_at: Soumis
+    decided_by: Décidé par
+    accept: Accepter et s'inscrire
+    decline: Refuser
+    delete: Supprimer
+    answers: Réponses
+    staff_notes: Notes du personnel
+    save_notes: Sauvegarder les notes
+    notes_saved: Enregistré
+    download_csv: Télécharger en CSV
+    acceptance_email_missing: Courriel d'acceptation manquant
   course_instructor_notification:
     notify_instructors: Envoyez des courriels aux instructeurs
     notify_instructors_feature_description: Envoyer un message aux instructeurs par
@@ -2479,6 +2563,8 @@ fr:
       weekday_unselected: '{{weekday}} non sélectionné'
   question_groups:
     edit_question_group: Modifier le groupe de questions
+    none: Pas de groupes de questions.
+    create_one: Créer un nouveau
   form_search:
     search: Rechercher
     advanced_search: Recherche avancée

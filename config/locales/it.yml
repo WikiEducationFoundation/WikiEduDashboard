@@ -720,6 +720,12 @@ it:
     survey:
       notification_message: Partecipa al nostro sondaggio per questo corso.
       link: Rispondi sondaggio
+  course_applications:
+    submit: Invia domanda
+    optional: (facoltativo)
+  course_application_reviews:
+    status: Stato
+    decided_by: Deciso da
   course_instructor_notification:
     send_notification_button_text: Invia
     write_message_placeholder: Messaggio

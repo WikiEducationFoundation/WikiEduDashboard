@@ -262,6 +262,9 @@ hy:
     volunteer:
       one: Կամավոր
       other: Կամավորներ
+  course_application_forms:
+    add: Ավելացնել
+    save: Հիշել
   course_instructor_notification:
     send_notification_button_text: Ուղարկել
     write_subject: Թեմա

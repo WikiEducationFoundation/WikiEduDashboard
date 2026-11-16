@@ -328,7 +328,16 @@ sl:
     error:
       invalid_wiki: Povezave z/s %{domain} ni mogoče vzpostaviti. Morda to ni veljaven
         vki.
+      invalid_grant_id: '%{grant_id} ni prepoznan ID dotacije. Preverite ID na portalu
+        prejemnikov dotacij (Fluxx) ali na meta strani dotacije.'
+      grant_ids_unavailable: ID-jev dotacij trenutno ni mogoče preveriti. Poskusite
+        znova pozneje.
     feedback: Povratne informacije
+    grant_id: ID dotacije
+    grant_id_checking: Preverjanje ...
+    grant_id_help: Če ta program ali dogodek podpira dotacije fundacije Wikimedia,
+      navedite svoj ID dotacije, ki ga najdete na portalu prejemnikov dotacij (Fluxx)
+      ali na strani z meta podatki o dotacijah.
     namespaces: Sledeni imenski prostori
     join_prompt: Se želite pridružiti »%{title}«?
     join_failed: Vpis ni uspel.
@@ -366,6 +375,55 @@ sl:
       tečaja dodali predmetom v glavnem imenskem prostoru
     survey:
       notification_message: Izpolnite našo anketo za ta tečaj.
+  course_application_forms:
+    title: Prijavni obrazec
+    open: Sprejemanje prijav
+    intro: Uvod
+    question_groups: Skupine vprašanj
+    question_group: Skupina vprašanj
+    edit_question_group: Uredi
+    move_up: Premakni gor
+    move_down: Premakni dol
+    remove: Odstrani
+    add: Dodaj
+    save: Shrani
+    saved: Shranjeno
+    question_groups_help: Povlecite za preureditev
+    acceptance_email: E-poštno sporočilo o sprejemu
+    acceptance_email_help: 'To bo poslano prijavitelju po e-pošti po sprejemu. Pošiljatelj:
+      %{sender}'
+  course_applications:
+    apply: Prijavi
+    accepting: Ta tečaj zdaj sprejema prijave.
+    account_needed: Če se želite prijaviti, se prijavite s svojim računom na Wikipediji
+      ali si ga ustvarite.
+    submit: Pošlji prijavo
+    optional: (neobvezno)
+    submitted: Vaša prijava je poslana. Hvala!
+    closed: Prijave za ta tečaj niso odprte.
+  course_application_reviews:
+    title: Prijave
+    statuses:
+      submitted: Poslano
+      accepted: Sprejeto
+      declined: Odklonjeno
+    applicant: Vlagatelj
+    real_name: Pravo ime
+    email: E-pošta
+    status: Stanje
+    submitted_at: Poslano
+    decided_by: Odločeno od
+    accept: Sprejmi in se vpiši
+    decline: Odkloni
+    delete: Izbriši
+    answers: Odgovori
+    staff_notes: Opombe osebja
+    save_notes: Shrani beležke
+    notes_saved: Shranjeno
+    download_csv: Prenesi CSV
+    accept_confirm: Želite sprejeti in vpisati %{username} ter poslati e-pošto o sprejemu?
+    decline_confirm: Želite odkloniti %{username} in poslati e-pošto o odklonitvi?
+    acceptance_email_missing: Manjka e-poštno sporočilo za sprejem
   course_instructor_notification:
     notify_instructors: Pošlji inštruktorjem po e-pošti
     notify_instructors_feature_description: Pošljite sporočilo inštruktorjem po e-pošti
@@ -700,6 +758,9 @@ sl:
     continue: Nadaljuj
     completion_time: Čas dokončanja
     view: Ogled
+  question_groups:
+    none: Brez skupin vprašanj.
+    create_one: Ustvari eno
   lti:
     assignment_view:
       hide: Skrij
