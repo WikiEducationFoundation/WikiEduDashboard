@@ -178,6 +178,15 @@ en:
           missing_pages:
             title: "[PLACEHOLDER - title: book citation without page numbers (%{count} in article)]"
             explanation: "[PLACEHOLDER - explanation: give page numbers for book citations so readers can verify the claim]"
+        citation_support:
+          not_supported:
+            title: "[PLACEHOLDER - title: the cited source doesn't support this sentence]"
+          contradicted:
+            title: "[PLACEHOLDER - title: the cited source contradicts this sentence]"
+          partially_supported:
+            title: "[PLACEHOLDER - title: the cited source supports only part of this sentence]"
+          wrong_source:
+            title: "[PLACEHOLDER - title: the citation's link leads to a different work]"
       mos:
         reference_placement:
           before_punctuation:

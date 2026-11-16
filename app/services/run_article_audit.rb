@@ -9,9 +9,11 @@ require_dependency "#{Rails.root}/lib/article_auditing/llm_check"
 #
 # Deterministic checks run first, in config order. LLM checks share the
 # article as a cached prompt prefix: the first one runs alone so it writes the
-# cache, then the rest run in parallel and read it. (The parallelism is
-# against the LLM provider only; Wikimedia fetches all happen up front,
-# sequentially, in Context#preload.)
+# cache, then the rest run in parallel and read it. LLM checks that don't use
+# that prefix (citation support, which sends cited sources instead) start
+# straight away, since they are the slowest. (The parallelism is against the
+# LLM provider only; Wikimedia fetches all happen up front, sequentially, in
+# Context#preload.)
 #
 # A check that fails doesn't stop the others; the audit ends up PARTIAL. If
 # the revision can't be fetched at all, the audit is FAILED.
@@ -63,13 +65,17 @@ class RunArticleAudit
 
   def run_llm_checks(checks, runner)
     return if checks.empty?
-    runner.run(checks.first)
+    sharing, independent = checks.partition(&:shares_article_cache?)
     pool = Concurrent::FixedThreadPool.new(LLM_CONCURRENCY)
-    checks.drop(1).each do |check|
-      pool.post { ActiveRecord::Base.connection_pool.with_connection { runner.run(check) } }
-    end
+    independent.each { |check| post(pool, runner, check) }
+    runner.run(sharing.first) if sharing.any?
+    sharing.drop(1).each { |check| post(pool, runner, check) }
     pool.shutdown
     pool.wait_for_termination
+  end
+
+  def post(pool, runner, check)
+    pool.post { ActiveRecord::Base.connection_pool.with_connection { runner.run(check) } }
   end
 
   def finish

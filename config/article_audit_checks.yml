@@ -196,3 +196,13 @@ new_article.categories:
   provider: anthropic
   model: claude-opus-5-5
   effort: low
+
+# Fetches every cited source with a URL and judges the sentences that cite it.
+# Uncapped for now, to measure what it costs on real articles; its usage row
+# counts claims, sources and sources fetched.
+sourcing.citation_support:
+  class: ArticleAuditing::Checks::CitationSupport
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: low

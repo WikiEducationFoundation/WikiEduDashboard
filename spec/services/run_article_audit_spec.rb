@@ -48,6 +48,14 @@ describe RunArticleAudit do
       expect(ArticleAuditMailer).to have_received(:send_report_ready).with(audit)
     end
 
+    it 'runs LLM checks that do not share the article cache' do
+      allow(context).to receive(:html).and_return('<p>Acme is great.</p>')
+      check_list = [ArticleAuditing::Checks::CitationSupport.new, *checks]
+      described_class.new(audit, checks: check_list)
+      expect(audit.check_results.find_by(check_key: 'sourcing.citation_support')).to be_succeeded
+      expect(audit.reload.status).to eq(ArticleAudit::COMPLETE)
+    end
+
     it 'stores deterministic findings' do
       described_class.new(audit, checks:)
       result = audit.check_results.find_by(check_key: 'sourcing.reference_list')

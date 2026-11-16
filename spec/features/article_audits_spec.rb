@@ -13,6 +13,7 @@ describe 'Article Audit admin pages', type: :feature, js: true do
                     title: 'Acme', namespace: 2, page_id: 9,
                     parsed_wikitext: ArticleAuditing::Wikitext.new(wikitext),
                     wikitext:, plaintext: 'Introduction Acme is a world-class company.',
+                    html: '<p>Acme is a world-class company.</p>',
                     prose_text: 'Acme is a world-class company.', mainspace?: false,
                     page_creation?: true, new_article?: true, mw_rev_id: 42,
                     wiki_context: instance_double(

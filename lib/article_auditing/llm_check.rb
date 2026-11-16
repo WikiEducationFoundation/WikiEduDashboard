@@ -30,6 +30,12 @@ module ArticleAuditing
       "#{provider}:#{model}"
     end
 
+    # Whether the check's requests start with the article's cached system
+    # blocks (see RunArticleAudit). Checks that send other content say no.
+    def shares_article_cache?
+      true
+    end
+
     def version
       inputs = [self.class.system_prompt, prompt, schema.to_json, self.class::VERSION]
       digest = Digest::SHA256.hexdigest(inputs.join("\n"))
