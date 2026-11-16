@@ -19,7 +19,8 @@ class AssignmentsController < ApplicationController
     assignment_id = params[:assignment_id]
     user_id = params[:user_id]
     if assignment_id && user_id.present? && @assignment.flags[:available_article]
-      @assignment.update(user_id: nil)
+      # Clear the sandbox url too, so the next claimant gets their own.
+      @assignment.update(user_id: nil, sandbox_url: nil)
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
       remove_assignment_template
