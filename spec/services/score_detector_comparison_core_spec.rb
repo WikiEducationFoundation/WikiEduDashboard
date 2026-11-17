@@ -23,13 +23,17 @@ describe ScoreDetectorComparisonCore do
                                'sentences' => [{ 'ai_score' => 0.2 }] } } }
   end
 
+  def step
+    described_class.step(described_class.run['id'])
+  end
+
   def run_steps(limit = 20)
-    limit.times { break unless described_class.step }
+    limit.times { break unless step }
   end
 
   before do
     stub_const('ScoreDetectorComparisonCore::CHUNK_SIZE', 2)
-    allow(ScoreDetectorComparisonCoreWorker).to receive(:perform_async)
+    allow(ScoreDetectorComparisonCoreWorker).to receive(:perform_async).and_return('jid')
     allow(OriginalityApi).to receive(:credit_balance).and_return(1_000)
     allow(AiDetector.for(pangram).client).to receive(:inference).and_return(pangram_response)
     allow(AiDetector.for(model_5).client).to receive(:inference)
@@ -64,7 +68,8 @@ describe ScoreDetectorComparisonCore do
     it 'records the run and queues the first chunk' do
       status = described_class.start(max_originality_credits: 100)
 
-      expect(ScoreDetectorComparisonCoreWorker).to have_received(:perform_async)
+      expect(ScoreDetectorComparisonCoreWorker)
+        .to have_received(:perform_async).with(described_class.run['id'])
       expect(status).to include('state' => 'running', 'start_balance' => 1_000,
                                 'detectors' => [pangram, model_5, model_5_max],
                                 'max_originality_credits' => 100)
@@ -83,7 +88,7 @@ describe ScoreDetectorComparisonCore do
     it 'scores each detector in turn, a chunk at a time, then finishes' do
       described_class.start(max_originality_credits: 100)
 
-      expect(described_class.step).to be(true)
+      expect(step).to be(true)
       expect(RevisionAiScore.where(check_type: pangram, sample_id: core_ids).count).to eq(2)
       expect(RevisionAiScore.where(check_type: model_5).count).to eq(0)
 
@@ -104,10 +109,10 @@ describe ScoreDetectorComparisonCore do
       described_class.start(max_originality_credits: 100)
       described_class.stop
 
-      expect(described_class.step).to be(false)
+      expect(step).to be(false)
       expect(described_class.status).to include('state' => 'stopped',
                                                 'message' => 'Stopped on request')
-      expect(described_class.step).to be(false)
+      expect(step).to be(false)
       expect(RevisionAiScore.where(check_type: pangram).count).to eq(0)
     end
 
@@ -116,7 +121,7 @@ describe ScoreDetectorComparisonCore do
         .and_raise(PangramApi::ModelMismatch, 'expected Pangram 4.1 but got "4.2"')
       described_class.start(max_originality_credits: 100)
 
-      expect(described_class.step).to be(false)
+      expect(step).to be(false)
       expect(described_class.status).to include('state' => 'stopped')
       expect(described_class.status['message']).to include('ModelMismatch', '4.2')
       expect(RevisionAiScore.where(check_type: pangram).count).to eq(0)
@@ -159,6 +164,100 @@ describe ScoreDetectorComparisonCore do
       expect(described_class.status['message'])
         .to match(/Originality 5.0 Max spent 100 credits on 2 texts, estimated \d+;/)
       expect(RevisionAiScore.where(check_type: model_5_max).count).to eq(2)
+    end
+  end
+
+  describe 'run control' do
+    it 'refuses a second start while a run is live, unless forced' do
+      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      first = described_class.run['id']
+
+      expect { described_class.start(max_originality_credits: 100, detectors: [pangram]) }
+        .to raise_error(ArgumentError, /a run is running/)
+
+      described_class.start(max_originality_credits: 100, detectors: [pangram], force: true)
+      expect(described_class.run['id']).not_to eq(first)
+      expect(described_class.step(first)).to be(false) # the replaced run's job exits
+    end
+
+    it 'keeps a stop requested while a chunk is being scored' do
+      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      allow(AiDetector.for(pangram).client).to receive(:inference) do
+        described_class.stop # from a console, mid-chunk
+        pangram_response
+      end
+
+      expect(step).to be(false)
+      expect(described_class.status).to include('state' => 'stopped',
+                                                'message' => 'Stopped on request')
+    end
+
+    it 'does not save over a run that replaced it mid-chunk' do
+      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      first = described_class.run['id']
+      allow(AiDetector.for(pangram).client).to receive(:inference) do
+        described_class.save_run(described_class.run.merge('id' => 'replacement'))
+        pangram_response
+      end
+
+      expect(described_class.step(first)).to be(false)
+      expect(described_class.run['id']).to eq('replacement')
+      expect(described_class.status['scored']).to eq(0)
+    end
+
+    it 'does not read the Originality balance for a Pangram-only run' do
+      expect(OriginalityApi).not_to receive(:credit_balance)
+
+      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      run_steps
+
+      expect(described_class.status).to include('state' => 'finished', 'start_balance' => nil)
+    end
+
+    it 'records a run whose first job could not be queued as stopped' do
+      allow(ScoreDetectorComparisonCoreWorker).to receive(:perform_async).and_return(nil)
+
+      expect { described_class.start(max_originality_credits: 100, detectors: [pangram]) }
+        .to raise_error(/not queued/)
+      expect(described_class.status['state']).to eq('stopped')
+    end
+  end
+
+  describe 'failed calls' do
+    it 'does not resend a text that failed during this run, and retries it on the next start' do
+      calls = Hash.new(0)
+      allow(AiDetector.for(pangram).client).to receive(:inference) do |text|
+        calls[text] += 1
+        raise PangramApi::TaskFailed, 'task failed' if text == human.plain_text
+
+        pangram_response
+      end
+      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      run_steps
+
+      expect(calls[human.plain_text]).to eq(1)
+      expect(described_class.status).to include('state' => 'finished', 'scored' => 3,
+                                                'failed' => 1)
+
+      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      run_steps
+      expect(calls[human.plain_text]).to eq(2)
+    end
+
+    it 'stops once one detector has failed too often' do
+      stub_const('ScoreDetectorComparisonCore::MAX_FAILURES', 3)
+      stub_const('ScoreDetectorComparisonCore::FAILURE_LIMIT', 100)
+      allow(AiDetector.for(pangram).client).to receive(:inference) do |text|
+        raise PangramApi::TaskFailed, 'task failed' unless text == generated.plain_text
+
+        pangram_response
+      end
+      described_class.start(max_originality_credits: 100, detectors: [pangram])
+
+      run_steps
+
+      expect(described_class.status['state']).to eq('stopped')
+      expect(described_class.status['message']).to eq('3 failed Pangram 4.1 calls')
     end
   end
 end

@@ -18,23 +18,30 @@ require_dependency "#{Rails.root}/app/services/summarize_known_human_texts"
 #   ScoreDetectorComparisonCore.status  # progress, or why the run stopped
 #   ScoreDetectorComparisonCore.stop    # stop after the current chunk
 #
-# The run is one ScoreDetectorComparisonCoreWorker job at a time, each scoring
-# CHUNK_SIZE texts and queuing the next, so production AI checks on the same
-# queue run in between. Detectors run one after another in the order given
-# (registry order by default, which puts Originality 5.0 Max last). The run
-# stops, recording why in its status, when:
+# The run is one ScoreDetectorComparisonCoreWorker job at a time on the
+# report_csv queue, each scoring CHUNK_SIZE texts and queuing the next. Each run
+# has an id that its jobs carry; a job whose run is no longer the current one
+# exits without saving, and a stop requested mid-chunk takes effect when the
+# chunk ends. Detectors run one after another in the order given (registry order
+# by default, which puts Originality 5.0 Max last). A text whose call fails is
+# not sent again during the same run. The run stops, recording why in its
+# status, when:
 # - a pinned detector's vendor answers with another model version;
-# - FAILURE_LIMIT calls in a row fail;
-# - Originality credits spent since the start exceed max_originality_credits;
+# - FAILURE_LIMIT calls in a row fail, or MAX_FAILURES calls of one detector fail;
+# - Originality credits spent since this start exceed max_originality_credits;
 # - after BILLING_CHECK_UNITS texts of an Originality detector, it has spent more
 #   than BILLING_TOLERANCE times its estimate. Originality lists 5.0 Max at ten
 #   times 5.0's price, although the API charged the same in a first probe.
-# Starting again continues with the texts not yet scored. To analyze the results
-# locally, export them with ExportDetectorComparisonScores.
+# Starting again continues with the texts not yet scored, retrying failed ones.
+# start refuses while a run is in progress; force: true replaces a run whose job
+# was lost (its status stays 'running' with nothing queued). To analyze the
+# results locally, export them with ExportDetectorComparisonScores.
 class ScoreDetectorComparisonCore
   SETTING_KEY = 'detector_comparison_core_run'
   CHUNK_SIZE = 10
   FAILURE_LIMIT = 10
+  MAX_FAILURES = 50
+  LIVE_STATES = %w[running stopping].freeze
   BILLING_CHECK_UNITS = 10
   BILLING_TOLERANCE = 2
   # Columns needed to tell which texts are pending; the chunk being scored loads in full.
@@ -54,17 +61,31 @@ class ScoreDetectorComparisonCore
                                detectors:, dry_run: true).report
   end
 
-  def self.start(max_originality_credits:, detectors: AiDetector.keys)
+  def self.start(max_originality_credits:, detectors: AiDetector.keys, force: false)
+    check_startable(detectors, force)
+    id = SecureRandom.hex(6)
+    save_run('id' => id, 'state' => 'running', 'detectors' => detectors,
+             'unit_ids' => units.map(&:id), 'max_originality_credits' => max_originality_credits,
+             'start_balance' => (originality_balance if detectors.any? { |key| metered?(key) }),
+             'started_at' => Time.zone.now.iso8601, 'scored' => 0, 'failed' => 0,
+             'failures_in_a_row' => 0, 'phases' => {}, 'message' => nil)
+    return status if ScoreDetectorComparisonCoreWorker.perform_async(id)
+
+    save_run(run.merge('state' => 'stopped', 'message' => 'The first job was not queued'))
+    raise 'The first job was not queued; a stale Sidekiq lock may remain'
+  end
+
+  def self.check_startable(detectors, force)
     unselectable = detectors.reject { |key| AiDetector.selectable?(key) }
     raise ArgumentError, "not offered for comparison scoring: #{unselectable}" if unselectable.any?
+    return if force || LIVE_STATES.exclude?(run['state'])
 
-    save_run('state' => 'running', 'detectors' => detectors, 'unit_ids' => units.map(&:id),
-             'max_originality_credits' => max_originality_credits,
-             'start_balance' => originality_balance, 'started_at' => Time.zone.now.iso8601,
-             'scored' => 0, 'failed' => 0, 'failures_in_a_row' => 0, 'phases' => {},
-             'message' => nil)
-    ScoreDetectorComparisonCoreWorker.perform_async
-    status
+    raise ArgumentError, "a run is #{run['state']}; stop it first, or pass force: true " \
+                         'if its job was lost'
+  end
+
+  def self.metered?(key)
+    AiDetector.for(key).vendor.balance_reader.present?
   end
 
   def self.stop
@@ -90,112 +111,9 @@ class ScoreDetectorComparisonCore
     OriginalityApi.credit_balance
   end
 
-  # Scores one chunk; the worker calls this. Returns true when another chunk
-  # should be queued.
-  def self.step
-    new(run).step
-  end
-
-  def initialize(run)
-    @run = run
-  end
-
-  def step
-    return finish('stopped', 'Stopped on request') if @run['state'] == 'stopping'
-    return false unless @run['state'] == 'running'
-
-    detector, chunk = next_chunk
-    return finish('finished', 'Every core text is scored') unless detector
-
-    score_chunk(detector, chunk)
-  rescue *AiDetector.model_mismatch_errors => e
-    finish('stopped', "#{e.class}: #{e.message}")
-  rescue StandardError => e
-    finish('stopped', "#{e.class}: #{e.message}")
-    raise
-  end
-
-  private
-
-  # The first detector, in run order, with texts left to score, and its next chunk.
-  def next_chunk
-    units = AiDetectionSample.where(id: @run['unit_ids']).select(PENDING_COLUMNS).order(:id).to_a
-    @run['detectors'].each do |key|
-      detector = AiDetector.for(key)
-      pending = ScoreAiDetectionSample.pending_units(units, detector).first(CHUNK_SIZE)
-      return [detector, AiDetectionSample.where(id: pending.map(&:id)).order(:id).to_a] if
-        pending.any?
-    end
-    nil
-  end
-
-  def score_chunk(detector, chunk)
-    phase = (@run['phases'][detector.key] ||= new_phase(detector))
-    report = ScoreAiDetectionSample.new(units: chunk, detectors: [detector.key])
-                                   .report[detector.key]
-    record(detector, phase, chunk, report)
-    reason = stop_reason(detector, phase)
-    return finish('stopped', reason) if reason
-
-    self.class.save_run(@run)
-    true
-  end
-
-  def new_phase(detector)
-    { 'started_at' => Time.zone.now.iso8601,
-      'start_balance' => (self.class.originality_balance if metered?(detector)),
-      'scored' => 0, 'estimated_credits' => 0 }
-  end
-
-  def record(detector, phase, chunk, report)
-    scored = RevisionAiScore.where(sample_id: chunk.map(&:id), check_type: detector.key)
-                            .where.not(avg_ai_likelihood: nil).pluck(:sample_id).to_set
-    words = chunk.select { |unit| scored.include?(unit.id) }.map(&:word_count)
-    phase['scored'] += report[:scored]
-    phase['estimated_credits'] += detector.estimated_credits(words).to_i
-    tally(report)
-  end
-
-  def tally(report)
-    @run['scored'] += report[:scored]
-    @run['failed'] += report[:failed]
-    @run['failures_in_a_row'] =
-      report[:scored].positive? ? 0 : @run['failures_in_a_row'] + report[:failed]
-  end
-
-  def stop_reason(detector, phase)
-    if @run['failures_in_a_row'] >= FAILURE_LIMIT
-      return "#{FAILURE_LIMIT} failed calls in a row; see the failed rows' details"
-    end
-    return unless metered?(detector)
-
-    balance = self.class.originality_balance
-    spent = @run['start_balance'] - balance
-    if spent > @run['max_originality_credits']
-      return "Spent #{spent} Originality credits, over max_originality_credits"
-    end
-
-    billing_reason(detector, phase, balance)
-  end
-
-  # Checked once per detector, after its first BILLING_CHECK_UNITS texts.
-  def billing_reason(detector, phase, balance)
-    return if phase['scored'] < BILLING_CHECK_UNITS || phase['billing_checked']
-
-    phase['billing_checked'] = true
-    spent = phase['start_balance'] - balance
-    return if spent <= phase['estimated_credits'] * BILLING_TOLERANCE
-
-    "#{detector.key} spent #{spent} credits on #{phase['scored']} texts, estimated " \
-      "#{phase['estimated_credits']}; check its price before starting again"
-  end
-
-  def metered?(detector)
-    detector.vendor.balance_reader.present?
-  end
-
-  def finish(state, message)
-    self.class.save_run(@run.merge('state' => state, 'message' => message))
-    false
+  # Scores one chunk of the run with this id; the worker calls this. Returns true
+  # when another chunk should be queued.
+  def self.step(id)
+    ScoreDetectorComparisonChunk.new(run, id).step
   end
 end

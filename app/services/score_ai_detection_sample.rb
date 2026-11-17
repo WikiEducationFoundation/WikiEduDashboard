@@ -82,7 +82,7 @@ class ScoreAiDetectionSample
     save_score(detector, unit, avg: parser.average_ai_likelihood, max: parser.max_ai_likelihood,
                                details: parser.clean_result)
     stats[:scored] += 1
-    log "#{detector.key}: unit #{unit.id} max #{parser.max_ai_likelihood.round(4)}"
+    log "#{detector.key}: unit #{unit.id} max #{parser.max_ai_likelihood&.round(4).inspect}"
   rescue *AiDetector.model_mismatch_errors
     raise
   rescue *AiDetector.recoverable_errors => e

@@ -86,6 +86,15 @@ describe OriginalityApi do
         .to raise_error(OriginalityApi::RequestError, /minimum of 50 words/)
     end
 
+    it 'treats a result without a model as a failed call, not a model change' do
+      broken = model_5_result.deep_merge('results' => { 'ai' => { 'error' => 'scan failed' } })
+      broken['results']['ai'].delete('model')
+      stub_request(:post, OriginalityApi::API_URL).to_return(status: 200, body: broken.to_json)
+
+      expect { described_class.model_5.inference(text) }
+        .to raise_error(OriginalityApi::RequestError, /HTTP 200/)
+    end
+
     it 'raises ModelMismatch when the API silently ran a different model' do
       fallback = model_5_result.deep_merge('results' => { 'ai' => { 'model' => 'model-5.0' } })
       stub_request(:post, OriginalityApi::API_URL).to_return(status: 200, body: fallback.to_json)

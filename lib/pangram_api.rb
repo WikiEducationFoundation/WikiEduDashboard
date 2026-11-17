@@ -64,11 +64,14 @@ class PangramApi
   # Returns the parsed inference result hash. Raises a PangramApi::Error subclass
   # when the API refuses the request, the task fails or times out, or the result
   # comes from a version other than expected_version.
+  # One client is shared by every thread of a process (AiDetector memoizes it), so
+  # the result is kept in a local variable; @result is only a convenience for
+  # single-threaded callers.
   def inference(text)
     task_id = parse_response(post_text(text))['task_id']
-    @result = poll_task(task_id)
-    verify_version!
-    @result
+    result = poll_task(task_id)
+    verify_version!(result)
+    @result = result
   end
 
   private
@@ -114,10 +117,10 @@ class PangramApi
     JSON.parse(response.body)
   end
 
-  def verify_version!
-    return if @expected_version.nil? || @result['version'] == @expected_version
+  def verify_version!(result)
+    return if @expected_version.nil? || result['version'] == @expected_version
 
-    actual = @result['version'].inspect
+    actual = result['version'].inspect
     raise ModelMismatch, "expected Pangram #{@expected_version} but the API answered as #{actual}"
   end
 

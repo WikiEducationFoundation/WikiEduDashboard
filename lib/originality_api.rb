@@ -84,9 +84,9 @@ class OriginalityApi
     raise TextTooShort, "#{words} words; Originality requires #{MIN_WORDS}" if words < MIN_WORDS
 
     response = connection.post('') { |req| req.body = request_body(text).to_json }
-    @result = parse_response(response)
-    verify_model!
-    @result
+    result = parse_response(response)
+    verify_model!(result)
+    @result = result
   end
 
   private
@@ -121,8 +121,11 @@ class OriginalityApi
     parsed
   end
 
-  def verify_model!
-    actual = @result.dig('results', 'ai', 'model')
+  # A result without a model id is a failed scan (for example an error object in
+  # results.ai), not a model change, so it fails this one call only.
+  def verify_model!(result)
+    actual = result.dig('results', 'ai', 'model')
+    raise RequestError.new(200, result.dig('results', 'ai')) if actual.nil?
     return if actual == expected_model
 
     raise ModelMismatch, "requested #{expected_model} but Originality ran #{actual.inspect}"

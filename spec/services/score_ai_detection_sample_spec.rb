@@ -99,6 +99,19 @@ describe ScoreAiDetectionSample do
     end
   end
 
+  describe 'an Originality result with no segments' do
+    it 'stores the whole-text score without failing the run' do
+      empty = originality_response.deep_merge('results' => { 'ai' => { 'sentences' => [] } })
+      allow(originality_client).to receive(:inference).and_return(empty)
+
+      scorer = described_class.new(sample_name: 'test', detectors: [originality_5])
+
+      expect(scorer.report[originality_5]).to eq(scored: 1, failed: 0)
+      expect(RevisionAiScore.find_by(check_type: originality_5))
+        .to have_attributes(avg_ai_likelihood: 0.02, max_ai_likelihood: nil)
+    end
+  end
+
   describe 'failures' do
     it 'stops the run without recording a row when the vendor changes model version' do
       allow(pangram_client).to receive(:inference)
