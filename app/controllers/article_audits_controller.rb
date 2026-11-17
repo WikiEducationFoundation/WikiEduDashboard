@@ -18,8 +18,7 @@ class ArticleAuditsController < ApplicationController
     respond_to do |format|
       format.html
       format.json do
-        @audits = ArticleAudit.without_article.includes(:wiki, :requester).order(id: :desc)
-                              .limit(RECENT_LIMIT)
+        @audits = ArticleAudit.includes(:wiki, :requester).order(id: :desc).limit(RECENT_LIMIT)
       end
     end
   end

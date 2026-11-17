@@ -13,7 +13,6 @@ describe RunArticleAudit do
                     revision_info:, title: 'Acme', namespace: 0, page_id: 77,
                     parsed_wikitext: ArticleAuditing::Wikitext.new("'''Acme''' is great."),
                     wikitext: "'''Acme''' is great.", plaintext: 'Acme is great.',
-                    html: '<p><b>Acme</b> is great.</p>',
                     llm_system_blocks: [{ text: 'article', cache: true }])
   end
   let(:adapter) { instance_double(Llm::AnthropicAdapter) }
@@ -31,6 +30,7 @@ describe RunArticleAudit do
     allow(context).to receive(:preload).and_return(context)
     allow(Llm::Client).to receive(:adapter).and_return(adapter)
     allow(ArticleAuditMailer).to receive(:send_report_ready)
+    allow(ArticleAuditing::RenderedArticle).to receive(:store)
   end
 
   context 'when every check succeeds' do
@@ -42,8 +42,7 @@ describe RunArticleAudit do
       expect(audit.status).to eq(ArticleAudit::COMPLETE)
       expect(audit.article_title).to eq('Acme')
       expect(audit.mw_page_id).to eq(77)
-      expect(audit).to have_attributes(article_html: '<p><b>Acme</b> is great.</p>',
-                                       article_wikitext: "'''Acme''' is great.")
+      expect(ArticleAuditing::RenderedArticle).to have_received(:store).with(context)
       expect(audit.check_results.map(&:check_key))
         .to contain_exactly('sourcing.reference_list', 'sourcing.unsourced_claims', 'tone')
       expect(audit.check_results).to all(be_succeeded)

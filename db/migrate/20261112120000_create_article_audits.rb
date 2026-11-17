@@ -19,10 +19,6 @@ class CreateArticleAudits < ActiveRecord::Migration[8.1]
       t.string :status, null: false, default: 'queued'
       t.text :error
       t.text :usage
-      # The audited revision as rendered and as wikitext, for the report's
-      # side-by-side view.
-      t.text :article_html, size: :medium
-      t.text :article_wikitext, size: :medium
       t.datetime :started_at
       t.datetime :completed_at
       t.timestamps

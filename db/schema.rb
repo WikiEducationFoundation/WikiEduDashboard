@@ -99,8 +99,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_120100) do
     t.string "status", default: "queued", null: false
     t.text "error"
     t.text "usage"
-    t.text "article_html", size: :medium
-    t.text "article_wikitext", size: :medium
     t.datetime "started_at"
     t.datetime "completed_at"
     t.datetime "created_at", null: false

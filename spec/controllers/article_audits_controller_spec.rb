@@ -51,7 +51,12 @@ describe ArticleAuditsController, type: :controller do
   end
 
   describe 'GET #show' do
-    before { sign_in_as(admin) }
+    let(:article) { nil }
+
+    before do
+      sign_in_as(admin)
+      allow(ArticleAuditing::RenderedArticle).to receive(:fetch).and_return(article)
+    end
 
     it 'returns the latest result for each check' do
       audit.check_results.create!(check_key: 'tone', status: 'failed', error: 'boom')
@@ -69,18 +74,24 @@ describe ArticleAuditsController, type: :controller do
       expect(body['article_html']).to be_nil
     end
 
-    it 'returns the article with each finding marked where it applies' do
-      audit.update!(article_html: '<p>Acme is a world-class company.</p>', article_wikitext: '')
-      audit.check_results.create!(check_key: 'tone', status: 'succeeded', findings: [
-                                    { 'severity' => 'should_fix', 'title' => 'Peacock',
-                                      'location' => { 'quote' => 'world-class' } }
-                                  ])
-      get :show, params: { id: audit.id }, format: :json
-      body = JSON.parse(response.body)
-      finding = body['check_results'].first['findings'].first
-      expect(finding['anchor']).to eq('text')
-      expect(body['article_html'])
-        .to include(%(<mark class="aa-mark aa-mark--should_fix" data-findings="#{finding['id']}">))
+    context 'when the revision can be fetched' do
+      let(:article) { { html: '<p>Acme is a world-class company.</p>', wikitext: '' } }
+
+      it 'returns the article with each finding marked where it applies' do
+        audit.check_results.create!(check_key: 'tone', status: 'succeeded', findings: [
+                                      { 'severity' => 'should_fix', 'title' => 'Peacock',
+                                        'location' => { 'quote' => 'world-class' } }
+                                    ])
+        get :show, params: { id: audit.id }, format: :json
+        body = JSON.parse(response.body)
+        finding = body['check_results'].first['findings'].first
+        expect(finding['anchor']).to eq('text')
+        expect(body['article_html']).to include(
+          %(<mark class="aa-mark aa-mark--should_fix" data-findings="#{finding['id']}">)
+        )
+        expect(ArticleAuditing::RenderedArticle).to have_received(:fetch)
+          .with(audit.wiki, audit.mw_rev_id).once
+      end
     end
 
     it 'marks the results an LLM produced' do

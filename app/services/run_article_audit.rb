@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/article_auditing/context"
 require_dependency "#{Rails.root}/lib/article_auditing/registry"
 require_dependency "#{Rails.root}/lib/article_auditing/check_runner"
 require_dependency "#{Rails.root}/lib/article_auditing/llm_check"
+require_dependency "#{Rails.root}/lib/article_auditing/rendered_article"
 
 # Runs every enabled check for an ArticleAudit and records the outcome.
 #
@@ -43,8 +44,8 @@ class RunArticleAudit
     return false if @context.revision_info.nil?
     @context.preload
     @audit.update!(article_title: @context.title, namespace: @context.namespace,
-                   mw_page_id: @context.page_id, article_html: @context.html,
-                   article_wikitext: @context.wikitext)
+                   mw_page_id: @context.page_id)
+    ArticleAuditing::RenderedArticle.store(@context)
     true
   end
 
