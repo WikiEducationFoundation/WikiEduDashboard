@@ -43,13 +43,20 @@ an exported CSV.
 
 ## Credits
 
-Pangram is billed per word at a rate we can afford at scale. Originality.ai is not:
-its credit balance is small, it bills about one credit per 100 words per check, and an
-AI Allowance scan bills roughly double. Keep Originality to small curated samples
-(around 100 units), run at most two Originality checks per unit, and always dry-run
-first. Each AI Allowance threshold is a separate scan whose block scores differ, so a
-threshold cannot be re-derived offline from another threshold's result; the two we use
-are 15 (Originality's default) and 40 (their minimize-false-positives setting).
+Pangram is billed per word at a rate we can afford at scale. Originality.ai bills about
+one credit per 100 words per check for both 5.0 models through the API (observed
+2026-11-17; their pricing page lists 5.0 Max at ten times that, so check the balance
+before and after a first Max run). Always dry-run first.
+
+Detectors offered for comparison scoring are `AiDetector.keys`: Pangram 4.1, Originality
+5.0 and Originality 5.0 Max (since 2026-11). Retired detectors keep their stored rows:
+Pangram 3 (API shut down 2026-09-30); comparison rows under `Pangram 4`, all scored as
+4.0 before Pangram moved `pangram-4` to 4.1 on 2026-10-19 (to be relabelled `Pangram 4.0`
+when the comparison page shows 4.0 and 4.1 side by side); and Originality's classic
+models and AI Allowance 15/40 (replaced by 5.0). `Pangram 4.1` refuses results from any other
+version, and scoring stops when Pangram or Originality answers with a different model
+than the key names. Production alerting keeps the `Pangram 4` key, which follows
+whatever version Pangram serves (`details['version']` records it).
 
 ## 1. Build a sample
 
@@ -115,7 +122,7 @@ importer.imported
 ## 2. Dry-run, then score
 
 ```ruby
-detectors = [RevisionAiScore::PANGRAM_V4_KEY, RevisionAiScore::ORIGINALITY_AI_ALLOWANCE_15_KEY, RevisionAiScore::ORIGINALITY_AI_ALLOWANCE_40_KEY]
+detectors = [RevisionAiScore::PANGRAM_V4_1_KEY, RevisionAiScore::ORIGINALITY_5_KEY, RevisionAiScore::ORIGINALITY_5_MAX_KEY]
 ScoreAiDetectionSample.new(sample_name: 'recent_2026_09', detectors:, dry_run: true).report
 ```
 
@@ -142,6 +149,50 @@ directly; failed calls appear with an `error` column and no scores. Copy the fil
 your machine for analysis. `include_text: true` adds `plain_text`, `source_format` and
 `source_text` columns; they are large and repeat on every detector row, so they are
 left out by default.
+
+## Scoring the core texts with a new detector
+
+When a vendor releases a model, score the texts the comparison page is built on, the
+known-human texts and the topics dataset (about 1,756 distinct texts), so the new
+model sits next to every earlier one. `ScoreDetectorComparisonCore` does it in the
+background, one ten-text chunk at a time on the `report_csv` Sidekiq queue (kept off
+`default`, which runs the production AI checks one job at a time), with every
+current detector (`AiDetector.keys`) in turn. In a production console:
+
+```ruby
+ScoreDetectorComparisonCore.plan                                    # pending texts, credits, balance
+ScoreDetectorComparisonCore.start(max_originality_credits: 40_000)  # queue the run
+ScoreDetectorComparisonCore.status                                  # progress, or why it stopped
+ScoreDetectorComparisonCore.stop                                    # stop after the current chunk
+```
+
+`start(detectors: [...])` limits the run to some detectors. The run stops on its own,
+saying why in `status['message']`, when:
+- a vendor answers with a different model version;
+- ten calls in a row fail, or 50 calls of one detector fail;
+- Originality credits spent since this start pass `max_originality_credits`;
+- an Originality model's first ten texts cost more than twice the estimate. This check
+  is for 5.0 Max, which Originality's pricing page lists at ten times 5.0's price.
+
+A text whose call fails is not sent again in the same run. Starting again continues
+where the run stopped and retries those texts. `start` refuses while a run is in
+progress. If a deploy or crash lost the run's job, `status` stays `running` with
+nothing queued; `start(..., force: true)` then replaces the run, and any job of the
+old run still in flight exits without saving.
+
+To analyze the results locally, export them in production and load them into the
+local copy, where the earlier detectors' scores already are:
+
+```ruby
+ExportDetectorComparisonScores.new('/home/sage/detector_comparison_core_scores_2026-11.jsonl').count
+```
+
+```sh
+bin/rails runner docs/analytics_scripts/ai_usage_research/detector_comparison/load_core_scores.rb \
+  ~/detector_comparison_core_scores_2026-11.jsonl
+```
+
+The export holds scores and window or segment details, no text.
 
 ## Exemplars and challenge cases
 

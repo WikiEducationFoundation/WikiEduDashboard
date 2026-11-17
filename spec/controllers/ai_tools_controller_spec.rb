@@ -6,77 +6,32 @@ describe AiToolsController, type: :request do
   describe '#compare_ai_detectors' do
     let(:admin) { create(:admin) }
     let(:enwiki) { Wiki.get_or_create(project: 'wikipedia', language: 'en') }
-    let(:pangram_v3) { 'Pangram 3' }
-    let(:pangram_v4) { 'Pangram 4' }
-    let(:turbo) { 'Originality Turbo' }
-    let(:academic) { 'Originality Academic' }
-    let(:lite_102) { 'Originality Lite 1.0.2' }
-    let(:allowance_15) { 'Originality AI Allowance 15' }
-    let(:allowance_40) { 'Originality AI Allowance 40' }
+    let(:pangram) { 'Pangram 4.1' }
+    let(:model_5) { 'Originality 5.0' }
+    let(:model_5_max) { 'Originality 5.0 Max' }
+    # Recorded from the live API on 2026-11-17, text fields shortened.
     let(:simplified_originality_response) do
       { 'results' => {
         'properties' => {
           'publicLink' => 'https://app.originality.ai/share/some_link' },
         'ai' => {
-          'aiModel' => 'academic',
-          'classification' => { 'AI' => 1, 'Original' => 0 },
-          'confidence' =>  { 'AI' => 1, 'Original' => 0 },
-          'blocks' =>
-            [{ 'result' => { 'fake' => 0.6722026056164665,
-                             'real' => 0.3277973943835335,
-                             'status' => 'success' } },
-             { 'result' => { 'fake' => 0.18571670712174604,
-                             'real' => 0.814283292878254,
-                             'status' => 'success' } }] },
+          'model' => 'model-5.0',
+          'prediction_label' => 'mixed',
+          'ai_assisted_percent' => 60,
+          'sentences' =>
+            [{ 'start_index' => 0, 'end_index' => 230, 'text' => 'first segment of words',
+               'ai_score' => 0.6722026056164665 },
+             { 'start_index' => 230, 'end_index' => 400, 'text' => 'second segment',
+               'ai_score' => 0.18571670712174604 }] },
         'plagiarism' => { 'error' => 'not selected' }
         }
       }
     end
+    # Recorded from the live Pangram 4 task endpoint on 2026-09-03 (version updated to 4.1)
     let(:simplified_pangram_response) do
-      { 'text' => 'example',
-        'version' => '3.0',
-        'headline' => 'Fully AI Generated',
-        'prediction' => 'We are confident that this document is fully AI-generated',
-        'prediction_short' => 'AI',
-        'fraction_ai' => 1.0,
-        'fraction_ai_assisted' => 0.0,
-        'fraction_human' => 0.0,
-        'num_ai_segments' => 3,
-        'num_ai_assisted_segments' => 0,
-        'num_human_segments' => 0,
-        'windows' =>
-          [{ 'text' => 'first window',
-            'label' => 'AI-Generated',
-            'ai_assistance_score' => 1.0,
-            'confidence' => 'High',
-            'start_index' => 0,
-            'end_index' => 2281,
-            'word_count' => 359,
-            'token_length' => 483 },
-          { 'text' => 'second window',
-            'label' => 'AI-Generated',
-            'ai_assistance_score' => 0.9982278487261604,
-            'confidence' => 'High',
-            'start_index' => 2281,
-            'end_index' => 4737,
-            'word_count' => 358,
-            'token_length' => 476 },
-          { 'text' => 'third window',
-            'label' => 'AI-Generated',
-            'ai_assistance_score' => 0.9959831237792969,
-            'confidence' => 'High',
-            'start_index' => 4737,
-            'end_index' => 5202,
-            'word_count' => 72,
-            'token_length' => 94 }],
-        'dashboard_link' => 'https://www.pangram.com/history/7980768b-0b15-4d42-ad62-30ba8cf0e92f'
-      }
-    end
-    # Recorded from the live Pangram 4 task endpoint on 2026-09-03
-    let(:simplified_pangram_v4_response) do
       { 'stage' => 'STAGE_SUCCESS',
         'text' => 'example',
-        'version' => '4.0',
+        'version' => '4.1',
         'prediction' => 'We believe that this entire text is AI.',
         'prediction_short' => 'AI',
         'fraction_ai' => 1.0,
@@ -103,12 +58,14 @@ describe AiToolsController, type: :request do
 
     before do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
-      allow(AiDetector.for(pangram_v3).client).to receive(:inference)
+      allow(AiDetector.for(pangram).client).to receive(:inference)
         .and_return(simplified_pangram_response)
-      allow(AiDetector.for(pangram_v4).client).to receive(:inference)
-        .and_return(simplified_pangram_v4_response)
-      allow_any_instance_of(OriginalityApi).to receive(:inference)
-                                           .and_return(simplified_originality_response)
+      allow(AiDetector.for(model_5).client).to receive(:inference)
+        .and_return(simplified_originality_response)
+      allow(AiDetector.for(model_5_max).client).to receive(:inference)
+        .and_return(simplified_originality_response.deep_merge(
+                      'results' => { 'ai' => { 'model' => 'model-5.0-max' } }
+                    ))
     end
 
     context 'when plain text' do
@@ -124,11 +81,11 @@ describe AiToolsController, type: :request do
         VCR.use_cassette 'pangram' do
           post '/ai_tools/compare_ai_detectors', params: { plain_text:,
                                                            article_or_diff_url: "",
-                                                           pangram_v3.to_sym => '1' }
+                                                           pangram.to_sym => '1' }
 
           expect(RevisionAiScore.count).to eq(1)
 
-        expect(RevisionAiScore.first.check_type).to eq('Pangram 3')
+        expect(RevisionAiScore.first.check_type).to eq('Pangram 4.1')
         expect(RevisionAiScore.first.check_origin).to eq('ai_tool')
         expect(RevisionAiScore.first.revision_id).to be_nil
         expect(RevisionAiScore.first.wiki_id).to be_nil
@@ -137,63 +94,78 @@ describe AiToolsController, type: :request do
         end
       end
 
-      it 'stores the Pangram 4 result including humanizer fields and renders it' do
+      it 'stores the Pangram 4.1 result including humanizer fields and renders it' do
         post '/ai_tools/compare_ai_detectors', params: { plain_text:,
                                                          article_or_diff_url: "",
-                                                         pangram_v4.to_sym => '1' }
+                                                         pangram.to_sym => '1' }
 
-        score = RevisionAiScore.find_by(check_type: 'Pangram 4')
+        score = RevisionAiScore.find_by(check_type: 'Pangram 4.1')
         expect(score.check_origin).to eq('ai_tool')
         expect(score.max_ai_likelihood).to be_within(0.0001).of(0.99999)
-        expect(score.details['version']).to eq('4.0')
+        expect(score.details['version']).to eq('4.1')
         expect(score.details['windows'].first).to include('is_humanized' => false)
         expect(score.details['windows'].first).not_to have_key('text')
 
-        expect(response.body).to include('Pangram 4 Result')
+        expect(response.body).to include('Pangram 4.1 Result')
         expect(response.body).to include('Humanizer score')
-        expect(response.body).not_to include('Pangram 3 Result')
+        expect(response.body).not_to include('Originality 5.0 Result')
+      end
+
+      it 'shows the version mismatch when Pangram answers as another version' do
+        allow(AiDetector.for(pangram).client).to receive(:inference)
+          .and_raise(PangramApi::ModelMismatch, 'expected Pangram 4.1 but got "4.2"')
+
+        post '/ai_tools/compare_ai_detectors', params: { plain_text:,
+                                                         article_or_diff_url: "",
+                                                         pangram.to_sym => '1' }
+
+        expect(response.body).to include('Pangram 4.1: expected Pangram 4.1')
+        expect(RevisionAiScore.count).to eq(0)
       end
 
       it 'shows a detector error instead of a result and stores no row for it' do
-        allow(AiDetector.for(allowance_40).client).to receive(:inference)
+        allow(AiDetector.for(model_5_max).client).to receive(:inference)
           .and_raise(OriginalityApi::TextTooShort, '3 words; Originality requires 50')
 
         post '/ai_tools/compare_ai_detectors', params: { plain_text:,
                                                          article_or_diff_url: "",
-                                                         pangram_v4.to_sym => '1',
-                                                         allowance_40.to_sym => '1' }
+                                                         pangram.to_sym => '1',
+                                                         model_5_max.to_sym => '1' }
 
-        expect(RevisionAiScore.pluck(:check_type)).to eq(['Pangram 4'])
+        expect(RevisionAiScore.pluck(:check_type)).to eq(['Pangram 4.1'])
         expect(response.body).to include('Originality requires 50')
-        expect(response.body).to include('Pangram 4 Result')
+        expect(response.body).to include('Pangram 4.1 Result')
       end
 
       it 'shows a notice when a detector fails at the transport level' do
-        allow(AiDetector.for(pangram_v3).client).to receive(:inference)
+        allow(AiDetector.for(model_5).client).to receive(:inference)
           .and_raise(Faraday::TimeoutError, 'execution expired')
 
         post '/ai_tools/compare_ai_detectors', params: { plain_text:,
                                                          article_or_diff_url: "",
-                                                         pangram_v3.to_sym => '1',
-                                                         pangram_v4.to_sym => '1' }
+                                                         pangram.to_sym => '1',
+                                                         model_5.to_sym => '1' }
 
         expect(response).to have_http_status(:ok)
-        expect(response.body).to include('Pangram 3: execution expired')
-        expect(response.body).to include('Pangram 4 Result')
-        expect(RevisionAiScore.pluck(:check_type)).to eq(['Pangram 4'])
+        expect(response.body).to include('Originality 5.0: execution expired')
+        expect(response.body).to include('Pangram 4.1 Result')
+        expect(RevisionAiScore.pluck(:check_type)).to eq(['Pangram 4.1'])
       end
 
-      it 'renders the Originality result with its model and block scores' do
+      it 'renders the Originality result with its model, verdict and segment scores' do
         post '/ai_tools/compare_ai_detectors', params: { plain_text:,
                                                          article_or_diff_url: "",
-                                                         academic.to_sym => '1' }
+                                                         model_5_max.to_sym => '1' }
 
-        expect(response.body).to include('Originality Academic Result')
-        expect(response.body).to include('Model: academic')
+        expect(response.body).to include('Originality 5.0 Max Result')
+        expect(response.body).to include('Model: model-5.0-max')
+        expect(response.body).to include('Prediction: mixed')
+        expect(response.body).to include('AI-assisted: 60%')
         expect(response.body).to include('0.6722')
-        score = RevisionAiScore.find_by(check_type: academic)
+        score = RevisionAiScore.find_by(check_type: model_5_max)
         expect(score.max_ai_likelihood).to be_within(0.0001).of(0.6722)
-        expect(score.avg_ai_likelihood).to eq(1)
+        expect(score.avg_ai_likelihood).to eq(0.6)
+        expect(score.details['results']['ai']['sentences'].first).not_to have_key('text')
       end
     end
 
@@ -204,7 +176,7 @@ describe AiToolsController, type: :request do
         page = Nokogiri::HTML(response.body)
         checked = page.css('input[type=checkbox][checked]').map { |box| box['name'] }
         all = page.css('input[type=checkbox]').map { |box| box['name'] }
-        expect(checked).to eq([pangram_v3, pangram_v4])
+        expect(checked).to eq([pangram])
         expect(all).to eq(AiDetector.keys)
       end
     end
@@ -227,19 +199,14 @@ describe AiToolsController, type: :request do
         VCR.use_cassette 'pangram' do
           post '/ai_tools/compare_ai_detectors', params: { plain_text: "",
                                                           article_or_diff_url: url,
-                                                          pangram_v3.to_sym => '1',
-                                                          pangram_v4.to_sym => '1',
-                                                          lite_102.to_sym => '1',
-                                                          turbo.to_sym => '1',
-                                                          academic.to_sym => '1',
-                                                          allowance_15.to_sym => '1',
-                                                          allowance_40.to_sym => '1' }
+                                                          pangram.to_sym => '1',
+                                                          model_5.to_sym => '1',
+                                                          model_5_max.to_sym => '1' }
         end
 
-        expect(RevisionAiScore.count).to eq(7)
+        expect(RevisionAiScore.count).to eq(3)
         expect(RevisionAiScore.order(:id).pluck(:check_type)).to eq(
-          ['Pangram 3', 'Pangram 4', 'Originality Lite 1.0.2', 'Originality Turbo',
-           'Originality Academic', 'Originality AI Allowance 15', 'Originality AI Allowance 40']
+          ['Pangram 4.1', 'Originality 5.0', 'Originality 5.0 Max']
         )
 
         RevisionAiScore.find_each do |score|
@@ -305,10 +272,10 @@ describe AiToolsController, type: :request do
       it 'scores nothing and shows a notice instead of falling back to the latest revision' do
         expect(GetRevisionPlaintext).not_to receive(:new)
         expect(WikiApi::ArticleContent).not_to receive(:new)
-        expect(AiDetector.for(pangram_v4).client).not_to receive(:inference)
+        expect(AiDetector.for(pangram).client).not_to receive(:inference)
 
         post '/ai_tools/compare_ai_detectors', params: { plain_text: "", article_or_diff_url: url,
-                                                         pangram_v4.to_sym => '1' }
+                                                         pangram.to_sym => '1' }
 
         expect(response).to have_http_status(:ok)
         expect(response.body).to include('Unsupported URL')

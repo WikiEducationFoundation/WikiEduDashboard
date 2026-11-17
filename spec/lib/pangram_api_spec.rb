@@ -5,19 +5,7 @@ require "#{Rails.root}/lib/pangram_api"
 
 describe PangramApi do
   let(:text) { 'Some prose to classify.' }
-  # Response shapes recorded from the live API on 2026-09-03, with the text fields removed.
-  let(:v3_result) do
-    { 'version' => '3.3.2',
-      'headline' => 'AI Generated',
-      'prediction' => 'We believe that this document is fully AI-generated',
-      'prediction_short' => 'AI',
-      'fraction_ai' => 1.0, 'fraction_ai_assisted' => 0.0, 'fraction_human' => 0.0,
-      'num_ai_segments' => 1, 'num_ai_assisted_segments' => 0, 'num_human_segments' => 0,
-      'windows' => [{ 'label' => 'AI-Generated', 'ai_assistance_score' => 0.9928954839706421,
-                      'confidence' => 'High', 'start_index' => 0, 'end_index' => 2285,
-                      'word_count' => 313, 'token_length' => 392 }],
-      'dashboard_link' => 'https://www.pangram.com/history/e9b76ac7' }
-  end
+  # Response shape recorded from the live API on 2026-09-03, with the text fields removed.
   let(:v4_result) do
     { 'stage' => 'STAGE_SUCCESS',
       'version' => '4.0',
@@ -39,30 +27,6 @@ describe PangramApi do
     allow(ENV).to receive(:[]).and_call_original
     allow(ENV).to receive(:[]).with('pangram_api_key').and_return('test-key')
     stub_const('PangramApi::POLL_INTERVAL', 0)
-  end
-
-  describe '.v3' do
-    it 'posts the text synchronously and returns the parsed result' do
-      stub = stub_request(:post, PangramApi::V3_API_URL)
-             .with(body: { public_dashboard_link: true, text: },
-                   headers: { 'x-api-key' => 'test-key', 'Content-Type' => 'application/json' })
-             .to_return(status: 200, body: v3_result.to_json)
-
-      result = described_class.v3.inference(text)
-
-      expect(stub).to have_been_requested
-      expect(result).to eq(v3_result)
-    end
-
-    it 'raises RequestError with the status on a non-success response' do
-      stub_request(:post, PangramApi::V3_API_URL)
-        .to_return(status: 400, body: { error: 'unknown model' }.to_json)
-
-      expect { described_class.v3.inference(text) }.to raise_error(PangramApi::RequestError) do |e|
-        expect(e.status).to eq(400)
-        expect(e.message).to include('unknown model')
-      end
-    end
   end
 
   describe '.v4' do
@@ -113,6 +77,22 @@ describe PangramApi do
       expect { described_class.v4.inference(text) }.to raise_error(PangramApi::RequestError) do |e|
         expect(e.status).to eq(402)
       end
+    end
+
+    it 'accepts a result from the pinned version' do
+      stub_task_submission
+      stub_request(:get, task_url).to_return(status: 200, body: v4_result.to_json)
+
+      expect(described_class.v4(expected_version: '4.0').inference(text)).to eq(v4_result)
+    end
+
+    it 'raises ModelMismatch when the API answers as a different version than pinned' do
+      stub_task_submission
+      stub_request(:get, task_url)
+        .to_return(status: 200, body: v4_result.merge('version' => '4.2').to_json)
+
+      expect { described_class.v4(expected_version: '4.1').inference(text) }
+        .to raise_error(PangramApi::ModelMismatch, /expected Pangram 4.1.*"4.2"/)
     end
 
     it 'raises RequestError when a status check fails' do
