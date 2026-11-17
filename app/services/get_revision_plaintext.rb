@@ -2,6 +2,7 @@
 
 require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 require_dependency "#{Rails.root}/lib/wiki_api/diff_wikitext_extractor"
+require_dependency "#{Rails.root}/lib/ai/non_prose_line_filter"
 
 class GetRevisionPlaintext
   # changed_wikitext is the wikitext added in a diff (nil for a whole revision),
@@ -83,11 +84,15 @@ class GetRevisionPlaintext
     # First remove the <table> elements, which contain template content in exercise sandboxes
     # and are likely to contain non-prose in other cases.
     @cleaned_html = remove_non_prose_html_elements(@diff_html || @rev_html)
-    # Convert the HTML to plain text
-    @plain_text = ActionView::Base.full_sanitizer.sanitize(@cleaned_html)
-    @plain_text = @plain_text.strip
+    # Convert the HTML to plain text. The sanitizer strips tags but leaves
+    # entities escaped (& comes out as &amp;), so unescape them to get the
+    # text a reader sees.
+    @plain_text = CGI.unescapeHTML(ActionView::Base.full_sanitizer.sanitize(@cleaned_html))
     # Remove inline citation leftovers
     @plain_text = @plain_text.gsub(/\[\d+\]/, '')
+    # Drop lines that aren't the editor's prose: bibliography entries, exercise
+    # template instructions and bare signatures.
+    @plain_text = NonProseLineFilter.new(@plain_text).text.strip
   end
 
   def remove_non_prose_html_elements(html)
@@ -99,6 +104,9 @@ class GetRevisionPlaintext
 
     doc.xpath('//figure').each(&:remove) # Exclude figure elements (images + captions)
     doc.xpath('//img').each(&:remove) # Exclude any remaining image elements
+    # Exclude the "Latest comment: ..." bar and reply buttons DiscussionTools adds to talk pages
+    doc.css('.ext-discussiontools-init-section-bar, .ext-discussiontools-init-replylink-buttons')
+       .each(&:remove)
 
     doc.to_html
   end
