@@ -63,6 +63,12 @@ describe GetRevisionPlaintext do
       expect(service.plain_text).not_to include('Example caption')
     end
 
+    it 'returns HTML entities as the characters a reader sees' do
+      stub_revision_html('<p>Tone &amp; Balance: 3 &lt; 4, &quot;quoted&quot;, caf&#233;.</p>')
+      service = described_class.new(12345, en_wiki, diff_mode: false)
+      expect(service.plain_text).to eq('Tone & Balance: 3 < 4, "quoted", café.')
+    end
+
     it 'excludes inline images' do
       stub_revision_html(<<~HTML)
         <p>Text before <a href="/wiki/File:Icon.png" class="image"><img src="icon.png" /></a> text after.</p>

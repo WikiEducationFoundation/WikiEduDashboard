@@ -83,8 +83,10 @@ class GetRevisionPlaintext
     # First remove the <table> elements, which contain template content in exercise sandboxes
     # and are likely to contain non-prose in other cases.
     @cleaned_html = remove_non_prose_html_elements(@diff_html || @rev_html)
-    # Convert the HTML to plain text
-    @plain_text = ActionView::Base.full_sanitizer.sanitize(@cleaned_html)
+    # Convert the HTML to plain text. The sanitizer strips tags but leaves
+    # entities escaped (& comes out as &amp;), so unescape them to get the
+    # text a reader sees.
+    @plain_text = CGI.unescapeHTML(ActionView::Base.full_sanitizer.sanitize(@cleaned_html))
     @plain_text = @plain_text.strip
     # Remove inline citation leftovers
     @plain_text = @plain_text.gsub(/\[\d+\]/, '')
