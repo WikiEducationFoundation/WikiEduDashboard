@@ -61,6 +61,12 @@ class Features
     ENV['hot_loading'] != 'true' && ENV['DISABLE_SENTRY'] != 'true'
   end
 
+  # Gates the admin-only Article Audit pages (LLM-based article review).
+  # Also needs anthropic_api_key for the LLM checks.
+  def self.article_audit?
+    ENV['article_audit_enabled'] == 'true'
+  end
+
   def self.email?
     !ENV['mailgun_key'].nil?
   end

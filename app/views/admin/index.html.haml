@@ -14,6 +14,9 @@
     .admin-links-column
       %h2 AI-related tools
       %ul
+        - if Features.article_audit?
+          %li
+            %a{href: '/article_audits'} Article Audit
         %li
           %a{href: '/ai_edit_alerts_stats'} AI alert dashboard (CURRENT TERM)
         %li

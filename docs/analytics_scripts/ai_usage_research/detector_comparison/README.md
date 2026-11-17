@@ -257,6 +257,51 @@ importer = ImportOfflineDetectorScores.new(path: '/home/sage/all_units_llama_202
 [importer.imported, importer.unmatched]
 ```
 
+### Desklib (`analysis/score_desklib.py`)
+
+Scores unit texts offline with Desklib's open detector, `desklib/ai-text-detector-v1.01`
+(MIT licence; DeBERTa-v3-large fine-tuned on RAID's training set). It follows the model
+card's own inference code (768 tokens, padded to that length, float32, AI at a
+probability of 0.5), scores long texts in consecutive 768-token windows, and writes rows
+under the check type `Desklib v1.01` in the format `ImportOfflineDetectorScores` reads.
+The document score is the token-weighted mean of the window probabilities; `max_score`
+is the highest window. `--verify N` first checks that windowed scoring reproduces the
+card's single call on N texts that fit one window.
+
+It runs in the same environment as Open Pangram (`~/.venvs/open_detectors`); the
+DeBERTa-v3 tokenizer may also need `pip install sentencepiece`. The weights are about
+1.7 GB, and in float32 the model fits easily on an 8 GB GPU. The input is the
+`text_sha256,word_count,text` file used for Open Pangram, covering every distinct text
+in the production samples:
+
+```sh
+python score_desklib.py --input ~/desklib_input_2026-11-17.csv --out ~/desklib_2026-11-17.csv --verify 20
+```
+
+Load the scores locally first for analysis, and into production when the comparison
+page should show them, with `ImportOfflineDetectorScores.new(path: ...)` as above.
+
+First run, 2026-11-17 (model commit 5fdea974cd42): 4,185 distinct texts, no errors, about
+35 minutes on an RTX 3070 Ti; `--verify 20` matched the card's inference exactly. Against
+the comparison page's data, counting any AI label as a detection:
+
+- **Known-human texts** (578 pre-ChatGPT student contributions): Desklib labels 54 (9.3%)
+  AI, against 0 for Pangram 4.0 and Originality Allowance 15/40 and 1–2 for Open Pangram.
+  With a Dashboard-style rule on its windows instead of its document score, 171 (30%) have
+  a window at 0.5 or more and 40 (6.9%) one above 0.9.
+- **What the 54 have in common:** nothing beyond the model. They are spread evenly across
+  terms, with flag rates of 5–13 per term of about 95 texts. Pangram 4.0 and Open Pangram
+  score all of them as clearly human. Shorter texts are flagged more often: 5 of 23 under
+  300 words, 4 of 116 over 2,000 words, since the document score averages windows. So are
+  texts that open like an encyclopedia lead ("X is a ..."), at 12% against 7%. Wikitext
+  leftovers in the extracted text are as common in unflagged texts.
+- **Score spread:** the flagged scores spread from 0.50 to 0.98, and another 89 human texts
+  score between 0.3 and 0.5. Desklib's scores on encyclopedic human prose are broad, not a
+  few outliers.
+- **Generated texts:** AI labels on 86% of current models' texts from simple prompts (Pangram
+  4.0: 100%) and 65% from other prompting strategies (96%), 100% of the older open-weight
+  models' texts, and 1 of 16 Agpedia articles (14 of 16).
+
 ## The comparison page
 
 `/detector_comparison` (public, on the Wiki Education Dashboard) presents the known-AI samples

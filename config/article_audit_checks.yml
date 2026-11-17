@@ -1,0 +1,228 @@
+# Article Audit check registry. See lib/article_auditing/registry.rb.
+#
+# Each key is a check's KEY. Checks run in the order listed here:
+# deterministic checks first, then LLM checks (the first LLM check runs alone
+# so it writes the prompt cache; the rest run in parallel).
+#
+# For LLM checks, `provider`, `model` and `effort` choose the engine. Moving a
+# check to another engine is a change here (plus a new check class if the
+# implementation changes, eg from a prompt to plain code).
+
+sourcing.reference_list:
+  class: ArticleAuditing::Checks::ReferenceList
+  enabled: true
+
+mos.reference_placement:
+  class: ArticleAuditing::Checks::ReferencePlacement
+  enabled: true
+
+structure.lead_section:
+  class: ArticleAuditing::Checks::LeadSection
+  enabled: true
+
+mos.appendix_sections:
+  class: ArticleAuditing::Checks::AppendixSections
+  enabled: true
+
+links.external_links_in_body:
+  class: ArticleAuditing::Checks::ExternalLinksInBody
+  enabled: true
+
+structure.drafting_leftovers:
+  class: ArticleAuditing::Checks::DraftingLeftovers
+  enabled: true
+
+flags.page_status:
+  class: ArticleAuditing::Checks::PageFlags
+  enabled: true
+
+language.not_english:
+  class: ArticleAuditing::Checks::Language
+  enabled: true
+
+mos.emphasis:
+  class: ArticleAuditing::Checks::Emphasis
+  enabled: true
+
+mos.date_format:
+  class: ArticleAuditing::Checks::DateFormat
+  enabled: true
+
+mos.sentence_spacing:
+  class: ArticleAuditing::Checks::SentenceSpacing
+  enabled: true
+
+sourcing.page_numbers:
+  class: ArticleAuditing::Checks::PageNumbers
+  enabled: true
+
+links.duplicate_links:
+  class: ArticleAuditing::Checks::DuplicateLinks
+  enabled: true
+
+links.inappropriate_external_links:
+  class: ArticleAuditing::Checks::InappropriateExternalLinks
+  enabled: true
+
+# Wiki-context checks: these look up the article's surroundings on the wiki
+# (see lib/article_auditing/wiki_context.rb).
+new_article.wikidata:
+  class: ArticleAuditing::Checks::WikidataItem
+  enabled: true
+
+links.navboxes:
+  class: ArticleAuditing::Checks::Navboxes
+  enabled: true
+
+links.incoming_links:
+  class: ArticleAuditing::Checks::IncomingLinks
+  enabled: true
+
+sourcing.author_links:
+  class: ArticleAuditing::Checks::AuthorLinks
+  enabled: true
+
+mos.engvar:
+  class: ArticleAuditing::Checks::EnglishVariety
+  enabled: true
+
+infobox.speciesbox:
+  class: ArticleAuditing::Checks::Speciesbox
+  enabled: true
+
+flags.target_status:
+  class: ArticleAuditing::Checks::TargetStatus
+  enabled: true
+
+# Pangram AI detection; skipped when pangram_api_key isn't set.
+external.ai_detection:
+  class: ArticleAuditing::Checks::AiDetection
+  enabled: true
+
+sourcing.unsourced_claims:
+  class: ArticleAuditing::Checks::UnsourcedClaims
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: medium
+
+tone:
+  class: ArticleAuditing::Checks::Tone
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: medium
+
+sourcing.source_table:
+  class: ArticleAuditing::Checks::SourceTable
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: medium
+
+sourcing.citation_formatting:
+  class: ArticleAuditing::Checks::CitationFormatting
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
+
+policy:
+  class: ArticleAuditing::Checks::PolicyCheck
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: medium
+
+structure.lead:
+  class: ArticleAuditing::Checks::LeadContent
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: medium
+
+structure.sections:
+  class: ArticleAuditing::Checks::SectionStructure
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: medium
+
+mos.prose:
+  class: ArticleAuditing::Checks::ProseStyle
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
+
+infobox:
+  class: ArticleAuditing::Checks::Infobox
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
+
+links.suggestions:
+  class: ArticleAuditing::Checks::LinkSuggestions
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
+
+new_article.notability:
+  class: ArticleAuditing::Checks::Notability
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: medium
+
+new_article.short_description:
+  class: ArticleAuditing::Checks::ShortDescription
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
+
+new_article.existing_coverage:
+  class: ArticleAuditing::Checks::ExistingCoverage
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: medium
+
+new_article.categories:
+  class: ArticleAuditing::Checks::Categories
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
+
+# Fetches every cited source with a URL and judges the sentences that cite it.
+# Its usage row counts claims, claims over the cap, sources and sources fetched.
+sourcing.citation_support:
+  class: ArticleAuditing::Checks::CitationSupport
+  enabled: true
+  provider: anthropic
+  model: claude-opus-5-5
+  effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100

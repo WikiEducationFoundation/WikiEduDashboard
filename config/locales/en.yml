@@ -96,6 +96,69 @@ en:
     print: Print
     sort: Sort
 
+  article_audit:
+    heading: Article Audit
+    url_label: Article URL
+    run_audit: Run audit
+    recent_audits: Recent audits
+    loading: Loading…
+    article: Article
+    wiki: Wiki
+    status: Status
+    requested: Requested
+    requester: Requester
+    check: Check
+    view_revision: View revision
+    rerun: Re-run
+    no_findings: No findings
+    quote: Quote
+    suggestion: Suggestion
+    engine: Engine
+    tokens: Tokens
+    duration: Duration
+    runs: Runs
+    version: Version
+    error: Error
+    findings_count:
+      one: "%{count} finding"
+      other: "%{count} findings"
+    whole_article: Whole article
+    tabs:
+      article: Article
+      details: Details
+      checks: Checks
+    ai_notice: Parts marked AI were written by an AI model and may be wrong. Check them before acting on them.
+    ai_label: AI
+    statuses:
+      queued: Queued
+      running: Running
+      complete: Complete
+      partial: Partial
+      failed: Failed
+    severities:
+      must_fix: Must fix
+      should_fix: Should fix
+      suggestion: Suggestion
+      info: Info
+    categories:
+      flags: Page status
+      sourcing: Sourcing
+      tone: Tone
+      structure: Structure
+      mos: Manual of Style
+      infobox: Infobox
+      links: Links
+      policy: Policy
+      new_article: New article
+      external: External
+    # Copied from claim_verification.form.verdict_options, so either can change
+    # without the other.
+    citation_verdicts:
+      partially_supported: Partially — some elements of the claim come from this source, but a significant part does not.
+      not_supported: No — the source does not cover what the claim says.
+      contradicted: The opposite — the source actually contradicts the claim.
+    email:
+      view_report: View report
   article_statuses:
     not_yet_started: Getting Started
     in_progress: Working in Sandbox

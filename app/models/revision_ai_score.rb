@@ -58,4 +58,5 @@ class RevisionAiScore < ApplicationRecord
   COURSE_UPDATE_ORIGIN = 'course_update' # Production checks that can generate alerts
   AI_TOOL_ORIGIN = 'ai_tool' # Admin AI tools page
   DETECTOR_COMPARISON_ORIGIN = 'detector_comparison' # Scored as part of an AiDetectionSample
+  ARTICLE_AUDIT_ORIGIN = 'article_audit' # Scored as a check in an ArticleAudit
 end

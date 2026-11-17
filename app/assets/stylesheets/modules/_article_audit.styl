@@ -1,0 +1,356 @@
+// Admin Article Audit pages (/article_audits). Variables come from
+// _variables.styl (globally in scope via _shared). The severity and status
+// colors are darker than $warning_text / $success_text so that small text
+// on the light backgrounds meets WCAG AA contrast.
+
+$audit_red = #A63A3A
+$audit_amber = #855200
+$audit_green = #22705B
+
+.article-audit
+  margin-top 40px
+  margin-bottom 60px
+
+  h2
+    margin-top 32px
+
+  &__meta,
+  &__notice
+    color $text_med
+
+  &__form
+    display flex
+    gap 8px
+    align-items center
+    max-width 800px
+    input
+      flex 1
+
+  &__error
+    color $audit_red
+
+  &__status
+    display inline-block
+    padding 2px 8px
+    border-radius 10px
+    background $bg_med
+    font-size .85em
+    &--complete
+      color $audit_green
+    &--partial,
+    &--failed
+      color $audit_red
+
+  // Marks a finding or artifact that an LLM produced.
+  &__ai-label
+    display inline-block
+    margin 0 8px
+    padding 0 6px
+    border 1px solid $border_med
+    border-radius 3px
+    color $text_dk
+    font-size .75em
+    font-weight 600
+    vertical-align middle
+
+  &__checks
+    margin-top 32px
+
+// The report's Article tab: the article on the left with findings
+// highlighted, and the findings as comments on the right.
+$audit_amber_border = #E0A040
+$comment_width = 340px
+
+.article-audit
+  &__legend
+    display flex
+    flex-wrap wrap
+    gap 8px
+    margin 16px 0
+
+  &__legend-item
+    display inline-flex
+    align-items center
+    gap 6px
+    padding 4px 10px
+    border 1px solid $border_med
+    border-radius 14px
+    background white
+    color $text_dk
+    font-size .9em
+    cursor pointer
+    &[aria-pressed="false"]
+      color $text_med
+      text-decoration line-through
+      .article-audit__swatch
+        opacity .3
+
+  &__swatch
+    width 12px
+    height 12px
+    border-radius 2px
+
+  &__legend-item--must_fix &__swatch
+    background $audit_red
+  &__legend-item--should_fix &__swatch
+    background $audit_amber_border
+  &__legend-item--suggestion &__swatch
+    background $brand_primary
+  &__legend-item--info &__swatch
+    background $border_med_dk
+
+  &__count
+    color $text_med
+
+  &__tabs
+    display flex
+    gap 4px
+    margin-top 24px
+    border-bottom 1px solid $border_med
+
+  &__tab
+    padding 8px 16px
+    border 0
+    border-bottom 3px solid transparent
+    background none
+    color $text_med
+    font-size 1em
+    cursor pointer
+    &[aria-selected="true"]
+      border-bottom-color $brand_primary
+      color $text_dk
+      font-weight 600
+
+// The report page uses the full window width, so there's room for the
+// article and the comment column side by side.
+.container.article-audit--report
+  max-width none
+  padding 0 24px
+
+.article-audit-annotated
+  display grid
+  grid-template-columns minmax(0, 1fr) $comment_width
+  gap 24px
+  align-items start
+
+  &--no-article
+    grid-template-columns minmax(0, 1fr)
+
+  &__article.parsed-article
+    margin 0
+    padding 16px 24px
+    background white
+    border 1px solid $border_lt
+    color $text_dk
+    line-height 1.6
+
+  // Wikipedia-like headings, rather than the Dashboard's.
+  // (Student drafts sometimes use level-1 headings.)
+  &__article h1,
+  &__article h2,
+  &__article h3,
+  &__article h4
+    color $text_dk
+    margin 1em 0 .4em
+  &__article h1,
+  &__article h2
+    font-family 'Linux Libertine', Georgia, Times, serif
+    font-size 1.6em
+    font-weight normal
+    border-bottom 1px solid #A2A9B1
+  &__article h3
+    font-size 1.2em
+
+  &__general
+    margin-bottom 16px
+    h2
+      margin 0 0 8px
+      font-size 1em
+      color $text_med
+
+  &__list
+    list-style none
+    margin 0
+    padding 0
+
+  // Cards pushed above the top by a selected card are clipped, as if
+  // scrolled out of view. The padding keeps the selected card's shadow.
+  &__list--anchored
+    position relative
+    overflow hidden
+    padding 0 6px 6px
+    margin 0 -6px
+    .article-audit-comment
+      position absolute
+      left 6px
+      right 6px
+      transition top .15s
+
+  @media (max-width: 1000px)
+    grid-template-columns minmax(0, 1fr)
+    &__list--anchored
+      height auto !important
+      .article-audit-comment
+        position static
+
+// Highlights in the article, colored by the most severe finding on the text.
+.aa-mark
+  cursor pointer
+  color inherit
+  border-bottom 2px solid
+  &--must_fix
+    background #F6DADA
+    border-color $audit_red
+  &--should_fix
+    background #FBEACB
+    border-color $audit_amber_border
+  &--suggestion
+    background #E4E5F4
+    border-color $brand_primary
+  &--info
+    background #ECECEC
+    border-color $border_med_dk
+  &.aa-active
+    background #FFE45C
+    outline 2px solid $text_dk
+
+[data-section-findings]
+  cursor pointer
+  &.aa-active
+    background #FFE45C
+
+for severity in must_fix should_fix suggestion info
+  .aa-hide-{severity} .aa-mark--{severity}
+    background none
+    border-bottom 0
+    cursor auto
+
+.article-audit-comment
+  margin-bottom 8px
+  border 1px solid $border_lt
+  border-left-width 4px
+  border-radius 4px
+  background white
+
+  &--must_fix
+    border-left-color $audit_red
+  &--should_fix
+    border-left-color $audit_amber_border
+  &--suggestion
+    border-left-color $brand_primary
+  &--info
+    border-left-color $border_med_dk
+
+  &--selected
+    z-index 1
+    box-shadow 0 2px 8px rgba(0, 0, 0, .2)
+
+  &__header
+    display flex
+    flex-wrap wrap
+    gap 4px 8px
+    align-items baseline
+    width 100%
+    padding 8px 12px
+    border 0
+    background none
+    color $text_dk
+    font-size .9em
+    text-align left
+    cursor pointer
+    .article-audit__ai-label
+      margin 0
+
+  &__severity
+    text-transform uppercase
+    letter-spacing .05em
+    font-size .75em
+    font-weight 600
+    &--must_fix
+      color $audit_red
+    &--should_fix
+      color $audit_amber
+    &--suggestion
+      color $brand_primary
+    &--info
+      color $text_med
+
+  &__title
+    font-weight 600
+
+  &__body
+    padding 0 12px 10px
+    font-size .9em
+    p
+      margin 6px 0
+
+  &__context
+    color $text_med
+    font-size .9em
+
+  &__quote
+    margin 8px 0
+    padding 6px 10px
+    background $bg_light_gray
+    border-left 3px solid $border_med
+    font-family monospace
+    font-size .9em
+    white-space pre-wrap
+    overflow-wrap anywhere
+
+  &__unverified
+    display block
+    color $audit_red
+    font-family inherit
+    font-size .85em
+
+  &__suggestion pre
+    background $bg_light_gray
+    padding 6px 10px
+    white-space pre-wrap
+
+  &__details
+    display flex
+    flex-wrap wrap
+    gap 4px 16px
+    margin 6px 0
+    div
+      display flex
+      gap 4px
+    dt
+      color $text_med
+      font-family monospace
+    dd
+      margin 0
+
+  &__label
+    font-size .8em
+    color $text_med
+
+  &__meta
+    display flex
+    flex-wrap wrap
+    gap 10px
+    font-size .85em
+    color $text_med
+    code
+      color $text_dk
+
+.article-audit-artifact
+  margin-top 24px
+
+  h3 code
+    color $text_dk
+
+  // URLs have no spaces to wrap at.
+  &__url
+    overflow-wrap anywhere
+
+  &__fields
+    display grid
+    grid-template-columns max-content 1fr
+    gap 4px 16px
+    dt
+      font-weight 600
+    dd
+      margin 0
