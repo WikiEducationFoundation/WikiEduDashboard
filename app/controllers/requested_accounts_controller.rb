@@ -11,6 +11,7 @@ class RequestedAccountsController < ApplicationController
   # for a user who wants to create a wiki account (but may not be able to do so
   # because of a shared IP that has hit the new account limit).
   def request_account
+    raise_unauthorized_exception unless @course&.account_requests_enabled?
     redirect_if_passcode_invalid { return }
     # If there is already a request for a certain username for this course, then
     # it's probably the same user who put in the wrong email the first time.
@@ -21,16 +22,8 @@ class RequestedAccountsController < ApplicationController
                                          email: params[:email])
     handle_invalid_request { return }
 
-    unless params[:create_account_now] == 'true'
-      render json: { message: I18n.t('courses.new_account_submitted') }
-      return
-    end
-    result = create_account(@requested)
-    if result[:success]
-      render json: { message: result.values.first }
-    else
-      render json: { message: result.values.first }, status: :internal_server_error
-    end
+    return create_account_now if create_account_now?
+    render json: { message: I18n.t('courses.new_account_submitted') }
   end
 
   # Sets the flag on a course so that clicking 'Sign Up' opens the Request Account
@@ -96,6 +89,20 @@ class RequestedAccountsController < ApplicationController
                    user:,
                    role: CoursesUsers::Roles::STUDENT_ROLE)
     result
+  end
+
+  # Only course editors may skip the request queue, as the UI only offers
+  # immediate creation to instructors. The new-account modal sends JSON, so
+  # the flag arrives as a boolean; form posts send the string 'true'.
+  def create_account_now?
+    ActiveModel::Type::Boolean.new.cast(params[:create_account_now]) &&
+      current_user&.can_edit?(@course)
+  end
+
+  def create_account_now
+    result = create_account(@requested)
+    status = result[:success] ? :ok : :internal_server_error
+    render json: { message: result.values.first }, status:
   end
 
   def check_creation_permissions

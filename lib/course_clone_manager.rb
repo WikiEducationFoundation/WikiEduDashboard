@@ -56,6 +56,7 @@ class CourseCloneManager
     @clone.passcode = GeneratePasscode.call
     @clone.submitted = false
     @clone.flags = {}
+    @clone.grant_id = nil # A new edition is usually supported by a different grant.
     # If a legacy course is cloned, switch the type to ClassroomProgramCourse.
     @clone.type = 'ClassroomProgramCourse' if @clone.legacy?
     @clone.save!
@@ -176,8 +177,10 @@ class CourseCloneManager
     @clone.save
   end
 
+  # Where course creation isn't open (Wiki Ed), adding a course to a campaign
+  # approves it, so a requested campaign is only honoured for admins.
   def add_campaigns
-    if @campaign
+    if @campaign && (Features.open_course_creation? || @user.admin?)
       @clone.campaigns << @campaign
     elsif Features.open_course_creation?
       copy_campaigns

@@ -80,8 +80,6 @@ el:
     change: Αλλαγή
     details: Λεπτομέρειες
     confirm: Εντάξει
-    opt_in: Ναι
-    opt_out: Όχι
     opt_yes: ναι
     opt_no: όχι
     print: Εκτύπωση

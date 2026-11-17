@@ -10,11 +10,10 @@ json.course do
             :home_wiki, :character_sum,  :upload_count, :uploads_in_use_count,
             :upload_usages_count, :cloned_status, :flags, :level, :format, :private,
             :closed?, :training_library_slug, :peer_review_count, :needs_update,
-            :update_until, :withdrawn, :created_at)
+            :update_until, :withdrawn, :created_at, :grant_id)
 
   json.wikis @course.wikis, :language, :project
   json.namespaces format_wiki_namespaces(@course.course_wiki_namespaces)
-  json.timeslice_update_ran @course.timeslice_update_ran?
   json.timeline_enabled @course.timeline_enabled?
   json.disable_student_emails @course.disable_student_emails?
   json.academic_system @course.academic_system
@@ -43,6 +42,7 @@ json.course do
   json.returning_instructor @course.returning_instructor?
   json.eligible_for_active_research_experiment @course.eligible_for_active_research_experiment?
   json.research_experiment_open_to_students @course.research_experiment_open_to_students?
+  json.metadata_locked @course.metadata_locked?
 
   # The stored edit counts are CSV data, not overview stats.
   displayed_stats = @course&.course_stat&.stats_hash
@@ -69,9 +69,32 @@ json.course do
   json.updates average_delay: @course.flags['average_update_delay'],
                last_update: @course.flags['update_logs']&.values&.last
 
+  # For the application card on the apply link (Scholars & Scientists courses,
+  # Wiki Education Dashboard only). See CourseApplicationsController.
+  if Features.wiki_ed? && @course.applications_allowed?
+    application_form = @course.course_application_form
+    json.application do
+      json.has_form application_form.present?
+      json.open application_form&.accepting_applications? || false
+      json.applied current_user.present? &&
+                   @course.course_applications.exists?(user: current_user)
+      json.intro_html simple_format(application_form.intro) if application_form&.intro.present?
+      json.form_url "/courses/#{@course.slug}/apply/form"
+      # For the Admin box: all applications, and those still awaiting a decision.
+      if current_user&.admin?
+        json.total_count @course.course_applications.count
+        json.submitted_count @course.course_applications.submitted.count
+      end
+    end
+  end
+
   if [CoursesUsers::Roles::STUDENT_ROLE, CoursesUsers::Roles::INSTRUCTOR_ROLE].include? user_role
     json.incomplete_assigned_modules @course.training_progress_manager
                                             .incomplete_assigned_modules(current_user)
+  end
+
+  if current_user&.admin?
+    json.missing_expected_modules FindMissingExpectedModules.new(@course).missing_module_names
   end
 
   if user_role >= 0 # user enrolled in course

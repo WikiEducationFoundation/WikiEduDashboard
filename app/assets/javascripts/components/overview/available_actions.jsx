@@ -13,7 +13,7 @@ import CloneCourseButton from './clone_course_button.jsx';
 import StudentViewToggle from '../course/student_view_toggle.jsx';
 import { getCanViewAsStudent, getIsViewingAsStudent } from '../../selectors';
 import { enableAccountRequests } from '../../actions/new_account_actions.js';
-import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse, removeAndDeleteCourse } from '../../actions/course_actions';
+import { needsUpdate, linkToSalesforce, updateSalesforceRecord, deleteCourse } from '../../actions/course_actions';
 import { STUDENT_ROLE, ONLINE_VOLUNTEER_ROLE } from '../../constants/user_roles';
 import { removeUser } from '../../actions/user_actions';
 import NotifyInstructorsButton from './notify_instructors_button.jsx';
@@ -62,15 +62,8 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
     const enteredTitle = prompt(I18n.t('courses.confirm_course_deletion', { title: course.title }));
     // Check if enteredTitle is not null before calling trim.
     if (enteredTitle !== null && enteredTitle.trim() === course.title.trim()) {
-      // If course has no campaigns, delete the course directly; otherwise, remove from campaign first.
-      if (!course.campaigns || course.campaigns.length === 0) {
-        return dispatch(deleteCourse(courseSlug));
-      }
-      const campaign = course.campaigns[0];
-      const campaignTitle = campaign.title;
-      const campaignId = campaign.id;
-      const campaignSlug = campaign.slug;
-      return dispatch(removeAndDeleteCourse(courseSlug, campaignTitle, campaignId, campaignSlug));
+      // Deleting the course also removes it from its campaigns.
+      return dispatch(deleteCourse(courseSlug));
     } else if (enteredTitle) {
       return alert(I18n.t('courses.confirm_course_deletion_failed', { title: enteredTitle }));
     }
@@ -198,6 +191,16 @@ const AvailableActions = ({ course, current_user, updateCourse, courseCreationNo
   if (user.admin && course.type === 'FellowsCohort') {
     controls.push((
       <div key="retention_predictors" className="available-action"><a href={`/course_retention_csv?course=${course.slug}`} className="button">{I18n.t('courses.retention_predictors')}</a></div>
+    ));
+  }
+
+  // Application form settings, for admins on Scholars & Scientists courses (Wiki Ed only).
+  if (user.admin && Features.wikiEd && course.type === 'FellowsCohort') {
+    controls.push((
+      <div key="application_form" className="available-action"><a href={`/courses/${course.slug}/application_form`} className="button">{I18n.t('course_application_forms.title')}</a></div>
+    ));
+    controls.push((
+      <div key="applications" className="available-action"><a href={`/courses/${course.slug}/applications`} className="button">{I18n.t('course_application_reviews.title')}</a></div>
     ));
   }
 

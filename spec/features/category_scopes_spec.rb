@@ -41,6 +41,14 @@ describe 'Tracked categories and templates', js: true do
     expect(page).not_to have_content 'Earth'
   end
 
+  it 'does not let a facilitator add categories when the course metadata is locked' do
+    course.update(flags: { finalized: true })
+    visit "/courses/#{course.slug}/articles"
+    expect(page).to have_content 'Tracked Categories'
+    expect(page).not_to have_button 'Add category'
+    expect(page).not_to have_button 'Add template'
+  end
+
   it 'lets a facilitator add a template' do
     visit "/courses/#{course.slug}/articles"
     click_button 'Add template'

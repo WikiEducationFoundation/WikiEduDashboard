@@ -14,8 +14,6 @@ ky:
     request_account: Аккаунтту өтүнүү
     sign_up: Катталуу
     confirm: Макул
-    opt_in: Ооба
-    opt_out: Жок
   alerts:
     ai_stats:
       sections:

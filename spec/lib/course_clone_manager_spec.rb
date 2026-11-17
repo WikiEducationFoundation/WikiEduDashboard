@@ -17,6 +17,7 @@ describe CourseCloneManager do
            timeline_end: 9.months.ago,
            slug: 'School/Title_(Term)',
            passcode: 'code',
+           grant_id: '1546-24563',
            flags: { first_flag: 'something', peer_review_count: 3 })
     create(:campaign, id: 1)
     create(:campaigns_course, course_id: 1, campaign_id: 1)
@@ -135,6 +136,11 @@ describe CourseCloneManager do
         .with(hash_including(course: clone, subject: 'biographies'))
     end
 
+    it 'does not carry over the grant ID' do
+      expect(original.grant_id).to eq('1546-24563')
+      expect(clone.grant_id).to be_nil
+    end
+
     it 'marks the cloned status as PENDING' do
       expect(clone.cloned_status).to eq(Course::ClonedStatus::PENDING)
     end
@@ -187,14 +193,30 @@ describe CourseCloneManager do
   end
 
   context 'with a preset campaign' do
-    it 'allows for the campaign to be set' do
-      slug = 'new_campaign_slug'
-      new_campaign = create(:campaign, id: 2, title: 'New Campaign', slug:)
-      campaign_clone = described_class.new(course: Course.find(1), user: User.find(1),
-                                           clone_assignments: false, campaign_slug: slug).clone!
+    let(:slug) { 'new_campaign_slug' }
+    let!(:new_campaign) { create(:campaign, id: 2, title: 'New Campaign', slug:) }
+
+    def clone_into_campaign
+      described_class.new(course: Course.find(1), user: User.find(1),
+                          clone_assignments: false, campaign_slug: slug).clone!
+    end
+
+    it 'allows for the campaign to be set where course creation is open' do
+      allow(Features).to receive(:open_course_creation?).and_return(true)
+      campaign_clone = clone_into_campaign
 
       expect(campaign_clone.campaigns.length).to eq(1)
       expect(campaign_clone.campaigns).to include(new_campaign)
+    end
+
+    it 'allows an admin to set the campaign on Wiki Ed' do
+      User.find(1).update(permissions: User::Permissions::ADMIN)
+      expect(clone_into_campaign.campaigns).to include(new_campaign)
+    end
+
+    # On Wiki Ed, adding a course to a campaign approves it.
+    it 'ignores the campaign for a non-admin on Wiki Ed' do
+      expect(clone_into_campaign.campaigns).to be_empty
     end
   end
 

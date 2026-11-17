@@ -49,11 +49,14 @@ module UserProfileAnalytics
       end
   end
 
+  # Finalized courses only keep the ACUWT records of their deleted articles (see
+  # TimesliceCleaner#delete_timeslices_for_purge), so they fall back to ArticlesCourses.
   def courses_with_acuwt(course_ids)
     return Set.new if course_ids.empty?
 
+    finalized_ids = Course.where(id: course_ids).select(&:finalized?).map(&:id)
     ArticleCourseUserWikiTimeslice
-      .where(course_id: course_ids)
+      .where(course_id: course_ids - finalized_ids)
       .distinct
       .pluck(:course_id)
       .to_set

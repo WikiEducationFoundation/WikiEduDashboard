@@ -8,6 +8,13 @@ module CourseHelper
     return course
   end
 
+  # Treats a private course the current user can't see as not found, the
+  # same way the course page does.
+  def require_course_visible(course)
+    return if course.visible_to?(current_user)
+    raise ActionController::RoutingError.new('Not Found'), 'Course not found'
+  end
+
   def pretty_course_title(course)
     "#{course.school} - #{course.title} (#{course.term})"
   end

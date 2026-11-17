@@ -1,0 +1,48 @@
+-# A run of grouped multiple-choice questions with the same options, as one
+-# table: a row per question, a column per option (like the survey matrix).
+-# Locals: title (the grouping text, or nil), questions, and answers (submitted
+-# Rapidfire::Answers by question id). Each radio is labelled by its row's
+-# question and its column's option. Rows keep the question ids and
+-# conditionals that course_application.js uses.
+- options = questions.first.options
+- matrix_id = "matrix_#{questions.first.id}"
+- invalid = questions.any? { |q| application_answer_errors(answers[q.id]).any? }
+.module.course-application__question.course-application__matrix{ class: ('course-application__question--invalid' if invalid) }
+  - if title
+    .course-application__question-text{ id: "#{matrix_id}_title" }= title
+  %table.course-application__matrix-table{ aria: { labelledby: title ? "#{matrix_id}_title" : nil } }
+    %thead
+      %tr
+        %td
+        - options.each_with_index do |option, index|
+          %th{ scope: 'col', id: "#{matrix_id}_option_#{index}" }= sanitize(option)
+    %tbody
+      - questions.each do |question|
+        - answer = answers[question.id]
+        - field = "answers[#{question.id}][answer_text]"
+        - field_id = "answer_#{question.id}"
+        - text_id = "#{field_id}_text"
+        - errors = application_answer_errors(answer)
+        - required = question.rules[:presence].to_i == 1
+        - required_attribute = required && question.conditionals.blank?
+        %tr{ id: "question_#{question.id}", data: { conditional: question.conditionals.presence } }
+          %th{ scope: 'row', id: text_id }
+            = sanitize(question_text_html_from_markdown(question.question_text))
+            - unless required
+              %span.course-application__optional= t('course_applications.optional')
+            - if errors.any?
+              %ul.errors{ id: "#{field_id}_errors" }
+                - errors.each do |message|
+                  %li= message
+          - options.each_with_index do |option, index|
+            - option_value = strip_tags(option).strip
+            - option_id = "#{field_id}_#{index}"
+            %td
+              -# The column header is hidden on narrow screens, so the option
+              -# text sits beside each radio there.
+              %label{ for: option_id }
+                = radio_button_tag field, option_value, answer&.answer_text == option_value,
+                                   id: option_id, required: required_attribute,
+                                   aria: { labelledby: "#{text_id} #{matrix_id}_option_#{index}",
+                                           describedby: errors.any? ? "#{field_id}_errors" : nil }
+                %span.course-application__matrix-option= sanitize(option)

@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useMemo, useState, useEffect, useRef } from 'react';
 import { debounce } from 'lodash';
 import { fetchArticleAutocompleteResults } from '../../utils/article_finder_utils';
 
@@ -7,6 +7,14 @@ function ArticleFinderSearchBar({ value, onChange, onSearch, disabled, wiki }) {
   const [suggestions, setSuggestions] = useState([]);
   const [isAutocompleteLoading, setAutocompleteLoading] = useState(false);
   const searchInputRef = useRef(null);
+  // Only the most recent suggestions request may set the suggestions; a slow
+  // one must not land after a quicker later one and replace its results.
+  const currentRequest = useRef(0);
+
+  // The wiki is read as two values rather than as the object, so that the
+  // debounced function below is rebuilt when the user picks a different wiki
+  // and not on every render.
+  const { language, project } = wiki;
 
   let searchClass = 'article-finder-search-bar';
 
@@ -24,28 +32,56 @@ function ArticleFinderSearchBar({ value, onChange, onSearch, disabled, wiki }) {
     return () => clearTimeout(timer);
   }, []);
 
-  const _getSuggestionsApi = useCallback(debounce(async (q) => {
+  const requestSuggestions = useMemo(() => debounce(async (q) => {
+    currentRequest.current += 1;
+    const requestNumber = currentRequest.current;
+
     setAutocompleteLoading(true);
-    const results = await fetchArticleAutocompleteResults(q, wiki).catch(() => []);
+    const results = await fetchArticleAutocompleteResults(q, { language, project })
+      .catch(() => []);
+    if (currentRequest.current !== requestNumber) { return; }
+
     setAutocompleteLoading(false);
     setSuggestions(results);
-  }, 500), []);
+  }, 500), [language, project]);
+
+  // Bumping the request number is what makes a request already in flight
+  // discard its own result.
+  const discardPendingSuggestions = useCallback(() => {
+    requestSuggestions.cancel();
+    currentRequest.current += 1;
+    setAutocompleteLoading(false);
+  }, [requestSuggestions]);
+
+  // Picking a different wiki rebuilds the debounced function, and anything
+  // still outstanding at that point belongs to the previous wiki.
+  useEffect(() => {
+    return () => {
+      discardPendingSuggestions();
+      setSuggestions([]);
+    };
+  }, [discardPendingSuggestions]);
+
+  const clearSuggestions = () => {
+    discardPendingSuggestions();
+    setSuggestions([]);
+  };
 
   const inputChangeHandler = (e) => {
     onChange(e.target.value);
     // autocomplete disabled while disabled (during loading etc.)
     if (!disabled) {
       if (e.target.value === '') {
-        setSuggestions([]);
+        clearSuggestions();
       } else {
-        _getSuggestionsApi(e.target.value);
+        requestSuggestions(e.target.value);
       }
     }
   };
 
   const searchHandler = () => {
     if (disabled || value.trim() === '') return;
-    setSuggestions([]);
+    clearSuggestions();
     onSearch(value);
   };
 
@@ -60,7 +96,7 @@ function ArticleFinderSearchBar({ value, onChange, onSearch, disabled, wiki }) {
     onChange(suggestion);
     // call onSearch directly instead of searchHandler to use the latest suggestion value and not the old state value
     onSearch(suggestion);
-    setSuggestions([]);
+    clearSuggestions();
   };
 
   return (

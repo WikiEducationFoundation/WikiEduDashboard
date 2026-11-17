@@ -85,6 +85,7 @@ describe 'campaign overview page', type: :feature, js: true do
     end
 
     it 'displays stats accurately' do
+      login_as(create(:admin))
       visit "/campaigns/#{campaign.slug}/refresh"
       expect(page).to have_content 'Campaign stats refreshed successfully'
       visit "/campaigns/#{campaign.slug}/overview"
@@ -145,6 +146,35 @@ describe 'campaign overview page', type: :feature, js: true do
       visit "/campaigns/#{campaign.slug}"
       expect(page).to have_no_css('.rails_editable-edit')
       expect(page).to have_no_css('.campaign-create')
+    end
+  end
+
+  describe 'the download modal' do
+    let(:checkbox_label) { I18n.t('campaign.data_include_private_courses') }
+
+    def open_download_modal
+      visit "/campaigns/#{campaign.slug}/overview"
+      click_button I18n.t('courses.download_stats_data')
+      expect(page).to have_content I18n.t('campaign.data_download_info')
+    end
+
+    it 'offers private courses to an organizer of the campaign' do
+      create(:campaigns_user, user:, campaign:, role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+      login_as(user)
+      open_download_modal
+      expect(page).to have_field(checkbox_label, type: 'checkbox')
+    end
+
+    it 'offers private courses to an admin' do
+      login_as(create(:admin))
+      open_download_modal
+      expect(page).to have_field(checkbox_label, type: 'checkbox')
+    end
+
+    it 'does not offer them to another signed-in user' do
+      login_as(user)
+      open_download_modal
+      expect(page).to have_no_field(checkbox_label)
     end
   end
 

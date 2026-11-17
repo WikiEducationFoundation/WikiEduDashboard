@@ -7,20 +7,6 @@
   %section
     .section-header
       = form_tag(method: 'get') do
-        %input{:name => "monthly_report", :type => "hidden", :value => "true"}/
-        = submit_tag("Monthly Report", class: 'button dark')
-        /
-          <haml_loud> label_tag(:category, &quot;category&quot;) </haml_loud>
-          <haml_loud> text_field_tag(:category, @category) </haml_loud><br/>
-          <haml_loud> label_tag(:depth, &quot;depth&quot;) </haml_loud>
-          <haml_loud> text_field_tag(:depth) </haml_loud><br/>
-          <haml_loud> label_tag(:minviews, &quot;minimum views&quot;) </haml_loud>
-          <haml_loud> text_field_tag(:minviews, @min_views) </haml_loud><br/>
-          <haml_loud> label_tag(:maxwp10, &quot;maximum completeness (0-100)&quot;) </haml_loud>
-          <haml_loud> text_field_tag(:maxwp10, @max_wp10) </haml_loud><br/>
-          <button class="button dark"><haml_loud> submit_tag(&quot;Go&quot;) </haml_loud></button>
-      %br/
-      = form_tag(method: 'get') do
         %input{:name => "campaign_intersection", :type => "hidden", :value => "true"}/
         = label_tag('campaign_1_id', "campaign 1")
         = collection_select(:campaign_1, :id, campaigns, :id, :title, prompt: true)
@@ -44,7 +30,5 @@
         %br/
         = submit_tag("Mentor Volunteers", class: 'button dark')
       %br/
-    - if params[:monthly_report]
-      = render :partial => 'monthly_report', :locals => { :monthly_report => @monthly_report }
     - if params[:campaign_intersection]
       = render :partial => 'campaign_stats', :locals => { :campaign_stats => @campaign_stats }

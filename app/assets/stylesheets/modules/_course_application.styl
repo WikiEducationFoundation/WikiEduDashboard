@@ -1,0 +1,184 @@
+// The Scholars & Scientists application form (course_applications/) and the
+// application card on the course page (ApplyCard). Questions follow the survey
+// system's question styling (survey_modules/), laid out on one page: a card per
+// question, multiple-choice options side by side, and grouped questions as a
+// matrix.
+.course-application__invalid
+  color $warning_text
+  border-color $warning_text
+
+.apply-card__intro
+  margin-bottom 1em
+  p
+    margin 0 0 0.5em
+
+.course-application__form
+  .course-application__question
+    padding 25px 30px
+    margin-bottom 20px
+
+  .course-application__question--invalid
+    border-color $warning_text
+
+  .course-application__question-text
+    color $text_dk
+    font-size 18px
+    font-weight 600
+    line-height 26px
+    margin-bottom 15px
+    p
+      margin 0
+
+  .course-application__optional
+    color sprout
+    font-size 14px
+    font-weight 400
+    margin-left 0.5em
+
+  // Display-only text between cards: a section heading and its instructions.
+  .course-application__text
+    color $text_dk
+    margin 30px 0 15px
+    strong
+      font-size 18px
+    p
+      margin 0 0 0.5em
+
+  input[type=text],
+  input[type=number],
+  input[type=date],
+  textarea,
+  select
+    width 100%
+    background-color $bg_light_gray
+    border 1px solid $border_med_dk
+    color $text_dk
+    font-size 16px
+    &:focus
+      border-color $contextual
+
+  // Survey-style option boxes, wrapping side by side rather than stacked.
+  .course-application__options
+    display flex
+    flex-wrap wrap
+    gap 10px
+
+  .course-application__option
+    position relative
+    input
+      position absolute
+      left 13px
+      top 50%
+      transform translateY(-50%)
+      margin 0
+      z-index 1
+      accent-color sprout-dark
+    label
+      display block
+      margin 0
+      padding 9px 14px 9px 52px
+      background athens
+      border 1px solid mercury
+      border-radius 3px
+      color $text_dk
+      font-weight 400
+      cursor pointer
+      position relative
+      transition 100ms
+      &:before
+        content ""
+        position absolute
+        left 0
+        top 0
+        bottom 0
+        width 38px
+        background darken(athens, 2.5%)
+        border-right 1px solid darken(mercury, 5%)
+        border-radius 3px 0 0 3px
+      &:hover
+        background darken(athens, 5%)
+    input:checked + label
+      background sprout
+      border-color sprout
+      color white
+    input:focus-visible + label
+      box-shadow 0 0 0 2px $brand_primary
+
+  .course-application__follow-up-label
+    display block
+    margin 15px 0 5px
+    font-weight 600
+
+  // Grouped questions with the same options: a row per question.
+  .course-application__matrix-table
+    width 100%
+    border-collapse collapse
+    // Equal option columns; the statements take the first 40%.
+    table-layout fixed
+    thead th
+      font-weight 400
+      font-size 14px
+      line-height 18px
+      text-align center
+      padding 0 5px 10px
+      vertical-align bottom
+    tbody tr
+      border-top 1px solid $border_med
+      &:nth-child(odd)
+        background rgba(athens, .5)
+    thead td:first-child,
+    tbody th
+      width 40%
+    tbody th
+      text-align left
+      font-weight 400
+      color $text_dk
+      padding 10px 10px 10px 0
+      p
+        margin 0
+    td
+      text-align center
+      padding 10px 5px
+    label
+      display block
+      margin 0
+      cursor pointer
+    input
+      accent-color sprout-dark
+      width 17px
+      height 17px
+      margin 0
+      vertical-align middle
+    .course-application__matrix-option
+      position absolute
+      left -10000px
+
+  // Narrow screens: each row stacks, with the option text beside each radio.
+  @media (max-width: 700px)
+    .course-application__matrix-table
+      thead
+        display none
+      tbody tr,
+      tbody th,
+      td
+        display block
+        width auto
+      tbody th
+        padding 10px 0 5px
+      td
+        text-align left
+        padding 3px 0
+      label
+        display flex
+        align-items center
+        gap 0.5em
+      .course-application__matrix-option
+        position static
+
+  .errors
+    color $warning_text
+    list-style none
+    margin 10px 0 0
+    padding 0
+    li
+      margin-left 0

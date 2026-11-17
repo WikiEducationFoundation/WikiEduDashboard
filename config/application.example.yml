@@ -132,6 +132,9 @@
 # ==== Ticketing System Environment Variables
 # Email at which to receive forwarded ticket emails
   TICKET_FORWARDING_DOMAIN: 'wikiedu.org'
+# Mailgun's HTTP webhook signing key, used to check that inbound email posted
+# to /email_processor came from Mailgun. Without it, inbound email is refused.
+  mailgun_webhook_signing_key: ''
   SALESFORCE_BCC_EMAIL: 'salesforce@salesforce.com'
 
 # Whitelisted test emails for staging and development
@@ -185,3 +188,8 @@
 # report_csv_public_url: 'https://object.eqiad1.wikimediacloud.org/globaleducation:bucket-name'
 # report_csv_access_key: 'access-key'
 # report_csv_secret_key: 'secret-key'
+
+# Google Sheet listing the grant IDs that P&E courses may be linked to, one per
+# row under a base_request_id header. The sheet must be viewable by anyone with
+# the link. Without it, the grant ID field can't be saved.
+# grant_ids_spreadsheet_url: 'https://docs.google.com/spreadsheets/d/sheet-id/edit#gid=0'

@@ -70,6 +70,7 @@ it:
     log_in: Accedi
     log_out: Esci
     my_dashboard: Il mio cruscotto
+    navigation_menu: Menu di navigazione
     okay: Ok
     recent_activity: Attività recente
     report_problem: Segnala un problema
@@ -92,8 +93,6 @@ it:
     details: Dettagli
     confirm: OK
     confirm_generic: Sei sicuro di volerlo fare?
-    opt_in: Sì
-    opt_out: "No"
     opt_yes: sì
     opt_no: "no"
     print: Stampa
@@ -175,7 +174,7 @@ it:
     does_not_exist: La voce non esiste. Crea una pagina delle prove e assegnatela
       per ricevere suggerimenti.
     edited: Voci modificate
-    edited_by: 'Modificato da:'
+    edited_by: Modificato da %{author}
     edited_mobile: Voci
     edited_none: Non ci sono voci modificate ancora.
     filter:
@@ -334,6 +333,7 @@ it:
     customize_passcode: un codice di accesso di default
     data_articles: Pagine modificate
     data_instructors: Insegnanti
+    data_include_private_courses: Includi corsi privati
     default_course_type: Tipo di corso di default
     default_passcode: Codice di accesso di default
     default_passcode_explanation: 'Di default, i nuovi programma di questa campagna
@@ -543,6 +543,8 @@ it:
       sono già terminati, pertanto è incluso un URL dello strumento Visualizzazione
       di pagina di WMF Tool Labs.
     data_download_info: Scarica dati in formato CSV.
+    data_download_generating: Il file è in fase di generazione. Riceverai una notifica
+      quando sarà pronto per il download.
     data_overview: Dati generali
     data_overview_info: I dati generali comprendono le statistiche cumulative di tutto
       il progetto.
@@ -718,6 +720,12 @@ it:
     survey:
       notification_message: Partecipa al nostro sondaggio per questo corso.
       link: Rispondi sondaggio
+  course_applications:
+    submit: Invia domanda
+    optional: (facoltativo)
+  course_application_reviews:
+    status: Stato
+    decided_by: Deciso da
   course_instructor_notification:
     send_notification_button_text: Invia
     write_message_placeholder: Messaggio
@@ -967,6 +975,10 @@ it:
     discard_all_changes: Scarta tutte le modifiche
     delete_timeline_and_start_over: Cancella la cronologia degli eventi
     due_default: Previsto per la prossima settimana
+    due_date: Scadenza
+    due_date_default: Predefinito
+    due_date_none: Nessuna data di scadenza
+    due_date_specific: Imposta una data
     empty_week_1: Per iniziare,
     empty_week_2: avvia la modifica di questa settimana
     empty_week_3: o

@@ -12,7 +12,7 @@ const CategoryHandler = ({ course, current_user }) => {
 
   useEffect(() => { dispatch(fetchCategories(course.slug)); }, []);
 
-  const editable = current_user.isAdvancedRole;
+  const editable = current_user.isAdvancedRole && !course.metadata_locked;
   return (
     <CategoryList
       course={course}

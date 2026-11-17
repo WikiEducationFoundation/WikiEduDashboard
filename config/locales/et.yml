@@ -63,8 +63,6 @@ et:
     change: Muuda
     details: Üksikasjad
     confirm: Sobib
-    opt_in: Jah
-    opt_out: Ei
     opt_yes: jah
     opt_no: ei
   dashboard:

@@ -6,7 +6,7 @@ For deployment, the Dashboard uses [Capistrano](https://en.wikipedia.org/wiki/Ca
 
 The standard deployment process is as follows:
 
-1. Work through the [contributing checklist](contributing.md)
+1. Work through the [contributing checklist](../CONTRIBUTING.md)
 2. Push/merge updates to the master branch in the repository (Github)
 3. If your code includes a migration you must pause CRON jobs on your target server in order to prevent database block. Run the following task and wait long enough to allow any existing updates to end. (As of October 2016, updates take a little more than 2 hours.)
 

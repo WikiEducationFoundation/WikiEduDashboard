@@ -39,8 +39,6 @@ th:
     change: ความเปลี่ยนแปลง
     details: รายละเอียด
     confirm: ตกลง
-    opt_in: ใช่
-    opt_out: ไม่
   dashboard:
     create_note: คลิกที่ สร้างหลักสูตร เพื่อสร้างหลักสูตรแรกของคุณ
     explore_course_pages: สำรวจหน้าหลักสูตร

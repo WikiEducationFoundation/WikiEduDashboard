@@ -86,6 +86,10 @@ describe AssignmentsController, type: :request do
         it 'unclaims the assignment' do
           expect(assignment.reload.user_id).to be_nil
         end
+
+        it 'clears the sandbox url of the user who unclaimed it' do
+          expect(assignment.reload.sandbox_url).to be_nil
+        end
       end
 
       context 'when the assignment_id is not provided' do
@@ -161,6 +165,22 @@ describe AssignmentsController, type: :request do
   end
 
   describe 'POST #create' do
+    # Assigning yourself an article needs a role in the course.
+    before do
+      create(:courses_user, course:, user:, role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    context 'when the user is not in the course' do
+      let(:other_course) { create(:course, slug: 'Other/Not_my_course_(term)') }
+
+      it 'refuses to let them assign themselves an article' do
+        post '/assignments', params: { user_id: user.id, course_slug: other_course.slug,
+                                       title: 'pizza', role: 0, format: :json }
+        expect(response.status).to eq(401)
+        expect(Assignment.count).to eq(0)
+      end
+    end
+
     context 'when the user has permission to create the assignment' do
       let(:course) do
         create(:course, slug: 'Unasp/Teorias_da_Comunicação_(term_1)', submitted: true)
@@ -497,6 +517,14 @@ describe AssignmentsController, type: :request do
         expect(response.status).to eq(200)
         expect(assignment.reload.user_id).to eq(user.id)
       end
+
+      it 'gives the claiming user their own sandbox url' do
+        # An earlier claimant's sandbox url, left behind by an unclaim
+        assignment.update_column(:sandbox_url,
+                                 assignment.default_sandbox_url('Earlier_claimant'))
+        put "/assignments/#{assignment.id}/claim", params: request_params
+        expect(assignment.reload.sandbox_url).to eq(assignment.default_sandbox_url(user.username))
+      end
     end
 
     context 'when the assignment was already claimed by another user' do
@@ -546,7 +574,7 @@ describe AssignmentsController, type: :request do
   end
 
   describe 'PATCH #update_status' do
-    let(:assignment) { create(:assignment, course:, role: 0) }
+    let(:assignment) { create(:assignment, course:, user_id: user.id, role: 0) }
     let(:request_params) do
       { course_id: course.id, id: assignment.id, user_id: user.id, format: :json, status: }
     end
@@ -567,6 +595,19 @@ describe AssignmentsController, type: :request do
       it 'renders a 422' do
         patch "/assignments/#{assignment.id}/status", params: request_params
         expect(response.status).to eq(422)
+      end
+    end
+
+    context 'when the assignment belongs to someone else' do
+      let(:status) { 'in_progress' }
+      let(:other_user) { create(:user, username: 'Other') }
+      let(:other_assignment) { create(:assignment, course:, user_id: other_user.id, role: 0) }
+
+      it 'refuses even if the request names the current user' do
+        patch "/assignments/#{other_assignment.id}/status",
+              params: request_params.merge(id: other_assignment.id)
+        expect(response.status).to eq(401)
+        expect(other_assignment.reload.status).not_to eq(status)
       end
     end
   end

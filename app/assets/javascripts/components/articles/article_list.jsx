@@ -125,7 +125,7 @@ const ArticleList = createReactClass({
   },
 
   showMore() {
-    return this.props.fetchArticles(this.props.course_id, this.props.limit + 500);
+    return this.props.fetchMoreArticles(this.props.course_id);
   },
 
   sortSelect(e) {
@@ -146,7 +146,8 @@ const ArticleList = createReactClass({
   render() {
     const keys = articleListKeys(this.props.course);
     const project = this.props.course.home_wiki.project;
-    const trackedEditable = this.props.current_user && this.props.current_user.isAdvancedRole;
+    const { course, current_user } = this.props;
+    const trackedEditable = current_user && current_user.isAdvancedRole && !course.metadata_locked;
 
     if (this.props.course.type !== 'ClassroomProgramCourse' && trackedEditable) {
       keys.tracked = {

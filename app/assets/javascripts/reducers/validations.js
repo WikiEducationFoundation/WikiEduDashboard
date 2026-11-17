@@ -1,4 +1,4 @@
-import { ADD_VALIDATION, SET_VALID, SET_INVALID, COURSE_SLUG_EXISTS, COURSE_SLUG_OKAY, ACTIVATE_VALIDATIONS, RESET_VALIDATIONS } from '../constants';
+import { ADD_VALIDATION, SET_VALID, SET_INVALID, COURSE_SLUG_EXISTS, COURSE_SLUG_OKAY, ACTIVATE_VALIDATIONS, RESET_VALIDATIONS, SET_VALIDATING } from '../constants';
 
 const initialState = {
   validations: {},
@@ -48,6 +48,13 @@ export default function validations(state = initialState, action) {
     }
     case SET_INVALID: {
       return setValidation(action.key, false, action.message, true, state);
+    }
+    // The value is being checked by the server. It counts as valid until the
+    // check comes back, so nothing is shown as an error in the meantime.
+    case SET_VALIDATING: {
+      const newState = setValidation(action.key, true, null, true, state);
+      newState.validations[action.key].validating = true;
+      return newState;
     }
     case COURSE_SLUG_EXISTS: {
       return setValidation('exists', false, action.message, true, state);

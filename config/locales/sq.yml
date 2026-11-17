@@ -43,8 +43,6 @@ sq:
     change: Ndrysho
     details: Detaje
     confirm: Në rregull
-    opt_in: Po
-    opt_out: Jo
     opt_yes: po
     opt_no: jo
   article_statuses:

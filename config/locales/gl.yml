@@ -66,8 +66,6 @@ gl:
     change: Cambiar
     details: Detalles
     confirm: Aceptar
-    opt_in: Si
-    opt_out: Non
     opt_yes: Si
     opt_no: non
   article_statuses:

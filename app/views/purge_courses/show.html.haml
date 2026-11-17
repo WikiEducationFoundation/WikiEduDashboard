@@ -1,0 +1,31 @@
+- content_for :before_title, 'Purge courses manually — '
+.container
+  %h1 Purge courses manually
+  = form_with url: '/purge_courses', method: :get, skip_enforcing_utf8: true do
+    = label_tag :course_id, 'Course ID'
+    = text_field_tag :course_id, params[:course_id]
+    = submit_tag 'Look up', class: 'button', id: 'course_lookup', name: nil
+
+  - if params[:course_id].present?
+    - if @course.nil?
+      %p Course not found
+    - else
+      %h2= link_to @course.slug, course_slug_path(@course.slug)
+      %p Edits: #{@course.revision_count}
+      - if @course.finalized?
+        %p Course already finalized
+      %table.table
+        %thead
+          %tr
+            %th Check
+            %th Passed
+        %tbody
+          - PurgeCoursesController::CHECK_LABELS.each do |check, label|
+            - passed = !@failed_checks.include?(check)
+            -# Same colors as $success_bg (training bundle) and $warning-background
+            %tr{ style: "background-color: #{passed ? '#E4ECEA' : '#FAE8E8'}" }
+              %td= label
+              %td= passed ? '✓' : '✗'
+      = form_with url: '/purge_courses', method: :post do
+        = hidden_field_tag :course_id, @course.id, id: nil
+        = submit_tag 'Purge', class: 'button dark', id: 'purge_course'

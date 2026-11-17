@@ -23,8 +23,6 @@ tly:
     home: Sərlovhə
     log_out: Beši
     confirm: COK
-    opt_in: Ha
-    opt_out: Ne
     opt_yes: ha
     opt_no: ne
   alerts:

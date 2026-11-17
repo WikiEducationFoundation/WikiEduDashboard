@@ -59,3 +59,33 @@ The [api.js](/app/assets/javascripts/utils/api.js) file contains many of the AJA
 
 ## Yarn dependency management
 When dependencies need to be added or updated, do so using Yarn — for example, `yarn add <package_name>`. This will automatically update the yarn.lock file.
+
+## SVG assets
+
+Store new standalone SVG assets in `app/assets/images/` and reuse an existing asset when it matches the intended appearance and purpose.
+
+When an SVG is part of rendered content, use an image element in JSX or HAML.
+
+In JSX:
+
+```jsx
+<img src="/assets/images/check.svg" alt="..." />
+```
+
+In HAML:
+
+```haml
+%img{ src: '/assets/images/check.svg', alt: '...' }
+```
+
+Provide meaningful alternative text when the image conveys information, or an empty `alt` attribute when it is decorative.
+
+For decorative icons and backgrounds, SVG files can be referenced from Stylus stylesheets using a relative URL, for example:
+
+```stylus
+background url('../images/check.svg') center no-repeat
+```
+
+Set the required dimensions and positioning in the stylesheet. Reference standalone SVG files in source stylesheets rather than manually embedding SVG markup or writing data URIs. Webpack may inline small assets as data URIs during the build.
+
+Before adding an SVG, check whether an equivalent asset already exists. Do not replace assets solely because their filenames are similar; verify their appearance, dimensions, colors, and intended use.

@@ -50,7 +50,7 @@ describe ArticlesCourses, type: :model do
 
     it 'updates data for article-course relationships' do
       # Run a cache update without any timeslices.
-      described_class.update_all_caches_from_timeslices(described_class.all)
+      described_class.update_all_caches_from_timeslices(course, described_class.all)
 
       # Add two timeslices.
       create(:article_course_timeslice,
@@ -86,7 +86,7 @@ describe ArticlesCourses, type: :model do
              first_revision: nil)
 
       # Run the cache update again with an existing revision.
-      described_class.update_all_caches_from_timeslices(described_class.all)
+      described_class.update_all_caches_from_timeslices(course, described_class.all)
 
       # Fetch the updated ArticlesCourses entry
       article_course = described_class.first
@@ -124,6 +124,26 @@ describe ArticlesCourses, type: :model do
     it 'does not update the caches for other courses sharing the same article' do
       described_class.update_required_caches_from_timeslices(course)
       expect(described_class.find_by(course: other_course).character_sum).to eq(0)
+    end
+  end
+
+  describe '.update_required_caches_from_timeslices for a course that uses ACUWT' do
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+
+    before do
+      course.add_flag(key: :use_acuwt)
+      create(:articles_course, article:, course:)
+      course.flags['update_logs'] = { 1 => { 'end_time' => '2024-07-10'.to_datetime } }
+      course.save
+      # There is no article_course_timeslice, so only the ACUWT records can select
+      # this article for a cache update.
+      create(:article_course_user_wiki_timeslice, article:, course:, wiki:, user_id: 2,
+             start: '2024-07-11', end: '2024-07-12', revision_count: 1, character_sum: 500)
+    end
+
+    it 'picks the articles to update from the ACUWT timeslices' do
+      described_class.update_required_caches_from_timeslices(course)
+      expect(described_class.find_by(course:).character_sum).to eq(500)
     end
   end
 

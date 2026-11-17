@@ -90,8 +90,6 @@ pt:
     change: Alterar
     details: Detalhes
     confirm: Aceitar
-    opt_in: Sim
-    opt_out: Não
     opt_yes: sim
     opt_no: não
     print: Imprimir

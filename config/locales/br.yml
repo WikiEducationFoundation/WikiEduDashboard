@@ -56,8 +56,6 @@ br:
     change: Kemmañ
     details: Munudoù
     confirm: Mat eo
-    opt_in: Ya
-    opt_out: Ket
     opt_yes: ya
     opt_no: ket
   article_statuses:

@@ -1,0 +1,27 @@
+- content_for :before_title, 'Course tags — '
+.container.admin.tagged-courses-index
+  %h1 Course tags
+
+  = form_tag tagged_courses_path, method: :get, role: 'search', class: 'tagged-courses-index__search' do
+    = label_tag :q, 'Search tags'
+    = search_field_tag :q, @query
+    = submit_tag 'Search', name: nil, class: 'button dark'
+    - if @query.present?
+      = link_to 'Show all', tagged_courses_path
+
+  - if @tags.empty?
+    - if @query.present?
+      %p= t('application.no_results', query: @query)
+  - else
+    %table.table.table--hoverable
+      %thead
+        %tr
+          %th Tag
+          %th Courses
+          %th Latest start
+      %tbody
+        - @tags.each do |summary|
+          %tr
+            %td= link_to summary.tag, programs_tagged_course_path(summary.tag)
+            %td= number_with_delimiter summary.course_count
+            %td= summary.latest_start ? l(summary.latest_start.to_date) : '—'

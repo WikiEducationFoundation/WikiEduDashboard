@@ -61,8 +61,6 @@ eo:
     change: Ŝanĝi
     details: Detaloj
     confirm: Bone
-    opt_in: Jes
-    opt_out: Ne
     opt_yes: jes
     opt_no: ne
   dashboard:

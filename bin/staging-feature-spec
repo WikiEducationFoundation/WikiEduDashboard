@@ -9,11 +9,21 @@
 # Usage:
 #   bin/staging-feature-spec staging_specs/<file>_spec.rb [rspec_args...]
 #   HEADLESS=1 bin/staging-feature-spec ...   # run without a visible browser
+#   XEPHYR=0 bin/staging-feature-spec ...     # visible browser on your own desktop
 #
 # Defaults to HEADED (visible browser) because the whole point of this
-# harness is visual iteration on the integration's UX.
+# harness is visual iteration on the integration's UX. The browser opens in a
+# nested Xephyr window so it can't take focus from your desktop (see
+# staging_specs/nested_display.rb).
 #
 # See `docs/staging_feature_specs.md` for the one-time bootstrap.
+
+require_relative '../staging_specs/nested_display'
+
+# Specs that take full-page screenshots by growing the browser window past the
+# nested screen's fixed height. They run headless rather than on the nested
+# display.
+FULL_PAGE_SPECS = %w[instructor_active_course_screenshots_spec.rb].freeze
 
 spec_file = ARGV[0] or abort 'Usage: bin/staging-feature-spec <spec_file> [rspec_args...]'
 
@@ -44,5 +54,15 @@ cmd = ['bundle', 'exec', 'rspec', spec_file,
        '--format', 'documentation',
        *extra]
 
-system(*cmd)
-exit($?.exitstatus)
+if FULL_PAGE_SPECS.include?(File.basename(spec_file)) && NestedDisplay.nested?
+  warn "  [xephyr] #{File.basename(spec_file)} grows the window past the nested " \
+       'screen; running it headless.'
+  ENV['HEADLESS'] = '1'
+end
+
+# Read the status inside the block: stopping Xephyr afterwards resets $?.
+status = NestedDisplay.wrap do
+  system(*cmd)
+  $?.exitstatus
+end
+exit(status)

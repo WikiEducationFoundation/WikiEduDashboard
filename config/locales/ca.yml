@@ -75,8 +75,6 @@ ca:
     change: Canvia
     details: Detalls
     confirm: D’acord
-    opt_in: Sí
-    opt_out: "No"
     opt_yes: sí
     opt_no: "no"
   article_statuses:

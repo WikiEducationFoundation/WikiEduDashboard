@@ -97,7 +97,6 @@ class WikiAssignmentOutput
     # If we're removing the tag, also try to remove the immediately preceding
     # header, if it's there.
     header = new_tag.present? ? '' : section_header
-    existing_tag = "{{#{template_name(@templates, 'course_assignment')} | course = #{@course_page}"
 
     # We're looking for an existing instance of the tag template, in the case of removing the tag,
     # we're also looking for the (optional) preceding section header. This way, when we're
@@ -105,37 +104,52 @@ class WikiAssignmentOutput
     # than leaving an empty one.
 
     if new_tag.present?
-      replace_or_add_assignment_tag(page_content, existing_tag, new_tag)
+      replace_or_add_assignment_tag(page_content, new_tag)
     else
-      remove_assignment_tag(page_content, existing_tag, header)
+      remove_assignment_tag(page_content, header)
     end
   end
 
-  def replace_or_add_assignment_tag(page_content, existing_tag, new_tag)
-    tag_matcher = /
-                    #{Regexp.quote(existing_tag)}[^}]*\}\} # assignment template
-                    ([\n\r]+#{updated_by_signature_pattern})? # optional linebreaks and signature
-                  /x
+  # Matches an existing assignment template for this course, however it is
+  # written on the page now. Editors and tools reformat templates after the
+  # dashboard posts them, and MediaWiki treats the variations as the same
+  # template: the first letter of the name is not case sensitive, spaces
+  # around pipes and equals signs are ignored, and spaces and underscores in
+  # the course page name are interchangeable. Looking only for the exact text
+  # the dashboard wrote would miss a reformatted tag and add a second one.
+  def existing_tag_matcher
+    template = template_name(@templates, 'course_assignment')
+    first_letter = Regexp.quote(template[0])
+    rest_of_name = Regexp.quote(template[1..])
+    course_page = Regexp.quote(@course_page.to_s).gsub('_', '[ _]')
+    /
+      \{\{\s*(?i:#{first_letter})#{rest_of_name} # template name
+      \s*\|\s*course\s*=\s*#{course_page}\s*(?=[|}]) # course parameter
+      [^}]*\}\} # rest of the template
+      ([\n\r]+#{updated_by_signature_pattern})? # optional linebreaks and signature
+    /x
+  end
+
+  def replace_or_add_assignment_tag(page_content, new_tag)
     new_tag_with_signature = if en_wiki?
                                "#{new_tag}\n\n#{updated_by_signature}"
                              else
                                new_tag
                              end
-    page_content.gsub!(tag_matcher, new_tag_with_signature)
 
-    # If we replaced an existing tag with the new version of it, we're done.
-    return page_content if page_content.include?(new_tag_with_signature)
-
+    # If there is an existing tag, replace it with the new version.
     # Otherwise, we need to add the tag to the right place.
-    page_content = insert_tag_into_talk_page(page_content, new_tag_with_signature)
-    page_content
+    if page_content.match?(existing_tag_matcher)
+      page_content.gsub(existing_tag_matcher, new_tag_with_signature)
+    else
+      insert_tag_into_talk_page(page_content, new_tag_with_signature)
+    end
   end
 
-  def remove_assignment_tag(page_content, existing_tag, header)
+  def remove_assignment_tag(page_content, header)
     tag_matcher = /
                     (#{Regexp.quote(header)}[\n\r]+)? # optional header and linebreaks
-                    #{Regexp.quote(existing_tag)}[^}]*\}\} # assignment template
-                    ([\n\r]+#{updated_by_signature_pattern})? # optional linebreaks and signature
+                    #{existing_tag_matcher} # assignment template and signature
                   /x
 
     page_content.gsub!(tag_matcher, '')

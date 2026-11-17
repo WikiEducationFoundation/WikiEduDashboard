@@ -258,4 +258,49 @@ describe 'timeline editing', type: :feature, js: true do
       expect(page).to have_content 'Add Assignment'
     end
   end
+
+  describe 'block due dates' do
+    let(:in_class_block) { course_with_timeline.blocks.find_by(kind: Block::KINDS['in_class']) }
+    let(:in_class_selector) { ".week-1 .block-kind-#{Block::KINDS['in_class']}" }
+
+    def edit_in_class_block
+      visit "/courses/#{course_with_timeline.slug}/timeline"
+      find(in_class_selector).hover
+      sleep 0.5
+      within(in_class_selector) { find('.block__edit-block', match: :first).click }
+    end
+
+    it 'shows the default due date for a block with modules' do
+      edit_in_class_block
+      within(in_class_selector) do
+        # Timeline starts Mon 2025-02-10; week 1 defaults to that Saturday.
+        expect(page).to have_content 'Default (Sat, Feb 15, 2025)'
+        expect(page).not_to have_content 'No due date'
+      end
+    end
+
+    it 'sets a due date on a non-assignment block' do
+      edit_in_class_block
+      within(in_class_selector) do
+        choose 'Set a date'
+        within('.block__block-due-date') { find('input.due_date').set('2025-02-13') }
+        find('legend', text: 'Due date').click # blur the date field
+        click_button 'Save'
+      end
+      expect(page).to have_css("#{in_class_selector} .block__read__due-date")
+      expect(in_class_block.reload.due_date).to eq('2025-02-13'.to_date)
+    end
+
+    it 'removes a due date left on a block that is no longer an assignment' do
+      in_class_block.update(due_date: '2025-02-13'.to_date)
+      edit_in_class_block
+      within(in_class_selector) do
+        expect(find_field('Set a date')).to be_checked
+        choose 'Default'
+        click_button 'Save'
+      end
+      expect(page).not_to have_css("#{in_class_selector} .block__read__due-date")
+      expect(in_class_block.reload.due_date).to be_nil
+    end
+  end
 end

@@ -26,7 +26,8 @@ class SystemCsvBuilder
   VALID_COURSE_TYPES = SystemCsvFilterValidator::VALID_COURSE_TYPES
   VALID_STATUSES = SystemCsvFilterValidator::VALID_STATUSES
   BATCH_SIZE = 500
-  CSV_HEADERS = (CourseCsvBuilder::CSV_HEADERS + %w[retained_new_editors facilitators]).freeze
+  CSV_HEADERS = (CourseCsvBuilder::CSV_HEADERS +
+                 %w[retained_new_editors facilitators grant_id]).freeze
 
   def initialize(filters: {})
     @filters = filters
@@ -56,7 +57,8 @@ class SystemCsvBuilder
   def build_course_csv_row(course, data)
     course_csv_row(course, data) + [
       data.retained_editor_counts[course.id] || 0,
-      data.facilitator_usernames.fetch(course.id, []).join(', ')
+      data.facilitator_usernames.fetch(course.id, []).join(', '),
+      course.grant_id
     ]
   end
 

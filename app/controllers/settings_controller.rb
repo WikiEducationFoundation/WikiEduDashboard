@@ -96,21 +96,6 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
     end
   end
 
-  def update_special_user
-    respond_to do |format|
-      format.json do
-        @user = User.find_by(username: special_user_params[:username])
-        @position = special_user_params[:position]
-        ensure_user_exists(special_user_params[:username]) { return }
-        unless SpecialUsers.respond_to? @position
-          return render json: { message: 'position is invalid' },
-                        status: :unprocessable_content
-        end
-        yield
-      end
-    end
-  end
-
   def update_salesforce_credentials
     SalesforceCredentials.update(params[:password], params[:token])
     render json: { message: 'Salesforce credentials updated.' }, status: :ok
@@ -195,6 +180,22 @@ class SettingsController < ApplicationController # rubocop:disable Metrics/Class
   end
 
   private
+
+  # Shared setup for upgrade_special_user and downgrade_special_user.
+  def update_special_user
+    respond_to do |format|
+      format.json do
+        @user = User.find_by(username: special_user_params[:username])
+        @position = special_user_params[:position]
+        ensure_user_exists(special_user_params[:username]) { return }
+        unless SpecialUsers.respond_to? @position
+          return render json: { message: 'position is invalid' },
+                        status: :unprocessable_content
+        end
+        yield
+      end
+    end
+  end
 
   def current_impact_stats
     Rails.cache.fetch('impact_stats') do

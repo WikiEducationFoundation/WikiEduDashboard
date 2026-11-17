@@ -41,8 +41,6 @@ ban:
     change: Uah
     details: Rerincén
     confirm: Becik
-    opt_in: Inggih
-    opt_out: Nénten
     opt_yes: inggih
     opt_no: nénten
   dashboard:

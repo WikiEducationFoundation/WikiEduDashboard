@@ -81,6 +81,21 @@ describe CourseCanvasCredentialsController, type: :request do
       get '/courses/School/No_Such_Course_(2026)/canvas'
       expect(response).to have_http_status(:not_found)
     end
+
+    context 'when the course is a Scholars & Scientists cohort' do
+      let(:course) { create(:fellows_cohort, end: 2.months.from_now) }
+
+      it '404s, because the integration is not offered for that course type' do
+        get path
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it 'issues no key' do
+        post path
+        expect(response).to have_http_status(:not_found)
+        expect(LtiConsumerKey.count).to eq(0)
+      end
+    end
   end
 
   describe 'GET, before any credentials exist' do

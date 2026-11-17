@@ -23,14 +23,24 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
           </div>
           {languageSwitcherEnabled && <LanguagePicker />}
           <div className="hamburger_menu_wrapper">
-            <button type="button" className="bm-burger-button" onClick={toggleClass}>
+            <button
+              type="button"
+              className="bm-burger-button"
+              aria-label={I18n.t('application.navigation_menu')}
+              aria-expanded={isActive}
+              aria-controls="hamburger-navigation-menu"
+              onClick={toggleClass}
+            >
               <div className={(isActive) ? 'bm-menu-active' : ''}>
                 <div className="bar1" />
                 <div className="bar2" />
                 <div className="bar3" />
               </div>
             </button>
-            <div className={`bm-menu-wrap ${(isActive) ? 'bm-menu-visible' : ''}`}>
+            <div
+              id="hamburger-navigation-menu"
+              className={`bm-menu-wrap ${(isActive) ? 'bm-menu-visible' : ''}`}
+            >
               <div className="bm-menu">
                 <li>
                   <CustomLink to={exploreUrl} name={exploreName} clickedElement="explore" />
@@ -82,7 +92,7 @@ const HamburgerMenu = ({ rootUrl, logoPath, exploreUrl, exploreName, userSignedI
                     </li>
                     <DownloadsBell />
                     <li>
-                      <a href={destroyUrl} className="current-user">{I18n.t('application.log_out')}</a>
+                      <a href={destroyUrl} data-method="delete" className="current-user">{I18n.t('application.log_out')}</a>
                     </li>
                   </span>
                 ) : (

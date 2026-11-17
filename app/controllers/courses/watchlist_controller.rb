@@ -4,6 +4,7 @@ require_dependency "#{Rails.root}/lib/watchlist_edits"
 
 class Courses::WatchlistController < ApplicationController
   include CourseHelper
+  before_action :require_permissions
 
   # /courses/:slug/students/add_to_watchlist
   def add_to_watchlist

@@ -103,6 +103,14 @@ describe CourseArticlesCsvBuilder do
       expect(row['edit_count']).to eq('6')
       expect(row['deleted']).to eq('true')
     end
+
+    it 'excludes deleted articles outside the tracked namespaces' do
+      deleted_draft = create(:article, title: 'Deleted_Draft', namespace: 118, deleted: true)
+      create(:article_course_timeslice, course:, article: deleted_draft, user_ids: [user.id],
+             start: course.start, end: course.start + 1.day, revision_count: 2,
+             character_sum: 30)
+      expect(subject).not_to include('Deleted_Draft')
+    end
   end
 
   it 'handles missing Article records gracefully' do

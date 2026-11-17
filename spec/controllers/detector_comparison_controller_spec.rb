@@ -5,15 +5,9 @@ require 'rails_helper'
 describe DetectorComparisonController, type: :request do
   include_context 'published detector comparison data'
 
-  let(:admin) { create(:admin) }
-  let(:user) { create(:user) }
+  before { PublishDetectorComparison.new }
 
-  context 'as an admin' do
-    before do
-      login_as admin
-      PublishDetectorComparison.new
-    end
-
+  context 'for a visitor who is not logged in' do
     it 'renders the page shell' do
       get '/detector_comparison'
       expect(response.body).to include('react_root')
@@ -99,12 +93,14 @@ describe DetectorComparisonController, type: :request do
     end
   end
 
-  context 'as a non-admin' do
-    before { login_as user }
+  context 'as a user who is not an admin' do
+    before { login_as create(:user) }
 
-    it 'is not authorized' do
-      get '/detector_comparison.json'
-      expect(response).to have_http_status(:unauthorized)
+    it 'serves the page and its data' do
+      get '/detector_comparison'
+      expect(response.body).to include('react_root')
+      get '/detector_comparison/topics.json'
+      expect(response.parsed_body['units'].size).to eq(4)
     end
   end
 end

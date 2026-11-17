@@ -15,6 +15,32 @@ describe TaggedCoursesController, type: :request do
     create(:alert, course: course)
   end
 
+  describe '#index' do
+    it 'lists each tag with a link to its courses' do
+      get '/tagged_courses'
+      expect(response.status).to eq(200)
+      expect(Capybara.string(response.body))
+        .to have_link(tag_name, href: "/tagged_courses/#{tag_name}/programs")
+    end
+
+    it 'narrows the list to tags matching the search' do
+      create(:tag, course:, tag: 'other_label', key: 'other')
+      get '/tagged_courses', params: { q: 'test' }
+      expect(assigns(:tags).map(&:tag)).to eq([tag_name])
+    end
+
+    it 'says when no tag matches the search' do
+      get '/tagged_courses', params: { q: 'nothing_like_it' }
+      expect(response.body).to include('No results found')
+    end
+
+    it 'refuses non-admins' do
+      allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      get '/tagged_courses'
+      expect(response.status).to eq(401)
+    end
+  end
+
   describe '#articles' do
     it 'renders a 200 and assigns the correct data' do
       get "/tagged_courses/#{tag_name}/articles?page=4"
@@ -38,6 +64,19 @@ describe TaggedCoursesController, type: :request do
     it 'handles missing page parameters by defaulting to nil' do
       get "/tagged_courses/#{tag_name}/articles"
       expect(assigns(:page)).to be_nil
+    end
+
+    it 'says on the last page served that the list goes on' do
+      allow_any_instance_of(CoursesPresenter).to receive(:tag_articles_count).and_return(5001)
+      get "/tagged_courses/#{tag_name}/articles?page=200"
+      expect(response.status).to eq(200)
+      expect(Capybara.string(response.body)).to have_css('p.notice')
+    end
+
+    it 'returns a 404 past the last page served, before building the presenter' do
+      expect(CoursesPresenter).not_to receive(:new)
+      get "/tagged_courses/#{tag_name}/articles?page=201"
+      expect(response.status).to eq(404)
     end
   end
 

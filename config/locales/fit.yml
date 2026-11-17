@@ -18,8 +18,6 @@ fit:
     submit: Lähätä
     details: Tieot
     confirm: OK
-    opt_in: Joo
-    opt_out: Ei
     opt_yes: joo
     opt_no: ei
   articles:

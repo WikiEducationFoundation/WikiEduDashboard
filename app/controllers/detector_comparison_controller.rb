@@ -3,7 +3,7 @@
 require_dependency "#{Rails.root}/app/services/publish_detector_comparison"
 require_dependency "#{Rails.root}/app/services/render_detector_comparison_intro"
 
-# Admin pages presenting the AI detector comparison data: an index with the
+# Public pages presenting the AI detector comparison data: an index with the
 # operator's introduction and conclusions, the 16-topic dataset (generated and
 # Agpedia texts with the human texts they are paired with), the known-human
 # dataset, and every detector's results. Wiki Education Dashboard only, where
@@ -13,7 +13,6 @@ require_dependency "#{Rails.root}/app/services/render_detector_comparison_intro"
 class DetectorComparisonController < ApplicationController
   layout 'admin'
   before_action :require_wiki_ed
-  before_action :require_admin_permissions
 
   def index
     respond_to do |format|

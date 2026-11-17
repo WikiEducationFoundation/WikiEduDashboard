@@ -86,8 +86,6 @@ cs:
     change: Změnit
     details: Podrobnosti
     confirm: OK
-    opt_in: Ano
-    opt_out: Ne
     opt_yes: ano
     opt_no: ne
   dashboard:

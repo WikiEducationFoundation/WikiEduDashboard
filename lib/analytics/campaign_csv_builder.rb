@@ -7,16 +7,22 @@ require_dependency "#{Rails.root}/lib/analytics/csv_edit_counts"
 require "#{Rails.root}/lib/analytics/course_wikidata_csv_builder"
 
 class CampaignCsvBuilder
-  def initialize(campaign)
+  # Campaign reports are cached under one name and served to everyone who
+  # requests them, so they leave out private courses, as users_to_csv does.
+  # The variant with include_private is cached under its own name
+  # (ReportCsvWorker.campaign_csv_name) and only generated for admins and the
+  # campaign's organizers; see ReportsController#require_private_courses_access.
+  def initialize(campaign, include_private: false)
     @campaign = campaign || AllCourses
+    @include_private = include_private
   end
 
   def courses_to_csv # rubocop:disable Metrics/AbcSize,Metrics/CyclomaticComplexity
     csv_data = [CourseCsvBuilder::CSV_HEADERS]
 
-    preload_course_data if @campaign.courses.size > 1
+    preload_course_data if courses.size > 1
 
-    @campaign.courses.find_each do |course|
+    courses.find_each do |course|
       csv_data << CourseCsvBuilder.new(
         course,
         tag: tags[course.id]&.first&.tag || 'unknown',
@@ -40,7 +46,7 @@ class CampaignCsvBuilder
   def course_ids
     return @course_ids if @course_ids
 
-    @course_ids = @campaign.courses.pluck(:id)
+    @course_ids = courses.pluck(:id)
   end
 
   def tags
@@ -62,7 +68,7 @@ class CampaignCsvBuilder
     return @new_editor_counts if @new_editor_counts
 
     @new_editor_counts = User
-                         .where(registered_at: @campaign.courses.minimum(:start)..@campaign.courses.maximum(:end)) # rubocop:disable Layout/LineLength
+                         .where(registered_at: courses.minimum(:start)..courses.maximum(:end)) # rubocop:disable Layout/LineLength
                          .joins(:courses_users)
                          .where(courses_users: { course_id: course_ids, role: CoursesUsers::Roles::STUDENT_ROLE }) # rubocop: disable Layout/LineLength
                          .group(:course_id)
@@ -72,7 +78,7 @@ class CampaignCsvBuilder
   def wikis
     return @wikis if @wikis
 
-    @wikis = Wiki.where(id: @campaign.courses.pluck(:home_wiki_id)).group_by(&:id)
+    @wikis = Wiki.where(id: courses.pluck(:home_wiki_id)).group_by(&:id)
   end
 
   def home_wiki_url(course)
@@ -91,7 +97,7 @@ class CampaignCsvBuilder
 
   def articles_to_csv
     csv_data = [CourseArticlesCsvBuilder::CSV_HEADERS + ['course_slug']]
-    @campaign.courses.find_each do |course|
+    courses.find_each do |course|
       CourseArticlesCsvBuilder.new(course).article_rows.each do |row|
         row_with_slug = row + [course.slug]
         csv_data << row_with_slug
@@ -103,18 +109,22 @@ class CampaignCsvBuilder
 
   def wikidata_to_csv
     csv_data = [CourseWikidataCsvBuilder::CSV_HEADERS]
-    courses = @campaign.courses
-                       .joins(:course_stat)
-    courses.find_each do |course|
+    stat_courses = courses.joins(:course_stat)
+    stat_courses.find_each do |course|
       builder = CourseWikidataCsvBuilder.new(course)
       next unless builder.wikidata_stats?
 
       csv_data << builder.stat_row
     end
 
-    csv_data << sum_wiki_columns(csv_data) if courses.any?
+    csv_data << sum_wiki_columns(csv_data) if stat_courses.any?
 
     CSV.generate { |csv| csv_data.each { |line| csv << line } }
+  end
+
+  def courses
+    return @campaign.courses unless @campaign.is_a?(Campaign)
+    @include_private ? @campaign.courses : @campaign.nonprivate_courses
   end
 
   def sum_wiki_columns(csv_data)

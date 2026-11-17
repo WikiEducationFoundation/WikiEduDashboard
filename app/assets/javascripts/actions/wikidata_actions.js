@@ -1,4 +1,4 @@
-import { chunk, map, join, filter } from 'lodash-es';
+import { chunk, map, join, filter, uniq } from 'lodash-es';
 import * as types from '../constants';
 import CourseUtils from '../utils/course_utils';
 import request, { ensureOk } from '../utils/request';
@@ -90,7 +90,7 @@ export const fetchWikidataLabels = (wikidataEntities, dispatch) => {
                      .map(CourseUtils.removeNamespace);
   // 50 is the max `ids` count wbgetentities accepts for anonymous requests
   // (per action=paraminfo&modules=wbgetentities).
-  const chunks = chunk(qNumbers, 50);
+  const chunks = chunk(uniq(qNumbers), 50);
   const fetchOneChunk = someQNumbers => fetchWikidataLabelsPromise(someQNumbers)
     .then((resp) => {
       dispatch({

@@ -36,11 +36,11 @@ class PetScanApi
   private
 
   def query_url(psid)
-    return "https://petscan.wmcloud.org/?psid=#{psid}&format=json"
+    return "https://petscan.toolforge.org/?psid=#{psid}&format=json"
   end
 
   def petscan
-    conn = Faraday.new(url: 'https://petscan.wmcloud.org')
+    conn = Faraday.new(url: 'https://petscan.toolforge.org')
     conn.options.timeout = TIMEOUT
     conn.headers['User-Agent'] = ENV['dashboard_url'] + ' ' + Rails.env
     conn

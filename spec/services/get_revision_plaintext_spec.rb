@@ -72,6 +72,19 @@ describe GetRevisionPlaintext do
       expect(service.plain_text).to include('text after')
     end
 
+    it 'excludes reference list entries that are not cite templates' do
+      stub_revision_html(<<~HTML)
+        <p>Article prose.<sup class="reference"><a href="#cite_note-1">[1]</a></sup></p>
+        <div class="mw-references-wrap"><ol class="references">
+          <li id="cite_note-1"><span class="mw-cite-backlink"><b><a href="#cite_ref-1">^</a></b></span>
+            <span class="reference-text"><a class="external text" href="http://example.org/a.pdf">Archived copy</a>
+            example.org Archived 2018-03-29 at the Wayback Machine</span></li>
+        </ol></div>
+      HTML
+      service = described_class.new(12345, en_wiki, diff_mode: false)
+      expect(service.plain_text).to eq('Article prose.')
+    end
+
     it 'preserves normal prose' do
       stub_revision_html('<p>Just some normal text.</p>')
       service = described_class.new(12345, en_wiki, diff_mode: false)
@@ -245,6 +258,18 @@ describe GetRevisionPlaintext do
         expect(service.plain_text).not_to include(
           'In sociology, the third place'
         )
+      end
+    end
+  end
+
+  # The diff adds an 'Application' section heading.
+  context 'with a real Wikipedia diff that adds a section heading' do
+    it 'keeps the heading but not its section edit links' do
+      VCR.use_cassette 'cached/get_revision_plaintext/4d_reconstruction' do
+        plain_text = described_class.new(1382963012, en_wiki).plain_text
+        expect(plain_text).to include('Application')
+        expect(plain_text).not_to include('edit source')
+        expect(plain_text).not_to include('[edit')
       end
     end
   end

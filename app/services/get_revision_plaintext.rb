@@ -85,8 +85,7 @@ class GetRevisionPlaintext
     @cleaned_html = remove_non_prose_html_elements(@diff_html || @rev_html)
     # Convert the HTML to plain text
     @plain_text = ActionView::Base.full_sanitizer.sanitize(@cleaned_html)
-    # Remove the edit button leftovers
-    @plain_text = @plain_text.gsub('[edit]', '').strip
+    @plain_text = @plain_text.strip
     # Remove inline citation leftovers
     @plain_text = @plain_text.gsub(/\[\d+\]/, '')
   end
@@ -95,7 +94,8 @@ class GetRevisionPlaintext
     doc = Nokogiri::HTML(html)
     doc.xpath('//table').each(&:remove) # Exclude tables, like infoboxes
     doc.xpath('//cite').each(&:remove) # Exclude `cite` tags, which usually appear at the end
-    doc.css('.mw-cite-backlink').each(&:remove) # Exclude backlinks that precede `cite` tags.
+    # Exclude reference lists, including refs that aren't wrapped in `cite` tags.
+    doc.css('ol.references').each(&:remove)
 
     doc.xpath('//figure').each(&:remove) # Exclude figure elements (images + captions)
     doc.xpath('//img').each(&:remove) # Exclude any remaining image elements

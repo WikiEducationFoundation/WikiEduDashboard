@@ -138,6 +138,82 @@ describe CoursesUsers, type: :model do
         expect(described_class.first.revision_count).to eq(8)
       end
     end
+
+    it 'looks up the excluded wiki ids once for the batch, not once per user' do
+      create(:courses_user, course:, user: create(:user, id: 2, username: 'Second'))
+      expect(WordCount).to receive(:excluded_wiki_ids).once.and_call_original
+
+      described_class.update_all_caches_from_timeslices(described_class.all)
+    end
+
+    context 'with several students' do
+      let(:second_user) { create(:user, id: 2, username: 'Second') }
+
+      before do
+        create(:courses_user, course:, user: second_user)
+        create(:assignment, course:, user:, article_id: 1, article_title: 'First_title')
+        create(:assignment, course:, user:, article_id: 2, article_title: 'Second_title')
+        create(:commons_upload, user:, uploaded_at: 1.week.ago)
+        create(:commons_upload, user: second_user, uploaded_at: 1.week.ago)
+      end
+
+      def queries_matching(pattern)
+        statements = []
+        callback = ->(event) { statements << event.payload[:sql] }
+        ActiveSupport::Notifications.subscribed(callback, 'sql.active_record') do
+          described_class.update_all_caches_from_timeslices(described_class.all)
+        end
+        statements.grep(pattern).count
+      end
+
+      it 'sets uploads and the first assigned article title for each user' do
+        described_class.update_all_caches_from_timeslices(described_class.all)
+
+        expect(described_class.find_by(user:).total_uploads).to eq(1)
+        expect(described_class.find_by(user:).assigned_article_title).to eq('First_title')
+        expect(described_class.find_by(user: second_user).total_uploads).to eq(1)
+        expect(described_class.find_by(user: second_user).assigned_article_title).to eq('')
+      end
+
+      it 'queries uploads and assignments once per course, not once per user' do
+        expect(queries_matching(/FROM `commons_uploads`/)).to eq(1)
+        expect(queries_matching(/FROM `assignments`/)).to eq(1)
+      end
+    end
+
+    # Regression: course.courses_users shares one in-memory Course across the whole
+    # batch (and across repeated calls on that instance), which is what
+    # UpdateCourseStats#update_caches passes. described_class.all above doesn't hit this,
+    # since each record there loads its own #course.
+    it 'picks up a new upload on a second update_all_caches_from_timeslices call' do
+      create(:commons_upload, id: 1, user:, uploaded_at: 1.week.ago)
+      described_class.update_all_caches_from_timeslices(course.courses_users)
+      expect(described_class.find_by(user:).total_uploads).to eq(1)
+
+      create(:commons_upload, id: 2, user:, uploaded_at: 1.week.ago)
+      course.reload
+      described_class.update_all_caches_from_timeslices(course.courses_users)
+      expect(described_class.find_by(user:).total_uploads).to eq(2)
+    end
+
+    it 'keeps uploads and assigned titles separate per course in a mixed-course batch' do
+      other_course = create(:course, id: 999, slug: 'none/Other_(course)',
+                            start: 1.month.ago, end: 1.month.from_now)
+      other_user = create(:user, id: 2, username: 'OtherCourseUser')
+      create(:courses_user, id: 457, course: other_course, user: other_user)
+      create(:commons_upload, user:, uploaded_at: 1.week.ago)
+      create(:assignment, course:, user:, article_id: 1, article_title: 'This_course_title')
+      create(:assignment, course: other_course, user: other_user, article_id: 2,
+             article_title: 'Other_course_title')
+
+      described_class.update_all_caches_from_timeslices(described_class.all)
+
+      expect(described_class.find_by(user:).total_uploads).to eq(1)
+      expect(described_class.find_by(user:).assigned_article_title).to eq('This_course_title')
+      expect(described_class.find_by(user: other_user).total_uploads).to eq(0)
+      expect(described_class.find_by(user: other_user).assigned_article_title)
+        .to eq('Other_course_title')
+    end
   end
 
   describe '#contribution_url' do

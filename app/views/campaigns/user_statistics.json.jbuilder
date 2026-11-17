@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 json.campaigns @campaigns do |campaign|
   presenter = CoursesPresenter.new(
-    current_user:,
+    current_user: nil, # the same counts as the cached statistics views
     campaign_param: campaign.slug
   )
   json.call(campaign, :id, :title, :slug)

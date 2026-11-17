@@ -22,12 +22,25 @@ describe ReportCsvWorker, :report_csv_files do
       filename = described_class.campaign_csv_name(campaign, 'campaign_students', course: true)
       expect(filename).to eq(expected)
     end
+
+    it 'keeps the variant with private courses under its own name' do
+      expected = "#{campaign.slug}-campaign_students-with_courses-with_private_courses-" \
+                 "#{Time.zone.today}.csv"
+      filename = described_class.campaign_csv_name(campaign, 'campaign_students',
+                                                   course: true, include_private: true)
+      expect(filename).to eq(expected)
+    end
   end
 
   describe '.campaign_zip_name' do
     it 'builds the campaign zip archive filename' do
       expected = "#{campaign.slug}-campaign-data-#{Time.zone.today}.zip"
       expect(described_class.campaign_zip_name(campaign)).to eq(expected)
+    end
+
+    it 'keeps the variant with private courses under its own name' do
+      expected = "#{campaign.slug}-campaign-data-with_private_courses-#{Time.zone.today}.zip"
+      expect(described_class.campaign_zip_name(campaign, include_private: true)).to eq(expected)
     end
   end
 
@@ -65,6 +78,50 @@ describe ReportCsvWorker, :report_csv_files do
       zip_data = ReportCsvStore.read(zip_filename)
       archive = Zip::File.open_buffer(zip_data)
       expect(archive.read('courses.csv')).to eq("cached,courses,data\n")
+    end
+
+    context 'with private courses' do
+      let(:private_course) { create(:course, slug: 'Hidden/Hidden_course_(term)', private: true) }
+      let(:private_zip_filename) do
+        described_class.campaign_zip_name(campaign, include_private: true)
+      end
+
+      before do
+        campaign.courses << private_course
+      end
+
+      # Zip entries come back as binary; the slugs compared against are UTF-8.
+      def courses_entry(archive)
+        archive.read('courses.csv').force_encoding('utf-8')
+      end
+
+      it 'leaves them out of the public archive' do
+        described_class.new.perform(campaign.id, zip_filename, 'campaign_all', nil)
+        archive = Zip::File.open_buffer(ReportCsvStore.read(zip_filename))
+        expect(courses_entry(archive)).to include(course.slug)
+        expect(courses_entry(archive)).not_to include(private_course.slug)
+      end
+
+      it 'includes them in the variant archive' do
+        described_class.new.perform(campaign.id, private_zip_filename, 'campaign_all', nil,
+                                    '{}', true)
+        archive = Zip::File.open_buffer(ReportCsvStore.read(private_zip_filename))
+        expect(courses_entry(archive)).to include(private_course.slug)
+      end
+
+      it 'builds the variant from the variant constituent files, not the public ones' do
+        public_name = described_class.campaign_csv_name(campaign, 'campaign_courses')
+        ReportCsvStore.write(public_name, "public,courses,data\n")
+
+        described_class.new.perform(campaign.id, private_zip_filename, 'campaign_all', nil,
+                                    '{}', true)
+        archive = Zip::File.open_buffer(ReportCsvStore.read(private_zip_filename))
+        expect(courses_entry(archive)).to include(private_course.slug)
+        expect(ReportCsvStore.read(public_name)).to eq("public,courses,data\n")
+        variant_name = described_class.campaign_csv_name(campaign, 'campaign_courses',
+                                                         include_private: true)
+        expect(ReportCsvStore.exists?(variant_name)).to be(true)
+      end
     end
   end
 end

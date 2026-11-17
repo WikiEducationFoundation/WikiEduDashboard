@@ -41,7 +41,7 @@ const assignments = [
   }
 ];
 
-const renderTab = (current_user, fetchAssignments) => {
+const renderTab = (current_user, fetchAssignments, courseOverrides = {}) => {
   const store = createStore(reducer, applyMiddleware(thunk));
   const container = document.createElement('div');
   document.body.appendChild(container);
@@ -50,7 +50,7 @@ const renderTab = (current_user, fetchAssignments) => {
       React.createElement(Provider, { store },
         React.createElement(MemoryRouter, null,
           React.createElement(AvailableArticles, {
-            course,
+            course: { ...course, ...courseOverrides },
             course_id: course.slug,
             current_user,
             assignments,
@@ -83,5 +83,44 @@ describe('AvailableArticles', () => {
     const container = renderTab({ id: 999, isStudent: true, isAdvancedRole: false, admin: false }, jest.fn());
     expect(container.innerHTML).toContain('Existing Article');
     expect(container.innerHTML).toContain('New Article');
+  });
+
+  describe('when the course metadata is locked', () => {
+    const admin = { id: 1, isStudent: false, isAdvancedRole: true, isInstructor: true, admin: true };
+    const student = { id: 999, isStudent: true, isAdvancedRole: false, admin: false };
+    // The header's "Find Articles" link. AssignButton's closed popover has its own
+    // article finder link, which can't be opened without the add button.
+    const findArticlesLink = '.section-header__actions > a[href$="/article_finder"]';
+    const buttonsWithText = (container, text) => (
+      Array.from(container.querySelectorAll('button')).filter(button => button.textContent === text)
+    );
+
+    test('shows the add, copy, find and remove controls to an admin of an unlocked course', () => {
+      const container = renderTab(admin, jest.fn());
+      expect(container.querySelector('.assign-button')).not.toBeNull();
+      expect(container.querySelector('#copy-available-articles-button')).not.toBeNull();
+      expect(container.querySelector(findArticlesLink)).not.toBeNull();
+      expect(buttonsWithText(container, I18n.t('assignments.remove')).length).toBeGreaterThan(0);
+    });
+
+    test('hides the add, copy, find and remove controls, even from an admin', () => {
+      const container = renderTab(admin, jest.fn(), { metadata_locked: true });
+      expect(container.querySelector('.assign-button')).toBeNull();
+      expect(container.querySelector('#copy-available-articles-button')).toBeNull();
+      expect(container.querySelector(findArticlesLink)).toBeNull();
+      expect(buttonsWithText(container, I18n.t('assignments.remove'))).toHaveLength(0);
+      expect(container.innerHTML).toContain('Existing Article'); // the list is still shown
+    });
+
+    test('shows the select control to a student of an unlocked course', () => {
+      const container = renderTab(student, jest.fn());
+      expect(buttonsWithText(container, I18n.t('assignments.select')).length).toBeGreaterThan(0);
+    });
+
+    test('hides the select control from a student', () => {
+      const container = renderTab(student, jest.fn(), { metadata_locked: true });
+      expect(buttonsWithText(container, I18n.t('assignments.select'))).toHaveLength(0);
+      expect(container.innerHTML).toContain('Existing Article'); // the list is still shown
+    });
   });
 });

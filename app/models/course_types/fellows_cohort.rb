@@ -74,6 +74,10 @@ class FellowsCohort < Course
     true
   end
 
+  def applications_allowed?
+    true
+  end
+
   def passcode_required?
     false
   end
@@ -84,5 +88,9 @@ class FellowsCohort < Course
 
   def assignments_tab_enabled?
     true
+  end
+
+  def lms_integration_allowed?
+    false
   end
 end

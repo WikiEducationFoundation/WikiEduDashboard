@@ -6,7 +6,10 @@ class BlockDateManager
   def initialize(block, meetings_manager = nil)
     @block = block
     @week = @block.week
-    @course = @block.course
+    # Through the week rather than block.course, so blocks loaded from a
+    # course's weeks share that Course object and its memoized meetings
+    # manager; building one per block was most of a long timeline's render.
+    @course = @week.course
     @meetings_manager = meetings_manager
   end
 
@@ -18,9 +21,14 @@ class BlockDateManager
 
   def due_date
     return @block.due_date if @block.due_date.present?
-    # an assignment due the end of the first week
-    # is due the end of the week the timeline starts
-    # (0 weeks from timeline start)
+    default_due_date
+  end
+
+  # The due date a block has when the instructor hasn't set one:
+  # an assignment due the end of the first week
+  # is due the end of the week the timeline starts
+  # (0 weeks from timeline start)
+  def default_due_date
     (@course.timeline_start + weeks_from_start.weeks)
       .to_date.end_of_week(:sunday)
   end

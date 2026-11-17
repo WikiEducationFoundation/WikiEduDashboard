@@ -21,6 +21,17 @@ describe StoreTimesliceEditCounts do
     expect(stats_hash['edits_by_wiki']).to eq(1 => 9)
   end
 
+  describe '.clear' do
+    it 'removes the stored edit counts, keeping the other stats' do
+      create(:course_stats, course:,
+                            stats_hash: { 'edits_by_namespace' => { 0 => 7 },
+                                          'edits_by_wiki' => { 1 => 9 },
+                                          'en.wikipedia.org-namespace-0' => { edited_count: 3 } })
+      described_class.clear(course)
+      expect(stats_hash.keys).to eq(['en.wikipedia.org-namespace-0'])
+    end
+  end
+
   it 'keeps the stats already stored for the course' do
     create(:course_stats, course:,
                           stats_hash: { 'en.wikipedia.org-namespace-0' => { edited_count: 3 } })

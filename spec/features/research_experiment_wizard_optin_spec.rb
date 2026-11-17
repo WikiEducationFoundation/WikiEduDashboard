@@ -90,7 +90,7 @@ describe 'research experiment wizard opt-in', type: :feature, js: true do
     advance_to_panel_after_assignment_selection(course)
 
     # The wizard moves straight on to the panel that follows it.
-    expect(page).to have_content('Training')
+    expect(page).to have_content('Generative AI and the Wikipedia assignment')
     expect(page).to have_no_content(panel_title)
   end
 end

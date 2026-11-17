@@ -60,8 +60,6 @@ mk:
     change: Смени
     details: Подробно
     confirm: ОК
-    opt_in: Да
-    opt_out: Не
     opt_yes: да
     opt_no: не
   dashboard:

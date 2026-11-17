@@ -29,6 +29,7 @@ class Campaign < ApplicationRecord
            through: :campaigns_courses, source: :course
   has_many :articles_courses, through: :courses
   has_many :articles, -> { distinct }, through: :courses
+  has_many :nonprivate_articles, -> { distinct }, through: :nonprivate_courses, source: :articles
   has_many :students, -> { distinct }, through: :courses
   has_many :instructors, -> { distinct }, through: :courses
   has_many :nonstudents, -> { distinct }, through: :courses
@@ -72,7 +73,7 @@ class Campaign < ApplicationRecord
   def users_to_csv(role, opts = {})
     headers = opts[:course] ? %w[username course registered_at] : ['username']
     csv_data = [headers]
-    courses.nonprivate.each do |course|
+    courses_for_csv(opts[:include_private]).each do |course|
       users = course.send(role)
       users.each do |user|
         line = [user.username]
@@ -98,7 +99,7 @@ class Campaign < ApplicationRecord
   end
 
   def articles_to_json
-    articles.distinct.map do |article|
+    nonprivate_articles.map do |article|
       {
         title: article.title,
         wiki: article.wiki
@@ -145,7 +146,22 @@ class Campaign < ApplicationRecord
     Rails.cache.delete(course_sums_cache_key)
   end
 
+  def articles_count_cache_key
+    "#{slug}-articles_count"
+  end
+
+  def clear_articles_count_cache
+    Rails.cache.delete(articles_count_cache_key)
+  end
+
   private
+
+  # Campaign reports leave private courses out, because each one is cached once
+  # and served to everyone who asks; the variant that includes them is only
+  # generated for admins and organizers (ReportsController).
+  def courses_for_csv(include_private)
+    include_private ? courses : courses.nonprivate
+  end
 
   def validate_dates
     # It's fine to have no dates at all.

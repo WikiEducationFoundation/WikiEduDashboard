@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextInput from '../common/text_input.jsx';
-import DatePicker from '../common/date_picker.jsx';
 import TextAreaInput from '../common/text_area_input.jsx';
 import TrainingModules from './TrainingModules/TrainingModules';
 import BlockTypeSelect from './block_type_select.jsx';
+import BlockDueDate, { offersDueDate } from './BlockDueDate.jsx';
 import TrainingModulesViewMode from './TrainingModules/TrainingModulesViewMode.jsx';
 import { BLOCK_KIND_RESOURCES } from '../../constants';
 import { initiateConfirm } from '../../actions/confirm_actions.js';
 
 const Block = (props) => {
+  // Once a block has shown a due date, keep offering the control, so that
+  // removing the date doesn't also remove the control mid-edit.
+  const hadDueDate = useRef(false);
+  hadDueDate.current = hadDueDate.current || Boolean(props.block.due_date);
+
 const updateBlock = (valueKey, value) => {
     const toPass = { ...props.block };
     toPass[valueKey] = value;
@@ -84,7 +89,8 @@ const updateBlock = (valueKey, value) => {
     }
 
     let dueDateRead;
-    if (block.due_date !== null && block.kind === 1) {
+    // A date set on any kind of block applies to its modules, so show it.
+    if (block.due_date) {
       dueDateRead = (
         <TextInput
           onChange={updateBlock}
@@ -170,7 +176,7 @@ const updateBlock = (valueKey, value) => {
       </div>
     );
 
-    const dueDateSpacer = block.due_date && block.kind === 1 ? (
+    const dueDateSpacer = block.due_date ? (
       <span className="block__due-date-spacer"> - </span>
     ) : undefined;
 
@@ -230,22 +236,14 @@ const updateBlock = (valueKey, value) => {
           </div>
         </div>
         <div className="block__edit-container">
-          <div className="block__block-due-date">
-            <DatePicker
-              onChange={updateBlock}
-              value={block.due_date}
-              value_key="due_date"
-              editable={isEditable}
-              label="Due date"
-              spacer=""
-              placeholder="Due date"
-              isClearable={true}
-              show={isEditable && parseInt(block.kind) === 1}
-              date_props={{ minDate: props.weekStart }}
-              onFocus={props.toggleFocused}
-              onBlur={props.toggleFocused}
+          {isEditable && (offersDueDate(block) || hadDueDate.current) && (
+            <BlockDueDate
+              block={block}
+              updateBlock={updateBlock}
+              weekStart={props.weekStart}
+              toggleFocused={props.toggleFocused}
             />
-          </div>
+          )}
           {blockKindNote}
         </div>
         {content}

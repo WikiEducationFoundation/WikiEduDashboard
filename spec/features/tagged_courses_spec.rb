@@ -14,6 +14,19 @@ describe 'tagged courses pages', type: :feature, js: true do
     create(:alert, course:, type: 'BadWorkAlert')
   end
 
+  it 'finds a tag from the admin index and opens its courses' do
+    create(:tag, course:, tag: 'unrelated_tag', key: 'unrelated')
+    visit '/admin'
+    click_link 'Course tags'
+    expect(page).to have_link('unrelated_tag')
+    expect(page).to be_axe_clean
+    fill_in 'Search tags', with: 'test'
+    click_button 'Search'
+    expect(page).not_to have_link('unrelated_tag')
+    click_link 'test_tag'
+    expect(page).to have_content(course.title)
+  end
+
   it 'show list of courses with the tag' do
     visit '/tagged_courses/test_tag/programs'
     expect(page).to have_content(course.title)

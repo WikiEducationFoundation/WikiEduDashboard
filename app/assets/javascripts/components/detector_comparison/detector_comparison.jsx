@@ -6,7 +6,7 @@ import KnownHumanPage from './known_human_page';
 import UnitPage from './unit_page';
 import TopicPage from './topic_page';
 
-// Admin pages presenting the AI detector comparison data (/detector_comparison): an index, a
+// Public pages presenting the AI detector comparison data (/detector_comparison): an index, a
 // page per dataset, a page per topic and a page per text.
 const DetectorComparison = () => (
   <Routes>

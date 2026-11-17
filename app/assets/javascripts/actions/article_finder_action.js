@@ -1,6 +1,6 @@
 import { chunk, map, includes } from 'lodash-es';
 import promiseLimit from 'promise-limit';
-import { UPDATE_FINDER_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL, CLEAR_RESULTS } from '../constants';
+import { UPDATE_FINDER_FIELD, RECEIVE_CATEGORY_RESULTS, CLEAR_FINDER_STATE, INITIATE_SEARCH, END_SEARCH, RECEIVE_ARTICLE_PAGEVIEWS, RECEIVE_ARTICLE_PAGEASSESSMENT, RECEIVE_ARTICLE_REVISION, RECEIVE_ARTICLE_REVISIONSCORE, SORT_ARTICLE_FINDER, RECEIVE_KEYWORD_RESULTS, API_FAIL, CLEAR_RESULTS } from '../constants';
 import { queryUrl, categoryQueryGenerator, pageviewQueryGenerator, pageAssessmentQueryGenerator, pageRevisionQueryGenerator, pageRevisionScoreQueryGenerator, keywordQueryGenerator } from '../utils/article_finder_utils.js';
 import { ORESSupportedWiki, PageAssessmentSupportedWiki } from '../utils/article_finder_language_mappings.js';
 import { fetchWikidataLabels } from './wikidata_actions';
@@ -22,6 +22,24 @@ const liftWingApiBase = (language, project) => {
 };
 
 const limit = promiseLimit(10);
+
+// Returns a dispatch that only delivers while the search it was made for is
+// still the current one. A new search, or clearing the results, gives the
+// store a new searchId; whatever the earlier search's requests still dispatch
+// after that is dropped instead of being applied to the wrong search.
+const restrictToCurrentSearch = (dispatch, getState) => {
+  const { searchId } = getState().articleFinder;
+  return (action) => {
+    if (getState().articleFinder.searchId === searchId) { dispatch(action); }
+  };
+};
+
+// One upstream problem usually fails every chunk of a round at once, so a
+// round reports only its first failure rather than one per chunk.
+const reportFailures = (dispatch, failures) => {
+  if (!failures.length) { return; }
+  dispatch({ type: API_FAIL, data: failures[0] });
+};
 
 export const updateFields = (key, value) => (dispatch) => {
   dispatch({
@@ -54,7 +72,8 @@ export const fetchCategoryResults = (category, wiki, cmcontinue = '', continueRe
       }
     });
   }
-  return getDataForCategory(`Category:${category}`, wiki, cmcontinue, 0, dispatch, getState);
+  const dispatchForSearch = restrictToCurrentSearch(dispatch, getState);
+  return getDataForCategory(`Category:${category}`, wiki, cmcontinue, 0, dispatchForSearch, getState);
 };
 
 const getDataForCategory = (category, wiki, cmcontinue, namespace = 0, dispatch, getState) => {
@@ -74,7 +93,11 @@ const getDataForCategory = (category, wiki, cmcontinue, namespace = 0, dispatch,
   .then((data) => {
     fetchPageAssessment(data, wiki, dispatch, getState);
   })
-  .catch(response => (dispatch({ type: API_FAIL, data: response })));
+  .catch((error) => {
+    // Without titles there is nothing further to request.
+    dispatch({ type: API_FAIL, data: error });
+    dispatch({ type: END_SEARCH, failed: true });
+  });
 };
 
 // export const findSubcategories = (category) => {
@@ -95,6 +118,7 @@ const getDataForCategory = (category, wiki, cmcontinue, namespace = 0, dispatch,
 // };
 
 const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
+  const failures = [];
   const promises = chunk(articlesList, 5).map((articles) => {
     const query = pageviewQueryGenerator(map(articles, 'pageid'));
     return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
@@ -105,7 +129,7 @@ const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
         data
       });
     })
-    .catch(response => (dispatch({ type: API_FAIL, data: response })));
+    .catch(error => failures.push(error));
   });
   const sort = getState().articleFinder.sort;
   let desc = false;
@@ -116,17 +140,20 @@ const fetchPageViews = (articlesList, wiki, dispatch, getState) => {
   }
   Promise.all(promises)
   .then(() => {
+    reportFailures(dispatch, failures);
     dispatch({
       type: SORT_ARTICLE_FINDER,
       key: sort.key,
       initial: true,
       desc,
     });
+    dispatch({ type: END_SEARCH });
   });
 };
 
 const fetchPageAssessment = (articlesList, wiki, dispatch, getState) => {
   if (PageAssessmentSupportedWiki[wiki.project] && includes(PageAssessmentSupportedWiki[wiki.project], wiki.language)) {
+    const failures = [];
     const promises = chunk(articlesList, 20).map((articles) => {
       const query = pageAssessmentQueryGenerator(map(articles, 'title'));
 
@@ -138,11 +165,12 @@ const fetchPageAssessment = (articlesList, wiki, dispatch, getState) => {
           data
         });
       })
-      .catch(response => (dispatch({ type: API_FAIL, data: response })));
+      .catch(error => failures.push(error));
     });
 
     Promise.all(promises)
     .then(() => {
+      reportFailures(dispatch, failures);
       fetchPageRevision(articlesList, wiki, dispatch, getState);
     });
   } else {
@@ -152,6 +180,7 @@ const fetchPageAssessment = (articlesList, wiki, dispatch, getState) => {
 
 const fetchPageRevision = (articlesList, wiki, dispatch, getState) => {
   if (includes(ORESSupportedWiki.languages, wiki.language) && includes(ORESSupportedWiki.projects, wiki.project)) {
+    const failures = [];
     const promises = chunk(articlesList, 1).map((articles) => {
       const query = pageRevisionQueryGenerator(map(articles, 'title'));
       return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
@@ -166,10 +195,11 @@ const fetchPageRevision = (articlesList, wiki, dispatch, getState) => {
       .then((data) => {
         return fetchPageRevisionScore(data, wiki, dispatch);
       })
-      .catch(response => (dispatch({ type: API_FAIL, data: response })));
+      .catch(error => failures.push(error));
     });
     Promise.all(promises)
     .then(() => {
+      reportFailures(dispatch, failures);
       fetchPageViews(articlesList, wiki, dispatch, getState);
     });
   } else {
@@ -200,6 +230,8 @@ const fetchPageRevisionScore = async (revids, wiki, dispatch) => {
     if (!response.ok) {
       const data = await response.text();
       dispatch({ type: API_FAIL, data: response.responseText || data });
+      // The body has been read, so there is nothing left to parse below.
+      return;
     }
     const responseJson = await response.json();
     const data = await responseJson[
@@ -234,20 +266,25 @@ export const fetchKeywordResults = (keyword, wiki, offset = 0, continueResults =
       }
     });
   }
+  const dispatchForSearch = restrictToCurrentSearch(dispatch, getState);
   const query = keywordQueryGenerator(keyword, offset);
   return limit(() => queryUrl(mediawikiApiBase(wiki.language, wiki.project), query))
   .then((data) => {
-    dispatch({
+    dispatchForSearch({
       type: RECEIVE_KEYWORD_RESULTS,
       data,
     });
     return data.query.search;
   })
   .then((articles) => {
-    if (wiki.project === 'wikidata') fetchWikidataLabels(articles, dispatch);
-    return fetchPageAssessment(articles, wiki, dispatch, getState);
+    if (wiki.project === 'wikidata') fetchWikidataLabels(articles, dispatchForSearch);
+    return fetchPageAssessment(articles, wiki, dispatchForSearch, getState);
   })
-  .catch(response => (dispatch({ type: API_FAIL, data: response })));
+  .catch((error) => {
+    // Without titles there is nothing further to request.
+    dispatchForSearch({ type: API_FAIL, data: error });
+    dispatchForSearch({ type: END_SEARCH, failed: true });
+  });
 };
 
 export const resetArticleFinder = () => {

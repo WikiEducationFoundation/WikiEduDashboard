@@ -53,6 +53,12 @@ mark_purgeable_courses:
   class: "MarkPurgeableCoursesWorker"
   queue: default
 
+# Copy the valid grant IDs from the grant ID spreadsheet (P&E only).
+refresh_grant_ids:
+  cron: "0 2 * * *" # every day at 2am UTC
+  class: "RefreshGrantIdsWorker"
+  queue: default
+
 # Sync rosters for every active Canvas-bound course via LTIAAS NRPS.
 # On-launch syncs already keep instructors fresh; the daily run catches
 # students who haven't launched recently. Membership status is stored on each

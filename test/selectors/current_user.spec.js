@@ -102,3 +102,22 @@ describe('current user in student view', () => {
     });
   });
 });
+
+describe('editPermissions for a course with locked metadata', () => {
+  const buildState = ({ admin = false, metadataLocked = false } = {}) => ({
+    currentUserFromHtml: { id: 1, admin, campaign_organizer: false },
+    users: { users: admin ? [] : [{ id: 1, username: 'Instructor', role: INSTRUCTOR_ROLE }] },
+    course: { type: 'ClassroomProgramCourse', closed: false, metadata_locked: metadataLocked },
+    viewAsStudent: false
+  });
+
+  test('allows instructors and admins to edit an unlocked course', () => {
+    expect(editPermissions(buildState())).toBe(true);
+    expect(editPermissions(buildState({ admin: true }))).toBe(true);
+  });
+
+  test('blocks instructors and admins when the course metadata is locked', () => {
+    expect(editPermissions(buildState({ metadataLocked: true }))).toBe(false);
+    expect(editPermissions(buildState({ admin: true, metadataLocked: true }))).toBe(false);
+  });
+});

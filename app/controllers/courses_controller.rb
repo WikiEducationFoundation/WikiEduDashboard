@@ -11,6 +11,7 @@ require_dependency "#{Rails.root}/app/workers/notify_untrained_users_worker"
 require_dependency "#{Rails.root}/app/workers/announce_course_worker"
 require_dependency "#{Rails.root}/lib/alerts/check_timeline_alert_manager"
 require_dependency "#{Rails.root}/lib/errors/rescue_errors"
+require_dependency "#{Rails.root}/lib/grant_id_list"
 
 #= Controller for course functionality
 class CoursesController < ApplicationController
@@ -20,6 +21,9 @@ class CoursesController < ApplicationController
   respond_to :html, :json
   before_action :require_permissions, only: %i[notify_untrained
                                                delete_all_weeks]
+  before_action :require_admin_permissions, only: [:tag]
+  before_action :require_campaign_list_permissions, only: [:list]
+  before_action :restrict_course_fields, only: %i[create update]
 
   ################
   # CRUD methods #
@@ -48,6 +52,7 @@ class CoursesController < ApplicationController
     validate
     slug_from_params if should_set_slug?
     reject_rename_of_event_synced_course { return }
+    reject_invalid_grant_id { return }
     handle_course_announcement(@course.instructors.first)
     @course.update update_params
     update_courses_wikis
@@ -64,6 +69,7 @@ class CoursesController < ApplicationController
 
   def destroy
     validate
+    require_admin_to_delete_published_course
     reject_deletion_of_event_synced_course { return }
     DeleteCourseWorker.schedule_deletion(course: @course, current_user:)
     render json: { success: true }
@@ -85,6 +91,7 @@ class CoursesController < ApplicationController
 
   def find
     course = Course.find(params[:course_id])
+    require_course_visible(course)
     redirect_to "/courses/#{course.slug}"
   end
 
@@ -110,6 +117,7 @@ class CoursesController < ApplicationController
   def articles
     set_course
     set_limit
+    set_after_id
   end
 
   def users
@@ -249,6 +257,7 @@ class CoursesController < ApplicationController
 
   def needs_update
     @course = find_course_by_slug(params[:id])
+    require_update_permission
     @course.update(needs_update: true)
     render json: { result: I18n.t('courses.creator.update_scheduled') },
            status: :ok
@@ -283,11 +292,49 @@ class CoursesController < ApplicationController
     params.require(:campaign).permit(:title)
   end
 
+  # On Wiki Ed, a course in a campaign has been approved, and the course page
+  # offers deletion to non-admins only before that (available_actions.jsx).
+  def require_admin_to_delete_published_course
+    return unless Features.wiki_ed? && @course.campaigns.any?
+    return if current_user&.admin?
+    raise NotPermittedError
+  end
+
+  # As on the course page: participants and editors of an ended course, and
+  # admins of any course, can schedule a full update.
+  def require_update_permission
+    require_signed_in
+    return if current_user.admin?
+    participant = current_user.nonvisitor?(@course) || current_user.can_edit?(@course)
+    raise NotPermittedError unless participant && @course.end < Time.zone.now
+  end
+
+  # Adding a course to a campaign approves it on Wiki Ed, which only admins
+  # may do. On P&E, course editors manage their own course's campaigns.
+  def require_campaign_list_permissions
+    return require_admin_permissions if Features.wiki_ed?
+    require_permissions
+  end
+
+  # Signed-out requests get no further: create requires sign-in and update
+  # requires edit rights.
+  def restrict_course_fields
+    return unless current_user && params[:course].is_a?(ActionController::Parameters)
+    course = Course.find_by(slug: params[:id].gsub(/\.json$/, '')) if action_name == 'update'
+    RestrictCourseParams.new(course_params: params[:course], user: current_user, course:)
+  end
+
   def validate
     slug = params[:id].gsub(/\.json$/, '')
     @course = find_course_by_slug(slug)
-    course_cloned_status = @course.cloned_status == 3
-    raise NotPermittedError unless current_user&.can_edit?(@course) || course_cloned_status
+    raise NotPermittedError unless current_user&.can_edit?(@course) || copier_finishing_copy?
+  end
+
+  # CopyCourseController doesn't enroll the user who copies a course, so that
+  # user may edit the copy until its setup modal is finished.
+  def copier_finishing_copy?
+    return false unless current_user && @course.cloned_status == 3
+    @course.flags[:copied_by_user_id] == current_user.id
   end
 
   def handle_course_announcement(instructor)
@@ -333,6 +380,31 @@ class CoursesController < ApplicationController
     return unless params[:course][:slug].present? && params[:course][:slug] != @course.slug
     render json: { message: I18n.t('courses.error.event_sync_rename') }, status: :conflict
     yield
+  end
+
+  # A new grant ID must be on the grant ID spreadsheet. The course's current ID
+  # is not checked again, because the client sends it back with every save,
+  # and a course can always clear its grant ID.
+  def reject_invalid_grant_id
+    return unless course_params.key?(:grant_id)
+    grant_id = normalized_grant_id
+    return if grant_id.nil? || grant_id == @course.grant_id
+    message = grant_id_error(grant_id)
+    return unless message
+    render json: { message:, field: 'grant_id' }, status: :unprocessable_content
+    yield
+  end
+
+  def grant_id_error(grant_id)
+    return I18n.t('courses.error.grant_ids_unavailable') unless GrantIdList.available?
+    return if GrantIdList.include?(grant_id)
+    I18n.t('courses.error.invalid_grant_id', grant_id:)
+  end
+
+  # The grant ID list holds only the numbers and dashes, so the G- prefix
+  # that grant IDs are usually written with is dropped.
+  def normalized_grant_id
+    course_params[:grant_id].to_s.strip.sub(/\Ag-\s*/i, '').presence
   end
 
   def ensure_passcode_set
@@ -421,12 +493,11 @@ class CoursesController < ApplicationController
     end
   end
 
-  EDIT_SETTING_KEYS = %w[
-    wiki_course_page_enabled assignment_edits_enabled enrollment_edits_enabled
-  ].freeze
   def update_edit_settings
+    # Absent for users who may not change them; see RestrictCourseParams.
+    return unless Course::EDIT_SETTING_KEYS.any? { |key| params[:course].key?(key) }
     update_flags = {}
-    EDIT_SETTING_KEYS.each do |key|
+    Course::EDIT_SETTING_KEYS.each do |key|
       update_flags[key] = params.dig(:course, key)
     end
     @course.flags['edit_settings'] = update_flags
@@ -482,7 +553,8 @@ class CoursesController < ApplicationController
       .permit(:id, :title, :description, :school, :term, :slug, :subject,
               :expected_students, :start, :end, :submitted, :passcode,
               :timeline_start, :timeline_end, :day_exceptions, :weekdays,
-              :no_day_exceptions, :cloned_status, :type, :level, :private, :withdrawn)
+              :no_day_exceptions, :cloned_status, :type, :level, :private, :withdrawn,
+              :grant_id)
   end
 
   def update_params
@@ -495,6 +567,7 @@ class CoursesController < ApplicationController
     end
 
     course_attributes.delete(:passcode) if params[:course][:passcode] == '****'
+    course_attributes[:grant_id] = normalized_grant_id if course_attributes.key?(:grant_id)
 
     course_attributes
   end
@@ -515,6 +588,13 @@ class CoursesController < ApplicationController
     @limit = [limit, MAX_ARTICLES_LIMIT].min
   end
 
+  # Cursor for paging through articles.json: only articles_courses with an id
+  # greater than this are returned. A missing or invalid value means the first page.
+  def set_after_id
+    after_id = params[:after_id].to_i
+    @after_id = after_id if after_id.positive?
+  end
+
   # If the user could make an edit to the course, this verifies that
   # their tokens are working. If their credentials are found to be invalid,
   # they get logged out immediately, and this method redirects them to the home
@@ -533,10 +613,7 @@ class CoursesController < ApplicationController
   # rubocop:enable Metrics/CyclomaticComplexity
 
   def protect_privacy
-    return unless @course.private
-    # Admins and enrolled users have non-visitor roles
-    return if current_user&.nonvisitor?(@course)
-    raise ActionController::RoutingError, 'not found'
+    require_course_visible(@course)
   end
 
   # If this is an enroll link, save the slug and enroll code

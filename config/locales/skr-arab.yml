@@ -74,8 +74,6 @@ skr-arab:
     details: تفصیلات
     confirm: ٹھیک ہے
     confirm_generic: کیا تساں واقعی ایہ کرݨ چاہندے ہو؟
-    opt_in: جیا
-    opt_out: کو
     opt_yes: جیا
     opt_no: کو
     print: چھاپو
@@ -855,10 +853,6 @@ skr-arab:
     data_revisions_info: ترامیم دے ڈیٹے وچ کورس دیاں ترامیم دی تعداد، ترامیم دی id،
       مضمون دی id، کونجھے صفحے نویں ہن تے صفحہ نظریاں دے کل شامل ہن۔
     data_download_info: CSV فارمیٹ وچ ڈیٹا ڈاؤن لوڈ کرو۔
-    data_download_warning: ایہ کورس ہالی تئیں نویں نظام وچ اپ ٹو ڈیٹ ناہیں۔ شماریات
-      نامکمل تھی سگدن۔ انہاں کوں ڈاؤن لوڈ کرݨ توں پہلے، براہ کرم ایں کورس کیتے ڈیٹا
-      اپڈیٹ شیڈول کرو تے اوں دے مکݨ دا انتظار کرو۔ جے ایہ ہک جاری کورس اے، تاں براہ
-      کرم موجودہ اپڈیٹ دے مکݨ دا انتظار کرو۔
     data_overview: جائزہ ڈیٹا
     data_overview_info: جائزہ ڈیٹا پورے منصوبے کیتے مجموعی شماریات فراہم کریندا اے۔
     data_edits: ترامیم دا ڈیٹا
@@ -926,6 +920,8 @@ skr-arab:
     features_feedback: 'خود کار تجویزاں:'
     feedback: تہاڈی رائے
     feedback_loading: مہربانی کرکے انتظار کرو جڈاں تجویزاں لوڈ تھیندیاں پئین۔
+    grant_id: گرانٹ آئی ڈی
+    grant_id_checking: جانچ تھیندی پئی ہے...
     gradeables_none: ایں کورس وچ کوئی گریڈ کرݨ آلیاں تفویضاں ناہیں۔
     home_wiki: ہوم وکی
     multi_wiki: کھوج کرݨ آلیاں وکیاں
@@ -1169,6 +1165,29 @@ skr-arab:
     survey:
       notification_message: این کورس کیتے ساݙا سروے کرو۔
       link: سروے ݙیو
+  course_application_forms:
+    intro: تعارف
+    edit_question_group: لکھو
+    move_up: اُتے ونڄو
+    move_down: ہیٹھاں گھن آؤ
+    remove: ہٹاؤ
+    add: شامل کرو
+    save: بچاؤ
+    saved: محفوظ
+  course_applications:
+    apply: لاگو کرو
+  course_application_reviews:
+    statuses:
+      submitted: جمع تھی ڳیا
+      accepted: منظور تھیا
+      declined: انکار تھی ڳیا
+    real_name: اصلی ناں
+    email: ای میل
+    status: حیثیت
+    submitted_at: جمع تھی ڳیا
+    decline: انکار کرو
+    delete: مٹاؤ
+    download_csv: CSV ڈاؤن لوڈ کرو
   course_instructor_notification:
     notify_instructors: انسٹرکٹرز کوں ای میل کرو
     notify_instructors_feature_description: انسٹرکٹرز کوں ای میل دے ذریعے پیغام بھیجو
@@ -1856,6 +1875,7 @@ skr-arab:
     delete_timeline_and_start_over: ٹائم لائن مٹاؤ
     done: تھی ڳیا
     due_default: اگلے ہفتے تک
+    due_date_default: پہلے کنوں طے تھیا
     edit_titles: ہفتے دے عنوانات تبدیل کرو
     edit_titles_info: ٹائم لائن وچ ہفتے دے عنوانات تبدیل کرو۔ صرف انہاں ہفتیاں کوں
       کسٹم عنوانات ݙتے ونج سڳدے ہن جنہاں وچ شیڈول شدہ ملاقاتاں ہون۔ اگر کوئی کسٹم

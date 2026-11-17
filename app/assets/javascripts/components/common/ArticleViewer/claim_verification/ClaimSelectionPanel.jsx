@@ -27,14 +27,17 @@ export const ClaimSelectionPanel = ({ claim, onTake, taking, error, onClose }) =
   // so a student can click another highlighted claim — so focus is not trapped.
   useEffect(() => {
     const handleEscape = (event) => {
-      if (event.key === 'Escape') { onClose(); }
+      if (event.key === 'Escape') {
+        event.stopPropagation();
+        if (!taking) { onClose(); }
+      }
     };
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [onClose]);
+    document.addEventListener('keydown', handleEscape, true);
+    return () => document.removeEventListener('keydown', handleEscape, true);
+  }, [onClose, taking]);
 
   return (
-    <aside
+    <div
       ref={panelRef}
       tabIndex={-1}
       className="cv-selection-panel"
@@ -68,7 +71,7 @@ export const ClaimSelectionPanel = ({ claim, onTake, taking, error, onClose }) =
       <button type="button" className="button dark cv-selection-panel__take" onClick={onTake} disabled={taking}>
         {I18n.t('claim_verification.select_claim')}
       </button>
-    </aside>
+    </div>
   );
 };
 

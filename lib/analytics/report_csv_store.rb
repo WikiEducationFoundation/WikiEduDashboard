@@ -18,28 +18,37 @@ class ReportCsvStore
   end
 
   def self.exists?(filename)
-    store.exists?(filename)
+    store.exists?(stored_name(filename))
   end
 
   def self.read(filename)
-    store.read(filename)
+    store.read(stored_name(filename))
   end
 
   def self.write(filename, data)
-    store.write(filename, data)
+    store.write(stored_name(filename), data)
   end
 
   def self.url_for(filename)
-    store.url_for(filename)
+    store.url_for(stored_name(filename))
   end
 
   def self.delete(filename)
-    store.delete(filename)
+    store.delete(stored_name(filename))
   end
 
   def self.store
     @store ||= ENV['report_csv_bucket'].present? ? s3 : local
   end
 
-  private_class_method :store
+  # Reports are served from a public location, and the names callers use are
+  # built from slugs and the date. The stored name adds a suffix derived from
+  # the app's secret, so a report can't be fetched by guessing its name.
+  def self.stored_name(filename)
+    extension = File.extname(filename)
+    digest = OpenSSL::HMAC.hexdigest('SHA256', Rails.application.secret_key_base, filename)
+    "#{filename.delete_suffix(extension)}-#{digest[0, 32]}#{extension}"
+  end
+
+  private_class_method :store, :stored_name
 end

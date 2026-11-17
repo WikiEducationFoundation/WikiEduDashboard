@@ -66,8 +66,6 @@ sr-el:
     change: Promeni
     details: Detalji
     confirm: U redu
-    opt_in: Da
-    opt_out: Ne
     opt_yes: da
     opt_no: ne
     print: Štampaj

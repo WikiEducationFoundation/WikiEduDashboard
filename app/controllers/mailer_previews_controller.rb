@@ -35,6 +35,7 @@ class MailerPreviewsController < ApplicationController
         EnrollmentReminderMailerPreview
         OverdueTrainingAlertMailerPreview
         WikiEmailMailerPreview
+        CourseApplicationMailerPreview
       ]
     },
     {

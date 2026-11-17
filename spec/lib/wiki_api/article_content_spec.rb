@@ -142,8 +142,9 @@ describe WikiApi::ArticleContent do
       response = double('response', data: response_data)
       api_client = double('api_client')
       allow_any_instance_of(WikiApi).to receive(:api_client).and_return(api_client)
-      allow(api_client).to receive(:send).with(:action, 'parse', { oldid: 123 })
-                                         .and_return(response)
+      allow(api_client).to receive(:send)
+        .with(:action, 'parse', { oldid: 123, disableeditsection: true })
+        .and_return(response)
 
       result = subject.revision_html(123)
       expect(result[:html]).to eq('<p>Hello world</p>')
@@ -171,7 +172,8 @@ describe WikiApi::ArticleContent do
       api_client = double('api_client')
       allow_any_instance_of(WikiApi).to receive(:api_client).and_return(api_client)
       allow(api_client).to receive(:send)
-        .with(:action, 'parse', { text: '== Heading ==', contentmodel: 'wikitext' })
+        .with(:action, 'parse', { text: '== Heading ==', contentmodel: 'wikitext',
+                                  disableeditsection: true })
         .and_return(response)
 
       result = subject.parse_wikitext('== Heading ==')

@@ -85,6 +85,21 @@ describe TrainingModulesUsersController, type: :request do
 
     before do
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+      create(:courses_user, course:, user:, role: CoursesUsers::Roles::STUDENT_ROLE)
+    end
+
+    context 'when the block belongs to a course the user is not in' do
+      let(:module_slug) { 'copyedit-exercise' }
+      let(:block) do
+        other_week = create(:week, course: create(:course, slug: 'Other/Other_(term)'))
+        create(:block, week: other_week, training_module_ids: [training_module.id])
+      end
+
+      it 'refuses the request without recording anything' do
+        post '/training_modules_users/exercise.json', params: request_params, as: :json
+        expect(response.status).to eq(401)
+        expect(TrainingModulesUsers.count).to eq(0)
+      end
     end
 
     context 'when the exercise expects no page' do

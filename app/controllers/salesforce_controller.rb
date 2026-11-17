@@ -10,6 +10,8 @@ class SalesforceController < ApplicationController
     @course.flags[:salesforce_id] = params[:salesforce_id]
     @course.save
     PushCourseToSalesforce.new(@course)
+    # Applications made before the course was linked.
+    PushCourseApplicationToSalesforceWorker.push_course(@course) if @course.applications_allowed?
     render json: { success: true, flags: @course.flags }
   end
 

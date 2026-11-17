@@ -3,6 +3,7 @@
 require_dependency "#{Rails.root}/lib/course_clone_manager"
 
 class CourseCloneController < ApplicationController
+  include CourseHelper
   before_action :require_signed_in
 
   def clone
@@ -24,6 +25,7 @@ class CourseCloneController < ApplicationController
   private
 
   def check_permission
+    require_course_visible(@course)
     return unless Features.wiki_ed? # On P&E Dashboard, anyone may clone a course
     return if current_user.can_edit?(@course) # Otherwise, only instructors or admins can clone
     exception = ActionController::InvalidAuthenticityToken.new('Unauthorized')

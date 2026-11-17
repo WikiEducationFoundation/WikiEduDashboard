@@ -81,4 +81,32 @@ describe('Upload component', () => {
     expect(container.textContent).toContain('TestUser');
     expect(container.textContent).toContain('test_file.jpg');
   });
+
+  test('shows the credit loading spinner in list view while the credit is loading', () => {
+    act(() => {
+      root.render(
+        <table>
+          <tbody>
+            <Upload upload={baseUpload} view={LIST_VIEW} linkUsername={true} />
+          </tbody>
+        </table>
+      );
+    });
+    expect(container.querySelector('.credit-loading')).not.toBeNull();
+  });
+
+  test('shows the credit and no spinner in list view once the credit has loaded', () => {
+    const uploadWithCredit = { ...baseUpload, credit: 'Example credit' };
+    act(() => {
+      root.render(
+        <table>
+          <tbody>
+            <Upload upload={uploadWithCredit} view={LIST_VIEW} linkUsername={true} />
+          </tbody>
+        </table>
+      );
+    });
+    expect(container.textContent).toContain('Example credit');
+    expect(container.querySelector('.credit-loading')).toBeNull();
+  });
 });

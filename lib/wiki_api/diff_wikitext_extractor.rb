@@ -91,8 +91,9 @@ class WikiApi
       end
     end
 
-    # Returns true when the edit is a pure sentence-level
-    # addition. From the Third_place diff (oldid=1340536495):
+    # Returns true when the edit only inserts whole sentences
+    # into an otherwise unchanged paragraph. From the
+    # Third_place diff (oldid=1340536495):
     #
     #   <td class="diff-deletedline diff-side-deleted">
     #     <div>In sociology...refers to...</div>
@@ -104,20 +105,68 @@ class WikiApi
     #   </td>
     #
     # Removing <ins> from added gives "In sociology...
-    # refers to..." which matches deleted. Also checks
-    # that <ins> content starts a new sentence, to avoid
-    # extracting mid-sentence fragments.
+    # refers to..." which matches deleted. Each insertion must
+    # also be whole sentences where it sits, to avoid extracting
+    # fragments. Insertions can come anywhere in the paragraph,
+    # as in the Kingdom_of_Aksum diff (oldid=1382181955):
+    #
+    #   ...remain largely obscure.<ins class="diffchange">
+    #   Archaeological research...settlements.<ref>...</ref></ins>
+    #   Stone Age artifacts...
     def independent_addition?(added, deleted, ins_elements)
       return false unless ins_elements.any?
       return false if deleted.nil? || deleted.text.strip.empty?
       return false unless text_without_ins(added).strip == deleted.text.strip
 
-      # Only treat as independent if the new content begins
-      # a new sentence: the preceding text ends with sentence
-      # punctuation and the new content starts with a capital.
-      preceding = text_without_ins(added).strip
-      first_ins_text = ins_elements.first.text.strip
-      preceding.match?(/[.!?]['"]?\z/) && first_ins_text.match?(/\A[A-Z]/)
+      text = added.text
+      ins_ranges(added).all? do |range|
+        whole_sentences?(text[0...range.begin], text[range], text[range.end..])
+      end
+    end
+
+    # The text before an insertion ends a sentence (or is nothing),
+    # the insertion starts and ends one, and the text after it
+    # starts one (or is nothing).
+    def whole_sentences?(before, inserted, after)
+      sentence_end?(before) && sentence_start?(inserted) &&
+        sentence_end?(inserted) && sentence_start?(after)
+    end
+
+    # A reference or template (like {{sfn}}). A ref's body can't
+    # contain another ref tag, so a match can't run from one ref
+    # across the prose to a later one.
+    REF = %r{<ref[^>]*/>|<ref[^>]*>(?:(?!</?ref).)*</ref>|\{\{[^{}]*\}\}}m
+    # References and templates that follow a sentence's final punctuation.
+    TRAILING_REFS = /(\s*(#{REF}))+\z/
+    LEADING_REFS = /\A(\s*(#{REF}))+/
+    # Final punctuation, optionally inside closing quotes or parentheses.
+    SENTENCE_END = /[.!?]['"”’)]*\z/
+    # Link brackets, bold/italic quotes and opening quotes that
+    # can come before a sentence's first letter.
+    SENTENCE_PREFIX = /\A(\[\[([^\]|]*\|)?|'{2,5}|["“‘(])+/
+
+    def sentence_end?(text)
+      stripped = text.sub(TRAILING_REFS, '').rstrip
+      stripped.empty? || stripped.match?(SENTENCE_END)
+    end
+
+    def sentence_start?(text)
+      stripped = text.sub(LEADING_REFS, '').lstrip.sub(SENTENCE_PREFIX, '')
+      stripped.empty? || stripped.match?(/\A[[:upper:][:digit:]]/)
+    end
+
+    # Character ranges in added.text of each <ins class="diffchange">,
+    # with adjacent text nodes merged into one range.
+    def ins_ranges(added)
+      offset = 0
+      added.xpath('.//text()').each_with_object([]) do |node, ranges|
+        finish = offset + node.text.length
+        if node.ancestors('ins.diffchange').any?
+          adjacent = ranges.last&.end == offset
+          adjacent ? ranges[-1] = (ranges.last.begin...finish) : ranges << (offset...finish)
+        end
+        offset = finish
+      end
     end
 
     # Clones a .diff-addedline node and removes all

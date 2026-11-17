@@ -84,18 +84,24 @@ class SelfEnrollmentController < ApplicationController
     return unless @result['failure']
     respond_to do |format|
       format.html do
+        # A course that takes applications is joined by applying.
+        next redirect_to "/courses/#{@course.slug}/apply" if application_required?
         redirect_to course_slug_path(@course.slug,
                                      enrolled: false,
                                      failure_reason: @result['failure'])
       end
       format.json do
         render json: {
-          message: I18n.t("courses.join_failure_details.#{@result['failure']}")
+          message: I18n.t(JoinCourse.failure_message_key(@result['failure']))
         },
                status: :bad_request
       end
     end
     yield
+  end
+
+  def application_required?
+    @result['failure'] == 'application_required'
   end
 
   def redirect_if_passcode_invalid
@@ -120,11 +126,17 @@ class SelfEnrollmentController < ApplicationController
   end
 
   def role
-    if params[:role] == 'online_volunteer'
+    if params[:role] == 'online_volunteer' && online_volunteers_allowed?
       CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE
     else
       CoursesUsers::Roles::STUDENT_ROLE
     end
+  end
+
+  # Joining as an online volunteer skips the passcode, so it is only offered
+  # on P&E courses that have turned it on.
+  def online_volunteers_allowed?
+    !Features.wiki_ed? && @course.online_volunteers_enabled?
   end
 
   def add_user_to_course

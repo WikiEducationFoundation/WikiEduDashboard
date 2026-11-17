@@ -7,8 +7,10 @@ import Loading from '../common/loading';
 import List from '../common/list.jsx';
 import TicketOwnersFilter from './ticket_owners_filter';
 import TicketStatusesFilter from './ticket_statuses_filter';
-import { fetchTickets, sortTickets, setInitialTicketFilters } from '../../actions/tickets_actions';
-import { getFilteredTickets } from '../../selectors';
+import NeedHelpTickets from './need_help_tickets';
+import { isOpenNeedHelpTicket } from './util';
+import { fetchTickets, sortTickets, setInitialTicketFilters, showAllOpenTickets } from '../../actions/tickets_actions';
+import { getFilteredTickets, getOpenNeedHelpTickets } from '../../selectors';
 
 const TicketsHandler = () => {
   const [page, setPage] = useState(0);
@@ -18,6 +20,7 @@ const TicketsHandler = () => {
   const dispatch = useDispatch();
   const tickets = useSelector(state => state.tickets);
   const filteredTickets = useSelector(state => getFilteredTickets(state));
+  const openNeedHelpTickets = useSelector(state => getOpenNeedHelpTickets(state));
 
   useEffect(() => {
     const searchByCourseParamInURL = getCourseSearchParamInURL();
@@ -63,6 +66,11 @@ const TicketsHandler = () => {
     setPage(newPage);
   };
 
+  const showAllOpenNeedHelpTickets = () => {
+    setPage(0);
+    dispatch(showAllOpenTickets());
+  };
+
   const keys = {
     sender: {
       label: 'Sender',
@@ -104,8 +112,17 @@ const TicketsHandler = () => {
 
   const isEmptySearch = Object.values(searchQuery).every(val => val === '');
 
-  const pagesLength = Math.floor((filteredTickets.length - 1) / TICKETS_PER_PAGE) + 1;
-  const elements = getTickets()
+  const listedTickets = getTickets();
+  const needHelpTickets = listedTickets.filter(isOpenNeedHelpTicket);
+  const otherTickets = listedTickets.filter(ticket => !isOpenNeedHelpTicket(ticket));
+  // Search results are not filtered, so the table shows only when the results
+  // include an open NeedHelpAlert. Otherwise, it shows whenever any are open.
+  const showNeedHelpTickets = mode === 'search'
+    ? needHelpTickets.length > 0
+    : openNeedHelpTickets.length > 0;
+
+  const pagesLength = Math.floor((otherTickets.length - 1) / TICKETS_PER_PAGE) + 1;
+  const elements = otherTickets
     .slice(page * TICKETS_PER_PAGE, page * TICKETS_PER_PAGE + TICKETS_PER_PAGE)
     .map(ticket => <Row key={ticket.id} ticket={ticket} />);
 
@@ -188,6 +205,15 @@ const TicketsHandler = () => {
           ? <Loading />
           : (
             <>
+              {showNeedHelpTickets && (
+                <NeedHelpTickets
+                  tickets={needHelpTickets}
+                  hiddenCount={openNeedHelpTickets.length}
+                  keys={keys}
+                  sortBy={key => dispatch(sortTickets(key))}
+                  showAll={showAllOpenNeedHelpTickets}
+                />
+              )}
               <List
                 className="table--expandable table--hoverable"
                 elements={elements}

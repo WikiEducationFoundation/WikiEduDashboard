@@ -19,7 +19,8 @@ class AssignmentsController < ApplicationController
     assignment_id = params[:assignment_id]
     user_id = params[:user_id]
     if assignment_id && user_id.present? && @assignment.flags[:available_article]
-      @assignment.update(user_id: nil)
+      # Clear the sandbox url too, so the next claimant gets their own.
+      @assignment.update(user_id: nil, sandbox_url: nil)
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
       remove_assignment_template
@@ -32,6 +33,8 @@ class AssignmentsController < ApplicationController
   # For creating single assignments
   def create
     check_permissions(assignment_params[:user_id].to_i)
+    # Assigning yourself an article needs a role in the course, as claiming does.
+    check_participation unless current_user.can_edit?(@course)
     set_wiki { return }
     set_new_assignment
     update_onwiki_course_and_assignments
@@ -85,7 +88,7 @@ class AssignmentsController < ApplicationController
   def update_status
     @assignment = Assignment.find(assignment_params[:id])
     @course = @assignment.course
-    check_permissions(assignment_params[:user_id].to_i)
+    check_permissions(@assignment.user_id)
 
     if assignment_params[:status]
       @assignment.update_status(assignment_params[:status])

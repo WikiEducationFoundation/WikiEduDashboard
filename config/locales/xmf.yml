@@ -20,8 +20,6 @@ xmf:
     change: თირუა
     details: დეტალეფი
     confirm: OK
-    opt_in: ქო
-    opt_out: ვარი
     opt_yes: ქო
     opt_no: ვარი
   article_statuses:

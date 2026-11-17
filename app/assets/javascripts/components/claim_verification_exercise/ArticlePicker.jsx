@@ -61,11 +61,12 @@ export const ArticlePicker = ({ articles, course, onTaken, showArticleId, onRetu
                 onTaken={onTaken}
                 initialRevisionId={article.mw_rev_id}
                 showOnMount={article === deepLinkedTile}
-                renderOpener={({ open }) => (
+                renderOpener={({ open, openerRef }) => (
                   <button
                     type="button"
                     className="claim-verification-exercise__article-tile"
                     onClick={open}
+                    ref={openerRef}
                   >
                     <span className="claim-verification-exercise__article-title">{article.title}</span>
                     {article.mw_rev_timestamp && (

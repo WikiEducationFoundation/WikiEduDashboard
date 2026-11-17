@@ -1,0 +1,11 @@
+-# The course's own acceptance message, written by staff on its application
+-# form settings. simple_format sanitizes it and keeps its line breaks.
+%link{rel: 'stylesheet', href:'/mailer.css'}
+%table.row
+  %tbody
+    %tr
+      %th
+        %table
+          %tr
+            %td.main-content
+              = simple_format(@message, class: 'paragraph')

@@ -203,9 +203,11 @@ export const deleteNote = id => (dispatch) => {
 export const setTicketOwnersFilter = filters => ({ type: FILTER_TICKETS, filters: { owners: filters } });
 export const setTicketStatusesFilter = filters => ({ type: FILTER_TICKETS, filters: { statuses: filters } });
 
+const openStatusOption = { value: TICKET_STATUS_OPEN, label: STATUSES[TICKET_STATUS_OPEN] };
+
 export const setInitialTicketFilters = () => (dispatch, getState) => {
   // Open tickets only
-  dispatch(setTicketStatusesFilter([{ value: TICKET_STATUS_OPEN, label: STATUSES[TICKET_STATUS_OPEN] }]));
+  dispatch(setTicketStatusesFilter([openStatusOption]));
 
   // Owned by current user, or no one
   const state = getState();
@@ -214,6 +216,12 @@ export const setInitialTicketFilters = () => (dispatch, getState) => {
   const currentUserOption = { label, value };
   const unassignedOption = { label: 'unassigned', value: null };
   dispatch(setTicketOwnersFilter([currentUserOption, unassignedOption]));
+};
+
+// Open tickets, regardless of owner
+export const showAllOpenTickets = () => (dispatch) => {
+  dispatch(setTicketStatusesFilter([openStatusOption]));
+  dispatch(setTicketOwnersFilter([]));
 };
 
 export const emptyList = () => (dispatch) => {

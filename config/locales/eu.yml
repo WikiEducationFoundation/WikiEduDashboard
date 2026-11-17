@@ -75,8 +75,6 @@ eu:
     change: Aldatu
     details: Xehetasunak
     confirm: OK
-    opt_in: Bai
-    opt_out: Ez
     opt_yes: bai
     opt_no: ez
     print: Inprimatu

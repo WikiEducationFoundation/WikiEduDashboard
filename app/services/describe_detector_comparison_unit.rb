@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/app/services/summarize_detector_comparison"
 require_dependency "#{Rails.root}/app/services/collect_detector_comparison_scores"
 require_dependency "#{Rails.root}/lib/ai/pangram_window_segments"
 
-# One unit of the admin detector comparison page in full: the text the
+# One unit of the detector comparison page in full: the text the
 # detectors scored, the text as written, the prompts that produced it, its
 # factors and metadata, and each detector's result (including results stored on
 # an identical copy of the text), with Pangram's windows mapped onto the text.

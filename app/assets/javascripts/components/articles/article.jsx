@@ -39,7 +39,7 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
   const formattedTitle = CourseUtils.formattedArticleTitle(article, course.home_wiki, wikidataLabel);
   const historyUrl = `${article.url}?action=history`;
 
-  const trackedEditable = current_user && current_user.isAdvancedRole;
+  const trackedEditable = current_user && current_user.isAdvancedRole && !course.metadata_locked;
 
   let trackedComponent;
   if (course.type !== 'ClassroomProgramCourse' && trackedEditable) {

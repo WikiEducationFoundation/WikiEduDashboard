@@ -68,8 +68,6 @@ ne:
     change: परिवर्तन गर्नुहोस्
     details: विवरणहरू
     confirm: ठीक छ
-    opt_in: हो
-    opt_out: होइन
     opt_yes: छ
     opt_no: छैन
   article_statuses:

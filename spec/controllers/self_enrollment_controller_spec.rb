@@ -34,6 +34,21 @@ describe SelfEnrollmentController, type: :request do
         end
       end
 
+      context 'when the course takes applications' do
+        let(:course) { create(:fellows_cohort, end: Time.zone.today + 1.week, slug: slug_params) }
+
+        before do
+          course.campaigns << Campaign.first
+          CourseApplicationForm.create!(course:)
+        end
+
+        it 'sends the user to the apply page without enrolling them' do
+          get enroll_url, params: request_params
+          expect(response).to redirect_to("/courses/#{course.slug}/apply")
+          expect(course.students).to be_empty
+        end
+      end
+
       context 'when the course is approved' do
         before do
           course.campaigns << Campaign.first
@@ -66,6 +81,40 @@ describe SelfEnrollmentController, type: :request do
             get enroll_url, params: request_params.merge(format: :json)
             expect(request).to redirect_to errors_incorrect_passcode_path(format: :json)
             expect(course.students.count).to eq(0)
+          end
+        end
+
+        context 'when joining as an online volunteer without a passcode' do
+          let(:volunteer_url) { "/courses/#{course.slug}/enroll" }
+          let(:volunteer_params) do
+            { course_id: course.slug, role: 'online_volunteer', format: :json }
+          end
+
+          before { allow_any_instance_of(WikiCourseEdits).to receive(:enroll_in_course) }
+
+          def volunteer_enrolled?
+            CoursesUsers.exists?(course:, user:, role: CoursesUsers::Roles::ONLINE_VOLUNTEER_ROLE)
+          end
+
+          it 'requires the passcode on Wiki Ed' do
+            course.update(flags: { online_volunteers_enabled: true })
+            get volunteer_url, params: volunteer_params
+            expect(request).to redirect_to errors_incorrect_passcode_path(format: :json)
+            expect(course.users.count).to eq(0)
+          end
+
+          it 'requires the passcode on P&E when the course has not enabled volunteers' do
+            allow(Features).to receive(:wiki_ed?).and_return(false)
+            get volunteer_url, params: volunteer_params
+            expect(request).to redirect_to errors_incorrect_passcode_path(format: :json)
+            expect(course.users.count).to eq(0)
+          end
+
+          it 'enrolls a volunteer on P&E when the course has enabled volunteers' do
+            allow(Features).to receive(:wiki_ed?).and_return(false)
+            course.update(flags: { online_volunteers_enabled: true })
+            get volunteer_url, params: volunteer_params
+            expect(volunteer_enrolled?).to be true
           end
         end
 

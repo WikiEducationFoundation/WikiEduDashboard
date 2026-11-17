@@ -87,10 +87,14 @@ class WikiApi
 
     # ---- Rendered HTML ----
 
+    # The rendered HTML is read as article content, so section edit links are
+    # left out rather than stripped afterwards; their label text has changed
+    # before, from [edit] to [edit | edit source].
+
     # Returns HTML rendering and metadata for a specific revision.
     # Returns a hash: { html:, title:, page_id: }
     def revision_html(rev_id)
-      params = { oldid: rev_id }
+      params = { oldid: rev_id, disableeditsection: true }
       resp = @wiki_api.action('parse', params, &BUBBLE_API_ERRORS)
       return {} if resp.nil?
       {
@@ -109,7 +113,7 @@ class WikiApi
 
     # Parses raw wikitext into HTML string.
     def parse_wikitext(wikitext)
-      params = { text: wikitext, contentmodel: 'wikitext' }
+      params = { text: wikitext, contentmodel: 'wikitext', disableeditsection: true }
       resp = @wiki_api.action('parse', params, &BUBBLE_API_ERRORS)
       resp&.data&.dig('text', '*')
     end

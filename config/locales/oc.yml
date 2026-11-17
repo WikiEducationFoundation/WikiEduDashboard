@@ -50,8 +50,6 @@ oc:
     change: Modificar
     details: Detalhs
     confirm: D'acòrdi
-    opt_in: Òc
-    opt_out: Non
     opt_yes: òc
     opt_no: non
   article_statuses:

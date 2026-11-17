@@ -44,6 +44,9 @@ const LanguagePicker = () => {
   ];
 
   const allLocales = compact(I18n.availableLocales).map((code) => {
+    if (code === 'pt-BR') {
+      return undefined;
+    }
     const nativeName = getNativeName(code);
     if (nativeName !== enN && nativeName !== esN && nativeName !== frN) {
       return { label: nativeName || code, value: code };

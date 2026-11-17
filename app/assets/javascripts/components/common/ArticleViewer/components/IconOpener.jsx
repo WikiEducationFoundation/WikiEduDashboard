@@ -2,10 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ArticleUtils from '../../../../utils/article_utils';
 
-export const IconOpener = ({ showArticle, showButtonClass, showButtonLabel, article }) => (
+export const IconOpener = ({ showArticle, showButtonClass, showButtonLabel, article, buttonRef }) => (
   article.id ? (
     <div className={`tooltip-trigger ${showButtonClass}`}>
       <button
+        ref={buttonRef}
         onClick={showArticle}
         aria-label="Open Article Viewer"
         className="icon icon-article-viewer"
@@ -32,6 +33,9 @@ IconOpener.propTypes = {
   showArticle: PropTypes.func.isRequired,
   showButtonClass: PropTypes.string,
   showButtonLabel: PropTypes.func.isRequired,
+  buttonRef: PropTypes.shape({
+  current: PropTypes.any
+  }),
   article: PropTypes.shape({
     id: PropTypes.number,
     language: PropTypes.string,

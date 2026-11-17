@@ -95,7 +95,7 @@ document.onreadystatechange = () => {
   // Student sorting
   // only sort if there are tables to sort
   let studentsList;
-  if (isTableValid('#users')) {
+  if (isTableValid('#users') && document.querySelector('#users .list')) {
     studentsList = new List('users', {
       page: 10000,
       valueNames: [

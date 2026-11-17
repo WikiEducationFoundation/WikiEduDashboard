@@ -86,6 +86,44 @@ describe 'User articles and language statistics', type: :request do
       end
     end
 
+    context 'with a finalized course whose timeslices were purged' do
+      let(:solo_article) { create(:article, title: 'Solo_article') }
+
+      before do
+        course.update(flags: { finalized: true })
+        create(:courses_user, user: student, course:, role: CoursesUsers::Roles::STUDENT_ROLE,
+                              character_sum_ms: 800, references_count: 3)
+        create(:courses_user, user: partner, course:, role: CoursesUsers::Roles::STUDENT_ROLE)
+        create(:articles_course, course:, article: solo_article, character_sum: 500,
+                                 references_count: 2, new_article: true, user_ids: [student.id])
+        create(:articles_course, course:, article:, character_sum: 3000, references_count: 10,
+                                 user_ids: [student.id, partner.id])
+        # The purge keeps only the ACUWT records of deleted articles.
+        create(:article_course_user_wiki_timeslice,
+               user: student, course:, wiki: course.home_wiki, character_sum: 300,
+               article: create(:article, title: 'Deleted_article', deleted: true))
+      end
+
+      it 'attributes ArticlesCourses stats to the sole editor instead of zero' do
+        articles = json_for('/users/StudentA/user_articles.json')['articles_by_course']
+                   .first['articles']
+        solo = articles.find { |a| a['title'] == 'Solo_article' }
+
+        expect(solo['word_count']).to eq(WordCount.from_characters(500))
+        expect(solo['references_count']).to eq(2)
+        expect(solo['new_article']).to be(true)
+      end
+
+      it 'leaves shared article stats blank' do
+        articles = json_for('/users/StudentA/user_articles.json')['articles_by_course']
+                   .first['articles']
+        shared = articles.find { |a| a['title'] == 'Shared_article' }
+
+        expect(shared['word_count']).to be_nil
+        expect(shared['references_count']).to be_nil
+      end
+    end
+
     context 'when user is only an instructor in a course' do
       let(:taught_course) { create(:course, slug: 'Uni/Taught_course') }
       let(:taught_article) { create(:article, title: 'Instructor_edit') }

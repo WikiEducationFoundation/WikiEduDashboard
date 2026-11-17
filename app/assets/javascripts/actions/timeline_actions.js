@@ -60,7 +60,12 @@ export const deleteBlock = blockId => (dispatch) => {
 
 export const persistTimeline = (timelineData, courseSlug) => (dispatch) => {
   return API.saveTimeline(courseSlug, timelineData)
-    .then(data => dispatch({ type: SAVED_TIMELINE, data }))
+    .then((data) => {
+      dispatch({ type: SAVED_TIMELINE, data });
+      // Course data derived from the timeline, such as the admin warning about
+      // missing expected modules, is only recomputed when the course is fetched.
+      return fetchCourse(courseSlug)(dispatch);
+    })
     .catch((data) => {
       dispatch({ type: SAVE_TIMELINE_FAIL, data, courseSlug });
       fetchCourse(courseSlug)(dispatch);

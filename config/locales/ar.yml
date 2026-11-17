@@ -95,8 +95,6 @@ ar:
     change: تغيير
     details: التفاصيل
     confirm: موافق
-    opt_in: نعم
-    opt_out: لا
     opt_yes: نعم
     opt_no: لا
     print: طباعة
@@ -180,7 +178,7 @@ ar:
     does_not_exist: هذه المقالة غير موجودة، أنشئ صفحة ملعب وعين نفسك لها لتتلقى اقتراحات
       بشأنها.
     edited: المقالات التي عُدلت
-    edited_by: 'التعديلات بواسطة:'
+    edited_by: تم التحرير بواسطة %{author}
     edited_mobile: المقالات
     edited_none: لا توجد مقالات محررة حتى الآن.
     filter:

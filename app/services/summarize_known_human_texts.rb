@@ -3,7 +3,7 @@
 require_dependency "#{Rails.root}/app/services/summarize_detector_comparison"
 require_dependency "#{Rails.root}/app/services/collect_detector_comparison_scores"
 
-# The known-human texts of the admin detector comparison page, for measuring
+# The known-human texts of the detector comparison page, for measuring
 # false positives: pre-ChatGPT student contributions to English Wikipedia (the
 # cumulative course diffs of the human baseline samples), each with every
 # detector's verdict and scores. Other languages are left out so every detector

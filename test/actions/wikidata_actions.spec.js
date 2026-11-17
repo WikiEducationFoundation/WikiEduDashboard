@@ -34,6 +34,22 @@ describe('fetchWikidataLabels', () => {
     }));
   });
 
+  test('asks for each item once, however many rows mention it', async () => {
+    const stub = sinon.stub(requestModule, 'default').resolves({
+      ok: true,
+      json: () => Promise.resolve({ entities: {} }),
+    });
+    const items = Array.from({ length: 40 }, (_, index) => `Q${index + 1}`);
+    const rows = [...items, ...items, ...items].map(title => ({ title }));
+
+    fetchWikidataLabels(rows, jest.fn());
+    await flushPromises();
+
+    expect(stub.callCount).toBe(1);
+    const ids = new URL(stub.firstCall.args[0]).searchParams.get('ids');
+    expect(ids).toBe(items.join('|'));
+  });
+
   test('does not throw or leave an unhandled rejection when the Wikidata request fails (e.g. a 403)', async () => {
     sinon.stub(requestModule, 'default').resolves({
       ok: false,

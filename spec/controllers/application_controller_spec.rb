@@ -41,8 +41,10 @@ describe ApplicationController do
   end
 
   describe '#require_permissions' do
+    # require_permissions reads the course from the route, so these use
+    # #show, where :id is a path parameter.
     controller do
-      def index
+      def show
         require_permissions
         head :ok
       end
@@ -51,15 +53,23 @@ describe ApplicationController do
     context 'when user lacks permissions' do
       it 'returns an html 401' do
         allow(controller).to receive(:current_user).and_return(user)
-        get :index, params: { id: course.slug }
+        get :show, params: { id: course.slug }
         expect(response.status).to eq(401)
       end
 
       it 'returns a json 401' do
         allow(controller).to receive(:current_user).and_return(user)
         allow(controller).to receive(:json?).and_return(true)
-        get :index, params: { id: course.slug }, as: :json
+        get :show, params: { id: course.slug }, as: :json
         expect(response.status).to eq(401)
+      end
+    end
+
+    context 'when user can edit the course' do
+      it 'allows the request' do
+        allow(controller).to receive(:current_user).and_return(admin)
+        get :show, params: { id: course.slug }
+        expect(response.status).to eq(200)
       end
     end
   end

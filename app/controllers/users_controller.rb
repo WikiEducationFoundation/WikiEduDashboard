@@ -7,13 +7,15 @@ class UsersController < ApplicationController
 
   layout 'admin', only: [:index]
 
+  # What Devise's sessions#destroy does, after clearing the wiki credentials.
+  # This used to redirect there, but a redirect can only be followed by GET.
   def signout
-    if current_user.nil?
-      redirect_to '/'
-    else
+    if current_user
       current_user.update(wiki_token: nil, wiki_secret: nil)
-      redirect_to true_destroy_user_session_path
+      sign_out
+      flash[:notice] = t('devise.sessions.signed_out')
     end
+    redirect_to after_sign_out_path_for(:user)
   end
 
   ####################################################

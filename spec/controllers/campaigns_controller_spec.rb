@@ -317,6 +317,40 @@ describe CampaignsController, type: :request do
     end
   end
 
+  describe '#show.json' do
+    let(:campaign) { create(:campaign) }
+    let(:organizer) { create(:user, username: 'Organizer') }
+
+    before do
+      create(:campaigns_user, campaign:, user: organizer,
+                              role: CampaignsUsers::Roles::ORGANIZER_ROLE)
+    end
+
+    def editable
+      get "/campaigns/#{campaign.slug}.json"
+      Oj.load(response.body)['campaign']['editable']
+    end
+
+    it 'marks the campaign editable for an admin' do
+      login_as create(:admin)
+      expect(editable).to be(true)
+    end
+
+    it 'marks the campaign editable for one of its organizers' do
+      login_as organizer
+      expect(editable).to be(true)
+    end
+
+    it 'does not mark it editable for another signed-in user' do
+      login_as create(:user, username: 'Outsider')
+      expect(editable).to be(false)
+    end
+
+    it 'does not mark it editable for a logged-out visitor' do
+      expect(editable).to be(false)
+    end
+  end
+
   describe '#programs' do
     let(:course) { create(:course) }
     let(:course2) { create(:course, title: 'course2', slug: 'foo/course2') }
@@ -427,6 +461,13 @@ describe CampaignsController, type: :request do
         end
       end
 
+      it 'sorts by views when asked to' do
+        get "/campaigns/#{campaign.slug}/articles", params: { sort: 'view_sum', direction: 'desc' }
+
+        expect(response).to be_successful
+        expect(response).to render_template(:articles)
+      end
+
       context 'when too_many_articles is true' do
         before do
           allow_any_instance_of(CoursesPresenter).to receive(:too_many_articles?).and_return(true)
@@ -476,6 +517,23 @@ describe CampaignsController, type: :request do
           expect(response.status).to eq(404)
         end
       end
+
+      context 'past the last page served' do
+        it 'returns a 404 before counting the articles' do
+          expect(CoursesPresenter).not_to receive(:new)
+          get "/campaigns/#{campaign.slug}/articles?page=201"
+          expect(response.status).to eq(404)
+        end
+
+        it 'still serves the last page, saying the list goes on in the CSV' do
+          allow_any_instance_of(CoursesPresenter).to receive(:campaign_articles_count)
+            .and_return(5001)
+          get "/campaigns/#{campaign.slug}/articles?page=200"
+          expect(response.status).to eq(200)
+          notice = Capybara.string(response.body).find('p.notice')
+          expect(notice).to have_link(href: "/campaigns/#{campaign.slug}/articles_csv.csv")
+        end
+      end
     end
   end
 
@@ -491,15 +549,18 @@ describe CampaignsController, type: :request do
         key = campaign.course_sums_cache_key
 
         Rails.cache.write(key, { courses_count: 42 })
+        Rails.cache.write(campaign.articles_count_cache_key, 5001)
         expect(Rails.cache.read(key)).not_to be_nil, 'Cache write failed'
 
         # Trigger the refresh (should clear)
+        login_as create(:admin)
         get "/campaigns/#{campaign.slug}/refresh"
 
         expect(response).to redirect_to(overview_campaign_path(campaign.slug))
         expect(flash[:notice]).to eq('Campaign stats refreshed successfully')
 
         expect(Rails.cache.read(key)).to be_nil
+        expect(Rails.cache.read(campaign.articles_count_cache_key)).to be_nil
       ensure
         Rails.cache = original_cache
       end

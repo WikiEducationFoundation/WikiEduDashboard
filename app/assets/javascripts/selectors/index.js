@@ -6,6 +6,7 @@ import UserUtils from '../utils/user_utils.js';
 import { PageAssessmentGrades } from '../utils/article_finder_language_mappings.js';
 import CourseDateUtils from '../utils/course_date_utils.js';
 import DateCalculator from '../utils/date_calculator';
+import { isOpenNeedHelpTicket } from '../components/tickets/util';
 
 const getUsers = state => state.users.users;
 const getCurrentUserFromHtml = state => state.currentUserFromHtml;
@@ -237,17 +238,24 @@ export const getFilteredAlerts = createSelector(
 
 export const getFilteredArticleFinder = createSelector(
   [getArticleFinderState], (articleFinder) => {
+    // The wiki being searched, which is the one the results are rendered for.
+    // The home wiki is only the fallback when no other has been chosen, so
+    // reading it directly judged one wiki's articles by another's grades.
+    const { language, project } = articleFinder.wiki || articleFinder.home_wiki;
+    // Only some wikis assess their articles, so there may be no set of grades
+    // to compare against at all.
+    const grades = PageAssessmentGrades[project]?.[language];
+
     return pickBy(articleFinder.articles, (article) => {
-      const language = articleFinder.home_wiki.language;
-      const project = articleFinder.home_wiki.project;
-      if (article.grade && !includes(Object.keys(PageAssessmentGrades[project][language]), article.grade)) {
+      const assessment = grades && article.grade ? grades[article.grade] : null;
+      if (article.grade && grades && !assessment) {
         return false;
       }
       let quality;
-      if (article.grade && article.revScore) {
-        quality = Math.max(article.revScore, PageAssessmentGrades[project][language][article.grade].score);
-      } else if (article.grade) {
-        quality = PageAssessmentGrades[project][language][article.grade].score;
+      if (assessment && article.revScore) {
+        quality = Math.max(article.revScore, assessment.score);
+      } else if (assessment) {
+        quality = assessment.score;
       } else if (article.revScore) {
         quality = article.revScore;
       } else {
@@ -360,7 +368,7 @@ export const firstValidationErrorMessage = createSelector(
 
 export const editPermissions = createSelector(
   [getCourse, getCurrentUser], (course, user) => {
-    if (!user.isAdvancedRole) { return false; }
+    if (course.metadata_locked || !user.isAdvancedRole) { return false; }
     return user.isAdmin || !course.closed;
   }
 );
@@ -383,6 +391,10 @@ export const getFilteredTickets = createSelector(
       .filter(ownerFilter)
       .filter(statusFilter);
   }
+);
+
+export const getOpenNeedHelpTickets = createSelector(
+  [getTickets], tickets => tickets.all.filter(isOpenNeedHelpTicket)
 );
 
 export const getTicketsById = createSelector(

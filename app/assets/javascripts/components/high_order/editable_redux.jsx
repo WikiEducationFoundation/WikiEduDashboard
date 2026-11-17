@@ -33,10 +33,13 @@ const EditableRedux = (Component, Label) => {
         return alert(I18n.t('error.form_errors'));
       }
 
-      // If the course slug has not changed, persist the data and exit edit mode
+      // If the course slug has not changed, persist the data and exit edit mode.
+      // A save that fails (e.g. an invalid grant ID) stays in edit mode, so the
+      // changes can be corrected rather than lost.
       if (!props.nameHasChanged()) {
-        props.persistCourse(props.course_id);
-        return toggleEditable();
+        return Promise.resolve(props.persistCourse(props.course_id)).then((saved) => {
+          if (saved !== false) { toggleEditable(); }
+        });
       }
 
       // If the course has been renamed, we first warn the user that this is happening.

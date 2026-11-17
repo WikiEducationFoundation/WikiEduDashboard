@@ -49,6 +49,60 @@ describe 'course overview page', type: :feature, js: true do
       expect(page).to have_content 'Schedule Data Update'
     end
 
+    context 'when a research-and-write timeline is missing an expected module' do
+      before do
+        TrainingModule.load_all
+        Tag.create(course_id: course.id, key: 'index', tag: 'research_write_assignment')
+        block.update(training_module_ids: [1, 28, 7, 71, 72, 73, 64])
+        visit "/courses/#{course.slug}"
+      end
+
+      it 'warns admins about the missing module' do
+        within '.missing-expected-modules' do
+          expect(page).to have_content 'Plagiarism'
+        end
+      end
+    end
+
+    context 'when the course is finalized' do
+      before do
+        course.update(flags: { finalized: true })
+        visit "/courses/#{course.slug}"
+      end
+
+      it 'shows the finalized notice' do
+        expect(page).to have_content 'has been finalized'
+        expect(page).not_to have_content 'will soon be finalized'
+      end
+    end
+
+    context 'when the course is purgeable' do
+      before do
+        course.update(flags: { purgeable: true })
+        visit "/courses/#{course.slug}"
+      end
+
+      it 'shows the purgeable notice' do
+        expect(page).to have_content 'will soon be finalized'
+        expect(page).not_to have_content 'has been finalized'
+      end
+
+      it 'points Wiki Ed users to the Get Help button' do
+        expect(page).to have_content "please use the 'Get Help' button"
+      end
+
+      context 'on Programs & Events Dashboard' do
+        before do
+          allow(Features).to receive(:wiki_ed?).and_return(false)
+          visit "/courses/#{course.slug}"
+        end
+
+        it 'points users to the Report a problem link' do
+          expect(page).to have_content "please use the 'Report a problem' link"
+        end
+      end
+    end
+
     context 'when update is scheduled' do
       before do
         course.update(needs_update: true)

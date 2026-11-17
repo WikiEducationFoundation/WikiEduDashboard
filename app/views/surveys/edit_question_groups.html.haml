@@ -7,7 +7,10 @@
     = f.error_notification
 
     .form-input
-      = f.association :rapidfire_question_groups,   as: :check_boxes
+      -# Groups on course application forms are kept out of surveys, so their
+      -# answers come only from applications.
+      = f.association :rapidfire_question_groups, as: :check_boxes,
+        collection: Rapidfire::QuestionGroup.where.not(id: CourseApplicationForm.question_group_ids_in_use)
 
     .form-actions
       = f.button :submit, "Update Question Groups", :class => 'button dark'
