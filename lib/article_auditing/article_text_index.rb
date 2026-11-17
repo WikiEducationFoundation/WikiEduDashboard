@@ -20,7 +20,9 @@ module ArticleAuditing
     attr_reader :text
 
     def self.normalize(string)
-      string.to_s.tr(FOLDED.keys.join, FOLDED.values.join).gsub(/\s+/, ' ').downcase.strip
+      # [[:space:]] rather than \s, so that non-breaking spaces count.
+      string.to_s.tr(FOLDED.keys.join, FOLDED.values.join)
+            .gsub(/[[:space:]]+/, ' ').downcase.strip
     end
 
     def initialize(root)
@@ -71,7 +73,7 @@ module ArticleAuditing
 
     def absorb_text(node)
       node.content.each_char.with_index do |char, offset|
-        if char.match?(/\s/)
+        if char.match?(/[[:space:]]/)
           next if @text.empty? || @text.end_with?(' ')
           add(' ', node, offset)
         else

@@ -4,8 +4,9 @@ require_dependency "#{Rails.root}/lib/article_auditing/check"
 
 module ArticleAuditing
   module Checks
-    # Flags a page with no inline citations at all, and a page whose inline
-    # citations have no reference list to display them.
+    # Flags a page with no inline citations at all (neither <ref> tags nor
+    # footnote templates such as {{sfn}}), and a page whose inline citations
+    # have no reference list to display them.
     class ReferenceList < Check
       KEY = 'sourcing.reference_list'
       CATEGORY = 'sourcing'
@@ -17,7 +18,7 @@ module ArticleAuditing
 
       def run(context)
         wikitext = context.parsed_wikitext
-        return output([no_citations]) unless wikitext.ref_tags?
+        return output([no_citations]) unless wikitext.inline_citations?
         return output([missing_list]) unless wikitext.without_comments.match?(REFERENCE_LIST)
         output([])
       end

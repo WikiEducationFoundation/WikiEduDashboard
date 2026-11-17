@@ -127,6 +127,18 @@ describe ClaimVerification::SourceFetcher do
     end
   end
 
+  context 'when a redirect has no Location header' do
+    before do
+      stub_request(:get, 'https://example.com/nowhere').to_return(status: 302)
+    end
+
+    it 'classifies the source as inaccessible' do
+      result = described_class.new(citation(urls: ['https://example.com/nowhere'])).result
+      expect(result.status).to eq(:inaccessible)
+      expect(result.reason).to include('HTTP 302')
+    end
+  end
+
   context 'when redirects loop' do
     before do
       stub_request(:get, 'https://example.com/loop')

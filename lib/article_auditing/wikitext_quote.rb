@@ -51,7 +51,9 @@ module ArticleAuditing
     # The rendered-text parts of the citation whose wikitext contains the quote.
     def citation_candidates
       needle = normalize(@quote.gsub(%r{</?ref[^>]*>}, ''))
-      ref = @wikitext.scan(REF).flatten.find { |content| normalize(content).include?(needle) }
+      # A quote of nothing but ref tags would match every ref.
+      return [] if needle.empty?
+      ref =@wikitext.scan(REF).flatten.find { |content| normalize(content).include?(needle) }
       return [] if ref.nil?
       params = ref.scan(CITATION_PARAMS).flatten.map { |value| normalize(strip_markup(value)) }
       params + [normalize(strip_markup(ref))]

@@ -31,7 +31,7 @@ module ArticleAuditing
     private
 
     def normalize(text)
-      text.to_s.tr('“”‘’', %(""'')).gsub(/\s+/, ' ').downcase.strip
+      text.to_s.tr('“”‘’', %(""'')).gsub(/[[:space:]]+/, ' ').downcase.strip
     end
   end
 end

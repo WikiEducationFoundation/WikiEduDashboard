@@ -5,7 +5,10 @@ require_dependency "#{Rails.root}/lib/article_auditing/check"
 module ArticleAuditing
   module Checks
     # Book citations with no page numbers (WP:PAGENUM). A {{rp}} right after
-    # the citation's ref counts as giving pages.
+    # the citation's ref counts as giving pages. On a page that cites with
+    # shortened footnotes ({{sfn}}, {{harvnb}}...), book citations outside
+    # <ref> tags are the full entries those footnotes point to, which carry
+    # no page numbers by design, so they are left alone.
     class PageNumbers < Check
       KEY = 'sourcing.page_numbers'
       CATEGORY = 'sourcing'
@@ -14,10 +17,14 @@ module ArticleAuditing
       BOOK_CITATION = /\A(?:cite book|citation)\z/i
       PAGE_PARAMS = /\|\s*(?:pages?|pp?|at|loc|quote-pages?)\s*=\s*[^|}\s]/i
       RP_AFTER = %r{\A[^<\{]*?(?:</ref>|/>)?\s*\{\{\s*rp\s*\|}i
+      SHORT_FOOTNOTE = /\{\{\s*(?:sfnm?|sfnp|harvnb|harvp|harv|harvtxt)\s*\|/i
 
       def run(context)
-        text = context.parsed_wikitext.without_comments
-        missing = context.parsed_wikitext.templates(BOOK_CITATION).select do |offset, template|
+        wikitext = context.parsed_wikitext
+        text = wikitext.without_comments
+        candidates = wikitext.templates(BOOK_CITATION)
+        candidates = in_refs(candidates, text) if text.match?(SHORT_FOOTNOTE)
+        missing = candidates.select do |offset, template|
           book?(template) && !template.match?(PAGE_PARAMS) &&
             !text[offset + template.length, 40].to_s.match?(RP_AFTER)
         end
@@ -25,6 +32,14 @@ module ArticleAuditing
       end
 
       private
+
+      # The templates that sit inside <ref> tags.
+      def in_refs(templates, text)
+        spans = text.to_enum(:scan, Wikitext::REF).map { Regexp.last_match.offset(0) }
+        templates.select do |offset, _|
+          spans.any? { |start, finish| offset.between?(start, finish - 1) }
+        end
+      end
 
       # {{citation}} is used for many source types; only treat it as a book
       # when it has an ISBN or a book title parameter.

@@ -36,18 +36,24 @@ module ArticleAuditing
       VARIETIES = ['American', 'British', 'Canadian', 'Australian', 'New Zealand', 'Indian',
                    'South African', 'Irish', 'Hong Kong', 'Singapore', 'Pakistani',
                    'Philippine'].freeze
+      # The varieties whose spelling can be checked against PAIRS. Canadian
+      # English mixes the two (colour and centre, but analyze and aluminum),
+      # so it isn't checked.
+      SPELLINGS = %i[american british].freeze
+      AMERICAN_SPELLING = %w[american philippine].freeze
       TALK_BANNER = /\ATemplate:(#{Regexp.union(VARIETIES).source}) English\z/
 
       def run(context)
         established = established_variety(context)
-        return output([], usage: { 'established' => nil }) if established.nil?
         usage = { 'established' => established }
+        return output([], usage:) unless SPELLINGS.include?(established)
         output(mismatches(context, established).first(MAX_FINDINGS), usage:)
       end
 
       private
 
-      # :american or :british (any Commonwealth variety), or nil if unknown.
+      # :american (American or Philippine), :canadian, :british (any other
+      # Commonwealth variety), or nil if unknown.
       def established_variety(context)
         declared = declared_variety(context)
         return declared if declared
@@ -74,7 +80,10 @@ module ArticleAuditing
       end
 
       def variety_for(name)
-        name.casecmp?('American') ? :american : :british
+        variety = name.strip.downcase
+        return :american if AMERICAN_SPELLING.include?(variety)
+        return :canadian if variety == 'canadian'
+        :british
       end
 
       def spelling_variety(text)

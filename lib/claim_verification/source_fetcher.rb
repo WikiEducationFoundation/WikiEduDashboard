@@ -82,7 +82,10 @@ module ClaimVerification
         @throttle.wait(URI.parse(url).host)
         response = connection(url).get
         return response unless REDIRECT_STATUSES.include?(response.status)
-        url = URI.join(url, response.headers['location']).to_s
+        location = response.headers['location']
+        # A redirect without a target is a failed response, not a redirect.
+        return response if location.blank?
+        url = URI.join(url, location).to_s
       end
       raise TooManyRedirectsError
     end

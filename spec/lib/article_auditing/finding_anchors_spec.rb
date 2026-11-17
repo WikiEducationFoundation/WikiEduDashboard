@@ -78,6 +78,25 @@ describe ArticleAuditing::FindingAnchors do
     end
   end
 
+  context 'with a quote of only a ref tag' do
+    let(:findings) { [finding('ref', quote: '<ref name="smith" />')] }
+
+    it 'does not anchor it to some other citation' do
+      expect(anchors.anchors).to eq({})
+    end
+  end
+
+  context 'with a quote whose rendered text has non-breaking spaces' do
+    let(:html) { %(<div class="mw-parser-output"><p>It is 10\u00A0km long.</p></div>) }
+    let(:wikitext) { 'It is 10&nbsp;km long.' }
+    let(:findings) { [finding('nbsp', quote: 'is 10 km long')] }
+
+    it 'matches them as spaces' do
+      expect(anchors.anchors).to eq('nbsp' => 'text')
+      expect(marked('nbsp')).to eq("is 10\u00A0km long")
+    end
+  end
+
   context 'with findings that have no quote in the article' do
     let(:findings) do
       [finding('section', quote: 'not in the article', section: 'History'),

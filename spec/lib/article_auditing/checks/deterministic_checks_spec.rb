@@ -33,6 +33,14 @@ describe 'Article Audit deterministic checks' do
       end
     end
 
+    context 'with shortened footnotes and a reflist' do
+      let(:wikitext) { "Fact.{{sfn|Smith|2001|p=4}}\n\n==References==\n{{reflist}}\n" }
+
+      it 'finds nothing' do
+        expect(findings).to be_empty
+      end
+    end
+
     context 'with refs and a reflist' do
       let(:wikitext) { "Fact.<ref>Source</ref>\n\n==References==\n{{reflist|30em}}\n" }
 

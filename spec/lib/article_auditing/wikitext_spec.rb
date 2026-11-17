@@ -38,4 +38,18 @@ describe ArticleAuditing::Wikitext do
   it 'counts ref tags' do
     expect(wikitext.ref_count).to eq(2)
   end
+
+  it 'ignores headings in comments and sees headings followed by one' do
+    text = "Lead.\n<!--\n== Hidden ==\n-->\n== Real == <!-- note -->\nBody.\n"
+    sections = described_class.new(text).sections
+    expect(sections.map(&:title)).to eq([nil, 'Real'])
+    expect(sections.last.body).to eq("Body.\n")
+    expect(sections.last.offset).to eq(text.index('Body.'))
+  end
+
+  it 'counts footnote templates as inline citations' do
+    expect(described_class.new('Fact.{{sfn|Smith|2001|p=4}}').inline_citations?).to be true
+    expect(described_class.new('Fact.{{r|smith}}').inline_citations?).to be true
+    expect(described_class.new('Fact.<!-- <ref>x</ref> -->').inline_citations?).to be false
+  end
 end

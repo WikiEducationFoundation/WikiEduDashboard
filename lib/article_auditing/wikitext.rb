@@ -14,6 +14,8 @@ module ArticleAuditing
     # <ref name="x" /> and <ref ...>...</ref>
     SELF_CLOSING_REF = %r{<ref\b[^>]*/>}i
     REF = %r{<ref\b(?:[^>]*[^/])?>.*?</ref\s*>}im
+    # Templates that generate footnotes without a literal <ref> tag.
+    FOOTNOTE_TEMPLATE = /\{\{\s*(?:sfnm?|sfnp|r)\s*\|/i
 
     attr_reader :text
 
@@ -49,6 +51,12 @@ module ArticleAuditing
       text.match?(/<ref\b/i)
     end
 
+    # Whether the page has any inline citations: <ref> tags, or footnote
+    # templates such as {{sfn}} and {{r}} that produce them.
+    def inline_citations?
+      without_comments.match?(/<ref\b/i) || without_comments.match?(FOOTNOTE_TEMPLATE)
+    end
+
     def ref_count
       text.scan(/<ref\b/i).size
     end
@@ -70,20 +78,25 @@ module ArticleAuditing
       end
     end
 
-    # Text with comments removed but refs and templates intact.
+    # Text with comments removed but refs and templates intact. Comments are
+    # blanked except for their line breaks, so offsets and lines both still
+    # line up with #text.
     def without_comments
-      @without_comments ||= text.gsub(COMMENT) { |m| ' ' * m.length }
+      @without_comments ||= text.gsub(COMMENT) { |m| m.gsub(/[^\n]/, ' ') }
     end
 
     private
 
+    # Headings are matched with comments blanked out, as MediaWiki does: a
+    # commented-out heading isn't one, and a comment after a heading doesn't
+    # stop it being one.
     def split_sections
       result = []
       current = { level: 1, title: nil, line: 1, lines: [], offset: 0 }
       position = 0
-      text.each_line.with_index(1) do |line, number|
+      text.each_line.zip(without_comments.each_line).each.with_index(1) do |(line, bare), number|
         position += line.length
-        match = line.match(HEADING)
+        match = bare.match(HEADING)
         if match
           result << build_section(current)
           current = { level: match[1].length, title: match[2], line: number, lines: [],

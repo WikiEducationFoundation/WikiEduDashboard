@@ -67,6 +67,17 @@ describe 'Article Audit deterministic checks, part 2' do
       end
     end
 
+    context 'with a declared format and other-format dates in citations' do
+      let(:wikitext) do
+        "{{Use dmy dates|date=May 2024}}\nBorn 5 March 1990.<ref>{{cite web |title=T " \
+          "|date=June 2, 2020 |access-date=July 3, 2021}}</ref>"
+      end
+
+      it 'ignores the citation dates' do
+        expect(findings).to be_empty
+      end
+    end
+
     context 'with no declared format and mixed dates' do
       let(:wikitext) { 'On 5 March 1990, 6 March 1990 and June 2, 2020.' }
 
@@ -96,6 +107,18 @@ describe 'Article Audit deterministic checks, part 2' do
     it 'flags book citations with no page numbers or {{rp}}' do
       expect(findings.size).to eq(1)
       expect(quotes.first).to include('No Pages')
+    end
+
+    context 'with shortened footnotes' do
+      let(:wikitext) do
+        "A.{{sfn|Smith|2001|p=4}} B.<ref>{{cite book |title=In Ref}}</ref>\n" \
+          "==Sources==\n* {{cite book |last=Smith |title=Bibliography Entry |year=2001}}\n"
+      end
+
+      it 'leaves the bibliography entries alone' do
+        expect(quotes.size).to eq(1)
+        expect(quotes.first).to include('In Ref')
+      end
     end
   end
 

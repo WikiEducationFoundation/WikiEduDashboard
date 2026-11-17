@@ -137,6 +137,27 @@ describe 'Article Audit wiki-context checks' do
       expect(findings.map { |f| f.dig('location', 'quote') }).to eq(['colour'])
     end
 
+    context 'with Philippine English declared' do
+      let(:target_page) do
+        { exists: true, title: 'Topic', templates: ['Template:Use Philippine English'] }
+      end
+
+      it 'checks for American spelling' do
+        expect(findings.map { |f| f.dig('location', 'quote') }).to eq(['colour'])
+      end
+    end
+
+    context 'with Canadian English declared' do
+      let(:target_page) do
+        { exists: true, title: 'Topic', templates: ['Template:Use Canadian English'] }
+      end
+
+      it 'does not check spelling' do
+        expect(findings).to be_empty
+        expect(output.usage['established']).to eq(:canadian)
+      end
+    end
+
     context 'with no declared variety' do
       let(:target_page) { { exists: true, title: 'Topic', templates: [] } }
 
