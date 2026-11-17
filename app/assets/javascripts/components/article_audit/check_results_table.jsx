@@ -11,7 +11,8 @@ const tokenSummary = (usage) => {
 const duration = ms => (ms ? `${(ms / 1000).toFixed(1)}s` : '—');
 
 // Per-check run details for evaluating the audit itself: which engine and
-// prompt version produced each result, what it cost, and a re-run button.
+// prompt version produced each result, what it cost, and, when onRerun is
+// given, a re-run button.
 const CheckResultsTable = ({ results, onRerun, rerunDisabled }) => (
   <table className="table table--small article-audit__checks">
     <thead>
@@ -23,7 +24,7 @@ const CheckResultsTable = ({ results, onRerun, rerunDisabled }) => (
         <th>{t('tokens')}</th>
         <th>{t('duration')}</th>
         <th>{t('runs')}</th>
-        <th><span className="sr-only">{t('rerun')}</span></th>
+        {onRerun && <th><span className="sr-only">{t('rerun')}</span></th>}
       </tr>
     </thead>
     <tbody>
@@ -40,11 +41,13 @@ const CheckResultsTable = ({ results, onRerun, rerunDisabled }) => (
           <td><small>{tokenSummary(result.usage)}</small></td>
           <td>{duration(result.duration_ms)}</td>
           <td className="article-audit__runs">{result.run_count}</td>
-          <td>
-            <button className="button small" disabled={rerunDisabled} onClick={() => onRerun(result.check_key)}>
-              {t('rerun')}
-            </button>
-          </td>
+          {onRerun && (
+            <td>
+              <button className="button small" disabled={rerunDisabled} onClick={() => onRerun(result.check_key)}>
+                {t('rerun')}
+              </button>
+            </td>
+          )}
         </tr>
       ))}
     </tbody>

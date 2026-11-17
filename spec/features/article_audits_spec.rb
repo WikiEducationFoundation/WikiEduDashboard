@@ -91,4 +91,18 @@ describe 'Article Audit admin pages', type: :feature, js: true do
     click_link 'Article Audit'
     expect(page).to have_link 'Acme'
   end
+
+  it 'shows an existing report to a non-admin, without the admin controls' do
+    audit = ArticleAudit.create!(wiki: context.wiki, mw_rev_id: 42, article_title: 'Acme',
+                                 requester: admin, status: 'complete')
+    audit.check_results.create!(check_key: 'tone', status: 'succeeded', findings: [tone_finding])
+    logout
+    login_as(create(:user))
+
+    visit "/article_audits/#{audit.id}"
+    expect(page).to have_css('h1', text: 'Acme')
+    expect(page).not_to have_link 'Article Audit'
+    click_button 'Checks'
+    within('tr', text: 'tone') { expect(page).not_to have_button 'Re-run' }
+  end
 end

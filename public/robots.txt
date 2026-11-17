@@ -7,3 +7,4 @@ Disallow: /stats_graphs*
 Disallow: /*.csv
 Disallow: /campaigns/*/articles?
 Disallow: /detector_comparison/units*
+Disallow: /article_audits

@@ -3,12 +3,15 @@
 require_dependency "#{Rails.root}/app/services/create_article_audit"
 require_dependency "#{Rails.root}/lib/article_auditing/registry"
 
-# Admin-only Article Audit pages: request an audit of a page or revision, list
-# recent audits, and view a report. Reports are built by ArticleAuditWorker;
-# the report page polls #show while an audit is running.
+# Article Audit pages: admins request an audit of a page or revision, list
+# recent audits, and re-run checks; any signed-in user can view a report.
+# Reports are built by ArticleAuditWorker; the report page polls #show while an
+# audit is running.
 class ArticleAuditsController < ApplicationController
   layout 'admin'
-  before_action :require_admin_permissions
+  before_action :disallow_indexing
+  before_action :require_signed_in, only: :show
+  before_action :require_admin_permissions, except: :show
   before_action :require_article_audit_feature
   before_action :set_audit, only: %i[show rerun_check]
 
@@ -53,6 +56,10 @@ class ArticleAuditsController < ApplicationController
   end
 
   private
+
+  def disallow_indexing
+    response.headers['X-Robots-Tag'] = 'noindex, nofollow'
+  end
 
   def require_article_audit_feature
     head :not_found unless Features.article_audit?

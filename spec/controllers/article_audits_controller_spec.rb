@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require "#{Rails.root}/lib/article_auditing/rendered_article"
 
 describe ArticleAuditsController, type: :controller do
   render_views
@@ -22,6 +23,27 @@ describe ArticleAuditsController, type: :controller do
     it 'rejects non-admins' do
       sign_in_as(user)
       get :index, format: :json
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'lets non-admins view a report, flagged as non-admin' do
+      sign_in_as(user)
+      allow(ArticleAuditing::RenderedArticle).to receive(:fetch).and_return(nil)
+      get :show, params: { id: audit.id }, format: :json
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)).to include('admin' => false)
+    end
+
+    it 'tells search engines not to index reports' do
+      sign_in_as(user)
+      allow(ArticleAuditing::RenderedArticle).to receive(:fetch).and_return(nil)
+      get :show, params: { id: audit.id }
+      expect(response.headers['X-Robots-Tag']).to eq('noindex, nofollow')
+    end
+
+    it 'rejects non-admin re-runs' do
+      sign_in_as(user)
+      post :rerun_check, params: { id: audit.id, check_key: 'tone' }, format: :json
       expect(response).to have_http_status(:unauthorized)
     end
 
