@@ -16,6 +16,10 @@ module ArticleAuditing
     # and source; sentences that none of their readable sources support
     # become findings.
     #
+    # Only the first `max_claims` cited sentences (in article order) are
+    # checked, which bounds the cost of a long, heavily cited article; the
+    # usage says how many were left out.
+    #
     # Unlike the other LLM checks this doesn't use the article prompt cache:
     # its requests carry source text, not the article. Sources are fetched one
     # at a time, while earlier sources are being judged.
@@ -24,6 +28,7 @@ module ArticleAuditing
       KEY = 'sourcing.citation_support'
       CATEGORY = 'sourcing'
       JUDGE_CONCURRENCY = 3
+      DEFAULT_MAX_CLAIMS = 100
 
       # Severity of the finding for a sentence that no source supports, keyed by
       # the best verdict among its sources, best first. Sentences whose only
@@ -58,17 +63,25 @@ module ArticleAuditing
 
       def run(context)
         extraction = ::ClaimVerification::ClaimCitationExtractor.new(context.html)
-        claims = extraction.claims.each_with_index.to_h { |claim, index| [index + 1, claim] }
+        claims = capped_claims(extraction.claims)
         citations = extraction.citations.index_by(&:ref_id)
         results = check_sources(claims_by_citation(claims, citations))
         findings = findings_for(claims, results)
         unverified = QuoteValidator.new(context).mark!(findings)
         output(findings, artifacts: { claims: rows(claims, results) },
-                         usage: usage(results).merge('claims' => claims.size,
-                                                     'unverified_quotes' => unverified))
+                         usage: usage(results).merge(
+                           'claims' => claims.size, 'unverified_quotes' => unverified,
+                           'claims_over_cap' => extraction.claims.size - claims.size
+                         ))
       end
 
       private
+
+      # { id => claim } for the first max_claims claims, numbered from 1.
+      def capped_claims(claims)
+        max = config.fetch('max_claims', DEFAULT_MAX_CLAIMS)
+        claims.first(max).each_with_index.to_h { |claim, index| [index + 1, claim] }
+      end
 
       # { citation => { id => claim } } for every citation some claim cites.
       def claims_by_citation(claims, citations)

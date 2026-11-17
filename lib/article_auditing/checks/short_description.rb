@@ -10,25 +10,13 @@ module ArticleAuditing
     class ShortDescription < LlmCheck
       KEY = 'new_article.short_description'
       CATEGORY = 'new_article'
+      ARTIFACTS = %w[short_description].freeze
 
       SHORT_DESCRIPTION = /\{\{\s*short description\s*\|/i
 
       def applies_to?(context)
         return true if context.new_article?
         context.mainspace? && !context.wikitext.match?(SHORT_DESCRIPTION)
-      end
-
-      private
-
-      def artifact_properties
-        {
-          short_description: {
-            type: 'object',
-            additionalProperties: false,
-            required: %w[current proposed],
-            properties: { current: { type: 'string' }, proposed: { type: 'string' } }
-          }
-        }
       end
     end
   end

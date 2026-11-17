@@ -126,6 +126,9 @@ sourcing.citation_formatting:
   provider: anthropic
   model: claude-opus-5-5
   effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
 
 policy:
   class: ArticleAuditing::Checks::PolicyCheck
@@ -154,6 +157,9 @@ mos.prose:
   provider: anthropic
   model: claude-opus-5-5
   effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
 
 infobox:
   class: ArticleAuditing::Checks::Infobox
@@ -161,6 +167,9 @@ infobox:
   provider: anthropic
   model: claude-opus-5-5
   effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
 
 links.suggestions:
   class: ArticleAuditing::Checks::LinkSuggestions
@@ -168,6 +177,9 @@ links.suggestions:
   provider: anthropic
   model: claude-opus-5-5
   effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
 
 new_article.notability:
   class: ArticleAuditing::Checks::Notability
@@ -182,6 +194,9 @@ new_article.short_description:
   provider: anthropic
   model: claude-opus-5-5
   effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
 
 new_article.existing_coverage:
   class: ArticleAuditing::Checks::ExistingCoverage
@@ -196,13 +211,18 @@ new_article.categories:
   provider: anthropic
   model: claude-opus-5-5
   effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100
 
 # Fetches every cited source with a URL and judges the sentences that cite it.
-# Uncapped for now, to measure what it costs on real articles; its usage row
-# counts claims, sources and sources fetched.
+# Its usage row counts claims, claims over the cap, sources and sources fetched.
 sourcing.citation_support:
   class: ArticleAuditing::Checks::CitationSupport
   enabled: true
   provider: anthropic
   model: claude-opus-5-5
   effort: low
+  # Cited sentences checked per audit, in article order. Likely to come down
+  # once trials show what a typical audit needs.
+  max_claims: 100

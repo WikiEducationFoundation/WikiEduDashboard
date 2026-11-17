@@ -83,15 +83,23 @@ describe ArticleAuditing::LlmCheck do
   end
 
   describe 'checks with artifacts' do
-    it 'adds artifact properties to the schema as required fields' do
+    it 'shares one schema, with every artifact as an optional field' do
       schema = ArticleAuditing::Checks::SourceTable.new.schema
-      expect(schema[:required]).to eq(%w[findings sources])
+      expect(schema).to eq(check.schema)
+      expect(schema[:required]).to eq(%w[findings])
       expect(schema.dig(:properties, :sources, :items, :properties, :reliability, :enum))
         .to include('unreliable')
     end
 
-    it 'returns everything but findings as artifacts' do
-      json = { 'findings' => [], 'notability' => { 'assessment' => 'unclear' } }
+    it 'has a schema field for every artifact a check names' do
+      named = ArticleAuditing::Registry.keys.map { |key| ArticleAuditing::Registry.check(key) }
+                                       .grep(described_class).flat_map { |c| c.class::ARTIFACTS }
+      expect(named).to match_array(ArticleAuditing::LlmOutputSchema::ARTIFACTS.keys.map(&:to_s))
+    end
+
+    it 'returns only its own artifacts' do
+      json = { 'findings' => [], 'notability' => { 'assessment' => 'unclear' },
+               'sources' => [] }
       allow(adapter).to receive(:complete)
         .and_return(llm_response.with(json:))
       output = ArticleAuditing::Checks::Notability.new.run(context)

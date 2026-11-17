@@ -3,6 +3,7 @@
 require 'digest'
 require_dependency "#{Rails.root}/lib/article_auditing/check"
 require_dependency "#{Rails.root}/lib/article_auditing/quote_validator"
+require_dependency "#{Rails.root}/lib/article_auditing/llm_output_schema"
 require_dependency "#{Rails.root}/lib/llm/client"
 
 module ArticleAuditing
@@ -15,9 +16,10 @@ module ArticleAuditing
   # The provider, model and effort come from the check's entry in
   # config/article_audit_checks.yml.
   #
-  # Subclasses set KEY and CATEGORY, and may override #artifact_properties
-  # (extra JSON-schema properties beyond `findings`) and #artifacts_from.
+  # Subclasses set KEY and CATEGORY. A check that returns an artifact names
+  # its property of LlmOutputSchema in ARTIFACTS.
   class LlmCheck < Check
+    ARTIFACTS = [].freeze
     PROMPT_DIR = Rails.root.join('config/article_audit/prompts')
     SYSTEM_PROMPT_PATH = PROMPT_DIR.join('_system.md')
 
@@ -57,14 +59,9 @@ module ArticleAuditing
       @prompt ||= File.read(PROMPT_DIR.join("#{key}.md"))
     end
 
+    # Shared by every check, so that they all read the same prompt cache.
     def schema
-      {
-        type: 'object',
-        additionalProperties: false,
-        required: ['findings', *artifact_properties.keys.map(&:to_s)],
-        properties: { findings: { type: 'array', items: Finding::LLM_SCHEMA } }
-          .merge(artifact_properties)
-      }
+      LlmOutputSchema::SCHEMA
     end
 
     private
@@ -92,12 +89,9 @@ module ArticleAuditing
       Llm::Client.adapter(provider)
     end
 
-    def artifact_properties
-      {}
-    end
-
+    # This check's own artifacts, ignoring any the model filled for others.
     def artifacts_from(json)
-      json.except('findings')
+      json.slice(*self.class::ARTIFACTS)
     end
 
     def build_findings(raw_findings)

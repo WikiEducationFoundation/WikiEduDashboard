@@ -11,12 +11,16 @@ require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 #
 # On failure, `audit` is nil and `error` is an error code (invalid_url or
 # revision_not_found), which the page shows as is.
+#
+# With enqueue: false the audit is only created, for a caller that runs it
+# itself (as docs/analytics_scripts/article_audit/evaluate.rb does).
 class CreateArticleAudit
   attr_reader :audit, :error
 
-  def initialize(url:, requester:)
+  def initialize(url:, requester:, enqueue: true)
     @url = url.to_s.strip
     @requester = requester
+    @enqueue = enqueue
     perform
   end
 
@@ -32,7 +36,7 @@ class CreateArticleAudit
     @audit = ArticleAudit.create!(wiki: @wiki, mw_rev_id: @rev_id, url: @url.first(1000),
                                   article_title: parser.title, requester: @requester,
                                   article: matching_article(parser.title))
-    ArticleAuditWorker.run(@audit)
+    ArticleAuditWorker.run(@audit) if @enqueue
   end
 
   def revision_id(parser)

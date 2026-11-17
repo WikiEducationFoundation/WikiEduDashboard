@@ -12,6 +12,7 @@ module ArticleAuditing
     class ExistingCoverage < LlmCheck
       KEY = 'new_article.existing_coverage'
       CATEGORY = 'new_article'
+      ARTIFACTS = %w[coverage].freeze
 
       def applies_to?(context)
         context.new_article? && context.wiki_context.target_title.present?
@@ -35,26 +36,6 @@ module ArticleAuditing
           #{article[:extract]}
           </result>
         ARTICLE
-      end
-
-      RELATED_SCHEMA = {
-        type: 'object',
-        additionalProperties: false,
-        required: %w[title relationship],
-        properties: { title: { type: 'string' }, relationship: { type: 'string' } }
-      }.freeze
-      COVERAGE_SCHEMA = {
-        type: 'object',
-        additionalProperties: false,
-        required: %w[verdict related],
-        properties: {
-          verdict: { type: 'string', enum: %w[not_covered partially_covered already_covered] },
-          related: { type: 'array', items: RELATED_SCHEMA }
-        }
-      }.freeze
-
-      def artifact_properties
-        { coverage: COVERAGE_SCHEMA }
       end
     end
   end

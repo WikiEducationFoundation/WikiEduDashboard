@@ -10,26 +10,10 @@ module ArticleAuditing
     class Notability < LlmCheck
       KEY = 'new_article.notability'
       CATEGORY = 'new_article'
+      ARTIFACTS = %w[notability].freeze
 
       def applies_to?(context)
         context.new_article?
-      end
-
-      private
-
-      def artifact_properties
-        {
-          notability: {
-            type: 'object',
-            additionalProperties: false,
-            required: %w[assessment guideline rationale],
-            properties: {
-              assessment: { type: 'string', enum: %w[likely_notable unclear unlikely_notable] },
-              guideline: { type: 'string' },
-              rationale: { type: 'string' }
-            }
-          }
-        }
       end
     end
   end

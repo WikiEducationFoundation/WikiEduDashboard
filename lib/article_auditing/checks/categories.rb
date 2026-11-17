@@ -14,6 +14,7 @@ module ArticleAuditing
     class Categories < LlmCheck
       KEY = 'new_article.categories'
       CATEGORY = 'new_article'
+      ARTIFACTS = %w[categories].freeze
       MAX_CANDIDATES = 40
       WIKILINK = /\[\[([^\[\]|#:]+)(?:#[^\[\]|]*)?(?:\|[^\[\]]*)?\]\]/
       PAGE_CATEGORY = /\[\[\s*Category\s*:\s*([^\]|]+)/i
@@ -66,20 +67,6 @@ module ArticleAuditing
         linked = context.parsed_wikitext.masked.scan(WIKILINK).flatten.map(&:strip).uniq
         context.wiki_context.category_counts(linked).sort_by { |name, count| [-count, name] }
                .first(MAX_CANDIDATES)
-      end
-
-      def artifact_properties
-        {
-          categories: {
-            type: 'array',
-            items: {
-              type: 'object',
-              additionalProperties: false,
-              required: %w[name reason],
-              properties: { name: { type: 'string' }, reason: { type: 'string' } }
-            }
-          }
-        }
       end
     end
   end

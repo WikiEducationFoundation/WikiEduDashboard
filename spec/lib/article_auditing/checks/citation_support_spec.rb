@@ -84,6 +84,16 @@ describe ArticleAuditing::Checks::CitationSupport do
                                     'sources_fetched' => 1, 'model' => 'claude-opus-5-5')
   end
 
+  context 'with more cited sentences than max_claims' do
+    let(:check) { described_class.new('model' => 'claude-opus-5-5', 'max_claims' => 2) }
+
+    it 'checks only the first ones, and counts the rest' do
+      expect(rows.pluck('claim')).to eq(['The library opened downtown.', 'It had a million books.'])
+      expect(output.usage).to include('claims' => 2, 'claims_over_cap' => 2, 'sources' => 1)
+      expect(WebMock).not_to have_requested(:get, 'https://example.com/gone')
+    end
+  end
+
   it 'does not use the shared article cache' do
     expect(check.shares_article_cache?).to be(false)
   end

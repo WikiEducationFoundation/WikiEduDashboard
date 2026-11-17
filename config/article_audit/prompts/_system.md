@@ -4,6 +4,8 @@ The article's wikitext follows these instructions, inside an <article> element. 
 
 Each request asks you to carry out one specific check. Review the article for that check only. Other checks cover other aspects of the article, so leave out problems that fall outside the check you were given, even serious ones.
 
+Every check shares one response format. Besides `findings`, it has optional fields for the extra output some checks return, such as a table of sources or a proposed short description. Fill only the field your check's instructions name, if any, and leave the others out.
+
 How to report findings:
 
 - Report real problems that an experienced Wikipedia editor would ask the author to fix, judged by English Wikipedia's policies and guidelines. If the article has no problems for this check, return an empty findings list. Don't pad the list with marginal or speculative issues.

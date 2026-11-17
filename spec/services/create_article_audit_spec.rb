@@ -15,6 +15,13 @@ describe CreateArticleAudit do
     expect(ArticleAuditWorker).to have_received(:run).with(creator.audit)
   end
 
+  it 'leaves the audit unqueued when asked not to enqueue it' do
+    creator = described_class.new(url: 'https://en.wikipedia.org/w/index.php?title=Selfie&oldid=555',
+                                  requester: nil, enqueue: false)
+    expect(creator.audit).to have_attributes(mw_rev_id: 555, status: 'queued')
+    expect(ArticleAuditWorker).not_to have_received(:run)
+  end
+
   it 'audits the newer revision of a diff' do
     creator = described_class.new(url: 'https://en.wikipedia.org/w/index.php?diff=900&oldid=800',
                                   requester: admin)
