@@ -9,7 +9,9 @@ require_dependency "#{Rails.root}/lib/article_auditing/check_runner"
 # again after changing its prompt or engine.
 class ArticleAuditCheckWorker
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed, retry: 0
+  # Off the default queue, whose production process runs one job at a time and
+  # carries the AI edit alert checks; a re-run check can take minutes.
+  sidekiq_options queue: 'report_csv', lock: :until_executed, retry: 0
 
   def self.rerun(audit, check_key)
     audit.update!(status: ArticleAudit::RUNNING)

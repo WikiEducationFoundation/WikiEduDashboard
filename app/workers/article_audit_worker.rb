@@ -8,7 +8,9 @@ require_dependency "#{Rails.root}/app/services/run_article_audit"
 # paying for the whole audit again.
 class ArticleAuditWorker
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed, retry: 0
+  # Off the default queue, whose production process runs one job at a time and
+  # carries the AI edit alert checks; an audit can take minutes.
+  sidekiq_options queue: 'report_csv', lock: :until_executed, retry: 0
 
   def self.run(audit)
     perform_async(audit.id)
