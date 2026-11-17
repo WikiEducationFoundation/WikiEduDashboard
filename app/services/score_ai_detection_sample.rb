@@ -13,19 +13,33 @@ require_dependency "#{Rails.root}/lib/ai/ai_detector"
 # current balance of every vendor that reports one, without calling any
 # detector. Vendor specifics (minimum input, billing, balance, error classes)
 # come from the AiDetector registry, so a new detector needs nothing here.
+#
+# A detector pinned to a model version stops the whole run, raising its
+# ModelMismatch, when the vendor answers with a different version: each further
+# call would bill for a result that cannot be stored under that detector's key.
 class ScoreAiDetectionSample
   attr_reader :report
 
   def initialize(sample_name:, detectors:, dry_run: false, verbose: false, limit: nil)
     @units = AiDetectionSample.named(sample_name).order(:id)
     @units = @units.limit(limit) if limit
-    @detectors = detectors.map { |key| AiDetector.for(key) }
+    @detectors = detectors.map { |key| selectable_detector(key) }
     @verbose = verbose
     @report = {}
     dry_run ? plan : perform
   end
 
   private
+
+  # Only selectable detectors score comparison samples: the production key
+  # 'Pangram 4' follows whatever version Pangram serves, so its rows could not
+  # be compared across rounds.
+  def selectable_detector(key)
+    detector = AiDetector.for(key)
+    return detector if AiDetector.selectable?(key)
+
+    raise ArgumentError, "#{key} is not offered for comparison scoring; use #{AiDetector.keys}"
+  end
 
   def pending_units(detector)
     scored_ids = RevisionAiScore.where(sample_id: @units.map(&:id), check_type: detector.key)
@@ -63,11 +77,17 @@ class ScoreAiDetectionSample
                                details: parser.clean_result)
     stats[:scored] += 1
     log "#{detector.key}: unit #{unit.id} max #{parser.max_ai_likelihood.round(4)}"
+  rescue *AiDetector.model_mismatch_errors
+    raise
   rescue *AiDetector.recoverable_errors => e
+    record_failure(detector, unit, stats, e)
+  end
+
+  def record_failure(detector, unit, stats, error)
     save_score(detector, unit, avg: nil, max: nil,
-                               details: { 'error' => e.class.name, 'message' => e.message })
+                               details: { 'error' => error.class.name, 'message' => error.message })
     stats[:failed] += 1
-    log "#{detector.key}: unit #{unit.id} failed: #{e.message}"
+    log "#{detector.key}: unit #{unit.id} failed: #{error.message}"
   end
 
   def save_score(detector, unit, avg:, max:, details:)

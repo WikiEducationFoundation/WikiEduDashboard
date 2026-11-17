@@ -43,13 +43,20 @@ an exported CSV.
 
 ## Credits
 
-Pangram is billed per word at a rate we can afford at scale. Originality.ai is not:
-its credit balance is small, it bills about one credit per 100 words per check, and an
-AI Allowance scan bills roughly double. Keep Originality to small curated samples
-(around 100 units), run at most two Originality checks per unit, and always dry-run
-first. Each AI Allowance threshold is a separate scan whose block scores differ, so a
-threshold cannot be re-derived offline from another threshold's result; the two we use
-are 15 (Originality's default) and 40 (their minimize-false-positives setting).
+Pangram is billed per word at a rate we can afford at scale. Originality.ai bills about
+one credit per 100 words per check for both 5.0 models through the API (observed
+2026-11-17; their pricing page lists 5.0 Max at ten times that, so check the balance
+before and after a first Max run). Always dry-run first.
+
+Detectors offered for comparison scoring are `AiDetector.keys`: Pangram 4.1, Originality
+5.0 and Originality 5.0 Max (since 2026-11). Retired detectors keep their stored rows:
+Pangram 3 (API shut down 2026-09-30); comparison rows under `Pangram 4`, all scored as
+4.0 before Pangram moved `pangram-4` to 4.1 on 2026-10-19 (to be relabelled `Pangram 4.0`
+when the comparison page shows 4.0 and 4.1 side by side); and Originality's classic
+models and AI Allowance 15/40 (replaced by 5.0). `Pangram 4.1` refuses results from any other
+version, and scoring stops when Pangram or Originality answers with a different model
+than the key names. Production alerting keeps the `Pangram 4` key, which follows
+whatever version Pangram serves (`details['version']` records it).
 
 ## 1. Build a sample
 
@@ -115,7 +122,7 @@ importer.imported
 ## 2. Dry-run, then score
 
 ```ruby
-detectors = [RevisionAiScore::PANGRAM_V4_KEY, RevisionAiScore::ORIGINALITY_AI_ALLOWANCE_15_KEY, RevisionAiScore::ORIGINALITY_AI_ALLOWANCE_40_KEY]
+detectors = [RevisionAiScore::PANGRAM_V4_1_KEY, RevisionAiScore::ORIGINALITY_5_KEY, RevisionAiScore::ORIGINALITY_5_MAX_KEY]
 ScoreAiDetectionSample.new(sample_name: 'recent_2026_09', detectors:, dry_run: true).report
 ```
 
