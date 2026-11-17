@@ -43,7 +43,8 @@ class RunArticleAudit
     return false if @context.revision_info.nil?
     @context.preload
     @audit.update!(article_title: @context.title, namespace: @context.namespace,
-                   mw_page_id: @context.page_id)
+                   mw_page_id: @context.page_id, article_html: @context.html,
+                   article_wikitext: @context.wikitext)
     true
   end
 

@@ -44,7 +44,12 @@ class ArticleAudit < ApplicationRecord
   STATUSES = [QUEUED, RUNNING, COMPLETE, PARTIAL, FAILED].freeze
   FINISHED_STATUSES = [COMPLETE, PARTIAL, FAILED].freeze
 
+  ARTICLE_COLUMNS = %w[article_html article_wikitext].freeze
+
   validates :status, inclusion: { in: STATUSES }
+
+  # Leaves out the stored article, which only the report needs.
+  scope :without_article, -> { select(column_names - ARTICLE_COLUMNS) }
   validates :mw_rev_id, presence: true
 
   def finished?

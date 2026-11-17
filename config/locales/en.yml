@@ -122,6 +122,11 @@ en:
     findings_count:
       one: "%{count} finding"
       other: "%{count} findings"
+    whole_article: Whole article
+    tabs:
+      article: Article
+      details: Details
+      checks: Checks
     ai_notice: Parts marked AI were written by an AI model and may be wrong. Check them before acting on them.
     ai_label: AI
     statuses:

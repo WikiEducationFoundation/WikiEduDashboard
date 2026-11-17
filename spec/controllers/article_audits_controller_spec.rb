@@ -62,8 +62,25 @@ describe ArticleAuditsController, type: :controller do
       body = JSON.parse(response.body)
       expect(body['audit']).to include('id' => audit.id, 'status' => 'queued')
       expect(body['check_results'].size).to eq(1)
-      expect(body['check_results'].first).to include('status' => 'succeeded', 'run_count' => 2,
-                                                     'findings' => [{ 'title' => 'Peacock' }])
+      result = body['check_results'].first
+      expect(result).to include('status' => 'succeeded', 'run_count' => 2)
+      expect(result['findings']).to eq([{ 'title' => 'Peacock', 'id' => "#{result['id']}-0",
+                                          'anchor' => nil }])
+      expect(body['article_html']).to be_nil
+    end
+
+    it 'returns the article with each finding marked where it applies' do
+      audit.update!(article_html: '<p>Acme is a world-class company.</p>', article_wikitext: '')
+      audit.check_results.create!(check_key: 'tone', status: 'succeeded', findings: [
+                                    { 'severity' => 'should_fix', 'title' => 'Peacock',
+                                      'location' => { 'quote' => 'world-class' } }
+                                  ])
+      get :show, params: { id: audit.id }, format: :json
+      body = JSON.parse(response.body)
+      finding = body['check_results'].first['findings'].first
+      expect(finding['anchor']).to eq('text')
+      expect(body['article_html'])
+        .to include(%(<mark class="aa-mark aa-mark--should_fix" data-findings="#{finding['id']}">))
     end
 
     it 'marks the results an LLM produced' do

@@ -17,8 +17,10 @@ class ArticleAuditsController < ApplicationController
   def index
     respond_to do |format|
       format.html
-      format.json {
- @audits = ArticleAudit.includes(:wiki, :requester).order(id: :desc).limit(RECENT_LIMIT) }
+      format.json do
+        @audits = ArticleAudit.without_article.includes(:wiki, :requester).order(id: :desc)
+                              .limit(RECENT_LIMIT)
+      end
     end
   end
 
@@ -28,6 +30,7 @@ class ArticleAuditsController < ApplicationController
       format.json do
         @check_results = @audit.latest_check_results
         @run_counts = @audit.check_results.group(:check_key).count
+        @report = ArticleAuditReportPresenter.new(@audit, @check_results)
       end
     end
   end
