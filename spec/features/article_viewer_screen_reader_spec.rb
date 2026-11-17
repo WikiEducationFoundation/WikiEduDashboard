@@ -37,16 +37,13 @@ describe 'Article Viewer authorship highlighting, read by a screen reader',
   end
 
   # The WikiWho API is answered in the page, so the spec doesn't depend on it.
-  # The answer is delayed like the real service's: highlighting runs once, when
-  # WhoColor's HTML arrives, and needs the MediaWiki user ids looked up by then.
   def stub_whocolor
     page.execute_script(<<~JS, whocolor_response.to_json)
       const body = arguments[0];
       const realFetch = window.fetch;
       window.fetch = (url, options) => {
         if (!String(url).includes('wikiwho-api')) return realFetch(url, options);
-        const response = new Response(body, { headers: { 'Content-Type': 'application/json' } });
-        return new Promise(resolve => setTimeout(() => resolve(response), 3000));
+        return Promise.resolve(new Response(body, { headers: { 'Content-Type': 'application/json' } }));
       };
     JS
   end
