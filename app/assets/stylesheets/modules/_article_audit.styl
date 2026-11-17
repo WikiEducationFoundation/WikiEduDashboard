@@ -14,7 +14,6 @@ $audit_green = #22705B
   h2
     margin-top 32px
 
-  &__intro,
   &__meta,
   &__notice
     color $text_med
@@ -41,6 +40,18 @@ $audit_green = #22705B
     &--partial,
     &--failed
       color $audit_red
+
+  // Marks a finding or artifact that an LLM produced.
+  &__ai-label
+    display inline-block
+    margin 0 8px
+    padding 0 6px
+    border 1px solid $border_med
+    border-radius 3px
+    color $text_dk
+    font-size .75em
+    font-weight 600
+    vertical-align middle
 
   &__findings
     list-style none
@@ -112,6 +123,21 @@ $audit_green = #22705B
     background $bg_light_gray
     padding 6px 12px
     white-space pre-wrap
+
+  &__details
+    display flex
+    flex-wrap wrap
+    gap 4px 16px
+    margin 6px 0
+    font-size .9em
+    div
+      display flex
+      gap 4px
+    dt
+      color $text_med
+      font-family monospace
+    dd
+      margin 0
 
   &__label
     font-size .8em

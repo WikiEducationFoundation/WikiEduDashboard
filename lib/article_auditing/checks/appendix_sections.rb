@@ -56,7 +56,7 @@ module ArticleAuditing
         sections.filter_map do |section|
           standard = RENAMES[section.title.downcase] || standard_case(section.title)
           next if standard.nil? || standard == section.title
-          finding(severity: 'suggestion', **copy(:rename, heading: section.title, standard:),
+          finding(severity: 'suggestion', **coded(:rename, heading: section.title, standard:),
                   section: section.title, quote: "==#{section.title}==",
                   suggestion: "==#{standard}==", policy_refs: %w[MOS:APPENDIX MOS:HEADINGS])
         end
@@ -77,7 +77,7 @@ module ArticleAuditing
         present = sections.select { |section| rank(section) }.map(&:title)
         expected = present.sort_by.with_index { |title, i| [rank_for_title(title), i] }
         finding(severity: 'should_fix',
-                **copy(:order, actual: present.join(', '), expected: expected.join(', ')),
+                **coded(:order, actual: present.join(', '), expected: expected.join(', ')),
                 suggestion: expected.join(', '), policy_refs: %w[MOS:ORDER])
       end
 
@@ -90,7 +90,7 @@ module ArticleAuditing
         first_appendix = sections.index { |section| rank(section).to_i >= APPENDIX_START_RANK }
         return [] if first_appendix.nil?
         sections.drop(first_appendix + 1).select { |section| rank(section).nil? }.map do |section|
-          finding(severity: 'should_fix', **copy(:content_after_appendix, heading: section.title),
+          finding(severity: 'should_fix', **coded(:content_after_appendix, heading: section.title),
                   section: section.title, quote: "==#{section.title}==",
                   policy_refs: %w[MOS:ORDER])
         end

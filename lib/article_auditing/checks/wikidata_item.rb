@@ -26,17 +26,18 @@ module ArticleAuditing
 
       def existing_article_output(wiki_context)
         return output([]) if wiki_context.target_page[:wikibase_item]
-        output([finding(severity: 'suggestion', **copy(:no_item), policy_refs: %w[WP:WIKIDATA])])
+        output([finding(severity: 'suggestion', **coded(:no_item), policy_refs: %w[WP:WIKIDATA])])
       end
 
       def candidates_output(candidates)
         linked, unlinked = candidates.partition { |item| item[:enwiki] }
         findings = linked.map do |item|
-          wording = copy(:item_has_article, id: item[:id], article: item[:enwiki])
-          finding(severity: 'info', **wording, policy_refs: %w[WP:DUPLICATE])
+          problem = coded(:item_has_article, id: item[:id], article: item[:enwiki])
+          finding(severity: 'info', **problem, policy_refs: %w[WP:DUPLICATE])
         end
         if unlinked.any?
-          findings << finding(severity: 'info', **copy(:possible_item, count: unlinked.size))
+          findings << finding(severity: 'info', **coded(:possible_item, count: unlinked.size),
+                              policy_refs: %w[WP:WIKIDATA])
         end
         output(findings, artifacts: { 'wikidata_candidates' => candidates.map(&:stringify_keys) })
       end

@@ -18,6 +18,8 @@
 #  updated_at       :datetime         not null
 #
 
+require_dependency "#{Rails.root}/lib/llm/client"
+
 # The output of one check (see lib/article_auditing/check.rb) for one audit.
 #
 # - findings: Array of Hashes in the shared finding schema
@@ -49,5 +51,11 @@ class ArticleAuditCheckResult < ApplicationRecord
 
   def failed?
     status == FAILED
+  end
+
+  # Whether an LLM produced the result, so its findings and artifacts are AI
+  # output. The engine starts with the provider, eg 'anthropic:'.
+  def llm?
+    Llm::Client::ADAPTERS.key?(engine.to_s.split(':').first)
   end
 end

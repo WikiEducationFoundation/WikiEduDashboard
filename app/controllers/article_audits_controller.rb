@@ -37,8 +37,7 @@ class ArticleAuditsController < ApplicationController
     if creator.audit
       render json: { id: creator.audit.id }, status: :created
     else
-      render json: { error: I18n.t("article_audit.create_errors.#{creator.error}") },
-             status: :unprocessable_content
+      render json: { error: creator.error }, status: :unprocessable_content
     end
   end
 

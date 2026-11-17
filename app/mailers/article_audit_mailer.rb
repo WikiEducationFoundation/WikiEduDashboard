@@ -12,6 +12,6 @@ class ArticleAuditMailer < ApplicationMailer
     @audit = audit
     @report_link = "https://#{ENV['dashboard_url']}/article_audits/#{audit.id}"
     mail(to: audit.requester.email,
-         subject: I18n.t('article_audit.email.subject', title: audit.article_title))
+         subject: "#{I18n.t('article_audit.heading')}: #{audit.article_title}")
   end
 end

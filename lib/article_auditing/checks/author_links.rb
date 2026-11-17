@@ -79,8 +79,8 @@ module ArticleAuditing
           page && page[:description].to_s.match?(description_pattern(candidate))
         end
         return if match.nil?
-        wording = copy(candidate[:kind], name: candidate[:name], article: match[:title])
-        finding(severity: 'suggestion', **wording, quote: candidate[:name],
+        problem = coded(candidate[:kind], name: candidate[:name], article: match[:title])
+        finding(severity: 'suggestion', **problem, quote: candidate[:name],
                 suggestion: suggestion(candidate, match[:title]),
                 policy_refs: %w[WP:CITEVAR MOS:LINK])
       end

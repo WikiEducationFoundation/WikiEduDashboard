@@ -9,8 +9,8 @@ require_dependency "#{Rails.root}/lib/wiki_api/article_content"
 # revision; a permanent link (oldid=) audits that revision; a diff URL audits
 # the newer revision of the diff, in full.
 #
-# On failure, `audit` is nil and `error` is a key under
-# article_audit.create_errors in the locale files.
+# On failure, `audit` is nil and `error` is an error code (invalid_url or
+# revision_not_found), which the page shows as is.
 class CreateArticleAudit
   attr_reader :audit, :error
 

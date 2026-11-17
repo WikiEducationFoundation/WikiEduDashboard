@@ -37,13 +37,14 @@ module ArticleAuditing
 
       def few_links_finding(wiki_context)
         count = wiki_context.incoming_link_count
-        finding(severity: count.zero? ? 'should_fix' : 'suggestion', **copy(:few_links, count:),
+        finding(severity: count.zero? ? 'should_fix' : 'suggestion', **coded(:few_links, count:),
                 policy_refs: %w[WP:ORPHAN])
       end
 
       def mentions_finding(mentions)
         examples = mentions.first(3).pluck(:title).join(', ')
-        finding(severity: 'suggestion', **copy(:unlinked_mentions, count: mentions.size, examples:),
+        finding(severity: 'suggestion',
+                **coded(:unlinked_mentions, count: mentions.size, examples:),
                 policy_refs: %w[WP:BUILD])
       end
     end

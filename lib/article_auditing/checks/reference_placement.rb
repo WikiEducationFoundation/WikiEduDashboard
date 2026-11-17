@@ -28,7 +28,7 @@ module ArticleAuditing
       def findings_for(text, pattern)
         matches = text.to_enum(:scan, pattern[:regex]).map { Regexp.last_match.begin(0) }
         matches.first(MAX_PER_PATTERN).map do |index|
-          finding(severity: pattern[:severity], **copy(pattern[:copy], count: matches.size),
+          finding(severity: pattern[:severity], **coded(pattern[:copy], count: matches.size),
                   quote: excerpt(text, index), policy_refs: %w[MOS:REFPUNCT])
         end
       end

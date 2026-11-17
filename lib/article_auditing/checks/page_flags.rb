@@ -27,7 +27,7 @@ module ArticleAuditing
         findings = FLAGS.filter_map do |flag, pattern|
           offset, template = wikitext.templates(pattern).first
           next if offset.nil?
-          finding(severity: 'info', **copy(flag), quote: template.first(60),
+          finding(severity: 'info', **coded(flag), quote: template.first(60),
                   policy_refs: POLICY_REFS[flag])
         end
         output(findings)

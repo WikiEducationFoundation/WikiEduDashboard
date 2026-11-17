@@ -71,8 +71,10 @@ describe ArticleAuditing::Checks::CitationSupport do
 
   it 'reports sentences their sources do not support, ignoring made-up claim ids' do
     expect(output.findings.size).to eq(1)
-    expect(output.findings.first).to include('severity' => 'should_fix',
-                                             'explanation' => 'The page gives no collection size.')
+    expect(output.findings.first).to include(
+      'severity' => 'should_fix', 'explanation' => 'The page gives no collection size.',
+      'title' => I18n.t('article_audit.citation_verdicts.not_supported')
+    )
     expect(output.findings.first['location']).to include('quote' => 'It had a million books.',
                                                          'quote_verified' => true)
   end

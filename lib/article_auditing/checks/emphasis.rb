@@ -38,7 +38,7 @@ module ArticleAuditing
           body.to_enum(:scan, pattern[:regex]).filter_map do
             match = Regexp.last_match
             next if definition_or_table_line?(body, match.begin(0))
-            finding(severity: 'suggestion', **copy(pattern[:copy]), section: section.title,
+            finding(severity: 'suggestion', **coded(pattern[:copy]), section: section.title,
                     quote: match[0], policy_refs: [pattern[:policy]])
           end
         end

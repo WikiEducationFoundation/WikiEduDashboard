@@ -43,13 +43,13 @@ module ArticleAuditing
       end
 
       def use_speciesbox(genus, species)
-        finding(severity: 'suggestion', **copy(:use_speciesbox),
+        finding(severity: 'suggestion', **coded(:use_speciesbox),
                 suggestion: "{{Speciesbox\n| genus = #{genus}\n| species = #{species}\n}}",
                 policy_refs: %w[WP:AUTOTAX])
       end
 
       def needs_taxonomy(genus)
-        finding(severity: 'info', **copy(:needs_taxonomy_template, genus:),
+        finding(severity: 'info', **coded(:needs_taxonomy_template, genus:),
                 policy_refs: %w[WP:AUTOTAX])
       end
     end

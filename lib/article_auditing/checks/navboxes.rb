@@ -22,7 +22,7 @@ module ArticleAuditing
         end
         findings = missing.first(MAX_FINDINGS).map do |template|
           name = template_name(template)
-          finding(severity: 'suggestion', **copy(:missing_navbox, navbox: name),
+          finding(severity: 'suggestion', **coded(:missing_navbox, navbox: name),
                   suggestion: "{{#{name}}}", policy_refs: %w[WP:NAVBOX WP:BIDIRECTIONAL])
         end
         output(findings)

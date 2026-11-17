@@ -20,7 +20,7 @@ module ArticleAuditing
         indexes = masked.to_enum(:scan, MISSING_SPACE).map { Regexp.last_match.begin(0) }
         indexes.reject! { |index| inside_link?(masked, index) }
         findings = indexes.first(MAX_FINDINGS).map do |index|
-          finding(severity: 'suggestion', **copy(:missing_space, count: indexes.size),
+          finding(severity: 'suggestion', **coded(:missing_space, count: indexes.size),
                   section: wikitext.section_at(index).title,
                   quote: excerpt(masked, index, length: 40))
         end

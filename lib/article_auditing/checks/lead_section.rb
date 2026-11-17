@@ -47,11 +47,11 @@ module ArticleAuditing
       end
 
       def missing_lead
-        finding(severity: 'must_fix', **copy(:missing_lead), policy_refs: %w[MOS:LEAD])
+        finding(severity: 'must_fix', **coded(:missing_lead), policy_refs: %w[MOS:LEAD])
       end
 
       def intro_heading(section)
-        finding(severity: 'should_fix', **copy(:intro_heading, heading: section.title),
+        finding(severity: 'should_fix', **coded(:intro_heading, heading: section.title),
                 section: section.title,
                 quote: "#{'=' * section.level}#{section.title}#{'=' * section.level}",
                 policy_refs: %w[MOS:LEAD MOS:INTRO])

@@ -16,6 +16,12 @@ describe ArticleAuditMailer do
     expect(mail.body.encoded).to include("/article_audits/#{audit.id}")
   end
 
+  it 'names the article and status' do
+    mail = described_class.report_ready(audit)
+    expect(mail.subject).to eq('Article Audit: Acme')
+    expect(mail.body.encoded).to include('Acme', 'Complete')
+  end
+
   it 'sends nothing when email is disabled' do
     allow(Features).to receive(:email?).and_return(false)
     expect { described_class.send_report_ready(audit) }

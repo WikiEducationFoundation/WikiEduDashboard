@@ -56,7 +56,7 @@ module ArticleAuditing
       end
 
       def leftover(kind, quote, section)
-        finding(severity: 'should_fix', **copy(kind), section:, quote:)
+        finding(severity: 'should_fix', **coded(kind), section:, quote:)
       end
     end
   end

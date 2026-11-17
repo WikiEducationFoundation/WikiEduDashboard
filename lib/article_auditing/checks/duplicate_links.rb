@@ -49,7 +49,7 @@ module ArticleAuditing
 
       def repeat_finding(target, links)
         repeat = links[1]
-        finding(severity: 'suggestion', **copy(:repeated_link, target:, count: links.size),
+        finding(severity: 'suggestion', **coded(:repeated_link, target:, count: links.size),
                 section: repeat[:section], quote: repeat[:text], policy_refs: %w[MOS:DUPLINK])
       end
     end

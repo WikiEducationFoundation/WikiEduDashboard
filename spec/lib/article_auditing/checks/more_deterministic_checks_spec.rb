@@ -52,8 +52,8 @@ describe 'Article Audit deterministic checks, part 2' do
     it 'flags repeated body links, most repeated first, ignoring the lead, templates, ' \
        'files and See also' do
       expect(findings.size).to eq(2)
-      expect(findings.first['title']).to include('Paris', '3')
-      expect(findings.last['title']).to include('France', '2')
+      expect(findings.first['details']).to eq('target' => 'Paris', 'count' => 3)
+      expect(findings.last['details']).to eq('target' => 'France', 'count' => 2)
       expect(quotes.first).to eq('[[paris|again]]')
     end
   end

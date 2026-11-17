@@ -57,11 +57,19 @@ describe 'Article Audit admin pages', type: :feature, js: true do
 
     expect(page).to have_css('h1', text: 'Acme')
     expect(page).to have_content 'Complete'
+    expect(page).to have_css('.article-audit__notice', text: 'AI model')
     expect(page).to have_css('h2', text: 'Tone')
     expect(page).to have_content 'Peacock term'
     expect(page).to have_css('.article-audit-finding__quote', text: 'a world-class company')
     expect(page).to have_css('h2', text: 'Structure')
     expect(page).to have_css('.article-audit-finding--must_fix')
+    expect(page).to have_css('.article-audit-finding__title code', text: 'no_citations')
+    within('.article-audit-finding', text: 'Peacock term') do
+      expect(page).to have_css('.article-audit__ai-label', text: 'AI')
+    end
+    within('.article-audit-finding', text: 'no_citations') do
+      expect(page).not_to have_css('.article-audit__ai-label')
+    end
     expect(page).to have_content 'sourcing.unsourced_claims'
     expect(page).to be_axe_clean
 

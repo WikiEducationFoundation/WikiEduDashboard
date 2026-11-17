@@ -34,6 +34,15 @@ module ArticleAuditing
         'not_supported' => 'should_fix',
         'wrong_source' => 'should_fix'
       }.freeze
+      # The article_audit.citation_verdicts title for each verdict. A wrong
+      # source doesn't cover the claim either; the explanation says the link
+      # is wrong.
+      TITLES = {
+        'partially_supported' => 'partially_supported',
+        'contradicted' => 'contradicted',
+        'not_supported' => 'not_supported',
+        'wrong_source' => 'not_supported'
+      }.freeze
 
       def shares_article_cache?
         false
@@ -158,7 +167,7 @@ module ArticleAuditing
 
       def claim_finding(claim, verdict)
         name = verdict['verdict']
-        title = I18n.t("article_audit.checks.#{key}.#{name}.title")
+        title = I18n.t("article_audit.citation_verdicts.#{TITLES[name]}")
         finding(severity: FINDINGS[name], title:,
                 explanation: verdict['explanation'], quote: claim.sentence, policy_refs: %w[WP:V])
       end

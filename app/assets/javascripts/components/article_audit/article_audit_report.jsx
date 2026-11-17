@@ -23,7 +23,7 @@ const byOrder = (order, value) => {
 // All findings from the latest result of each check, grouped by category and
 // sorted most severe first.
 const groupFindings = (checkResults) => {
-  const findings = checkResults.flatMap(result => result.findings);
+  const findings = checkResults.flatMap(result => result.findings.map(finding => ({ ...finding, llm: result.llm })));
   const groups = {};
   findings.forEach((finding) => {
     (groups[finding.category] ||= []).push(finding);
@@ -73,15 +73,14 @@ const ArticleAuditReport = () => {
       <p><Link to="/article_audits">{t('heading')}</Link></p>
       <h1>{audit.article_title || audit.mw_rev_id}</h1>
       <p className="article-audit__meta">
-        <span className={`article-audit__status article-audit__status--${audit.status}`}>
+        <span className={`article-audit__status article-audit__status--${audit.status}`} aria-live="polite">
           {t(`statuses.${audit.status}`)}
         </span>
         {' '}{audit.wiki} · {audit.mw_rev_id} · <a href={audit.revision_url} target="_blank" rel="noopener noreferrer">{t('view_revision')}</a>
       </p>
       <p className="article-audit__notice">{t('ai_notice')}</p>
-      {active && <p className="article-audit__notice" aria-live="polite">{t('running_notice')}</p>}
       {audit.status === 'failed' && checkResults.length === 0 && (
-        <p className="article-audit__error">{t('failed_notice')} {audit.error}</p>
+        <p className="article-audit__error">{t('error')}: {audit.error}</p>
       )}
 
       {groups.map(group => (
@@ -95,7 +94,7 @@ const ArticleAuditReport = () => {
       {!active && checkResults.length > 0 && groups.length === 0 && <p>{t('no_findings')}</p>}
 
       {withArtifacts.map(result => (
-        <ArtifactView key={result.id} checkKey={result.check_key} artifacts={result.artifacts} />
+        <ArtifactView key={result.id} checkKey={result.check_key} artifacts={result.artifacts} llm={result.llm} />
       ))}
 
       {checkResults.length > 0 && (

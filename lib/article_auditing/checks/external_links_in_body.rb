@@ -36,7 +36,7 @@ module ArticleAuditing
       def section_findings(masked_body, section)
         masked_body.to_enum(:scan, EXTERNAL_LINK).map do
           link = Regexp.last_match(0)
-          finding(severity: 'should_fix', **copy(:link_in_body),
+          finding(severity: 'should_fix', **coded(:link_in_body),
                   section: section.title, quote: link.delete_prefix('['),
                   policy_refs: %w[WP:EL MOS:LINKSTYLE])
         end

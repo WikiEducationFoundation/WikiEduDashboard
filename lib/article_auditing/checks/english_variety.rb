@@ -93,8 +93,8 @@ module ArticleAuditing
         wikitext.masked.to_enum(:scan, /\b[a-z]+\b/).filter_map do
           match = Regexp.last_match
           next unless foreign.include?(match[0])
-          wording = copy(:mismatch, word: match[0], variety: established.to_s)
-          finding(severity: 'should_fix', **wording,
+          problem = coded(:mismatch, word: match[0], variety: established.to_s)
+          finding(severity: 'should_fix', **problem,
                   section: wikitext.section_at(match.begin(0)).title, quote: match[0],
                   policy_refs: %w[MOS:ENGVAR MOS:RETAIN])
         end.uniq { |finding| finding.dig('location', 'quote') }

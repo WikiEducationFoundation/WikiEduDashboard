@@ -31,7 +31,7 @@ module ArticleAuditing
       def mismatches(text, wrong_format, declared)
         matches = scan(text, wrong_format)
         matches.first(MAX_FINDINGS).map do |match|
-          finding(severity: 'should_fix', **copy(:mismatch, declared:, count: matches.size),
+          finding(severity: 'should_fix', **coded(:mismatch, declared:, count: matches.size),
                   quote: match, policy_refs: %w[MOS:DATEUNIFY MOS:DATEFORMAT])
         end
       end
@@ -41,7 +41,7 @@ module ArticleAuditing
         mdy = scan(text, MDY)
         return [] if dmy.empty? || mdy.empty?
         minority = dmy.size < mdy.size ? dmy : mdy
-        [finding(severity: 'suggestion', **copy(:mixed, dmy: dmy.size, mdy: mdy.size),
+        [finding(severity: 'suggestion', **coded(:mixed, dmy: dmy.size, mdy: mdy.size),
                  quote: minority.first, policy_refs: %w[MOS:DATEUNIFY MOS:DATEVAR])]
       end
 

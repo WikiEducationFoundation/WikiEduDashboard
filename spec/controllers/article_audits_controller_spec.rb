@@ -65,6 +65,17 @@ describe ArticleAuditsController, type: :controller do
       expect(body['check_results'].first).to include('status' => 'succeeded', 'run_count' => 2,
                                                      'findings' => [{ 'title' => 'Peacock' }])
     end
+
+    it 'marks the results an LLM produced' do
+      { 'tone' => 'anthropic:claude-opus-5-5', 'sourcing.reference_list' => 'deterministic',
+        'external.ai_detection' => 'pangram:pangram_v3' }.each do |check_key, engine|
+        audit.check_results.create!(check_key:, engine:, status: 'succeeded')
+      end
+      get :show, params: { id: audit.id }, format: :json
+      llm = JSON.parse(response.body)['check_results'].to_h { |r| [r['check_key'], r['llm']] }
+      expect(llm).to eq('tone' => true, 'sourcing.reference_list' => false,
+                        'external.ai_detection' => false)
+    end
   end
 
   describe 'POST #create' do
@@ -80,7 +91,7 @@ describe ArticleAuditsController, type: :controller do
     it 'returns an error for a bad URL' do
       post :create, params: { url: 'not a url' }, format: :json
       expect(response).to have_http_status(:unprocessable_content)
-      expect(JSON.parse(response.body)['error']).to be_present
+      expect(JSON.parse(response.body)['error']).to eq('invalid_url')
     end
   end
 

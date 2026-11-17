@@ -36,21 +36,22 @@ module ArticleAuditing
       def quality_finding(context, wiki_context)
         flag = QUALITY[wiki_context.target_page[:assessment_class]]
         return if flag.nil? || context.mainspace?
-        finding(severity: 'info', **copy(flag, article: wiki_context.target_page[:title]))
+        finding(severity: 'info', **coded(flag, article: wiki_context.target_page[:title]),
+                policy_refs: ["WP:#{wiki_context.target_page[:assessment_class]}"])
       end
 
       def contentious_finding(wiki_context)
         talk_templates = Array(wiki_context.talk_page&.dig(:templates))
         notice = talk_templates.find { |name| name.match?(CONTENTIOUS) }
         return if notice.nil?
-        finding(severity: 'info', **copy(:contentious, notice: notice.delete_prefix('Template:')),
+        finding(severity: 'info', **coded(:contentious, notice: notice.delete_prefix('Template:')),
                 policy_refs: %w[WP:CTOP])
       end
 
       def talk_activity_finding(wiki_context)
         edits = wiki_context.talk_page&.dig(:recent_edits).to_i
         return if edits < ACTIVE_TALK
-        finding(severity: 'info', **copy(:active_talk, edits:), policy_refs: %w[WP:TALK])
+        finding(severity: 'info', **coded(:active_talk, edits:), policy_refs: %w[WP:TALK])
       end
     end
   end

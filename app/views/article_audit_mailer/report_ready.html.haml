@@ -7,6 +7,8 @@
           %tr
             %td
               %p.paragraph
-                = t('article_audit.email.body', title: @audit.article_title, status: @audit.status)
+                #{t('article_audit.article')}: #{@audit.article_title}
+                %br
+                #{t('article_audit.status')}: #{t("article_audit.statuses.#{@audit.status}")}
               %p.paragraph
                 %a.button{href: @report_link}= t('article_audit.email.view_report')

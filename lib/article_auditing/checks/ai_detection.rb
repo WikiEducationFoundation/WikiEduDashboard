@@ -45,7 +45,7 @@ module ArticleAuditing
       def findings(parser)
         return [] unless parser.max_ai_likelihood > AI_LIKELY_THRESHOLD
         [finding(severity: 'must_fix',
-                 **copy(:ai_likely, max: (parser.max_ai_likelihood * 100).round),
+                 **coded(:ai_likely, max: (parser.max_ai_likelihood * 100).round),
                  policy_refs: %w[WP:LLM])]
       end
 

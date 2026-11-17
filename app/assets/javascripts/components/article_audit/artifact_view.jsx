@@ -1,5 +1,7 @@
 import React from 'react';
 
+const t = (key, options) => I18n.t(`article_audit.${key}`, options);
+
 // Renders a check's artifacts (structured output that isn't a finding, such
 // as a proposed short description or a table of sources) generically: strings
 // as text, objects as label/value lists (recursively), arrays of objects as
@@ -62,9 +64,9 @@ const ArtifactValue = ({ value }) => {
   return <pre>{JSON.stringify(value, null, 2)}</pre>;
 };
 
-const ArtifactView = ({ checkKey, artifacts }) => (
+const ArtifactView = ({ checkKey, artifacts, llm }) => (
   <section className="article-audit-artifact">
-    <h3><code>{checkKey}</code></h3>
+    <h3><code>{checkKey}</code>{llm && <span className="article-audit__ai-label">{t('ai_label')}</span>}</h3>
     {Object.entries(artifacts).map(([name, value]) => (
       <div key={name}>
         <h4>{name}</h4>

@@ -55,14 +55,11 @@ module ArticleAuditing
       Finding.build(check: key, category:, **attrs)
     end
 
-    # The title and explanation for one of this check's finding types, from
-    # the article_audit.checks locale namespace (keyed by check KEY, then
-    # +name+). Deterministic checks get their wording from there rather than
-    # from code, so it can be written and revised as copy.
-    def copy(name, **interpolations)
-      scope = "article_audit.checks.#{key}.#{name}"
-      { title: I18n.t("#{scope}.title", **interpolations),
-        explanation: I18n.t("#{scope}.explanation", **interpolations) }
+    # The code and details for one of this check's finding types. A
+    # finding from code names the problem with a code rather than prose, so
+    # there is no copy to write; the policy links explain it.
+    def coded(code, **details)
+      { code:, details: }
     end
 
     def output(findings, artifacts: {}, usage: {})

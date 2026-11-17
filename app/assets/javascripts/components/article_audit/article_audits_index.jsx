@@ -35,7 +35,7 @@ const ArticleAuditsIndex = () => {
       if (response.ok) {
         navigate(`/article_audits/${data.id}`);
       } else {
-        setError(data.error);
+        setError(`${t('error')}: ${data.error}`);
       }
     } finally {
       setBusy(false);
@@ -45,7 +45,6 @@ const ArticleAuditsIndex = () => {
   return (
     <div className="container article-audit">
       <h1>{t('heading')}</h1>
-      <p className="article-audit__intro">{t('intro')}</p>
 
       <form className="article-audit__form" onSubmit={submit}>
         <label htmlFor="article-audit-url">{t('url_label')}</label>

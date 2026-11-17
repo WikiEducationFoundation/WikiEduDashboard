@@ -25,11 +25,11 @@ module ArticleAuditing
       private
 
       def no_citations
-        finding(severity: 'must_fix', **copy(:no_citations), policy_refs: %w[WP:V WP:CITE])
+        finding(severity: 'must_fix', **coded(:no_citations), policy_refs: %w[WP:V WP:CITE])
       end
 
       def missing_list
-        finding(severity: 'must_fix', **copy(:missing_list),
+        finding(severity: 'must_fix', **coded(:missing_list),
                 suggestion: "==References==\n{{Reflist}}",
                 policy_refs: %w[WP:REFLIST])
       end

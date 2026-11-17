@@ -9,7 +9,6 @@ describe 'Article Audit deterministic checks' do
     instance_double(ArticleAuditing::Context, parsed_wikitext: ArticleAuditing::Wikitext.new(wikitext))
   end
   let(:findings) { described_class.new.run(context).findings }
-  let(:titles) { findings.map { |finding| finding['title'] } }
 
   describe ArticleAuditing::Checks::ReferenceList do
     context 'with no ref tags' do
@@ -18,7 +17,9 @@ describe 'Article Audit deterministic checks' do
       it 'flags missing citations' do
         expect(findings.size).to eq(1)
         expect(findings.first).to include('severity' => 'must_fix', 'category' => 'sourcing',
-                                          'check' => 'sourcing.reference_list')
+                                          'check' => 'sourcing.reference_list',
+                                          'code' => 'no_citations', 'title' => '',
+                                          'explanation' => '', 'details' => nil)
         expect(findings.first['policy_refs']).to include('WP:V')
       end
     end

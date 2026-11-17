@@ -33,7 +33,7 @@ module ArticleAuditing
       end
 
       def missing_finding(template, missing)
-        finding(severity: 'suggestion', **copy(:missing_pages, count: missing.size),
+        finding(severity: 'suggestion', **coded(:missing_pages, count: missing.size),
                 quote: template.first(80).tr("\n", ' '), policy_refs: %w[WP:PAGENUM])
       end
     end

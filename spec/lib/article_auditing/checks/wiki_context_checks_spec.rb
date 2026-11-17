@@ -49,7 +49,7 @@ describe 'Article Audit wiki-context checks' do
 
       it 'lists candidate items and notes one already linked to an article' do
         expect(findings.map { |f| f['severity'] }).to contain_exactly('info', 'info')
-        expect(findings.map { |f| f['title'] }.join).to include('Q6', 'Topic (film)')
+        expect(findings.first['details']).to eq('id' => 'Q6', 'article' => 'Topic (film)')
         expect(output.artifacts['wikidata_candidates'].map { |c| c['id'] }).to eq(%w[Q5 Q6])
       end
     end

@@ -26,7 +26,7 @@ module ArticleAuditing
           section.body.to_enum(:scan, URL).filter_map do
             match = Regexp.last_match
             next unless flagged_domain?(match[1].downcase)
-            finding(severity: 'should_fix', **copy(:flagged_link, domain: match[1].downcase),
+            finding(severity: 'should_fix', **coded(:flagged_link, domain: match[1].downcase),
                     section: section.title, quote: match[0], policy_refs: %w[WP:ELNO WP:ELMIN])
           end
         end

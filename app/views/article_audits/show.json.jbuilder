@@ -11,4 +11,5 @@ json.check_results @check_results do |result|
   json.artifacts result.artifacts || {}
   json.usage result.usage || {}
   json.run_count @run_counts[result.check_key]
+  json.llm result.llm?
 end

@@ -35,7 +35,7 @@ module ArticleAuditing
       private
 
       def not_english
-        finding(severity: 'must_fix', **copy(:not_english), policy_refs: %w[WP:ENGLISHPLEASE])
+        finding(severity: 'must_fix', **coded(:not_english), policy_refs: %w[WP:ENGLISHPLEASE])
       end
     end
   end
