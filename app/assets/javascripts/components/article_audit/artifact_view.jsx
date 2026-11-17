@@ -14,6 +14,14 @@ const isScalar = value => value === null || ['string', 'number', 'boolean'].incl
 
 const cellText = value => (typeof value === 'object' && value !== null ? JSON.stringify(value) : String(value ?? ''));
 
+const isLink = value => typeof value === 'string' && /^https?:\/\//.test(value);
+
+const ScalarValue = ({ value }) => (
+  isLink(value) ? <a href={value} target="_blank" rel="noopener noreferrer">{value}</a> : cellText(value)
+);
+
+// URLs are links, and may break anywhere, since they have no spaces to
+// wrap at.
 const RecordTable = ({ records }) => {
   const columns = [...new Set(records.flatMap(Object.keys))];
   return (
@@ -24,19 +32,17 @@ const RecordTable = ({ records }) => {
       <tbody>
         {records.map((record, index) => (
           <tr key={index}>
-            {columns.map(column => <td key={column}>{cellText(record[column])}</td>)}
+            {columns.map(column => (
+              <td key={column} className={isLink(record[column]) ? 'article-audit-artifact__url' : undefined}>
+                <ScalarValue value={record[column]} />
+              </td>
+            ))}
           </tr>
         ))}
       </tbody>
     </table>
   );
 };
-
-const isLink = value => typeof value === 'string' && /^https?:\/\//.test(value);
-
-const ScalarValue = ({ value }) => (
-  isLink(value) ? <a href={value} target="_blank" rel="noopener noreferrer">{value}</a> : cellText(value)
-);
 
 const isPlainObject = value => value && typeof value === 'object' && !Array.isArray(value);
 
