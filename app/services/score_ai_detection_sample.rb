@@ -2,7 +2,8 @@
 
 require_dependency "#{Rails.root}/lib/ai/ai_detector"
 
-# Sends every unit of a named AiDetectionSample to the given detectors and
+# Sends every unit of a named AiDetectionSample (or an explicit list of units)
+# to the given detectors and
 # stores each result as a RevisionAiScore with check_origin
 # 'detector_comparison'. Resumable: units a detector has already scored are
 # skipped, and a unit whose call failed (nil avg_ai_likelihood) is retried on
@@ -20,9 +21,21 @@ require_dependency "#{Rails.root}/lib/ai/ai_detector"
 class ScoreAiDetectionSample
   attr_reader :report
 
-  def initialize(sample_name:, detectors:, dry_run: false, verbose: false, limit: nil)
-    @units = AiDetectionSample.named(sample_name).order(:id)
-    @units = @units.limit(limit) if limit
+  # The units a detector has not yet scored successfully, leaving out texts
+  # shorter than the vendor accepts.
+  def self.pending_units(units, detector)
+    scored_ids = RevisionAiScore.where(sample_id: units.map(&:id), check_type: detector.key)
+                                .where.not(avg_ai_likelihood: nil).pluck(:sample_id).to_set
+    units.reject do |unit|
+      scored_ids.include?(unit.id) ||
+        (detector.min_words.present? && unit.word_count < detector.min_words)
+    end
+  end
+
+  def initialize(detectors:, sample_name: nil, units: nil, dry_run: false, verbose: false,
+                 limit: nil)
+    @units = units || AiDetectionSample.named(sample_name).order(:id)
+    @units = @units.first(limit) if limit
     @detectors = detectors.map { |key| selectable_detector(key) }
     @verbose = verbose
     @report = {}
@@ -42,14 +55,7 @@ class ScoreAiDetectionSample
   end
 
   def pending_units(detector)
-    scored_ids = RevisionAiScore.where(sample_id: @units.map(&:id), check_type: detector.key)
-                                .where.not(avg_ai_likelihood: nil).pluck(:sample_id)
-    @units.reject { |unit| scored_ids.include?(unit.id) || too_short?(detector, unit) }
-  end
-
-  # Some vendors refuse short texts.
-  def too_short?(detector, unit)
-    detector.min_words.present? && unit.word_count < detector.min_words
+    self.class.pending_units(@units, detector)
   end
 
   def plan

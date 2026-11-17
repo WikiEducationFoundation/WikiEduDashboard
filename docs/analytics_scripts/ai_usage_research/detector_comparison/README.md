@@ -150,6 +150,42 @@ your machine for analysis. `include_text: true` adds `plain_text`, `source_forma
 `source_text` columns; they are large and repeat on every detector row, so they are
 left out by default.
 
+## Scoring the core texts with a new detector
+
+When a vendor releases a model, score the texts the comparison page is built on, the
+known-human texts and the topics dataset (about 1,756 distinct texts), so the new
+model sits next to every earlier one. `ScoreDetectorComparisonCore` does it in the
+background, one ten-text chunk at a time on the default Sidekiq queue, with every
+current detector (`AiDetector.keys`) in turn. In a production console:
+
+```ruby
+ScoreDetectorComparisonCore.plan                                    # pending texts, credits, balance
+ScoreDetectorComparisonCore.start(max_originality_credits: 40_000)  # queue the run
+ScoreDetectorComparisonCore.status                                  # progress, or why it stopped
+ScoreDetectorComparisonCore.stop                                    # stop after the current chunk
+```
+
+`start(detectors: [...])` limits the run to some detectors. It stops on its own,
+saying why in `status['message']`, when a vendor answers with a different model
+version, after ten failed calls in a row, when Originality credits spent pass
+`max_originality_credits`, or when an Originality model's first ten texts cost more
+than twice the estimate. That last check is for 5.0 Max, which Originality's pricing
+page lists at ten times 5.0's price. Starting again continues where it stopped.
+
+To analyze the results locally, export them in production and load them into the
+local copy, where the earlier detectors' scores already are:
+
+```ruby
+ExportDetectorComparisonScores.new('/home/sage/detector_comparison_core_scores_2026-11.jsonl').count
+```
+
+```sh
+bin/rails runner docs/analytics_scripts/ai_usage_research/detector_comparison/load_core_scores.rb \
+  ~/detector_comparison_core_scores_2026-11.jsonl
+```
+
+The export holds scores and window or segment details, no text.
+
 ## Exemplars and challenge cases
 
 The longitudinal sample answers "how do detectors behave on typical student work over
