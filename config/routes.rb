@@ -673,6 +673,10 @@ Rails.application.routes.draw do
   get 'detector_comparison/topics/:topic' => 'detector_comparison#topic'
 
   # AI tools for admins
+  resources :article_audits, only: %i[index show create] do
+    post :rerun_check, on: :member
+  end
+
   get 'ai_tools' => 'ai_tools#show'
   post 'ai_tools/compare_ai_detectors' => 'ai_tools#compare_ai_detectors'
 

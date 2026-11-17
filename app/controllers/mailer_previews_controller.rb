@@ -52,6 +52,7 @@ class MailerPreviewsController < ApplicationController
         EarlyEnrollmentMailerPreview
         TicketNotificationMailerPreview
         AlertMailerPreview
+        ArticleAuditMailerPreview
       ]
     }
   ].freeze

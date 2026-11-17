@@ -91,6 +91,10 @@ analytics#tagged_courses_csv: admin
 analytics#ungreeted: signed_in
 analytics#usage: public
 
+article_audits#create: admin
+article_audits#index: admin
+article_audits#rerun_check: admin
+article_audits#show: admin
 article_finder#index: public
 
 articles#details: public

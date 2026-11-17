@@ -63,6 +63,7 @@ gem 'rapidfire', git: 'https://github.com/WikiEducationFoundation/rapidfire', br
 
 ### HTTP and API tools
 gem 'faraday' # Standard HTTP library
+gem 'anthropic', '~> 2.8' # Claude API client, for Article Audit
 # Pointing at our fork so we get HttpError#response — needed to honor
 # Retry-After on 429s. Switch back to plain `gem 'mediawiki_api'` once
 # https://gerrit.wikimedia.org/r/admin/repos/mediawiki/ruby/api releases
