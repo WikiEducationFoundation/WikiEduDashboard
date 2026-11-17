@@ -33,7 +33,7 @@ hold student writing. `compare_responses.py` looks for the spreadsheet in
 | `build_rollout_list.rb` | Turns the passing verdicts in `data/fv_rollout_shortlist.csv` into the rollout list, `data/fv_rollout_list.csv` and `.yml` |
 | `claim_ids.rb` | Paste into a production Rails console. Reproduces the viewer's annotation of every rollout revision and writes article, position, claim id, ref id and sentence to a CSV (default `~/fv_claim_ids.csv`) |
 | `claim_ids_merge.py` | Run locally. Inserts a "Claim ID" column into the review spreadsheet from that CSV. Refuses to write if any row fails to resolve or an article's row count differs from its highlighted-claim count. Needs `openpyxl` |
-| `export_responses.rb` | **Run on production.** Exports student exercise responses to CSV (default `~/fv_responses_<date>.csv`) |
+| `export_responses.rb` | **Run on production.** Exports student exercise responses to CSV (default `~/fv_responses_<date>.csv`), one row per response: each answer in its own column, plus the full claim the response is about |
 | `export_responses_console.rb` | The same export, pasteable into a production Rails console |
 | `compare_responses.py` | Joins that CSV to the review spreadsheet: agreement rates and mismatch hot spots. Needs `openpyxl` |
 

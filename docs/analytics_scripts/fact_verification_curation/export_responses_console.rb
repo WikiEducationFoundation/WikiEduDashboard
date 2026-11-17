@@ -26,7 +26,8 @@
 # feed compare_responses.py, so the two must stay byte-identical in their
 # header. The answer columns are generated from ClaimVerification::ExerciseForm,
 # so a change to config/claim_verification_exercise.yml flows through to both
-# without an edit to either.
+# without an edit to either; stored answer keys the form no longer names get
+# columns after the form's. Each row also carries the full claim it answers.
 #
 # Console-specific differences, same as the other console twin: one method so
 # the REPL buffers the whole paste, no `abort` (it would kill the session),
@@ -46,7 +47,8 @@ def fv_export(campaign: nil, out: nil, stdout: false)
     course_ids = found.courses.pluck(:id)
   end
 
-  rs = VerificationClaimResponse.includes(:course, :user, :verification_claim)
+  rs = VerificationClaimResponse.includes(:course, :user,
+                                        verification_claim: %i[wiki source_course])
   rs = rs.where(course_id: course_ids) if course_ids
   rs = rs.order(:created_at).to_a
   return puts('No fact-verification responses to export.') if rs.empty?
@@ -57,9 +59,16 @@ def fv_export(campaign: nil, out: nil, stdout: false)
   served = ClaimVerification::RolloutList.filter(VerificationClaim.where(id: claim_ids))
                                          .pluck(:id).to_set
 
+  answer_keys = form.answer_keys
+  answer_keys += rs.flat_map { |r| r.answers.to_h.keys.map(&:to_s) }.uniq - answer_keys
+
   header = ['response_id', 'submitted_at', 'updated_at', 'course_id', 'course_slug',
             'user_id', 'username', 'claim_id', 'claim_article_title', 'claim_sentence',
-            'claim_source_url', 'claim_offline_source', 'currently_served'] + form.answer_keys
+            'claim_source_url', 'claim_offline_source', 'currently_served',
+            'claim_context', 'claim_cite_text', 'claim_archive_url', 'claim_ref_id',
+            'claim_wiki', 'claim_article_id', 'claim_mw_rev_id', 'claim_mw_rev_timestamp',
+            'claim_subject', 'claim_source_course_id', 'claim_source_course_slug',
+            'claim_courses_users_id', 'claim_alert_id', 'claim_created_at'] + answer_keys
 
   csv = CSV.generate do |c|
     c << header
@@ -69,8 +78,13 @@ def fv_export(campaign: nil, out: nil, stdout: false)
       c << [r.id, r.created_at.iso8601, r.updated_at.iso8601, r.course_id, r.course.slug,
             r.user_id, r.user.username, r.verification_claim_id, claim.article_title,
             claim.sentence, claim.source_url, claim.offline_source,
-            served.include?(r.verification_claim_id)] +
-           form.answer_keys.map { |key| answers[key] }
+            served.include?(r.verification_claim_id),
+            claim.context, claim.cite_text, claim.archive_url, claim.ref_id,
+            claim.wiki.domain, claim.article_id, claim.mw_rev_id,
+            claim.mw_rev_timestamp&.iso8601, claim.subject, claim.source_course_id,
+            claim.source_course&.slug, claim.courses_users_id, claim.alert_id,
+            claim.created_at.iso8601] +
+           answer_keys.map { |key| answers[key] }
     end
   end
 
@@ -87,5 +101,7 @@ def fv_export(campaign: nil, out: nil, stdout: false)
   puts "  courses         #{rs.map(&:course_id).uniq.size}"
   puts "  distinct claims #{claim_ids.size} (#{served.size} still served)"
   puts "  claim id range  #{claim_ids.min}-#{claim_ids.max}"
+  extra_keys = answer_keys - form.answer_keys
+  puts "  answer keys not in the form: #{extra_keys.join(', ')}" if extra_keys.any?
   path
 end
