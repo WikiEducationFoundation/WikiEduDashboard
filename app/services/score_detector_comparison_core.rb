@@ -14,7 +14,7 @@ require_dependency "#{Rails.root}/app/services/summarize_known_human_texts"
 #
 # In a production console:
 #   ScoreDetectorComparisonCore.plan    # pending texts and estimated credits per detector
-#   ScoreDetectorComparisonCore.start(max_originality_credits: 40_000)  # queue the run
+#   ScoreDetectorComparisonCore.start(max_credits: 40_000)  # queue the run
 #   ScoreDetectorComparisonCore.status  # progress, or why the run stopped
 #   ScoreDetectorComparisonCore.stop    # stop after the current chunk
 #
@@ -23,15 +23,17 @@ require_dependency "#{Rails.root}/app/services/summarize_known_human_texts"
 # has an id that its jobs carry; a job whose run is no longer the current one
 # exits without saving, and a stop requested mid-chunk takes effect when the
 # chunk ends. Detectors run one after another in the order given (registry order
-# by default, which puts Originality 5.0 Max last). A text whose call fails is
+# by default). A text whose call fails is
 # not sent again during the same run. The run stops, recording why in its
 # status, when:
 # - a pinned detector's vendor answers with another model version;
 # - FAILURE_LIMIT calls in a row fail, or MAX_FAILURES calls of one detector fail;
-# - Originality credits spent since this start exceed max_originality_credits;
-# - after BILLING_CHECK_UNITS texts of an Originality detector, it has spent more
-#   than BILLING_TOLERANCE times its estimate. Originality lists 5.0 Max at ten
-#   times 5.0's price, although the API charged the same in a first probe.
+# - a vendor's credits spent since this start exceed its max_credits: one number
+#   for every vendor that bills credits, or a hash by vendor
+#   (max_credits: { originality: 40_000, paratrace: 900 });
+# - after BILLING_CHECK_UNITS texts of a credit-billed detector, it has spent more
+#   than BILLING_TOLERANCE times its estimate, in case a vendor bills differently
+#   from its documentation.
 # Starting again continues with the texts not yet scored, retrying failed ones.
 # start refuses while a run is in progress; force: true replaces a run whose job
 # was lost (its status stays 'running' with nothing queued). To analyze the
@@ -61,18 +63,36 @@ class ScoreDetectorComparisonCore
                                detectors:, dry_run: true).report
   end
 
-  def self.start(max_originality_credits:, detectors: AiDetector.keys, force: false)
+  def self.start(max_credits:, detectors: AiDetector.keys, force: false)
     check_startable(detectors, force)
+    vendors = metered_vendors(detectors)
     id = SecureRandom.hex(6)
     save_run('id' => id, 'state' => 'running', 'detectors' => detectors,
-             'unit_ids' => units.map(&:id), 'max_originality_credits' => max_originality_credits,
-             'start_balance' => (originality_balance if detectors.any? { |key| metered?(key) }),
+             'unit_ids' => units.map(&:id), 'max_credits' => credit_caps(max_credits, vendors),
+             'start_balances' => vendors.index_with { |vendor| balance(vendor) },
              'started_at' => Time.zone.now.iso8601, 'scored' => 0, 'failed' => 0,
              'failures_in_a_row' => 0, 'phases' => {}, 'message' => nil)
     return status if ScoreDetectorComparisonCoreWorker.perform_async(id)
 
     save_run(run.merge('state' => 'stopped', 'message' => 'The first job was not queued'))
     raise 'The first job was not queued; a stale Sidekiq lock may remain'
+  end
+
+  # Names of the vendors among these detectors that bill credits.
+  def self.metered_vendors(detectors)
+    detectors.map { |key| AiDetector.for(key).vendor }.select(&:balance_reader)
+             .map { |vendor| vendor.name.to_s }.uniq
+  end
+
+  # The credit cap per vendor: one number for all, or a hash naming every vendor.
+  def self.credit_caps(max_credits, vendors)
+    return vendors.index_with { max_credits } unless max_credits.is_a?(Hash)
+
+    caps = max_credits.transform_keys(&:to_s)
+    missing = vendors - caps.keys
+    raise ArgumentError, "max_credits has no cap for #{missing}" if missing.any?
+
+    caps.slice(*vendors)
   end
 
   def self.check_startable(detectors, force)
@@ -107,8 +127,9 @@ class ScoreDetectorComparisonCore
            .update!(value: value.merge('updated_at' => Time.zone.now.iso8601))
   end
 
-  def self.originality_balance
-    OriginalityApi.credit_balance
+  # Remaining credits of a vendor, by name.
+  def self.balance(vendor)
+    AiDetector.vendors.find { |candidate| candidate.name.to_s == vendor }.credit_balance
   end
 
   # Scores one chunk of the run with this id; the worker calls this. Returns true

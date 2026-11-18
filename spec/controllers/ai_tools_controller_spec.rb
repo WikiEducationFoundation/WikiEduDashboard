@@ -9,6 +9,16 @@ describe AiToolsController, type: :request do
     let(:pangram) { 'Pangram 4.1' }
     let(:model_5) { 'Originality 5.0' }
     let(:model_5_max) { 'Originality 5.0 Max' }
+    let(:paratrace) { 'ParaTrace v10' }
+    let(:paratrace_response) do
+      { 'detector_version' => 'v10-ft-g', 'credits_charged' => 1, 'credits_remaining' => 999,
+        'documents' => [{ 'document' => 'text', 'probability' => 0.9731, 'is_ai' => true,
+                          'verdict' => 'ai', 'ai_fraction' => 1.0, 'confidence' => 'high',
+                          'category' => 'ai_generated', 'operating_point' => 'strict',
+                          'threshold' => 0.1698, 'warnings' => [], 'credits' => 1,
+                          'windows' => [{ 'start' => 0, 'end' => 1874, 'probability' => 0.9731,
+                                          'band' => 'ai_generated' }] }] }
+    end
     # Recorded from the live API on 2026-11-17, text fields shortened.
     let(:simplified_originality_response) do
       { 'results' => {
@@ -62,6 +72,7 @@ describe AiToolsController, type: :request do
         .and_return(simplified_pangram_response)
       allow(AiDetector.for(model_5).client).to receive(:inference)
         .and_return(simplified_originality_response)
+      allow(AiDetector.for(paratrace).client).to receive(:inference).and_return(paratrace_response)
       allow(AiDetector.for(model_5_max).client).to receive(:inference)
         .and_return(simplified_originality_response.deep_merge(
                       'results' => { 'ai' => { 'model' => 'model-5.0-max' } }
@@ -166,6 +177,21 @@ describe AiToolsController, type: :request do
         expect(score.max_ai_likelihood).to be_within(0.0001).of(0.6722)
         expect(score.avg_ai_likelihood).to eq(0.6)
         expect(score.details['results']['ai']['sentences'].first).not_to have_key('text')
+      end
+    end
+
+    context 'with ParaTrace' do
+      it 'renders the verdict and windows and stores the whole-text probability' do
+        post '/ai_tools/compare_ai_detectors', params: { plain_text: 'Example text...',
+                                                         article_or_diff_url: '',
+                                                         paratrace.to_sym => '1' }
+
+        expect(response.body).to include('ParaTrace v10 Result')
+        expect(response.body).to include('Detector version: v10-ft-g')
+        expect(response.body).to include('Verdict: ai (ai_generated, high confidence)')
+        expect(response.body).to include('0.9731')
+        score = RevisionAiScore.find_by(check_type: paratrace)
+        expect(score).to have_attributes(avg_ai_likelihood: 0.9731, max_ai_likelihood: 0.9731)
       end
     end
 

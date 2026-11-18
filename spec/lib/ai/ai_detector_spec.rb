@@ -6,7 +6,8 @@ require "#{Rails.root}/lib/ai/ai_detector"
 describe AiDetector do
   describe '.keys' do
     it 'lists every selectable detector by its check_type' do
-      expect(described_class.keys).to eq(['Pangram 4.1', 'Originality 5.0', 'Originality 5.0 Max'])
+      expect(described_class.keys)
+        .to eq(['Pangram 4.1', 'Originality 5.0', 'Originality 5.0 Max', 'ParaTrace v10'])
     end
 
     it 'leaves out the production alerting key, which follows any Pangram version' do
@@ -42,6 +43,21 @@ describe AiDetector do
       expect(detector.client.expected_model).to eq('model-5.0-max')
     end
 
+    it 'pins ParaTrace to its detector version' do
+      detector = described_class.for(RevisionAiScore::PARATRACE_V10_KEY)
+
+      expect(detector.vendor.name).to eq(:paratrace)
+      expect(detector.partial).to eq('ai_tools/paratrace')
+      expect(detector.client.expected_version).to eq('v10-ft-g')
+    end
+
+    it 'estimates ParaTrace credits per started 512 tokens, at least one per text' do
+      detector = described_class.for(RevisionAiScore::PARATRACE_V10_KEY)
+
+      # 512 tokens is about 366 words; a short text still costs one credit.
+      expect(detector.estimated_credits([30, 400, 1_000])).to eq(1 + 2 + 3)
+    end
+
     it 'pins Pangram 4.1 to its version and leaves the production key unpinned' do
       expect(described_class.for(RevisionAiScore::PANGRAM_V4_1_KEY)).to be_pangram
       expect(described_class.for(RevisionAiScore::PANGRAM_V4_1_KEY).client.expected_version)
@@ -57,6 +73,8 @@ describe AiDetector do
         .to eq(OriginalityResponseParser)
       expect(described_class.parser_class_for('Pangram 3')).to eq(PangramResponseParser)
       expect(described_class.parser_class_for('Pangram 4.0')).to eq(PangramResponseParser)
+      expect(described_class.parser_class_for('ParaTrace v10')).to eq(ParatraceResponseParser)
+      expect(described_class.parser_class_for('ParaTrace v9')).to eq(ParatraceResponseParser)
       expect(described_class.parser_class_for('GPTZero')).to be_nil
     end
   end
@@ -89,7 +107,8 @@ describe AiDetector do
 
     it 'lists the errors that mean a vendor changed models under a pinned detector' do
       expect(described_class.model_mismatch_errors)
-        .to contain_exactly(PangramApi::ModelMismatch, OriginalityApi::ModelMismatch)
+        .to contain_exactly(PangramApi::ModelMismatch, OriginalityApi::ModelMismatch,
+                            ParatraceApi::ModelMismatch)
     end
 
     it 'reads balances for the vendors present that report one' do
