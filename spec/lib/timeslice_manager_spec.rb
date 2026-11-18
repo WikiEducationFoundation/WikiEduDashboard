@@ -245,4 +245,47 @@ describe TimesliceManager do
       end
     end
   end
+
+  describe '#timeslice_duration' do
+    context 'when TIMESLICE_DURATION env variable is unset or zero' do
+      before do
+        stub_const('TimesliceManager::TIMESLICE_DURATION', 0)
+      end
+
+      it 'falls back to DEFAULT_TIMESLICE_DURATION when flags default is 0' do
+        course.flags[:timeslice_duration] = { default: 0 }
+        expected = TimesliceManager::DEFAULT_TIMESLICE_DURATION.seconds
+        expect(timeslice_manager.timeslice_duration(enwiki)).to eq(expected)
+      end
+
+      it 'falls back to DEFAULT_TIMESLICE_DURATION when course flags are empty' do
+        course.flags = {}
+        expected = TimesliceManager::DEFAULT_TIMESLICE_DURATION.seconds
+        expect(timeslice_manager.timeslice_duration(enwiki)).to eq(expected)
+      end
+    end
+
+    context 'when course flag has a positive duration' do
+      it 'uses the course flag duration' do
+        course.flags[:timeslice_duration] = { default: 3600 }
+        expect(timeslice_manager.timeslice_duration(enwiki)).to eq(3600.seconds)
+      end
+    end
+  end
+
+  describe '#start_dates_for_period' do
+    context 'when timeslice_duration is 0 in flags' do
+      before do
+        course.flags[:timeslice_duration] = { default: 0 }
+        stub_const('TimesliceManager::TIMESLICE_DURATION', 0)
+      end
+
+      it 'does not loop infinitely and advances start dates by default duration' do
+        start_date = Time.zone.parse('2024-01-01')
+        end_date = Time.zone.parse('2024-01-03')
+        dates = timeslice_manager.send(:start_dates_for_period, enwiki, start_date, end_date)
+        expect(dates).to eq([start_date, start_date + 1.day, start_date + 2.days])
+      end
+    end
+  end
 end
