@@ -5,7 +5,9 @@ import AnnotatedArticle from './annotated_article.jsx';
 import ArtifactView from './artifact_view.jsx';
 import CheckResultsTable from './check_results_table.jsx';
 
-// Admin page: one Article Audit report. Polls while the audit is running.
+// One Article Audit report, viewable by any signed-in user; admins also get
+// the link back to the audit list and the re-run buttons. Polls while the
+// audit is running.
 // Visible strings live in the `article_audit` locale namespace.
 //
 // The Article tab shows the audited revision with the findings beside it as
@@ -78,13 +80,13 @@ const ArticleAuditReport = () => {
 
   if (!data) return <div className="container"><p>{t('loading')}</p></div>;
 
-  const { audit, article_html: articleHtml, check_results: checkResults } = data;
+  const { audit, admin, article_html: articleHtml, check_results: checkResults } = data;
   const findings = allFindings(checkResults);
   const withArtifacts = checkResults.filter(result => Object.keys(result.artifacts).length > 0);
 
   return (
     <div className="container article-audit article-audit--report">
-      <p><Link to="/article_audits">{t('heading')}</Link></p>
+      {admin && <p><Link to="/article_audits">{t('heading')}</Link></p>}
       <h1>{audit.article_title || audit.mw_rev_id}</h1>
       <p className="article-audit__meta">
         <span className={`article-audit__status article-audit__status--${audit.status}`} aria-live="polite">
@@ -126,7 +128,7 @@ const ArticleAuditReport = () => {
           <ArtifactView key={result.id} checkKey={result.check_key} artifacts={result.artifacts} llm={result.llm} />
         ))}
         {tab === 'checks' && checkResults.length > 0 && (
-          <CheckResultsTable results={checkResults} onRerun={rerun} rerunDisabled={active} />
+          <CheckResultsTable results={checkResults} onRerun={admin ? rerun : null} rerunDisabled={active} />
         )}
       </div>
     </div>
