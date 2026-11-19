@@ -153,12 +153,13 @@ class ArticlesCourses < ApplicationRecord
 
   # This scenario is hard to reproduce (it requires an article to move namespaces in the
   # middle of course updates), so we log it to learn how frequent it is.
+  # Rails.logger, not Sentry: this is routine, not an error, and doesn't need to
+  # count against the Sentry quota.
   def self.log_preexisting_acuwt_marked(course, article_ids)
-    Sentry.capture_message 'Article retracked',
-                           level: 'info',
-                           extra: { course_slug: course.slug, course_id: course.id,
-                                    reason: 'created_with_preexisting_acuwt_history',
-                                    article_ids: }
+    Rails.logger.info(
+      "Article retracked: course_id=#{course.id} course_slug=#{course.slug} " \
+      "reason=created_with_preexisting_acuwt_history article_ids=#{article_ids}"
+    )
   end
   private_class_method :log_preexisting_acuwt_marked
 
