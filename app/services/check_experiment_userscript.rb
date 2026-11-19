@@ -23,9 +23,19 @@ class CheckExperimentUserscript
 
   private
 
+  # Read through the action API, not WikiApi#get_page_content. Wikimedia's CDN
+  # caches the action=raw response that method relies on, 404s included, and a
+  # student's edit purges only the page's canonical URLs, not that one. The
+  # check that runs on opt-in, before common.js exists, would otherwise leave
+  # a cached "missing" answer behind for long after the student saves the line.
+  # API queries are not cached. A missing page, or a wiki that cannot be read
+  # (which WikiApi reports to Sentry), yields nil.
   def fetch_common_js
     en_wiki = Wiki.get_or_create(language: 'en', project: 'wikipedia')
-    WikiApi.new(en_wiki).get_page_content(@experiment.userscript_target_page(@user))
+    response = WikiApi.new(en_wiki).query(titles: @experiment.userscript_target_page(@user),
+                                          prop: 'revisions', rvprop: 'content',
+                                          rvslots: 'main', formatversion: 2)
+    response&.data&.dig('pages', 0, 'revisions', 0, 'slots', 'main', 'content')
   rescue StandardError => e
     Sentry.capture_exception(e, level: 'warning',
                                 extra: { username: @user.username,

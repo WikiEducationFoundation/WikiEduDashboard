@@ -277,6 +277,20 @@ module RequestHelpers
       .to_return(status: 503, body: '{}', headers: {})
   end
 
+  # Answers the action API query CheckExperimentUserscript makes for a
+  # student's English Wikipedia common.js. Empty content stands for a page that
+  # does not exist.
+  def stub_common_js(content)
+    page = if content.empty?
+             { missing: true }
+           else
+             { revisions: [{ slots: { main: { contentmodel: 'javascript', content: } } }] }
+           end
+    stub_request(:get, %r{en\.wikipedia\.org/w/api\.php\?.*titles=User:[^&]*/common\.js})
+      .to_return(status: 200, headers: { 'Content-Type' => 'application/json' },
+                 body: { batchcomplete: true, query: { pages: [page] } }.to_json)
+  end
+
   def stub_commons_503_error
     stub_request(:get, /.*commons.wikimedia.org.*/)
       .to_return(status: 503, body: '', headers: {})
