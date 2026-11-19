@@ -70,6 +70,68 @@ sl:
     opt_yes: da
     opt_no: ne
     print: Natisni
+  article_audit:
+    heading: Revizija članka
+    url_label: URL članka
+    run_audit: Izvedi revizijo
+    recent_audits: Zadnje revizije
+    loading: Nalaganje ...
+    article: Članek
+    wiki: Viki
+    status: Stanje
+    requested: Zahtevano
+    requester: Zahtevalec
+    check: Preveri
+    view_revision: Ogled redakcije
+    rerun: Ponovni zagon
+    no_findings: Ni najdb
+    quote: Navedek
+    suggestion: Predlog
+    engine: Motor
+    tokens: Žetoni
+    duration: Trajanje
+    runs: Teki
+    version: Različica
+    error: Napaka
+    findings_count:
+      other: ena=%{count} najdba
+    whole_article: Celoten članek
+    tabs:
+      article: Članek
+      details: Podrobnosti
+      checks: Preverjanja
+    ai_notice: Dele, označene z UI, je napisal model UI in so lahko napačni. Preverite
+      jih, preden se ukvarjate z njimi.
+    ai_label: UI
+    statuses:
+      queued: V čakalni vrsti
+      running: V teku
+      complete: Končano
+      partial: Delno
+      failed: Neuspešno
+    severities:
+      must_fix: Treba je popraviti
+      should_fix: Treba bi bilo popraviti
+      suggestion: Predlog
+      info: Info
+    categories:
+      flags: Stanje strani
+      sourcing: Izvor
+      tone: Ton
+      structure: Struktura
+      mos: Slogovni priročnik
+      infobox: Infopolje
+      links: Povezave
+      policy: Pravilo
+      new_article: Nov članek
+      external: Zunanje
+    citation_verdicts:
+      partially_supported: Delno – nekateri elementi trditve izvirajo iz tega vira,
+        pomemben del pa ne.
+      not_supported: Ne – vir ne pokriva tega, kar navaja trditev.
+      contradicted: Nasprotno – vir v resnici nasprotuje trditvi.
+    email:
+      view_report: Ogled poročila
   article_statuses:
     not_yet_started: Prvi koraki
     in_progress: Delo v peskovniku
