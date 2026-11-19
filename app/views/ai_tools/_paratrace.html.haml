@@ -1,0 +1,27 @@
+-# Renders one ParaTrace detection result: the verdict and whole-text figures, then
+-# the probability of each window ParaTrace scored.
+- doc = result['documents'].first
+%br
+%h4= "#{label} Result:"
+
+%p Detector version: #{result['detector_version']}
+%p Verdict: #{doc['verdict']} (#{doc['category']}, #{doc['confidence']} confidence)
+%p Probability: #{doc['probability']&.round(4)} (threshold #{doc['threshold']}, #{doc['operating_point']})
+%p AI fraction: #{doc['ai_fraction']}
+%p Credits: #{doc['credits']}
+- Array(doc['warnings']).each do |warning|
+  %p.notice= warning
+%table.table.table--striped
+  %thead
+    %tr
+      %th Window
+      %th Characters
+      %th Probability
+      %th Band
+  %tbody
+    - Array(doc['windows']).each_with_index do |window, index|
+      %tr
+        %td= index + 1
+        %td= "#{window['start']}–#{window['end']}"
+        %td= window['probability']&.round(4)
+        %td= window['band']

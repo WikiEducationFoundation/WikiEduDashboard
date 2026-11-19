@@ -45,17 +45,20 @@ an exported CSV.
 
 Pangram is billed per word at a rate we can afford at scale. Originality.ai bills about
 one credit per 100 words per check for both 5.0 models through the API (observed
-2026-11-17; their pricing page lists 5.0 Max at ten times that, so check the balance
-before and after a first Max run). Always dry-run first.
+2026-11-17; their pricing page lists 5.0 Max at ten times that, but the 2026-11 core run
+billed Max the same as 5.0). ParaTrace bills one credit per started 512 tokens of each
+text (about 400 words by its docs, about 365 on our texts), at least one per text; the
+dry run estimates 1.4 tokens per word, as measured on 20 core texts. Always dry-run first.
 
 Detectors offered for comparison scoring are `AiDetector.keys`: Pangram 4.1, Originality
-5.0 and Originality 5.0 Max (since 2026-11). Retired detectors keep their stored rows:
+5.0 and Originality 5.0 Max (since 2026-11), and ParaTrace v10 (`ParaTrace v10`, pinned to
+detector version `v10-ft-g`, strict operating point; since 2026-11-18). Retired detectors keep their stored rows:
 Pangram 3 (API shut down 2026-09-30); comparison rows under `Pangram 4`, all scored as
 4.0 before Pangram moved `pangram-4` to 4.1 on 2026-10-19 (to be relabelled `Pangram 4.0`
 when the comparison page shows 4.0 and 4.1 side by side); and Originality's classic
 models and AI Allowance 15/40 (replaced by 5.0). `Pangram 4.1` refuses results from any other
 version, and scoring stops when Pangram or Originality answers with a different model
-than the key names. Production alerting keeps the `Pangram 4` key, which follows
+than the key names (ParaTrace too). Production alerting keeps the `Pangram 4` key, which follows
 whatever version Pangram serves (`details['version']` records it).
 
 ## 1. Build a sample
@@ -161,7 +164,7 @@ current detector (`AiDetector.keys`) in turn. In a production console:
 
 ```ruby
 ScoreDetectorComparisonCore.plan                                    # pending texts, credits, balance
-ScoreDetectorComparisonCore.start(max_originality_credits: 40_000)  # queue the run
+ScoreDetectorComparisonCore.start(max_credits: 40_000)              # queue the run
 ScoreDetectorComparisonCore.status                                  # progress, or why it stopped
 ScoreDetectorComparisonCore.stop                                    # stop after the current chunk
 ```
@@ -170,9 +173,11 @@ ScoreDetectorComparisonCore.stop                                    # stop after
 saying why in `status['message']`, when:
 - a vendor answers with a different model version;
 - ten calls in a row fail, or 50 calls of one detector fail;
-- Originality credits spent since this start pass `max_originality_credits`;
-- an Originality model's first ten texts cost more than twice the estimate. This check
-  is for 5.0 Max, which Originality's pricing page lists at ten times 5.0's price.
+- a vendor's credits spent since this start pass its cap. `max_credits` is one number
+  for every vendor that bills credits, or a hash naming each one, such as
+  `max_credits: { originality: 40_000, paratrace: 900 }`;
+- a credit-billed detector's first ten texts cost more than twice the estimate (added
+  for 5.0 Max, whose listed price was ten times 5.0's).
 
 A text whose call fails is not sent again in the same run. Starting again continues
 where the run stopped and retries those texts. `start` refuses while a run is in

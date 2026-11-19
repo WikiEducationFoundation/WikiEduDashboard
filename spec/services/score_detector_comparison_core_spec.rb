@@ -8,6 +8,14 @@ describe ScoreDetectorComparisonCore do
   let(:pangram) { RevisionAiScore::PANGRAM_V4_1_KEY }
   let(:model_5) { RevisionAiScore::ORIGINALITY_5_KEY }
   let(:model_5_max) { RevisionAiScore::ORIGINALITY_5_MAX_KEY }
+  let(:paratrace) { RevisionAiScore::PARATRACE_V10_KEY }
+  let(:paratrace_response) do
+    { 'detector_version' => 'v10-ft-g', 'credits_charged' => 1, 'credits_remaining' => 499,
+      'documents' => [{ 'document' => 'text', 'probability' => 0.0002, 'verdict' => 'human',
+                        'ai_fraction' => 0.0, 'category' => 'human', 'n_words' => 400,
+                        'windows' => [{ 'start' => 0, 'end' => 2000, 'probability' => 0.0002,
+                                        'band' => 'human' }] }] }
+  end
   let(:core_ids) { [human.id, generated.id, agpedia_article.id, article_after_term.id] }
   let(:pangram_response) do
     { 'version' => '4.1', 'prediction_short' => 'Human', 'fraction_ai' => 0.0,
@@ -35,6 +43,8 @@ describe ScoreDetectorComparisonCore do
     stub_const('ScoreDetectorComparisonCore::CHUNK_SIZE', 2)
     allow(ScoreDetectorComparisonCoreWorker).to receive(:perform_async).and_return('jid')
     allow(OriginalityApi).to receive(:credit_balance).and_return(1_000)
+    allow(ParatraceApi).to receive(:credit_balance).and_return(500)
+    allow(AiDetector.for(paratrace).client).to receive(:inference).and_return(paratrace_response)
     allow(AiDetector.for(pangram).client).to receive(:inference).and_return(pangram_response)
     allow(AiDetector.for(model_5).client).to receive(:inference)
       .and_return(originality_response('model-5.0'))
@@ -61,24 +71,26 @@ describe ScoreDetectorComparisonCore do
       expect(report[pangram][:pending_units]).to eq(4)
       expect(report[model_5_max][:pending_units]).to eq(4)
       expect(report['originality_credit_balance']).to eq(1_000)
+      expect(report['paratrace_credit_balance']).to eq(500)
     end
   end
 
   describe '.start' do
     it 'records the run and queues the first chunk' do
-      status = described_class.start(max_originality_credits: 100)
+      status = described_class.start(max_credits: 100)
 
       expect(ScoreDetectorComparisonCoreWorker)
         .to have_received(:perform_async).with(described_class.run['id'])
-      expect(status).to include('state' => 'running', 'start_balance' => 1_000,
-                                'detectors' => [pangram, model_5, model_5_max],
-                                'max_originality_credits' => 100)
+      expect(status).to include('state' => 'running',
+                                'start_balances' => { 'originality' => 1_000, 'paratrace' => 500 },
+                                'detectors' => [pangram, model_5, model_5_max, paratrace],
+                                'max_credits' => { 'originality' => 100, 'paratrace' => 100 })
       expect(status).not_to have_key('unit_ids')
       expect(described_class.run['unit_ids']).to eq(core_ids.sort)
     end
 
     it 'refuses the production key' do
-      expect { described_class.start(max_originality_credits: 100, detectors: ['Pangram 4']) }
+      expect { described_class.start(max_credits: 100, detectors: ['Pangram 4']) }
         .to raise_error(ArgumentError, /Pangram 4/)
       expect(ScoreDetectorComparisonCoreWorker).not_to have_received(:perform_async)
     end
@@ -86,7 +98,7 @@ describe ScoreDetectorComparisonCore do
 
   describe '.step' do
     it 'scores each detector in turn, a chunk at a time, then finishes' do
-      described_class.start(max_originality_credits: 100)
+      described_class.start(max_credits: 100)
 
       expect(step).to be(true)
       expect(RevisionAiScore.where(check_type: pangram, sample_id: core_ids).count).to eq(2)
@@ -96,9 +108,9 @@ describe ScoreDetectorComparisonCore do
 
       core_ids.each do |id|
         expect(RevisionAiScore.where(sample_id: id).pluck(:check_type))
-          .to include(pangram, model_5, model_5_max)
+          .to include(pangram, model_5, model_5_max, paratrace)
       end
-      expect(described_class.status).to include('state' => 'finished', 'scored' => 12,
+      expect(described_class.status).to include('state' => 'finished', 'scored' => 16,
                                                 'failed' => 0)
       credits = AiDetectionSample.where(id: core_ids).sum { |unit| unit.word_count.fdiv(100).ceil }
       expect(described_class.status['phases'][model_5_max])
@@ -106,7 +118,7 @@ describe ScoreDetectorComparisonCore do
     end
 
     it 'does nothing once the run is no longer running' do
-      described_class.start(max_originality_credits: 100)
+      described_class.start(max_credits: 100)
       described_class.stop
 
       expect(step).to be(false)
@@ -119,7 +131,7 @@ describe ScoreDetectorComparisonCore do
     it 'stops when a vendor answers with another model version' do
       allow(AiDetector.for(pangram).client).to receive(:inference)
         .and_raise(PangramApi::ModelMismatch, 'expected Pangram 4.1 but got "4.2"')
-      described_class.start(max_originality_credits: 100)
+      described_class.start(max_credits: 100)
 
       expect(step).to be(false)
       expect(described_class.status).to include('state' => 'stopped')
@@ -131,7 +143,7 @@ describe ScoreDetectorComparisonCore do
       stub_const('ScoreDetectorComparisonCore::FAILURE_LIMIT', 3)
       allow(AiDetector.for(pangram).client).to receive(:inference)
         .and_raise(PangramApi::TaskTimeout, 'unfinished')
-      described_class.start(max_originality_credits: 100)
+      described_class.start(max_credits: 100)
 
       run_steps
 
@@ -140,23 +152,23 @@ describe ScoreDetectorComparisonCore do
     end
 
     it 'stops when Originality spends more than the cap' do
-      described_class.start(max_originality_credits: 8)
+      described_class.start(max_credits: 8)
       balances = [1_000, 1_000, 995, 989]
-      allow(described_class).to receive(:originality_balance) { balances.shift || 989 }
+      allow(described_class).to receive(:balance).with('originality') { balances.shift || 989 }
 
       run_steps
 
       expect(described_class.status['state']).to eq('stopped')
-      expect(described_class.status['message']).to include('Spent 11 Originality credits')
+      expect(described_class.status['message']).to include('Spent 11 originality credits')
     end
 
     it 'stops when a detector bills well above its estimate' do
       stub_const('ScoreDetectorComparisonCore::BILLING_CHECK_UNITS', 2)
-      described_class.start(max_originality_credits: 1_000,
+      described_class.start(max_credits: 1_000,
                             detectors: [model_5_max])
       # Phase start, then after the first chunk: 2 texts billed 100 credits.
       balances = [1_000, 900]
-      allow(described_class).to receive(:originality_balance) { balances.shift || 900 }
+      allow(described_class).to receive(:balance).with('originality') { balances.shift || 900 }
 
       run_steps
 
@@ -167,21 +179,46 @@ describe ScoreDetectorComparisonCore do
     end
   end
 
+  describe 'credit caps' do
+    it 'takes a cap per vendor' do
+      described_class.start(max_credits: { originality: 100, paratrace: 20 })
+
+      expect(described_class.status['max_credits']).to eq('originality' => 100, 'paratrace' => 20)
+    end
+
+    it 'refuses a hash that leaves out a vendor in the run' do
+      expect { described_class.start(max_credits: { originality: 100 }) }
+        .to raise_error(ArgumentError, /paratrace/)
+    end
+
+    it "stops when one vendor's spending passes its own cap" do
+      described_class.start(max_credits: { originality: 1_000, paratrace: 3 },
+                            detectors: [paratrace])
+      balances = [500, 498, 496]
+      allow(described_class).to receive(:balance).with('paratrace') { balances.shift || 496 }
+
+      run_steps
+
+      expect(described_class.status['message'])
+        .to eq('Spent 4 paratrace credits, over its max_credits')
+    end
+  end
+
   describe 'run control' do
     it 'refuses a second start while a run is live, unless forced' do
-      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      described_class.start(max_credits: 100, detectors: [pangram])
       first = described_class.run['id']
 
-      expect { described_class.start(max_originality_credits: 100, detectors: [pangram]) }
+      expect { described_class.start(max_credits: 100, detectors: [pangram]) }
         .to raise_error(ArgumentError, /a run is running/)
 
-      described_class.start(max_originality_credits: 100, detectors: [pangram], force: true)
+      described_class.start(max_credits: 100, detectors: [pangram], force: true)
       expect(described_class.run['id']).not_to eq(first)
       expect(described_class.step(first)).to be(false) # the replaced run's job exits
     end
 
     it 'keeps a stop requested while a chunk is being scored' do
-      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      described_class.start(max_credits: 100, detectors: [pangram])
       allow(AiDetector.for(pangram).client).to receive(:inference) do
         described_class.stop # from a console, mid-chunk
         pangram_response
@@ -193,7 +230,7 @@ describe ScoreDetectorComparisonCore do
     end
 
     it 'does not save over a run that replaced it mid-chunk' do
-      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      described_class.start(max_credits: 100, detectors: [pangram])
       first = described_class.run['id']
       allow(AiDetector.for(pangram).client).to receive(:inference) do
         described_class.save_run(described_class.run.merge('id' => 'replacement'))
@@ -207,17 +244,18 @@ describe ScoreDetectorComparisonCore do
 
     it 'does not read the Originality balance for a Pangram-only run' do
       expect(OriginalityApi).not_to receive(:credit_balance)
+      expect(ParatraceApi).not_to receive(:credit_balance)
 
-      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      described_class.start(max_credits: 100, detectors: [pangram])
       run_steps
 
-      expect(described_class.status).to include('state' => 'finished', 'start_balance' => nil)
+      expect(described_class.status).to include('state' => 'finished', 'start_balances' => {})
     end
 
     it 'records a run whose first job could not be queued as stopped' do
       allow(ScoreDetectorComparisonCoreWorker).to receive(:perform_async).and_return(nil)
 
-      expect { described_class.start(max_originality_credits: 100, detectors: [pangram]) }
+      expect { described_class.start(max_credits: 100, detectors: [pangram]) }
         .to raise_error(/not queued/)
       expect(described_class.status['state']).to eq('stopped')
     end
@@ -232,14 +270,14 @@ describe ScoreDetectorComparisonCore do
 
         pangram_response
       end
-      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      described_class.start(max_credits: 100, detectors: [pangram])
       run_steps
 
       expect(calls[human.plain_text]).to eq(1)
       expect(described_class.status).to include('state' => 'finished', 'scored' => 3,
                                                 'failed' => 1)
 
-      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      described_class.start(max_credits: 100, detectors: [pangram])
       run_steps
       expect(calls[human.plain_text]).to eq(2)
     end
@@ -252,7 +290,7 @@ describe ScoreDetectorComparisonCore do
 
         pangram_response
       end
-      described_class.start(max_originality_credits: 100, detectors: [pangram])
+      described_class.start(max_credits: 100, detectors: [pangram])
 
       run_steps
 

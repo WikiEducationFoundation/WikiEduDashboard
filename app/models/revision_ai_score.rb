@@ -53,6 +53,7 @@ class RevisionAiScore < ApplicationRecord
   ORIGINALITY_AI_ALLOWANCE_40_KEY = 'Originality AI Allowance 40'
   ORIGINALITY_5_KEY = 'Originality 5.0'
   ORIGINALITY_5_MAX_KEY = 'Originality 5.0 Max'
+  PARATRACE_V10_KEY = 'ParaTrace v10' # Refuses any detector version but v10-ft-g
 
   # check_origin values
   COURSE_UPDATE_ORIGIN = 'course_update' # Production checks that can generate alerts

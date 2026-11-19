@@ -79,7 +79,7 @@ class ScoreDetectorComparisonChunk
 
   def new_phase(detector)
     { 'started_at' => Time.zone.now.iso8601,
-      'start_balance' => (CORE.originality_balance if metered?(detector)),
+      'start_balance' => (CORE.balance(vendor(detector)) if metered?(detector)),
       'scored' => 0, 'failed' => 0, 'failed_ids' => [], 'estimated_credits' => 0 }
   end
 
@@ -110,10 +110,10 @@ class ScoreDetectorComparisonChunk
     end
     return unless metered?(detector)
 
-    balance = CORE.originality_balance
-    spent = @run['start_balance'] - balance
-    if spent > @run['max_originality_credits']
-      return "Spent #{spent} Originality credits, over max_originality_credits"
+    balance = CORE.balance(vendor(detector))
+    spent = @run['start_balances'][vendor(detector)] - balance
+    if spent > @run['max_credits'][vendor(detector)]
+      return "Spent #{spent} #{vendor(detector)} credits, over its max_credits"
     end
 
     billing_reason(detector, phase, balance)
@@ -133,6 +133,10 @@ class ScoreDetectorComparisonChunk
 
   def metered?(detector)
     CORE.metered?(detector.key)
+  end
+
+  def vendor(detector)
+    detector.vendor.name.to_s
   end
 
   # Records why the run ended, unless another run has replaced it.

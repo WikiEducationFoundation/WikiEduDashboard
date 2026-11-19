@@ -2,9 +2,11 @@
 
 require_dependency "#{Rails.root}/lib/pangram_api"
 require_dependency "#{Rails.root}/lib/originality_api"
+require_dependency "#{Rails.root}/lib/paratrace_api"
 require_dependency "#{Rails.root}/lib/ai/pangram_response_parser"
 require_dependency "#{Rails.root}/lib/ai/originality_response_parser"
 require_dependency "#{Rails.root}/lib/ai/originality_5_response_parser"
+require_dependency "#{Rails.root}/lib/ai/paratrace_response_parser"
 
 # Registry of the AI text detectors the Dashboard can call, keyed by the
 # RevisionAiScore#check_type their results are stored under. Each entry pairs
@@ -46,6 +48,17 @@ class AiDetector
                            errors: [OriginalityApi::Error],
                            model_mismatch_errors: [OriginalityApi::ModelMismatch]).freeze
 
+  # A credit covers ParatraceApi::TOKENS_PER_CREDIT tokens per text, minimum one.
+  PARATRACE_CREDITS = lambda do |word_counts|
+    per_credit = ParatraceApi::TOKENS_PER_CREDIT / ParatraceApi::TOKENS_PER_WORD
+    word_counts.sum { |words| [words.fdiv(per_credit).ceil, 1].max }
+  end
+  PARATRACE = Vendor.new(name: :paratrace, partial: 'ai_tools/paratrace',
+                         credit_estimator: PARATRACE_CREDITS,
+                         balance_reader: -> { ParatraceApi.credit_balance },
+                         errors: [ParatraceApi::Error],
+                         model_mismatch_errors: [ParatraceApi::ModelMismatch]).freeze
+
   # credit_estimator here overrides the vendor's for one detector. A detector
   # that is not selectable is called only by code that names it (production
   # alerting); the admin AI tools page and comparison scoring do not offer it.
@@ -55,6 +68,11 @@ class AiDetector
   def self.pangram(builder, selectable: true)
     Definition.new(vendor: PANGRAM, parser_class: PangramResponseParser, client_builder: builder,
                    selectable:)
+  end
+
+  def self.paratrace(builder)
+    Definition.new(vendor: PARATRACE, parser_class: ParatraceResponseParser,
+                   client_builder: builder, selectable: true)
   end
 
   def self.originality(builder, credit_estimator: nil)
@@ -67,7 +85,8 @@ class AiDetector
     RevisionAiScore::PANGRAM_V4_KEY => pangram(-> { PangramApi.v4 }, selectable: false),
     RevisionAiScore::PANGRAM_V4_1_KEY => pangram(-> { PangramApi.v4(expected_version: '4.1') }),
     RevisionAiScore::ORIGINALITY_5_KEY => originality(-> { OriginalityApi.model_5 }),
-    RevisionAiScore::ORIGINALITY_5_MAX_KEY => originality(-> { OriginalityApi.model_5_max })
+    RevisionAiScore::ORIGINALITY_5_MAX_KEY => originality(-> { OriginalityApi.model_5_max }),
+    RevisionAiScore::PARATRACE_V10_KEY => paratrace(-> { ParatraceApi.v10 })
   }.freeze
 
   # Detectors offered on the admin AI tools page and for comparison scoring.
@@ -121,6 +140,7 @@ class AiDetector
   def self.parser_class_for(check_type)
     return REGISTRY[check_type].parser_class if registered?(check_type)
     return PangramResponseParser if check_type.to_s.start_with?('Pangram')
+    return ParatraceResponseParser if check_type.to_s.start_with?('ParaTrace')
 
     OriginalityResponseParser if check_type.to_s.start_with?('Originality')
   end

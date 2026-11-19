@@ -182,6 +182,9 @@
 # Originality.ai API key
   originality_api_key: 'example_api_key'
 
+# ParaTrace API key (detector comparison and the admin AI tools page)
+  paratrace_api_key: 'example_api_key'
+
 # Article Audit (admin-only LLM article review). The pages are hidden unless
 # article_audit_enabled is 'true'; the LLM checks call the Claude API.
 # article_audit_enabled: 'true'
