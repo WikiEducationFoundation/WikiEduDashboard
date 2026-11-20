@@ -59,13 +59,23 @@ class CourseUserWikiTimeslice < ApplicationRecord
     cu_timeslice.update_cache_from_revisions revisions[:revisions]
   end
 
-  def self.update_from_acuwt(course, user_id, wiki, start, finish)
+  # Loads the ACUWT records and existing timeslices for all users at once,
+  # rather than querying per user.
+  def self.update_from_acuwt(course, user_ids, wiki, start, finish)
+    return if user_ids.empty?
     acuwt_records = ArticleCourseUserWikiTimeslice
-                      .where(course:, user_id:, wiki:, start:, end: finish)
+                      .where(course:, user_id: user_ids, wiki:, start:, end: finish)
     acuwt_records = acuwt_records.where(article_id: course.scoped_article_ids) if
       course.only_scoped_articles_course?
-    cu_timeslice = find_or_create_by(course:, user_id:, wiki:, start:, end: finish)
-    cu_timeslice.update_cache_from_acuwt(acuwt_records)
+    records_by_user = acuwt_records.group_by(&:user_id)
+    timeslices_by_user = where(course:, user_id: user_ids, wiki:, start:, end: finish)
+                         .index_by(&:user_id)
+    excluded_article_ids = course.articles_courses.not_tracked.pluck(:article_id)
+    user_ids.each do |user_id|
+      cu_timeslice = timeslices_by_user[user_id] ||
+                     create(course:, user_id:, wiki:, start:, end: finish)
+      cu_timeslice.update_cache_from_acuwt(records_by_user[user_id] || [], excluded_article_ids)
+    end
   end
 
   ####################
@@ -85,9 +95,8 @@ class CourseUserWikiTimeslice < ApplicationRecord
     save
   end
 
-  def update_cache_from_acuwt(acuwt_records)
+  def update_cache_from_acuwt(acuwt_records, excluded_article_ids)
     records = acuwt_records.to_a
-    excluded_article_ids = course.articles_courses.not_tracked.pluck(:article_id)
     tracked_records = records.reject { |r| excluded_article_ids.include?(r.article_id) }
     by_ns = records_by_namespace(tracked_records)
     update_character_sum_from_acuwt(by_ns, mainspace_records_in_tracked_namespaces(by_ns))

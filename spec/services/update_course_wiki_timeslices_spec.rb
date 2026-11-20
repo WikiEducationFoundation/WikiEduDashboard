@@ -514,7 +514,7 @@ describe UpdateCourseWikiTimeslices do
 
       it 'calls CourseUserWikiTimeslice.update_from_acuwt for users in revised timeslices' do
         expect(CourseUserWikiTimeslice).to receive(:update_from_acuwt)
-          .with(course, user.id, enwiki, anything, anything).at_least(:once)
+          .with(course, [user.id], enwiki, anything, anything).at_least(:once)
         subject
       end
 

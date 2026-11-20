@@ -247,7 +247,7 @@ describe CourseUserWikiTimeslice, type: :model do
 
     it 'creates a course user wiki timeslice aggregated from ACUWT' do
       expect(described_class.find_by(course:, wiki:, user:, start:)).to be_nil
-      described_class.update_from_acuwt(course, user.id, wiki, start, start + 1.day)
+      described_class.update_from_acuwt(course, [user.id], wiki, start, start + 1.day)
       cuwt = described_class.find_by(course:, wiki:, user:, start:)
       expect(cuwt.revision_count).to eq(3)
       expect(cuwt.character_sum_ms).to eq(100)
@@ -257,9 +257,46 @@ describe CourseUserWikiTimeslice, type: :model do
 
     it 'updates an existing course user wiki timeslice' do
       create(:course_user_wiki_timeslice, course:, user:, wiki:, start:, end: start + 1.day)
-      described_class.update_from_acuwt(course, user.id, wiki, start, start + 1.day)
+      described_class.update_from_acuwt(course, [user.id], wiki, start, start + 1.day)
       expect(described_class.where(course:, user:, wiki:).count).to eq(1)
       expect(described_class.find_by(course:, user:, wiki:, start:).revision_count).to eq(3)
+    end
+
+    context 'with several users' do
+      let(:second_user) { create(:user, username: 'Second') }
+      let(:third_user) { create(:user, username: 'Third') }
+      let(:user_ids) { [user.id, second_user.id, third_user.id] }
+
+      before do
+        create(:article_course_user_wiki_timeslice, course:, article:, wiki:, user: second_user,
+               start:, end: start + 1.day, revision_count: 4, character_sum: 20)
+        create(:course_user_wiki_timeslice, course:, user: third_user, wiki:, start:,
+               end: start + 1.day, revision_count: 7)
+      end
+
+      def queries_matching(pattern)
+        statements = []
+        callback = ->(event) { statements << event.payload[:sql] }
+        ActiveSupport::Notifications.subscribed(callback, 'sql.active_record') do
+          described_class.update_from_acuwt(course, user_ids, wiki, start, start + 1.day)
+        end
+        statements.grep(pattern).count
+      end
+
+      it 'updates a timeslice for each user' do
+        described_class.update_from_acuwt(course, user_ids, wiki, start, start + 1.day)
+        expect(described_class.find_by(user:, start:).revision_count).to eq(3)
+        expect(described_class.find_by(user: second_user, start:).revision_count).to eq(4)
+        # third_user has no ACUWT records, so the existing timeslice is reset
+        expect(described_class.find_by(user: third_user, start:).revision_count).to eq(0)
+      end
+
+      it 'loads ACUWT records and existing timeslices once, not once per user' do
+        expect(queries_matching(/SELECT .* FROM `article_course_user_wiki_timeslices`/))
+          .to eq(1)
+        expect(queries_matching(/SELECT .* FROM `course_user_wiki_timeslices`/)).to eq(1)
+        expect(queries_matching(/FROM `articles_courses`.*`tracked`/)).to eq(1)
+      end
     end
 
     context 'when course is article-scoped' do
@@ -276,7 +313,7 @@ describe CourseUserWikiTimeslice, type: :model do
       end
 
       it 'excludes out-of-scope articles' do
-        described_class.update_from_acuwt(course, user.id, wiki, start, start + 1.day)
+        described_class.update_from_acuwt(course, [user.id], wiki, start, start + 1.day)
         cuwt = described_class.find_by(course:, wiki:, user:, start:)
         # Only `article` (mainspace) is in scoped_article_ids.
         # `sandbox` (userspace, no assignment) and `unscoped_article` are excluded.
@@ -327,7 +364,7 @@ describe CourseUserWikiTimeslice, type: :model do
           # Default path: all three revisions pass (scoped: true, none deleted) → 3
           expect(cuwt.revision_count).to eq(3)
 
-          described_class.update_from_acuwt(course, user.id, wiki, start, start + 1.day)
+          described_class.update_from_acuwt(course, [user.id], wiki, start, start + 1.day)
           # Category#article_ids(namespace: 0) → talk_page.id excluded from scoped_article_ids
           # → only article ACUWT (revision_count: 2) contributes → 2
           expect(described_class.find_by(course:, wiki:, user:, start:).revision_count).to eq(2)
@@ -356,9 +393,10 @@ describe CourseUserWikiTimeslice, type: :model do
     let(:acuwt_records) do
       ArticleCourseUserWikiTimeslice.where(course:, user:, wiki:, start:, end: start + 1.day)
     end
+    let(:excluded_article_ids) { course.articles_courses.not_tracked.pluck(:article_id) }
 
     it 'updates cache correctly respecting namespaces' do
-      cu_timeslice.update_cache_from_acuwt(acuwt_records)
+      cu_timeslice.update_cache_from_acuwt(acuwt_records, excluded_article_ids)
       expect(cu_timeslice.character_sum_ms).to eq(100)
       expect(cu_timeslice.character_sum_us).to eq(50)
       expect(cu_timeslice.character_sum_draft).to eq(225)
@@ -368,7 +406,7 @@ describe CourseUserWikiTimeslice, type: :model do
 
     it 'excludes revisions for not-tracked articles' do
       ArticlesCourses.find_by(article:, course:).update(tracked: false)
-      cu_timeslice.update_cache_from_acuwt(acuwt_records)
+      cu_timeslice.update_cache_from_acuwt(acuwt_records, excluded_article_ids)
       expect(cu_timeslice.character_sum_ms).to eq(0)
       expect(cu_timeslice.character_sum_us).to eq(50)
       expect(cu_timeslice.character_sum_draft).to eq(225)
@@ -394,14 +432,14 @@ describe CourseUserWikiTimeslice, type: :model do
       end
 
       it 'excludes mainspace articles from character_sum_ms and references_count' do
-        cu_timeslice.update_cache_from_acuwt(acuwt_records)
+        cu_timeslice.update_cache_from_acuwt(acuwt_records, excluded_article_ids)
         expect(cu_timeslice.character_sum_ms).to eq(100)
         expect(cu_timeslice.references_count).to eq(3)
       end
 
       # Matches the legacy path, which doesn't filter draft characters by namespace.
       it 'still includes draft articles in character_sum_draft' do
-        cu_timeslice.update_cache_from_acuwt(acuwt_records)
+        cu_timeslice.update_cache_from_acuwt(acuwt_records, excluded_article_ids)
         expect(cu_timeslice.character_sum_draft).to eq(225 + 812)
       end
     end
