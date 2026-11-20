@@ -67,6 +67,8 @@ class TimesliceManager
   rescue NoMethodError => e # Log the error if the timeslice doesn't exist, as it's not expected
     Sentry.capture_exception e, extra: { course_id: @course.id, wiki_id: wiki.id,
                                           datetime: }
+    # capture_exception returns the Sentry event; callers expect a time or nil.
+    nil
   end
 
   # Given an array of revision data per wiki, it updates the last_mw_rev_datetime field
