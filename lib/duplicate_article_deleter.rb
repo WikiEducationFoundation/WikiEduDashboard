@@ -39,11 +39,13 @@ class DuplicateArticleDeleter
 
   # These resets are hard to reproduce (they depend on on-wiki events happening
   # in the middle of course updates), so we log them to learn how frequent they are.
+  # Rails.logger, not Sentry: this is routine, not an error, and doesn't need to
+  # count against the Sentry quota.
   def log_reset(course, article_ids)
-    Sentry.capture_message 'Article retracked',
-                           level: 'info',
-                           extra: { course_slug: course.slug, course_id: course.id,
-                                    reason: 'duplicate_article_deleted', article_ids: }
+    Rails.logger.info(
+      "Article retracked: course_id=#{course.id} course_slug=#{course.slug} " \
+      "reason=duplicate_article_deleted article_ids=#{article_ids}"
+    )
   end
 
   def articles_grouped_by_title_and_namespace(articles)

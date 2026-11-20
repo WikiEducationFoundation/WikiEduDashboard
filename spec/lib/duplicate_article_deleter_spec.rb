@@ -99,18 +99,16 @@ describe DuplicateArticleDeleter do
       described_class.new.resolve_duplicates_for_timeslices([new_article, extant_article])
     end
 
-    it 'logs the reset to Sentry for each course involved' do
+    it 'logs the reset for each course involved' do
       course = create(:course)
       create(:articles_course, course_id: course.id, article_id: duplicate_article.id)
-      allow(Sentry).to receive(:capture_message)
+      allow(Rails.logger).to receive(:info)
 
       described_class.new.resolve_duplicates_for_timeslices([new_article])
 
-      expect(Sentry).to have_received(:capture_message)
-        .with('Article retracked', level: 'info',
-              extra: { course_slug: course.slug, course_id: course.id,
-                       reason: 'duplicate_article_deleted',
-                       article_ids: [duplicate_article.id] })
+      expect(Rails.logger).to have_received(:info)
+        .with("Article retracked: course_id=#{course.id} course_slug=#{course.slug} " \
+              "reason=duplicate_article_deleted article_ids=#{[duplicate_article.id]}")
     end
   end
 end

@@ -203,19 +203,21 @@ class ArticleStatusManager
 
   # These scenarios are hard to reproduce (they depend on on-wiki events happening
   # in the middle of course updates), so we log them to learn how frequent they are.
+  # Rails.logger, not Sentry: this is routine, not an error, and doesn't need to
+  # count against the Sentry quota.
   def log_reset(article)
-    Sentry.capture_message 'Article retracked',
-                           level: 'info',
-                           extra: { course_slug: @course.slug, course_id: @course.id,
-                                    reason: 'undeleted_duplicate', article_ids: [article.id] }
+    Rails.logger.info(
+      "Article retracked: course_id=#{@course.id} course_slug=#{@course.slug} " \
+      "reason=undeleted_duplicate article_ids=#{[article.id]}"
+    )
   end
 
   def log_namespace_change(article, old_namespace)
-    Sentry.capture_message 'Article namespace changed',
-                           level: 'info',
-                           extra: { course_slug: @course.slug, course_id: @course.id,
-                                    article_id: article.id, old_namespace:,
-                                    new_namespace: article.namespace }
+    Rails.logger.info(
+      "Article namespace changed: level=info course_id=#{@course.id} article_id=#{article.id} " \
+      "course_slug=#{@course.slug} old_namespace=#{old_namespace} " \
+      "new_namespace=#{article.namespace}"
+    )
   end
 
   def data_matches_article?(article_data, article)

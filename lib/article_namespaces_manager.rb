@@ -110,12 +110,14 @@ class ArticleNamespacesManager
 
   # This scenario is hard to reproduce (it requires an article to move namespaces
   # in the middle of course updates), so we log it to learn how frequent it is.
+  # Rails.logger, not Sentry: this is routine, not an error, and doesn't need to
+  # count against the Sentry quota.
   def log_reset(message, reason, article_ids)
     return if article_ids.empty?
-    Sentry.capture_message message,
-                           level: 'info',
-                           extra: { course_slug: @course.slug, course_id: @course.id,
-                                    reason:, article_ids: }
+    Rails.logger.info(
+      "#{message}: course_id=#{@course.id} course_slug=#{@course.slug} " \
+      "reason=#{reason} article_ids=#{article_ids}"
+    )
   end
 
   def articles_in_tracked_namespaces(article_batch)
