@@ -61,7 +61,9 @@ class AssignmentManager
     else
       set_clean_title
       check_max_group_size
-      claimed_assignment.update(user_id: @user_id)
+      # Reset the sandbox url so it gets set for the claiming user, in case an
+      # earlier claimant's url was left behind when they unclaimed it.
+      claimed_assignment.update(user_id: @user_id, sandbox_url: nil)
       claimed_assignment
     end
   end

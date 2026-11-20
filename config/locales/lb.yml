@@ -67,10 +67,29 @@ lb:
     change: Änneren
     details: Detailer
     confirm: OK
+    confirm_generic: Sidd Dir sécher, datt Dir dat maache wëllt?
     opt_yes: jo
     opt_no: nee
     print: Drécken
     sort: Sortéieren
+  article_audit:
+    url_label: Artikel-URL
+    article: Artikel
+    wiki: Wiki
+    status: Status
+    duration: Dauer
+    version: Versioun
+    error: Feeler
+    whole_article: Ganzen Artikel
+    tabs:
+      article: Artikel
+      details: Detailer
+    statuses:
+      partial: Partiell
+    categories:
+      infobox: Infobox
+      links: Linken
+      new_article: Neien Artikel
   article_statuses:
     not_yet_started: Fir unzefänken
     in_progress: An enger Sandkaul schaffen

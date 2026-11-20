@@ -5,33 +5,22 @@ require "#{Rails.root}/lib/originality_api"
 
 describe OriginalityApi do
   let(:text) { (['Enough words to clear the minimum length.'] * 10).join(' ') }
-  # Shape recorded from the live API on 2026-09-03, with the text fields shortened.
-  let(:classic_result) do
+  # Shape recorded from the live API on 2026-11-17, with the text fields shortened.
+  let(:model_5_result) do
     { 'results' => {
-      'properties' => { 'id' => 'x3vze1buqfni7ogk', 'title' => 'API Scan',
-                        'publicLink' => 'https://app.originality.ai/share/x3vze1buqfni7ogk',
+      'properties' => { 'id' => 't6i9x3cn8zwrs7p4', 'title' => 'Wiki Education Dashboard',
+                        'publicLink' => 'https://app.originality.ai/share/t6i9x3cn8zwrs7p4',
                         'content' => text, 'formattedContent' => text },
-      'credits' => { 'used' => 1 },
-      'ai' => { 'aiModel' => 'turbo',
-                'classification' => { 'AI' => 1, 'Original' => 0 },
-                'confidence' => { 'AI' => 0.9989, 'Original' => 0.0011 },
-                'blocks' => [{ 'text' => 'first block',
-                               'result' => { 'fake' => 0.9994, 'real' => 0.0006,
-                                             'status' => 'success' } }] },
+      'credits' => { 'used' => 4 },
+      'ai' => { 'model' => 'model-5.0', 'prediction_label' => 'mixed',
+                'ai_assisted_percent' => 60,
+                'sentences' => [{ 'start_index' => 0, 'end_index' => 232, 'text' => 'first',
+                                  'ai_score' => 0.303 },
+                                { 'start_index' => 232, 'end_index' => 400, 'text' => 'second',
+                                  'ai_score' => 1 }] },
       'plagiarism' => { 'error' => 'not selected' },
       'aiAllowance' => { 'error' => 'not selected' }
     } }
-  end
-  let(:allowance_result) do
-    classic_result.deep_merge(
-      'results' => {
-        'credits' => { 'used' => 2 },
-        'ai' => { 'aiModel' => 'allowance-40%' },
-        'aiAllowance' => { '40' => { 'confidence' => { 'AI' => 0.0299, 'Original' => 0.9701 },
-                                     'blocks' => [{ 'text' => 'first block',
-                                                    'result' => { 'fake' => 0.448 } }] } }
-      }
-    ).tap { |result| result['results']['aiAllowance'].delete('error') }
   end
 
   before do
@@ -39,62 +28,41 @@ describe OriginalityApi do
     allow(ENV).to receive(:[]).with('originality_api_key').and_return('test-key')
   end
 
-  describe 'classic models' do
-    it 'posts the text with the model version and returns the parsed result' do
+  describe '5.0 models' do
+    it 'posts the text with the model version and a title, and returns the parsed result' do
       stub = stub_request(:post, OriginalityApi::API_URL)
-             .with(body: hash_including('aiModelVersion' => 'turbo', 'check_ai' => true,
+             .with(body: hash_including('aiModelVersion' => 'model-5.0', 'check_ai' => true,
+                                        'title' => 'Wiki Education Dashboard',
                                         'content' => text),
                    headers: { 'X-OAI-API-KEY' => 'test-key' })
-             .to_return(status: 200, body: classic_result.to_json)
+             .to_return(status: 200, body: model_5_result.to_json)
 
-      api = described_class.turbo
+      api = described_class.model_5
       result = api.inference(text)
 
       expect(stub).to have_been_requested
-      expect(result).to eq(classic_result)
-      expect(api.result).to eq(classic_result)
+      expect(result).to eq(model_5_result)
+      expect(api.result).to eq(model_5_result)
     end
 
-    it 'does not request an AI allowance check' do
+    it 'selects 5.0 Max by its own identifier' do
+      max_result = model_5_result.deep_merge(
+        'results' => { 'ai' => { 'model' => 'model-5.0-max' } }
+      )
       stub = stub_request(:post, OriginalityApi::API_URL)
-             .with { |req| !JSON.parse(req.body).key?('check_ai_allowance') }
-             .to_return(status: 200, body: classic_result.to_json)
+             .with(body: hash_including('aiModelVersion' => 'model-5.0-max'))
+             .to_return(status: 200, body: max_result.to_json)
 
-      described_class.turbo.inference(text)
+      described_class.model_5_max.inference(text)
 
       expect(stub).to have_been_requested
-    end
-
-    it 'exposes the current classic model identifiers' do
-      expect(described_class.lite_102.expected_model).to eq('lite-102')
-      expect(described_class.academic.expected_model).to eq('academic')
-    end
-  end
-
-  describe '.ai_allowance' do
-    it 'requests the allowance check at the given threshold instead of a model version' do
-      stub = stub_request(:post, OriginalityApi::API_URL)
-             .with { |req| body = JSON.parse(req.body)
-                           body['check_ai_allowance'] == true &&
-                             body['ai_allowance_threshold'] == 40 &&
-                             body['check_ai'] == true &&
-                             !body.key?('aiModelVersion') }
-             .to_return(status: 200, body: allowance_result.to_json)
-
-      result = described_class.ai_allowance(threshold: 40).inference(text)
-
-      expect(stub).to have_been_requested
-      expect(result['results']['aiAllowance']['40']['confidence']['AI']).to eq(0.0299)
-    end
-
-    it 'rejects thresholds Originality does not offer' do
-      expect { described_class.ai_allowance(threshold: 30) }.to raise_error(ArgumentError)
+      expect(described_class.model_5_max.expected_model).to eq('model-5.0-max')
     end
   end
 
   describe 'error handling' do
     it 'refuses to send fewer than 50 words' do
-      expect { described_class.turbo.inference('too short') }
+      expect { described_class.model_5.inference('too short') }
         .to raise_error(OriginalityApi::TextTooShort)
       expect(a_request(:post, OriginalityApi::API_URL)).not_to have_been_made
     end
@@ -103,7 +71,7 @@ describe OriginalityApi do
       stub_request(:post, OriginalityApi::API_URL)
         .to_return(status: 401, body: { error: 'Invalid API Key' }.to_json)
 
-      expect { described_class.turbo.inference(text) }
+      expect { described_class.model_5.inference(text) }
         .to raise_error(OriginalityApi::RequestError) do |e|
           expect(e.status).to eq(401)
           expect(e.message).to include('Invalid API Key')
@@ -114,24 +82,25 @@ describe OriginalityApi do
       stub_request(:post, OriginalityApi::API_URL)
         .to_return(status: 200, body: { error: true, message: 'A minimum of 50 words' }.to_json)
 
-      expect { described_class.turbo.inference(text) }
+      expect { described_class.model_5.inference(text) }
         .to raise_error(OriginalityApi::RequestError, /minimum of 50 words/)
     end
 
-    it 'raises ModelMismatch when the API silently ran a different model' do
-      fallback = classic_result.deep_merge('results' => { 'ai' => { 'aiModel' => 'lite-102' } })
-      stub_request(:post, OriginalityApi::API_URL).to_return(status: 200, body: fallback.to_json)
+    it 'treats a result without a model as a failed call, not a model change' do
+      broken = model_5_result.deep_merge('results' => { 'ai' => { 'error' => 'scan failed' } })
+      broken['results']['ai'].delete('model')
+      stub_request(:post, OriginalityApi::API_URL).to_return(status: 200, body: broken.to_json)
 
-      expect { described_class.turbo.inference(text) }
-        .to raise_error(OriginalityApi::ModelMismatch, /requested turbo.*lite-102/)
+      expect { described_class.model_5.inference(text) }
+        .to raise_error(OriginalityApi::RequestError, /HTTP 200/)
     end
 
-    it 'raises ModelMismatch when an allowance scan comes back as a classic model' do
-      stub_request(:post, OriginalityApi::API_URL)
-        .to_return(status: 200, body: classic_result.to_json)
+    it 'raises ModelMismatch when the API silently ran a different model' do
+      fallback = model_5_result.deep_merge('results' => { 'ai' => { 'model' => 'model-5.0' } })
+      stub_request(:post, OriginalityApi::API_URL).to_return(status: 200, body: fallback.to_json)
 
-      expect { described_class.ai_allowance(threshold: 15).inference(text) }
-        .to raise_error(OriginalityApi::ModelMismatch, /allowance-15%/)
+      expect { described_class.model_5_max.inference(text) }
+        .to raise_error(OriginalityApi::ModelMismatch, /requested model-5.0-max.*"model-5.0"/)
     end
   end
 

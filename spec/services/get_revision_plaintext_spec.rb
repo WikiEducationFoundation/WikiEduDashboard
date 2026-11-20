@@ -63,6 +63,12 @@ describe GetRevisionPlaintext do
       expect(service.plain_text).not_to include('Example caption')
     end
 
+    it 'returns HTML entities as the characters a reader sees' do
+      stub_revision_html('<p>Tone &amp; Balance: 3 &lt; 4, &quot;quoted&quot;, caf&#233;.</p>')
+      service = described_class.new(12345, en_wiki, diff_mode: false)
+      expect(service.plain_text).to eq('Tone & Balance: 3 < 4, "quoted", café.')
+    end
+
     it 'excludes inline images' do
       stub_revision_html(<<~HTML)
         <p>Text before <a href="/wiki/File:Icon.png" class="image"><img src="icon.png" /></a> text after.</p>
@@ -83,6 +89,32 @@ describe GetRevisionPlaintext do
       HTML
       service = described_class.new(12345, en_wiki, diff_mode: false)
       expect(service.plain_text).to eq('Article prose.')
+    end
+
+    it 'excludes the talk page section metadata that DiscussionTools adds' do
+      stub_revision_html(<<~HTML)
+        <div class="mw-heading mw-heading2 ext-discussiontools-init-section"><h2>Feedback</h2>
+          <div class="ext-discussiontools-init-section-bar">
+            <div class="ext-discussiontools-init-section-metadata">
+              <span class="ext-discussiontools-init-section-metaitem">Latest comment: 15 days ago</span>
+              <span class="ext-discussiontools-init-section-metaitem">1 comment</span>
+            </div>
+          </div></div>
+        <p>Your draft has a good foundation.</p>
+      HTML
+      service = described_class.new(12345, en_wiki, diff_mode: false)
+      expect(service.plain_text).not_to include('Latest comment')
+      expect(service.plain_text).to include('Your draft has a good foundation.')
+    end
+
+    it 'excludes bibliography entries and exercise template instructions' do
+      stub_revision_html(<<~HTML)
+        <p>Which article are you evaluating?</p>
+        <ul><li>Perry, J. L. (1996). Measuring Public Service Motivation. Public Admin, 6(1).</li></ul>
+        <p>The article covers the theory but not its critics.</p>
+      HTML
+      service = described_class.new(12345, en_wiki, diff_mode: false)
+      expect(service.plain_text).to eq('The article covers the theory but not its critics.')
     end
 
     it 'preserves normal prose' do

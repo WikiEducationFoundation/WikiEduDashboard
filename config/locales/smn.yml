@@ -34,6 +34,8 @@ smn:
     sign_up_log_in_extended: Wikipediain
     confirm: OK
     print: Printtii
+  article_audit:
+    loading: Luođiimin…
   home:
     log_in: Čáládât siisâ Wikipedia peht
   system_stats:
@@ -52,6 +54,7 @@ smn:
     hide: Čievâ
     history: (historjá)
     label: Artikkâleh
+    loading: Luođiimin artikkâlijd...
     new: (uđđâ artikkâl)
     see_more: Lasetiäđuh
     title_example: Artikkâl nommâ
@@ -148,6 +151,10 @@ smn:
     previous: < Oovdeb
     kind:
       discussion: Savâstâllâm
+    loading: Luođiimin…
+  claim_verification:
+    admin:
+      loading: Luođiimin…
   update_username:
     label: Uđđâ kevtteenommâ
   uploads:
@@ -157,6 +164,7 @@ smn:
   users:
     first_name: Ovdânommâ
     last_name: Suhânommâ
+    loading: Luođiimin kevtteid...
     name: Nommâ
     recent_revisions: Vorâs nubástusah
     username: Kevtteenommâ
@@ -172,4 +180,8 @@ smn:
     view: Čääiti
   tagged_courses:
     download_csv: Luođii CSV-tiätuvuárhá
+  lti:
+    assignment_view:
+      sandbox_preview:
+        loading: …
 ...

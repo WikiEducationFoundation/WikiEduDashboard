@@ -207,7 +207,9 @@ with a few example events with editing activity.
 
 
 2. **Import revision and upload data**
-  - Start Sidekiq, or run updates via rails console.
+  - Start Sidekiq in a separate terminal:
+    - $ `bundle exec sidekiq`
+  - Alternatively, run updates manually via the rails console.
 
 ## Develop
 1. **Start Redis** (if not already running as daemon)
@@ -222,7 +224,17 @@ with a few example events with editing activity.
 
       $ `redis-server /usr/local/etc/redis.conf`
 
-2. **Start the server**
+2. **Start Sidekiq** (background worker queue)
+    - Sidekiq processes asynchronous background jobs such as course data updates, revision imports, and Wikipedia edits. Without it, courses will not automatically pull revision statistics from Wikipedia.
+
+      In a separate terminal window, start Sidekiq:
+
+      $ `bundle exec sidekiq`
+
+      - **Web Dashboard:** Monitor queues, retries, and active jobs at [http://localhost:3000/sidekiq](http://localhost:3000/sidekiq).
+      - **Configuration & Schedules:** Queue configurations are defined in `config/sidekiq.yml`, and recurring scheduled jobs run via `sidekiq-cron` (defined in `config/schedule.yml`).
+
+3. **Start the server**
 
     - OSX/Debian: Use guard. This tool starts the rails development server (on localhost:3000).
     It also watches the files, and will automatically restart the server when rails files are
@@ -234,17 +246,17 @@ with a few example events with editing activity.
 
       $ `rails s`
 
-3. **Compile assets**
+4. **Compile assets**
 
     The `yarn start` command will build the project's javascripts and stylesheets(in lieu of the rails asset pipeline), and watch the assets directory, recompiling after changes to javascript, jsx and stylesheet files. Using `yarn build` instead will generate the minified production version of assets.
 
     You can also use `yarn hot` to enable HMR. [See more](#hot-module-replacement).
 
-4. The frontend is now visible at http://localhost:3000/
+5. The frontend is now visible at http://localhost:3000/
 
-5. Sign in and visit http://localhost:3000/campaigns to create a campaign.
+6. Sign in and visit http://localhost:3000/campaigns to create a campaign.
 
-6. To set up test users and data, see [User Roles](user_roles.md)
+7. To set up test users and data, see [User Roles](user_roles.md)
 
 ## Design
 

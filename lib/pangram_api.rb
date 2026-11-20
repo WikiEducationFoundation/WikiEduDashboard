@@ -23,26 +23,26 @@ class PangramApi
   # The asynchronous task did not finish within TASK_TIMEOUT.
   class TaskTimeout < Error; end
 
+  # The API answered with a different model version than the client was pinned to.
+  # pangram-4 has changed version without notice (4.0 to 4.1 on 2026-10-19), so a
+  # pinned client refuses the result rather than store it under the wrong key.
+  class ModelMismatch < Error; end
+
   attr_reader :result
 
-  # Pangram version 2 got deprecated on 1st, April, 2026
-  # V2_API_URL = 'https://text-extended.api.pangram.com'
-
-  # Pangram 3 answers synchronously. It is scheduled for shutdown on 30 September 2026.
-  V3_API_URL = 'https://text.api.pangram.com/v3'
-  def self.v3
-    new(api_url: V3_API_URL, options: { public_dashboard_link: true })
-  end
+  # Pangram 2 was deprecated on 1 April 2026 and Pangram 3 (synchronous,
+  # https://text.api.pangram.com/v3) shut down on 30 September 2026.
 
   # Pangram 4 is only served through the asynchronous task endpoint:
   # POST /task returns a task_id, then GET /task/{task_id} is polled until
   # the stage is terminal. Results typically arrive within a few seconds.
+  # pangram-4 cannot be pinned to a version; pass expected_version to refuse
+  # results from any other one.
   V4_API_URL = 'https://text.external-api.pangram.com/task'
   V4_MODEL = 'pangram-4'
-  def self.v4
-    new(api_url: V4_API_URL,
-        options: { public_dashboard_link: true, model: V4_MODEL },
-        async: true)
+  def self.v4(expected_version: nil)
+    new(api_url: V4_API_URL, options: { public_dashboard_link: true, model: V4_MODEL },
+        expected_version:)
   end
 
   OPEN_TIMEOUT = 5 # seconds to establish a connection
@@ -52,17 +52,26 @@ class PangramApi
   SUCCESS_STAGE = 'STAGE_SUCCESS'
   FAILED_STAGE = 'STAGE_FAILED'
 
-  def initialize(api_url:, options:, async: false)
+  attr_reader :expected_version
+
+  def initialize(api_url:, options:, expected_version: nil)
     @options = options
     @api_url = api_url
-    @async = async
+    @expected_version = expected_version
     @api_key = ENV['pangram_api_key']
   end
 
   # Returns the parsed inference result hash. Raises a PangramApi::Error subclass
-  # when the API refuses the request or the task fails or times out.
+  # when the API refuses the request, the task fails or times out, or the result
+  # comes from a version other than expected_version.
+  # One client is shared by every thread of a process (AiDetector memoizes it), so
+  # the result is kept in a local variable; @result is only a convenience for
+  # single-threaded callers.
   def inference(text)
-    @result = @async ? async_inference(text) : sync_inference(text)
+    task_id = parse_response(post_text(text))['task_id']
+    result = poll_task(task_id)
+    verify_version!(result)
+    @result = result
   end
 
   private
@@ -75,15 +84,6 @@ class PangramApi
                  'User-Agent' => "#{ENV['dashboard_url']} #{Rails.env}" },
       request: { open_timeout: OPEN_TIMEOUT, timeout: REQUEST_TIMEOUT }
     )
-  end
-
-  def sync_inference(text)
-    parse_response(post_text(text))
-  end
-
-  def async_inference(text)
-    task_id = parse_response(post_text(text))['task_id']
-    poll_task(task_id)
   end
 
   def post_text(text)
@@ -115,6 +115,13 @@ class PangramApi
     raise RequestError.new(response.status, response.body) unless response.success?
 
     JSON.parse(response.body)
+  end
+
+  def verify_version!(result)
+    return if @expected_version.nil? || result['version'] == @expected_version
+
+    actual = result['version'].inspect
+    raise ModelMismatch, "expected Pangram #{@expected_version} but the API answered as #{actual}"
   end
 
   def monotonic_now

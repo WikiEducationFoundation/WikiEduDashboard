@@ -1,0 +1,19 @@
+# Leftovers from Wiki Education's sandbox and draft scaffolding, flagged by
+# the structure.drafting_leftovers check. Each entry is a case-insensitive
+# regular expression. Seeded from real student drafts; extend as needed.
+
+# Template names (matched against the name, not the parameters).
+templates:
+  - '\Adashboard\.wikiedu\.org'
+  - '\Auser sandbox\z'
+
+# Section headings.
+headings:
+  - '\Aarticle draft\b'
+  - '\Aarticle body\z'
+  - '\(toward bottom of page\)'
+  - '\[TEMP\]'
+
+# Text anywhere on the page (comments excluded).
+text:
+  - '\[TEMP\]'

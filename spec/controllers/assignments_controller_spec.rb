@@ -86,6 +86,10 @@ describe AssignmentsController, type: :request do
         it 'unclaims the assignment' do
           expect(assignment.reload.user_id).to be_nil
         end
+
+        it 'clears the sandbox url of the user who unclaimed it' do
+          expect(assignment.reload.sandbox_url).to be_nil
+        end
       end
 
       context 'when the assignment_id is not provided' do
@@ -512,6 +516,14 @@ describe AssignmentsController, type: :request do
         put "/assignments/#{assignment.id}/claim", params: request_params
         expect(response.status).to eq(200)
         expect(assignment.reload.user_id).to eq(user.id)
+      end
+
+      it 'gives the claiming user their own sandbox url' do
+        # An earlier claimant's sandbox url, left behind by an unclaim
+        assignment.update_column(:sandbox_url,
+                                 assignment.default_sandbox_url('Earlier_claimant'))
+        put "/assignments/#{assignment.id}/claim", params: request_params
+        expect(assignment.reload.sandbox_url).to eq(assignment.default_sandbox_url(user.username))
       end
     end
 

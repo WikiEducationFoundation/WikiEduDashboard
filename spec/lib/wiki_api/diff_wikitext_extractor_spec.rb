@@ -55,6 +55,31 @@ describe WikiApi::DiffWikitextExtractor do
     expect(changed_wikitext(deleted, added).strip).to eq(sentence.strip)
   end
 
+  # MediaWiki often marks an inserted sentence from the previous sentence's
+  # period up to its own, leaving its final period outside the <ins>.
+  it 'extracts a sentence appended when the diff marks it from the preceding period' do
+    sentence = new_sentence.delete_suffix('.')
+    added = "#{CGI.escapeHTML(obscure.delete_suffix('.'))}#{ins(".#{sentence}")}."
+    expect(changed_wikitext(obscure, added).strip).to eq(new_sentence.strip)
+  end
+
+  it 'extracts a mid-paragraph sentence when the diff marks it from the preceding period' do
+    sentence = ' The Pre-Aksumite site of [[Mezber]] has been excavated'
+    deleted = "#{obscure} #{stone_age}"
+    added = "#{CGI.escapeHTML(obscure.delete_suffix('.'))}#{ins(".#{sentence}")}. " \
+            "#{CGI.escapeHTML(stone_age)}"
+    expect(changed_wikitext(deleted, added).strip).to eq("#{sentence.strip}.")
+  end
+
+  it 'extracts separate sentences when the diff marks each from the preceding period' do
+    first = ' It traded with Rome'
+    second = ' It minted coins'
+    deleted = "#{obscure} #{stone_age}"
+    added = "#{CGI.escapeHTML(obscure.delete_suffix('.'))}#{ins(".#{first}")}. " \
+            "#{CGI.escapeHTML(stone_age.delete_suffix('.'))}#{ins(".#{second}")}."
+    expect(changed_wikitext(deleted, added)).to eq("#{first}. #{second}.")
+  end
+
   it 'keeps the paragraph when an insertion ends mid-sentence' do
     deleted = "#{obscure} #{stone_age}"
     added = "#{CGI.escapeHTML(obscure)}#{ins(' Archaeological research at')} " \

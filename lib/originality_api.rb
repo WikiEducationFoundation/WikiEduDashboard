@@ -2,8 +2,9 @@
 
 # requests to Originality.ai Inference API
 #
-# API docs: https://docs.originality.ai/ (rendered client-side). The parameter
-# behavior described below was verified against the live API on 2026-09-03.
+# API docs: https://docs.originality.ai/ (rendered client-side; https://docs.originality.ai/llms.txt
+# and https://docs.originality.ai/scan.md are readable). The behavior described below
+# was verified against the live API on 2026-09-03 (classic models) and 2026-11-17 (5.0).
 class OriginalityApi
   class Error < StandardError; end
 
@@ -18,8 +19,8 @@ class OriginalityApi
   end
 
   # The API ran a different model than requested. Unknown aiModelVersion values
-  # silently fall back to the default model instead of erroring, so this guards
-  # against storing results under the wrong check_type.
+  # silently fell back to the default model instead of erroring (2026-09), so this
+  # guards against storing results under the wrong check_type.
   class ModelMismatch < Error; end
 
   # Originality refuses to score fewer than MIN_WORDS words.
@@ -33,35 +34,23 @@ class OriginalityApi
   MIN_WORDS = 50
   WORDS_PER_CREDIT = 100 # roughly; observed 90 words → 1 credit, 135 words → 2 per check
   OPEN_TIMEOUT = 5 # seconds to establish a connection
-  REQUEST_TIMEOUT = 60 # seconds per request
+  REQUEST_TIMEOUT = 120 # seconds per request; 5.0 Max is the slower model
 
-  # Classic models, selected with aiModelVersion. As of 2026-09-03 these are
-  # Turbo 3.0.2, Academic 0.0.5 and Lite 1.0.2 (https://originality.ai/blog/ai-accuracy).
-  # 'lite' is also accepted but it is undocumented which version it maps to.
-  TURBO_MODEL = 'turbo' # Strict zero-tolerance policies; highest false positive rate
-  ACADEMIC_MODEL = 'academic' # Tuned for student writing, including STEM
-  LITE_102_MODEL = 'lite-102' # Allows light AI editing; the API default
+  # Originality.ai 5.0 models, released 2026-11-09. The classic models (Turbo,
+  # Academic, Lite) are deprecated and AI Allowance mode retires on 2026-12-11.
+  # Observed 2026-11-17: both bill about one credit per 100 words through the API,
+  # although Originality's pricing page lists Max at ten times that.
+  MODEL_5 = 'model-5.0'
+  MODEL_5_MAX = 'model-5.0-max' # Originality's highest-accuracy setting; slower
+  # Scans are stored in the account under this title.
+  SCAN_TITLE = 'Wiki Education Dashboard'
 
-  # AI Allowance mode is selected with check_ai_allowance + ai_allowance_threshold
-  # instead of aiModelVersion. Higher thresholds tolerate more AI-assisted text;
-  # Originality describes 40 as the setting for minimizing false positives.
-  # Each threshold is scored separately, so results cannot be re-thresholded offline.
-  AI_ALLOWANCE_THRESHOLDS = [0, 5, 15, 25, 40].freeze
-
-  def self.turbo
-    new(model: TURBO_MODEL)
+  def self.model_5
+    new(model: MODEL_5)
   end
 
-  def self.academic
-    new(model: ACADEMIC_MODEL)
-  end
-
-  def self.lite_102
-    new(model: LITE_102_MODEL)
-  end
-
-  def self.ai_allowance(threshold:)
-    new(allowance_threshold: threshold)
+  def self.model_5_max
+    new(model: MODEL_5_MAX)
   end
 
   # Remaining credits on the account. Roughly one credit per 100 words per check.
@@ -78,21 +67,13 @@ class OriginalityApi
       'User-Agent' => "#{ENV['dashboard_url']} #{Rails.env}" }
   end
 
-  def initialize(model: nil, allowance_threshold: nil)
-    unless model || allowance_threshold
-      raise ArgumentError, 'specify a model or an allowance threshold'
-    end
-    if allowance_threshold && !AI_ALLOWANCE_THRESHOLDS.include?(allowance_threshold)
-      raise ArgumentError, "allowance threshold must be one of #{AI_ALLOWANCE_THRESHOLDS}"
-    end
-
+  def initialize(model:)
     @model = model
-    @allowance_threshold = allowance_threshold
   end
 
-  # The identifier the API is expected to echo back in results.ai.aiModel.
+  # The identifier the API is expected to echo back in results.ai.model.
   def expected_model
-    @allowance_threshold ? "allowance-#{@allowance_threshold}%" : @model
+    @model
   end
 
   # Returns the parsed scan result hash. Raises an OriginalityApi::Error subclass
@@ -103,9 +84,9 @@ class OriginalityApi
     raise TextTooShort, "#{words} words; Originality requires #{MIN_WORDS}" if words < MIN_WORDS
 
     response = connection.post('') { |req| req.body = request_body(text).to_json }
-    @result = parse_response(response)
-    verify_model!
-    @result
+    result = parse_response(response)
+    verify_model!(result)
+    @result = result
   end
 
   private
@@ -119,17 +100,16 @@ class OriginalityApi
   end
 
   def request_body(text)
-    body = { check_ai: true,
-             check_plagiarism: false,
-             check_facts: false,
-             check_readability: false,
-             check_grammar: false,
-             check_contentOptimizer: false,
-             storeScan: true,
-             content: text }
-    return body.merge(aiModelVersion: @model) unless @allowance_threshold
-
-    body.merge(check_ai_allowance: true, ai_allowance_threshold: @allowance_threshold)
+    { title: SCAN_TITLE,
+      content: text,
+      aiModelVersion: @model,
+      check_ai: true,
+      check_plagiarism: false,
+      check_facts: false,
+      check_readability: false,
+      check_grammar: false,
+      check_contentOptimizer: false,
+      storeScan: true }
   end
 
   def parse_response(response)
@@ -141,8 +121,11 @@ class OriginalityApi
     parsed
   end
 
-  def verify_model!
-    actual = @result.dig('results', 'ai', 'aiModel')
+  # A result without a model id is a failed scan (for example an error object in
+  # results.ai), not a model change, so it fails this one call only.
+  def verify_model!(result)
+    actual = result.dig('results', 'ai', 'model')
+    raise RequestError.new(200, result.dig('results', 'ai')) if actual.nil?
     return if actual == expected_model
 
     raise ModelMismatch, "requested #{expected_model} but Originality ran #{actual.inspect}"

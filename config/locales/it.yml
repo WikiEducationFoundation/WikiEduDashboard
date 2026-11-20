@@ -96,6 +96,31 @@ it:
     opt_yes: sì
     opt_no: "no"
     print: Stampa
+  article_audit:
+    wiki: Wiki
+    status: Stato
+    requested: Richiesto
+    requester: Richiedente
+    check: Controlla
+    suggestion: Suggerimento
+    duration: Durata
+    version: Versione
+    error: Errore
+    tabs:
+      details: Dettagli
+    statuses:
+      running: In esecuzione
+      complete: Completato
+      failed: Non riuscito
+    severities:
+      suggestion: Suggerimento
+      info: Informazioni
+    categories:
+      flags: Status della pagina
+      structure: Struttura
+      mos: Manuale di stile
+      links: Collegamenti
+      external: Esterno
   dashboard:
     create_note: Clicca su "Crea corso" per creare il tuo primo corso.
     create_preparation_note: Assicurati di avere il tuo calendario accademico a portata

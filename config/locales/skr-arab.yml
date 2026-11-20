@@ -78,6 +78,41 @@ skr-arab:
     opt_no: کو
     print: چھاپو
     sort: چھانٹ
+  article_audit:
+    loading: لوڈ تھین٘دا پئے۔۔۔
+    article: مضمون
+    wiki: وکی
+    status: حیثیت
+    requested: ارداس تھی ڳئی
+    check: پڑتال
+    quote: اقتباس
+    suggestion: صلاح
+    tokens: ٹوکن
+    duration: دورانیہ
+    version: ورژن
+    error: نقص
+    tabs:
+      article: مضمون
+      details: تفصیلاں
+      checks: پڑتال
+    ai_label: اے آئی
+    statuses:
+      queued: قطار وچ ہے
+      complete: مکمل
+      partial: جزوی
+      failed: ناکام تھیا
+    severities:
+      suggestion: صلاح
+      info: معلومات
+    categories:
+      structure: بݨاوٹ
+      links: لنک
+      policy: پالیسی
+      new_article: نواں مضمون
+      external: ٻاہر آلا
+    citation_verdicts:
+      not_supported: نئیں — ماخذ اوں ڳالھ دا احاطہ نئیں کریندا جیہڑا دعویٰ آکھدا اے۔
+      contradicted: الٹا — ماخذ اصل وچ دعوے دی تردید کریندا اے۔
   article_statuses:
     not_yet_started: شروعات
     in_progress: سینڈ باکس وچ کم
@@ -1176,7 +1211,9 @@ skr-arab:
     saved: محفوظ
   course_applications:
     apply: لاگو کرو
+    optional: (اختیاری)
   course_application_reviews:
+    title: ایپلیکیشن
     statuses:
       submitted: جمع تھی ڳیا
       accepted: منظور تھیا

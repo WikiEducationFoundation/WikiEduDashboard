@@ -43,13 +43,23 @@ an exported CSV.
 
 ## Credits
 
-Pangram is billed per word at a rate we can afford at scale. Originality.ai is not:
-its credit balance is small, it bills about one credit per 100 words per check, and an
-AI Allowance scan bills roughly double. Keep Originality to small curated samples
-(around 100 units), run at most two Originality checks per unit, and always dry-run
-first. Each AI Allowance threshold is a separate scan whose block scores differ, so a
-threshold cannot be re-derived offline from another threshold's result; the two we use
-are 15 (Originality's default) and 40 (their minimize-false-positives setting).
+Pangram is billed per word at a rate we can afford at scale. Originality.ai bills about
+one credit per 100 words per check for both 5.0 models through the API (observed
+2026-11-17; their pricing page lists 5.0 Max at ten times that, but the 2026-11 core run
+billed Max the same as 5.0). ParaTrace bills one credit per started 512 tokens of each
+text (about 400 words by its docs, about 365 on our texts), at least one per text; the
+dry run estimates 1.4 tokens per word, as measured on 20 core texts. Always dry-run first.
+
+Detectors offered for comparison scoring are `AiDetector.keys`: Pangram 4.1, Originality
+5.0 and Originality 5.0 Max (since 2026-11), and ParaTrace v10 (`ParaTrace v10`, pinned to
+detector version `v10-ft-g`, strict operating point; since 2026-11-18). Retired detectors keep their stored rows:
+Pangram 3 (API shut down 2026-09-30); comparison rows under `Pangram 4`, all scored as
+4.0 before Pangram moved `pangram-4` to 4.1 on 2026-10-19 (to be relabelled `Pangram 4.0`
+when the comparison page shows 4.0 and 4.1 side by side); and Originality's classic
+models and AI Allowance 15/40 (replaced by 5.0). `Pangram 4.1` refuses results from any other
+version, and scoring stops when Pangram or Originality answers with a different model
+than the key names (ParaTrace too). Production alerting keeps the `Pangram 4` key, which follows
+whatever version Pangram serves (`details['version']` records it).
 
 ## 1. Build a sample
 
@@ -115,7 +125,7 @@ importer.imported
 ## 2. Dry-run, then score
 
 ```ruby
-detectors = [RevisionAiScore::PANGRAM_V4_KEY, RevisionAiScore::ORIGINALITY_AI_ALLOWANCE_15_KEY, RevisionAiScore::ORIGINALITY_AI_ALLOWANCE_40_KEY]
+detectors = [RevisionAiScore::PANGRAM_V4_1_KEY, RevisionAiScore::ORIGINALITY_5_KEY, RevisionAiScore::ORIGINALITY_5_MAX_KEY]
 ScoreAiDetectionSample.new(sample_name: 'recent_2026_09', detectors:, dry_run: true).report
 ```
 
@@ -142,6 +152,52 @@ directly; failed calls appear with an `error` column and no scores. Copy the fil
 your machine for analysis. `include_text: true` adds `plain_text`, `source_format` and
 `source_text` columns; they are large and repeat on every detector row, so they are
 left out by default.
+
+## Scoring the core texts with a new detector
+
+When a vendor releases a model, score the texts the comparison page is built on, the
+known-human texts and the topics dataset (about 1,756 distinct texts), so the new
+model sits next to every earlier one. `ScoreDetectorComparisonCore` does it in the
+background, one ten-text chunk at a time on the `report_csv` Sidekiq queue (kept off
+`default`, which runs the production AI checks one job at a time), with every
+current detector (`AiDetector.keys`) in turn. In a production console:
+
+```ruby
+ScoreDetectorComparisonCore.plan                                    # pending texts, credits, balance
+ScoreDetectorComparisonCore.start(max_credits: 40_000)              # queue the run
+ScoreDetectorComparisonCore.status                                  # progress, or why it stopped
+ScoreDetectorComparisonCore.stop                                    # stop after the current chunk
+```
+
+`start(detectors: [...])` limits the run to some detectors. The run stops on its own,
+saying why in `status['message']`, when:
+- a vendor answers with a different model version;
+- ten calls in a row fail, or 50 calls of one detector fail;
+- a vendor's credits spent since this start pass its cap. `max_credits` is one number
+  for every vendor that bills credits, or a hash naming each one, such as
+  `max_credits: { originality: 40_000, paratrace: 900 }`;
+- a credit-billed detector's first ten texts cost more than twice the estimate (added
+  for 5.0 Max, whose listed price was ten times 5.0's).
+
+A text whose call fails is not sent again in the same run. Starting again continues
+where the run stopped and retries those texts. `start` refuses while a run is in
+progress. If a deploy or crash lost the run's job, `status` stays `running` with
+nothing queued; `start(..., force: true)` then replaces the run, and any job of the
+old run still in flight exits without saving.
+
+To analyze the results locally, export them in production and load them into the
+local copy, where the earlier detectors' scores already are:
+
+```ruby
+ExportDetectorComparisonScores.new('/home/sage/detector_comparison_core_scores_2026-11.jsonl').count
+```
+
+```sh
+bin/rails runner docs/analytics_scripts/ai_usage_research/detector_comparison/load_core_scores.rb \
+  ~/detector_comparison_core_scores_2026-11.jsonl
+```
+
+The export holds scores and window or segment details, no text.
 
 ## Exemplars and challenge cases
 
@@ -213,6 +269,51 @@ and stores each row against every unit with that text:
 importer = ImportOfflineDetectorScores.new(path: '/home/sage/all_units_llama_2026-10-12.csv')
 [importer.imported, importer.unmatched]
 ```
+
+### Desklib (`analysis/score_desklib.py`)
+
+Scores unit texts offline with Desklib's open detector, `desklib/ai-text-detector-v1.01`
+(MIT licence; DeBERTa-v3-large fine-tuned on RAID's training set). It follows the model
+card's own inference code (768 tokens, padded to that length, float32, AI at a
+probability of 0.5), scores long texts in consecutive 768-token windows, and writes rows
+under the check type `Desklib v1.01` in the format `ImportOfflineDetectorScores` reads.
+The document score is the token-weighted mean of the window probabilities; `max_score`
+is the highest window. `--verify N` first checks that windowed scoring reproduces the
+card's single call on N texts that fit one window.
+
+It runs in the same environment as Open Pangram (`~/.venvs/open_detectors`); the
+DeBERTa-v3 tokenizer may also need `pip install sentencepiece`. The weights are about
+1.7 GB, and in float32 the model fits easily on an 8 GB GPU. The input is the
+`text_sha256,word_count,text` file used for Open Pangram, covering every distinct text
+in the production samples:
+
+```sh
+python score_desklib.py --input ~/desklib_input_2026-11-17.csv --out ~/desklib_2026-11-17.csv --verify 20
+```
+
+Load the scores locally first for analysis, and into production when the comparison
+page should show them, with `ImportOfflineDetectorScores.new(path: ...)` as above.
+
+First run, 2026-11-17 (model commit 5fdea974cd42): 4,185 distinct texts, no errors, about
+35 minutes on an RTX 3070 Ti; `--verify 20` matched the card's inference exactly. Against
+the comparison page's data, counting any AI label as a detection:
+
+- **Known-human texts** (578 pre-ChatGPT student contributions): Desklib labels 54 (9.3%)
+  AI, against 0 for Pangram 4.0 and Originality Allowance 15/40 and 1–2 for Open Pangram.
+  With a Dashboard-style rule on its windows instead of its document score, 171 (30%) have
+  a window at 0.5 or more and 40 (6.9%) one above 0.9.
+- **What the 54 have in common:** nothing beyond the model. They are spread evenly across
+  terms, with flag rates of 5–13 per term of about 95 texts. Pangram 4.0 and Open Pangram
+  score all of them as clearly human. Shorter texts are flagged more often: 5 of 23 under
+  300 words, 4 of 116 over 2,000 words, since the document score averages windows. So are
+  texts that open like an encyclopedia lead ("X is a ..."), at 12% against 7%. Wikitext
+  leftovers in the extracted text are as common in unflagged texts.
+- **Score spread:** the flagged scores spread from 0.50 to 0.98, and another 89 human texts
+  score between 0.3 and 0.5. Desklib's scores on encyclopedic human prose are broad, not a
+  few outliers.
+- **Generated texts:** AI labels on 86% of current models' texts from simple prompts (Pangram
+  4.0: 100%) and 65% from other prompting strategies (96%), 100% of the older open-weight
+  models' texts, and 1 of 16 Agpedia articles (14 of 16).
 
 ## The comparison page
 

@@ -82,17 +82,13 @@ class WikiApi
       deleted = row.at_css('.diff-deletedline')
       return nil if added.nil? || added.text.strip.empty?
 
-      ins_elements = added.css('ins.diffchange')
-
-      if independent_addition?(added, deleted, ins_elements)
-        ins_elements.map(&:text).join(' ')
-      else
-        added.text
-      end
+      ranges = independent_sentence_ranges(added, deleted)
+      ranges ? ranges.map { |range| added.text[range] }.join(' ') : added.text
     end
 
-    # Returns true when the edit only inserts whole sentences
-    # into an otherwise unchanged paragraph. From the
+    # When the edit only inserts whole sentences into an otherwise
+    # unchanged paragraph, returns the character range in added.text
+    # of each insertion; otherwise nil. From the
     # Third_place diff (oldid=1340536495):
     #
     #   <td class="diff-deletedline diff-side-deleted">
@@ -113,15 +109,68 @@ class WikiApi
     #   ...remain largely obscure.<ins class="diffchange">
     #   Archaeological research...settlements.<ref>...</ref></ins>
     #   Stone Age artifacts...
-    def independent_addition?(added, deleted, ins_elements)
-      return false unless ins_elements.any?
-      return false if deleted.nil? || deleted.text.strip.empty?
-      return false unless text_without_ins(added).strip == deleted.text.strip
+    def independent_sentence_ranges(added, deleted)
+      return if deleted.nil? || deleted.text.strip.empty?
+      return unless text_without_ins(added).strip == deleted.text.strip
 
-      text = added.text
-      ins_ranges(added).all? do |range|
-        whole_sentences?(text[0...range.begin], text[range], text[range.end..])
+      ranges = ins_ranges(added)
+      return if ranges.empty?
+      aligned = ranges.each_with_index.map do |range, i|
+        sentence_alignment(added.text, range, *slide_bounds(ranges, i, added.text.length))
       end
+      aligned.all? ? aligned : nil
+    end
+
+    # An insertion can slide over the unchanged text between the end of
+    # the previous insertion and the start of the next one.
+    def slide_bounds(ranges, index, text_length)
+      min_begin = index.zero? ? 0 : ranges[index - 1].end
+      max_end = ranges[index + 1]&.begin || text_length
+      [min_begin, max_end]
+    end
+
+    # The same insertion can often be placed at more than one position.
+    # MediaWiki tends to mark an inserted sentence from the end of the
+    # sentence before it, leaving the new sentence's own period outside:
+    #
+    #   ...on the mat<ins>. The bird flew over the house</ins>. The dog...
+    #
+    # Sliding the range one character right gives the same text with
+    # the insertion as whole sentences: " The bird flew over the house."
+    # Tries each equivalent position within the unchanged text between
+    # the neighbouring insertions, nearest first, and returns the first
+    # that is whole sentences, or nil.
+    def sentence_alignment(text, range, min_begin, max_end)
+      shifts(text, range, min_begin, max_end).each do |shift|
+        start = range.begin + shift
+        finish = range.end + shift
+        return (start...finish) if whole_sentences?(text[0...start], text[start...finish],
+                                                    text[finish..])
+      end
+      nil
+    end
+
+    # Offsets by which the insertion can slide without changing the text:
+    # right while its first character matches the one after it, left while
+    # its last character matches the one before it.
+    def shifts(text, range, min_begin, max_end)
+      right = right_slack(text, range, max_end)
+      left = left_slack(text, range, min_begin)
+      [0, *(1..[right, left].max).flat_map { |n| [n, -n] }].select { |n| n.between?(-left, right) }
+    end
+
+    def right_slack(text, range, max_end)
+      slack = 0
+      slack += 1 while range.end + slack < max_end &&
+                       text[range.begin + slack] == text[range.end + slack]
+      slack
+    end
+
+    def left_slack(text, range, min_begin)
+      slack = 0
+      slack += 1 while range.begin - slack > min_begin &&
+                       text[range.begin - slack - 1] == text[range.end - slack - 1]
+      slack
     end
 
     # The text before an insertion ends a sentence (or is nothing),

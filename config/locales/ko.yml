@@ -43,6 +43,7 @@ ko:
   application:
     back: 뒤로
     cancel: 취소
+    close: 닫기
     next: 다음
     skip_to_main_content: 본문 내용으로 건너뛰기
     cookie_consent: 이 사이트는 로그인 유지를 위해 쿠키를 사용하며 위키백과 계정에 관한 정보를 저장합니다.
@@ -67,6 +68,7 @@ ko:
     log_in: 로그인
     log_out: 로그아웃
     my_dashboard: 나의 대시보드
+    navigation_menu: 둘러보기 메뉴
     okay: Okay
     recent_activity: 최근 활동
     report_problem: 문제점 보고
@@ -95,6 +97,17 @@ ko:
     opt_no: 아니오
     print: 인쇄
     sort: 정렬
+  article_audit:
+    url_label: 문서 URL
+    loading: 불러오는 중…
+    article: 문서
+    wiki: 위키
+    status: 상태
+    requested: 요청됨
+    requester: 요청자
+    view_revision: 판 보기
+    error: 오류
+    ai_label: AI
   article_statuses:
     not_yet_started: 시작하기
     in_progress: 연습장에서 작업
@@ -183,6 +196,30 @@ ko:
       max_likelihood: 일일 최대 AI 가능성 분포
       overall_avg_likelihood: 전반적인 평균 AI 가능성 분포
       overall_max_likelihood: 전반적인 최대 AI 가능성 분포
+  system_stats:
+    filters:
+      all_types: 모든 유형
+      all_statuses: 모든 상태
+    kpis:
+      total_edits: 총 편집
+      article_views: 문서 조회수
+      articles_created: 문서 생성됨
+    tables:
+      wiki: 위키
+      edits: 편집
+      programs: 프로그램
+      articles_created: 문서 생성됨
+    facilitators:
+      username: 사용자 이름
+      courses: 과정
+      "yes": 예
+      "no": 아니오
+    pagination:
+      previous: 이전
+      next: 다음
+    loading:
+      data: 서버에서 데이터를 불러오는 중...
+      facilitators: 진행자를 불러오는 중...
   activity:
     all: 활동
     edited_by: '편집자 :'
@@ -201,6 +238,8 @@ ko:
     permalink: 고유링크
     previous: 이전
     article_title: 문서 제목
+    language: 언어
+    project: 프로젝트
     assigned_to: 할당됨
     character_doc: 시작일와 종료일 사이에 등록된 편집자가 문서에 추가한 문자 수의 합계
     cross_wiki_tracking: 시작일과 종료일 사이에 편집된 일반 이름공간 문서 목록은 아래와 같습니다. 대시보드는 이 프로그램의 홈
@@ -352,6 +391,8 @@ ko:
     confirm_add_available: '%{title}를 추가하시겠습니까?'
     confirm_addition: '%{username}?에게 %{title}을 할당하시겠습니까?'
     confirm_deletion: 이 할당을 삭제하겠습니까?
+    copy_available_url_placeholder: 과정 URL
+    copy_available_select_placeholder: 과정 선택
     delete: 제거 및 삭제
     editors: 등록자
     change_sandbox_url: 샌드박스 변경
@@ -1251,6 +1292,14 @@ ko:
     collection: 모음집
     tracked_namespaces_info: 추적됨으로 설정한 이름공간의 문서만 상위줄의 개요 통계에 나타납니다. '문서 편집 수', '편집
       횟수', '추가된 단어' 등이 표시됩니다. 그러므로 프로그램에서 개선하고자 하는 공간만 선택적으로 등록하세요.
+  report_cards:
+    not_applicable: —
+    total: 합계
+    columns:
+      number: '#'
+      title: 과정
+      instructors: 강사
+      participants: 참가자
   recent_activity:
     active_courses: 문서가 활성 상태인 위치
     article_title: 제목

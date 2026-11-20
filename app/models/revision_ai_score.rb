@@ -34,34 +34,30 @@ class RevisionAiScore < ApplicationRecord
 
   include ArticleViewerLinker
 
-  # check_type values. Each selectable detector is registered in AiDetector
-  # (lib/ai/ai_detector.rb) under its key; historical keys stay here so old
-  # rows remain identifiable.
+  # check_type values. Each detector that can still be called is registered in
+  # AiDetector (lib/ai/ai_detector.rb) under its key; retired keys stay here so
+  # old rows remain identifiable.
   PANGRAM_V2_KEY = 'Pangram 2.0' # Deprecated on 1 April 2026
-  PANGRAM_V3_KEY = 'Pangram 3' # Synchronous API, scheduled for shutdown on 30 September 2026
+  PANGRAM_V3_KEY = 'Pangram 3' # Synchronous API, shut down on 30 September 2026
+  # Production alerting. Whatever version Pangram serves as pangram-4: 4.0 until
+  # 2026-10-19, 4.1 since; details['version'] tells them apart.
   PANGRAM_V4_KEY = 'Pangram 4'
+  PANGRAM_V4_0_KEY = 'Pangram 4.0' # Detector comparison rows scored before 2026-10-19
+  PANGRAM_V4_1_KEY = 'Pangram 4.1' # Refuses any other version
+  # Originality.ai's classic models and AI Allowance mode, retired in favour of 5.0.
   ORIGINALITY_TURBO_KEY = 'Originality Turbo'
   ORIGINALITY_ACADEMIC_KEY = 'Originality Academic'
-  ORIGINALITY_LITE_KEY = 'Originality Lite 1.0.0' # Historical rows only; no longer selectable
+  ORIGINALITY_LITE_KEY = 'Originality Lite 1.0.0'
   ORIGINALITY_LITE_102_KEY = 'Originality Lite 1.0.2'
   ORIGINALITY_AI_ALLOWANCE_15_KEY = 'Originality AI Allowance 15'
   ORIGINALITY_AI_ALLOWANCE_40_KEY = 'Originality AI Allowance 40'
+  ORIGINALITY_5_KEY = 'Originality 5.0'
+  ORIGINALITY_5_MAX_KEY = 'Originality 5.0 Max'
+  PARATRACE_V10_KEY = 'ParaTrace v10' # Refuses any detector version but v10-ft-g
 
   # check_origin values
   COURSE_UPDATE_ORIGIN = 'course_update' # Production checks that can generate alerts
   AI_TOOL_ORIGIN = 'ai_tool' # Admin AI tools page
   DETECTOR_COMPARISON_ORIGIN = 'detector_comparison' # Scored as part of an AiDetectionSample
-
-  PANGRAM_KEYS = [
-    PANGRAM_V3_KEY,
-    PANGRAM_V4_KEY
-  ].freeze
-
-  ORIGINALITY_KEYS = [
-    ORIGINALITY_LITE_102_KEY,
-    ORIGINALITY_TURBO_KEY,
-    ORIGINALITY_ACADEMIC_KEY,
-    ORIGINALITY_AI_ALLOWANCE_15_KEY,
-    ORIGINALITY_AI_ALLOWANCE_40_KEY
-  ].freeze
+  ARTICLE_AUDIT_ORIGIN = 'article_audit' # Scored as a check in an ArticleAudit
 end
