@@ -3,6 +3,10 @@ same core texts. Reads the table written by export_core_table.rb.
 
 Sections follow the analysis plan (.claude/notes/detector_comparison_analysis_plan-2026-11-17.md):
   q1  Pangram 4.0 -> 4.1 on identical texts: verdicts, alert rule, windows, whole-text score.
+  q3  Originality 5.0 and 5.0 Max against AI Allowance.
+  q4  Every detector on the same footing: AUC, recall at fixed false-positive rates.
+  q5  October conclusions re-tested.
+  q6  ParaTrace v10 (scored 2026-11-19): verdicts by group, its false positives and misses.
 
 Detection rule as on the comparison page: any verdict short of human counts. Rates carry exact
 (Clopper-Pearson) 95% intervals.
@@ -22,6 +26,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from readout import clopper_pearson  # noqa: E402
 
 P40, P41 = 'Pangram 4', 'Pangram 4.1'
+PT = 'ParaTrace v10'
 GROUPS = ['known_human', 'article_version', 'base_prompts', 'other_strategies', 'open_weight_ladder',
           'agpedia']
 LABELS = ['Human', 'Mixed', 'AI']
@@ -176,7 +181,7 @@ def q3(df):
         print()
 
 
-DETECTORS = ['Pangram 4', 'Pangram 4.1', A40, A15, O5, O5MAX, 'Open Pangram EditLens Llama',
+DETECTORS = ['Pangram 4', 'Pangram 4.1', A40, A15, O5, O5MAX, PT, 'Open Pangram EditLens Llama',
              'Open Pangram EditLens RoBERTa', 'Desklib v1.01']
 AI_GROUPS = ['base_prompts', 'other_strategies', 'agpedia']
 FPRS = [0.005, 0.01, 0.02]
@@ -243,7 +248,8 @@ def q4(df):
     print(pd.DataFrame(rows).to_markdown(index=False))
 
     print('\n### Pairwise disagreement on AI texts scored by both (vendor verdicts)\n')
-    pairs = [('Pangram 4.1', O5), ('Pangram 4.1', A40), (O5, A15), ('Pangram 4.1', 'Desklib v1.01')]
+    pairs = [('Pangram 4.1', O5), ('Pangram 4.1', A40), (O5, A15), ('Pangram 4.1', 'Desklib v1.01'),
+             ('Pangram 4.1', PT), (O5, PT)]
     rows = []
     for a_key, b_key in pairs:
         both = paired(df, a_key, b_key)
@@ -256,7 +262,7 @@ def q4(df):
     print(pd.DataFrame(rows).to_markdown(index=False))
 
 
-MAIN = ['Pangram 4', 'Pangram 4.1', O5, O5MAX]
+MAIN = ['Pangram 4', 'Pangram 4.1', O5, O5MAX, PT]
 STRATEGIES = ['one_line', 'detailed', 'one_line_web', 'detailed_web', 'assignment', 'assignment_web',
               'chatgpt_prompt_web']
 WEB_STRATEGIES = ['one_line_web', 'detailed_web', 'assignment_web', 'chatgpt_prompt_web']
@@ -379,7 +385,7 @@ def q5(df):
     for group in ['base_prompts', 'other_strategies', 'open_weight_ladder', 'agpedia']:
         g = df[df.group == group]
         row = {'group': group}
-        for key in ['Pangram 4', 'Pangram 4.1', A40, O5, 'Open Pangram EditLens Llama',
+        for key in ['Pangram 4', 'Pangram 4.1', A40, O5, PT, 'Open Pangram EditLens Llama',
                     'Open Pangram EditLens RoBERTa']:
             k = g[g.check_type == key]
             row[key.replace('Open Pangram EditLens', 'OP').replace('Originality ', '')] = \
@@ -388,7 +394,62 @@ def q5(df):
     print(pd.DataFrame(rows).to_markdown(index=False))
 
 
-SECTIONS = {'q1': q1, 'q3': q3, 'q4': q4, 'q5': q5}
+# ParaTrace's strict threshold on the whole-text probability, as the API reported it on the core
+# texts: one value for texts of up to three windows, another for longer ones.
+PT_SHORT_WINDOWS = 3
+
+
+def q6(df):
+    pt = df[df.check_type == PT]
+    print(f'## ParaTrace v10 on {len(pt)} core texts\n')
+    print('### Verdicts by group\n')
+    rows = []
+    for group in GROUPS:
+        g = pt[pt.group == group]
+        row = {'group': group, 'n': len(g)}
+        for label in LABELS:
+            row[label] = int((g.label == label).sum())
+        row['flagged'] = rate(g.flagged)
+        rows.append(row)
+    print(pd.DataFrame(rows).to_markdown(index=False))
+
+    print('\n### Short (<= 3 windows) and long texts\n')
+    rows = []
+    for name, g in [('short', pt[pt.window_count <= PT_SHORT_WINDOWS]),
+                    ('long', pt[pt.window_count > PT_SHORT_WINDOWS])]:
+        human = g[g.group == 'known_human']
+        ai = g[g.group.isin(AI_GROUPS)]
+        rows.append({'texts': name, 'known-human flagged': rate(human.flagged),
+                     'AI recall': rate(ai.flagged),
+                     'AUC (probability)': round(auc(human.document_score, ai.document_score), 4)
+                     if len(human) and len(ai) else '-'})
+    print(pd.DataFrame(rows).to_markdown(index=False))
+
+    others = [P41, O5, O5MAX]
+    verdicts = df[df.check_type.isin(others)].pivot(index='unit_id', columns='check_type',
+                                                    values='label')
+    columns = ['unit_id', 'sample_name', 'word_count', 'window_count', 'label', 'fraction_ai',
+               'document_score']
+    print('\n### Known-human texts ParaTrace flags, with the other vendors\' verdicts\n')
+    flagged = pt[(pt.group == 'known_human') & pt.flagged][columns].join(verdicts, on='unit_id')
+    print(flagged.round(3).to_markdown(index=False))
+
+    print('\n### AI texts ParaTrace calls human\n')
+    missed = pt[pt.group.isin(AI_GROUPS + ['open_weight_ladder']) & ~pt.flagged]
+    missed = missed[columns[:1] + ['group', 'model', 'condition', 'word_count', 'document_score']]
+    print(missed.join(verdicts, on='unit_id').round(3).to_markdown(index=False))
+
+    print('\n### AI texts Pangram 4.1 or Originality 5.0 call human\n')
+    ai_ids = set(df[df.group.isin(AI_GROUPS)].unit_id)
+    rows = []
+    for key in [P41, O5]:
+        k = df[(df.check_type == key) & df.unit_id.isin(ai_ids) & ~df.flagged]
+        caught = pt[pt.unit_id.isin(k.unit_id)]
+        rows.append({'detector': key, 'misses': len(k), 'ParaTrace flags': rate(caught.flagged)})
+    print(pd.DataFrame(rows).to_markdown(index=False))
+
+
+SECTIONS = {'q1': q1, 'q3': q3, 'q4': q4, 'q5': q5, 'q6': q6}
 
 
 def main():
