@@ -18,10 +18,6 @@ describe Experiments::OptInController, type: :controller do
     allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(student)
   end
 
-  def stub_common_js(content)
-    allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(content)
-  end
-
   def opt_student_in
     ExperimentCoursesUser.create!(experiment_slug: slug, courses_user:, status: :opted_in)
   end
@@ -67,7 +63,7 @@ describe Experiments::OptInController, type: :controller do
     it 'does not re-read the wiki once the install is recorded' do
       create(:tag, course:, tag: "#{slug}_opted_in")
       opt_student_in.update!(userscript_installed_at: Time.zone.now)
-      expect_any_instance_of(WikiApi).not_to receive(:get_page_content)
+      expect_any_instance_of(WikiApi).not_to receive(:query)
       get :show, params: { course_id: course.id }
       expect(response.parsed_body['userscript']).to be_nil
     end

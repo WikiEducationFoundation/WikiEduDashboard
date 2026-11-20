@@ -15,10 +15,6 @@ describe CheckExperimentUserscript do
                                   status: :opted_in)
   end
 
-  def stub_common_js(content)
-    allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(content)
-  end
-
   it 'is not installed when common.js does not exist' do
     stub_common_js ''
     expect(described_class.new(record, experiment).status).to eq(:not_installed)
@@ -55,9 +51,18 @@ describe CheckExperimentUserscript do
   end
 
   it 'reports :not_installed without raising when the wiki cannot be read' do
-    allow_any_instance_of(WikiApi).to receive(:get_page_content)
-      .and_raise(WikiApi::PageFetchError.new('User:Student/common.js', 503))
+    stub_wikipedia_503_error
     allow(Sentry).to receive(:capture_exception)
     expect(described_class.new(record, experiment).status).to eq(:not_installed)
+  end
+
+  # Wikimedia's CDN caches action=raw responses, and the cached copy is not
+  # purged by the student's edit, so a check made before they saved common.js
+  # would keep reporting it missing.
+  it 'reads common.js through the action API, not the CDN-cached action=raw' do
+    stub_common_js "#{experiment.userscript_import_line}\n"
+    described_class.new(record, experiment)
+    expect(a_request(:get, %r{en\.wikipedia\.org/w/api\.php})).to have_been_made
+    expect(a_request(:get, /action=raw/)).not_to have_been_made
   end
 end

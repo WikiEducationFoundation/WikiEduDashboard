@@ -77,10 +77,6 @@ describe 'Research experiment opt-in screenshots', type: :feature, js: true,
     courses_user
   end
 
-  def stub_common_js(content)
-    allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(content)
-  end
-
   # Full viewport, as the student actually sees the page (unlike shoot_element,
   # which clips to one element after growing the viewport to fit it).
   def shoot_page(name)
