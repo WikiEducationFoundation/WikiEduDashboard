@@ -33,9 +33,9 @@ class PrepareTimeslices
   def adjust_timeslices
     # Execute update tasks in a specific order
     UpdateTimeslicesCourseWiki.new(@course).run
+    UpdateTimeslicesCourseDate.new(@course).run
     UpdateTimeslicesCourseUser.new(@course, update_service: @update_service).run
     UpdateTimeslicesUntrackedArticle.new(@course).run
-    UpdateTimeslicesCourseDate.new(@course).run
     UpdateTimeslicesScopedArticle.new(@course, update_service: @update_service).run
     @debugger.log_update_progress :timeslices_adjusted
   end
