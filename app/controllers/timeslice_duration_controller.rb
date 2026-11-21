@@ -18,6 +18,12 @@ class TimesliceDurationController < ApplicationController
   def update
     wiki = Wiki.find(params[:wiki_id])
     timeslice_duration = params[:duration].to_i
+    unless timeslice_duration.positive?
+      redirect_to(timeslice_duration_path,
+                  flash: { error: 'Invalid timeslice duration' })
+      return
+    end
+
     update_duration_flag(wiki, timeslice_duration)
     redirect_to(timeslice_duration_path,
                 notice: "Timeslice duration updated for course id #{@course.id} wiki id #{wiki.id}")
