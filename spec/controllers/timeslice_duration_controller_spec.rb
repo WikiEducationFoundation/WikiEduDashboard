@@ -84,6 +84,22 @@ describe TimesliceDurationController, type: :request do
       end
     end
 
+    context 'when the duration is non-positive' do
+      before do
+        allow_any_instance_of(ApplicationController).to receive(:current_user)
+          .and_return(superadmin)
+        post timeslice_duration_update_path, params: {
+          course_id: course.id, duration: 0, wiki_id: wiki.id
+        }
+      end
+
+      it 'renders the error and does not update the course' do
+        expect(response).to redirect_to(timeslice_duration_path)
+        expect(flash[:error]).to eq('Invalid timeslice duration')
+        expect(course.reload.flags[:timeslice_duration]).to be_nil
+      end
+    end
+
     context 'when the update is successful' do
       before do
         allow_any_instance_of(ApplicationController).to receive(:current_user)
