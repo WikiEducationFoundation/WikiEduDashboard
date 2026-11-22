@@ -247,6 +247,48 @@ describe ApplicationController do
       get :index, params: { locale: 'not-a-real-locale' }
       expect(I18n.locale).to eq(:en)
     end
+
+    context 'on a course page' do
+      let(:wiki) { Wiki.get_or_create(language: 'fr', project: 'wikipedia') }
+
+      before do
+        create(:course, slug: 'School/Course_(Term)', home_wiki: wiki)
+        routes.draw { get 'courses/:school/:titleterm' => 'anonymous#index' }
+      end
+
+      it 'sets the locale from the course home wiki language' do
+        get :index, params: { school: 'School', titleterm: 'Course_(Term)' }
+        expect(I18n.locale).to eq(:fr)
+      end
+
+      it 'uses the course language over the browser language' do
+        request.env['HTTP_ACCEPT_LANGUAGE'] = 'es'
+        get :index, params: { school: 'School', titleterm: 'Course_(Term)' }
+        expect(I18n.locale).to eq(:fr)
+      end
+
+      it 'uses the saved user locale over the course language' do
+        allow(controller).to receive(:current_user).and_return(user)
+        get :index, params: { school: 'School', titleterm: 'Course_(Term)' }
+        expect(I18n.locale).to eq(:'zh-CN')
+      end
+
+      it 'uses the locale param over the course language' do
+        get :index, params: { school: 'School', titleterm: 'Course_(Term)', locale: 'zh-TW' }
+        expect(I18n.locale).to eq(:'zh-TW')
+      end
+    end
+
+    it 'does not look up a course when the route has no course' do
+      expect(Course).not_to receive(:joins)
+      get :index, params: { school: 'School', titleterm: 'Course_(Term)' }
+    end
+
+    it 'uses the browser language when the page is not a course page' do
+      request.env['HTTP_ACCEPT_LANGUAGE'] = 'es'
+      get :index
+      expect(I18n.locale).to eq(:es)
+    end
   end
 
   describe '#after_sign_in_path_for' do

@@ -41,7 +41,9 @@ describe 'cloning a course', js: true do
   end
   let!(:week) { create(:week, course_id: course.id) }
   let!(:block) { create(:block, week_id: week.id, due_date: course.start + 3.months, points: 15) }
-  let!(:user) { create(:user, permissions: User::Permissions::ADMIN) }
+  # The course's home wiki is French, so give the user an English locale to keep
+  # the clone form in English (course language would otherwise apply).
+  let!(:user) { create(:user, permissions: User::Permissions::ADMIN, locale: 'en') }
   let!(:c_user) { create(:courses_user, course_id: course.id, user_id: user.id) }
   let(:new_term) { 'Spring2016' }
   let(:subject) { 'Advanced Foo' }
