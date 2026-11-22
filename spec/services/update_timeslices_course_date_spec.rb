@@ -205,4 +205,58 @@ describe UpdateTimeslicesCourseDate do
       expect(ArticleCourseUserWikiTimeslice.where(course:).count).to eq(0)
     end
   end
+
+  # The new wiki already has timeslices for the new period (UpdateTimeslicesCourseWiki
+  # runs first), so the change is only drastic for the existing wiki.
+  context 'when the course was entirely moved backward and a wiki was added' do
+    let(:eswiki) { Wiki.get_or_create(language: 'es', project: 'wikipedia') }
+
+    before do
+      course.update(start: '2020-02-10')
+      course.update(end: '2020-02-20')
+      course.wikis << eswiki
+      manager.create_timeslices_for_new_course_wiki_records([eswiki])
+    end
+
+    it 'deletes existing timeslices and create new ones for the existing wiki' do
+      expect(course.course_wiki_timeslices.where(wiki: enwiki).count).to eq(7)
+
+      described_class.new(course).run
+      # Timeslices from old period were deleted and new ones were created
+      enwiki_timeslices = course.course_wiki_timeslices.where(wiki: enwiki)
+      expect(enwiki_timeslices.count).to eq(11)
+      expect(enwiki_timeslices.needs_update.count).to eq(11)
+      expect(enwiki_timeslices.minimum(:start)).to eq('2020-02-10'.to_datetime)
+      expect(course.course_user_wiki_timeslices.count).to eq(0)
+      expect(course.article_course_timeslices.count).to eq(0)
+      expect(ArticleCourseUserWikiTimeslice.where(course:).count).to eq(0)
+    end
+  end
+
+  # The new wiki already has timeslices for the new period (UpdateTimeslicesCourseWiki
+  # runs first), so the change is only drastic for the existing wiki.
+  context 'when the course was entirely moved forward and a wiki was added' do
+    let(:eswiki) { Wiki.get_or_create(language: 'es', project: 'wikipedia') }
+
+    before do
+      course.update(start: '2022-02-10')
+      course.update(end: '2022-02-20')
+      course.wikis << eswiki
+      manager.create_timeslices_for_new_course_wiki_records([eswiki])
+    end
+
+    it 'deletes existing timeslices and create new ones for the existing wiki' do
+      expect(course.course_wiki_timeslices.where(wiki: enwiki).count).to eq(7)
+
+      described_class.new(course).run
+      # Timeslices from old period were deleted and new ones were created
+      enwiki_timeslices = course.course_wiki_timeslices.where(wiki: enwiki)
+      expect(enwiki_timeslices.count).to eq(11)
+      expect(enwiki_timeslices.needs_update.count).to eq(11)
+      expect(enwiki_timeslices.minimum(:start)).to eq('2022-02-10'.to_datetime)
+      expect(course.course_user_wiki_timeslices.count).to eq(0)
+      expect(course.article_course_timeslices.count).to eq(0)
+      expect(ArticleCourseUserWikiTimeslice.where(course:).count).to eq(0)
+    end
+  end
 end
