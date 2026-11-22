@@ -1,56 +1,33 @@
-class RetainedNewEditorsStats
-  MINIMUM_EDITS = 1   # could be configurable
-  DAYS_AFTER_END = 7
+# frozen_string_literal: true
 
+#= Counts the retained new editors of a course for the per-wiki course CSV.
+# Reads the retained_after_course flag recorded by RetainedEditorCheckWorker,
+# the same data the system CSV uses, so both CSVs agree. Returns nil while
+# retention is still pending, so the CSV shows a blank instead of 0.
+class RetainedNewEditorsStats
   def initialize(course)
     @course = course
   end
 
   def count
+    return 0 unless new_editors.exists?
+    return nil if pending?
 
-    return 0 if new_editors.empty?
-
-    result = Rails.cache.fetch("retained_new_editors_#{@course.id}", expires_in: 7.days) do
-
-      retained = 0
-      threshold = @course.end + DAYS_AFTER_END.days
-
-      # Current implementation is limited to home_wiki
-      # does not aggregate across all course wikis
-      wiki = @course.home_wiki
-
-      new_editors.pluck(:username).in_groups_of(40, false) do |batch|
-        next if batch.empty?
-        retained += count_retained_in_batch(batch, threshold, wiki)
-      end
-      retained
-    end
-
-    result
+    new_editors.where(retained_after_course: true).count
   end
 
   private
 
   def new_editors
-    @new_editors ||= @course.students.where(registered_at: @course.start..@course.end)
+    @new_editors ||= CoursesUsers.joins(:course, :user)
+                                 .where(course_id: @course.id,
+                                        role: CoursesUsers::Roles::STUDENT_ROLE)
+                                 .where(NewEditorDateConditions::DURING_PROGRAM)
   end
 
-  def count_retained_in_batch(usernames, threshold, wiki)
-
-    query = {
-      list: 'usercontribs',
-      ucuser: usernames,
-      ucnamespace: 0,  # mainspace only
-      ucstart: threshold.strftime('%Y%m%d%H%M%S'),
-      uclimit: 500,      # Account for all distinct contributions by users
-      ucprop: '',
-      ucdir: 'newer'
-    }
-
-    response = WikiApi.new(wiki).query(query)
-    contribs = response&.data&.dig('usercontribs') || []
-
-    # Count distinct users who have at least 1 contrib after threshold
-    contribs.map { |c| c['user'] }.uniq.size
+  # RetainedEditorCheckWorker only checks courses that ended at least 30 days
+  # ago, so until every new editor has been checked the count isn't final.
+  def pending?
+    new_editors.where(retained_after_course_checked_at: nil).exists?
   end
 end

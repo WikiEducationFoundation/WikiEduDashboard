@@ -26,4 +26,14 @@ describe CourseCsvBuilder do
     retained_index = headers.index('retained_new_editors')
     expect(data[retained_index]).to eq('5')
   end
+
+  context 'when retention is still pending' do
+    let(:manager) { instance_double(RetainedNewEditorsStats, count: nil) }
+
+    it 'leaves the retained_new_editors cell blank' do
+      rows = CSV.parse(subject)
+      retained_index = rows[0].index('retained_new_editors')
+      expect(rows[1][retained_index]).to be_nil
+    end
+  end
 end

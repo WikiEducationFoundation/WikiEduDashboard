@@ -3,100 +3,84 @@
 require 'rails_helper'
 require "#{Rails.root}/lib/analytics/retained_new_editors_stats"
 
-
 describe RetainedNewEditorsStats do
-  let(:course) { create(:course, start: 2.weeks.ago, end: 1.week.ago) }
-  let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
+  let(:course) { create(:course, start: 3.months.ago, end: 2.months.ago) }
   let(:manager) { described_class.new(course) }
 
-  # Helper to build the nested data structure the class expects: response.data['usercontribs']
-  def mock_response_with_contribs(contribs_array)
-    instance_double(MediawikiApi::Response, data: { 'usercontribs' => contribs_array })
-  end
-
-  before do
-    course.update!(home_wiki: wiki)
-
-    # Create the fake editors
-    %w[Ragesock wikiedStaff].each do |name|
-      user = create(:user, username: name, registered_at: course.start + 3.days)
-      create(:courses_user, course: course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
-    end
+  def add_student(username, registered_at:, retained: nil, checked: true)
+    user = create(:user, username:, registered_at:)
+    create(:courses_user, course:, user:, role: CoursesUsers::Roles::STUDENT_ROLE,
+           retained_after_course: retained,
+           retained_after_course_checked_at: checked ? 1.day.ago : nil)
   end
 
   context 'when there are no new editors' do
-    before { course.courses_users.where(role: CoursesUsers::Roles::STUDENT_ROLE).destroy_all }
-
-    it 'returns 0 immediately' do
+    it 'returns 0' do
       expect(manager.count).to eq(0)
     end
   end
 
-  context 'when two new editors have at least one post-threshold edit' do
+  context 'when every new editor has been checked' do
     before do
-      # IMPORTANT: The first argument to the block is the instance of WikiApi
-      allow_any_instance_of(WikiApi).to receive(:query) do |_instance, params|
-        usernames = params[:ucuser] || []
-        contribs = []
-        # Constructing the mock usetcontrib response from the WikiApi
-        if usernames.include?('Ragesock')
-          contribs << { 'user' => 'Ragesock', 'userid' => 1001 }
-        end
-        if usernames.include?('wikiedStaff')
-          contribs << { 'user' => 'wikiedStaff', 'userid' => 1002 }
-        end
-
-        mock_response_with_contribs(contribs)
-      end
+      add_student('Retained1', registered_at: course.start + 1.day, retained: true)
+      add_student('Retained2', registered_at: course.start + 2.days, retained: true)
+      add_student('NotRetained', registered_at: course.start + 3.days, retained: false)
     end
 
-    it 'counts the distinct users with contributions' do
+    it 'counts the new editors flagged as retained' do
       expect(manager.count).to eq(2)
+    end
+
+    it 'does not query the wiki API' do
+      expect_any_instance_of(WikiApi).not_to receive(:query)
+      manager.count
     end
   end
 
-  context 'when a user has multiple edits' do
+  context 'when a new editor could not be verified' do
     before do
-      allow_any_instance_of(WikiApi).to receive(:query).and_return(
-        mock_response_with_contribs([
-          { 'user' => 'Ragesock', 'userid' => 1001 },
-          { 'user' => 'Ragesock', 'userid' => 1001 }
-        ])
-      )
+      add_student('Retained', registered_at: course.start + 1.day, retained: true)
+      add_student('Unverifiable', registered_at: course.start + 1.day, retained: nil)
     end
 
-    it 'counts them as 1 retained editor' do
+    it 'counts only the retained ones' do
       expect(manager.count).to eq(1)
     end
   end
 
-  context 'with many new editors (tests batching)' do
-    let(:total_users) { 50 }
-
+  context 'when some new editors have not been checked yet' do
     before do
-      # Clearing the students from previous before blocks to avoid confusion
-      course.courses_users.destroy_all
-
-      # create 50 new students thta fit the new editor criteria
-      total_users.times do |i|
-        user = create(:user, username: "User-#{i}", registered_at: course.start + 1.day)
-        create(:courses_user, course: course, user: user, role: CoursesUsers::Roles::STUDENT_ROLE)
-      end
-
-      # return contribution for EVERY user requested in the batch
-      allow_any_instance_of(WikiApi).to receive(:query) do |_instance, params|
-        requested_names = params[:ucuser] || []
-
-        # Map each requested name to a  contribution hash
-        contribs = requested_names.map { |name| { 'user' => name } }
-
-        mock_response_with_contribs(contribs)
-      end
+      add_student('Retained', registered_at: course.start + 1.day, retained: true)
+      add_student('Unchecked', registered_at: course.start + 1.day, checked: false)
     end
 
-    it 'processes in batches and sums correctly' do
-      expect(manager.count).to eq(50)
+    it 'returns nil because retention is still pending' do
+      expect(manager.count).to be_nil
     end
   end
 
+  context 'with students who are not new editors' do
+    before do
+      add_student('NewEditor', registered_at: course.start + 1.day, retained: true)
+      add_student('OldAccount', registered_at: course.start - 1.year, retained: true)
+    end
+
+    it 'counts only students who registered during the course' do
+      expect(manager.count).to eq(1)
+    end
+  end
+
+  context 'with a retained instructor' do
+    before do
+      add_student('NewEditor', registered_at: course.start + 1.day, retained: true)
+      instructor = create(:user, username: 'Instructor', registered_at: course.start + 1.day)
+      create(:courses_user, course:, user: instructor,
+             role: CoursesUsers::Roles::INSTRUCTOR_ROLE, retained_after_course: true,
+             retained_after_course_checked_at: 1.day.ago)
+    end
+
+    it 'counts only students' do
+      expect(manager.count).to eq(1)
+    end
+  end
 end
