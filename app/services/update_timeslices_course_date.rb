@@ -19,23 +19,24 @@ class UpdateTimeslicesCourseDate
 
   private
 
-  # A 'drastic' change occurs when the previous course period and the current one have no overlap.
-  # In this case, we delete the existing timeslices and generate new ones.
+  # A 'drastic' change occurs when a wiki's previous period and the current one have no
+  # overlap. In this case, we delete the existing timeslices and generate new ones for it.
   def update_timeslices_if_drastic_change
-    min_course_start = CourseWikiTimeslice.where(course: @course).minimum(:start)
-    max_course_end = CourseWikiTimeslice.where(course: @course).maximum(:end)
-
-    drastic_change = @course.start >= max_course_end || @course.end <= min_course_start
-
-    return unless drastic_change
+    drastic_wikis = @course.wikis.select { |wiki| drastic_change_for_wiki?(wiki) }
+    return if drastic_wikis.empty?
 
     Rails.logger.info "UpdateTimeslicesCourseDate: Course: #{@course.slug}\
-    Drastic date change. Recreating timeslices."
+    Drastic date change for wikis #{drastic_wikis.map(&:id)}. Recreating timeslices."
 
     remove_timeslices_prior_to_start_date
     remove_timeslices_after_end_date
-    @timeslice_manager.create_timeslices_for_new_course_wiki_records(@course.wikis,
+    @timeslice_manager.create_timeslices_for_new_course_wiki_records(drastic_wikis,
                                                                      needs_update: true)
+  end
+
+  def drastic_change_for_wiki?(wiki)
+    timeslices = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
+    @course.start >= timeslices.maximum(:end) || @course.end <= timeslices.minimum(:start)
   end
 
   def update_timeslices_if_start_date_changed
