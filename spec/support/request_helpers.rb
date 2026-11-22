@@ -6,21 +6,27 @@ module RequestHelpers
   ##################
   # OAuth requests #
   ##################
-  def stub_token_request
-    fake_tokens = '{"query":{"tokens":{"csrftoken":"faketoken+\\\\"}}}'
+  # WikiEdits fetches the user's rights with each token; `rights` sets them.
+  def stub_token_request(rights: [])
+    fake_tokens = { query: { tokens: { csrftoken: 'faketoken+\\' },
+                             userinfo: { rights: } } }.to_json
     lang = ENV['wiki_language']
-    url = "https://#{lang}.wikipedia.org/w/api.php?action=query&meta=tokens&format=json&type=csrf"
-    stub_request(:get, url)
+    stub_request(:get, "https://#{lang}.wikipedia.org/w/api.php")
+      .with(query: token_query_params('csrf'))
       .to_return(status: 200, body: fake_tokens, headers: {})
   end
 
   def stub_account_creation_token_request(wiki: nil)
-    fake_tokens = '{"query":{"tokens":{"createaccounttoken":"faketoken+\\\\"}}}'
+    fake_tokens = { query: { tokens: { createaccounttoken: 'faketoken+\\' },
+                             userinfo: { rights: [] } } }.to_json
     lang = wiki&.language || ENV['wiki_language']
-    params_url = 'action=query&meta=tokens&format=json&type=createaccount'
-    url = "https://#{lang}.wikipedia.org/w/api.php?#{params_url}"
-    stub_request(:get, url)
+    stub_request(:get, "https://#{lang}.wikipedia.org/w/api.php")
+      .with(query: token_query_params('createaccount'))
       .to_return(status: 200, body: fake_tokens, headers: {})
+  end
+
+  def token_query_params(type)
+    { action: 'query', meta: 'tokens|userinfo', uiprop: 'rights', format: 'json', type: }
   end
 
   def stub_token_request_failure
