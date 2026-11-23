@@ -19,8 +19,7 @@ class AssignmentsController < ApplicationController
     assignment_id = params[:assignment_id]
     user_id = params[:user_id]
     if assignment_id && user_id.present? && @assignment.flags[:available_article]
-      # Clear the sandbox url too, so the next claimant gets their own.
-      @assignment.update(user_id: nil, sandbox_url: nil)
+      unclaim_assignment
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     else
       remove_assignment_template
@@ -74,6 +73,7 @@ class AssignmentsController < ApplicationController
              status: :conflict
     else
       claim_assignment # sets @assignment
+      update_onwiki_course_and_assignments
       render partial: 'updated_assignment', locals: { assignment: @assignment }
     end
   rescue AssignmentManager::DuplicateAssignmentError => e
@@ -111,6 +111,15 @@ class AssignmentsController < ApplicationController
   def update_onwiki_course_and_assignments
     UpdateAssignmentsWorker.schedule_edits(course: @course, editing_user: current_user)
     UpdateCourseWorker.schedule_edits(course: @course, editing_user: current_user)
+  end
+
+  # The course-wide sync skips articles with no assigned user, so the
+  # student's name is removed from the talk page before the user is cleared.
+  def unclaim_assignment
+    remove_assignment_template
+    # Clear the sandbox url too, so the next claimant gets their own.
+    @assignment.update(user_id: nil, sandbox_url: nil)
+    update_onwiki_course_and_assignments
   end
 
   def remove_assignment_template
