@@ -15,7 +15,8 @@ class MetricsGlossary
   SUPPORT_FILES = [LAYOUT_FILE, 'unclaimed.yml', 'fingerprints.yml'].freeze
   AUDIENCES = %w[public admin].freeze
   DEPLOYMENTS = %w[wiki_ed pe].freeze
-  STATUSES = %w[undecided intentional bug fixed].freeze
+  # A fixed inconsistency is deleted rather than kept with a status.
+  STATUSES = %w[undecided intentional bug].freeze
   REPO_URL = 'https://github.com/WikiEducationFoundation/WikiEduDashboard'
 
   # A part of the page that mirrors a group of numbers on a course page: an

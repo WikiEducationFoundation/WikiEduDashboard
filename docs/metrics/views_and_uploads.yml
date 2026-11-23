@@ -160,24 +160,6 @@ divergences:
       - ruby: ArticleHelper#calculate_view_count
     status: undecided
 
-  views-start-copy:
-    title: When article views start counting
-    metrics: [article_views]
-    description: |
-      Views are counted from the first edit a student made to the page during
-      the course. The tooltips used to describe the start three different
-      ways, and the course lists' version ("since the editor made their first
-      edit to each article") suggested a separate start for each editor. All
-      three now match: "from the article's first revision during the course"
-      (course overview), "since first student first edit" (articles list) and
-      "since the date of the first tracked edit to each article" (course
-      lists).
-    code:
-      - ruby: CourseCacheManager#update_view_sum_based_on_first_revision
-        path: lib/course_cache_manager.rb
-    status: fixed
-    issue: 7303
-
   uploads-window:
     title: Which uploads count on a user profile
     metrics: [commons_uploads, upload_usages]
@@ -196,19 +178,3 @@ divergences:
       - ruby: IndividualStatisticsTimeslicePresenter#set_upload_usage_counts
       - ruby: PushCourseToSalesforce#base_salesforce_fields
     status: undecided
-
-  upload-usage-copy:
-    title: What an upload "usage" is
-    metrics: [upload_usages]
-    description: |
-      A usage is a mainspace page on any Wikimedia wiki that shows the file.
-      The Uploads tab's tooltip used to call the per-file number "Wikipedia
-      articles that this image appears in", which left out other projects
-      and other kinds of files. It now says "mainspace pages, on any
-      Wikimedia project, that use this file", which matches the course
-      overview's "usages across languages".
-    code:
-      - ruby: UploadImporter.import_usages
-        path: lib/importers/upload_importer.rb
-    status: fixed
-    issue: 7303

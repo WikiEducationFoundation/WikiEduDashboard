@@ -67,14 +67,19 @@ metrics:
     name: Namespace tabs
     summary: The main course numbers, broken down for each kind of page the course tracks.
     explanation: |
-      Courses that track more than one wiki, or more than one kind of page,
-      get a tab on the course overview for each. Each tab shows the main numbers
-      for just those pages, worked out the same way.
+      Each tab takes the pages students edited in one wiki and namespace,
+      and works out the main course numbers for just those pages, the same
+      way as the course overview. Active Editors and Edits differ a little
+      from the overview's Student Editors and Total Edits; see the notes
+      below.
     fine_print: |
-      - Student Editors on a tab counts the students who edited those pages,
-        not everyone enrolled.
-      - Total Edits on a tab counts only edits to tracked pages that still
-        exist.
+      - Only pages the course still tracks, and that haven't been deleted,
+        are included.
+      - A number that's zero is left off the tab.
+      - With only one tab, the tab bar is hidden.
+      - Wikidata tabs show no Words Added.
+      - The tabs are worked out again at each stats update; a namespace the
+        course stops tracking loses its tab.
     implementations:
       - ruby: UpdateWikiNamespaceStatsTimeslice#articles_courses_stats
         formula: true
@@ -84,24 +89,13 @@ metrics:
       - ruby: UpdateWikiNamespaceStatsTimeslice#namespace_stats
       - js: app/assets/javascripts/components/common/OverviewStats/namespace_overview_stats.jsx#NamespaceOverviewStats
     surfaces:
+      - i18n: metrics.active_editors
+      - i18n: metrics.edits
       - place: Course overview (one tab for each tracked wiki and namespace)
     columns:
       - course_stats.stats_hash
 
 divergences:
-  student-editors-label:
-    title: Two meanings of "Student Editors"
-    metrics: [editors, namespace_stats]
-    description: |
-      On the course overview, Student Editors is everyone enrolled as a
-      student, whether or not they've edited. On a namespace tab, the same
-      label counts the students who edited pages in that namespace.
-    code:
-      - ruby: CourseCacheManager#update_user_count
-        path: lib/course_cache_manager.rb
-      - ruby: UpdateWikiNamespaceStatsTimeslice#user_counts_by_namespace
-    status: undecided
-
   items-created:
     title: Wikidata items created
     metrics: [wikidata_stats, articles_created]
@@ -129,21 +123,3 @@ divergences:
       - ruby: UpdateWikidataStatsTimeslice#build_stats_from_revisions
       - ruby: RevisionOnMemory#references_added
     status: undecided
-
-  wikidata-stats-copy:
-    title: Where the Wikidata stats come from
-    metrics: [wikidata_stats]
-    description: |
-      The stats panel and the download description said the breakdown was
-      "based on edit summaries", and the panel's References Added had a
-      tooltip warning that it "may only be a partial count" for that reason.
-      Only merges, redirects, reverts, restorations, cleared items and new
-      items come from edit summaries; claims, labels, descriptions, aliases,
-      interwiki links, qualifiers and references are counted by comparing
-      each item with its previous version. The description now says
-      "Detailed breakdown of Wikidata activity", and the references tooltip
-      has been removed.
-    code:
-      - ruby: UpdateWikidataStatsTimeslice#analyze_revisions
-    status: fixed
-    issue: 7303

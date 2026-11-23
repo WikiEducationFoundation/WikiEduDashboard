@@ -138,7 +138,7 @@ describe MetricsGlossary do
         expect(checker.schema_errors).to include(
           'words-rounding: unknown field colour',
           'words-rounding: missing description',
-          'words-rounding: status must be one of undecided, intentional, bug, fixed',
+          'words-rounding: status must be one of undecided, intentional, bug',
           'words-rounding: metric no_such_metric doesn\'t exist'
         )
       end

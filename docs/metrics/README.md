@@ -81,7 +81,7 @@ divergences:
     code:                       # same format as implementations
       - ruby: WordCount.from_characters
         path: lib/word_count.rb
-    status: undecided           # undecided | intentional | bug | fixed
+    status: undecided           # undecided | intentional | bug; delete the record once it's fixed
     issue: 7303                 # optional GitHub issue number
 ```
 

@@ -43,8 +43,8 @@
       %h2#known-inconsistencies-heading Known inconsistencies
       %p
         Places where one name is calculated in more than one way. Each has a
-        status: not yet decided, intentional, a bug (usually with an issue to
-        fix it), or fixed.
+        status: not yet decided, intentional, or a bug (usually with an issue to
+        fix it).
       - @divergences.each do |divergence|
         = render 'metrics_glossary_divergence', divergence:
 

@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import OverviewStat from './overview_stat';
-import CourseUtils from '../../../utils/course_utils';
 
-const NamespaceOverviewStats = ({ course, statistics }) => {
-  const student_editors_stat_msg = CourseUtils.i18n('student_editors', course.string_prefix);
+// A namespace tab counts only the students who edited pages in that namespace,
+// and only edits to those pages, so its labels differ from the course
+// overview's Student Editors and Total Edits.
+const NamespaceOverviewStats = ({ statistics }) => {
   return (
     <div className="stat-display">
       <OverviewStat
@@ -22,17 +23,17 @@ const NamespaceOverviewStats = ({ course, statistics }) => {
         renderZero={false}
       />
       <OverviewStat
-        id="total-edits"
+        id="namespace-edits"
         className="stat-display__value"
         stat={statistics.revision_count}
-        statMsg={I18n.t('metrics.edit_count_description')}
+        statMsg={I18n.t('metrics.edits')}
         renderZero={false}
       />
       <OverviewStat
-        id="student-editors"
+        id="active-editors"
         className="stat-display__value"
         stat={statistics.user_count}
-        statMsg={student_editors_stat_msg}
+        statMsg={I18n.t('metrics.active_editors')}
         renderZero={false}
       />
       <OverviewStat

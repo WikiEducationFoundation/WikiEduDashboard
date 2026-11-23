@@ -35,10 +35,13 @@ describe 'Namespace-specific stats', type: :feature, js: true do
   it 'generates and renders stats for Cookbook namespace on en.wikibooks.org' do
     visit "/courses/#{course.slug}/manual_update"
     expect(page).to have_content 'en.wikibooks.org - Mainspace'
-    expect(page).to have_content "0\nTotal Edits"
+    expect(page).to have_content "0\nTotal Edits" # the course overview
+    expect(page.find('#namespace-edits')).to have_content "3\nEdits"
 
     expect(page).to have_content 'en.wikibooks.org - Cookbook'
     find('.tab', text: 'en.wikibooks.org - Cookbook').click
-    expect(page).to have_content "4\nTotal Edits"
+    expect(page.find('#namespace-edits')).to have_content "4\nEdits"
+    # Students who edited this namespace, not everyone enrolled
+    expect(page.find('#active-editors')).to have_content "14\nActive Editors"
   end
 end

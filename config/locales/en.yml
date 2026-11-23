@@ -1426,6 +1426,8 @@ en:
       content_wikidata: to assign and view item assignments
 
   metrics:
+    active_editors: Active Editors
+    edits: Edits
     editors_doc: The number of unique enrolled editors
     program_date_doc: This is the date of the program.
     label: Course Activity

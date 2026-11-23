@@ -5,8 +5,7 @@ module MetricsGlossaryHelper
   DIVERGENCE_STATUS_LABELS = {
     'undecided' => 'Not yet decided',
     'intentional' => 'Intentional',
-    'bug' => 'Bug',
-    'fixed' => 'Fixed'
+    'bug' => 'Bug'
   }.freeze
 
   # Definitions are Markdown. escape_html neutralizes any literal HTML, so

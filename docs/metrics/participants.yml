@@ -97,36 +97,6 @@ divergences:
         path: lib/analytics/course_statistics.rb
     status: undecided
 
-  campaign-header-private-courses:
-    title: Private courses in campaign totals
-    metrics: [editors, words_added, references_added, article_views, articles_edited, articles_created, commons_uploads]
-    description: |
-      The row of totals at the top of a campaign's edit page used to mix two
-      sets of courses for organizers: students, words added, references added
-      and uploads in use left out private courses, while the course count,
-      views, articles and uploads included them. Every figure there now
-      covers all the courses the viewer can see, so organizers' totals
-      include private courses and everyone else's leave them out.
-    code:
-      - file: app/views/courses/_header_stats.html.haml
-      - ruby: CoursesPresenter#visible_totals
-    status: fixed
-
-  editors-doc-copy:
-    title: What "Editors" means in the campaign programs list
-    metrics: [editors]
-    description: |
-      The Editors column's tooltip said it was "the number of unique users
-      who have edited articles in the course", but the column shows everyone
-      enrolled as a student, whether they've edited or not. It now says "The
-      number of unique enrolled editors".
-    code:
-      - ruby: CourseCacheManager#update_user_count
-        path: lib/course_cache_manager.rb
-      - file: app/views/campaigns/programs.html.haml
-    status: fixed
-    issue: 7303
-
   trained-ratio:
     title: Training completion as a fraction or a percentage
     metrics: [trained]
@@ -144,35 +114,3 @@ divergences:
         path: lib/analytics/course_csv_builder.rb
       - ruby: CoursesPresenter#trained_percent
     status: intentional
-
-  trained-legacy-cutoff:
-    title: Which courses use the old training flag
-    metrics: [trained]
-    description: |
-      The trained count and the Students tab's training progress used
-      slightly different rules for which old courses rely on the on-wiki
-      training flag: they disagreed for courses starting exactly on
-      December 1, 2015, and for Visiting Scholarships from before then. They
-      now share one rule: courses from before December 1, 2015 use the old
-      flag, except Visiting Scholarships.
-    code:
-      - ruby: CourseTrainingProgressManager.dashboard_training?
-        path: lib/course_training_progress_manager.rb
-    status: fixed
-
-  trained-analytics-flag:
-    title: Trained students in the campaign intersection report
-    metrics: [trained]
-    description: |
-      The campaign intersection report on the analytics page used to count
-      trained students with the old on-wiki training flag, which nothing
-      updates any more, so the figure was close to zero for recent courses.
-      It now counts distinct students (leaving out anyone with a non-student
-      role in any of the courses) who have no overdue training in any of
-      the courses, using the old flag only for courses from before December
-      2015.
-    code:
-      - ruby: CourseStatistics#find_trained_student_count
-        path: lib/analytics/course_statistics.rb
-    status: fixed
-    issue: 7301

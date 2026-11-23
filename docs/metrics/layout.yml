@@ -31,6 +31,32 @@ sections:
       - uploads_in_use
       - upload_usages
 
+  namespace_tabs:
+    title: Namespace tabs
+    intro: >-
+      Below the course overview, courses that track more than one wiki, or
+      more than one kind of page (namespace), get a tab for each. Each tab
+      repeats the main numbers for just the pages in that wiki and namespace.
+    visual: namespace_tabs
+    metrics:
+      - namespace_stats
+    notes:
+      editors:
+        label: Active Editors
+        text: >-
+          The number of students who edited pages in that namespace. Unlike
+          the course overview's [Student Editors](#editors), it leaves out
+          students who haven't edited those pages, so a student who only
+          edited drafts doesn't count on the Mainspace tab.
+      total_edits:
+        label: Edits
+        text: >-
+          Edits to the tab's pages only, counting only pages the course still
+          tracks and that haven't been deleted. Across all the tabs, these
+          usually add up to less than the course overview's [Total Edits](#total_edits),
+          which also counts edits to sandboxes and other pages the course
+          doesn't track.
+
   students_tab:
     title: Students tab
     intro: One row for each student on the course's Students tab.
@@ -83,9 +109,9 @@ sections:
           than the course overview's total, which stops at the last stats
           update.
 
-  breakdowns:
-    title: Wikidata and namespace tabs
-    intro: Extra breakdowns on the Home tab of some courses.
+  wikidata:
+    title: Wikidata stats
+    intro: >-
+      Courses that edit Wikidata get an extra panel on the Home tab.
     metrics:
       - wikidata_stats
-      - namespace_stats

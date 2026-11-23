@@ -300,39 +300,6 @@ divergences:
         path: lib/word_count.rb
     status: undecided
 
-  words-rounding:
-    title: Rounding of words added
-    metrics: [words_added]
-    description: |
-      The server rounded words down, while the Students and Articles tabs
-      rounded to the nearest word, so a student's or article's words could
-      differ by one between the page and a CSV. Both now round down.
-
-      A sum of separately rounded figures, such as the per-article words on
-      a user profile, can still come out slightly lower than a total that's
-      rounded once.
-    code:
-      - ruby: WordCount.from_characters
-        path: lib/word_count.rb
-      - js: app/assets/javascripts/utils/wordcount_utils.js#bytesToWords
-    status: fixed
-
-  words-wikidata-copy:
-    title: Tooltip for words added on Wikidata courses
-    metrics: [words_added]
-    description: |
-      There were Wikidata versions of the words-added tooltip saying it
-      estimates "words added to mainspace items", although Wikidata is left
-      out of characters and words added. Nothing ever showed them: the only
-      place that looked up a Wikidata variant does so only for courses on
-      English Wikipedia. They've been deleted.
-    code:
-      - ruby: WordCount::EXCLUDED_PROJECTS
-        path: lib/word_count.rb
-      - js: app/assets/javascripts/components/articles/article_list_keys.js#contentAddedKey
-    status: fixed
-    issue: 7303
-
   characters-scope:
     title: Which pages characters added covers
     metrics: [characters_added, words_added]
@@ -379,23 +346,6 @@ divergences:
       - ruby: UserProfileAnalytics#group_contributions_by_language
       - js: app/assets/javascripts/components/user_profiles/user_details.jsx#sumArticleStat
     status: undecided
-
-  references-net-vs-added:
-    title: References added is a net count
-    metrics: [references_added]
-    description: |
-      The figure subtracts references removed, so it can be lower than what
-      students added, or negative. The tooltips used to say "references
-      added", and the Wikidata one credited a data source no longer used.
-      Both now describe a net count. The label is still "References Added".
-
-      The Wikidata stats panel has its own References Added figure, which
-      counts additions only (see "References added on Wikidata").
-    code:
-      - ruby: RevisionOnMemory#references_added
-      - ruby: UpdateWikidataStatsTimeslice
-    status: fixed
-    issue: 7303
 
   total-edits-scope:
     title: Which edits count toward total edits
