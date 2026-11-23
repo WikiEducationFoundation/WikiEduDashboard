@@ -28,6 +28,7 @@ const CoursesByWikiHandler = lazy(() => import('../courses_by_wiki/courses_by_wi
 const RevisionAiScoresStats = lazy(() => import('../revision_ai_scores/revision_ai_scores_stats.jsx'));
 const ArticleAuditsIndex = lazy(() => import('../article_audit/article_audits_index.jsx'));
 const ArticleAuditReport = lazy(() => import('../article_audit/article_audit_report.jsx'));
+const ArticleAuditFeedbackSummary = lazy(() => import('../article_audit/feedback_summary.jsx'));
 const ClaimVerificationAdmin = lazy(() => import('../claim_verification/claim_verification_admin.jsx'));
 const DetectorComparison = lazy(() => import('../detector_comparison/detector_comparison.jsx'));
 const SystemStatsHandler = lazy(() => import('../system_stats/system_stats_handler.jsx'));
@@ -70,6 +71,7 @@ const routes = () => {
         <Route path="/ai_edit_alerts_stats/:campaign_slug" element={<AlertsStats />} />
         <Route path="/claim_verification" element={<ClaimVerificationAdmin />} />
         <Route path="/article_audits" element={<ArticleAuditsIndex />} />
+        <Route path="/article_audits/feedback" element={<ArticleAuditFeedbackSummary />} />
         <Route path="/article_audits/:id" element={<ArticleAuditReport />} />
         <Route path="/detector_comparison/*" element={<DetectorComparison />} />
         <Route path="/settings" element={<SettingsHandler />} />

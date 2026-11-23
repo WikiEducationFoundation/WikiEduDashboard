@@ -33,6 +33,8 @@ require_dependency "#{Rails.root}/lib/llm/client"
 #   results from different prompt revisions can be told apart
 class ArticleAuditCheckResult < ApplicationRecord
   belongs_to :article_audit
+  has_many :finding_feedbacks, class_name: 'ArticleAuditFindingFeedback',
+                               inverse_of: :check_result, dependent: :destroy
 
   serialize :findings, coder: JSON
   serialize :artifacts, coder: JSON

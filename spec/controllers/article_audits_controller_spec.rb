@@ -26,16 +26,21 @@ describe ArticleAuditsController, type: :controller do
       expect(response).to have_http_status(:unauthorized)
     end
 
-    it 'lets non-admins view a report, flagged as non-admin' do
+    it 'rejects non-admin views of a report' do
       sign_in_as(user)
-      allow(ArticleAuditing::RenderedArticle).to receive(:fetch).and_return(nil)
       get :show, params: { id: audit.id }, format: :json
-      expect(response).to have_http_status(:ok)
-      expect(JSON.parse(response.body)).to include('admin' => false)
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it 'rejects non-admin feedback on findings' do
+      sign_in_as(user)
+      put :finding_feedback, params: { id: audit.id, check_result_id: 1, finding_index: 0 },
+                             format: :json
+      expect(response).to have_http_status(:unauthorized)
     end
 
     it 'tells search engines not to index reports' do
-      sign_in_as(user)
+      sign_in_as(admin)
       allow(ArticleAuditing::RenderedArticle).to receive(:fetch).and_return(nil)
       get :show, params: { id: audit.id }
       expect(response.headers['X-Robots-Tag']).to eq('noindex, nofollow')
@@ -92,8 +97,23 @@ describe ArticleAuditsController, type: :controller do
       result = body['check_results'].first
       expect(result).to include('status' => 'succeeded', 'run_count' => 2)
       expect(result['findings']).to eq([{ 'title' => 'Peacock', 'id' => "#{result['id']}-0",
-                                          'anchor' => nil }])
+                                          'anchor' => nil, 'feedback' => nil }])
       expect(body['article_html']).to be_nil
+    end
+
+    it "includes the current user's feedback on each finding, not anyone else's" do
+      result = audit.check_results.create!(check_key: 'tone', status: 'succeeded',
+                                           findings: [{ 'title' => 'A' }, { 'title' => 'B' }])
+      result.finding_feedbacks.create!(finding_index: 1, user: admin, accurate: 'partly',
+                                       accurate_comment: 'Half right')
+      result.finding_feedbacks.create!(finding_index: 0, user: create(:admin, username: 'Other'),
+                                       accurate: 'no')
+      get :show, params: { id: audit.id }, format: :json
+      findings = JSON.parse(response.body)['check_results'].first['findings']
+      expect(findings.map { |finding| finding['feedback'] }).to eq(
+        [nil, { 'accurate' => 'partly', 'accurate_comment' => 'Half right',
+                'show_to_participants' => nil, 'show_to_participants_comment' => nil }]
+      )
     end
 
     context 'when the revision can be fetched' do
@@ -158,6 +178,70 @@ describe ArticleAuditsController, type: :controller do
     it 'rejects an unknown check' do
       post :rerun_check, params: { id: audit.id, check_key: 'nope' }, format: :json
       expect(response).to have_http_status(:unprocessable_content)
+    end
+  end
+
+  describe 'PUT #finding_feedback' do
+    let(:result) do
+      audit.check_results.create!(check_key: 'tone', status: 'succeeded',
+                                  findings: [{ 'title' => 'Peacock' }])
+    end
+
+    before { sign_in_as(admin) }
+
+    def give_feedback(**params)
+      put :finding_feedback, params: { id: audit.id, check_result_id: result.id, finding_index: 0,
+                                       **params }, format: :json
+    end
+
+    it 'saves feedback, then replaces it on a second save' do
+      give_feedback(accurate: 'yes', accurate_comment: 'Spot on')
+      give_feedback(accurate: 'partly', show_to_participants: 'maybe',
+                    show_to_participants_comment: '')
+      expect(response).to have_http_status(:ok)
+      expect(JSON.parse(response.body)).to eq(
+        'accurate' => 'partly', 'accurate_comment' => nil,
+        'show_to_participants' => 'maybe', 'show_to_participants_comment' => nil
+      )
+      expect(result.finding_feedbacks.count).to eq(1)
+    end
+
+    it 'rejects an answer that is not one of the options' do
+      give_feedback(accurate: 'maybe')
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+
+    it 'rejects a finding that does not exist' do
+      give_feedback(finding_index: 1)
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+
+    it "rejects a check result from another audit" do
+      other = ArticleAudit.create!(wiki:, mw_rev_id: 456)
+      put :finding_feedback, params: { id: other.id, check_result_id: result.id,
+                                       finding_index: 0, accurate: 'yes' }, format: :json
+      expect(response).to have_http_status(:unprocessable_content)
+    end
+  end
+
+  describe 'GET #feedback' do
+    before { sign_in_as(admin) }
+
+    it 'tallies feedback by check and lists each response' do
+      result = audit.check_results.create!(check_key: 'tone', status: 'succeeded',
+                                           findings: [{ 'title' => 'Peacock',
+                                                        'severity' => 'should_fix' }])
+      result.finding_feedbacks.create!(finding_index: 0, user: admin, accurate: 'yes',
+                                       show_to_participants: 'no')
+      get :feedback, format: :json
+      body = JSON.parse(response.body)
+      expect(body['groups']).to eq([{ 'check_key' => 'tone', 'code' => nil, 'responses' => 1,
+                                      'accurate' => { 'yes' => 1, 'partly' => 0, 'no' => 0 },
+                                      'show_to_participants' => { 'yes' => 0, 'maybe' => 0,
+                                                                  'no' => 1 } }])
+      expect(body['responses'].first).to include('audit_id' => audit.id, 'title' => 'Peacock',
+                                                 'finding_id' => "#{result.id}-0",
+                                                 'user' => admin.username)
     end
   end
 end

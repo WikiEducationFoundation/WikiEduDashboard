@@ -92,17 +92,39 @@ describe 'Article Audit admin pages', type: :feature, js: true do
     expect(page).to have_link 'Acme'
   end
 
-  it 'shows an existing report to a non-admin, without the admin controls' do
+  it 'saves feedback on a finding and tallies it on the feedback page' do
     audit = ArticleAudit.create!(wiki: context.wiki, mw_rev_id: 42, article_title: 'Acme',
                                  requester: admin, status: 'complete')
     audit.check_results.create!(check_key: 'tone', status: 'succeeded', findings: [tone_finding])
-    logout
-    login_as(create(:user))
 
     visit "/article_audits/#{audit.id}"
+    within('.article-audit-comment', text: 'Peacock term') do
+      click_button 'Peacock term'
+      within('fieldset', text: 'Is this finding accurate?') do
+        choose 'Partly'
+        fill_in 'Comment', with: 'Only half peacock'
+      end
+      within('fieldset', text: 'Should it be shown to program participants?') { choose 'Yes' }
+      click_button 'Save'
+      expect(page).to have_content 'Saved'
+      expect(page).to have_button 'Save', disabled: true
+    end
+    expect(page).to be_axe_clean
+
+    visit "/article_audits/#{audit.id}"
+    within('.article-audit-comment', text: 'Peacock term') do
+      click_button 'Peacock term'
+      expect(page).to have_checked_field 'Partly'
+      expect(page).to have_field 'Comment', with: 'Only half peacock'
+    end
+
+    visit '/article_audits'
+    click_link 'Finding feedback'
+    within('.article-audit-feedback-summary__tallies tbody tr', text: 'tone') do
+      expect(page).to have_css('td', text: '1', count: 3)
+    end
+    expect(page).to have_content 'Only half peacock'
+    click_link 'Peacock term'
     expect(page).to have_css('h1', text: 'Acme')
-    expect(page).not_to have_link 'Article Audit'
-    click_button 'Checks'
-    within('tr', text: 'tone') { expect(page).not_to have_button 'Re-run' }
   end
 end

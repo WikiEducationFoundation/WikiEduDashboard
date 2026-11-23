@@ -675,6 +675,8 @@ Rails.application.routes.draw do
   # AI tools for admins
   resources :article_audits, only: %i[index show create] do
     post :rerun_check, on: :member
+    put :finding_feedback, on: :member
+    get :feedback, on: :collection
   end
 
   get 'ai_tools' => 'ai_tools#show'

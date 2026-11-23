@@ -159,6 +159,25 @@ en:
       contradicted: The opposite — the source actually contradicts the claim.
     email:
       view_report: View report
+    feedback:
+      heading: Finding feedback
+      accurate_question: Is this finding accurate?
+      accurate_options:
+        "yes": "Yes"
+        partly: Partly
+        "no": "No"
+      show_to_participants_question: Should it be shown to program participants?
+      show_to_participants_options:
+        "yes": "Yes"
+        maybe: Maybe
+        "no": "No"
+      comment: Comment
+      save: Save
+      saved: Saved
+      responses: Responses
+      finding: Finding
+      severity: Severity
+      user: User
   article_statuses:
     not_yet_started: Getting Started
     in_progress: Working in Sandbox

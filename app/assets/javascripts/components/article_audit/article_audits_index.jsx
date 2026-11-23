@@ -61,6 +61,8 @@ const ArticleAuditsIndex = () => {
       </form>
       {error && <p className="article-audit__error" role="alert">{error}</p>}
 
+      <p><Link to="/article_audits/feedback">{t('feedback.heading')}</Link></p>
+
       <h2>{t('recent_audits')}</h2>
       {!audits && <p>{t('loading')}</p>}
       {audits && (

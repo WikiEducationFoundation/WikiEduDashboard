@@ -5,9 +5,10 @@ import AnnotatedArticle from './annotated_article.jsx';
 import ArtifactView from './artifact_view.jsx';
 import CheckResultsTable from './check_results_table.jsx';
 
-// One Article Audit report, viewable by any signed-in user; admins also get
-// the link back to the audit list and the re-run buttons. Polls while the
-// audit is running.
+// One Article Audit report. Only admins can view reports for now, but the
+// link back to the audit list and the re-run buttons are still shown only to
+// admins, for when others can view them again. Polls while the audit is
+// running. Each finding's comment card has a form for feedback on it.
 // Visible strings live in the `article_audit` locale namespace.
 //
 // The Article tab shows the audited revision with the findings beside it as
@@ -121,7 +122,7 @@ const ArticleAuditReport = () => {
           <>
             <SeverityFilter findings={findings} hidden={hidden} onToggle={toggleSeverity} />
             {!active && checkResults.length > 0 && findings.length === 0 && <p>{t('no_findings')}</p>}
-            <AnnotatedArticle html={articleHtml} findings={findings} hiddenSeverities={hidden} />
+            <AnnotatedArticle auditId={audit.id} html={articleHtml} findings={findings} hiddenSeverities={hidden} />
           </>
         )}
         {tab === 'details' && withArtifacts.map(result => (

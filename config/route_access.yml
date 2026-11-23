@@ -92,9 +92,11 @@ analytics#ungreeted: signed_in
 analytics#usage: public
 
 article_audits#create: admin
+article_audits#feedback: admin
+article_audits#finding_feedback: admin
 article_audits#index: admin
 article_audits#rerun_check: admin
-article_audits#show: signed_in
+article_audits#show: admin
 article_finder#index: public
 
 articles#details: public
