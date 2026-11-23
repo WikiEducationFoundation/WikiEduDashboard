@@ -8,6 +8,15 @@ class CourseTrainingProgressManager
   # instead of the dashboard-based training modules.
   TRAINING_BOOLEAN_CUTOFF_DATE = Date.new(2015, 12, 1)
 
+  # Whether a course's training is tracked by dashboard training modules,
+  # rather than the old on-wiki training recorded by User#trained. Every
+  # place that counts or shows training progress uses this, so they agree on
+  # which courses use which. Visiting Scholarships used dashboard training
+  # even before the cutoff.
+  def self.dashboard_training?(course)
+    course.start >= TRAINING_BOOLEAN_CUTOFF_DATE || course.type == 'VisitingScholarship'
+  end
+
   def initialize(course)
     @course = course
   end
@@ -72,8 +81,7 @@ class CourseTrainingProgressManager
   private
 
   def off_dashboard_training?
-    @off_dashboard_training ||= @course.start < TRAINING_BOOLEAN_CUTOFF_DATE &&
-                                @course.type != 'VisitingScholarship'
+    !self.class.dashboard_training?(@course)
   end
 
   def build_open_struct_for_module(id)

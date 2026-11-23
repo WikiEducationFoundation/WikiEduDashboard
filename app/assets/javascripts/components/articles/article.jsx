@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import CourseUtils from '../../utils/course_utils.js';
+import { bytesToWords } from '../../utils/wordcount_utils';
 import ArticleViewer from '@components/common/ArticleViewer/containers/ArticleViewer.jsx';
 import DiffViewer from '../revisions/diff_viewer.jsx';
 import Switch from 'react-switch';
@@ -52,7 +53,7 @@ const Article = ({ article, index, course, fetchArticleDetails, updateArticleTra
 
   let contentAdded;
   if (course.home_wiki_bytes_per_word) {
-    const wordsAdded = Math.round(article.character_sum / course.home_wiki_bytes_per_word);
+    const wordsAdded = bytesToWords(article.character_sum, course.home_wiki_bytes_per_word);
     contentAdded = <td className="desktop-only-tc">{wordsAdded}</td>;
   } else {
     contentAdded = <td className="desktop-only-tc">{article.character_sum}</td>;

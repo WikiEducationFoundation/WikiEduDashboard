@@ -1,0 +1,242 @@
+// The /metrics glossary (AboutThisSiteController#metrics), rendered from the
+// registry in docs/metrics/. Explanations are Markdown, so prose inside an
+// entry is styled by element rather than by class.
+.metrics-glossary
+  padding 20px 0 60px
+  max-width 900px
+
+  +below(desktop)
+    padding-left 16px
+    padding-right 16px
+
+  h1
+    margin-bottom 0.5em
+
+  h2
+    margin-top 1.75em
+    padding-bottom 0.2em
+    border-bottom 1px solid $border_lt
+
+  h3
+    margin-top 1.5em
+
+  h4
+    margin 1em 0 0.4em
+
+  p, li, dd
+    line-height 1.5
+
+  ul
+    margin-bottom 1em
+    padding-left 1.5em
+    list-style disc
+
+  code
+    background-color $bg_light_gray
+    padding 1px 4px
+    border-radius 3px
+
+  // Anchor targets land below the fixed nav.
+  [id]
+    scroll-margin-top 70px
+
+.metrics-glossary__disclosure
+  margin 1em 0 1.5em
+  padding 12px 18px
+  border-left 4px solid $border_med_dk
+  background-color $bg_light_gray
+
+  p
+    margin 0
+
+// Site-wide nav styles give a nav a white background and centre it on narrow
+// screens; this one is page content.
+.metrics-glossary__contents
+  background none
+  text-align left
+
+  ul
+    background none
+
+  ul ul
+    margin-bottom 0.25em
+
+// The contents is a single line of section links.
+.metrics-glossary__contents ul
+  padding-left 0
+  list-style none
+
+  li
+    display inline-block
+    margin-right 1.5em
+
+.metrics-glossary__controls
+  margin 0.5em 0 1em
+
+  .button
+    margin-right 0.5em
+
+// Each metric and inconsistency is a collapsed <details>: the summary line
+// shows the name and one sentence, the rest opens below it.
+.metrics-glossary__entry
+  border-bottom 1px solid $border_lt
+
+  > summary
+    display block
+    position relative
+    padding 12px 8px 12px 28px
+    cursor pointer
+    list-style none
+
+    &::-webkit-details-marker
+      display none
+
+    // Disclosure triangle, pointing right when closed and down when open.
+    &::before
+      content ''
+      position absolute
+      left 8px
+      top 19px
+      border-style solid
+      border-width 6px 0 6px 8px
+      border-color transparent transparent transparent $brand_primary
+      transition transform 0.15s
+
+    &:hover
+      background-color $bg_light_gray
+
+  &[open] > summary::before
+    transform rotate(90deg)
+
+.metrics-glossary .metrics-glossary__entry-name
+  display inline
+  margin 0
+  font-size 1.15em
+
+.metrics-glossary__entry-summary
+  display block
+  margin-top 2px
+  color $text_med
+
+.metrics-glossary__entry-body
+  padding 0 8px 16px 28px
+
+  > :first-child
+    margin-top 0.5em
+
+  h4
+    margin 1em 0 0.3em
+    font-size 1em
+
+.metrics-glossary__badge
+  margin-left 0.5em
+  padding 1px 6px
+  border 1px solid $border_med_dk
+  border-radius 3px
+  font-size 0.7em
+  font-weight normal
+  vertical-align middle
+
+.metrics-glossary__location, .metrics-glossary__note
+  color $text_med
+  font-size 0.9em
+
+.metrics-glossary__note
+  display block
+
+.metrics-glossary__status
+  font-weight 600
+
+// Long class#method names would otherwise overflow narrow screens.
+.metrics-glossary__code li
+  overflow-wrap anywhere
+
+// Alternative labels sit quietly after the main one on the summary line.
+.metrics-glossary__aliases
+  margin-left 0.5em
+  color $text_med
+  font-size 0.85em
+
+.metrics-glossary__fine-print
+  font-size 0.95em
+
+  ul
+    margin-bottom 0.5em
+
+// Code links and inconsistencies, folded away inside each entry.
+.metrics-glossary__developers
+  margin-top 1em
+  font-size 0.9em
+
+  > summary
+    cursor pointer
+    color $text_med
+
+  h5
+    margin 0.75em 0 0.25em
+    font-size 1em
+
+// The example of how a group of numbers looks on a course page.
+.metrics-glossary__visual
+  margin 1em 0 1.5em
+  padding 16px 16px 8px
+  border 1px solid $border_lt
+  border-radius 4px
+  background-color #fff
+
+  figcaption
+    color $text_med
+    font-size 0.85em
+
+  .stat-display
+    margin 0
+
+.metrics-glossary__visual-link
+  display block
+  text-decoration none
+
+  &:hover small, &:focus small
+    text-decoration underline
+
+.metrics-glossary__visual-detail
+  display block
+  margin-top 4px
+  font-size 0.8em
+  color $text_med
+
+.metrics-glossary__table-wrapper
+  overflow-x auto
+  margin-bottom 8px
+
+.metrics-glossary__table
+  width 100%
+
+  th a
+    color inherit
+    text-decoration underline
+
+// Metrics explained in an earlier section, as they appear on this tab.
+.metrics-glossary__notes
+  margin-top 1em
+
+  h3
+    margin 0 0 0.5em
+    font-size 1.15em
+
+  dt
+    margin-top 0.75em
+    font-weight 600
+
+  dd
+    margin 0.2em 0 0
+
+    p
+      margin 0
+
+// The namespace tabs example sits inside the visual's own frame.
+.metrics-glossary__visual .metrics-glossary__namespace-tabs
+  border none
+  padding 0
+
+  .stat-display
+    margin 20px 0 0

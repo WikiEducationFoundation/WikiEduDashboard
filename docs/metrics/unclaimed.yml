@@ -1,0 +1,104 @@
+# Metric-like columns and translation keys that have no glossary entry.
+# MetricsGlossary::CoverageCheck requires everything it finds to be claimed
+# by an entry or listed here. See docs/metrics/README.md.
+#
+# pending: metrics still to be documented. Remove each one as it gets an entry.
+# ignored: not metrics, with the reason. A key ending in * matches a prefix.
+
+pending:
+  columns:
+    # Retention and new editors
+    - courses_users.retained_after_course
+    - retention_stats.days_to_return
+    - retention_stats.edits_60_90
+    - retention_stats.long_term_wikipedian
+    - retention_stats.prior_course_count
+    - retention_stats.prior_edit_count
+    - retention_stats.sessions_after
+    - retention_stats.sessions_during
+    # Site-wide and facilitator statistics
+    - system_stats.active_facilitators_count
+    - system_stats.active_programs_count
+    - system_stats.archived_programs_count
+    - system_stats.new_editors_count
+    - system_stats.new_editors_count_with_preregistration
+    - system_stats.retained_new_editors_count
+    - system_stats.total_article_views
+    - system_stats.total_articles_created
+    - system_stats.total_articles_improved
+    - system_stats.total_characters_added
+    - system_stats.total_edits
+    - system_stats.wiki_stats
+    - facilitator_stats.active_in_last_year
+    - facilitator_stats.active_programs_count
+    - facilitator_stats.new_editors_count
+    - facilitator_stats.new_editors_count_with_preregistration
+    - facilitator_stats.retained_new_editors_count
+    - facilitator_stats.total_characters_added
+    - facilitator_stats.total_edits
+    - facilitator_stats.total_programs_count
+    - facilitator_stats.total_students_count
+    # AI detection
+    - ai_detection_samples.word_count
+  i18n:
+    # Average words per student
+    - metrics.word_count_average
+    - metrics.per_user
+    # User profile figures
+    - metrics.article_count
+    # Article quality
+    - articles.article_size_doc
+    - articles.rating_doc
+    - articles.wp10_doc
+
+ignored:
+  columns:
+    course_wiki_timeslices.mw_rev_count: >-
+      Internal change detection. The updater compares it with MediaWiki's
+      count to decide whether a timeslice needs reprocessing.
+    lti_line_items.score_maximum: The maximum score of a Canvas gradebook column, a setting.
+    survey_notifications.follow_up_count: How many survey reminder emails were sent; bookkeeping.
+    trigrams.score: A search index weight.
+  i18n:
+    status.*: Sidekiq queue monitoring on /status, not program metrics.
+    revisions.time_doc: Explains a timestamp column.
+    uploads.time_doc: Explains a timestamp column.
+    campaign.enable_account_requests_doc: Explains a campaign setting.
+    metrics.characters: Axis label on the article edit-size graph.
+    metrics.last_reviewed: Column heading on the admin course list.
+    metrics.tags: Column heading on the unsubmitted courses list.
+    metrics.program_date_doc: Explains the program date column.
+    metrics.close_modal: Close button label on the category article titles modal.
+    metrics.date_time: Column heading in the student contributions drawer.
+    # Update status messages on the course overview's statistics modal
+    metrics.enqueued_update: Update status message.
+    metrics.error_count_message: Update status message.
+    metrics.first_update: Update status message.
+    metrics.future_updates_remaining.*: Update status message.
+    metrics.last_articles_update: Update status message.
+    metrics.last_update: Update status message.
+    metrics.last_update_failed: Update status message.
+    metrics.last_update_success: Update status message.
+    metrics.late_update: Update status message.
+    metrics.missing_data_heading: Update status message.
+    metrics.missing_data_info: Update status message.
+    metrics.next_update: Update status message.
+    metrics.no_update: Update status message.
+    metrics.non_updating_course_update: Update status message.
+    metrics.outreach_help: Update status message.
+    metrics.recent_updates_summary: Update status message.
+    metrics.replag_info: Update status message.
+    metrics.replag_link: Update status message.
+    metrics.total_updates: Update status message.
+    metrics.update_statistics_link: Update status message.
+    metrics.update_status_heading: Update status message.
+    metrics.wiki_ed_help: Update status message.
+    # Not used anywhere in the app (checked 2026-11-23)
+    metrics.activity: Not used anywhere.
+    metrics.aliases: Not used; the Wikidata panel hardcodes "Aliases" (#7309).
+    metrics.char: Not used anywhere.
+    metrics.char_changed: Not used anywhere.
+    metrics.descriptions: Not used; the Wikidata panel hardcodes "Descriptions" (#7309).
+    metrics.label: Not used anywhere.
+    metrics.no_data: Not used anywhere.
+    users.training_doc: Not used anywhere.

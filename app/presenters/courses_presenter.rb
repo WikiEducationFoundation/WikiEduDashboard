@@ -225,6 +225,15 @@ class CoursesPresenter
                      end
   end
 
+  # Totals over every course this viewer can see, for the header stats on the
+  # home page and campaign edit page. Organizers see private courses in the
+  # list there, so for them these include private courses too. They aren't
+  # cached, because course_sums is cached per campaign and shown to viewers
+  # who can't see private courses.
+  def visible_totals
+    @visible_totals ||= CourseTotals.new(*courses.pick(Arel.sql(COURSE_SUMS_SQL)).map(&:to_i))
+  end
+
   # Campaign aggregates are cached under the campaign and shown to every
   # viewer, so they leave out private courses whoever fills the cache.
   def aggregated_courses
@@ -279,8 +288,9 @@ class CoursesPresenter
     campaign&.course_string_prefix || Features.default_course_string_prefix
   end
 
+  # Nil when there are no students, which pages show as "—".
   def trained_percent
-    return 100 if user_count.zero?
+    return if user_count.zero?
     100 * trained_count.to_f / user_count
   end
 

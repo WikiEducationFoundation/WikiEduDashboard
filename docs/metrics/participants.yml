@@ -1,0 +1,119 @@
+# Metric glossary entries. Format: docs/metrics/README.md
+metrics:
+  editors:
+    name: Student Editors
+    aliases:
+      - "Editors (programs that don't use \"students\")"
+    summary: How many students are enrolled in the course.
+    explanation: |
+      Everyone enrolled in the course as a student, whether or not they've
+      edited yet. Instructors, Wiki Experts and other staff aren't included.
+    fine_print: |
+      - Campaign and program totals add up each course's number, so someone
+        enrolled in two courses counts twice.
+    implementations:
+      - ruby: CourseCacheManager#update_user_count
+        path: lib/course_cache_manager.rb
+        formula: true
+      - ruby: CoursesPresenter#course_sums
+        note: Campaign totals, which add up per-course counts for courses that aren't private.
+    surfaces:
+      - i18n: courses.student_editors
+      - i18n: courses_generic.student_editors
+      - i18n: courses.students
+      - i18n: courses_generic.students
+      - i18n: users.editors
+      - i18n: metrics.editors_doc
+      - place: Course overview (Student Editors)
+      - place: Campaign overview and campaign programs list
+      - place: Course CSV (editors column) and Salesforce
+    columns:
+      - courses.user_count
+
+  trained:
+    name: Up-to-date with training
+    summary: How many students have finished all the training that is due so far.
+    explanation: |
+      A student is up to date if they've finished every training module
+      whose due date on the course timeline has passed. It's shown when you hover
+      over Student Editors.
+
+      Because it only looks at modules that are already due, every student counts
+      as up to date until the first due date passes.
+    fine_print: |
+      - Only training modules count, not exercises or discussions.
+      - A module finished for another course still counts.
+      - Courses from before December 2015, other than Visiting Scholarships,
+        use an older on-wiki training record, which is no longer updated.
+      - Campaign pages show this as a percentage of students, or "—" when
+        there are no students.
+    implementations:
+      - ruby: CourseCacheManager#update_trained_count
+        path: lib/course_cache_manager.rb
+        formula: true
+      - ruby: TrainedStudentsManager#students_with_overdue_training
+        path: lib/trained_students_manager.rb
+        formula: true
+      - ruby: TrainingModuleDueDateManager#overdue?
+        path: lib/training_module_due_date_manager.rb
+      - ruby: DueDate.passed?
+        path: lib/utils/due_date.rb
+      - ruby: CoursesPresenter#trained_percent
+    surfaces:
+      - i18n: metrics.are_trained
+      - i18n: users.up_to_date_with_training
+      - i18n: users.training_complete_count.one
+      - i18n: users.training_complete_count.other
+      - place: Course overview (under Student Editors, for courses with a timeline)
+      - place: Campaign and program course lists
+      - place: Campaign overview (percentage)
+    columns:
+      - courses.trained_count
+      - users.trained
+
+divergences:
+  student-count:
+    title: Counting students across several courses
+    metrics: [editors]
+    description: |
+      Each course counts its enrolled students. Beyond a single course, the
+      Dashboard counts them in different ways:
+
+      - Campaign and program pages add up each course's count, so a student
+        in two courses counts twice. Private courses are left out, except for
+        organizers on the campaign's edit page.
+      - The term recap email counts distinct students across the campaign's
+        courses, leaving out private courses, like the words-added figure in
+        the same sentence.
+      - The campaign intersection report on the analytics page counts
+        distinct students, minus anyone who also has a non-student role in
+        any of the courses.
+
+      This is intentional: campaign totals summarize course numbers, while
+      the email and the analytics report describe a group of people.
+    code:
+      - ruby: CourseCacheManager#update_user_count
+        path: lib/course_cache_manager.rb
+      - ruby: CoursesPresenter#course_sums
+      - ruby: TermRecapMailer#set_cohort_counts
+      - ruby: CourseStatistics#find_user_counts
+        path: lib/analytics/course_statistics.rb
+    status: intentional
+
+  trained-ratio:
+    title: Training completion as a fraction or a percentage
+    metrics: [trained]
+    description: |
+      The course CSV has a `training_completion_rate` column: up-to-date
+      students divided by students, between 0 and 1, and blank for a course
+      with no students. Campaign pages show the same ratio as a percentage,
+      and now show "—" rather than 100% when there are no students. The CSV
+      keeps its 0-to-1 scale, since spreadsheets may rely on it.
+
+      Despite its name, the CSV figure doesn't measure completion: a student
+      who hasn't started is up to date until a due date passes.
+    code:
+      - ruby: CourseCsvBuilder#training_completion_rate
+        path: lib/analytics/course_csv_builder.rb
+      - ruby: CoursesPresenter#trained_percent
+    status: intentional

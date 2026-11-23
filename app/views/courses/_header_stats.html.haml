@@ -1,47 +1,53 @@
+-# Every figure is summed over the same courses: all those this viewer can
+-# see (CoursesPresenter#visible_totals).
+- totals = presenter.visible_totals
 .stat-display
   .stat-display__stat
-    .stat-display__value= number_to_human presenter.courses.count
+    .stat-display__value= number_to_human totals.course_count
     %small= t("#{presenter.course_string_prefix}.courses")
   .stat-display__stat.tooltip-trigger
     .stat-display__value
-      = number_to_human presenter.user_count
+      = number_to_human totals.user_count
       %img{:src => "/assets/images/info.svg", :alt => "tooltip default logo"}
     %small= t("#{presenter.course_string_prefix}.students")
     .tooltip.dark
       %p.tooltip-stat
-        = number_to_human presenter.trained_percent
-        \%
+        - if totals.trained_percent
+          = number_to_human totals.trained_percent
+          \%
+        - else
+          —
       %p= t("users.up_to_date_with_training")
   .stat-display__stat
-    .stat-display__value= number_to_human presenter.word_count
+    .stat-display__value= number_to_human totals.word_count
     %small= t("metrics.word_count")
   .stat-display__stat.tooltip-trigger
     .stat-display__value
-      = number_to_human presenter.references_count
+      = number_to_human totals.references_count
       %img{:src => "/assets/images/info.svg", :alt => "tooltip default logo"}
     %small= t("metrics.references_count")
     .tooltip.dark
       %p= t("metrics.references_doc")
   .stat-display__stat.tooltip-trigger
     .stat-display__value
-      = number_to_human presenter.courses.sum(:view_sum)
+      = number_to_human totals.view_sum
       %img{:src => "/assets/images/info.svg", :alt => "tooltip default logo"}
     %small= t("metrics.view_count_description")
     .tooltip.dark
       %p= t("metrics.view_count_doc")
   .stat-display__stat
-    .stat-display__value= number_to_human presenter.courses.sum(:article_count)
+    .stat-display__value= number_to_human totals.article_count
     %small= t("metrics.articles_edited")
   .stat-display__stat
-    .stat-display__value= number_to_human presenter.courses.sum(:new_article_count)
+    .stat-display__value= number_to_human totals.new_article_count
     %small= t("metrics.articles_created")
   .stat-display__stat.tooltip-trigger
     .stat-display__value
-      = number_to_human presenter.courses.sum(:upload_count)
+      = number_to_human totals.upload_count
       %img{:src => "/assets/images/info.svg", :alt => "tooltip default logo"}
     %small= t("metrics.upload_count")
     .tooltip.dark
-      %p.tooltip-stat= number_to_human presenter.uploads_in_use_count
-      %p= t("metrics.uploads_in_use_count", count: presenter.uploads_in_use_count)
-      %p.tooltip-stat= number_to_human presenter.upload_usage_count
-      %p= t("metrics.upload_usages_count", count: presenter.upload_usage_count)
+      %p.tooltip-stat= number_to_human totals.uploads_in_use_count
+      %p= t("metrics.uploads_in_use_count", count: totals.uploads_in_use_count)
+      %p.tooltip-stat= number_to_human totals.upload_usages_count
+      %p= t("metrics.upload_usages_count", count: totals.upload_usages_count)

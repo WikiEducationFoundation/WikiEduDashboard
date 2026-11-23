@@ -1,0 +1,34 @@
+-# A static copy of the Students tab list (StudentList), with example rows.
+-# Each column heading links to its entry or note.
+.metrics-glossary__table-wrapper
+  %table.table.metrics-glossary__table
+    %thead
+      %tr
+        %th Name
+        %th Assigned Articles
+        %th
+          %a{ href: '#recent_edits' } Recent Edits
+        %th
+          %a{ href: '#students_tab--words_added' }
+            Words Added
+            %br
+            (article | user | draft)
+        %th
+          %a{ href: '#students_tab--references_added' } References Added
+        %th
+          %a{ href: '#students_tab--commons_uploads' } Total Uploads
+    %tbody
+      %tr
+        %td Student A
+        %td Coral reef
+        %td 6
+        %td 1,240 | 310 | 0
+        %td 14
+        %td 2
+      %tr
+        %td Student B
+        %td Mangrove forest
+        %td 0
+        %td 865 | 1,020 | 0
+        %td 9
+        %td 0

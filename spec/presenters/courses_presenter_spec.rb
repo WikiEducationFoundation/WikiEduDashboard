@@ -16,6 +16,49 @@ describe CoursesPresenter do
       expect(subject.trained_count).to eq(1)
       expect(subject.trained_percent).to eq(50.0)
     end
+
+    it 'has no trained percentage when there are no students' do
+      course.update(user_count: 0, trained_count: 0)
+      expect(subject.trained_percent).to be_nil
+    end
+  end
+
+  describe '#visible_totals' do
+    let(:campaign) { create(:campaign) }
+    let(:course) do
+      create(:course, user_count: 10, trained_count: 5, view_sum: 100, character_sum: 5175)
+    end
+    let(:private_course) do
+      create(:course, slug: 'Private/Course_(term)', private: true, user_count: 2,
+                      trained_count: 2, view_sum: 50, character_sum: 5175)
+    end
+    let(:presenter) { described_class.new(current_user: user, campaign_param: campaign.slug) }
+
+    before do
+      create(:campaigns_course, campaign:, course:)
+      create(:campaigns_course, campaign:, course: private_course)
+    end
+
+    context 'for an admin, who sees private courses in the list' do
+      let(:user) { create(:admin) }
+
+      it 'includes private courses in every figure' do
+        totals = presenter.visible_totals
+        expect([totals.course_count, totals.user_count, totals.view_sum, totals.word_count])
+          .to eq([2, 12, 150, 2000])
+        expect(totals.trained_percent.round(1)).to eq(58.3)
+      end
+    end
+
+    context 'for someone who cannot see private courses' do
+      let(:user) { nil }
+
+      it 'leaves private courses out of every figure' do
+        totals = presenter.visible_totals
+        expect([totals.course_count, totals.user_count, totals.view_sum, totals.word_count])
+          .to eq([1, 10, 100, 1000])
+      end
+    end
   end
 
   describe '#campaign_articles' do

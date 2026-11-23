@@ -1,0 +1,131 @@
+# Metric glossary entries. Format: docs/metrics/README.md
+metrics:
+  wikidata_stats:
+    name: Wikidata stats
+    summary: A breakdown of the kinds of changes students made to Wikidata.
+    explanation: |
+      For courses that edit Wikidata, the course overview has a panel that
+      counts what each Wikidata edit changed: claims created, labels added,
+      references added, and so on. One edit can add to several counts.
+    fine_print: |
+      - Claims, labels, descriptions, aliases, interwiki links, qualifiers
+        and references are counted by comparing each item before and after the
+        edit. Merges, redirects, reverts, restorations, cleared items and new
+        items are recognized from the edit summary.
+      - References Added in this panel counts only references added; removals
+        aren't subtracted.
+      - Deleted edits and automated system edits are left out.
+    implementations:
+      - ruby: UpdateWikidataStatsTimeslice#build_stats_from_revisions
+        formula: true
+      - ruby: UpdateWikidataStatsTimeslice::STATS_CLASSIFICATION
+      - ruby: UpdateWikidataStatsTimeslice#update_wikidata_statistics
+      - ruby: UpdateCourseStats#update_wikidata_stats
+      - ruby: CoursesPresenter#combined_wikidata_stats
+      - js: app/assets/javascripts/components/common/wikidata_overview_stats.jsx#WikidataOverviewStats
+    surfaces:
+      - i18n: courses.data_wikidata_info
+      - i18n: metrics.wikidata_stats_info
+      - i18n: metrics.general
+      - i18n: metrics.total_revisions
+      - i18n: metrics.merged
+      - i18n: metrics.merged_from
+      - i18n: metrics.interwiki_links_added
+      - i18n: metrics.created
+      - i18n: metrics.cleared
+      - i18n: metrics.claims
+      - i18n: metrics.changed
+      - i18n: metrics.removed
+      - i18n: metrics.added
+      - i18n: metrics.labels
+      - i18n: metrics.qualifiers_added
+      - i18n: metrics.references_added
+      - i18n: metrics.redirects_created
+      - i18n: metrics.reverts_performed
+      - i18n: metrics.restorations_performed
+      - i18n: metrics.other_updates
+      - i18n: metrics.lemmas
+      - i18n: metrics.language
+      - i18n: metrics.lexical_category
+      - i18n: metrics.forms
+      - i18n: metrics.form_claims
+      - i18n: metrics.form_references
+      - i18n: metrics.form_qualifiers
+      - i18n: metrics.senses
+      - i18n: metrics.glosses
+      - i18n: metrics.sense_claims
+      - i18n: metrics.sense_references
+      - i18n: metrics.sense_qualifiers
+      - place: Course overview (Wikidata stats panel, for courses that track Wikidata)
+      - place: Campaign overview (Wikidata stats panel)
+      - place: Course Wikidata CSV and Salesforce
+    columns:
+      - course_stats.stats_hash
+      - course_wiki_timeslices.stats
+      - article_course_user_wiki_timeslices.stats
+
+  namespace_stats:
+    name: Namespace tabs
+    summary: The main course numbers, broken down for each kind of page the course tracks.
+    explanation: |
+      Each tab takes the pages students edited in one wiki and namespace,
+      and works out the main course numbers for just those pages, the same
+      way as the course overview. Active Editors and Edits differ a little
+      from the overview's Student Editors and Total Edits; see the notes
+      below.
+    fine_print: |
+      - Only pages the course still tracks, and that haven't been deleted,
+        are included.
+      - A number that's zero is left off the tab.
+      - With only one tab, the tab bar is hidden.
+      - Wikidata tabs show no Words Added.
+      - The tabs are worked out again at each stats update; a namespace the
+        course stops tracking loses its tab.
+    implementations:
+      - ruby: UpdateWikiNamespaceStatsTimeslice#articles_courses_stats
+        formula: true
+      - ruby: UpdateWikiNamespaceStatsTimeslice#revision_counts_by_namespace
+        formula: true
+      - ruby: UpdateWikiNamespaceStatsTimeslice#user_counts_by_namespace
+      - ruby: UpdateWikiNamespaceStatsTimeslice#namespace_stats
+      - js: app/assets/javascripts/components/common/OverviewStats/namespace_overview_stats.jsx#NamespaceOverviewStats
+    surfaces:
+      - i18n: metrics.active_editors
+      - i18n: metrics.edits
+      - place: Course overview (one tab for each tracked wiki and namespace)
+    columns:
+      - course_stats.stats_hash
+
+divergences:
+  items-created:
+    title: Wikidata items created
+    metrics: [wikidata_stats, articles_created]
+    description: |
+      For a course on Wikidata, the course overview's Items Created counts
+      items a student created that the course still tracks and that haven't
+      been deleted. The Wikidata stats panel's Created counts edits that
+      created an item, whether or not the item still exists.
+
+      This is intentional: the panel counts what each edit did, and a tooltip
+      on its heading says so.
+    code:
+      - ruby: Course#new_articles_courses
+      - ruby: UpdateWikidataStatsTimeslice#build_stats_from_revisions
+    status: intentional
+
+  wikidata-references:
+    title: References added on Wikidata
+    metrics: [wikidata_stats, references_added]
+    description: |
+      The Wikidata stats panel's References added counts references added
+      to items. The course's References Added is references added minus
+      references removed, so on a Wikidata course it's lower than the panel's
+      figure whenever students removed references.
+
+      This is intentional: the panel counts what each edit did, and a tooltip
+      on its heading says so; the overview's tooltip says its figure is added
+      minus removed.
+    code:
+      - ruby: UpdateWikidataStatsTimeslice#build_stats_from_revisions
+      - ruby: RevisionOnMemory#references_added
+    status: intentional

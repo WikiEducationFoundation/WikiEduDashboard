@@ -1,0 +1,42 @@
+-# A static copy of the per-namespace tabs under the course overview
+-# (OverviewStatsTabs and NamespaceOverviewStats), with example numbers.
+-# Numbers that mean something different from the course overview link to a
+-# note; the rest link to the namespace tabs entry.
+.overview-stats-tabs-container.metrics-glossary__namespace-tabs
+  .tabs-container
+    .tab.active
+      %p en.wikipedia.org - Mainspace
+    .tab
+      %p en.wikipedia.org - Draft
+  .content-container
+    %p.title en.wikipedia.org - Mainspace
+    .stats-data
+      .stat-display
+        .stat-display__stat
+          %a.metrics-glossary__visual-link{ href: '#namespace_stats' }
+            .stat-display__value 3
+            %small Articles Created
+        .stat-display__stat
+          %a.metrics-glossary__visual-link{ href: '#namespace_stats' }
+            .stat-display__value 41
+            %small Articles Edited
+        .stat-display__stat
+          %a.metrics-glossary__visual-link{ href: '#namespace_tabs--total_edits' }
+            .stat-display__value 290
+            %small Edits
+        .stat-display__stat
+          %a.metrics-glossary__visual-link{ href: '#namespace_tabs--editors' }
+            .stat-display__value 18
+            %small Active Editors
+        .stat-display__stat
+          %a.metrics-glossary__visual-link{ href: '#namespace_stats' }
+            .stat-display__value 52.3K
+            %small Words Added
+        .stat-display__stat
+          %a.metrics-glossary__visual-link{ href: '#namespace_stats' }
+            .stat-display__value 211
+            %small References Added
+        .stat-display__stat
+          %a.metrics-glossary__visual-link{ href: '#namespace_stats' }
+            .stat-display__value 980K
+            %small Article Views

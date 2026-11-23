@@ -266,11 +266,27 @@ class AiEditAlert < Alert
       :user_talk
     when /^Template talk:/
       :template_talk
-    when /^[^:]+$/ # match titles without ':'
-      :mainspace
     else
-      :unknown
+      namespaced_title? ? :unknown : :mainspace
     end
+  end
+
+  # Namespace names and aliases on English Wikipedia, the only wiki that gets
+  # AI alerts. A title that contains a colon is in mainspace unless the text
+  # before the first colon is one of these, e.g. "Star Wars: A New Hope".
+  EN_WIKI_NAMESPACES = [
+    'Talk', 'User', 'User talk', 'Wikipedia', 'Wikipedia talk', 'WP', 'WT',
+    'Project', 'Project talk', 'File', 'File talk', 'Image', 'Image talk',
+    'MediaWiki', 'MediaWiki talk', 'Template', 'Template talk', 'Help', 'Help talk',
+    'Category', 'Category talk', 'Portal', 'Portal talk', 'Draft', 'Draft talk',
+    'TimedText', 'TimedText talk', 'Module', 'Module talk', 'Event', 'Event talk',
+    'Special', 'Media'
+  ].to_set.freeze
+
+  def namespaced_title?
+    return false unless article_title&.include?(':')
+
+    EN_WIKI_NAMESPACES.include?(article_title.split(':', 2).first.tr('_', ' ').strip)
   end
 
   # This will only work for mainspace, and might exclude

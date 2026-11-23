@@ -2,7 +2,6 @@
 
 require 'csv'
 require_dependency "#{Rails.root}/lib/analytics/per_wiki_course_stats"
-require_dependency "#{Rails.root}/lib/analytics/retained_new_editors_stats"
 require_dependency "#{Rails.root}/lib/analytics/csv_edit_counts"
 
 class CourseCsvBuilder
@@ -119,7 +118,15 @@ class CourseCsvBuilder
     @per_wiki_counts ||= PerWikiCourseStats.new(@course).stats
   end
 
+  # New editors that RetainedEditorCheckWorker recorded as retained, the same
+  # data the system CSV uses. Blank until every new editor in the course has
+  # been checked, so a pending check isn't reported as zero retention.
   def retained_new_editors
-    @retained_new_editors ||= RetainedNewEditorsStats.new(@course).count
+    new_editors = @course.courses_users.joins(:course, :user)
+                         .where(role: CoursesUsers::Roles::STUDENT_ROLE)
+                         .where(NewEditorDateConditions::DURING_PROGRAM)
+    return if new_editors.exists?(retained_after_course_checked_at: nil)
+
+    new_editors.where(retained_after_course: true).count
   end
 end

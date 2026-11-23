@@ -2,9 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CourseUtils from '../../utils/course_utils.js';
 import OverviewStat from '../common/OverviewStats/overview_stat.jsx';
+import { percentLabel } from '../../utils/percent_utils';
 
 const CampaignStats = ({ campaign }) => {
-  const studentsInfo = [[`${campaign.trained_percent_human}%`, I18n.t('users.up_to_date_with_training')]];
+  const studentsInfo = [[percentLabel(campaign.trained_percent_human), I18n.t('users.up_to_date_with_training')]];
   const campaignUploadsInfo = [
     [`${campaign.uploads_in_use_count_human}`, I18n.t('metrics.uploads_in_use_count', { count: campaign.uploads_in_use_count })],
     [`${campaign.upload_usage_count_human}`, I18n.t('metrics.upload_usages_count', { count: campaign.upload_usage_count })]];

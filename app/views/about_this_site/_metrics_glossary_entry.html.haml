@@ -1,0 +1,37 @@
+%details.metrics-glossary__entry{ id: metric.key }
+  %summary
+    %h3.metrics-glossary__entry-name
+      = metric.name
+      - if metric.admin_only?
+        %span.metrics-glossary__badge Admin only
+    - if metric.aliases.any?
+      %span.metrics-glossary__aliases
+        Also shown as
+        = metric.aliases.join(', ')
+    %span.metrics-glossary__entry-summary= metric.summary
+  .metrics-glossary__entry-body
+    %h4 How it's calculated
+    = glossary_markdown(metric.explanation)
+
+    - if metric.fine_print.present?
+      %h4 Fine print
+      .metrics-glossary__fine-print
+        = glossary_markdown(metric.fine_print)
+
+    %details.metrics-glossary__developers
+      %summary For developers
+      %h5 Where it's calculated
+      %ul.metrics-glossary__code
+        - metric.implementations.each do |ref|
+          %li= glossary_code_link(ref)
+      - if metric.places.any?
+        %h5 Also used in
+        %ul
+          - metric.places.each do |place|
+            %li= place
+      - divergences = glossary_divergences_for(metric)
+      - if divergences.any?
+        %h5 Known inconsistencies
+        %ul
+          - divergences.each do |divergence|
+            %li= link_to divergence.title, "##{divergence.key}"

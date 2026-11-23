@@ -73,8 +73,7 @@ const WikidataOverviewStats = ({
       double: true,
       stats: [
         ['qualifiers added', 'qualifiers-added', I18n.t('metrics.qualifiers_added')],
-        ['references added', 'references-added', I18n.t('metrics.references_added'),
-          I18n.t('metrics.references_added_info'), 'references-added-info'],
+        ['references added', 'references-added', I18n.t('metrics.references_added')],
         ['redirects created', 'redirects-created', I18n.t('metrics.redirects_created')],
         ['reverts performed', 'reverts-performed', I18n.t('metrics.reverts_performed')],
         ['restorations performed', 'restorations-performed', I18n.t('metrics.restorations_performed')],
@@ -232,10 +231,26 @@ const WikidataOverviewStats = ({
     </button>
   );
 
+  // The panel counts what each edit did, so its Created and References added
+  // differ from the course overview's Items Created and References Added.
+  // A button, so the explanation also shows on keyboard focus, and screen
+  // readers announce it as the button's description.
+  const infoTrigger = (
+    <span className="tooltip-trigger tooltip-small wikidata-stats-info">
+      <button type="button" aria-describedby="wikidata-stats-info">
+        <img className="info-img" src="/assets/images/info.svg" alt={I18n.t('dashboard.tooltip.alt')} />
+      </button>
+      <span className="tooltip dark large" id="wikidata-stats-info" role="tooltip">
+        <p>{I18n.t('metrics.wikidata_stats_info')}</p>
+      </span>
+    </span>
+  );
+
   return (
     <div className={`wikidata-stats-container${isCourseOverview ? ' course-overview' : ''}${expanded ? '' : ' collapsed'}`}>
-      <h2 className={isCourseOverview ? 'title' : 'wikidata-stats-heading'}>
+      <h2 className={`${isCourseOverview ? 'title' : 'wikidata-stats-heading'} wikidata-stats-heading-row`}>
         {toggleButton}
+        {infoTrigger}
       </h2>
       <div className="wikidata-display" id="wikidata-stats-content" hidden={!expanded}>
           {visibleCategories.map(category => (

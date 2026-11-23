@@ -31,6 +31,14 @@ describe 'Wikidata stats toggle', type: :feature, js: true do
   end
 
   context 'course whose home wiki is Wikidata' do
+    it 'explains, beside the heading, that the panel counts what each edit did' do
+      course = setup_course(wikidata)
+      visit "/courses/#{course.slug}"
+      button = find('.wikidata-stats-info button[aria-describedby="wikidata-stats-info"]')
+      button.hover
+      expect(page).to have_css('#wikidata-stats-info', text: 'Counts of what each edit did')
+    end
+
     it 'starts expanded' do
       course = setup_course(wikidata)
       visit "/courses/#{course.slug}"

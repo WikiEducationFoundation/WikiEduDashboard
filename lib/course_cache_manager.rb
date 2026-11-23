@@ -108,6 +108,6 @@ class CourseCacheManager
   ############
 
   def past_training_cutoff?
-    @course.start > CourseTrainingProgressManager::TRAINING_BOOLEAN_CUTOFF_DATE
+    CourseTrainingProgressManager.dashboard_training?(@course)
   end
 end

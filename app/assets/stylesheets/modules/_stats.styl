@@ -156,6 +156,34 @@
   &.collapsed.course-overview
     width fit-content
 
+  // The toggle and the info icon beside it, which explains what the panel's
+  // numbers count.
+  .wikidata-stats-heading-row
+    display flex
+    align-items center
+
+  .wikidata-stats-info
+    flex-shrink 0
+    margin-left 8px
+
+    button
+      background none
+      border 0
+      padding 0
+      cursor help
+
+    // Right-aligned so it stays inside the panel, with its pointer under
+    // the icon.
+    .tooltip
+      min-width 260px
+      right 0
+      left auto
+
+      &:before
+        left auto
+        right 4px
+        margin-left 0
+
   .wikidata-display
     width 100%
     display flex

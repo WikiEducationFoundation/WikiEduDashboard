@@ -1,0 +1,117 @@
+# How the /metrics page is arranged: one section for each group of numbers
+# on a course page, in the order they appear there. Format: docs/metrics/README.md
+#
+# metrics: the entries explained in this section. Each metric is explained in
+#          exactly one section.
+# notes:   metrics explained in an earlier section, as they appear here. Each
+#          note gets the anchor <section>--<metric>.
+# visual:  a partial in app/views/about_this_site/metrics_visuals/ showing
+#          example numbers, each linking to its entry or note.
+
+sections:
+  course_overview:
+    title: Course overview
+    intro: >-
+      The numbers at the top of a course's Home tab. Unless an entry says
+      otherwise, they count only work by students enrolled in the course,
+      between its start and end dates. The smaller lines under some numbers
+      appear when you hover over them on a course page.
+    visual: course_overview
+    metrics:
+      - articles_created
+      - articles_edited
+      - total_edits
+      - editors
+      - trained
+      - words_added
+      - characters_added
+      - references_added
+      - article_views
+      - commons_uploads
+      - uploads_in_use
+      - upload_usages
+
+  namespace_tabs:
+    title: Namespace tabs
+    intro: >-
+      Below the course overview, courses that track more than one wiki, or
+      more than one kind of page (namespace), get a tab for each. Each tab
+      repeats the main numbers for just the pages in that wiki and namespace.
+    visual: namespace_tabs
+    metrics:
+      - namespace_stats
+    notes:
+      editors:
+        label: Active Editors
+        text: >-
+          The number of students who edited pages in that namespace. Unlike
+          the course overview's [Student Editors](#editors), it leaves out
+          students who haven't edited those pages, so a student who only
+          edited drafts doesn't count on the Mainspace tab.
+      total_edits:
+        label: Edits
+        text: >-
+          Edits to the tab's pages only, counting only pages the course still
+          tracks and that haven't been deleted. Across all the tabs, these
+          usually add up to less than the course overview's [Total Edits](#total_edits),
+          which also counts edits to sandboxes and other pages the course
+          doesn't track.
+
+  students_tab:
+    title: Students tab
+    intro: One row for each student on the course's Students tab.
+    visual: students_tab
+    metrics:
+      - recent_edits
+    notes:
+      words_added:
+        label: Words Added (article | user | draft)
+        text: >-
+          Three numbers for each student, each estimated the same way as
+          [Words Added](#words_added): words added to articles, to the
+          student's own user pages (including sandboxes), and to drafts. User
+          pages and drafts count here even though the course doesn't track
+          them. Courses not on English Wikipedia show Characters Added, in
+          bytes, instead.
+      references_added:
+        label: References Added
+        text: >-
+          Each student's part of the course's
+          [References Added](#references_added), for the articles they edited.
+      commons_uploads:
+        label: Total Uploads
+        text: >-
+          Each student's [Commons Uploads](#commons_uploads) during the course.
+
+  articles_tab:
+    title: Articles tab
+    intro: >-
+      One row for each article students edited, on the course's Articles tab.
+      The Class column, the article's quality rating, isn't covered here yet.
+    visual: articles_tab
+    notes:
+      words_added:
+        label: Words Added (or Chars Added)
+        text: >-
+          How much students added to that article during the course:
+          [Words Added](#words_added) on English Wikipedia, or
+          [Bytes Added](#characters_added), labelled Chars Added, elsewhere.
+          Unlike the course overview, this includes Wikidata items, and any
+          other kinds of pages the course tracks.
+      references_added:
+        label: References Added
+        text: '[References Added](#references_added) for that article.'
+      article_views:
+        label: Views
+        text: >-
+          [Article Views](#article_views) for that article, but worked out when
+          the list loads, up to today. So the views in the list add up to more
+          than the course overview's total, which stops at the last stats
+          update.
+
+  wikidata:
+    title: Wikidata stats
+    intro: >-
+      Courses that edit Wikidata get an extra panel on the Home tab.
+    metrics:
+      - wikidata_stats

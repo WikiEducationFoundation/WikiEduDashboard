@@ -1,0 +1,185 @@
+# Metric glossary entries. Format: docs/metrics/README.md
+metrics:
+  article_views:
+    name: Article Views
+    aliases:
+      - Item Views (Wikidata)
+      - Views (Articles tab)
+    summary: An estimate of how often the articles students edited have been read since they started on them.
+    explanation: |
+      For each article, the Dashboard takes its average views per day and
+      multiplies by the number of days since a student first edited it during the
+      course. The course overview adds these up for every article, and updates
+      the total each time the course's stats update.
+    fine_print: |
+      - Average views come from Wikimedia's pageviews service, counting
+        people (not bots) on desktop and mobile. They're refreshed every two
+        weeks.
+      - An article first edited in the last two days has no average yet, so it's
+        left out until it does.
+      - Once a course stops being updated, its total stops growing.
+    implementations:
+      - ruby: CourseCacheManager#update_view_sum_based_on_first_revision
+        path: lib/course_cache_manager.rb
+        formula: true
+      - ruby: WikiPageviews#calculate_average_views
+        path: lib/wiki_pageviews.rb
+        formula: true
+      - ruby: WikiPageviews#average_views_from_date
+        path: lib/wiki_pageviews.rb
+      - ruby: AverageViewsImporter.update_outdated_average_views
+        path: lib/importers/average_views_importer.rb
+      - ruby: AverageViewsImporter.update_average_views_for_article
+        path: lib/importers/average_views_importer.rb
+      - ruby: ArticleHelper#calculate_view_count
+        note: The per-page figure in articles lists, worked out when the list loads.
+    surfaces:
+      - i18n: metrics.view_count_description
+      - i18n: metrics.view_count_description_wikidata
+      - i18n: metrics.view_count_doc
+      - i18n: metrics.view_count_doc_wikidata
+      - i18n: metrics.view
+      - i18n: metrics.view_data_unavailable
+      - i18n: courses.view_doc
+      - i18n: articles.view_doc
+      - i18n: items.view_doc
+      - place: Course overview (Article Views)
+      - place: Course and campaign articles lists
+      - place: Campaign, program and wiki course lists
+      - place: Term recap emails
+    columns:
+      - courses.view_sum
+      - articles_courses.average_views
+      - articles_courses.view_count
+      - articles.average_views
+
+  commons_uploads:
+    name: Commons Uploads
+    aliases:
+      - Total Uploads (Students tab)
+    summary: How many files students uploaded to Wikimedia Commons during the course.
+    explanation: |
+      Every file a student uploaded to Wikimedia Commons between the
+      course's start and end dates.
+    fine_print: |
+      - Files later deleted from Commons still count.
+      - If a student leaves the course, their uploads stop counting.
+    implementations:
+      - ruby: CourseCacheManager#update_upload_count
+        path: lib/course_cache_manager.rb
+        formula: true
+      - file: app/models/course.rb
+        note: The course's uploads association limits uploads to the course's start and end.
+      - ruby: CourseUploadImporter#import_uploads
+        path: lib/importers/course_upload_importer.rb
+      - ruby: CoursesUsers.build_update_caches
+        note: Per-student counts for the students list.
+    surfaces:
+      - i18n: metrics.upload_count
+      - i18n: users.uploads_doc
+      - place: Course overview (Commons Uploads)
+      - place: Students list
+      - place: Campaign overview
+    columns:
+      - courses.upload_count
+      - courses_users.total_uploads
+
+  uploads_in_use:
+    name: Files used in articles
+    summary: "How many of the course's uploads appear in at least one article."
+    explanation: |
+      Of the [Commons Uploads](#commons_uploads), how many are used in at
+      least one article, on any Wikimedia wiki in any language. It's shown when
+      you hover over Commons Uploads.
+    fine_print: |
+      - Only articles count. A file shown only on user pages, talk pages or
+        other kinds of pages isn't counted as in use.
+      - Usage is checked each time the course's stats update.
+    implementations:
+      - ruby: Course#uploads_in_use
+        formula: true
+      - ruby: CourseCacheManager#update_uploads_in_use_count
+        path: lib/course_cache_manager.rb
+    surfaces:
+      - i18n: metrics.uploads_in_use_count.one
+      - i18n: metrics.uploads_in_use_count.other
+      - i18n: metrics.uploads_in_use_count_wikidata.one
+      - i18n: metrics.uploads_in_use_count_wikidata.other
+      - place: Course overview (under Commons Uploads)
+      - place: Campaign overview
+    columns:
+      - courses.uploads_in_use_count
+
+  upload_usages:
+    name: Total usages across languages
+    summary: "How many articles use the course's uploads, added up across all the files."
+    explanation: |
+      For each of the [Commons Uploads](#commons_uploads), the number of
+      articles that use it, on any Wikimedia wiki, added up. A file used in an
+      English and a Spanish Wikipedia article counts twice. It's shown when you
+      hover over Commons Uploads.
+    fine_print: |
+      - Only articles count, but they can be on any project, such as
+        Wikivoyage, not just Wikipedia.
+      - Usage is checked each time the course's stats update.
+    implementations:
+      - ruby: CourseCacheManager#update_upload_usages_count
+        path: lib/course_cache_manager.rb
+        formula: true
+      - ruby: UploadImporter.import_usages
+        path: lib/importers/upload_importer.rb
+        formula: true
+      - ruby: CourseUploadImporter#update_usage
+        path: lib/importers/course_upload_importer.rb
+    surfaces:
+      - i18n: metrics.upload_usages_count.one
+      - i18n: metrics.upload_usages_count.other
+      - i18n: uploads.usage_doc
+      - place: Course overview (under Commons Uploads)
+      - place: Uploads tab (per file)
+    columns:
+      - courses.upload_usages_count
+      - commons_uploads.usage_count
+
+divergences:
+  views-end-point:
+    title: Article views on the course overview and in the articles list
+    metrics: [article_views]
+    description: |
+      The course total is calculated during each stats update, so it covers
+      views up to that update. The articles list works each page's estimate
+      out again when it loads, up to today, and falls back to older stored
+      figures that the course total ignores. So the per-page estimates add up
+      to more than the course total, and the gap keeps growing after a course
+      stops being updated.
+
+      This is intentional: the list gives each article's current estimate,
+      and both tooltips say where their numbers stop.
+    code:
+      - ruby: CourseCacheManager#update_view_sum_based_on_first_revision
+        path: lib/course_cache_manager.rb
+      - ruby: ArticleHelper#calculate_view_count
+    status: intentional
+
+  uploads-window:
+    title: Which uploads count on a user profile
+    metrics: [commons_uploads, upload_usages]
+    description: |
+      A course counts a student's uploads between that course's start and
+      end. A user profile counts every upload between the start of the
+      student's earliest public course and the end of their latest one,
+      including the time between courses. A profile can therefore show more
+      uploads than the student's courses add up to.
+
+      Salesforce also gets a count of uploads made when the record is pushed,
+      rather than the stored count from the last update. The two can differ
+      briefly.
+
+      The profile's window is a bug (#7312). The Salesforce difference is
+      intentional: it only lasts until the next update.
+    code:
+      - file: app/models/course.rb
+      - ruby: IndividualStatisticsTimeslicePresenter#set_upload_usage_counts
+      - ruby: PushCourseToSalesforce#base_salesforce_fields
+    status: bug
+    issue: 7312

@@ -104,6 +104,15 @@ translatewiki.net). JS reads them from an export that `yarn start` doesn't
 refresh; after editing `en.yml`, run `bundle exec i18n export -c config/i18n-js.yml`.
 Details: `docs/i18n.md`.
 
+## Metrics glossary
+
+The public `/metrics` page is generated from `docs/metrics/`, which defines
+each metric and points at the code that calculates it. If you change how a
+metric is calculated, or add a stat column or tooltip, update the glossary;
+`spec/lib/metrics_glossary_spec.rb` fails until you do. The format and the
+`bin/rails metrics:check` / `metrics:accept` tasks are explained in
+`docs/metrics/README.md`.
+
 ## WikiApi usage
 
 Use `WikiApi.new(wiki)` for MediaWiki API calls. The standard public methods
