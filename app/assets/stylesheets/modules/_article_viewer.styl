@@ -93,6 +93,21 @@
   background-color rgba(0, 0, 0, 0.2)
   border-radius 15px
 
+// Screen-reader-only label at the start of each run of one editor's tokens,
+// left out of text the reader selects and copies.
+.authorship-run__label
+  user-select none
+  position absolute
+  width 1px
+  height 1px
+  padding 0
+  margin -1px
+  overflow hidden
+  clip rect(0, 0, 0, 0)
+  // pre, not nowrap: the label's leading space separates it from the word before.
+  white-space pre
+  border 0
+
 .user-highlight-1
   background-color #e5ddf2
 .user-highlight-2
