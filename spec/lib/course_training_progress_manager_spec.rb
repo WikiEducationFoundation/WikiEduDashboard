@@ -27,6 +27,24 @@ describe CourseTrainingProgressManager do
     create(:block, week_id: week.id, training_module_ids: ex_ids, due_date:)
   end
 
+  describe '.dashboard_training?' do
+    let(:cutoff) { described_class::TRAINING_BOOLEAN_CUTOFF_DATE }
+
+    it 'is true for courses starting on or after the cutoff' do
+      expect(described_class.dashboard_training?(build(:course, start: cutoff))).to be true
+      expect(described_class.dashboard_training?(build(:course, start: cutoff + 1.day))).to be true
+    end
+
+    it 'is false for older courses' do
+      expect(described_class.dashboard_training?(build(:course, start: cutoff - 1.day))).to be false
+    end
+
+    it 'is true for Visiting Scholarships from before the cutoff' do
+      scholarship = build(:visiting_scholarship, start: cutoff - 1.year)
+      expect(described_class.dashboard_training?(scholarship)).to be true
+    end
+  end
+
   describe '#course_training_progress' do
     subject { described_class.new(course).course_training_progress(user) }
 

@@ -98,7 +98,7 @@ class CourseStatistics
   end
 
   def untrained_student_ids(course)
-    if course.start > CourseTrainingProgressManager::TRAINING_BOOLEAN_CUTOFF_DATE
+    if CourseTrainingProgressManager.dashboard_training?(course)
       course.students_with_overdue_training.map(&:id)
     else
       course.students.where(trained: false).pluck(:id)

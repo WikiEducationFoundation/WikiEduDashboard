@@ -307,15 +307,18 @@ divergences:
     title: Rounding of words added
     metrics: [words_added]
     description: |
-      Ruby drops the remainder when converting characters to words, while
-      the browser rounds to the nearest word. A student's or article's words
-      can therefore differ by one between a page and a CSV, and a sum of
-      per-article words can differ from the course total.
+      The server rounded words down, while the Students and Articles tabs
+      rounded to the nearest word, so a student's or article's words could
+      differ by one between the page and a CSV. Both now round down.
+
+      A sum of separately rounded figures, such as the per-article words on
+      a user profile, can still come out slightly lower than a total that's
+      rounded once.
     code:
       - ruby: WordCount.from_characters
         path: lib/word_count.rb
       - js: app/assets/javascripts/utils/wordcount_utils.js#bytesToWords
-    status: undecided
+    status: fixed
 
   words-wikidata-copy:
     title: Tooltip for words added on Wikidata courses

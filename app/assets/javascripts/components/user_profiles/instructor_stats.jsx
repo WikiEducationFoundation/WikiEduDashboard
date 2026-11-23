@@ -5,6 +5,7 @@ import StudentStats from './student_stats.jsx';
 import CoursesTaughtGraph from './graphs/as_instructor_graphs/courses_taught_graph.jsx';
 import StudentsTaughtGraph from './graphs/as_instructor_graphs/students_taught_graph.jsx';
 import Loading from '../common/loading.jsx';
+import { percentLabel } from '../../utils/percent_utils';
 
 const InstructorStats = ({ username, stats, maxProject, statsGraphsData, graphWidth, graphHeight, isStudent }) => {
   const [selectedGraph, setSelectedGraph] = useState('courses_count');
@@ -94,8 +95,7 @@ const InstructorStats = ({ username, stats, maxProject, statsGraphsData, graphWi
             </small>
             <div className="tooltip dark">
               <h4>
-                {stats.as_instructor.trained_percent}
-                %
+                {percentLabel(stats.as_instructor.trained_percent)}
               </h4>
               <p>
                 {I18n.t('users.up_to_date_with_training')}

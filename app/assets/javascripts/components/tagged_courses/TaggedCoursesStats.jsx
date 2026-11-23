@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchTaggedCoursesStats } from '@actions/tagged_courses_stats_action';
 import OverviewStat from '../common/OverviewStats/overview_stat';
 import CourseUtils from '../../utils/course_utils';
+import { percentLabel } from '../../utils/percent_utils';
 import Loading from '../common/loading';
 
 const TaggedCoursesStats = () => {
@@ -11,7 +12,7 @@ const TaggedCoursesStats = () => {
   const tagged_courses_stats = useSelector(state => state.taggedCoursesStats);
   const { tag } = useParams();
 
-  const studentsInfo = [[`${tagged_courses_stats.trained_percent_human}%`, I18n.t('users.up_to_date_with_training')]];
+  const studentsInfo = [[percentLabel(tagged_courses_stats.trained_percent_human), I18n.t('users.up_to_date_with_training')]];
   const taggedCoursesUploadsInfo = [
     [`${tagged_courses_stats.uploads_in_use_count}`, I18n.t('metrics.uploads_in_use_count', { count: tagged_courses_stats.uploads_in_use_count })],
     [`${tagged_courses_stats.upload_usage_count}`, I18n.t('metrics.upload_usages_count', { count: tagged_courses_stats.upload_usage_count })]];
