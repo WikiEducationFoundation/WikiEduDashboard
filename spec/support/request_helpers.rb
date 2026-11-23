@@ -244,6 +244,15 @@ module RequestHelpers
       .to_return(status: 200, body: +'[[wikitext]]', headers: {})
   end
 
+  # Answers the action API query CurrentPageContent makes, for any page.
+  # Empty content stands for a page that does not exist.
+  def stub_current_page_content(content = '[[wikitext]]')
+    page = content.empty? ? { missing: true } : { revisions: [{ slots: { main: { content: } } }] }
+    stub_request(:get, %r{wikipedia\.org/w/api\.php\?.*prop=revisions})
+      .to_return(status: 200, headers: { 'Content-Type' => 'application/json' },
+                 body: { batchcomplete: true, query: { pages: [page] } }.to_json)
+  end
+
   def stub_info_query
     stub_request(:get, /.*&prop=info.*/)
       .to_return(status: 200, body: '{}', headers: {})
