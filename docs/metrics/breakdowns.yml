@@ -1,0 +1,169 @@
+# Metric glossary: Wikidata and namespace breakdowns. Format: docs/metrics/README.md
+family:
+  title: Wikidata and namespaces
+  position: 4
+  intro: >-
+    Breakdowns shown alongside the main course stats: a detailed count of
+    Wikidata edits by type, and separate stats for each wiki and namespace a
+    course tracks.
+
+metrics:
+  wikidata_stats:
+    name: Wikidata stats
+    summary: Counts of the kinds of changes students made to Wikidata, such as claims created or labels added.
+    definition: |
+      Each Wikidata edit a student makes during the course is classified by
+      what it changed. Claims, labels, descriptions, aliases, interwiki
+      links, qualifiers and references are counted by comparing the item
+      before and after the edit. Merges, redirects, reverts, restorations,
+      cleared items and item creations are recognized from the edit's
+      automatic summary. One edit can add to several counts.
+
+      The counts are added up across all of the course's Wikidata edits.
+      Total revisions is the number of edits counted. References added counts
+      only references added; removals and changes are recorded but not shown.
+      Edits that were deleted, and automated system edits, are left out.
+
+      Campaign pages show the counts added up across the campaign's courses
+      that aren't private.
+    implementations:
+      - ruby: UpdateWikidataStatsTimeslice#build_stats_from_revisions
+        formula: true
+      - ruby: UpdateWikidataStatsTimeslice::STATS_CLASSIFICATION
+      - ruby: UpdateWikidataStatsTimeslice#update_wikidata_statistics
+      - ruby: UpdateCourseStats#update_wikidata_stats
+      - ruby: CoursesPresenter#combined_wikidata_stats
+      - js: app/assets/javascripts/components/common/wikidata_overview_stats.jsx#WikidataOverviewStats
+    surfaces:
+      - i18n: courses.data_wikidata_info
+      - i18n: metrics.general
+      - i18n: metrics.total_revisions
+      - i18n: metrics.merged
+      - i18n: metrics.merged_from
+      - i18n: metrics.interwiki_links_added
+      - i18n: metrics.created
+      - i18n: metrics.cleared
+      - i18n: metrics.claims
+      - i18n: metrics.changed
+      - i18n: metrics.removed
+      - i18n: metrics.added
+      - i18n: metrics.labels
+      - i18n: metrics.qualifiers_added
+      - i18n: metrics.references_added
+      - i18n: metrics.references_added_info
+      - i18n: metrics.redirects_created
+      - i18n: metrics.reverts_performed
+      - i18n: metrics.restorations_performed
+      - i18n: metrics.other_updates
+      - i18n: metrics.lemmas
+      - i18n: metrics.language
+      - i18n: metrics.lexical_category
+      - i18n: metrics.forms
+      - i18n: metrics.form_claims
+      - i18n: metrics.form_references
+      - i18n: metrics.form_qualifiers
+      - i18n: metrics.senses
+      - i18n: metrics.glosses
+      - i18n: metrics.sense_claims
+      - i18n: metrics.sense_references
+      - i18n: metrics.sense_qualifiers
+      - place: Course overview (Wikidata stats panel, for courses that track Wikidata)
+      - place: Campaign overview (Wikidata stats panel)
+      - place: Course Wikidata CSV and Salesforce
+    columns:
+      - course_stats.stats_hash
+      - course_wiki_timeslices.stats
+      - article_course_user_wiki_timeslices.stats
+    related: [references_added]
+
+  namespace_stats:
+    name: Namespace stats
+    summary: The main course stats, broken down by each wiki and namespace the course tracks.
+    definition: |
+      Courses that track more than one wiki or namespace get a tab on the
+      course overview for each one. Each tab counts pages in that wiki and
+      namespace that the course still tracks and that haven't been deleted:
+
+      - Articles created and articles edited: pages a student created, and
+        pages a student edited.
+      - Total edits: student edits to those pages.
+      - Student editors: the number of different students who edited those
+        pages. (This isn't the same as the course overview's Student
+        Editors, which counts everyone enrolled.)
+      - Words added: characters added to those pages, divided by 5.175. No
+        word count is shown for Wikidata.
+      - References added and article views: as for the course, but limited
+        to those pages.
+
+      The breakdowns are recalculated during each stats update. A namespace
+      that the course stops tracking loses its tab.
+    implementations:
+      - ruby: UpdateWikiNamespaceStatsTimeslice#articles_courses_stats
+        formula: true
+      - ruby: UpdateWikiNamespaceStatsTimeslice#revision_counts_by_namespace
+        formula: true
+      - ruby: UpdateWikiNamespaceStatsTimeslice#user_counts_by_namespace
+      - ruby: UpdateWikiNamespaceStatsTimeslice#namespace_stats
+      - js: app/assets/javascripts/components/common/OverviewStats/namespace_overview_stats.jsx#NamespaceOverviewStats
+    surfaces:
+      - place: Course overview (one tab for each tracked wiki and namespace)
+    columns:
+      - course_stats.stats_hash
+    related: [articles_edited, articles_created, total_edits, words_added, references_added, article_views, editors]
+
+divergences:
+  student-editors-label:
+    title: Two meanings of "Student Editors"
+    metrics: [editors, namespace_stats]
+    description: |
+      On the course overview, Student Editors is everyone enrolled as a
+      student, whether or not they've edited. On a namespace tab, the same
+      label counts the students who edited pages in that namespace.
+    code:
+      - ruby: CourseCacheManager#update_user_count
+        path: lib/course_cache_manager.rb
+      - ruby: UpdateWikiNamespaceStatsTimeslice#user_counts_by_namespace
+    status: undecided
+
+  items-created:
+    title: Wikidata items created
+    metrics: [wikidata_stats, articles_created]
+    description: |
+      For a course on Wikidata, the course overview's Items Created counts
+      pages a student created that the course still tracks and that haven't
+      been deleted, on every wiki the course tracks. The Wikidata stats
+      panel's Items Created counts edits whose summary marks them as
+      creating an item, whether or not the item still exists.
+    code:
+      - ruby: Course#new_articles_courses
+      - ruby: UpdateWikidataStatsTimeslice#build_stats_from_revisions
+    status: undecided
+
+  wikidata-references:
+    title: References added on Wikidata
+    metrics: [wikidata_stats, references_added]
+    description: |
+      The Wikidata stats panel's References added counts references added
+      to items. The course's References Added counts references added minus
+      references removed for each Wikidata edit, so on a Wikidata course
+      it's lower than the panel's figure whenever students removed
+      references.
+    code:
+      - ruby: UpdateWikidataStatsTimeslice#build_stats_from_revisions
+      - ruby: RevisionOnMemory#references_added
+    status: undecided
+
+  wikidata-stats-copy:
+    title: Where the Wikidata stats come from
+    metrics: [wikidata_stats]
+    description: |
+      The stats panel and the download description say the breakdown is
+      "based on edit summaries". Only merges, redirects, reverts,
+      restorations, cleared items and created items are taken from edit
+      summaries. Claims, labels, descriptions, aliases, interwiki links,
+      qualifiers and references are counted by comparing each edit's item
+      content with the previous version.
+    code:
+      - ruby: UpdateWikidataStatsTimeslice#analyze_revisions
+    status: bug
+    issue: 7303

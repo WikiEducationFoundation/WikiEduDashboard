@@ -1,0 +1,101 @@
+// The /metrics glossary (AboutThisSiteController#metrics), rendered from the
+// registry in docs/metrics/. Definitions are Markdown, so prose inside an
+// entry is styled by element rather than by class.
+.metrics-glossary
+  padding 20px 0 60px
+  max-width 900px
+
+  +below(desktop)
+    padding-left 16px
+    padding-right 16px
+
+  h1
+    margin-bottom 0.5em
+
+  h2
+    margin-top 1.75em
+    padding-bottom 0.2em
+    border-bottom 1px solid $border_lt
+
+  h3
+    margin-top 1.5em
+
+  h4
+    margin 1em 0 0.4em
+
+  p, li, dd
+    line-height 1.5
+
+  ul
+    margin-bottom 1em
+    padding-left 1.5em
+    list-style disc
+
+  code
+    background-color $bg_light_gray
+    padding 1px 4px
+    border-radius 3px
+
+  // Anchor targets land below the fixed nav.
+  [id]
+    scroll-margin-top 70px
+
+.metrics-glossary__disclosure
+  margin 1em 0 1.5em
+  padding 12px 18px
+  border-left 4px solid $border_med_dk
+  background-color $bg_light_gray
+
+  p
+    margin 0
+
+// Site-wide nav styles give a nav a white background and centre it on narrow
+// screens; this one is page content.
+.metrics-glossary__contents
+  background none
+  text-align left
+
+  ul
+    background none
+
+  ul ul
+    margin-bottom 0.25em
+
+.metrics-glossary__metric, .metrics-glossary__divergence
+  padding-bottom 0.5em
+  border-bottom 1px solid $border_lt
+
+.metrics-glossary__summary
+  font-size 1.1em
+
+.metrics-glossary__badge
+  margin-left 0.5em
+  padding 1px 6px
+  border 1px solid $border_med_dk
+  border-radius 3px
+  font-size 0.7em
+  font-weight normal
+  vertical-align middle
+
+.metrics-glossary__copy
+  margin 0 0 1em
+
+  dt
+    margin-top 0.5em
+
+  dd
+    margin 0.2em 0 0 1.5em
+
+.metrics-glossary__location, .metrics-glossary__note
+  color $text_med
+  font-size 0.9em
+
+.metrics-glossary__note
+  display block
+
+.metrics-glossary__status
+  font-weight 600
+
+// Long class#method names would otherwise overflow narrow screens.
+.metrics-glossary__code li, .metrics-glossary__copy dt
+  overflow-wrap anywhere

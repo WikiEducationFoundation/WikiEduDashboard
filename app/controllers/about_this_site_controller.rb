@@ -1,9 +1,23 @@
 # frozen_string_literal: true
 
+require_dependency "#{Rails.root}/lib/metrics_glossary"
+
 class AboutThisSiteController < ApplicationController
   respond_to :html
 
   def private_information; end
+
+  # Public glossary of the Dashboard's metrics at /metrics, rendered from the
+  # registry in docs/metrics/. Entries marked admin-only are left out for
+  # everyone else, as are entries for the other deployment.
+  def metrics
+    @glossary = MetricsGlossary.current
+    admin = current_user&.admin? || false
+    deployment = Features.wiki_ed? ? 'wiki_ed' : 'pe'
+    @families = @glossary.visible_families(admin:, deployment:)
+    @divergences = @glossary.visible_divergences(admin:, deployment:)
+    @visible_metric_keys = @families.flat_map(&:metrics).map(&:key).to_set
+  end
 
   # The published VPAT covers the Wiki Education Dashboard only; it
   # explicitly disclaims the P&E Dashboard deployment, so it is not

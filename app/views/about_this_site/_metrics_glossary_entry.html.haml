@@ -1,0 +1,38 @@
+%article.metrics-glossary__metric{ id: metric.key, 'aria-labelledby': "#{metric.key}-heading" }
+  %h3{ id: "#{metric.key}-heading" }
+    = metric.name
+    - if metric.admin_only?
+      %span.metrics-glossary__badge Admin only
+  %p.metrics-glossary__summary= metric.summary
+  = glossary_markdown(metric.definition)
+
+  - if metric.i18n_keys.any?
+    %h4 What the Dashboard says
+    %dl.metrics-glossary__copy
+      - metric.i18n_keys.each do |key|
+        %dt
+          %code= key
+        %dd= glossary_i18n_text(key)
+
+  - if metric.places.any?
+    %h4 Where it appears
+    %ul
+      - metric.places.each do |place|
+        %li= place
+
+  %h4 Where it's calculated
+  %ul.metrics-glossary__code
+    - metric.implementations.each do |ref|
+      %li= glossary_code_link(ref)
+
+  - divergences = glossary_divergences_for(metric)
+  - if divergences.any?
+    %h4 Known inconsistencies
+    %ul
+      - divergences.each do |divergence|
+        %li= link_to divergence.title, "##{divergence.key}"
+
+  - if metric.related.any?
+    %p.metrics-glossary__related
+      See also:
+      = safe_join(metric.related.map { |key| glossary_metric_link(key) }, ', ')

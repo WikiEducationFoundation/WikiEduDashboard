@@ -1,0 +1,44 @@
+- content_for(:title) { 'Metrics' }
+.container.metrics-glossary
+  %h1 Metrics
+  .metrics-glossary__disclosure{ role: 'note' }
+    %p
+      This glossary was drafted by Claude Code, an AI coding agent, from the
+      Dashboard's source code, and is checked against that code by automated
+      tests. Where we found the same metric calculated differently in different
+      places, we list it as a known inconsistency rather than hiding it. If
+      something here looks wrong, please
+      = succeed '.' do
+        = link_to 'let us know', "#{MetricsGlossary::REPO_URL}/issues"
+  %p
+    Each entry says what a number counts, quotes the explanation the Dashboard
+    gives for it, and links to the code that calculates it. Code links point to
+    the version of the code running on this site.
+
+  %nav.metrics-glossary__contents{ 'aria-label': 'Contents' }
+    %ul
+      - @families.each do |family|
+        %li
+          = link_to family.title, "##{family.key}"
+          %ul
+            - family.metrics.each do |metric|
+              %li= link_to metric.name, "##{metric.key}"
+      - if @divergences.any?
+        %li= link_to 'Known inconsistencies', '#known-inconsistencies'
+
+  - @families.each do |family|
+    %section.metrics-glossary__family{ id: family.key, 'aria-labelledby': "#{family.key}-heading" }
+      %h2{ id: "#{family.key}-heading" }= family.title
+      = glossary_markdown(family.intro)
+      - family.metrics.each do |metric|
+        = render 'metrics_glossary_entry', metric:
+
+  - if @divergences.any?
+    %section.metrics-glossary__family#known-inconsistencies{ 'aria-labelledby': 'known-inconsistencies-heading' }
+      %h2#known-inconsistencies-heading Known inconsistencies
+      %p
+        Places where one name is calculated in more than one way. Each has a
+        status: not yet decided, intentional, a bug (usually with an issue to
+        fix it), or fixed.
+      - @divergences.each do |divergence|
+        = render 'metrics_glossary_divergence', divergence:

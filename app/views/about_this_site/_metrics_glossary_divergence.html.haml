@@ -1,0 +1,14 @@
+%article.metrics-glossary__divergence{ id: divergence.key, 'aria-labelledby': "#{divergence.key}-heading" }
+  %h3{ id: "#{divergence.key}-heading" }= divergence.title
+  %p.metrics-glossary__status
+    Status:
+    = glossary_divergence_status(divergence)
+  %p
+    Affects:
+    = safe_join(divergence.metric_keys.map { |key| glossary_metric_link(key) }, ', ')
+  = glossary_markdown(divergence.description)
+  - if divergence.code.any?
+    %h4 Code
+    %ul.metrics-glossary__code
+      - divergence.code.each do |ref|
+        %li= glossary_code_link(ref)
