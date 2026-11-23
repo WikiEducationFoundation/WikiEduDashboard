@@ -234,8 +234,6 @@ metrics:
       - i18n: metrics.word_count
       - i18n: courses.word_count_doc
       - i18n: courses_generic.word_count_doc
-      - i18n: courses.word_count_doc_wikidata
-      - i18n: courses_generic.word_count_doc_wikidata
       - i18n: users.word_count_doc
       - place: Course overview (English-language home wikis)
       - place: Campaign, program and wiki course lists
@@ -271,7 +269,6 @@ metrics:
       - i18n: metrics.references_count
       - i18n: metrics.references_doc
       - i18n: metrics.references_doc_wikidata
-      - i18n: users.references_doc
       - place: Course and campaign overviews, course lists, Students tab and Articles tab
       - place: Course CSV column references_added
       - place: Student CSV column references_added
@@ -324,14 +321,16 @@ divergences:
     title: Tooltip for words added on Wikidata courses
     metrics: [words_added]
     description: |
-      For courses whose home wiki is Wikidata, the words tooltip says it
-      estimates "words added to mainspace items". Wikidata edits are left
-      out of characters added, so no words are counted for items.
+      There were Wikidata versions of the words-added tooltip saying it
+      estimates "words added to mainspace items", although Wikidata is left
+      out of characters and words added. Nothing ever showed them: the only
+      place that looked up a Wikidata variant does so only for courses on
+      English Wikipedia. They've been deleted.
     code:
       - ruby: WordCount::EXCLUDED_PROJECTS
         path: lib/word_count.rb
       - js: app/assets/javascripts/components/articles/article_list_keys.js#contentAddedKey
-    status: bug
+    status: fixed
     issue: 7303
 
   characters-scope:
@@ -385,19 +384,17 @@ divergences:
     title: References added is a net count
     metrics: [references_added]
     description: |
-      The label and the main tooltip say "references added". The figure
-      subtracts references removed, so it can be lower than what students
-      added, or negative. The Wikidata tooltip says the data comes from the
-      ORES item quality model, but it now comes from the Dashboard's own
-      analysis of each Wikidata edit. A separate tooltip, which says "added
-      or removed", isn't shown anywhere.
+      The figure subtracts references removed, so it can be lower than what
+      students added, or negative. The tooltips used to say "references
+      added", and the Wikidata one credited a data source no longer used.
+      Both now describe a net count. The label is still "References Added".
 
       The Wikidata stats panel has its own References Added figure, which
-      counts additions only.
+      counts additions only (see "References added on Wikidata").
     code:
       - ruby: RevisionOnMemory#references_added
       - ruby: UpdateWikidataStatsTimeslice
-    status: bug
+    status: fixed
     issue: 7303
 
   total-edits-scope:

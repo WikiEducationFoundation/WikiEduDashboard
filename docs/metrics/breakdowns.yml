@@ -39,7 +39,6 @@ metrics:
       - i18n: metrics.labels
       - i18n: metrics.qualifiers_added
       - i18n: metrics.references_added
-      - i18n: metrics.references_added_info
       - i18n: metrics.redirects_created
       - i18n: metrics.reverts_performed
       - i18n: metrics.restorations_performed
@@ -135,13 +134,16 @@ divergences:
     title: Where the Wikidata stats come from
     metrics: [wikidata_stats]
     description: |
-      The stats panel and the download description say the breakdown is
-      "based on edit summaries". Only merges, redirects, reverts,
-      restorations, cleared items and created items are taken from edit
-      summaries. Claims, labels, descriptions, aliases, interwiki links,
-      qualifiers and references are counted by comparing each edit's item
-      content with the previous version.
+      The stats panel and the download description said the breakdown was
+      "based on edit summaries", and the panel's References Added had a
+      tooltip warning that it "may only be a partial count" for that reason.
+      Only merges, redirects, reverts, restorations, cleared items and new
+      items come from edit summaries; claims, labels, descriptions, aliases,
+      interwiki links, qualifiers and references are counted by comparing
+      each item with its previous version. The description now says
+      "Detailed breakdown of Wikidata activity", and the references tooltip
+      has been removed.
     code:
       - ruby: UpdateWikidataStatsTimeslice#analyze_revisions
-    status: bug
+    status: fixed
     issue: 7303

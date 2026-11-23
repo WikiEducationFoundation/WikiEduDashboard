@@ -73,8 +73,7 @@ const WikidataOverviewStats = ({
       double: true,
       stats: [
         ['qualifiers added', 'qualifiers-added', I18n.t('metrics.qualifiers_added')],
-        ['references added', 'references-added', I18n.t('metrics.references_added'),
-          I18n.t('metrics.references_added_info'), 'references-added-info'],
+        ['references added', 'references-added', I18n.t('metrics.references_added')],
         ['redirects created', 'redirects-created', I18n.t('metrics.redirects_created')],
         ['reverts performed', 'reverts-performed', I18n.t('metrics.reverts_performed')],
         ['restorations performed', 'restorations-performed', I18n.t('metrics.restorations_performed')],

@@ -116,14 +116,15 @@ divergences:
     title: What "Editors" means in the campaign programs list
     metrics: [editors]
     description: |
-      The Editors column's tooltip says it's "the number of unique users who
-      have edited articles in the course", but the column shows everyone
-      enrolled as a student, whether they've edited or not.
+      The Editors column's tooltip said it was "the number of unique users
+      who have edited articles in the course", but the column shows everyone
+      enrolled as a student, whether they've edited or not. It now says "The
+      number of unique enrolled editors".
     code:
       - ruby: CourseCacheManager#update_user_count
         path: lib/course_cache_manager.rb
       - file: app/views/campaigns/programs.html.haml
-    status: bug
+    status: fixed
     issue: 7303
 
   trained-ratio:

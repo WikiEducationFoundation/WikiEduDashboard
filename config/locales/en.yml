@@ -418,7 +418,7 @@ en:
     tools: Assessment tools
     view: View Article
     view_all: View All
-    view_doc: The estimated views to each article since it was first edited, through the most recent stats update. You can use pageviews.toolforge.org to see the exact numbers.
+    view_doc: Estimated views since first student first edit, up to today. For precise pageview data, use pageviews.toolforge.org.
     view_on_wiki: View on wiki
     # This is a maintence script message
     views_added: "Added %{count} new views for %{title}"
@@ -469,7 +469,7 @@ en:
     preview: Brief preview of Item
     search: Search Wikidata for an Item
     tracked_doc: Only tracked items contribute to the the statistics for this program. When items are marked as untracked, they will be removed from the statistics during the next data update.
-    view_doc: The estimated views to each item since it was first edited, through the most recent stats update. You can use pageviews.toolforge.org to see the exact numbers.
+    view_doc: Estimated views since first student first edit, up to today. For precise pageview data, use pageviews.toolforge.org.
     title_example: Item title
 
   articles_wikidata:
@@ -646,7 +646,7 @@ en:
     data_editor_usernames: Editor usernames
     data_editor_usernames_info: List of editor usernames, one per line
     data_wikidata: Wikidata stats
-    data_wikidata_info: Detailed breakdown of Wikidata activity, based on edit summaries
+    data_wikidata_info: Detailed breakdown of Wikidata activity
     data_include_private_courses: Include private courses
     default_course_type: Default Course Type
     default_passcode: Default Passcode
@@ -908,7 +908,7 @@ en:
     data_revisions: Revisions data
     data_uploads_info: Commons uploads data shows the name and usage count of each media upload.
     data_wikidata: Wikidata stats
-    data_wikidata_info: Detailed breakdown of Wikidata activity, based on edit summaries
+    data_wikidata_info: Detailed breakdown of Wikidata activity
     dates_too_long: The maximum length is one year.
     delete_course: Delete course
     delete_suggestion: Delete
@@ -1151,7 +1151,7 @@ en:
     user_suggestions_prompt: "Your suggestions for the editors of the article"
     view_other: View other campaigns
     view: View Course
-    view_doc: The estimated number of views to articles edited by enrolled editors since the editor made their first edit to each article
+    view_doc: Estimated views to edited articles, since the date of the first tracked edit to each article
     view_page: View Course Page
     view_as_student: View as student
     view_wiki: View on Wikipedia
@@ -1174,7 +1174,6 @@ en:
     wiki_staff: Wiki Education Staff
     withdrawn: Did not do assignment
     word_count_doc: An estimate of the number of words added to mainspace articles by the course's students during the course term. (Wikidata edits are not included.)
-    word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the course's students during the course term
     yourcourses: Your Courses
     declined_note: "This course has been declined. Please contact Wiki Education staff if you have questions."
     decline_course: "Decline Course"
@@ -1385,7 +1384,6 @@ en:
     view_other: View other campaigns
     view_page: View Page
     word_count_doc: An estimate of the number of words added to mainspace articles by the program's editors during the program term. (Wikidata edits are not included.)
-    word_count_doc_wikidata: An estimate of the number of words added to mainspace items by the program's editors during the program term
     yourcourses: Your Programs
 
   editable:
@@ -1428,7 +1426,7 @@ en:
       content_wikidata: to assign and view item assignments
 
   metrics:
-    editors_doc: This is the number of unique users who have edited articles in the course.
+    editors_doc: The number of unique enrolled editors
     program_date_doc: This is the date of the program.
     label: Course Activity
     last_update: Last statistics update
@@ -1474,8 +1472,8 @@ en:
     recent_updates_summary: Out of the last %{total} updates, %{failure_count} failed and %{error_count} encountered errors.
     revisions: Recent Edits
     references_count: References Added
-    references_doc: This is the number of reference tags and shortened footnote templates added to articles, and can include multiple references to the same source. The data comes from the reference-counter Toolforge API.
-    references_doc_wikidata: This is the number of reference tags added to items, and can include multiple references to the same source. The data comes from the ORES item quality model, and is only available for some languages.
+    references_doc: Net number of reference tags and shortened footnote templates added/removed in mainspace (which can include multiple references to the same source). The data comes from the reference-counter Toolforge API.
+    references_doc_wikidata: References added to items minus references removed.
     replag_info: >
       The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits
       because of replication lag (replag). When this is the case, the missing edits will show up later on.
@@ -1522,7 +1520,6 @@ en:
     qualifiers_added: Qualifiers added
     redirects_created: Redirects created
     references_added: References added
-    references_added_info: >
       This may only be a partial count of references added.
       It is based on Wikidata edit summaries, and some edits
       that add references are classified as a "Changed claim"
@@ -2134,7 +2131,7 @@ en:
     uploaded_by: Uploaded By
     uploaded_on: Uploaded On
     usage_count: Usage Count
-    usage_doc: Number of Wikipedia articles that this image appears in.
+    usage_doc: Number of mainspace pages, on any Wikimedia project, that use this file
     usage_count_gallery_tile:
       one: "Used in 1 article"
       other: "Used in %{count} articles"
@@ -2230,7 +2227,6 @@ en:
     revisions_doc: >
       The estimated number of edits made by this editor in the past 7 days,
       based on the average edits per day over the last period.
-    references_doc: The number of references added or removed by this editor
     reviewers: Reviewer(s)
     reviewing: Reviewing
     revisions: Revisions

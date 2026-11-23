@@ -153,28 +153,29 @@ divergences:
       to more than the course total, and the gap keeps growing after a course
       stops being updated.
 
-      The tooltip for the articles list says its numbers run "through the
-      most recent stats update", which isn't true for that list.
+      The articles list's tooltip says its numbers run up to today.
     code:
       - ruby: CourseCacheManager#update_view_sum_based_on_first_revision
         path: lib/course_cache_manager.rb
       - ruby: ArticleHelper#calculate_view_count
-    status: bug
-    issue: 7303
+    status: undecided
 
   views-start-copy:
     title: When article views start counting
     metrics: [article_views]
     description: |
       Views are counted from the first edit a student made to the page during
-      the course. The tooltips describe the start three ways: "since it was
-      first edited" (articles list), "since the editor made their first edit
-      to each article" (course lists), and "from the article's first revision
-      during the course" (course overview). Only the last matches the code.
+      the course. The tooltips used to describe the start three different
+      ways, and the course lists' version ("since the editor made their first
+      edit to each article") suggested a separate start for each editor. All
+      three now match: "from the article's first revision during the course"
+      (course overview), "since first student first edit" (articles list) and
+      "since the date of the first tracked edit to each article" (course
+      lists).
     code:
       - ruby: CourseCacheManager#update_view_sum_based_on_first_revision
         path: lib/course_cache_manager.rb
-    status: bug
+    status: fixed
     issue: 7303
 
   uploads-window:
@@ -201,12 +202,13 @@ divergences:
     metrics: [upload_usages]
     description: |
       A usage is a mainspace page on any Wikimedia wiki that shows the file.
-      The course overview calls the total "usages across languages", but the
-      Uploads tab's tooltip says the per-file number is "Wikipedia articles
-      that this image appears in". The count also includes mainspace pages on
-      other projects, such as Wikivoyage, and the file need not be an image.
+      The Uploads tab's tooltip used to call the per-file number "Wikipedia
+      articles that this image appears in", which left out other projects
+      and other kinds of files. It now says "mainspace pages, on any
+      Wikimedia project, that use this file", which matches the course
+      overview's "usages across languages".
     code:
       - ruby: UploadImporter.import_usages
         path: lib/importers/upload_importer.rb
-    status: bug
+    status: fixed
     issue: 7303
