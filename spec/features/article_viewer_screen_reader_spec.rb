@@ -75,4 +75,29 @@ describe 'Article Viewer authorship highlighting, read by a screen reader',
     expect(words).to eq([['The'], ['compound'], ['Added'], ['by'], ['Ragesoss'], ['is'],
                          ['highly'], ['toxic']])
   end
+
+  # The legend button scrolls to a paragraph with the student's text, but moves
+  # focus to their highlighted run within it rather than the whole paragraph.
+  def press_legend_button
+    # Orca only follows focus here after real input, which this caret move provides.
+    move_screen_reader_to('.parsed-article p')
+    page.execute_script("document.querySelector('button.article-viewer-legend-button').focus()")
+    sleep 1
+    screen_reader_speech_during { system('xdotool', 'key', 'Return', exception: true) }
+      .map(&:strip)
+  end
+
+  it "announces the student's highlighted run, not its paragraph, from the legend button" do
+    open_highlighted_article
+    spoken = press_legend_button
+    expect(spoken).to include('Added by Ragesoss')
+    expect(spoken.join(' ')).not_to include('The compound')
+  end
+
+  it "continues reading from the start of the student's run after the legend button" do
+    open_highlighted_article
+    press_legend_button
+    words = Array.new(4) { screen_reader_next_word.map(&:strip) }
+    expect(words).to eq([['Added'], ['by'], ['Ragesoss'], ['is']])
+  end
 end

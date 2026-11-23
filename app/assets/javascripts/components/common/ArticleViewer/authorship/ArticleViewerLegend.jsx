@@ -34,7 +34,12 @@ const ArticleViewerLegend = ({ article, users, colors, status, allUsers, failure
         const handleScroll = () => {
           if (!scrollBox) return;
 
-          const target = Scroller.scrollTo(user.name, scrollBox);
+          // The scroll brings the whole paragraph into view, but focus goes to
+          // the start of the student's first highlighted run in it, so a
+          // screen reader starts reading at their text, not the paragraph's.
+          const paragraph = Scroller.scrollTo(user.name, scrollBox);
+          const run = paragraph?.querySelector(`.token-editor-${user.userid}`)?.closest('.authorship-run');
+          const target = run || paragraph;
 
           if (target && typeof target.focus === 'function') {
             // Make sure it can receive programmatic focus
