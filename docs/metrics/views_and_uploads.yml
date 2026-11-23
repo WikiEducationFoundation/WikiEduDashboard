@@ -174,8 +174,12 @@ divergences:
       Salesforce also gets a count of uploads made when the record is pushed,
       rather than the stored count from the last update. The two can differ
       briefly.
+
+      The profile's window is a bug (#7312). The Salesforce difference is
+      intentional: it only lasts until the next update.
     code:
       - file: app/models/course.rb
       - ruby: IndividualStatisticsTimeslicePresenter#set_upload_usage_counts
       - ruby: PushCourseToSalesforce#base_salesforce_fields
-    status: undecided
+    status: bug
+    issue: 7312

@@ -345,12 +345,15 @@ divergences:
         of those was rounded down separately, so the sum can be lower.
       - The "by language" breakdown puts all of a course's words on the
         course's home wiki, even when the edits were on other wikis.
+
+      All three are bugs (#7315).
     code:
       - file: app/views/user_profiles/user_articles.json.jbuilder
       - ruby: UserProfileAnalytics#fetch_user_article_stats
       - ruby: UserProfileAnalytics#group_contributions_by_language
       - js: app/assets/javascripts/components/user_profiles/user_details.jsx#sumArticleStat
-    status: undecided
+    status: bug
+    issue: 7315
 
   total-edits-scope:
     title: Which edits count toward total edits
@@ -368,6 +371,10 @@ divergences:
       - **Site-wide statistics by wiki:** every edit in a course counts
         toward the course's home wiki, wherever it was made. The per-wiki CSV
         columns count each edit on the wiki where it was made.
+
+      The namespace tabs' narrower count is intentional, and labelled Edits.
+      The site-wide statistics crediting the home wiki, and the CSV columns
+      including deleted pages, are bugs (#7314).
     code:
       - ruby: CourseWikiTimeslice#update_revision_count_from_acuwt
       - ruby: UpdateWikiNamespaceStatsTimeslice#revision_counts_by_namespace
@@ -376,7 +383,8 @@ divergences:
       - ruby: TimesliceEditCounts.by_wiki
         path: lib/analytics/timeslice_edit_counts.rb
       - ruby: SystemStatUpdateWorker#fetch_wiki_aggregates
-    status: undecided
+    status: bug
+    issue: 7314
 
   articles-edited-definitions:
     title: Five ways of counting articles edited
@@ -396,6 +404,10 @@ divergences:
       - **User profiles:** mainspace articles that still exist, counted once
         across all the student's courses. The headline figure includes
         untracked articles; the by-language and per-course figures don't.
+
+      Most of these are intentional, since each place counts what it's
+      about. The user profile headline and the per-wiki CSV columns
+      including untracked articles are bugs (#7313).
     code:
       - ruby: Course#edited_articles_courses
       - ruby: CoursesPresenter#course_sums
@@ -405,4 +417,5 @@ divergences:
         path: lib/analytics/course_statistics.rb
       - ruby: IndividualStatisticsTimeslicePresenter#article_course_records
       - ruby: UserProfileAnalytics#student_articles_count_by_course
-    status: undecided
+    status: bug
+    issue: 7313
