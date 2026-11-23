@@ -43,8 +43,9 @@ const FeedbackQuestion = ({ name, findingId, values, onChange }) => (
 );
 
 // The current user's evaluation of a finding, saved with the report's
-// finding_feedback action. Starts from what they saved before, if anything.
-const FindingFeedback = ({ auditId, finding }) => {
+// finding_feedback action. Starts from what they saved before, if anything,
+// and passes each save to onSaved so the report keeps it.
+const FindingFeedback = ({ auditId, finding, onSaved }) => {
   const [saved, setSaved] = useState(finding.feedback || {});
   const [values, setValues] = useState(finding.feedback || {});
   const [status, setStatus] = useState(null);
@@ -70,6 +71,7 @@ const FindingFeedback = ({ auditId, finding }) => {
     const data = await response.json();
     setSaved(data);
     setValues(data);
+    onSaved(finding.id, data);
     setStatus('saved');
   };
 

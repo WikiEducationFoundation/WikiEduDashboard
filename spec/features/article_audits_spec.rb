@@ -127,4 +127,25 @@ describe 'Article Audit admin pages', type: :feature, js: true do
     click_link 'Peacock term'
     expect(page).to have_css('h1', text: 'Acme')
   end
+
+  it 'keeps saved feedback when a finding is closed and reopened' do
+    audit = ArticleAudit.create!(wiki: context.wiki, mw_rev_id: 42, article_title: 'Acme',
+                                 requester: admin, status: 'complete')
+    audit.check_results.create!(check_key: 'tone', status: 'succeeded',
+                                findings: [tone_finding, tone_finding.merge('title' => 'Weasel')])
+
+    visit "/article_audits/#{audit.id}"
+    within('.article-audit-comment', text: 'Peacock term') do
+      click_button 'Peacock term'
+      within('fieldset', text: 'Is this finding accurate?') { choose 'Partly' }
+      click_button 'Save'
+      expect(page).to have_content 'Saved'
+    end
+    click_button 'Weasel'
+    click_button 'Peacock term'
+    within('.article-audit-comment', text: 'Peacock term') do
+      expect(page).to have_checked_field 'Partly'
+      expect(page).to have_button 'Save', disabled: true
+    end
+  end
 end

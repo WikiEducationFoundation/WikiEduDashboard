@@ -21,7 +21,7 @@ const bySeverity = (a, b) => SEVERITY_ORDER.indexOf(a.severity) - SEVERITY_ORDER
 // The highlights come from the server (ArticleAuditing::FindingAnchors) as
 // <mark data-findings="ids"> elements, and headings with
 // data-section-findings for findings anchored to a section.
-const AnnotatedArticle = ({ auditId, html, findings, hiddenSeverities }) => {
+const AnnotatedArticle = ({ auditId, html, findings, hiddenSeverities, onFeedbackSaved }) => {
   const articleRef = useRef(null);
   const listRef = useRef(null);
   const cardRefs = useRef({});
@@ -113,6 +113,7 @@ const AnnotatedArticle = ({ auditId, html, findings, hiddenSeverities }) => {
     <CommentCard
       key={finding.id}
       auditId={auditId}
+      onFeedbackSaved={onFeedbackSaved}
       finding={finding}
       selected={finding.id === selectedId}
       onSelect={selectCard}

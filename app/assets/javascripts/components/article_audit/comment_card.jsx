@@ -9,7 +9,7 @@ const QUOTE_NOT_FOUND = 'quote_not_found';
 // Links a policy shortcut like "WP:V" or "MOS:LEAD" to English Wikipedia.
 const policyUrl = shortcut => `https://en.wikipedia.org/wiki/${encodeURIComponent(shortcut.replace(/ /g, '_'))}`;
 
-const CommentBody = ({ finding, auditId }) => {
+const CommentBody = ({ finding, auditId, onFeedbackSaved }) => {
   const { location = {} } = finding;
   const unverified = location.quote && location.quote_verified === false;
   // A quote anchored as text is already highlighted in the article; others
@@ -48,7 +48,7 @@ const CommentBody = ({ finding, auditId }) => {
         ))}
         <code>{finding.check}</code>
       </div>
-      <FindingFeedback auditId={auditId} finding={finding} />
+      <FindingFeedback auditId={auditId} finding={finding} onSaved={onFeedbackSaved} />
     </div>
   );
 };
@@ -56,7 +56,7 @@ const CommentBody = ({ finding, auditId }) => {
 // One finding, as a comment beside the article. Collapsed, it shows the
 // severity and title; selecting it shows the rest, and the form for
 // feedback on the finding.
-const CommentCard = ({ auditId, finding, selected, onSelect, top, cardRef }) => (
+const CommentCard = ({ auditId, finding, selected, onSelect, onFeedbackSaved, top, cardRef }) => (
   <li
     ref={cardRef}
     className={`article-audit-comment article-audit-comment--${finding.severity}${selected ? ' article-audit-comment--selected' : ''}`}
@@ -74,7 +74,7 @@ const CommentCard = ({ auditId, finding, selected, onSelect, top, cardRef }) => 
       {finding.llm && <span className="article-audit__ai-label">{t('ai_label')}</span>}
       <span className="article-audit-comment__title">{finding.title || <code>{finding.code}</code>}</span>
     </button>
-    {selected && <CommentBody finding={finding} auditId={auditId} />}
+    {selected && <CommentBody finding={finding} auditId={auditId} onFeedbackSaved={onFeedbackSaved} />}
   </li>
 );
 
