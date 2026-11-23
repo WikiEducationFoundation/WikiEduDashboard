@@ -78,6 +78,11 @@ describe AboutThisSiteController, type: :request do
       expect(response.body).to include('/blob/master/lib/word_count.rb#L')
     end
 
+    it 'leaves underscores inside names alone rather than reading them as emphasis' do
+      get '/metrics'
+      expect(response.body).to include('en.wikipedia.org_articles_edited')
+    end
+
     context 'with an admin-only entry' do
       let(:dir) { Dir.mktmpdir }
       let(:metric) do

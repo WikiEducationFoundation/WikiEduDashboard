@@ -8,12 +8,14 @@ module MetricsGlossaryHelper
     'bug' => 'Bug'
   }.freeze
 
-  # Definitions are Markdown. escape_html neutralizes any literal HTML, so
-  # the output is safe to mark html_safe.
+  # Explanations are Markdown. escape_html neutralizes any literal HTML, so
+  # the output is safe to mark html_safe. no_intra_emphasis keeps names like
+  # en.wikipedia.org_articles_edited from turning into italics.
   def glossary_markdown(text)
     return if text.blank?
     renderer = Redcarpet::Render::HTML.new(escape_html: true)
-    Redcarpet::Markdown.new(renderer, autolink: true).render(text).html_safe
+    Redcarpet::Markdown.new(renderer, autolink: true, no_intra_emphasis: true)
+                      .render(text).html_safe
   end
 
   # The English text of a translation key, as the Dashboard shows it. It's
