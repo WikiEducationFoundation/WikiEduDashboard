@@ -432,7 +432,7 @@ GEM
       net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.5.1)
       net-protocol
-    net-ssh (7.3.8)
+    net-ssh (7.3.10)
       logger
     netrc (0.11.0)
     nio4r (2.7.5)
@@ -504,15 +504,17 @@ GEM
       date
       stringio
     public_suffix (7.0.5)
-    puma (7.2.2)
+    puma (7.2.3)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.2.8)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
-    rack-protection (2.2.0)
-      rack
+    rack-protection (4.2.2)
+      base64 (>= 0.1.0)
+      logger (>= 1.6.0)
+      rack (>= 3.0.0, < 4)
     rack-proxy (2.0.1)
       rack (>= 2.0, < 4)
     rack-session (2.1.2)
