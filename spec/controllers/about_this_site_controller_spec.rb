@@ -81,7 +81,7 @@ describe AboutThisSiteController, type: :request do
     context 'with an admin-only entry' do
       let(:dir) { Dir.mktmpdir }
       let(:metric) do
-        { 'name' => 'Secret stat', 'summary' => 'Hidden.', 'definition' => 'Admins only.',
+        { 'name' => 'Secret stat', 'summary' => 'Hidden.', 'explanation' => 'Admins only.',
           'audience' => 'admin',
           'implementations' => [{ 'ruby' => 'WordCount.from_characters',
                                   'path' => 'lib/word_count.rb' },
@@ -91,8 +91,10 @@ describe AboutThisSiteController, type: :request do
 
       before do
         File.write(File.join(dir, 'admin.yml'),
-                   { 'family' => { 'title' => 'Admin stats' },
-                     'metrics' => { 'secret_stat' => metric } }.to_yaml)
+                   { 'metrics' => { 'secret_stat' => metric } }.to_yaml)
+        File.write(File.join(dir, 'layout.yml'),
+                   { 'sections' => { 'admin_stats' => { 'title' => 'Admin stats',
+                                                         'metrics' => ['secret_stat'] } } }.to_yaml)
         allow(MetricsGlossary).to receive(:current).and_return(MetricsGlossary.new(dir))
       end
 

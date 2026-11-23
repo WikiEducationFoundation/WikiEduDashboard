@@ -1,14 +1,21 @@
-%article.metrics-glossary__divergence{ id: divergence.key, 'aria-labelledby': "#{divergence.key}-heading" }
-  %h3{ id: "#{divergence.key}-heading" }= divergence.title
-  %p.metrics-glossary__status
-    Status:
-    = glossary_divergence_status(divergence)
-  %p
-    Affects:
-    = safe_join(divergence.metric_keys.map { |key| glossary_metric_link(key) }, ', ')
-  = glossary_markdown(divergence.description)
-  - if divergence.code.any?
-    %h4 Code
-    %ul.metrics-glossary__code
-      - divergence.code.each do |ref|
-        %li= glossary_code_link(ref)
+%details.metrics-glossary__entry{ id: divergence.key }
+  %summary
+    %h3.metrics-glossary__entry-name= divergence.title
+    %span.metrics-glossary__entry-summary
+      = glossary_divergence_status_label(divergence)
+      &middot;
+      Affects
+      = safe_join(divergence.metric_keys.map { |key| glossary_metric_name(key) }, ', ')
+  .metrics-glossary__entry-body
+    %p.metrics-glossary__status
+      Status:
+      = glossary_divergence_status(divergence)
+    = glossary_markdown(divergence.description)
+    %p
+      Affects:
+      = safe_join(divergence.metric_keys.map { |key| glossary_metric_link(key) }, ', ')
+    - if divergence.code.any?
+      %h4 Code
+      %ul.metrics-glossary__code
+        - divergence.code.each do |ref|
+          %li= glossary_code_link(ref)

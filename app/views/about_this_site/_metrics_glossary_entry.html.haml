@@ -1,38 +1,37 @@
-%article.metrics-glossary__metric{ id: metric.key, 'aria-labelledby': "#{metric.key}-heading" }
-  %h3{ id: "#{metric.key}-heading" }
-    = metric.name
-    - if metric.admin_only?
-      %span.metrics-glossary__badge Admin only
-  %p.metrics-glossary__summary= metric.summary
-  = glossary_markdown(metric.definition)
+%details.metrics-glossary__entry{ id: metric.key }
+  %summary
+    %h3.metrics-glossary__entry-name
+      = metric.name
+      - if metric.admin_only?
+        %span.metrics-glossary__badge Admin only
+    - if metric.aliases.any?
+      %span.metrics-glossary__aliases
+        Also shown as
+        = metric.aliases.join(', ')
+    %span.metrics-glossary__entry-summary= metric.summary
+  .metrics-glossary__entry-body
+    %h4 How it's calculated
+    = glossary_markdown(metric.explanation)
 
-  - if metric.i18n_keys.any?
-    %h4 What the Dashboard says
-    %dl.metrics-glossary__copy
-      - metric.i18n_keys.each do |key|
-        %dt
-          %code= key
-        %dd= glossary_i18n_text(key)
+    - if metric.fine_print.present?
+      %h4 Fine print
+      .metrics-glossary__fine-print
+        = glossary_markdown(metric.fine_print)
 
-  - if metric.places.any?
-    %h4 Where it appears
-    %ul
-      - metric.places.each do |place|
-        %li= place
-
-  %h4 Where it's calculated
-  %ul.metrics-glossary__code
-    - metric.implementations.each do |ref|
-      %li= glossary_code_link(ref)
-
-  - divergences = glossary_divergences_for(metric)
-  - if divergences.any?
-    %h4 Known inconsistencies
-    %ul
-      - divergences.each do |divergence|
-        %li= link_to divergence.title, "##{divergence.key}"
-
-  - if metric.related.any?
-    %p.metrics-glossary__related
-      See also:
-      = safe_join(metric.related.map { |key| glossary_metric_link(key) }, ', ')
+    %details.metrics-glossary__developers
+      %summary For developers
+      %h5 Where it's calculated
+      %ul.metrics-glossary__code
+        - metric.implementations.each do |ref|
+          %li= glossary_code_link(ref)
+      - if metric.places.any?
+        %h5 Also used in
+        %ul
+          - metric.places.each do |place|
+            %li= place
+      - divergences = glossary_divergences_for(metric)
+      - if divergences.any?
+        %h5 Known inconsistencies
+        %ul
+          - divergences.each do |divergence|
+            %li= link_to divergence.title, "##{divergence.key}"

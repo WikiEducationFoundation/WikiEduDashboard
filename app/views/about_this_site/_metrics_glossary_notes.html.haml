@@ -1,0 +1,7 @@
+-# Metrics explained in an earlier section, as they appear in this one.
+.metrics-glossary__notes
+  %h3 Also on this tab
+  %dl
+    - section.notes.each do |key, note|
+      %dt{ id: "#{section.key}--#{key}" }= note['label']
+      %dd= glossary_markdown(note['text'])

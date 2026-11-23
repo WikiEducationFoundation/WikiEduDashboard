@@ -30,19 +30,22 @@ describe MetricsGlossary do
   context 'with a fixture glossary' do
     let(:dir) { Dir.mktmpdir }
     let(:metric) do
-      { 'name' => 'Words added', 'summary' => 'Words.', 'definition' => 'Characters / 5.175.',
+      { 'name' => 'Words Added', 'summary' => 'Words.', 'explanation' => 'Characters / 5.175.',
         'implementations' => [{ 'ruby' => 'WordCount.from_characters',
                                 'path' => 'lib/word_count.rb', 'formula' => true }],
         'surfaces' => [{ 'i18n' => 'metrics.word_count' }],
         'columns' => ['courses.character_sum'] }
     end
     let(:divergences) { {} }
-    # Written when first used, so examples can adjust `metric` and
-    # `divergences` beforehand.
+    let(:sections) do
+      { 'overview' => { 'title' => 'Course overview', 'metrics' => ['words_added'] } }
+    end
+    # Written when first used, so examples can adjust `metric`, `divergences`
+    # and `sections` beforehand.
     let(:glossary) do
-      write_yaml('contributions', 'family' => { 'title' => 'Edits', 'position' => 1 },
-                                  'metrics' => { 'words_added' => metric },
+      write_yaml('contributions', 'metrics' => { 'words_added' => metric },
                                   'divergences' => divergences)
+      write_yaml('layout', 'sections' => sections)
       described_class.new(dir)
     end
     let(:fingerprints) do
@@ -76,8 +79,8 @@ describe MetricsGlossary do
     end
 
     it 'reports a code pointer that no longer resolves' do
-      metric['implementations'] = 
-[{ 'ruby' => 'WordCount.from_words', 'path' => 'lib/word_count.rb' }]
+      metric['implementations'] = [{ 'ruby' => 'WordCount.from_words',
+                                     'path' => 'lib/word_count.rb' }]
       expect(checker.reference_errors.join).to include('WordCount.from_words')
     end
 
@@ -141,16 +144,51 @@ describe MetricsGlossary do
       end
     end
 
-    describe '#visible_families' do
+    it 'reports a metric that is not in any section of the layout' do
+      sections['overview']['metrics'] = []
+      expect(checker.schema_errors).to include(
+        "words_added: isn't placed in any section of layout.yml"
+      )
+    end
+
+    it 'reports a note for a metric that its own section explains' do
+      sections['overview']['notes'] = { 'words_added' => { 'label' => 'Words', 'text' => 'Same.' } }
+      expect(checker.schema_errors).to include(
+        'layout.yml overview: note for words_added, which this section already explains'
+      )
+    end
+
+    it 'reports a missing visual' do
+      sections['overview']['visual'] = 'no_such_visual'
+      expect(checker.schema_errors).to include(
+        'layout.yml overview: no visual partial _no_such_visual.html.haml'
+      )
+    end
+
+    describe '#visible_sections' do
+      let(:sections) do
+        { 'overview' => { 'title' => 'Course overview', 'metrics' => %w[words_added secret],
+                          'notes' => {} },
+          'students' => { 'title' => 'Students tab', 'metrics' => ['pe_only'],
+                          'notes' => { 'secret' => { 'label' => 'Secret',
+                                                     'text' => 'Hidden.' } } } }
+      end
+
       before do
         write_yaml('participants',
-                   'family' => { 'title' => 'People', 'position' => 2 },
                    'metrics' => { 'secret' => metric.deep_dup.merge('audience' => 'admin'),
                                   'pe_only' => metric.deep_dup.merge('deployments' => ['pe']) })
       end
 
       def visible_keys(**viewer)
-        glossary.visible_families(**viewer).flat_map(&:metrics).map(&:key)
+        glossary.visible_sections(**viewer).flat_map(&:metrics).map(&:key)
+      end
+
+      it 'drops notes on entries the viewer cannot see, and sections left empty' do
+        expect(glossary.visible_sections(admin: false, deployment: 'wiki_ed').map(&:key))
+          .to eq(['overview'])
+        expect(glossary.visible_sections(admin: true, deployment: 'pe').last.notes.keys)
+          .to eq(['secret'])
       end
 
       it 'hides admin-only entries from everyone else' do

@@ -1,24 +1,16 @@
-# Metric glossary: participants. Format: docs/metrics/README.md
-family:
-  title: Participants
-  position: 3
-  intro: >-
-    Who took part in a course or program, and whether they kept up with
-    the training assigned to them.
-
+# Metric glossary entries. Format: docs/metrics/README.md
 metrics:
   editors:
-    name: Student editors
-    summary: The number of students enrolled in the course.
-    definition: |
-      Everyone enrolled in the course with the student role, whether or not
-      they have made any edits. Instructors, Wiki Expert staff and other
-      non-student roles don't count. The course overview calls these
-      "Student Editors" (or "Editors" for programs that don't use the
-      student wording).
-
-      Campaign and program totals add up each course's count, so someone
-      enrolled as a student in two courses counts twice.
+    name: Student Editors
+    aliases:
+      - "Editors (programs that don't use \"students\")"
+    summary: How many students are enrolled in the course.
+    explanation: |
+      Everyone enrolled in the course as a student, whether or not they've
+      edited yet. Instructors, Wiki Experts and other staff aren't included.
+    fine_print: |
+      - Campaign and program totals add up each course's number, so someone
+        enrolled in two courses counts twice.
     implementations:
       - ruby: CourseCacheManager#update_user_count
         path: lib/course_cache_manager.rb
@@ -37,29 +29,23 @@ metrics:
       - place: Course CSV (editors column) and Salesforce
     columns:
       - courses.user_count
-    related: [trained]
 
   trained:
     name: Up-to-date with training
-    summary: The number of students who have no overdue training modules.
-    definition: |
-      Enrolled students who have finished every training module on the
-      course timeline whose due date has passed. A module is overdue once its
-      due date is over everywhere on Earth; the due date is the one of the
-      first timeline block that assigns it. Exercises and discussions don't
-      count, only training modules.
+    summary: How many students have finished all the training that is due so far.
+    explanation: |
+      A student is up to date if they've finished every training module
+      whose due date on the course timeline has passed. It's shown when you hover
+      over Student Editors.
 
-      This means a student who hasn't started any training counts as up to
-      date until the first due date passes, and every student counts when the
-      timeline has no training modules. A module counts as finished whichever
-      course the student finished it for.
-
-      Courses that started before December 2015, when training moved into
-      the Dashboard, use an older flag recording on-wiki training instead.
-      Nothing updates that flag any more.
-
-      Campaign pages show the total as a percentage of students (100% for a
-      campaign with no students).
+      Because it only looks at modules that are already due, every student counts
+      as up to date until the first due date passes.
+    fine_print: |
+      - Only training modules count, not exercises or discussions.
+      - A module finished for another course still counts.
+      - Courses from before December 2015 use an older on-wiki training record,
+        which is no longer updated.
+      - Campaign pages show this as a percentage of students.
     implementations:
       - ruby: CourseCacheManager#update_trained_count
         path: lib/course_cache_manager.rb
@@ -83,7 +69,6 @@ metrics:
     columns:
       - courses.trained_count
       - users.trained
-    related: [editors]
 
 divergences:
   student-count:

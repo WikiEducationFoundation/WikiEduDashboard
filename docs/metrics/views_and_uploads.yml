@@ -1,37 +1,23 @@
-# Metric glossary: views and media. Format: docs/metrics/README.md
-family:
-  title: Views and media
-  position: 2
-  intro: >-
-    How many people saw the pages students worked on, and the images and
-    other files students uploaded to Wikimedia Commons.
-
+# Metric glossary entries. Format: docs/metrics/README.md
 metrics:
   article_views:
-    name: Article views
-    summary: An estimate of how many times the pages students edited have been viewed since they started working on them.
-    definition: |
-      For each page, the Dashboard takes the date of the first edit a
-      student made to it during the course, and the page's average daily
-      views from that date to yesterday. The estimate for the page is the
-      average multiplied by the number of days since that first edit,
-      rounded down.
-
-      Average daily views come from the Wikimedia pageviews service, counting
-      views by people (not known bots or crawlers) on desktop and mobile. They
-      are refreshed during course updates once they are two weeks old. A page
-      first edited in the last two days has no average yet, and is left out
-      until it does.
-
-      The course total adds up these estimates for pages in the namespaces the
-      course tracks (articles, by default) that are still tracked and haven't
-      been deleted. It's calculated during each stats update, so it stops
-      growing once a course is no longer being updated.
-
-      The articles list works the estimate out again for each page when the
-      list loads, up to today. Pages from older courses that have no average
-      for the course fall back to an older per-article average, or to a view
-      count stored by the Dashboard's previous system.
+    name: Article Views
+    aliases:
+      - Item Views (Wikidata)
+      - Views (Articles tab)
+    summary: An estimate of how often the articles students edited have been read since they started on them.
+    explanation: |
+      For each article, the Dashboard takes its average views per day and
+      multiplies by the number of days since a student first edited it during the
+      course. The course overview adds these up for every article, and updates
+      the total each time the course's stats update.
+    fine_print: |
+      - Average views come from Wikimedia's pageviews service, counting
+        people (not bots) on desktop and mobile. They're refreshed every two
+        weeks.
+      - An article first edited in the last two days has no average yet, so it's
+        left out until it does.
+      - Once a course stops being updated, its total stops growing.
     implementations:
       - ruby: CourseCacheManager#update_view_sum_based_on_first_revision
         path: lib/course_cache_manager.rb
@@ -66,19 +52,18 @@ metrics:
       - articles_courses.average_views
       - articles_courses.view_count
       - articles.average_views
-    related: [articles_edited]
 
   commons_uploads:
-    name: Commons uploads
-    summary: The number of files students uploaded to Wikimedia Commons during the course.
-    definition: |
-      Files uploaded to Wikimedia Commons by the course's current students,
-      with an upload time between the course's start and end. Files that
-      were later deleted from Commons still count. A student who leaves the
-      course takes their uploads with them.
-
-      The students list shows each student's count for the course, using the
-      same dates.
+    name: Commons Uploads
+    aliases:
+      - Total Uploads (Students tab)
+    summary: How many files students uploaded to Wikimedia Commons during the course.
+    explanation: |
+      Every file a student uploaded to Wikimedia Commons between the
+      course's start and end dates.
+    fine_print: |
+      - Files later deleted from Commons still count.
+      - If a student leaves the course, their uploads stop counting.
     implementations:
       - ruby: CourseCacheManager#update_upload_count
         path: lib/course_cache_manager.rb
@@ -98,16 +83,18 @@ metrics:
     columns:
       - courses.upload_count
       - courses_users.total_uploads
-    related: [uploads_in_use, upload_usages]
 
   uploads_in_use:
-    name: Uploads in use
-    summary: How many of the course's Commons uploads appear in at least one article.
-    definition: |
-      Of the files counted in [Commons uploads](#commons_uploads), the number
-      with at least one use in an article, as of the last update. A use counts
-      on any language or project, but only in mainspace: a file shown only on
-      user pages, talk pages or other non-article pages doesn't count.
+    name: Files used in articles
+    summary: "How many of the course's uploads appear in at least one article."
+    explanation: |
+      Of the [Commons Uploads](#commons_uploads), how many are used in at
+      least one article, on any Wikimedia wiki in any language. It's shown when
+      you hover over Commons Uploads.
+    fine_print: |
+      - Only articles count. A file shown only on user pages, talk pages or
+        other kinds of pages isn't counted as in use.
+      - Usage is checked each time the course's stats update.
     implementations:
       - ruby: Course#uploads_in_use
         formula: true
@@ -122,19 +109,19 @@ metrics:
       - place: Campaign overview
     columns:
       - courses.uploads_in_use_count
-    related: [commons_uploads, upload_usages]
 
   upload_usages:
-    name: Upload usages
-    summary: The total number of articles, across all languages and projects, that use the course's Commons uploads.
-    definition: |
-      For each file counted in [Commons uploads](#commons_uploads), the
-      number of mainspace pages on any Wikimedia wiki that use it, added up
-      across all the files. A file used in English and Spanish Wikipedia
-      articles counts twice. Uses outside mainspace don't count.
-
-      Usage is refreshed from Commons during course updates, so it stops
-      changing once a course is no longer being updated.
+    name: Total usages across languages
+    summary: "How many articles use the course's uploads, added up across all the files."
+    explanation: |
+      For each of the [Commons Uploads](#commons_uploads), the number of
+      articles that use it, on any Wikimedia wiki, added up. A file used in an
+      English and a Spanish Wikipedia article counts twice. It's shown when you
+      hover over Commons Uploads.
+    fine_print: |
+      - Only articles count, but they can be on any project, such as
+        Wikivoyage, not just Wikipedia.
+      - Usage is checked each time the course's stats update.
     implementations:
       - ruby: CourseCacheManager#update_upload_usages_count
         path: lib/course_cache_manager.rb
@@ -153,7 +140,6 @@ metrics:
     columns:
       - courses.upload_usages_count
       - commons_uploads.usage_count
-    related: [commons_uploads, uploads_in_use]
 
 divergences:
   views-end-point:

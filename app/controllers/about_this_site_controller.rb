@@ -14,9 +14,9 @@ class AboutThisSiteController < ApplicationController
     @glossary = MetricsGlossary.current
     admin = current_user&.admin? || false
     deployment = Features.wiki_ed? ? 'wiki_ed' : 'pe'
-    @families = @glossary.visible_families(admin:, deployment:)
+    @sections = @glossary.visible_sections(admin:, deployment:)
     @divergences = @glossary.visible_divergences(admin:, deployment:)
-    @visible_metric_keys = @families.flat_map(&:metrics).map(&:key).to_set
+    @visible_metric_keys = @glossary.visible_metric_keys(admin:, deployment:)
   end
 
   # The published VPAT covers the Wiki Education Dashboard only; it

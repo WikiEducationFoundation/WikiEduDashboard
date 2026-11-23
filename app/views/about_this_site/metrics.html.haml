@@ -11,30 +11,35 @@
       = succeed '.' do
         = link_to 'let us know', "#{MetricsGlossary::REPO_URL}/issues"
   %p
-    Each entry says what a number counts, quotes the explanation the Dashboard
-    gives for it, and links to the code that calculates it. Code links point to
-    the version of the code running on this site.
+    How the numbers on a course page are calculated, grouped the way they
+    appear there. Select a number in an example, or an entry below it, to see
+    how it's worked out.
 
   %nav.metrics-glossary__contents{ 'aria-label': 'Contents' }
     %ul
-      - @families.each do |family|
-        %li
-          = link_to family.title, "##{family.key}"
-          %ul
-            - family.metrics.each do |metric|
-              %li= link_to metric.name, "##{metric.key}"
+      - @sections.each do |section|
+        %li= link_to section.title, "##{section.key}"
       - if @divergences.any?
         %li= link_to 'Known inconsistencies', '#known-inconsistencies'
+  .metrics-glossary__controls
+    %button.button.border.small{ type: 'button', data: { glossary_toggle: 'open' } } Expand all
+    %button.button.border.small{ type: 'button', data: { glossary_toggle: 'close' } } Collapse all
 
-  - @families.each do |family|
-    %section.metrics-glossary__family{ id: family.key, 'aria-labelledby': "#{family.key}-heading" }
-      %h2{ id: "#{family.key}-heading" }= family.title
-      = glossary_markdown(family.intro)
-      - family.metrics.each do |metric|
+  - @sections.each do |section|
+    %section.metrics-glossary__section{ id: section.key, 'aria-labelledby': "#{section.key}-heading" }
+      %h2{ id: "#{section.key}-heading" }= section.title
+      = glossary_markdown(section.intro)
+      - if section.visual.present?
+        %figure.metrics-glossary__visual
+          = render "about_this_site/metrics_visuals/#{section.visual}"
+          %figcaption Example numbers, not from a real course.
+      - section.metrics.each do |metric|
         = render 'metrics_glossary_entry', metric:
+      - if section.notes.any?
+        = render 'metrics_glossary_notes', section:
 
   - if @divergences.any?
-    %section.metrics-glossary__family#known-inconsistencies{ 'aria-labelledby': 'known-inconsistencies-heading' }
+    %section.metrics-glossary__section#known-inconsistencies{ 'aria-labelledby': 'known-inconsistencies-heading' }
       %h2#known-inconsistencies-heading Known inconsistencies
       %p
         Places where one name is calculated in more than one way. Each has a
@@ -42,3 +47,32 @@
         fix it), or fixed.
       - @divergences.each do |divergence|
         = render 'metrics_glossary_divergence', divergence:
+
+:javascript
+  // Open the entry a link points at (from another entry, the contents, or an
+  // incoming /metrics#key URL), and wire up the expand/collapse buttons.
+  (function () {
+    function openEntry(hash) {
+      var target = document.getElementById(decodeURIComponent(hash.slice(1)));
+      if (target && target.tagName === 'DETAILS') target.open = true;
+    }
+    // Clicking a link to the current hash doesn't fire hashchange, so links
+    // are handled directly, before the browser scrolls to the target.
+    document.querySelectorAll('.metrics-glossary a[href^="#"]').forEach(function (link) {
+      link.addEventListener('click', function () { openEntry(link.getAttribute('href')); });
+    });
+    window.addEventListener('hashchange', function () { openEntry(location.hash); });
+    if (location.hash) {
+      openEntry(location.hash);
+      var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+      if (target) target.scrollIntoView();
+    }
+    document.querySelectorAll('[data-glossary-toggle]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var open = button.dataset.glossaryToggle === 'open';
+        document.querySelectorAll('.metrics-glossary__entry').forEach(function (entry) {
+          entry.open = open;
+        });
+      });
+    });
+  })();

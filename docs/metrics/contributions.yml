@@ -1,33 +1,23 @@
-# Metric glossary: edits and content. Format: docs/metrics/README.md
-family:
-  title: Edits and content
-  position: 1
-  intro: >-
-    What participants added to Wikipedia and its sister projects. Unless an
-    entry says otherwise, these count only edits by enrolled students, made
-    between the course's start and end dates, to pages the course tracks.
-
+# Metric glossary entries. Format: docs/metrics/README.md
 metrics:
   articles_edited:
-    name: Articles edited
-    summary: The number of articles students edited during the course.
-    definition: |
-      An article counts as edited when an enrolled student edited it during
-      the course, and it:
-
-      - is in a namespace the course tracks: mainspace on each of the
-        course's wikis, unless the course is set up to track other namespaces
-      - hasn't been deleted
-      - hasn't been marked as untracked on the course's Articles tab
-
-      Each article counts once, however many students edited it.
-
-      Sandboxes and drafts don't count. A page moved out of a sandbox or
-      draft into a tracked namespace counts from the next update.
-
-      Wikidata items count the same way; the overview calls them Items
-      Edited. Article Scoped Programs count only the articles and categories
-      assigned to them.
+    name: Articles Edited
+    aliases:
+      - Items Edited (Wikidata)
+      - Pages Edited (wikis other than Wikipedia)
+    summary: How many different articles students edited during the course.
+    explanation: |
+      Every article a student edited during the course counts once, no
+      matter how many students edited it or how many times. Only articles count,
+      not sandboxes, drafts or talk pages.
+    fine_print: |
+      - Articles that are deleted, or that someone marks as untracked on the
+        Articles tab, drop out at the next update.
+      - A sandbox or draft that's moved into an article starts counting at the
+        next update.
+      - Courses can be set up to track other kinds of pages as well as articles.
+      - Article Scoped Programs count only the articles and categories assigned
+        to them.
     implementations:
       - ruby: Course#edited_articles_courses
         formula: true
@@ -53,23 +43,21 @@ metrics:
       - place: Term recap emails
       - place: Salesforce field Articles_edited__c
     columns: [courses.article_count]
-    related: [articles_created, total_edits]
 
   articles_created:
-    name: Articles created
-    summary: The number of new articles students started during the course.
-    definition: |
-      An article counts as created when it counts as
-      [edited](#articles_edited), and a student made the edit that created
-      the page during the course. Pages a student started in a sandbox or
-      draft and later moved into a tracked namespace also count, because a
-      move keeps the page's history.
-
-      Articles that someone else created, or that existed before the course,
-      don't count, however much a student added to them.
-
-      The overview hides this figure when it's zero, and labels it Items
-      Created for Wikidata and Pages Created for wikis other than Wikipedia.
+    name: Articles Created
+    aliases:
+      - Items Created (Wikidata)
+      - Pages Created (wikis other than Wikipedia)
+    summary: How many of the articles students edited were started by a student during the course.
+    explanation: |
+      An article counts as created if a student made the edit that created
+      it, during the course. Articles that existed before the course don't count,
+      however much students added to them.
+    fine_print: |
+      - An article a student started in a sandbox or draft and then moved
+        into place counts as created, because moving a page keeps its history.
+      - The course overview hides this number when it's zero.
     implementations:
       - ruby: Course#new_articles_courses
         formula: true
@@ -91,23 +79,20 @@ metrics:
       - articles_courses.new_article
       - article_course_timeslices.new_article
       - article_course_user_wiki_timeslices.new_article
-    related: [articles_edited]
 
   total_edits:
-    name: Total edits
-    summary: The number of edits students made during the course, on every page the Dashboard follows.
-    definition: |
-      Every edit a student made during the course, on all of the course's
-      wikis. The Dashboard follows each wiki's main content and talk
-      namespaces, so unlike [articles edited](#articles_edited), this
-      includes edits to sandboxes, drafts and talk pages.
-
-      Edits to articles marked as untracked, edits to pages known to be
-      deleted, and edits the Dashboard made on a student's behalf (such as
-      adding templates to sandboxes) aren't counted.
-
-      Article Scoped Programs count only edits to their assigned articles
-      and categories.
+    name: Total Edits
+    summary: Every edit students made during the course.
+    explanation: |
+      Each edit a student made between the course's start and end dates
+      counts once. Unlike [Articles Edited](#articles_edited), this includes
+      edits to sandboxes, drafts and talk pages.
+    fine_print: |
+      - Edits to deleted pages, and to articles marked as untracked, don't
+        count.
+      - Edits the Dashboard made on a student's behalf, such as adding a
+        template to their sandbox, don't count.
+      - Article Scoped Programs count only edits to their assigned articles.
     implementations:
       - ruby: CourseWikiTimeslice#update_revision_count
         formula: true
@@ -131,22 +116,19 @@ metrics:
       - course_user_wiki_timeslices.revision_count
       - article_course_timeslices.revision_count
       - article_course_user_wiki_timeslices.revision_count
-    related: [recent_edits, articles_edited]
 
   recent_edits:
-    name: Recent edits
-    summary: An estimate of how many edits students made in the last 7 days.
-    definition: |
-      An estimate, not an exact count. The Dashboard stores edits in blocks
-      of time, so it takes every block that overlaps the last 7 days (or the
-      course so far, if it started less than 7 days ago). It works out the
-      average number of edits per day across those blocks, multiplies by 7,
-      and rounds up. A burst of edits early in a block is spread across the
-      whole block.
-
-      It counts the same edits as [total edits](#total_edits). Edits after
-      the course's end date aren't counted, so it falls to zero a week after
-      the course ends.
+    name: Recent Edits
+    summary: An estimate of how many edits were made in the last 7 days.
+    explanation: |
+      The Dashboard stores edits in blocks of time rather than one by one,
+      so this is an estimate. It takes the blocks that cover the last week,
+      works out the average number of edits per day, and multiplies by 7.
+    fine_print: |
+      - The estimate is rounded up.
+      - It counts the same edits as [Total Edits](#total_edits), so edits after
+        the course ends don't count, and it drops to zero about a week after the
+        course ends.
     implementations:
       - ruby: RevisionStatTimeslice#calculate_revisions_in_window
         path: lib/revision_stat_timeslice.rb
@@ -163,36 +145,28 @@ metrics:
       - place: Students tab
       - place: Tagged courses CSV column Recent_Edits
     columns: [courses.recent_revision_count, courses_users.recent_revisions]
-    related: [total_edits]
 
   characters_added:
-    name: Characters added
-    summary: The bytes of wikitext students added, counting only edits that made a page bigger.
-    definition: |
-      Despite the name, this counts bytes of wikitext, not visible
-      characters. Markup counts, and characters outside basic Latin take two
-      to four bytes each.
+    name: Bytes Added
+    aliases:
+      - Characters Added (Students tab)
+      - Chars Added (Articles tab)
+    summary: How much text students added to articles, measured in bytes.
+    explanation: |
+      For each edit, the Dashboard measures how much bigger the page got.
+      Edits that made a page smaller count as zero, rather than subtracting. The
+      course overview adds this up for every article students edited during the
+      course.
 
-      For each edit, the Dashboard takes the change in page size. Edits that
-      made the page smaller count as zero rather than subtracting, so
-      removing text and then restoring it counts twice. Edits the Dashboard
-      made itself, and edits to deleted or untracked pages, aren't counted.
-
-      Different places add up different pages:
-
-      - **Course total** (Bytes Added on the course overview, and the basis
-        for [words added](#words_added)): tracked articles in mainspace on
-        the course's wikis. Wikidata is left out, since its edits are
-        structured data rather than prose.
-      - **Students tab:** three figures per student. The first is tracked
-        mainspace articles, excluding Wikidata, like the course total. The
-        second is the student's userspace, including sandboxes, and the third
-        is the Draft namespace. Userspace and Draft count even though the
-        course doesn't track them.
-      - **Articles tab** (Chars Added, for courses not on English
-        Wikipedia): every student edit to that article during the course,
-        including Wikidata items and articles in any other namespace the
-        course tracks.
+      The course overview shows Bytes Added for courses whose home wiki isn't in
+      English. English-language courses see [Words Added](#words_added) instead,
+      which is based on this number.
+    fine_print: |
+      - It's bytes, not characters: wiki markup counts, and letters outside
+        the basic Latin alphabet take two to four bytes each.
+      - Removing text and then putting it back counts twice.
+      - Wikidata isn't included, because its edits are structured data rather
+        than text.
     implementations:
       - ruby: CourseCacheManager#update_character_sum_from_timeslices
         path: lib/course_cache_manager.rb
@@ -232,27 +206,21 @@ metrics:
       - article_course_timeslices.character_sum
       - article_course_user_wiki_timeslices.character_sum
       - articles_courses.character_sum
-    related: [words_added]
 
   words_added:
-    name: Words added
-    summary: An estimate of the words of prose students added, derived from characters added.
-    definition: |
-      Words added is [characters added](#characters_added) divided by 5.175,
-      with the remainder dropped. 5.175 is an estimate of bytes per word for
-      English Wikipedia prose: about 1.15 bytes per visible character, times
-      4.5 letters per English word.
-
-      The same ratio is used for every wiki. It's a rough estimate even on
-      English Wikipedia, since it was measured on whole articles rather than
-      on what students add.
-
-      Like characters added, it leaves out Wikidata, where edits are
-      structured data rather than prose.
-
-      The course overview shows Words Added for courses whose home wiki is in
-      English, and Bytes Added for other courses. Campaign, program and
-      course lists show Words Added for every course.
+    name: Words Added
+    summary: An estimate of how many words students added to articles.
+    explanation: |
+      [Bytes Added](#characters_added) divided by 5.175, which is roughly
+      how many bytes make up a word of English Wikipedia text. So it estimates
+      words from how much the articles grew; it doesn't count actual words.
+    fine_print: |
+      - The same English ratio is used for every wiki, and the result is
+        rounded down.
+      - The course overview shows Words Added only for courses whose home wiki
+        is in English. Course lists on campaign and program pages show it for
+        every course.
+      - Wikidata isn't included.
     implementations:
       - ruby: WordCount.from_characters
         path: lib/word_count.rb
@@ -274,31 +242,22 @@ metrics:
       - place: Term recap emails
       - place: User profiles
       - place: Salesforce field Words_added_in_thousands__c
-    related: [characters_added]
 
   references_added:
-    name: References added
-    summary: The net change in the number of references in articles students edited.
-    definition: |
-      For each edit, the Dashboard compares the number of references in the
-      page before and after. An edit that removes references lowers the
-      total, so despite the name this is a net change, and it can be
-      negative. When a student creates a page, every reference in it counts.
-      An edit counts as zero if the number of references isn't available for
-      both versions.
+    name: References Added
+    summary: How much the number of references in the articles students edited went up.
+    explanation: |
+      For each edit, the Dashboard counts the references in the article
+      before and after. References Added is the total of those changes, so an
+      edit that removes references lowers it, and it can drop below zero.
 
-      On Wikipedia and other wikitext wikis, references are reference tags
-      plus shortened-footnote templates, from the reference-counter tool on
-      Toolforge, or from Lift Wing's article features when the counter isn't
-      available. Repeat citations of the same source each count. On Wikidata
-      it's references added minus references removed, from the Dashboard's
-      analysis of each edit.
-
-      The course total covers the same edits as the course's
-      [characters added](#characters_added): tracked mainspace articles,
-      without the Dashboard's own edits or deleted pages. Unlike characters
-      added, it includes Wikidata. The Articles tab shows the same net
-      figure for each article.
+      A reference is a `<ref>` tag or a shortened footnote; citing the same
+      source twice counts twice.
+    fine_print: |
+      - The counts come from the reference-counter tool on Toolforge.
+      - It covers the same articles as [Bytes Added](#characters_added), but
+        includes Wikidata, where it's references added minus references removed.
+      - The course overview hides this number when it's zero.
     implementations:
       - ruby: RevisionOnMemory#references_added
         formula: true
@@ -325,7 +284,6 @@ metrics:
       - article_course_timeslices.references_count
       - article_course_user_wiki_timeslices.references_count
       - articles_courses.references_count
-    related: [characters_added]
 
 divergences:
   words-wiki-gating:

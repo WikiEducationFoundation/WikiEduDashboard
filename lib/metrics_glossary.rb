@@ -5,26 +5,37 @@ require_dependency "#{Rails.root}/lib/metrics_glossary/code_ref"
 
 #= The metric glossary: YAML files in docs/metrics/ that define each metric
 # the Dashboard computes, point at the code that computes it, and record
-# places where the same name is computed differently. It backs the /metrics
-# page and the drift checks in MetricsGlossary::Checker.
+# places where the same name is computed differently. layout.yml arranges
+# the metrics into sections that mirror how course pages group them. It backs
+# the /metrics page and the drift checks in MetricsGlossary::Checker.
 # See docs/metrics/README.md for the file format.
 class MetricsGlossary
   DIR = Rails.root.join('docs', 'metrics')
-  SUPPORT_FILES = %w[unclaimed.yml fingerprints.yml].freeze
+  LAYOUT_FILE = 'layout.yml'
+  SUPPORT_FILES = [LAYOUT_FILE, 'unclaimed.yml', 'fingerprints.yml'].freeze
   AUDIENCES = %w[public admin].freeze
   DEPLOYMENTS = %w[wiki_ed pe].freeze
   STATUSES = %w[undecided intentional bug fixed].freeze
   REPO_URL = 'https://github.com/WikiEducationFoundation/WikiEduDashboard'
 
-  Family = Data.define(:key, :title, :intro, :position, :metrics)
+  # A part of the page that mirrors a group of numbers on a course page: an
+  # example of how they look, then an entry for each metric explained there,
+  # and short notes on metrics explained in an earlier section.
+  Section = Data.define(:key, :data, :metrics) do
+    %w[title intro visual].each { |field| define_method(field) { data[field] } }
 
-  Metric = Data.define(:key, :family_key, :data, :implementations, :surfaces) do
-    %w[name summary definition].each { |field| define_method(field) { data[field] } }
+    def metric_keys = data['metrics'] || []
+    # { metric_key => { 'label' => ..., 'text' => ... } }
+    def notes = data['notes'] || {}
+  end
 
+  Metric = Data.define(:key, :file_key, :data, :implementations, :surfaces) do
+    %w[name summary explanation fine_print].each { |field| define_method(field) { data[field] } }
+
+    def aliases = data['aliases'] || []
     def audience = data['audience'] || 'public'
     def deployments = data['deployments'] || DEPLOYMENTS
     def columns = data['columns'] || []
-    def related = data['related'] || []
     def admin_only? = audience == 'admin'
     def i18n_keys = surfaces.filter_map { |surface| surface['i18n'] }
     def places = surfaces.filter_map { |surface| surface['place'] }
@@ -34,7 +45,7 @@ class MetricsGlossary
     end
   end
 
-  Divergence = Data.define(:key, :family_key, :data, :code) do
+  Divergence = Data.define(:key, :file_key, :data, :code) do
     %w[title description status issue].each { |field| define_method(field) { data[field] } }
 
     def metric_keys = data['metrics'] || []
@@ -57,30 +68,46 @@ class MetricsGlossary
     end
   end
 
-  attr_reader :families, :metrics, :divergences, :files, :duplicate_keys
+  attr_reader :sections, :metrics, :divergences, :files, :duplicate_keys
 
   def initialize(dir = DIR)
-    @files = family_paths(dir).to_h do |path|
+    @files = metric_paths(dir).to_h do |path|
       [File.basename(path, '.yml'), YAML.safe_load_file(path) || {}]
     end
     @metrics = {}
     @divergences = {}
     @duplicate_keys = []
-    @files.each { |family_key, raw| load_family(family_key, raw) }
-    @families = build_families
+    @files.each { |file_key, raw| load_file(file_key, raw) }
+    @sections = build_sections(dir)
   end
 
-  def visible_families(admin:, deployment:)
-    families.filter_map do |family|
-      shown = family.metrics.select { |metric| metric.visible_to?(admin:, deployment:) }
-      family.with(metrics: shown) if shown.any?
+  # Sections with the entries and notes this viewer can see. A note stays
+  # only if the entry it points back to is visible.
+  def visible_sections(admin:, deployment:)
+    visible = visible_metric_keys(admin:, deployment:)
+    sections.filter_map do |section|
+      shown = section.metrics.select { |metric| visible.include?(metric.key) }
+      notes = section.notes.select { |key, _note| visible.include?(key) }
+      next if shown.empty? && notes.empty?
+      section.with(metrics: shown, data: section.data.merge('notes' => notes))
     end
+  end
+
+  def visible_metric_keys(admin:, deployment:)
+    metrics.values.select { |metric| metric.visible_to?(admin:, deployment:) }.map(&:key).to_set
   end
 
   # Divergences involving at least one metric the viewer can see.
   def visible_divergences(admin:, deployment:)
-    visible = visible_families(admin:, deployment:).flat_map(&:metrics).map(&:key)
-    divergences.values.select { |divergence| divergence.metric_keys.intersect?(visible) }
+    visible = visible_metric_keys(admin:, deployment:)
+    divergences.values.select do |divergence|
+      divergence.metric_keys.any? { |key| visible.include?(key) }
+    end
+  end
+
+  # The section whose entry explains a metric.
+  def section_for(metric_key)
+    sections.find { |section| section.metric_keys.include?(metric_key) }
   end
 
   def divergences_for(metric_key)
@@ -93,20 +120,20 @@ class MetricsGlossary
 
   private
 
-  def family_paths(dir)
+  def metric_paths(dir)
     Dir[File.join(dir, '*.yml')].sort.reject { |path| SUPPORT_FILES.include?(File.basename(path)) }
   end
 
-  def load_family(family_key, raw)
+  def load_file(file_key, raw)
     (raw['metrics'] || {}).each do |key, data|
       record_key(@metrics, key)
-      @metrics[key] = Metric.new(key:, family_key:, data: data || {},
+      @metrics[key] = Metric.new(key:, file_key:, data: data || {},
                                  implementations: code_refs_from(data&.dig('implementations')),
                                  surfaces: data&.dig('surfaces') || [])
     end
     (raw['divergences'] || {}).each do |key, data|
       record_key(@divergences, key)
-      @divergences[key] = Divergence.new(key:, family_key:, data: data || {},
+      @divergences[key] = Divergence.new(key:, file_key:, data: data || {},
                                          code: code_refs_from(data&.dig('code')))
     end
   end
@@ -119,12 +146,12 @@ class MetricsGlossary
     (list || []).map { |hash| CodeRef.from_hash(hash) }
   end
 
-  def build_families
-    @files.map do |family_key, raw|
-      family = raw['family'] || {}
-      Family.new(key: family_key, title: family['title'], intro: family['intro'],
-                 position: family['position'] || 0,
-                 metrics: metrics.values.select { |metric| metric.family_key == family_key })
-    end.sort_by(&:position)
+  def build_sections(dir)
+    path = File.join(dir, LAYOUT_FILE)
+    layout = File.exist?(path) ? YAML.safe_load_file(path) || {} : {}
+    (layout['sections'] || {}).map do |key, data|
+      data ||= {}
+      Section.new(key:, data:, metrics: (data['metrics'] || []).filter_map { |k| metrics[k] })
+    end
   end
 end

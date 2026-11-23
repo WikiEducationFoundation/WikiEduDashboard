@@ -43,8 +43,17 @@ module MetricsGlossaryHelper
     link_to metric.name, "##{key}"
   end
 
+  # Plain text, for the collapsed summary line (a summary shouldn't hold links).
+  def glossary_metric_name(key)
+    @glossary.metrics[key]&.name || key
+  end
+
+  def glossary_divergence_status_label(divergence)
+    DIVERGENCE_STATUS_LABELS.fetch(divergence.status, divergence.status)
+  end
+
   def glossary_divergence_status(divergence)
-    label = DIVERGENCE_STATUS_LABELS.fetch(divergence.status, divergence.status)
+    label = glossary_divergence_status_label(divergence)
     return label unless divergence.issue
     issue_url = "#{MetricsGlossary::REPO_URL}/issues/#{divergence.issue}"
     safe_join([label, ' (', link_to("##{divergence.issue}", issue_url), ')'])

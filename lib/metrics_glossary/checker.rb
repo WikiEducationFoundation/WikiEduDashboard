@@ -3,14 +3,15 @@
 require_dependency "#{Rails.root}/lib/metrics_glossary/coverage"
 require_dependency "#{Rails.root}/lib/metrics_glossary/coverage_check"
 require_dependency "#{Rails.root}/lib/metrics_glossary/fingerprints"
+require_dependency "#{Rails.root}/lib/metrics_glossary/layout_check"
 
 class MetricsGlossary
   #= The drift checks for the glossary. Each method returns a list of
   # human-readable problems, empty when everything is in order. Run them with
   # `bin/rails metrics:check`; spec/lib/metrics_glossary_spec.rb runs them in CI.
   class Checker
-    METRIC_FIELDS = %w[name summary definition audience deployments implementations
-                       surfaces columns related].freeze
+    METRIC_FIELDS = %w[name aliases summary explanation fine_print audience deployments
+                       implementations surfaces columns].freeze
     DIVERGENCE_FIELDS = %w[title metrics description code status issue].freeze
     SURFACE_KINDS = %w[i18n place].freeze
 
@@ -31,7 +32,7 @@ class MetricsGlossary
     # The YAML has the fields it should, and its cross-references line up.
     def schema_errors
       glossary.duplicate_keys.map { |key| "#{key}: defined more than once" } +
-        glossary.families.flat_map { |family| family_errors(family) } +
+        LayoutCheck.new(glossary).errors +
         glossary.metrics.values.flat_map { |metric| metric_errors(metric) } +
         glossary.divergences.values.flat_map { |divergence| divergence_errors(divergence) }
     end
@@ -65,28 +66,25 @@ class MetricsGlossary
 
     private
 
-    def family_errors(family)
-      problems = []
-      problems << 'family needs a title' if family.title.blank?
-      problems << 'family has no metrics' if family.metrics.empty?
-      problems.map { |problem| "#{family.key}.yml: #{problem}" }
-    end
-
     def metric_errors(metric)
       problems = unknown_fields(metric.data, METRIC_FIELDS) +
-                 missing_fields(metric.data, %w[name summary definition])
+                 missing_fields(metric.data, %w[name summary explanation])
       problems << "audience must be one of #{AUDIENCES.join(', ')}" unless valid_audience?(metric)
       problems << 'unknown deployment' unless (metric.deployments - DEPLOYMENTS).empty?
       problems << 'needs at least one implementation' if metric.implementations.empty?
-      problems += surface_and_related_problems(metric)
+      problems << 'aliases must be a list of labels' unless valid_aliases?(metric)
+      problems += surface_problems(metric)
       problems.map { |problem| "#{metric.key}: #{problem}" }
     end
 
-    def surface_and_related_problems(metric)
+    def surface_problems(metric)
       bad_surfaces = metric.surfaces.reject { |surface| valid_surface?(surface) }
       kinds = SURFACE_KINDS.join(', ')
-      bad_surfaces.map { |surface| "surface #{surface.inspect} needs one of #{kinds}" } +
-        missing_metrics(metric.related).map { |key| "related metric #{key} doesn't exist" }
+      bad_surfaces.map { |surface| "surface #{surface.inspect} needs one of #{kinds}" }
+    end
+
+    def valid_aliases?(metric)
+      metric.aliases.is_a?(Array) && metric.aliases.all?(String)
     end
 
     def divergence_errors(divergence)
