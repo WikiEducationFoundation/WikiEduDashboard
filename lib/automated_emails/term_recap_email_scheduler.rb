@@ -36,8 +36,9 @@ class TermRecapEmailScheduler
   end
 
   # We only want to send recaps for Student program courses, which
-  # are in campaigns like "spring_2021" or "summer_2023"
-  STUDENT_PROGRAM_CAMPAIGN_MATCHER = /(^spring|fall|summer)_202.$/
+  # are in campaigns like "spring_2021" or "summer_2023", and not in
+  # sponsor sub-campaigns like "pcori_fall_2025"
+  STUDENT_PROGRAM_CAMPAIGN_MATCHER = /\A(spring|fall|summer)_20\d\d\z/
   def student_program_campaign?(campaign_slug)
     campaign_slug.match?(STUDENT_PROGRAM_CAMPAIGN_MATCHER)
   end

@@ -61,6 +61,37 @@ describe CourseStatistics do
       expect(subject[:references_added]).to eq(30012)
     end
 
+    it 'counts every student as trained when no training is overdue' do
+      expect(subject[:trained_students]).to eq(course_ids.count)
+    end
+
+    context 'when a student has overdue training in one of their courses' do
+      before do
+        TrainingModule.load_all
+        week = create(:week, course_id: 1)
+        create(:block, week_id: week.id, due_date: 2.days.ago,
+                       training_module_ids: [TrainingModule.all.first.id])
+        # user2 is up to date in course 2, but overdue in course 1.
+        create(:courses_user, user_id: 2, course_id: 1, role: 0)
+      end
+
+      it 'does not count them as trained' do
+        expect(subject[:trained_students]).to eq(course_ids.count - 2)
+      end
+    end
+
+    context 'when a course is from before dashboard training' do
+      before do
+        Course.find(1).update(start: Date.new(2015, 1, 1))
+        User.find(2).update(trained: true)
+        Course.find(2).update(start: Date.new(2015, 1, 1))
+      end
+
+      it 'uses the legacy trained flag for that course' do
+        expect(subject[:trained_students]).to eq(course_ids.count - 1)
+      end
+    end
+
     it 'counts new articles that got deleted' do
       # Deleted articles lose their articles_courses records, but keep their timeslices.
       Article.find(1).update(deleted: true)

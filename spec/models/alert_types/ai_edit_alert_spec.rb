@@ -17,7 +17,11 @@ describe AiEditAlert do
     { title: 'User talk:Ragesoss',                      type: :user_talk           },
     { title: 'Template talk:WikiProject Medicine',      type: :template_talk       },
     { title: 'Artwork title',                           type: :mainspace           },
-    { title: 'Wikipedia:Some page',                     type: :unknown             }
+    { title: 'Star Wars: A New Hope',                   type: :mainspace           },
+    { title: 'MOS:CAPS',                                type: :mainspace           },
+    { title: 'Wikipedia:Some page',                     type: :unknown             },
+    { title: 'Category:Artworks',                       type: :unknown             },
+    { title: 'Wikipedia talk:Some page',                type: :unknown             }
   ]
 
   let(:pangram_details) do

@@ -21,6 +21,43 @@ describe TermRecapEmailScheduler do
     end
   end
 
+  context 'when the student program campaign is in the 2030s' do
+    let(:student_program_campaign) { create(:campaign, title: 'Fall 2031', slug: 'fall_2031') }
+
+    it 'schedules a term recap email' do
+      expect(TermRecapEmailWorker).to receive(:perform_async)
+        .with(course.id, student_program_campaign.id)
+      described_class.schedule_emails
+    end
+  end
+
+  context 'when the only seasonal campaign is a sponsor sub-campaign' do
+    let(:sponsor_campaign) { create(:campaign, title: 'PCORI Fall 2025', slug: 'pcori_fall_2025') }
+    let!(:course) do
+      create(:course, start: 1.week.ago, end: 1.day.ago, character_sum: characters,
+                      user_count: users, campaigns: [sponsor_campaign, other_campaign])
+    end
+
+    it 'does not schedule a term recap email' do
+      expect(TermRecapEmailWorker).not_to receive(:perform_async)
+      described_class.schedule_emails
+    end
+  end
+
+  context 'when a sponsor sub-campaign is listed before the student program campaign' do
+    let(:sponsor_campaign) { create(:campaign, title: 'PCORI Fall 2025', slug: 'pcori_fall_2025') }
+    let!(:course) do
+      create(:course, start: 1.week.ago, end: 1.day.ago, character_sum: characters,
+                      user_count: users, campaigns: [sponsor_campaign, student_program_campaign])
+    end
+
+    it 'uses the student program campaign for the recap' do
+      expect(TermRecapEmailWorker).to receive(:perform_async)
+        .with(course.id, student_program_campaign.id)
+      described_class.schedule_emails
+    end
+  end
+
   context 'when a course ended more than 7 days ago' do
     let!(:course) do
       create(:course, start: 1.week.ago, end: 8.days.ago, character_sum: characters,

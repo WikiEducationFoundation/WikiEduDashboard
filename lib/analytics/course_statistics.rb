@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/word_count"
+require_dependency "#{Rails.root}/lib/course_training_progress_manager"
 
 #= Utilities for calcuating statistics for course activity
 class CourseStatistics
@@ -15,6 +16,7 @@ class CourseStatistics
     find_upload_ids
     find_upload_usage
     find_user_counts
+    find_trained_student_count
     find_new_article_ids
     find_edited_article_ids
   end
@@ -85,7 +87,22 @@ class CourseStatistics
     nonstudents = CoursesUsers.where(course_id: @course_ids, role: [1, 2, 3, 4])
     @nonstudent_ids = nonstudents.pluck(:user_id).uniq
     @pure_student_ids = @student_ids - @nonstudent_ids
-    @trained_student_count = User.where(id: @pure_student_ids, trained: true).count
+  end
+
+  # A student counts as trained if they have no overdue training modules in any
+  # of the courses: the same rule as each course's trained_count. Courses from
+  # before dashboard training use the legacy on-wiki 'trained' flag instead.
+  def find_trained_student_count
+    untrained_ids = @courses.flat_map { |course| untrained_student_ids(course) }
+    @trained_student_count = (@pure_student_ids - untrained_ids).count
+  end
+
+  def untrained_student_ids(course)
+    if course.start > CourseTrainingProgressManager::TRAINING_BOOLEAN_CUTOFF_DATE
+      course.students_with_overdue_training.map(&:id)
+    else
+      course.students.where(trained: false).pluck(:id)
+    end
   end
 
   def find_new_article_ids
