@@ -9,7 +9,9 @@ json.article_html @report.article_html
 json.check_results @check_results do |result|
   json.call(result, :id, :check_key, :check_version, :engine, :status, :error, :duration_ms,
             :created_at)
-  json.findings @report.findings(result)
+  json.findings(@report.findings(result).map do |finding|
+    finding.merge('feedback' => @feedback[finding['id']]&.slice(*ArticleAuditFindingFeedback::FIELDS))
+  end)
   json.artifacts result.artifacts || {}
   json.usage result.usage || {}
   json.run_count @run_counts[result.check_key]

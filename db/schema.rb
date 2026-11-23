@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_120100) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_23_120000) do
   create_table "admin_course_notes", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
     t.integer "courses_id"
     t.string "title"
@@ -83,6 +83,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_120100) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["article_audit_id"], name: "index_article_audit_check_results_on_article_audit_id"
+  end
+
+  create_table "article_audit_finding_feedbacks", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "article_audit_check_result_id", null: false
+    t.integer "finding_index", null: false
+    t.bigint "user_id", null: false
+    t.string "accurate"
+    t.text "accurate_comment"
+    t.string "show_to_participants"
+    t.text "show_to_participants_comment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["article_audit_check_result_id", "finding_index", "user_id"], name: "index_article_audit_finding_feedbacks_on_finding_and_user", unique: true
+    t.index ["user_id"], name: "index_article_audit_finding_feedbacks_on_user_id"
   end
 
   create_table "article_audits", charset: "utf8mb4", collation: "utf8mb4_unicode_ci", force: :cascade do |t|
