@@ -57,6 +57,7 @@ describe 'Instructor users', :js, type: :feature do
     login_as(instructor, scope: :user)
     stub_oauth_edit
     stub_raw_action
+    stub_current_page_content
     stub_info_query
     stub_mainspace_query
   end

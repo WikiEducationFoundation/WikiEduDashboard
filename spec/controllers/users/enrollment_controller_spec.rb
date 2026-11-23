@@ -19,6 +19,7 @@ describe Users::EnrollmentController, type: :request do
       allow_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
       allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
       allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return('Some content')
+      allow(CurrentPageContent).to receive(:fetch).and_return('Some content')
       allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       course.campaigns << Campaign.first
     end
@@ -100,6 +101,7 @@ describe Users::EnrollmentController, type: :request do
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(admin)
         stub_oauth_edit
         stub_raw_action
+        stub_current_page_content
         post "/courses/#{course.slug}/user", params: post_params
       end
 
@@ -124,6 +126,7 @@ describe Users::EnrollmentController, type: :request do
         CourseApplicationForm.create!(course: cohort)
         stub_oauth_edit
         stub_raw_action
+        stub_current_page_content
       end
 
       it 'refuses an instructor who is not an admin' do

@@ -12,6 +12,7 @@ describe GreetUngreetedStudents do
     create(:courses_user, user: student, course:)
     stub_raw_action
     stub_contributors_query
+    stub_current_page_content('')
     stub_oauth_edit
   end
 

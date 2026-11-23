@@ -371,7 +371,7 @@ describe WikiAssignmentOutput do
 
     context 'when the talk page has a disambiguation template' do
       it 'returns nil' do
-        allow_any_instance_of(WikiApi).to receive(:get_page_content)
+        allow(CurrentPageContent).to receive(:fetch)
           .and_return('{{WikiProject Disambiguation}}')
         page_content = wiki_assignment_output.build_talk_page_update
         expect(page_content).to be_nil
@@ -380,13 +380,8 @@ describe WikiAssignmentOutput do
 
     context 'when the article page has a disambiguation template' do
       it 'returns nil' do
-        talk_page_response = instance_double('wiki')
-        article_page_response = instance_double('wiki')
-        allow(WikiApi).to receive(:new)
-          .and_return(talk_page_response, article_page_response)
-        allow(talk_page_response).to receive(:get_page_content)
-          .and_return('talk page content')
-        allow(article_page_response).to receive(:get_page_content)
+        allow(CurrentPageContent).to receive(:fetch).and_return('talk page content')
+        allow_any_instance_of(WikiApi).to receive(:get_page_content)
           .and_return('{{Disambiguation|airport}}')
         page_content = wiki_assignment_output.build_talk_page_update
         expect(page_content).to be_nil

@@ -7,6 +7,7 @@ require_dependency "#{Rails.root}/lib/wiki_userpage_output"
 require_dependency "#{Rails.root}/lib/wikitext"
 require_dependency "#{Rails.root}/lib/wiki_output_templates"
 require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/current_page_content"
 require_dependency "#{Rails.root}/app/services/add_sandbox_template"
 
 #= Class for making wiki edits for a particular course
@@ -19,7 +20,6 @@ class WikiCourseEdits
     validate(action) { return }
 
     @wiki_editor = WikiEdits.new(@home_wiki)
-    @wiki_api = WikiApi.new(@home_wiki)
     @dashboard_url = ENV['dashboard_url']
     @current_user = current_user
     @templates = @home_wiki.edit_templates
@@ -155,7 +155,7 @@ class WikiCourseEdits
     user_page = "User:#{@enrolling_user.username}"
 
     # Never double-post the enrollment template
-    initial_page_content = @wiki_api.get_page_content(user_page)
+    initial_page_content = CurrentPageContent.fetch(@home_wiki, user_page)
     return if initial_page_content.include?(template)
 
     summary = @generator.enrollment_summary
@@ -168,7 +168,7 @@ class WikiCourseEdits
     talk_page = "User_talk:#{@enrolling_user.username}"
 
     # Never double-post the talk template
-    initial_page_content = @wiki_api.get_page_content(talk_page)
+    initial_page_content = CurrentPageContent.fetch(@home_wiki, talk_page)
     return if initial_page_content.include?(talk_template)
 
     talk_summary = "adding {{#{template_name(@templates, 'user_talk')}}}"
@@ -185,7 +185,7 @@ class WikiCourseEdits
   end
 
   def remove_content_from_page(page_title, content, summary)
-    initial_page_content = @wiki_api.get_page_content(page_title)
+    initial_page_content = CurrentPageContent.fetch(@home_wiki, page_title)
 
     # If content to remove does not exist on initial page, then there is nothing
     # to remove
