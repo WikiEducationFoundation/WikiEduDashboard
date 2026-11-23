@@ -40,7 +40,9 @@ const OverviewStats = ({ course }) => {
 
   let contentCount;
 
-  if (course.home_wiki.language === 'en') {
+  // Words are estimated with a bytes-per-word ratio, which only English
+  // Wikipedia has, the same rule as the Students and Articles tabs.
+  if (course.home_wiki_bytes_per_word) {
     contentCount = <OverviewStat
       id="word-count"
       className={valueClass('word-count')}

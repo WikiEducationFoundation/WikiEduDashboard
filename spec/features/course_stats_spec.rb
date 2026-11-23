@@ -56,4 +56,20 @@ describe 'course stats', type: :feature, js: true do
     expect(page.find('#view-count'))
       .to have_content number_to_human(days_since_first_revision * average_views)
   end
+
+  # Only English Wikipedia has a bytes-per-word ratio, so other English-language
+  # wikis show bytes, like the Students and Articles tabs do.
+  context 'when the home wiki is English but not Wikipedia' do
+    before do
+      stub_wiki_validation
+      course.update(home_wiki: Wiki.get_or_create(project: 'wikibooks', language: 'en'))
+    end
+
+    it 'shows Bytes Added instead of Words Added' do
+      course.update_cache_from_timeslices
+      visit "/courses/#{course.slug}"
+      expect(page).to have_css('#bytes-added')
+      expect(page).not_to have_css('#word-count')
+    end
+  end
 end

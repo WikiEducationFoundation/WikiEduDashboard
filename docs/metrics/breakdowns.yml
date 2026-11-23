@@ -25,6 +25,7 @@ metrics:
       - js: app/assets/javascripts/components/common/wikidata_overview_stats.jsx#WikidataOverviewStats
     surfaces:
       - i18n: courses.data_wikidata_info
+      - i18n: metrics.wikidata_stats_info
       - i18n: metrics.general
       - i18n: metrics.total_revisions
       - i18n: metrics.merged
@@ -101,25 +102,30 @@ divergences:
     metrics: [wikidata_stats, articles_created]
     description: |
       For a course on Wikidata, the course overview's Items Created counts
-      pages a student created that the course still tracks and that haven't
-      been deleted, on every wiki the course tracks. The Wikidata stats
-      panel's Items Created counts edits whose summary marks them as
-      creating an item, whether or not the item still exists.
+      items a student created that the course still tracks and that haven't
+      been deleted. The Wikidata stats panel's Created counts edits that
+      created an item, whether or not the item still exists.
+
+      This is intentional: the panel counts what each edit did, and a tooltip
+      on its heading says so.
     code:
       - ruby: Course#new_articles_courses
       - ruby: UpdateWikidataStatsTimeslice#build_stats_from_revisions
-    status: undecided
+    status: intentional
 
   wikidata-references:
     title: References added on Wikidata
     metrics: [wikidata_stats, references_added]
     description: |
       The Wikidata stats panel's References added counts references added
-      to items. The course's References Added counts references added minus
-      references removed for each Wikidata edit, so on a Wikidata course
-      it's lower than the panel's figure whenever students removed
-      references.
+      to items. The course's References Added is references added minus
+      references removed, so on a Wikidata course it's lower than the panel's
+      figure whenever students removed references.
+
+      This is intentional: the panel counts what each edit did, and a tooltip
+      on its heading says so; the overview's tooltip says its figure is added
+      minus removed.
     code:
       - ruby: UpdateWikidataStatsTimeslice#build_stats_from_revisions
       - ruby: RevisionOnMemory#references_added
-    status: undecided
+    status: intentional

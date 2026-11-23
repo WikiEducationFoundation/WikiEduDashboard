@@ -88,6 +88,9 @@ divergences:
       - The campaign intersection report on the analytics page counts
         distinct students, minus anyone who also has a non-student role in
         any of the courses.
+
+      This is intentional: campaign totals summarize course numbers, while
+      the email and the analytics report describe a group of people.
     code:
       - ruby: CourseCacheManager#update_user_count
         path: lib/course_cache_manager.rb
@@ -95,7 +98,7 @@ divergences:
       - ruby: TermRecapMailer#set_cohort_counts
       - ruby: CourseStatistics#find_user_counts
         path: lib/analytics/course_statistics.rb
-    status: undecided
+    status: intentional
 
   trained-ratio:
     title: Training completion as a fraction or a percentage

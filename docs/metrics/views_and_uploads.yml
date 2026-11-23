@@ -153,12 +153,13 @@ divergences:
       to more than the course total, and the gap keeps growing after a course
       stops being updated.
 
-      The articles list's tooltip says its numbers run up to today.
+      This is intentional: the list gives each article's current estimate,
+      and both tooltips say where their numbers stop.
     code:
       - ruby: CourseCacheManager#update_view_sum_based_on_first_revision
         path: lib/course_cache_manager.rb
       - ruby: ArticleHelper#calculate_view_count
-    status: undecided
+    status: intentional
 
   uploads-window:
     title: Which uploads count on a user profile

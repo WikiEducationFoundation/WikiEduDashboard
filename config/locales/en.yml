@@ -1476,6 +1476,7 @@ en:
     references_count: References Added
     references_doc: Net number of reference tags and shortened footnote templates added/removed in mainspace (which can include multiple references to the same source). The data comes from the reference-counter Toolforge API.
     references_doc_wikidata: References added to items minus references removed.
+    wikidata_stats_info: Counts of what each edit did. Created includes items later deleted, and References added doesn't subtract references removed.
     replag_info: >
       The Dashboard retrieves edit data from WMF Cloud replica databases. Sometimes these databases are missing the most recent edits
       because of replication lag (replag). When this is the case, the missing edits will show up later on.

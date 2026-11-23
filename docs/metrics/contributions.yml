@@ -158,9 +158,9 @@ metrics:
       course overview adds this up for every article students edited during the
       course.
 
-      The course overview shows Bytes Added for courses whose home wiki isn't in
-      English. English-language courses see [Words Added](#words_added) instead,
-      which is based on this number.
+      The course overview shows Bytes Added for courses that aren't on English
+      Wikipedia. English Wikipedia courses see [Words Added](#words_added)
+      instead, which is based on this number.
     fine_print: |
       - It's bytes, not characters: wiki markup counts, and letters outside
         the basic Latin alphabet take two to four bytes each.
@@ -217,9 +217,10 @@ metrics:
     fine_print: |
       - The same English ratio is used for every wiki, and the result is
         rounded down.
-      - The course overview shows Words Added only for courses whose home wiki
-        is in English. Course lists on campaign and program pages show it for
-        every course.
+      - The course overview, Students tab and Articles tab show Words Added
+        only for courses on English Wikipedia, the only wiki with a measured
+        ratio. Course lists on campaign and program pages show it for every
+        course.
       - Wikidata isn't included.
     implementations:
       - ruby: WordCount.from_characters
@@ -287,18 +288,21 @@ divergences:
     title: Words added on non-English wikis
     metrics: [words_added]
     description: |
-      The server converts characters to words with the English ratio for
-      every course. The course overview shows words only when the home wiki's
-      language is English. The student and article lists convert only for
-      courses on English Wikipedia itself, the only wiki with a bytes-per-word
-      ratio. So a course on, for example, Spanish Wikipedia shows Bytes Added
-      on its own page but Words Added in campaign and program lists.
+      Words are estimated with a bytes-per-word ratio that's only been
+      measured for English Wikipedia. The course overview, Students tab and
+      Articles tab show Words Added only for English Wikipedia courses, and
+      Bytes Added for others. (The overview used to show words for any
+      English-language wiki.)
+
+      Course lists on campaign, program and wiki pages show Words Added for
+      every course, using the English ratio, because one column can't mix
+      words and bytes. This is intentional.
     code:
       - js: app/assets/javascripts/components/overview/overview_stats.jsx
       - ruby: Wiki#bytes_per_word
       - ruby: WordCount::BYTES_PER_WORD
         path: lib/word_count.rb
-    status: undecided
+    status: intentional
 
   characters-scope:
     title: Which pages characters added covers
@@ -315,15 +319,16 @@ divergences:
       - **Namespace tabs** on the course overview: the per-article sums,
         grouped by namespace.
 
-      Each tooltip describes its own figure accurately. But in a course
-      that tracks a second namespace, or edits Wikidata, the Articles tab
-      adds up to more than the course total.
+      This is intentional: each figure covers the pages its place is about,
+      and each tooltip says which. In a course that tracks a second namespace,
+      or edits Wikidata, the Articles tab adds up to more than the course
+      total.
     code:
       - ruby: CourseWikiTimeslice#acuwt_mainspace_tracked_student_records
       - ruby: CourseUserWikiTimeslice#update_character_sum
       - ruby: ArticleCourseTimeslice#update_cache_from_revisions
       - ruby: UpdateWikiNamespaceStatsTimeslice#articles_courses_stats
-    status: undecided
+    status: intentional
 
   profile-words:
     title: Words added on user profiles
