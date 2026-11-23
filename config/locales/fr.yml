@@ -297,16 +297,15 @@ fr:
       next: Suivante
     loading:
       data: Chargement des données depuis le serveur...
-      wiki_stats: Je charge les statistiques du wiki...
-      wiki_trends: Je télécharge les tendances de wiki...
+      wiki_stats: Chargement des statistiques du wiki...
+      wiki_trends: Chargement des tendances wiki...
     empty:
       no_trend_data: Aucune donnée sur la tendance n'est disponible.
       no_wiki_trend_data: Aucune donnée sur la tendance du wiki n'est disponible.
-      no_wiki_stats: Aucunes statistiques sur le projet wiki ne sont disponible.
+      no_wiki_stats: Aucune statistique sur le projet wiki n'est disponible.
       no_facilitators: Aucun facilitateur ni facilitatrice n'ont été trouvé·e·s.
     errors:
-      fetch_failed: Échec à charger les données. Veuillez s'il vous plait féactualiser
-        la page.
+      fetch_failed: Impossible de charger les données. Veuillez réactualiser la page.
   activity:
     all: Activité
     edited_by: Modifié par
@@ -1004,7 +1003,7 @@ fr:
     features_feedback: 'Suggestions automatisées :'
     feedback: Commentaire
     feedback_loading: Veuillez patienter durant le chargement des suggestions...
-    grant_id_checking: Vérification en cours...
+    grant_id_checking: Vérification en cours…
     gradeables_none: Ce cours n’a aucune affectation notable.
     home_wiki: Wiki principal
     multi_wiki: Wikis tracés
@@ -1271,16 +1270,16 @@ fr:
     save: Enregistrer
     saved: Enregistré
     question_groups_help: Faire glisser pour réorganiser
-    acceptance_email: Courriel d'acceptation
+    acceptance_email: Courriel d’acceptation
   course_applications:
     apply: Appliquer
     accepting: Ce cours accepte maintenant les candidatures.
-    account_needed: Pour postuler, connectez-vous avec votre compte Wikipédia ou créer-en
-      un.
+    account_needed: Pour postuler, connectez-vous d’abord avec votre compte Wikipedia
+      ou créez-en un maintenant.
     submit: Déposer une candidature
     optional: (facultatif)
-    submitted: Votre candidature a bien été soumise. Merci!
-    closed: ' Ce cours n''est pas ouvert aux candidatures.'
+    submitted: Votre candidature a été soumise. Merci !
+    closed: Ce cours n’est pas ouvert aux candidatures.
   course_application_reviews:
     title: Applications
     statuses:
@@ -1293,7 +1292,7 @@ fr:
     status: État
     submitted_at: Soumis
     decided_by: Décidé par
-    accept: Accepter et s'inscrire
+    accept: Accepter et s’inscrire
     decline: Refuser
     delete: Supprimer
     answers: Réponses
@@ -1301,7 +1300,7 @@ fr:
     save_notes: Sauvegarder les notes
     notes_saved: Enregistré
     download_csv: Télécharger en CSV
-    acceptance_email_missing: Courriel d'acceptation manquant
+    acceptance_email_missing: Courriel d’acceptation manquant
   course_instructor_notification:
     notify_instructors: Envoyez des courriels aux instructeurs
     notify_instructors_feature_description: Envoyer un message aux instructeurs par
@@ -2563,7 +2562,7 @@ fr:
       weekday_unselected: '{{weekday}} non sélectionné'
   question_groups:
     edit_question_group: Modifier le groupe de questions
-    none: Pas de groupes de questions.
+    none: Pas de groupe de questions.
     create_one: Créer un nouveau
   form_search:
     search: Rechercher

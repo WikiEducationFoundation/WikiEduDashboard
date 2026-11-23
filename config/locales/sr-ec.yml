@@ -88,6 +88,9 @@ sr-ec:
     opt_no: не
     print: Штампај
     sort: Сортирај
+  article_audit:
+    tabs:
+      details: Детаљи
   article_statuses:
     not_yet_started: Увод
     in_progress: Рад у песку

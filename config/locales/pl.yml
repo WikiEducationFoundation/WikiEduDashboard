@@ -91,6 +91,11 @@ pl:
     opt_no: nie
     print: Drukuj
     sort: Sortuj
+  article_audit:
+    ai_notice: Fragmenty oznaczone jako „SI” powstały przy użyciu modelu sztucznej
+      inteligencji i mogą zawierać błędy. Należy je sprawdzić przed podjęciem jakichkolwiek
+      działań na ich podstawie.
+    ai_label: SI
   article_statuses:
     not_yet_started: Pierwsze kroki
     in_progress: Praca w brudnopisie
@@ -620,7 +625,7 @@ pl:
       notification_message: Wypełnij naszą ankietę dotyczącą tego kursu.
       link: Wypełnij ankietę
   course_application_forms:
-    question_groups: S
+    question_groups: Grupy pytań
   courses_generic:
     add_campaign: Dodaj kampanię
     all_courses: Wszystkie programy
