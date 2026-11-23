@@ -3,17 +3,36 @@
 #= Creates/Updates ArticleCourseTimeslice, CourseUserWikiTimeslice
 # and CourseWikiTimeslice records.
 class TimesliceManager
+  DEFAULT_TIMESLICE_DURATION = 86400 # 1 day in seconds
+
+  def self.parse_timeslice_duration(raw_env_value)
+    parsed = raw_env_value.to_i
+    parsed.positive? ? parsed : DEFAULT_TIMESLICE_DURATION
+  end
+
+  TIMESLICE_DURATION = parse_timeslice_duration(ENV['TIMESLICE_DURATION'])
+
   def initialize(course)
     @course = course
   end
 
   def timeslice_duration(wiki)
-    begin
+    duration = begin
       flag = @course.flags[:timeslice_duration]
-      flag[wiki.domain.to_sym] || flag[:default]
+      wiki_duration = flag[wiki.domain.to_sym] if flag.respond_to?(:[])
+      default_duration = flag[:default] if flag.respond_to?(:[])
+
+      if wiki_duration.to_i.positive?
+        wiki_duration.to_i
+      elsif default_duration.to_i.positive?
+        default_duration.to_i
+      else
+        TIMESLICE_DURATION
+      end
     rescue StandardError
       TIMESLICE_DURATION
-    end.seconds
+    end
+    duration.seconds
   end
 
   # Creates course wiki timeslices records for new course wikis
@@ -104,7 +123,6 @@ class TimesliceManager
     .create(course_id: @course.id, wiki_id:, start: start_date, end: end_date, needs_update: true)
   end
 
-  TIMESLICE_DURATION = ENV['TIMESLICE_DURATION'].to_i
 
   private
 
@@ -127,9 +145,11 @@ class TimesliceManager
   def start_dates_for_period(wiki, start_period, end_period)
     start_dates = []
     current_start = start_period
+    duration = timeslice_duration(wiki)
+
     while current_start <= end_period
       start_dates << current_start
-      current_start += timeslice_duration(wiki)
+      current_start += duration
     end
 
     start_dates
@@ -147,10 +167,12 @@ class TimesliceManager
     start_dates = []
     old_start = CourseWikiTimeslice.for_course_and_wiki(@course, wiki)
                                    .minimum(:start)
-    current_start = old_start - timeslice_duration(wiki)
-    while current_start > @course.start - timeslice_duration(wiki)
+    duration = timeslice_duration(wiki)
+
+    current_start = old_start - duration
+    while current_start > @course.start - duration
       start_dates << current_start
-      current_start -= timeslice_duration(wiki)
+      current_start -= duration
     end
 
     start_dates
@@ -162,9 +184,11 @@ class TimesliceManager
     start_dates = []
     current_start = CourseWikiTimeslice.for_course_and_wiki(@course,
                                                             wiki).maximum(:end) || @course.start
+    duration = timeslice_duration(wiki)
+
     while current_start <= @course.end
       start_dates << current_start
-      current_start += timeslice_duration(wiki)
+      current_start += duration
     end
 
     start_dates

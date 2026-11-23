@@ -245,4 +245,73 @@ describe TimesliceManager do
       end
     end
   end
+
+  describe '.parse_timeslice_duration' do
+    it 'returns DEFAULT_TIMESLICE_DURATION when input is nil' do
+      expect(described_class.parse_timeslice_duration(nil))
+        .to eq(described_class::DEFAULT_TIMESLICE_DURATION)
+    end
+
+    it 'returns DEFAULT_TIMESLICE_DURATION when input is empty string' do
+      expect(described_class.parse_timeslice_duration(''))
+        .to eq(described_class::DEFAULT_TIMESLICE_DURATION)
+    end
+
+    it 'returns DEFAULT_TIMESLICE_DURATION when input is "0"' do
+      expect(described_class.parse_timeslice_duration('0'))
+        .to eq(described_class::DEFAULT_TIMESLICE_DURATION)
+    end
+
+    it 'returns DEFAULT_TIMESLICE_DURATION when input is non-numeric' do
+      expect(described_class.parse_timeslice_duration('abc'))
+        .to eq(described_class::DEFAULT_TIMESLICE_DURATION)
+    end
+
+    it 'returns DEFAULT_TIMESLICE_DURATION when input is negative' do
+      expect(described_class.parse_timeslice_duration('-100'))
+        .to eq(described_class::DEFAULT_TIMESLICE_DURATION)
+    end
+
+    it 'returns the parsed integer when input is a positive integer string' do
+      expect(described_class.parse_timeslice_duration('3600')).to eq(3600)
+    end
+  end
+
+  describe '#timeslice_duration' do
+    context 'when wiki duration is not set or non-positive' do
+      it 'falls back to course flag default when positive' do
+        course.flags[:timeslice_duration] = { default: 3600, enwiki.domain.to_sym => 0 }
+        expect(timeslice_manager.timeslice_duration(enwiki)).to eq(3600.seconds)
+      end
+
+      it 'falls back to TIMESLICE_DURATION when course flags default is non-positive' do
+        course.flags[:timeslice_duration] = { default: 0 }
+        expected = TimesliceManager::TIMESLICE_DURATION.seconds
+        expect(timeslice_manager.timeslice_duration(enwiki)).to eq(expected)
+      end
+
+      it 'falls back to TIMESLICE_DURATION when course flags are empty' do
+        course.flags = {}
+        expected = TimesliceManager::TIMESLICE_DURATION.seconds
+        expect(timeslice_manager.timeslice_duration(enwiki)).to eq(expected)
+      end
+    end
+
+    context 'when wiki duration has a positive duration' do
+      it 'uses the wiki-specific duration' do
+        course.flags[:timeslice_duration] = { default: 3600, enwiki.domain.to_sym => 7200 }
+        expect(timeslice_manager.timeslice_duration(enwiki)).to eq(7200.seconds)
+      end
+    end
+  end
+
+  describe '#start_dates_for_period' do
+    it 'advances start dates by the timeslice duration' do
+      course.flags[:timeslice_duration] = { default: 86400 }
+      start_date = Time.zone.parse('2024-01-01')
+      end_date = Time.zone.parse('2024-01-03')
+      dates = timeslice_manager.send(:start_dates_for_period, enwiki, start_date, end_date)
+      expect(dates).to eq([start_date, start_date + 1.day, start_date + 2.days])
+    end
+  end
 end
