@@ -275,11 +275,16 @@ describe 'Student users', type: :feature, js: true do
   describe 'my articles section' do
     it 'lets a student assign an article and update a sandbox' do
       login_as(user, scope: :user)
+      # Claiming an available article syncs the talk page and course page.
+      stub_oauth_edit
+      stub_raw_action
       create(:courses_user,
              course:,
              user:,
              role: CoursesUsers::Roles::STUDENT_ROLE)
-      create(:assignment, course:, article_title: 'Selfie', role: Assignment::Roles::ASSIGNED_ROLE)
+      article = create(:article, title: 'Selfie')
+      create(:assignment, course:, article:, article_title: 'Selfie',
+                          role: Assignment::Roles::ASSIGNED_ROLE)
       visit "/courses/#{Course.first.slug}/"
       click_button 'Assign myself an article'
       click_button 'Select'
