@@ -13,11 +13,12 @@ RSpec.configure do |config|
     allow(WikiEditThrottle).to receive(:wait_for_turn)
   end
 
-  # The clock starts frozen so a spec's first timestamp is exactly when its
-  # first slot was claimed, not a few milliseconds of real time later.
+  # The throttle's clock (Redis TIME) follows the frozen test clock, so sleeps
+  # can move it forward.
   config.before(:each, :real_wiki_edit_throttle) do
     freeze_time
     allow(WikiEditThrottle).to receive(:sleep) { |seconds| travel(seconds, with_usec: true) }
+    allow(WikiEditThrottle).to receive(:now_ms) { (Time.now.to_f * 1000).round }
   end
 
   config.after(:each, :real_wiki_edit_throttle) do

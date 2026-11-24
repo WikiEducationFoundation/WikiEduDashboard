@@ -139,7 +139,7 @@ class WikiEdits
   def get_tokens(current_user, type = 'csrf')
     return { status: 'no current user' } unless current_user
 
-    # Request a CSRF or other token for the user, along with the user's rights,
+    # Request a CSRF or other token for the user, together with the user's rights,
     # which set how fast WikiEditThrottle lets their edits through.
     @access_token = oauth_access_token(current_user)
     get_token = @access_token.get("#{@wiki.api_url}?#{token_query(type)}")
