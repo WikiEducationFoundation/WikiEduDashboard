@@ -6,16 +6,16 @@ import PropTypes from 'prop-types';
 import { resetValidations } from '../../actions/validation_actions';
 import { isValid, editPermissions } from '../../selectors';
 
-const mapStateToProps = state => ({
-  editPermissions: editPermissions(state),
-  isValid: isValid(state)
-});
-
 const mapDispatchToProps = {
   resetValidations
 };
 
-const EditableRedux = (Component, Label) => {
+const EditableRedux = (Component, Label, permissionsSelector = editPermissions) => {
+  const mapStateToProps = state => ({
+    editPermissions: permissionsSelector(state),
+    isValid: isValid(state)
+  });
+
   const EditableWrapper = (props) => {
     const [editable, setEditable] = useState(false);
 
