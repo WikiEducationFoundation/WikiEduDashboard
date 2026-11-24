@@ -118,6 +118,7 @@ class CoursesController < ApplicationController
     set_course
     set_limit
     set_after_id
+    set_user_id
   end
 
   def users
@@ -593,6 +594,13 @@ class CoursesController < ApplicationController
   def set_after_id
     after_id = params[:after_id].to_i
     @after_id = after_id if after_id.positive?
+  end
+
+  # Optional filter for articles.json: only articles_courses that this user edited.
+  # A missing or invalid value means no filter.
+  def set_user_id
+    user_id = params[:user_id].to_i
+    @user_id = user_id if user_id.positive?
   end
 
   # If the user could make an edit to the course, this verifies that
