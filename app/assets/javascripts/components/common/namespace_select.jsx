@@ -69,10 +69,21 @@ const NamespaceSelect = (props) => {
     props.onChange(namespaces);
   };
 
-  if (props.readOnly) {
-    const lastIndex = props.namespaces.length - 1;
+  // A wiki with no namespaces of its own is tracked in mainspace, as in
+  // Course#tracked_namespaces.
+  const effectiveNamespaces = () => {
+    return props.wikis.flatMap((wiki) => {
+      const domain = `${wiki.language || 'www'}.${wiki.project}.org`;
+      const wikiNamespaces = props.namespaces.filter(wiki_ns => wiki_ns.split('-')[0] === domain);
+      return wikiNamespaces.length ? wikiNamespaces : [`${domain}-namespace-0`];
+    });
+  };
 
-    const namespaceList = map(props.namespaces, (wiki_ns, index) => {
+  if (props.readOnly) {
+    const namespaces = effectiveNamespaces();
+    const lastIndex = namespaces.length - 1;
+
+    const namespaceList = map(namespaces, (wiki_ns, index) => {
       const comma = (index !== lastIndex) ? ', ' : '';
       const wiki = wiki_ns.split('-')[0];
       const namespace = wiki_ns.split('-')[2];
@@ -81,6 +92,7 @@ const NamespaceSelect = (props) => {
     });
     return (
       <>
+        <span className="text-input-component__label"><strong>{I18n.t('courses.namespaces')}:&nbsp;</strong></span>
         {namespaceList}
       </>
     );
