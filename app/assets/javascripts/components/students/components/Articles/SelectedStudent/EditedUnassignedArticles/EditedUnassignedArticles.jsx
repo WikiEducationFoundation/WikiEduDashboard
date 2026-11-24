@@ -39,7 +39,7 @@ const EditedUnassignedArticles = ({
 
 
   const showMore = () => {
-    return props.actions.fetchMoreArticles(course.slug);
+    return props.actions.fetchMoreStudentArticles(course.slug, user.id);
   };
   return (
     <div className="list__wrapper">
@@ -80,10 +80,9 @@ EditedUnassignedArticles.propTypes = {
   fetchArticleDetails: PropTypes.func.isRequired
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return ({
-    limit: state.articles.limit,
-    limitReached: state.articles.limitReached,
+    limitReached: state.studentArticles[ownProps.user.id]?.limitReached ?? true,
   });
 };
 

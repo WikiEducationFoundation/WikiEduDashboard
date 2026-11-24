@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useParams, Navigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // Components
 import Header from './Header.jsx';
@@ -15,11 +15,12 @@ import EditedUnassignedArticles from './EditedUnassignedArticles/EditedUnassigne
 import { processAssignments } from '@components/overview/my_articles/utils/processAssignments';
 import setOtherEditedArticles from '@components/students/utils/setOtherEditedArticles';
 import ArticleUtils from '../../../../../utils/article_utils';
+import { fetchStudentArticles } from '../../../../../actions/articles_actions';
 import { selectUserByUsernameParam } from '../../../../util/helpers.js';
 
 
 export const SelectedStudent = ({
-  groupedArticles, assignments, course, current_user, fetchArticleDetails,
+  assignments, course, current_user, fetchArticleDetails,
   hasExercisesOrTrainings, openKey,
   sort, sortUsers, trainingStatus, wikidataLabels, userRevisions,
   students, articlesUrl
@@ -27,8 +28,20 @@ export const SelectedStudent = ({
   const location = useLocation();
   const { username } = useParams();
   const selected = selectUserByUsernameParam(students, username);
-  const _articles = useSelector(state => state.articles);
-  const [fetchOtherEditedArticle, setFetchOtherEditedArticle] = useState(false);
+  const dispatch = useDispatch();
+  const studentArticles = useSelector(state => state.studentArticles);
+  const selectedId = selected?.id;
+  // Only ask for a student's articles if the student actually has edits
+  const hasEdits = (selected?.character_sum_draft || 0) !== 0
+    || (selected?.character_sum_ms || 0) !== 0
+    || (selected?.character_sum_us || 0) !== 0;
+
+  // Load the selected student's own articles. They are kept per student, apart
+  // from the course-wide list, so this never touches the course-wide "See more".
+  useEffect(() => {
+    if (!selectedId || !hasEdits) { return; }
+    dispatch(fetchStudentArticles(course.slug, selectedId));
+  }, [selectedId, hasEdits, course.slug]);
 
   if (!selected) {
     // if user does not exist, then redirect to the articles home page
@@ -38,24 +51,13 @@ export const SelectedStudent = ({
     assigned, reviewing
   } = processAssignments({ assignments, course, current_user: selected });
 
-  // Calculate articles from the "Global" 500 articles first
-  const otherEditedArticles = setOtherEditedArticles(groupedArticles, assignments, selected);
-
-  // Only run once when the user or limit status changes
-  useEffect(() => {
-    // Only fetch if the global list is empty AND the student actually has edits
-    const hasEdits = (selected.character_sum_draft || 0) !== 0
-      || (selected.character_sum_ms || 0) !== 0
-      || (selected.character_sum_us || 0) !== 0;
-
-    if (!_articles.limitReached && hasEdits) {
-      setFetchOtherEditedArticle(true);
-    }
-
-    return (() => {
-      setFetchOtherEditedArticle(false);
-    });
-  }, [selected.id, _articles.limitReached]);
+  // The articles this student edited, minus the ones already assigned to them
+  const studentList = studentArticles[selected.id];
+  const otherEditedArticles = setOtherEditedArticles(
+    { [selected.id]: studentList?.articles || [] }, assignments, selected
+  );
+  // Keep the section visible while there are more pages to load
+  const hasMoreStudentArticles = !!studentList && !studentList.limitReached;
 
   const showArticleId = Number(location.search.split('showArticle=')[1]);
   return (
@@ -111,7 +113,7 @@ export const SelectedStudent = ({
       }
 
       {
-        (!!fetchOtherEditedArticle || !!otherEditedArticles.length) && (
+        (!!otherEditedArticles.length || hasMoreStudentArticles) && (
           <EditedUnassignedArticles
             articles={otherEditedArticles}
             course={course}
@@ -140,7 +142,6 @@ SelectedStudent.propTypes = {
   course: PropTypes.object.isRequired,
   current_user: PropTypes.object.isRequired,
   fetchArticleDetails: PropTypes.func.isRequired,
-  groupedArticles: PropTypes.object.isRequired,
   wikidataLabels: PropTypes.object,
   userRevisions: PropTypes.object,
   weeks: PropTypes.array
