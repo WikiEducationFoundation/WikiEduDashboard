@@ -67,14 +67,11 @@ class IndividualStatisticsTimeslicePresenter
     @upload_usage_counts = {}
     return unless individual_courses.any?
 
-    # Get the earliest start date from all individual courses
-    start_date = individual_courses.map(&:start).min.strftime('%Y-%m-%d %H:%M:%S')
-    # Get the latest end date from all individual courses
-    end_date = individual_courses.map(&:end).max.strftime('%Y-%m-%d %H:%M:%S')
+    conditions = individual_courses.map { '(uploaded_at >= ? AND uploaded_at <= ?)' }.join(' OR ')
+    values = individual_courses.flat_map { |course| [course.start, course.end] }
 
-    # Query all uploads for this user within the combined date range
     common_upload_data = CommonsUpload.where(user_id: @user.id)
-                                      .where('uploaded_at >= ? AND uploaded_at <= ?', start_date, end_date) # rubocop:disable Layout/LineLength
+                                      .where(conditions, *values)
                                       .select(:id, :usage_count)
 
     common_upload_data.each do |upload|
