@@ -65,16 +65,21 @@ describe StudentProgress::Roster do
     expect(preload.assignments_for(adam.id)).to eq([])
   end
 
-  it 'loads the live-article timeslices with contributors for editing assignments' do
+  it 'loads the live-article timeslices of roster students for editing assignments' do
     article = create(:article, title: 'Ada_Lovelace', wiki: course.home_wiki)
     Assignment.find_by(user: zoe, article_title: 'Ada_Lovelace').update!(article:)
-    with_edits = ArticleCourseTimeslice.create!(course:, article:, user_ids: [zoe.id],
-                                                start: 2.days.ago, end: 1.day.ago)
-    ArticleCourseTimeslice.create!(course:, article:, user_ids: nil,
-                                   start: 1.day.ago, end: Time.zone.now)
+    zoe_slice = ArticleCourseUserWikiTimeslice.create!(course:, article:, user_id: zoe.id,
+                                                       wiki: course.home_wiki,
+                                                       start: 2.days.ago, end: 1.day.ago)
+    outsider = create(:user, username: 'Outsider')
+    ArticleCourseUserWikiTimeslice.create!(course:, article:, user_id: outsider.id,
+                                           wiki: course.home_wiki,
+                                           start: 2.days.ago, end: 1.day.ago)
 
-    expect(preload.timeslices_for(article.id)).to eq([with_edits])
-    expect(preload.timeslices_for(nil)).to eq([])
+    expect(preload.timeslices_for(article.id, zoe.id)).to eq([zoe_slice])
+    expect(preload.timeslices_for(article.id, adam.id)).to eq([])
+    expect(preload.timeslices_for(article.id, outsider.id)).to eq([])
+    expect(preload.timeslices_for(nil, zoe.id)).to eq([])
   end
 
   it 'knows which students have taken a verification claim' do

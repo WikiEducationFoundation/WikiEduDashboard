@@ -101,11 +101,11 @@ class UpdateWikiNamespaceStatsTimeslice
   # Returns { [wiki_id, namespace] => revision count }. Computed using timeslices,
   # since ArticlesCourses records do not have a revision_count field.
   def revision_counts_by_namespace
-    @course.article_course_timeslices
+    @course.article_course_user_wiki_timeslices
            .joins(:article).where(articles: articles_filter)
            .where(article_id: tracked_articles_courses.select(:article_id))
            .group('articles.wiki_id', 'articles.namespace')
-           .sum('article_course_timeslices.revision_count')
+           .sum('article_course_user_wiki_timeslices.revision_count')
   end
 
   # Returns { [wiki_id, namespace] => user count }.

@@ -12,7 +12,8 @@ describe CheckSandboxes do
 
   before do
     create(:courses_user, course:, user:)
-    create(:article_course_timeslice, article: sandbox, course:)
+    create(:article_course_user_wiki_timeslice, article: sandbox, course:, user:,
+                                                wiki: sandbox.wiki)
   end
 
   it 'returns a list of unreliable source rule violations' do

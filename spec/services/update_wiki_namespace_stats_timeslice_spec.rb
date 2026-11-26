@@ -22,6 +22,7 @@ describe UpdateWikiNamespaceStatsTimeslice do
   end
 
   before do
+    course.add_flag(key: :use_acuwt)
     stub_wiki_validation
     course.campaigns << Campaign.first
 

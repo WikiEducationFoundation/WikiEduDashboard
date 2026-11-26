@@ -54,18 +54,18 @@ module TimesliceEditCounts
 
   ARTICLES_COURSES_JOIN = <<~SQL.squish
     INNER JOIN articles_courses
-      ON articles_courses.course_id = article_course_timeslices.course_id
-      AND articles_courses.article_id = article_course_timeslices.article_id
+      ON articles_courses.course_id = article_course_user_wiki_timeslices.course_id
+      AND articles_courses.article_id = article_course_user_wiki_timeslices.article_id
   SQL
 
   def self.edits_by_course_and_namespace(course_ids, only_articles_courses: false)
     return {} if course_ids.empty?
 
-    timeslices = ArticleCourseTimeslice.where(tracked: true, course_id: course_ids)
+    timeslices = ArticleCourseUserWikiTimeslice.where(tracked: true, course_id: course_ids)
     timeslices = timeslices.joins(ARTICLES_COURSES_JOIN) if only_articles_courses
     timeslices.joins(:article)
               .where(articles: { namespace: NAMESPACES })
-              .group('article_course_timeslices.course_id', 'articles.namespace')
+              .group('article_course_user_wiki_timeslices.course_id', 'articles.namespace')
               .sum(:revision_count)
   end
   private_class_method :edits_by_course_and_namespace

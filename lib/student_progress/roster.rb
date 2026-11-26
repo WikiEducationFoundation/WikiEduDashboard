@@ -58,12 +58,12 @@ module StudentProgress
       assignments_by_user.fetch(user_id, [])
     end
 
-    # The live-article timeslices with contributors for one assigned article,
-    # loaded for every roster student's editing assignments at once.
-    def timeslices_for(article_id)
+    # The live-article timeslices for one assigned article and user, loaded for
+    # every roster student's editing assignments at once.
+    def timeslices_for(article_id, user_id)
       return [] if article_id.nil?
 
-      timeslices_by_article.fetch(article_id, [])
+      timeslices_by_article_and_user.fetch([article_id, user_id], [])
     end
 
     # Whether this user has taken a claim in the fact-verification exercise:
@@ -93,13 +93,13 @@ module StudentProgress
                                          .group_by(&:user_id)
     end
 
-    # `non_empty` skips the slices with no contributors, which are the bulk of them.
-    def timeslices_by_article
-      @timeslices_by_article ||= begin
+    def timeslices_by_article_and_user
+      @timeslices_by_article_and_user ||= begin
         article_ids = assignments_by_user.values.flatten.select(&:editing?)
                                          .filter_map(&:article_id).uniq
-        ArticleCourseTimeslice.where(course_id: @course.id, article_id: article_ids)
-                              .non_empty.group_by(&:article_id)
+        ArticleCourseUserWikiTimeslice.where(course_id: @course.id, article_id: article_ids,
+                                             user_id: @user_ids)
+                                      .group_by { |slice| [slice.article_id, slice.user_id] }
       end
     end
 

@@ -14,8 +14,8 @@ module StudentProgress
   # this. Sandbox page names come off Assignment; whether each page exists comes
   # from the statuses CheckAssignmentStatus maintains in `assignment.flags`
   # (AssignmentPipeline reads them back); live-article contributions come from
-  # article_course_timeslices, which carry per-(course, article) totals plus the
-  # user_ids behind them.
+  # article_course_user_wiki_timeslices, which carry per-(course, article, user)
+  # totals.
   #
   # `editing` assignments only: a `reviewing` assignment is the peer-review
   # stage (see PeerReviewFacts).
@@ -124,13 +124,11 @@ module StudentProgress
       Rules.page_created?(status)
     end
 
-    # This student's share of the live article: the timeslices for that article
-    # whose user_ids include them. Zeroes (rather than nil) for an article nobody
-    # has edited yet, so a view has nothing to special-case.
+    # How much of the live article this student wrote: the timeslices for the
+    # assignment article and user, summed. Zeroes rather than nil when they have
+    # none, so a view needs no nil check.
     def stats_for(assignment)
-      slices = @roster.timeslices_for(assignment.article_id).select do |slice|
-        slice.user_ids.include?(assignment.user_id)
-      end
+      slices = @roster.timeslices_for(assignment.article_id, assignment.user_id)
       Stats.new(characters: slices.sum { |s| s.character_sum.to_i },
                 references: slices.sum { |s| s.references_count.to_i },
                 revisions: slices.sum { |s| s.revision_count.to_i })

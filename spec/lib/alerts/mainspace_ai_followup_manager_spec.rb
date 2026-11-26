@@ -3,8 +3,10 @@ require "#{Rails.root}/lib/alerts/mainspace_ai_followup_manager"
 
 describe MainspaceAiFollowupManager do
   describe '#generate_followup_alerts_for_current_courses' do
+    let(:wiki) { Wiki.get_or_create(language: 'en', project: 'wikipedia') }
     let(:course) { create(:course, start: 2.weeks.ago, end: 2.weeks.from_now) }
     let(:student) { create(:user, username: 'student') }
+    let(:another_student) { create(:user, username: 'a different student') }
     let(:courses_user) do
       create(:courses_user, user_id: student.id,
                             course_id: course.id,
@@ -28,9 +30,13 @@ describe MainspaceAiFollowupManager do
     it 'creates a followup alert for major additions after the AI alert' do
       expect(MainspaceAiFollowupAlert.count).to eq(0)
       # Simulate significant additions after the AI alert
-      ArticleCourseTimeslice.create!(course_id: course.id, article_id: article.id,
-                                     start: 2.days.ago, character_sum: large_addition)
-
+      ArticleCourseUserWikiTimeslice.create!(course_id: course.id, article_id: article.id,
+                                             user_id: student.id, wiki:,
+                                             start: 2.days.ago, character_sum: large_addition)
+      # Simulate minor additions after the AI alert done by a different user
+      ArticleCourseUserWikiTimeslice.create!(course_id: course.id, article_id: article.id,
+                                             user_id: another_student.id, wiki:,
+                                             start: 2.days.ago, character_sum: small_addition)
 
       subject.generate_followup_alerts
       expect(MainspaceAiFollowupAlert.count).to eq(1)
@@ -45,8 +51,23 @@ describe MainspaceAiFollowupManager do
     it 'does not create a followup alert for only small additions' do
       expect(MainspaceAiFollowupAlert.count).to eq(0)
       # Simulate minor additions after the AI alert
-      ArticleCourseTimeslice.create!(course_id: course.id, article_id: article.id,
-                                     start: 2.days.ago, character_sum: small_addition)
+      ArticleCourseUserWikiTimeslice.create!(course_id: course.id, article_id: article.id,
+                                             user_id: student.id, wiki:,
+                                             start: 2.days.ago, character_sum: small_addition)
+      subject.generate_followup_alerts
+      expect(MainspaceAiFollowupAlert.count).to eq(0)
+    end
+
+    it 'does not create a followup alert for major additions by other student' do
+      expect(MainspaceAiFollowupAlert.count).to eq(0)
+      # Simulate minor additions after the AI alert done by the student
+      ArticleCourseUserWikiTimeslice.create!(course_id: course.id, article_id: article.id,
+                                             user_id: student.id, wiki:,
+                                             start: 2.days.ago, character_sum: small_addition)
+      # Simulate major additions after the AI alert done by a different user
+      ArticleCourseUserWikiTimeslice.create!(course_id: course.id, article_id: article.id,
+                                             user_id: another_student.id, wiki:,
+                                             start: 2.days.ago, character_sum: large_addition)
       subject.generate_followup_alerts
       expect(MainspaceAiFollowupAlert.count).to eq(0)
     end
