@@ -196,8 +196,6 @@ describe ArticlesCourses, type: :model do
   end
 
   describe '.create_records_and_mark_acuwt' do
-    let(:another_article) { create(:article, title: 'Another Article') }
-
     before do
       # ACUWT records from edits ingested before the article became relevant to the course
       create(:article_course_user_wiki_timeslice, course:, article:, user_id:,
@@ -221,23 +219,6 @@ describe ArticlesCourses, type: :model do
         described_class.create_records_and_mark_acuwt(course, [article.id])
         statuses = ArticleCourseUserWikiTimeslice.where(article:).pluck(:needs_update)
         expect(statuses).to eq([true, true])
-      end
-
-      it 'logs the articles with preexisting ACUWT records' do
-        allow(Rails.logger).to receive(:info)
-        described_class.create_records_and_mark_acuwt(course, [article.id])
-
-        expect(Rails.logger).to have_received(:info)
-          .with("Article retracked: course_id=#{course.id} course_slug=#{course.slug} " \
-                "reason=created_with_preexisting_acuwt_history article_ids=#{[article.id]}")
-      end
-
-      it 'does not log articles without preexisting ACUWT records' do
-        allow(Rails.logger).to receive(:info)
-        described_class.create_records_and_mark_acuwt(course, [another_article.id])
-
-        expect(Rails.logger).not_to have_received(:info)
-          .with(a_string_including('Article retracked'))
       end
     end
 

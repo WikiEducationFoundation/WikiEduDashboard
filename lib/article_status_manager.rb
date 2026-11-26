@@ -198,26 +198,17 @@ class ArticleStatusManager
     # via `update_title_and_namespace`
     return unless nondeleted_article
     ArticlesCoursesCleaner.reset_specific_articles(@course, [article])
-    log_reset(article)
   end
 
-  # These scenarios are hard to reproduce (they depend on on-wiki events happening
-  # in the middle of course updates), so we log them to learn how frequent they are.
-  # Rails.logger, not Sentry: this is routine, not an error, and doesn't need to
-  # count against the Sentry quota.
-  def log_reset(article)
-    Rails.logger.info(
-      "Article retracked: course_id=#{@course.id} course_slug=#{@course.slug} " \
-      "reason=undeleted_duplicate article_ids=#{[article.id]}"
-    )
-  end
-
+  # This scenario is rare (fewer than 50 occurrences a month across the whole org), so it
+  # stays on Sentry rather than Rails.logger: it's worth being able to search, count and
+  # filter, which a log file can't do, without meaningfully adding to the error quota.
   def log_namespace_change(article, old_namespace)
-    Rails.logger.info(
-      "Article namespace changed: level=info course_id=#{@course.id} article_id=#{article.id} " \
-      "course_slug=#{@course.slug} old_namespace=#{old_namespace} " \
-      "new_namespace=#{article.namespace}"
-    )
+    Sentry.capture_message 'Article namespace changed',
+                           level: 'info',
+                           extra: { course_slug: @course.slug, course_id: @course.id,
+                                    article_id: article.id, old_namespace:,
+                                    new_namespace: article.namespace }
   end
 
   def data_matches_article?(article_data, article)

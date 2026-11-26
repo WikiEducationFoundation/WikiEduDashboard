@@ -227,7 +227,7 @@ describe ArticleStatusManager do
       end
     end
 
-    it 'logs namespace changes to log file' do
+    it 'logs namespace changes to Sentry' do
       VCR.use_cassette 'article_status_manager/main' do
         create(:article,
                id: 848,
@@ -237,14 +237,14 @@ describe ArticleStatusManager do
                updated_at: 2.days.ago)
         create(:article_course_timeslice, course:, article_id: 848,
                start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
-        allow(Rails.logger).to receive(:info)
+        allow(Sentry).to receive(:capture_message)
 
         described_class.update_article_status_for_course(course)
-        expect(Rails.logger).to have_received(:info)
-        .with(
-          "Article namespace changed: level=info course_id=#{course.id} article_id=#{848} " \
-          "course_slug=#{course.slug} old_namespace=#{2} " \
-          "new_namespace=#{0}")
+        expect(Sentry).to have_received(:capture_message)
+          .with('Article namespace changed', level: 'info',
+                extra: { course_slug: course.slug, course_id: course.id,
+                         article_id: 848, old_namespace: 2,
+                         new_namespace: 0 })
       end
     end
 
@@ -276,36 +276,6 @@ describe ArticleStatusManager do
       expect(course.article_course_timeslices.count).to eq(1)
       timeslice = course.course_wiki_timeslices.find_by(start: 3.days.ago.beginning_of_day)
       expect(timeslice.needs_update).to eq(true)
-    end
-
-    it 'logs the reset to log file when there are deleted and nondeleted copies of an article' do
-      create(:article,
-             id: 53001516,
-             mw_page_id: 66653200,
-             title: 'Port_of_Spain_Gazette',
-             updated_at: 2.days.ago)
-      create(:article,
-             id: 53058287,
-             mw_page_id: 66653200,
-             title: 'Port_of_Spain_Gazette',
-             deleted: true,
-             updated_at: 2.days.ago)
-      create(:articles_course, course:, article_id: 53001516)
-      create(:article_course_timeslice, course:, article_id: 53001516,
-             start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
-      create(:articles_course, course:, article_id: 53058287)
-      create(:article_course_timeslice, course:, article_id: 53058287,
-             start: 3.days.ago.beginning_of_day, end: 2.days.ago.beginning_of_day)
-      # Create course wiki timeslices
-      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([course.home_wiki])
-      allow(Rails.logger).to receive(:info)
-
-      VCR.use_cassette 'article_status_manager/undeletion_duplicate' do
-        described_class.update_article_status_for_course(course)
-      end
-      expect(Rails.logger).to have_received(:info)
-        .with("Article retracked: course_id=#{course.id} course_slug=#{course.slug} " \
-              'reason=undeleted_duplicate article_ids=[53058287]')
     end
 
     it 'handles undeleted articles' do

@@ -98,17 +98,5 @@ describe DuplicateArticleDeleter do
 
       described_class.new.resolve_duplicates_for_timeslices([new_article, extant_article])
     end
-
-    it 'logs the reset for each course involved' do
-      course = create(:course)
-      create(:articles_course, course_id: course.id, article_id: duplicate_article.id)
-      allow(Rails.logger).to receive(:info)
-
-      described_class.new.resolve_duplicates_for_timeslices([new_article])
-
-      expect(Rails.logger).to have_received(:info)
-        .with("Article retracked: course_id=#{course.id} course_slug=#{course.slug} " \
-              "reason=duplicate_article_deleted article_ids=#{[duplicate_article.id]}")
-    end
   end
 end
