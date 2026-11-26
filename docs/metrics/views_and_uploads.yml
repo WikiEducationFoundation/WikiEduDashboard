@@ -162,24 +162,19 @@ divergences:
     status: intentional
 
   uploads-window:
-    title: Which uploads count on a user profile
-    metrics: [commons_uploads, upload_usages]
+    title: When Commons uploads are counted for Salesforce
+    metrics: [commons_uploads]
     description: |
-      A course counts a student's uploads between that course's start and
-      end. A user profile counts every upload between the start of the
-      student's earliest public course and the end of their latest one,
-      including the time between courses. A profile can therefore show more
-      uploads than the student's courses add up to.
+      A course's stored upload count is calculated during each stats update,
+      whereas Salesforce gets a count of uploads made when the record is
+      pushed, rather than the stored count from the last update. The two can
+      differ briefly.
 
-      Salesforce also gets a count of uploads made when the record is pushed,
-      rather than the stored count from the last update. The two can differ
-      briefly.
-
-      The profile's window is a bug (#7312). The Salesforce difference is
-      intentional: it only lasts until the next update.
+      This Salesforce difference is intentional: it only lasts until the
+      next update.
     code:
       - file: app/models/course.rb
-      - ruby: IndividualStatisticsTimeslicePresenter#set_upload_usage_counts
+      - ruby: CourseCacheManager#update_upload_count
+        path: lib/course_cache_manager.rb
       - ruby: PushCourseToSalesforce#base_salesforce_fields
-    status: bug
-    issue: 7312
+    status: intentional

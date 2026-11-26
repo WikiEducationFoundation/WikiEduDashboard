@@ -82,6 +82,37 @@ describe IndividualStatisticsTimeslicePresenter do
       end
     end
 
+    context 'when a user has two courses with a gap between them' do
+      let(:course1_start) { 2.years.ago.beginning_of_day }
+      let(:course1_end) { course1_start + 3.months }
+      let(:course2_start) { 6.months.ago.beginning_of_day }
+      let(:course2_end) { course2_start + 3.months }
+      let(:course1) { create(:course, start: course1_start, end: course1_end) }
+      let(:course2) { create(:course, slug: 'foo/2', start: course2_start, end: course2_end) }
+
+      before do
+        create(:courses_user, user_id: user.id, course_id: course1.id)
+        create(:courses_user, user_id: user.id, course_id: course2.id)
+
+        # Upload during course 1
+        create(:commons_upload, user_id: user.id, usage_count: 2,
+                                uploaded_at: course1_start + 1.month)
+        # Upload between courses (in the gap)
+        create(:commons_upload, user_id: user.id, usage_count: 5,
+                                uploaded_at: course1_end + 1.month)
+        # Upload during course 2
+        create(:commons_upload, user_id: user.id, usage_count: 3,
+                                uploaded_at: course2_start + 1.month)
+      end
+
+      it 'counts uploads within course dates and excludes uploads between courses' do
+        expect(course1.uploads.count).to eq(1)
+        expect(course2.uploads.count).to eq(1)
+        expect(subject.individual_upload_count).to eq(2)
+        expect(subject.individual_upload_usage_count).to eq(5)
+      end
+    end
+
     context 'when a user edited several articles, one of them deleted' do
       before do
         create(:courses_user, user_id: user.id, course_id: course1.id)
