@@ -1,6 +1,7 @@
 import '../testHelper';
 import {
-  getCurrentUser, getRealCurrentUser, getCanViewAsStudent, getIsViewingAsStudent, editPermissions
+  getCurrentUser, getRealCurrentUser, getCanViewAsStudent, getIsViewingAsStudent, editPermissions,
+  detailsEditPermissions
 } from '../../app/assets/javascripts/selectors';
 import { restoreStudentView, leaveStudentView } from '../../app/assets/javascripts/actions/student_view_actions';
 import { isStudentViewActive, readStoredStudentView, setStudentViewActive, storeStudentView } from '../../app/assets/javascripts/utils/student_view';
@@ -119,5 +120,24 @@ describe('editPermissions for a course with locked metadata', () => {
   test('blocks instructors and admins when the course metadata is locked', () => {
     expect(editPermissions(buildState({ metadataLocked: true }))).toBe(false);
     expect(editPermissions(buildState({ admin: true, metadataLocked: true }))).toBe(false);
+  });
+});
+
+describe('detailsEditPermissions', () => {
+  const buildState = ({ admin = false, closed = false, metadataLocked = false } = {}) => ({
+    currentUserFromHtml: { id: 1, admin, campaign_organizer: false },
+    users: { users: admin ? [] : [{ id: 1, username: 'Instructor', role: INSTRUCTOR_ROLE }] },
+    course: { type: 'ClassroomProgramCourse', closed, metadata_locked: metadataLocked },
+    viewAsStudent: false
+  });
+
+  test('allows instructors and admins to edit details when the course metadata is locked', () => {
+    expect(detailsEditPermissions(buildState({ metadataLocked: true }))).toBe(true);
+    expect(detailsEditPermissions(buildState({ admin: true, metadataLocked: true }))).toBe(true);
+  });
+
+  test('allows only admins to edit details of a closed course', () => {
+    expect(detailsEditPermissions(buildState({ closed: true }))).toBe(false);
+    expect(detailsEditPermissions(buildState({ admin: true, closed: true }))).toBe(true);
   });
 });

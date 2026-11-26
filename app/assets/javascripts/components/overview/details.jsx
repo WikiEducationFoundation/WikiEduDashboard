@@ -32,6 +32,7 @@ import Modal from '../common/modal.jsx';
 import NamespaceSelect from '../common/namespace_select.jsx';
 
 import EditableRedux from '../high_order/editable_redux.jsx';
+import { detailsEditPermissions } from '../../selectors';
 import TextInput from '../common/text_input.jsx';
 
 import DatePicker from '../common/date_picker.jsx';
@@ -174,6 +175,9 @@ const Details = createReactClass({
     const isClassroomProgramType = this.props.course.type === 'ClassroomProgramCourse';
     const timelineDatesDiffer = this.props.course.start !== this.props.course.timeline_start || this.props.course.end !== this.props.course.timeline_end;
     const eventSync = this.props.course.flags.event_sync;
+    // Dates, wikis, namespaces and type affect course updates, so they stay
+    // read-only once the course metadata is locked.
+    const metadataEditable = this.props.editable && !this.props.course.metadata_locked;
 
     let campus;
     let staff;
@@ -356,7 +360,7 @@ const Details = createReactClass({
           onChange={this.updateCourseDates}
           value={this.props.course.timeline_start}
           value_key="timeline_start"
-          editable={this.props.editable}
+          editable={metadataEditable}
           validation={CourseDateUtils.isDateValid}
           label={CourseUtils.i18n('assignment_start', this.props.course.string_prefix)}
           date_props={dateProps.timeline_start}
@@ -369,7 +373,7 @@ const Details = createReactClass({
           onChange={this.updateCourseDates}
           value={this.props.course.timeline_end}
           value_key="timeline_end"
-          editable={this.props.editable}
+          editable={metadataEditable}
           validation={CourseDateUtils.isDateValid}
           label={CourseUtils.i18n('assignment_end', this.props.course.string_prefix)}
           date_props={dateProps.timeline_end}
@@ -480,7 +484,7 @@ const Details = createReactClass({
       courseTypeSelector = (
         <CourseTypeSelector
           course={this.props.course}
-          editable={this.props.editable}
+          editable={metadataEditable}
           updateCourse={this.props.updateCourse}
         />
       );
@@ -613,7 +617,7 @@ const Details = createReactClass({
             wikis={
               [home_wiki]
             }
-            readOnly={!this.props.editable}
+            readOnly={!metadataEditable}
             onChange={this.handleWikiChange}
             options={WIKI_OPTIONS}
             multi={false}
@@ -628,7 +632,7 @@ const Details = createReactClass({
             label={I18n.t('courses.multi_wiki')}
             wikis={this.props.course.wikis}
             homeWiki={home_wiki}
-            readOnly={!this.props.editable}
+            readOnly={!metadataEditable}
             options={WIKI_OPTIONS}
             onChange={this.handleMultiWikiChange}
             multi={true}
@@ -643,7 +647,7 @@ const Details = createReactClass({
             wikis={this.props.course.wikis}
             namespaces={this.props.course.namespaces}
             onChange={this.handleNamespaceChange}
-            readOnly={!this.props.editable}
+            readOnly={!metadataEditable}
             styles={{ ...selectStyles, singleValue: null }}
           />
         </div>
@@ -682,7 +686,7 @@ const Details = createReactClass({
                   value={this.props.course.start}
                   value_key="start"
                   validation={CourseDateUtils.isDateValid}
-                  editable={this.props.editable}
+                  editable={metadataEditable}
                   label={CourseUtils.i18n('start', this.props.course.string_prefix)}
                   showTime={this.props.course.use_start_and_end_times}
                   required={true}
@@ -691,7 +695,7 @@ const Details = createReactClass({
                   onChange={this.updateCourseDates}
                   value={this.props.course.end}
                   value_key="end"
-                  editable={this.props.editable}
+                  editable={metadataEditable}
                   validation={CourseDateUtils.isDateValid}
                   label={CourseUtils.i18n('end', this.props.course.string_prefix)}
                   date_props={dateProps.end}
@@ -748,4 +752,4 @@ const Details = createReactClass({
 }
 );
 
-export default EditableRedux(Details, I18n.t('editable.edit_details'));
+export default EditableRedux(Details, I18n.t('editable.edit_details'), detailsEditPermissions);

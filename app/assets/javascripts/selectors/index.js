@@ -366,10 +366,18 @@ export const firstValidationErrorMessage = createSelector(
   }
 );
 
-export const editPermissions = createSelector(
+// Course details and description stay editable on metadata-locked courses;
+// Details keeps the fields that affect course updates read-only.
+export const detailsEditPermissions = createSelector(
   [getCourse, getCurrentUser], (course, user) => {
-    if (course.metadata_locked || !user.isAdvancedRole) { return false; }
+    if (!user.isAdvancedRole) { return false; }
     return user.isAdmin || !course.closed;
+  }
+);
+
+export const editPermissions = createSelector(
+  [getCourse, detailsEditPermissions], (course, canEditDetails) => {
+    return !course.metadata_locked && canEditDetails;
   }
 );
 

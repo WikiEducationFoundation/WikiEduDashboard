@@ -27,6 +27,7 @@ const WikiSelect = ({ multi, onChange, styles, wikis, homeWiki, readOnly, label,
 
     return (
       <>
+        <span className="text-input-component__label"><strong>{label}:&nbsp;</strong></span>
         {wikiList}
       </>
     );

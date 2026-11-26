@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import EditableRedux from '../high_order/editable_redux.jsx';
+import { detailsEditPermissions } from '../../selectors';
 import TextAreaInput from '../common/text_area_input.jsx';
 
 const Description = ({ updateCourse, title, controls, description, editable }) => {
@@ -39,4 +40,4 @@ Description.propTypes = {
   persistCourse: PropTypes.func.isRequired // used by EditableRedux
 };
 
-export default EditableRedux(Description, I18n.t('editable.edit_description'));
+export default EditableRedux(Description, I18n.t('editable.edit_description'), detailsEditPermissions);
