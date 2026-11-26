@@ -58,7 +58,7 @@ describe 'Article scoped flag behavior', type: :model do
 
   describe '#scoped_article? with flag' do
     before do
-      create(:article, title: 'Category_article')
+      create(:article, title: 'Category_article', mw_page_id: 90)
       create(:article, title: 'Unassigned_article', mw_page_id: 400)
       create(:assignment, course: course, article: article, article_title: article.title,
                           wiki: wiki)
