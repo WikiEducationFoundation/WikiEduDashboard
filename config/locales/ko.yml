@@ -956,7 +956,6 @@ ko:
     wiki_staff: 위키 교육 직원
     withdrawn: 과제를 제출하지 않았습니다
     word_count_doc: 과정 기간 동안 과정 학생들이 일반 문서에 추가한 단어 수의 추정치입니다. (위키데이터 편집은 포함되지 않습니다.)
-    word_count_doc_wikidata: 과정 기간 동안 과정 학생들이 일반 항목에 추가한 단어 수의 추정치
     yourcourses: 내 과정
     declined_note: 이 과정은 거부되었습니다. 질문이 있으면 위키 교육 직원에게 문의하세요.
     decline_course: 과정 거부
@@ -1106,7 +1105,6 @@ ko:
     view_page: 문서 보기
     word_count_doc: 프로그램 기간 동안 프로그램 편집자들이 일반 이름공간 문서에 추가한 단어 수를 추정한 값입니다. (위키데이터 편집은
       포함되지 않습니다.)
-    word_count_doc_wikidata: 프로그램 기간 동안 프로그램 편집자들이 일반 이름공간 항목에 추가한 단어 수를 추정한 값
     yourcourses: 당신의 프로그램
   editable:
     edit: 편집
@@ -1244,8 +1242,6 @@ ko:
     qualifiers_added: 추가된 한정자
     redirects_created: 추가된 넘겨주기
     references_added: 각주 추가됨
-    references_added_info: 이는 추가된 참조의 일부만을 집계한 것일 수 있습니다. 위키데이터 편집 요약을 기반으로 하며, 참조를
-      추가하는 일부 편집은 "주장 변경" 또는 "주장 생성"으로 분류되기도 합니다.
     restorations_performed: 수행된 복원
     reverts_performed: 수행된 되돌리기
     lemmas: 기본형
@@ -1748,7 +1744,6 @@ ko:
       failure_message: '실패: %{result_description}'
     revision_characters_and_views: '다음 문자들이 추가됨: %{characters}, 조회수: %{views}'
     revisions_doc: 지난 기간 동안의 일일 평균 편집 횟수를 기준으로 추전한 과거 7일 동안 이 편집자가 수행한 추정 편집 횟수입니다.
-    references_doc: 이 참여자가 추가하거나 제거한 각주의 수
     reviewers: 검토자
     reviewing: 검토 중
     revisions: 수정내역

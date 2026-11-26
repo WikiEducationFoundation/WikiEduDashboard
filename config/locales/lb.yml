@@ -90,6 +90,18 @@ lb:
       infobox: Infobox
       links: Linken
       new_article: Neien Artikel
+    feedback:
+      accurate_options:
+        "yes": Jo
+        "no": Nee
+      show_to_participants_options:
+        "yes": Jo
+        maybe: Villäicht
+        "no": Nee
+      save: Späicheren
+      saved: Gespäichert
+      responses: Äntwerten
+      user: Benotzer
   article_statuses:
     not_yet_started: Fir unzefänken
     in_progress: An enger Sandkaul schaffen
@@ -553,6 +565,8 @@ lb:
     select_student:
       title: '%{prefix} eraussichen'
   metrics:
+    active_editors: Aktiv Editeuren
+    edits: Ännerungen
     editors_doc: Dëst ass d'Zuel vun eenzele Benotzer, déi am Cours Artikele geännert
       hunn.
     program_date_doc: Dëst ass den Datum vum Programm.

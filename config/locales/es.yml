@@ -1158,10 +1158,6 @@ es:
     qualifiers_added: Adición de calificadores
     redirects_created: Creación de redirecciones
     references_added: Referencias añadidas
-    references_added_info: Esto puede ser solo un recuento parcial de las referencias
-      añadidas. Se basa en los resúmenes de edición de Wikidata, y algunas ediciones
-      en que también se añaden referencias se clasifican como «afirmación modificada»
-      o «afirmación creada».
     restorations_performed: Restauraciones realizadas
     reverts_performed: Reversiones realizadas
     language: Idioma
@@ -1462,7 +1458,6 @@ es:
     revision_characters_and_views: 'Caracteres añadidos: %{characters}, Visitas: %{views}'
     revisions_doc: El número de ediciones realizadas por este editor en los últimos
       7 días
-    references_doc: El número de referencias añadidas o eliminadas por este editor
     reviewers: Revisor(es)
     reviewing: Revisando
     revisions: Revisiones

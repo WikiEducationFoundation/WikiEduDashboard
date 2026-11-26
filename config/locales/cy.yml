@@ -749,7 +749,6 @@ cy:
     revision_characters_and_views: 'Nifer y Llythrennau a Ychwanegwyd: %{characters},
       Views: %{views}'
     revisions_doc: Y nifer o olygiadau gan y golygydd hwn yn ystod y 7 diwrnod diwethaf
-    references_doc: Y nifer o gyfeiriadau gan y golygydd hwn
     reviewers: Adolygydd/ion
     reviewing: Yn Adolygu
     sandboxes: blychau tywod

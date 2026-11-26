@@ -1244,7 +1244,6 @@ sr-el:
     revision_characters_and_views: 'Znakova dodato: %{characters}, Pregleda: %{views}'
     revisions_doc: Procena broja izmena koje je ovaj urednik napravio u proteklih
       7 dana, na osnovu prosečnog broja izmena po danu za prethodni period.
-    references_doc: Broj referenci koje su dodate ili uklonjene od strane ovog urednika
     reviewers: Pregledač(i)
     reviewing: Pregledanje
     revisions: Izmene

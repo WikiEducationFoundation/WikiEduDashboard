@@ -37,10 +37,4 @@ lmo:
         In la pussee part di casi, te gh'havarisset de drovàll de poeu che a tucc i student a inn stad assegnad i so articoi principai.
         Diversament, te podet domandàgh ai to student de catà foeura i so version de lor uguai opur te podet assegnà  i version uguai cont el clicà in su la riga d'on student e doncas drovà el buton "Assegna/toeu via una version ugual".
         El clicà in su "OK" l'assegnarà on total de %{count} version uguai an'mò, con un massim de %{maximum} per ogni student, catad foeura in fra i articoi di compagn de class.
-  courses:
-    word_count_doc_wikidata: Una stima del numer de parolle sgiontade di student del
-      cors ai element del spazzi di nom principal adree a la session de cors medemma.
-  courses_generic:
-    word_count_doc_wikidata: Una stima del numer di parolle sgiontade di editor del
-      programa ai element del spazzi principal in del cors de la sezzion del programa
 ...

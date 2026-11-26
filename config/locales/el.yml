@@ -468,7 +468,7 @@ el:
     join_prompt: Προσχώρηση στο '%{title}';
     join_failed: Η εγγραφή απέτυχε.
     leave_course: Εγκατάλειψη του μαθήματος
-    loading: Φόρτωση σε εξέλιξη...
+    loading: Φορτώνει…
     my_articles: Τα λήμματά μου
     my_articles_wikidata: Τα αντικείμενα μου
     new_week: Πρόσθεση νέας εβδομάδας
@@ -883,8 +883,6 @@ el:
       failure_message: 'Αποτυχία: %{result_description}'
     revision_characters_and_views: 'Προσθήκες χαρακτήρων: %{characters}, Προβολές:
       %{views}'
-    references_doc: Ο αριθμός των αναφορών που προστέθηκαν ή αφαιρέθηκαν από αυτόν
-      τον συντάκτη
     revisions: Αναθεωρήσεις
     sandboxes: αμμοδοχεία
     sub_navigation:

@@ -973,8 +973,6 @@ pt:
     withdrawn: Não realizou o trabalho
     word_count_doc: Uma estimativa do número de palavras adicionadas ao espaço principal
       pelos estudantes do curso durante o semestre do curso
-    word_count_doc_wikidata: Uma estimativa do número de palavras adicionadas a elementos
-      do espaço principal pelos estudantes do curso durante a duração do curso
     yourcourses: Os seus cursos
     survey:
       notification_message: Responda ao nosso inquérito sobre este curso.
@@ -1138,9 +1136,6 @@ pt:
     view_page: Ver Página
     word_count_doc: Uma estimativa do número de palavras acrescentadas ao domínio
       principal pelos editores do programa durante a duração deste
-    word_count_doc_wikidata: Uma estimativa do número de palavras acrescentadas a
-      elementos do espaço principal pelos editores do programa durante a duração do
-      programa
     yourcourses: Os seus programas
   editable:
     edit: Editar
@@ -1289,10 +1284,6 @@ pt:
     qualifiers_added: Qualificadores adicionados
     redirects_created: Redirecionamentos criados
     references_added: Referências adicionadas
-    references_added_info: Esta contagem das referências adicionadas pode ser só parcial.
-      A contagem é baseada no resumos de edição na wiki Wikidata e algumas edições
-      que adicionam referências são antes classificadas como "Alegação alterada" ou
-      "Alegação criada".
     restorations_performed: Restaurações efetuadas
     reverts_performed: Reversões efetuadas
   namespace:
@@ -1716,7 +1707,6 @@ pt:
       Visitas: %{views}'
     revisions_doc: O número de edições estimado efetuadas por este editor nos últimos
       7 dias, com base na média das edições por dia no último período.
-    references_doc: O número de referências adicionadas ou removidas por este editor
     reviewers: Revisor(es)
     reviewing: Em revisão
     revisions: Revisões

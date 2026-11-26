@@ -854,8 +854,6 @@ hu:
     withdrawn: Nem végzett megbízás
     word_count_doc: A kurzus hallgatói által a kurzus ideje alatt a főtérbe írt szócikkekhez
       hozzáadott szavak becsült száma
-    word_count_doc_wikidata: A kurzus hallgatói által a kurzus ideje alatt a főtér
-      elemeihez hozzáadott szavak becsült száma
     yourcourses: A kurzusod
     survey:
       notification_message: Töltse ki felmérésünket ehhez a tanfolyamhoz.
@@ -964,8 +962,6 @@ hu:
     view_page: Programoldal megtekintése
     word_count_doc: A program szerkesztői által a program időtartama alatt a főtérbe
       írt szócikkekhez hozzáadott szavak becsült száma
-    word_count_doc_wikidata: A program futamideje alatt a program szerkesztői által
-      a főtéri elemekhez hozzáadott szavak becsült száma.
     yourcourses: A programjaid
   editable:
     edit: Szerkesztés
@@ -1111,10 +1107,6 @@ hu:
     qualifiers_added: Selejtezők hozzáadva
     redirects_created: Átirányítások létrehozva
     references_added: Hozzáadott lábjegyzetek
-    references_added_info: Ez csak a hozzáadott hivatkozások részleges számlálása
-      lehet. Ez a Wikidata szerkesztési összefoglalóin alapul, és egyes hivatkozásokat
-      hozzáadó szerkesztések "Megváltozott állítás" vagy "Létrehozott állítás" kategóriába
-      sorolhatóak.
     restorations_performed: Elvégzett helyreállítások
     reverts_performed: Visszaállítások végrehajtva
   namespace:
@@ -1454,7 +1446,6 @@ hu:
     revision_characters_and_views: 'Hozzáadott karakterek: %{characters}, Megtekintések:
       %{views}'
     revisions_doc: A szerkesztő által az elmúlt 7 napban végzett szerkesztések száma
-    references_doc: A szerkesztő által hozzáadott vagy eltávolított lábjegyzetek száma
     reviewers: Lektor(ok)
     reviewing: Ellenőrzés
     revisions: Változat

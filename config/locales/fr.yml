@@ -305,7 +305,7 @@ fr:
       no_wiki_stats: Aucune statistique sur le projet wiki n'est disponible.
       no_facilitators: Aucun facilitateur ni facilitatrice n'ont été trouvé·e·s.
     errors:
-      fetch_failed: Impossible de charger les données. Veuillez réactualiser la page.
+      fetch_failed: Impossible de charger les données. Veuillez actualiser la page.
   activity:
     all: Activité
     edited_by: Modifié par
@@ -1244,8 +1244,6 @@ fr:
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les étudiants du cours pendant son déroulement. (Les modifications
       apportées à Wikidata ne sont pas incluses.)
-    word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux éléments
-      de l’espace principal par les étudiants du cours pendant sa durée
     yourcourses: Vos cours
     declined_note: Cette voie a été rejetée. Veuillez contacter le personnel de Wiki
       Education si vous avez des questions.
@@ -1469,9 +1467,6 @@ fr:
     word_count_doc: Une estimation du nombre de mots ajoutés aux articles de l’espace
       principal par les rédacteurs du programme durant son déroulement. (Les modifications
       apportées à Wikidata ne sont pas incluses.)
-    word_count_doc_wikidata: Une estimation du nombre de mots ajoutés aux articles
-      de l’espace principal par les contributeurs et contributrices du programme durant
-      son déroulement
     yourcourses: Vos programmes
   editable:
     edit: Modifier
@@ -1635,10 +1630,6 @@ fr:
     qualifiers_added: Qualificateurs ajoutés
     redirects_created: Redirections créées
     references_added: Références ajoutées
-    references_added_info: Ceci peut n’être qu’un décompte partiel des références
-      ajoutées. Il est basé sur les résumés des modifications et certaines modifications
-      qui ajoutent des références sont classées à la place en tant que « Revendication
-      modifiée » ou « Revendication créée ».
     restorations_performed: Restauration effectuées
     reverts_performed: Révocations effectuées
     lemmas: Lemmes
@@ -2169,7 +2160,6 @@ fr:
     revisions_doc: Le nombre estimé de modifications faites par ce contributeur durant
       les 7 derniers jours, basé sur la moyenne du nombre de modifications par jour
       sur la dernière période.
-    references_doc: Le nombre de références ajoutées ou retirées par cette personne
     reviewers: Relecteur(s)
     reviewing: Relecture en cours
     revisions: Révisions

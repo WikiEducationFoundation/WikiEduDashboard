@@ -69,6 +69,13 @@ hi:
     print: प्रिंट करें
   article_audit:
     check: जाँचें
+    feedback:
+      accurate_options:
+        "yes": हाँ
+        "no": नहीं
+      show_to_participants_options:
+        "yes": हाँ
+        maybe: शायद
   article_statuses:
     not_yet_started: शुरुआत कर रहे हैं
     reading_the_article: लेख पढ़ रहे हैं

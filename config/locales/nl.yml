@@ -1218,8 +1218,6 @@ nl:
     word_count_doc: Een schatting van het aantal woorden dat door de studenten van
       de cursus gedurende de cursusperiode aan pagina's in de hoofdnaamruimte is toegevoegd.
       Wikidata-bewerkingen zijn niet inbegrepen.
-    word_count_doc_wikidata: Een schatting van het aantal woorden dat door de studenten
-      van de cursus aan items in de hoofdnaamruimte is toegevoegd tijdens de cursusperiode
     yourcourses: Uw cursussen
     declined_note: Deze cursus is afgewezen. Neem contact op met het personeel van
       Wiki Education als u vragen hebt.
@@ -1394,8 +1392,6 @@ nl:
     word_count_doc: Een schatting van het aantal woorden dat door de bewerkers van
       het programma aan pagina's in de hoofdnaamruimte is toegevoegd tijdens de programmaperiode.
       Wikidata-bewerkingen zijn niet inbegrepen.
-    word_count_doc_wikidata: Een schatting van het aantal woorden dat door de bewerkers
-      van het programma aan items in de hoofdnaamruimte is toegevoegd tijdens de programmaperiode
     yourcourses: Uw programma's
   editable:
     edit: Bewerken
@@ -1554,10 +1550,6 @@ nl:
     qualifiers_added: Kwalificaties toegevoegd
     redirects_created: Doorverwijzingen aangemaakt
     references_added: Referenties toegevoegd
-    references_added_info: Dit is mogelijk slechts een gedeeltelijke telling van toegevoegde
-      referenties. Het is gebaseerd op Wikidata-bewerkingssamenvattingen, en sommige
-      bewerkingen die referenties toevoegen worden in plaats daarvan geclassificeerd
-      als een "Gewijzigde claim" of "Aangemaakte claim".
     restorations_performed: Uitgevoerde herstellingen
     reverts_performed: Uitgevoerde terugdraaiingen
     lemmas: Lemma’s
@@ -2360,8 +2352,6 @@ nl:
     revisions_doc: Het geschatte aantal bewerkingen dat deze bewerker de afgelopen
       7 dagen heeft uitgevoerd, gebaseerd op het gemiddelde aantal bewerkingen per
       dag over de afgelopen periode.
-    references_doc: Het aantal referenties dat door deze bewerker is toegevoegd of
-      verwijderd
     reviewers: Controleur(s)
     reviewing: Wordt gecontroleerd
     revisions: Versies

@@ -1160,8 +1160,6 @@ sk:
     withdrawn: Nesplnil zadanie
     word_count_doc: Odhad počtu slov, ktoré študenti kurzu počas trvania kurzu pridali
       do článkov v hlavnom mennom priestore. (Úpravy na Wikidátach nie sú zahrnuté.)
-    word_count_doc_wikidata: Odhad počtu slov pridaných do položiek v hlavnom mennom
-      priestore študentmi kurzu počas semestra kurzu
     yourcourses: Vaše kurzy
     declined_note: Tento kurz bol zamietnutý. V prípade otázok kontaktujte, prosím,
       personál Wiki Education.
@@ -1331,8 +1329,6 @@ sk:
     word_count_doc: Odhad počtu slov, ktoré redaktori programu počas trvania programu
       pridali do článkov v hlavnom mennom priestore. (Úpravy na Wikidátach nie sú
       zahrnuté.)
-    word_count_doc_wikidata: Odhad počtu slov pridaných do položiek v hlavnom mennom
-      priestore redaktormi programu počas trvania programu
     yourcourses: Vaše programy
   editable:
     edit: Upraviť
@@ -1491,9 +1487,6 @@ sk:
     qualifiers_added: Pridané kvalifikátory
     redirects_created: Vytvorené presmerovania
     references_added: Pridané referencie
-    references_added_info: Toto môže byť len čiastočný počet pridaných referencií.
-      Vychádza zo zhrnutí úprav na Wikidátach a niektoré úpravy, ktoré pridávajú referencie,
-      sú namiesto toho klasifikované ako „zmenené tvrdenie“ alebo „vytvorené tvrdenie“.
     restorations_performed: Vykonané obnovenia
     reverts_performed: Vykonané vrátenia
     lemmas: Lemy
@@ -2275,7 +2268,6 @@ sk:
     revision_characters_and_views: 'Pridané znaky: %{characters}, zobrazenia: %{views}'
     revisions_doc: Odhadovaný počet úprav vykonaných týmto redaktorom za posledných
       7 dní na základe priemerného počtu úprav za deň za posledné obdobie.
-    references_doc: Počet referencií pridaných alebo odstránených týmto redaktorom
     reviewers: Hodnotitelia
     reviewing: Hodnotí
     revisions: Revízie

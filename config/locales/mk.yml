@@ -521,7 +521,6 @@ mk:
     request_confirmation: Дали сте сигурни дека сакате да ја побарате оваа сметка?
     revision_characters_and_views: 'Додадени знаци: %{characters}, Посети: %{views}'
     revisions_doc: Број на уредувања на уредникот во изминатите 7 дена
-    references_doc: Број на наводи што се додадени или отстранети од овој уредник
     reviewers: Оценувач(и)
     reviewing: Оценување
     sandboxes: песочници

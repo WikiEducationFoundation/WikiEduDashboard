@@ -1079,8 +1079,6 @@ nb:
     withdrawn: Utførte ikke oppgaven
     word_count_doc: Et estimat for antall ord lagt til i artikler av kursets studenter
       i kursterminen
-    word_count_doc_wikidata: Et estimat for antall ord lagt til i elementer i hovednavnerommet
-      av kursets studenter i kursterminen
     yourcourses: Dine kurs
     declined_note: Dette kurset har blitt avvist. Ta kontakt med Wiki Education-staben
       hvis du har spørsmål.
@@ -1253,8 +1251,6 @@ nb:
     view_page: Vis side
     word_count_doc: Et estimat for antall ord lagt til i artikler av programmets deltakere
       i løpet av programterminen
-    word_count_doc_wikidata: Et estimat for antall ord lagt til i elementer av programmets
-      deltakere i løpet av programterminen
     yourcourses: Dine programmer
   editable:
     edit: Rediger
@@ -1411,10 +1407,6 @@ nb:
     qualifiers_added: Kvalifikatorer lagt til
     redirects_created: Omdirigeringer opprettet
     references_added: Referanser lagt til
-    references_added_info: Dette kan være bare en delvis opptelling av referanser
-      som er lagt til. Den er basert på Wikidata-redigeringsforklaringer, og noen
-      redigeringer som legger til referanser klassifiseres i stedet som et «Endret
-      påstand» eller «Opprettet påstand».
     restorations_performed: Gjenopprettinger utført
     reverts_performed: Tilbakestillinger utført
     lemmas: Lemma
@@ -2020,7 +2012,6 @@ nb:
     revision_characters_and_views: 'Tegn lagt til: %{characters}, visninger: %{views}'
     revisions_doc: Estimert antall redigeringer gjort av denne bidragsyteren de siste
       7 dagene, basert på gjennomsnittlig antall redigerer daglig over den siste perioden.
-    references_doc: Antall referanser lagt til eller fjernet av denne deltakeren
     reviewers: Gransker(e)
     reviewing: Gjennomgår
     revisions: Sideversjoner

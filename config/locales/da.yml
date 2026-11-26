@@ -903,8 +903,6 @@ da:
     withdrawn: Udførte ikke opgaven
     word_count_doc: Et anslået antal ord tilføjet til hovedområdets artikler af deltagerne
       under kursus
-    word_count_doc_wikidata: Et skøn over antallet af ord, som kursets studerende
-      har tilføjet til projektets elementer i løbet af kursusperioden
     yourcourses: Dine kurser
     survey:
       notification_message: Deltag i vores undersøgelse for dette kursus.
@@ -1021,8 +1019,6 @@ da:
     view_page: Vis side
     word_count_doc: Et anslået antal ord tilføjet til hovedområdets artikler af deltagerne
       under kursus
-    word_count_doc_wikidata: Et anslået antal ord tilføjet til hovedområdets artikler
-      af deltagerne under kursusperioden
     yourcourses: Dine programmer
   editable:
     edit: Rediger
@@ -1166,9 +1162,6 @@ da:
     qualifiers_added: Kvalifikationer tilføjet
     redirects_created: Omdirigeringer oprettet
     references_added: Referencer tilføjet
-    references_added_info: Dette kan kun være en delvis optælling af tilføjede referencer.
-      Det er baseret på Wikidata-redigeringsresuméer, og nogle redigeringer, der tilføjer
-      referencer, klassificeres i stedet som et "Ændret krav" eller "Oprettet krav".
     restorations_performed: Restaureringer udført
     reverts_performed: Tilbageføringer udført
   namespace:
@@ -1502,7 +1495,6 @@ da:
       failure_message: 'Fejl: %{result_description}'
     revision_characters_and_views: 'Tegn tilføjet: %{characters}, Visninger: %{views}'
     revisions_doc: Antal redigeringer lavet af denne bruger de seneste 7 dage
-    references_doc: Antal referencer tilføjet eller fjernet af denne bruger
     reviewers: Korrekturlæser(e)
     reviewing: Gennemser
     revisions: Revisioner

@@ -102,7 +102,6 @@ yue-hant:
     timeline_tooltip: 啟用時間線可以畀你指定每週活動同分配訓練模組。呢個功能對教育計劃課程同其他長時間、高度結構化嘅計劃好有用。
     view_doc: 註冊編輯自首次編輯每篇條目以嚟，條目嘅估計瀏覽量
     word_count_doc: 課程期間，學生喺主命名空間條目新增嘅字數估計
-    word_count_doc_wikidata: 課程期間，學生喺主命名空間項目新增嘅字數估計
   courses_generic:
     all_courses: 所有計劃
     archived: 封存咗嘅計劃
@@ -114,7 +113,6 @@ yue-hant:
     search_courses: 搵計劃
     unsubmitted: 未提交嘅計劃
     word_count_doc: 計劃期間，計劃編輯喺主命名空間條目新增嘅字數估計
-    word_count_doc_wikidata: 計劃期間，編輯喺主命名空間項目新增嘅字數估計
     yourcourses: 您嘅計劃
   instructor_view:
     bad_work:

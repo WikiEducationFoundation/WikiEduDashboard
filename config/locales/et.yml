@@ -1111,7 +1111,6 @@ et:
     revision_characters_and_views: 'Lisatud märke: %{characters}, vaatamiskordi: %{views}'
     revisions_doc: Kaastöölise tehtud muudatuste hinnanguline arv viimase seitsme
       päeva jooksul. Põhineb viimase perioodi päevasel keskmisel muudatuste arvul.
-    references_doc: Kaastöölise lisatud või eemaldatud viidete arv
     reviewers: Retsensendid
     reviewing: Retsenseerimisel
     sandboxes: liivakastid

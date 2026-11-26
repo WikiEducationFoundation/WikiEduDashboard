@@ -132,6 +132,20 @@ sl:
       contradicted: Nasprotno – vir v resnici nasprotuje trditvi.
     email:
       view_report: Ogled poročila
+    feedback:
+      accurate_options:
+        "yes": Da
+        partly: Delno
+        "no": Ne
+      show_to_participants_question: ALi naj bo prikazano udeležencem programa?
+      show_to_participants_options:
+        "yes": Da
+        maybe: Mogoče
+        "no": Ne
+      comment: Komentar
+      save: Shrani
+      saved: Shranjeno
+      finding: Iskanje
   article_statuses:
     not_yet_started: Prvi koraki
     in_progress: Delo v peskovniku
@@ -264,6 +278,8 @@ sl:
     title_example: Naslov članka
     tools: Ocenjevalna orodja
     view_all: Pokaži vse
+    view_doc: Ocenjeno število ogledov od prvega urejanja prvega učenca do danes.
+      Za natančne podatke o ogledih strani uporabite stran pageviews.toolforge.org.
     tracked_articles: Spremljani članki
     view_articles: Ogled člankov
     no_tracked_articles: Ta kategorija ne vsebuje spremljanih člankov
@@ -278,6 +294,8 @@ sl:
       in se mu dodelite.
     edited_none: Ni še nobenih urejenih predmetov.
     preview: Kratek predogled predmeta
+    view_doc: Ocenjeno število ogledov od prvega urejanja prvega učenca do danes.
+      Za natančne podatke o ogledih strani uporabite stran pageviews.toolforge.org.
     title_example: Naslov predmeta
   articles_generic:
     articles_short: Strani
@@ -312,6 +330,7 @@ sl:
       vendar ni bil izbrisan, saj je prisoten tudi v drugih kampanjah
     data_articles: Urejene strani
     data_revisions: Podatki o redakcijah
+    data_wikidata_info: Podrobna razčlenitev dejavnosti v Wikipodatkih
     description: Opis
     delete_course_tooltip: Izbriši in odstrani iz kampanje.
     featured_campaigns: Izbrane kampanje
@@ -380,6 +399,7 @@ sl:
     data_edits: Podatki o urejanjih
     data_students: Podatki o urejevalcih
     data_revisions: Podatki o redakcijah
+    data_wikidata_info: Podrobna razčlenitev dejavnosti v Wikipodatkih
     delete_suggestion: Izbriši
     dismiss_survey: Opusti
     dismiss_survey_confirm: Ali res želite trajno opustiti to anketo?
@@ -427,14 +447,14 @@ sl:
     timeline_link: Časovnica
     title: Naslov
     view: Ogled tečaja
+    view_doc: Ocenjeni ogledi urejanih člankov od datuma prvega sledenega urejanja
+      vsakega članka
     view_page: Ogled strani tečaja
     wiki_edits_enabled_tooltip: Če je omogočeno vikiurejanje, bodo za ta program v
       vikiju opravljena avtomatizirana urejanja. Če ne želite dodati predlog na uporabniške
       strani, pogovorne strani dodeljenih člankov idr., vikiurejanje onemogočite.
     word_count_doc: Ocena števila besed, ki so jih udeleženci tečaja v času tečaja
       dodali člankom v glavnem imenskem prostoru
-    word_count_doc_wikidata: Ocena števila besed, ki so jih udeleženci tečaja v času
-      tečaja dodali predmetom v glavnem imenskem prostoru
     survey:
       notification_message: Izpolnite našo anketo za ta tečaj.
   course_application_forms:
@@ -573,8 +593,6 @@ sl:
     view_page: Ogled strani programa
     word_count_doc: Ocena števila besed, ki so jih udeleženci programa v času programa
       dodali člankom v glavnem imenskem prostoru
-    word_count_doc_wikidata: Ocena števila besed, ki so jih udeleženci programa v
-      času programa dodali predmetom v glavnem imenskem prostoru
   editable:
     edit: Uredi
     cancel: Prekliči
@@ -590,6 +608,8 @@ sl:
     select_student:
       title: Izberi %{prefix}
   metrics:
+    active_editors: Aktivni urejevalci
+    edits: Urejanja
     last_update: Zadnja posodobitev statistike
     last_articles_update: Zadnja posodobitev članka
     are_trained: je posodobljenih z izobraževanjem
@@ -606,6 +626,12 @@ sl:
     missing_data_heading: Manjkajoči ali nepričakovani zadetki?
     last_update_failed: Zadnja posodobitev tega tečaja ni uspela.
     references_count: Dodani sklici
+    references_doc: Neto število oznak sklicev in skrajšanih predlog sprotnih opomb,
+      ki so bile dodane/odstranjene v glavnem imenskem prostoru (kar lahko vključuje
+      več sklicev na isti vir). Podatki izvirajo iz API-ja Toolforge za števec sklicev.
+    wikidata_stats_info: Število tega, kar je opravilo vsako urejanje. Ustvarjeno
+      vključuje predmete, ki so bili pozneje izbrisani, od dodanih sklicev pa niso
+      odšteti odstranjeni sklici.
     tags: Oznake
     update_statistics_link: Več o tem
     view_count_description: Ogledi članka
@@ -727,6 +753,8 @@ sl:
     uploaded_at: Čas naložitve
     uploader: Naložnik
     usage_count: Število uporab
+    usage_doc: Število strani v glavnem imenskem prostoru na katerem koli projektu
+      Wikimedie, ki uporabljajo to datoteko
     views_per_day: Ogledi na dan
   users:
     assign_articles_done: Končano

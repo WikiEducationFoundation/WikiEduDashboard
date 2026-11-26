@@ -937,7 +937,6 @@ zh-TW:
     wiki_staff: 維基教育職員
     withdrawn: 沒有完成作業
     word_count_doc: 在課程期間由選課學生所加入到主命名空間條目的增加字詞估計量。（不包含維基數據的編輯。）
-    word_count_doc_wikidata: 在課程期間由選課學生所加入到主命名空間項目的增加字詞估計量
     yourcourses: 您的課程
     declined_note: 此課程已被放棄。若有任何疑問，請聯絡 Wiki Education 成員。
     decline_course: 放棄課程
@@ -1092,7 +1091,6 @@ zh-TW:
     view_other: 檢視其它競賽
     view_page: 檢視頁面
     word_count_doc: 一個由條目編輯者在學程學期的期間增加至條目主空間的估計數量。（不包含維基數據的編輯。）
-    word_count_doc_wikidata: 一個由條目編輯者在學程學期的期間增加至主空間項目的估計字詞數量
     yourcourses: 您的學程
   editable:
     edit: 編輯
@@ -1225,7 +1223,6 @@ zh-TW:
     qualifiers_added: 以新增辨識符號
     redirects_created: 已建立重新導向
     references_added: 參考來源已添加
-    references_added_info: 這可能只是所添加參考來源的部分計數。基於維基數據的編輯摘要，一些添加參考來源的編輯會被歸類為「更改的聲明」或「建立的聲明」。
     restorations_performed: 還原已執行
     reverts_performed: 還原已執行
     language: 語言
@@ -1678,7 +1675,6 @@ zh-TW:
       unexpected: 在為 %{username} (%{email}) 建立帳號時，%{wiki} 傳回了意外的回應：%{response}。該請求已保留、且問題已通報。
     revision_characters_and_views: 增加的字元：%{characters}，檢視數：%{views}
     revisions_doc: 依據最近期間每天平均編輯數，此編輯者在過去 7 天的預估編輯次數
-    references_doc: 由此編輯者所添加或移除的參考來源數量
     reviewers: 審核者
     reviewing: 審查中
     revisions: 修訂

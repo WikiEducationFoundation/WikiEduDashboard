@@ -1065,8 +1065,6 @@ tr:
     withdrawn: Atama yapmadı
     word_count_doc: Kurs süresince öğrenciler tarafından ana alan makalelerine eklenen
       kelime sayısının tahmini
-    word_count_doc_wikidata: Kurs dönemi boyunca kursun öğrencileri tarafından ana
-      ad alanı öğelerine eklenen tahmini kelime sayısı
     yourcourses: Kurslarınız
     declined_note: Bu kurs reddedildi. Sorularınız varsa lütfen Wiki Education ekibiyle
       iletişime geçin.
@@ -1228,8 +1226,6 @@ tr:
     view_page: Sayfayı Görüntüle
     word_count_doc: Program döneminde programın editörleri tarafından makalelere eklenen
       tahmini kelime sayısı
-    word_count_doc_wikidata: Program süresi boyunca programın editörleri tarafından
-      ana alan öğelerine eklenen tahmini kelime sayısı.
     yourcourses: Programlarınız
   editable:
     edit: Düzenle
@@ -1381,8 +1377,6 @@ tr:
     qualifiers_added: Eklenen niteleyiciler
     redirects_created: Oluşturulan yönlendirmeler
     references_added: Eklenen referanslar
-    references_added_info: Bu yalnızca kısmi bir referans sayımı olabilir. Wikidata
-      düzenleme özetlerine dayanmaktadır.
     restorations_performed: Yapılan geri yüklemeler
     reverts_performed: Yapılan geri almalar
   namespace:
@@ -1864,7 +1858,6 @@ tr:
       %{views}'
     revisions_doc: Bu editörün son 7 günde yaptığı tahmini değişik sayısı, son dönemdeki
       günlük ortalama değişiklikler dayanmaktadır.
-    references_doc: Bu editör tarafından eklenen veya kaldırılan referansların sayısı
     reviewers: İnceleyici(ler)
     reviewing: İnceleme
     revisions: Revizyonlar

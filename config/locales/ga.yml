@@ -1178,8 +1178,6 @@ ga:
     withdrawn: Níor dhein an tasc
     word_count_doc: Meastachán ar líon na bhfocal a chuir mic léinn an chúrsa le hairteagail
       sa phríomhspás le linn théarma an chúrsa
-    word_count_doc_wikidata: Meastachán ar líon na bhfocal a chuir mic léinn an chúrsa
-      le míreanna príomhspáis le linn théarma an chúrsa
     yourcourses: Do Chúrsaí
     declined_note: Diúltaíodh don chúrsa seo. Téigh i dteagmháil le foireann Wiki
       Education má tá ceisteanna agat.
@@ -1359,8 +1357,6 @@ ga:
     view_page: Féach ar an Leathanach
     word_count_doc: Meastachán ar líon na bhfocal a chuir eagarthóirí an chláir le
       hailt sa phríomhspás le linn théarma an chláir.
-    word_count_doc_wikidata: Meastachán ar líon na bhfocal a chuir eagarthóirí an
-      chláir le míreanna sa phríomhspás le linn théarma an chláir.
     yourcourses: Do chuid cláir
   editable:
     edit: Athraigh
@@ -1532,10 +1528,6 @@ ga:
     qualifiers_added: Cáilitheoirí curtha leis
     redirects_created: Atreoruithe cruthaithe
     references_added: Tagairtí curtha leis
-    references_added_info: B’fhéidir nach bhfuil ann ach comhaireamh páirteach de
-      thagairtí a cuireadh leis. Tá sé bunaithe ar achoimrí eagarthóireachta Wikidata,
-      agus déantar roinnt eagarthóireachtaí a chuireann tagairtí leis a aicmiú mar
-      "Éileamh Athraithe" nó "Éileamh Cruthaithe" ina ionad.
     restorations_performed: Athchóirithe déanta
     reverts_performed: Aisíocaíochtaí déanta
     lemmas: Léamaí
@@ -2210,8 +2202,6 @@ ga:
     revisions_doc: An líon measta eagarthóireachtaí a rinne an t-eagarthóir seo le
       7 lá anuas, bunaithe ar an meán-eagarthóireacht in aghaidh an lae le linn na
       tréimhse seo caite.
-    references_doc: Líon na dtagairtí a chuir an t-eagarthóir seo leis nó a bhain
-      sé as
     reviewers: Athbhreithneoir(í)
     reviewing: Ag athbhreithniú
     revisions: Athbhreithnithe

@@ -247,9 +247,9 @@ it:
     tools: Strumenti di valutazione
     view: Visualizza voce
     view_all: Mostra tutto
-    view_doc: La stima delle visite per ogni voce da quando è stata modificata la
-      prima volta, attraverso le ultime statistiche più aggiornate. Puoi usare pageviews.toolforge.org
-      per vedere i numeri esatti.
+    view_doc: Stima delle visualizzazioni dal primo studente che ha effettuato una
+      modifica fino ad oggi. Per dati precisi sulle visualizzazioni di pagina, consulta
+      pageviews.toolforge.org.
     view_on_wiki: Vedi su wiki
     views_added: Aggiunte %{count} nuove viste per %{title}
     article_size: Dimensione voce
@@ -728,8 +728,8 @@ it:
       multimediali su Wikimedia Commons.
     view_other: Vedi altre campagne
     view: Visualizza corso
-    view_doc: La stima delle visite alle voci modificate dagli editori iscritti da
-      quando gli editori hanno fatto la loro prima modifica ad ogni voce
+    view_doc: Stima delle visualizzazioni delle voci modificate, a partire dalla data
+      della prima modifica tracciata per ciascuna voce.
     view_page: Vedi pagina del corso
     view_wiki: Mostra su Wikipedia
     volunteer:
@@ -864,9 +864,10 @@ it:
     per_user: '%{number}/utente'
     revisions: Modifiche recenti
     references_count: Riferimenti aggiunti
-    references_doc: Questo è il numero di tag di riferimento e modelli di note a piè
-      di pagina abbreviati aggiunti alle voci e può includere più riferimenti alla
-      stessa fonte. I dati provengono dall'API Toolforge del contatore di riferimenti.
+    references_doc: Numero netto di tag di riferimento e modelli di note a piè di
+      pagina abbreviate aggiunti/rimossi nello namespace principale (che può includere
+      più riferimenti alla stessa fonte). I dati provengono dall'API di Toolforge
+      per il conteggio dei riferimenti.
     tags: Etichette
     update_status_heading: Aggiorna stato
     update_statistics_link: Vedi altro
@@ -1083,7 +1084,8 @@ it:
     uploaded_by: Caricato da
     uploaded_on: Caricato il
     usage_count: Numero di utilizzi
-    usage_doc: Numero di voci di Wikipedia in cui appare questa immagine.
+    usage_doc: Numero di pagine nel namespace principale, su qualsiasi progetto Wikimedia,
+      che utilizzano questo file
     usage_count_gallery_tile:
       one: Usata in 1 voce
       other: Usata in %{count} voci
@@ -1134,7 +1136,6 @@ it:
     revisions_doc: Il numero stimato di modifiche apportate da questo editor negli
       ultimi 7 giorni, in base alla media delle modifiche giornaliere nell'ultimo
       periodo.
-    references_doc: Il numero di riferimenti aggiunti o rimossi da quest'utente
     reviewers: Revisori
     revisions: Versioni
     total_uploads: Totale caricamenti
