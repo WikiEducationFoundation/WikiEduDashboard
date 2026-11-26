@@ -160,3 +160,21 @@ divergences:
         path: lib/course_cache_manager.rb
       - ruby: ArticleHelper#calculate_view_count
     status: intentional
+
+  uploads-window:
+    title: When Commons uploads are counted for Salesforce
+    metrics: [commons_uploads]
+    description: |
+      A course's stored upload count is calculated during each stats update,
+      whereas Salesforce gets a count of uploads made when the record is
+      pushed, rather than the stored count from the last update. The two can
+      differ briefly.
+
+      This Salesforce difference is intentional: it only lasts until the
+      next update.
+    code:
+      - file: app/models/course.rb
+      - ruby: CourseCacheManager#update_upload_count
+        path: lib/course_cache_manager.rb
+      - ruby: PushCourseToSalesforce#base_salesforce_fields
+    status: intentional

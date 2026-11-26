@@ -27,7 +27,6 @@ about_this_site#accessibility: public
 about_this_site#canvas_instructor_guide: public
 about_this_site#canvas_integration_guide: public
 about_this_site#hecvat: public
-about_this_site#metrics: public
 about_this_site#private_information: public
 
 action_mailbox/ingresses/mailgun/inbound_emails#create: none
