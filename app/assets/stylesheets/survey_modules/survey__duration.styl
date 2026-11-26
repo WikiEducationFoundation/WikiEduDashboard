@@ -1,0 +1,35 @@
+// Duration statistics section on the survey results page.
+// Replaces inline styles in results.html.haml.
+
+.survey__duration-stats
+  margin-top 20px
+
+  .survey__duration-stats__table
+    width 100%
+    margin-bottom 15px
+
+  .survey__duration-stats__label
+    font-weight bold
+
+.duration-distribution
+  margin-bottom 15px
+
+  .distribution-row
+    display flex
+    align-items center
+    margin-bottom 4px
+
+  .distribution-row__label
+    width 80px
+    font-size 12px
+    text-align right
+    padding-right 8px
+
+  .distribution-bar
+    background $survey_results_color
+    height 18px
+    border-radius 3px
+
+  .distribution-row__count
+    padding-left 6px
+    font-size 12px
