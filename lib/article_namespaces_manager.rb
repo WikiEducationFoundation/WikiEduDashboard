@@ -61,17 +61,13 @@ class ArticleNamespacesManager
   private
 
   def reset_deleted_articles
-    deleted_ids = []
     # Note that this could remove articles courses records for manually untracked articles
     @course.articles.where(deleted: true).in_batches do |article_batch|
-      deleted_ids += article_batch.pluck(:id)
       @cleaner.reset_excluded(article_batch)
     end
-    log_reset('Article untracked', 'deleted', deleted_ids)
   end
 
   def reset_undeleted_or_retracked_articles
-    retracked_ids = []
     # Not @course.articles.to_a: that would cache a stale @course.articles,
     # which reset_articles_in_untracked_namespaces reads later.
     existing_article_ids = @course.articles_courses.pluck(:article_id).to_set
@@ -83,39 +79,23 @@ class ArticleNamespacesManager
         tracked_without_articles_courses = tracked.reject do |a|
           existing_article_ids.include?(a.id)
         end
-        retracked_ids += tracked_without_articles_courses.map(&:id)
         @cleaner.reset_included(tracked_without_articles_courses, wiki)
       end
     end
-    log_reset('Article retracked', 'undeleted_or_retracked', retracked_ids)
   end
 
   def reset_articles_that_moved_to_mainspace
     articles = Article.find(moved_to_mainspace)
     @cleaner.reset_legacy(articles)
-    log_reset('Article retracked', 'moved_to_mainspace', articles.map(&:id))
   end
 
   def reset_articles_in_untracked_namespaces
-    untracked_ids = []
     @course.articles.in_batches do |article_batch|
       tracked_ids = articles_in_tracked_namespaces(article_batch).map(&:id)
       # Find articles with articles_courses records but not in tracked namespaces
       untracked_articles = article_batch.where.not(id: tracked_ids)
-      untracked_ids += untracked_articles.pluck(:id)
       @cleaner.reset_excluded(untracked_articles)
     end
-    log_reset('Article untracked', 'moved_to_untracked_namespace', untracked_ids)
-  end
-
-  # This scenario is hard to reproduce (it requires an article to move namespaces
-  # in the middle of course updates), so we log it to learn how frequent it is.
-  def log_reset(message, reason, article_ids)
-    return if article_ids.empty?
-    Sentry.capture_message message,
-                           level: 'info',
-                           extra: { course_slug: @course.slug, course_id: @course.id,
-                                    reason:, article_ids: }
   end
 
   def articles_in_tracked_namespaces(article_batch)

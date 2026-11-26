@@ -144,23 +144,10 @@ class ArticlesCourses < ApplicationRecord
     return if article_ids.empty?
     acuwt = ArticleCourseUserWikiTimeslice.where(course:, article_id: article_ids)
     # rubocop:disable Rails/SkipsModelValidations
-    marked = acuwt.update_all(needs_update: true)
+    acuwt.update_all(needs_update: true)
     # rubocop:enable Rails/SkipsModelValidations
-    return if marked.zero?
-    log_preexisting_acuwt_marked(course, acuwt.distinct.pluck(:article_id))
   end
   private_class_method :mark_preexisting_acuwt_for_update
-
-  # This scenario is hard to reproduce (it requires an article to move namespaces in the
-  # middle of course updates), so we log it to learn how frequent it is.
-  def self.log_preexisting_acuwt_marked(course, article_ids)
-    Sentry.capture_message 'Article retracked',
-                           level: 'info',
-                           extra: { course_slug: course.slug, course_id: course.id,
-                                    reason: 'created_with_preexisting_acuwt_history',
-                                    article_ids: }
-  end
-  private_class_method :log_preexisting_acuwt_marked
 
   def self.maybe_insert_new_records(new_records)
     return if new_records.empty?

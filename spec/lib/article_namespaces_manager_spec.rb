@@ -35,17 +35,6 @@ describe ArticleNamespacesManager do
       expect(ArticleCourseTimeslice.where(article_id: mainspace_article.id).count).to eq(0)
     end
 
-    it 'logs the retracked article to Sentry' do
-      allow(Sentry).to receive(:capture_message)
-      subject
-
-      expect(Sentry).to have_received(:capture_message)
-        .with('Article retracked', level: 'info',
-              extra: { course_slug: course.slug, course_id: course.id,
-                       reason: 'moved_to_mainspace',
-                       article_ids: [mainspace_article.id] })
-    end
-
     # For ACUWT courses, this case is detected when the articles_courses record is
     # created instead (see ArticlesCourses.update_from_course_revisions).
     context 'when the course uses ACUWT' do
@@ -181,39 +170,6 @@ describe ArticleNamespacesManager do
 
       expect(course.article_course_timeslices.where(article: article1)).not_to be_empty
       expect(course.article_course_timeslices.where(article: article4)).not_to be_empty
-    end
-
-    it 'logs untracked articles to Sentry' do
-      allow(Sentry).to receive(:capture_message)
-      described_class.new(course)
-
-      expect(Sentry).to have_received(:capture_message)
-        .with('Article untracked', level: 'info',
-              extra: { course_slug: course.slug, course_id: course.id,
-                       reason: 'moved_to_untracked_namespace',
-                       article_ids: [article3.id] })
-    end
-
-    it 'logs deleted articles to Sentry when statuses were synced' do
-      allow(Sentry).to receive(:capture_message)
-      described_class.new(course, statuses_synced: true)
-
-      expect(Sentry).to have_received(:capture_message)
-        .with('Article untracked', level: 'info',
-              extra: { course_slug: course.slug, course_id: course.id,
-                       reason: 'deleted',
-                       article_ids: [article1.id] })
-    end
-
-    it 'logs retracked articles to Sentry when statuses were synced' do
-      allow(Sentry).to receive(:capture_message)
-      described_class.new(course, statuses_synced: true)
-
-      expect(Sentry).to have_received(:capture_message)
-        .with('Article retracked', level: 'info',
-              extra: { course_slug: course.slug, course_id: course.id,
-                       reason: 'undeleted_or_retracked',
-                       article_ids: [article4.id] })
     end
 
     it 'does not reset undeleted or retracked articles for only-scoped-articles courses' do

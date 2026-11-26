@@ -243,7 +243,8 @@ describe ArticleStatusManager do
         expect(Sentry).to have_received(:capture_message)
           .with('Article namespace changed', level: 'info',
                 extra: { course_slug: course.slug, course_id: course.id,
-                         article_id: 848, old_namespace: 2, new_namespace: 0 })
+                         article_id: 848, old_namespace: 2,
+                         new_namespace: 0 })
       end
     end
 
@@ -275,37 +276,6 @@ describe ArticleStatusManager do
       expect(course.article_course_timeslices.count).to eq(1)
       timeslice = course.course_wiki_timeslices.find_by(start: 3.days.ago.beginning_of_day)
       expect(timeslice.needs_update).to eq(true)
-    end
-
-    it 'logs the reset to Sentry when there are deleted and nondeleted copies of an article' do
-      create(:article,
-             id: 53001516,
-             mw_page_id: 66653200,
-             title: 'Port_of_Spain_Gazette',
-             updated_at: 2.days.ago)
-      create(:article,
-             id: 53058287,
-             mw_page_id: 66653200,
-             title: 'Port_of_Spain_Gazette',
-             deleted: true,
-             updated_at: 2.days.ago)
-      create(:articles_course, course:, article_id: 53001516)
-      create(:article_course_timeslice, course:, article_id: 53001516,
-             start: 2.days.ago.beginning_of_day, end: 1.day.ago.beginning_of_day)
-      create(:articles_course, course:, article_id: 53058287)
-      create(:article_course_timeslice, course:, article_id: 53058287,
-             start: 3.days.ago.beginning_of_day, end: 2.days.ago.beginning_of_day)
-      # Create course wiki timeslices
-      TimesliceManager.new(course).create_timeslices_for_new_course_wiki_records([course.home_wiki])
-      allow(Sentry).to receive(:capture_message)
-
-      VCR.use_cassette 'article_status_manager/undeletion_duplicate' do
-        described_class.update_article_status_for_course(course)
-      end
-      expect(Sentry).to have_received(:capture_message)
-        .with('Article retracked', level: 'info',
-              extra: { course_slug: course.slug, course_id: course.id,
-                       reason: 'undeleted_duplicate', article_ids: [53058287] })
     end
 
     it 'handles undeleted articles' do
