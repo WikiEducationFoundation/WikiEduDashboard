@@ -2,6 +2,7 @@
 
 json.course do
   articles_courses = @course.articles_courses.includes(article: :wiki).order(:id)
+  articles_courses = articles_courses.search_by_course_and_user(@course, @user_id) if @user_id
   # Always apply the cursor (0 for the first page): it keeps the query on the course index.
   articles_courses = articles_courses.where('articles_courses.id > ?', @after_id || 0)
   json.articles articles_courses.limit(@limit) do |ac|

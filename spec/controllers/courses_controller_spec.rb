@@ -129,6 +129,47 @@ describe CoursesController, type: :request do
       expect(articles_page(after_id: 'abc').length).to eq(2)
       expect(articles_page(after_id: -5).length).to eq(2)
     end
+
+    describe 'filtering by user_id' do
+      let(:articles_courses) { course.articles_courses.order(:id).to_a }
+
+      before do
+        articles_courses[0].update!(user_ids: [7])
+        articles_courses[1].update!(user_ids: [8])
+        articles_courses[2].update!(user_ids: [7, 8])
+        articles_courses[3].update!(user_ids: [70])
+      end
+
+      it 'returns only the articles that user edited' do
+        ids = articles_page(user_id: 7).pluck('articles_course_id')
+        expect(ids).to eq([articles_courses[0].id, articles_courses[2].id])
+      end
+
+      it 'does not match a user whose id only starts with the same digits' do
+        ids = articles_page(user_id: 7).pluck('articles_course_id')
+        expect(ids).not_to include(articles_courses[3].id)
+      end
+
+      it 'respects the limit' do
+        ids = articles_page(user_id: 7, limit: 1).pluck('articles_course_id')
+        expect(ids).to eq([articles_courses[0].id])
+      end
+
+      it 'pages through the filtered list with after_id' do
+        ids = articles_page(user_id: 7, limit: 1, after_id: articles_courses[0].id)
+                .pluck('articles_course_id')
+        expect(ids).to eq([articles_courses[2].id])
+      end
+
+      it 'returns nothing for a user with no articles' do
+        expect(articles_page(user_id: 999)).to be_empty
+      end
+
+      it 'ignores a user_id that is not a positive number' do
+        expect(articles_page(user_id: 'abc').length).to eq(2)
+        expect(articles_page(user_id: -3).length).to eq(2)
+      end
+    end
   end
 
   describe '#destroy' do

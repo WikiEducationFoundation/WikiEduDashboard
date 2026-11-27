@@ -8,9 +8,10 @@ import { DONE_REFRESHING_DATA } from '../constants';
 // than that at once is what used to make large courses hit the article cap.
 const ARTICLES_PAGE_SIZE = 500;
 
-const fetchArticlesPage = (courseId, pageSize, afterId) => {
+const fetchArticlesPage = (courseId, pageSize, afterId, userId) => {
   const afterParam = afterId ? `&after_id=${afterId}` : '';
-  return request(`/courses/${courseId}/articles.json?limit=${pageSize}${afterParam}`)
+  const userParam = userId ? `&user_id=${userId}` : '';
+  return request(`/courses/${courseId}/articles.json?limit=${pageSize}${afterParam}${userParam}`)
     .then((res) => {
       if (res.ok && res.status === 200) {
         return res.json();
@@ -83,6 +84,55 @@ export const fetchMoreArticles = (courseId) => {
         dispatch({
           type: types.RECEIVE_MORE_ARTICLES,
           data: resp,
+          pageSize: ARTICLES_PAGE_SIZE,
+        });
+        fetchWikidataLabelsForArticles(page, dispatch);
+      })
+      .catch((response) => {
+        dispatch({ type: types.API_FAIL, data: response });
+      });
+  };
+};
+
+// Loads the first page of the articles one student edited. They are kept per
+// student, apart from state.articles, so the course-wide "See more" is unaffected.
+export const fetchStudentArticles = (courseId, userId) => {
+  return (dispatch, getState) => {
+    // Don't refetch a student's articles if they are already in the store.
+    if (getState().studentArticles[userId]) { return; }
+
+    return fetchArticlesPage(courseId, ARTICLES_PAGE_SIZE, null, userId)
+      .then((resp) => {
+        const page = resp?.course?.articles;
+        if (!page) { throw resp; }
+        dispatch({
+          type: types.RECEIVE_STUDENT_ARTICLES,
+          data: resp,
+          userId,
+          pageSize: ARTICLES_PAGE_SIZE,
+        });
+        fetchWikidataLabelsForArticles(page, dispatch);
+      })
+      .catch((response) => {
+        dispatch({ type: types.API_FAIL, data: response });
+      });
+  };
+};
+
+// Loads the next page of one student's articles. The cursor is the highest
+// articles_course_id in that student's own list.
+export const fetchMoreStudentArticles = (courseId, userId) => {
+  return (dispatch, getState) => {
+    const loaded = getState().studentArticles[userId]?.articles || [];
+    const afterId = loaded.reduce((max, article) => Math.max(max, article.articles_course_id || 0), 0);
+    return fetchArticlesPage(courseId, ARTICLES_PAGE_SIZE, afterId, userId)
+      .then((resp) => {
+        const page = resp?.course?.articles;
+        if (!page) { throw resp; }
+        dispatch({
+          type: types.RECEIVE_MORE_STUDENT_ARTICLES,
+          data: resp,
+          userId,
           pageSize: ARTICLES_PAGE_SIZE,
         });
         fetchWikidataLabelsForArticles(page, dispatch);

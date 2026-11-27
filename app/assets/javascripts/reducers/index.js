@@ -21,6 +21,7 @@ import persistedCourse from './persisted_course';
 import recentUploads from './recent_uploads';
 import revisions from './revisions';
 import settings from './settings';
+import studentArticles from './student_articles';
 import tags from './tags';
 import taggedCoursesStats from './tagged_courses_stats';
 import tickets from './tickets';
@@ -85,6 +86,7 @@ const reducer = combineReducers({
   refreshing,
   revisions,
   settings,
+  studentArticles,
   tags,
   taggedCoursesStats,
   tickets,

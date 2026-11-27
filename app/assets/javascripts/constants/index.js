@@ -28,6 +28,7 @@ export * from './uploads';
 export * from './user_courses';
 export * from './user_profile';
 export * from './user_revisions';
+export * from './student_articles';
 export * from './user_roles';
 export * from './users';
 export * from './settings';
