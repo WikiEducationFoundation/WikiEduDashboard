@@ -130,9 +130,11 @@ class ApplicationController < ActionController::Base
   private
 
   def set_locale
-    # Saved user locale takes precedence over language preferences from HTTP headers.
+    # Course home wiki language takes precedence over language preferences from HTTP headers.
+    preferred_locale_from_course
+    # Saved user locale takes precedence over course home wiki language.
     preferred_locale_from_user
-    # Param takes precedence over saved user local
+    # Param takes precedence over saved user locale.
     preferred_locale_from_param
 
     preferred_locale = http_accept_language.preferred_language_from I18n.available_locales
@@ -147,6 +149,19 @@ class ApplicationController < ActionController::Base
   def preferred_locale_from_param
     return unless params[:locale]
     http_accept_language.user_preferred_languages.unshift(params[:locale])
+  end
+
+  # On course pages, use the language of the course's home wiki, so that
+  # people who follow a course link see the course in its own language.
+  # Reads the course from the route, like #require_permissions.
+  def preferred_locale_from_course
+    path = request.path_parameters
+    return unless path[:school] && path[:titleterm]
+    language = Course.joins(:home_wiki)
+                     .where(slug: "#{path[:school]}/#{path[:titleterm]}")
+                     .pick('wikis.language')
+    return unless language
+    http_accept_language.user_preferred_languages.unshift(language)
   end
 
 
