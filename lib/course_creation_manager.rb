@@ -8,17 +8,18 @@ class CourseCreationManager
   attr_reader :wiki, :invalid_reason
 
   # rubocop:disable Metrics/ParameterLists
-  def initialize(course_params, wiki_params, scoping_methods, initial_campaign_params,
-                 instructor_role_description, current_user, ta_support)
+  def initialize(course_params, wiki_params, courses_wikis_params, scoping_methods,
+                 initial_campaign_params, instructor_role_description, current_user, ta_support)
     @scoping_methods = scoping_methods
     @ta_support = ta_support
     @course_params = course_params
     @wiki_params = wiki_params
+    @courses_wikis_params = courses_wikis_params
     @initial_campaign_params = initial_campaign_params
     @role_description = instructor_role_description
     @instructor = current_user
     @overrides = {}
-    set_wiki
+    set_wikis
     set_slug
     set_scoping_methods
   end
@@ -55,15 +56,22 @@ class CourseCreationManager
 
   private
 
-  def set_wiki
-    language_param = @wiki_params[:language]
-    project_param = @wiki_params[:project]
-    language = language_param.presence || Wiki.default_wiki.language
-    project = project_param.presence || Wiki.default_wiki.project
-    @wiki = Wiki.get_or_create(language: language.downcase, project: project.downcase)
+  # Looks up the home wiki and the tracked wikis up front, so that an invalid
+  # one fails validation before the course is saved.
+  def set_wikis
+    language = @wiki_params[:language].presence || Wiki.default_wiki.language
+    project = @wiki_params[:project].presence || Wiki.default_wiki.project
+    @wiki = find_wiki(language: language.downcase, project: project.downcase)
     @overrides[:home_wiki] = @wiki
+    @tracked_wikis = (@courses_wikis_params[:wikis] || []).map do |wiki|
+      find_wiki(language: wiki[:language], project: wiki[:project])
+    end
+  end
+
+  def find_wiki(language:, project:)
+    Wiki.get_or_create(language:, project:)
   rescue Wiki::InvalidWikiError
-    @wiki = nil
+    nil
   end
 
   def set_slug
@@ -75,7 +83,7 @@ class CourseCreationManager
   end
 
   def invalid_wiki?
-    @wiki&.id.nil?
+    @wiki&.id.nil? || @tracked_wikis.any? { |wiki| wiki&.id.nil? }
   end
 
   def invalid_slug?

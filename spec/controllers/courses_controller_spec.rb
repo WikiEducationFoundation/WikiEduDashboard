@@ -674,6 +674,26 @@ describe CoursesController, type: :request do
         end
       end
 
+      context 'valid home wiki but invalid tracked wiki present' do
+        let(:course_params) do
+          { school: 'Wiki University',
+            title: 'How to Wiki',
+            term: 'Fall 2015',
+            start: '2015-01-05',
+            end: '2015-12-20',
+            home_wiki: { language: 'en', project: 'wikipedia' },
+            wikis: [{ language: 'en', project: 'wikipedia' },
+                    { language: 'arrr', project: 'wikipirates' }] }
+        end
+
+        it 'renders a 404 and does not create the course' do
+          post '/courses', params: { course: course_params }, as: :json
+          expect(response.status).to eq(404)
+          expect(Course.count).to eq(0)
+          expect(response.body).to include('Invalid language/project')
+        end
+      end
+
       context 'when blank values are given for course school, title or both' do
         let(:course_params) do
           { school: ' ',
