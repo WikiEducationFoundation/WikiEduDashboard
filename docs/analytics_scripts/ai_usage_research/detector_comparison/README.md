@@ -396,6 +396,95 @@ humanized-window counts and the score distribution per document label; words per
 each detector; baseline false-positive rate per model version; and `cutover_summary.md`
 with the tables.
 
+### November 2026 round (`analysis/export_core_table.rb`, `analysis/round_2026_11.py`)
+
+Compares Pangram 4.1, Originality 5.0 / 5.0 Max and ParaTrace v10 with the earlier models
+on the 1,756 core texts. The core run (`ScoreDetectorComparisonCore`) scored them on
+2026-11-17/18, and ParaTrace on 2026-11-19 (5,120 credits); the scores were exported, loaded
+locally with `load_core_scores.rb`, and analyzed on 2026-11-18 and 2026-11-19.
+
+- `export_core_table.rb` (Rails runner) writes one CSV row per core text and detector:
+  - the unit's group (known-human, article version, base prompts, other strategies,
+    open-weight ladder, Agpedia);
+  - its factors and generation metadata (runner, web searches and fetches, tool steps);
+  - the detector's verdict, alert rule and `DetectorSummary`.
+
+  Scores stored on identical copies of a text count, as on the page.
+- `round_2026_11.py` prints the tables, one section per question: `q1` Pangram 4.0 → 4.1,
+  `q3` Originality 5.0 / Max against AI Allowance, `q4` every detector on whole-text scores
+  (AUC and recall at in-sample false-positive thresholds), `q5` October's candidate
+  conclusions re-tested, and `q6` ParaTrace's verdicts, false positives and misses.
+
+  ```sh
+  python round_2026_11.py ~/detector_results_2026-11/core_table.csv q1 q3 q4 q5 q6
+  ```
+
+Findings. Detection counts any verdict short of human; intervals are 95% Clopper–Pearson.
+
+- **Pangram 4.0 → 4.1.**
+  - Verdicts are nearly unchanged: 0/578 known-human texts flagged by either (upper bound 0.6%),
+    and 49 of 1,756 texts changed label, none between Human and AI.
+  - The alert rule (a window above 0.9) became far more sensitive. Simple-prompt texts went
+    from 78% to 100%, other strategies from 54% to 96%, Agpedia from 3 to 15 of 16: 363 new
+    alerts, none lost, still none on human text. 4.1 splits texts into more windows (median
+    1 → 3 for other strategies, 5 → 23 for Agpedia), so one of them crosses 0.9.
+  - The humanizer flag never fired on any core text: the highest humanizer score was 0.28,
+    and 0 on human texts. In production it lies behind 252 alerts on its own.
+- **Originality 5.0 against AI Allowance.**
+  - Recall rose from 47% (A40) and 88% (A15) to 99.7% on the other strategies, and from
+    8 and 12 of 16 to 16 of 16 on Agpedia.
+  - 5 of 578 known-human texts (0.9%, 0.3–2.0%) were labelled Mixed, none AI, at 24–70%
+    AI-assisted; Pangram scores all of them 0.
+  - 13.5% of human texts have a segment above 0.9, so a max-segment rule must not be used.
+  - 5.0 Max matched 5.0 on 99.7% of verdicts (score correlation 0.999) and billed the same
+    credits through the API, about 1 per 100 words.
+- **Every detector on whole-text scores** (972 AI texts, thresholds fitted in-sample):
+
+  | Detector | AUC | Recall at 1% FPR |
+  |---|---|---|
+  | Pangram 4.0 | 1.000 | 99.9% |
+  | Originality 5.0 / Max | 1.000 | 99.8% |
+  | ParaTrace v10 | 0.999 | 100.0% |
+  | Pangram 4.1 | 0.999 | 99.4% |
+  | Allowance 15 | 0.993 | 96.0% |
+  | Allowance 40 | 0.990 | 92.9% |
+  | Open Pangram Llama | 0.946 | 79.9% |
+  | Open Pangram RoBERTa | 0.922 | 62.2% |
+  | Desklib | 0.829 | 45.2% |
+
+  - Pangram 4.1 scores human text at about 0 (highest 6e-9), so its in-sample thresholds sit
+    at numerical noise.
+  - On AI texts, 5.0 flags everything 4.1 flags plus 22 more. Two short Sonnet 5.5
+    assignment texts escape both.
+- **ParaTrace v10** (strict operating point):
+  - Verdict recall 99.4% on the 972 AI texts: all base prompts, open-weight ladder and
+    Agpedia texts, and 694 of 700 other-strategy texts. The 6 it misses are short (94–265
+    words) assignment-style texts that Originality 5.0 labels AI.
+  - It flags 23 of the 24 AI texts Pangram 4.1 misses, including both that Originality 5.0
+    misses. Every AI text is flagged by Originality 5.0 or ParaTrace.
+  - 7 of 578 known-human texts flagged (1.2%, 0.5–2.5%), and 0 of 46 article versions.
+    6 are Mixed at an AI fraction of 0.12–0.50. One is labelled AI at probability 0.83
+    (unit 2573, a pre-2023 band article with infobox residue), which every other vendor
+    calls human. Originality 5.0 shares only one of its 5 Mixed texts.
+  - Its threshold on the whole-text probability depends on length: 0.17 for texts of up
+    to 3 windows, 0.36 for longer ones. The verdict follows the probability against that
+    threshold for every text except the 17 labelled Mixed.
+  - Context lowers ParaTrace's probability about as much as Pangram's (one-line 0.92 →
+    ChatGPT-written prompt with web 0.62, Agpedia 0.47), and more than any other detector
+    from GPT-5.6 Luna to GPT-6 Astra (0.91 → 0.64). Its low threshold keeps the verdicts:
+    the full AI label stays at 90–100% for every strategy.
+- **October's conclusions.**
+  - Prompt sophistication, topic, model (GPT-5.6 Luna → GPT-6 Astra) and web tools all still
+    lower scores significantly for every detector.
+  - Only Pangram's verdicts move much. Its full AI label falls from 99% (one-line) to about
+    50% (assignment or ChatGPT-written prompt with web) and 6% (Agpedia). Originality 5.0
+    stays at 97–100% throughout; ParaTrace's scores move but its verdicts stay at 90–100%.
+  - Pangram still far outperforms Open Pangram.
+
+Caveats: the known-human texts are pre-2023 Wikipedia contributions that may be in every
+detector's training data; thresholds are in-sample; the Agpedia set is 16 articles from
+one model and workflow.
+
 ## Adding a detector
 
 1. A client class in `lib/` with `#inference(text)` returning the parsed response, raising
