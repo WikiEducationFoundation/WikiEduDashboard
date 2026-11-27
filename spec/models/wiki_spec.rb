@@ -101,6 +101,14 @@ describe Wiki do
             .to raise_error(Wiki::InvalidWikiError)
         end
       end
+
+      # bjn.wikibooks.org redirects to its Incubator page instead of serving an API.
+      it 'does not allow wikis that redirect to Incubator' do
+        VCR.use_cassette('wiki') do
+          expect { create(:wiki, language: 'bjn', project: 'wikibooks') }
+            .to raise_error(Wiki::InvalidWikiError)
+        end
+      end
     end
   end
 
