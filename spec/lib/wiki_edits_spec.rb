@@ -73,6 +73,23 @@ describe WikiEdits do
     described_class.new.post_whole_page(User.first, 'Foo', 'Bar')
   end
 
+  describe 'edit throttling' do
+    before { stub_oauth_edit }
+
+    it 'throttles edits at the new-user rate without the autoconfirmed right' do
+      described_class.new.post_whole_page(User.first, 'Foo', 'Bar')
+      expect(WikiEditThrottle).to have_received(:wait_for_turn)
+        .with(hash_including(user: User.first, autoconfirmed: false))
+    end
+
+    it 'throttles edits at the autoconfirmed rate with the autoconfirmed right' do
+      stub_token_request(rights: %w[edit autoconfirmed])
+      described_class.new.post_whole_page(User.first, 'Foo', 'Bar')
+      expect(WikiEditThrottle).to have_received(:wait_for_turn)
+        .with(hash_including(user: User.first, autoconfirmed: true))
+    end
+  end
+
   describe '.notify_untrained' do
     it 'posts talk page messages on Wikipedia' do
       stub_oauth_edit

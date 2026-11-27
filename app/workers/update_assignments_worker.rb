@@ -4,7 +4,7 @@ require_dependency "#{Rails.root}/lib/wiki_course_edits"
 
 class UpdateAssignmentsWorker
   include Sidekiq::Worker
-  sidekiq_options lock: :until_executed
+  sidekiq_options lock: :until_executing
 
   def self.schedule_edits(course:, editing_user:)
     perform_async(course.id, editing_user.id)

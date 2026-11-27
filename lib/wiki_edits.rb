@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wiki_response"
+require_dependency "#{Rails.root}/lib/wiki_edit_throttle"
 
 #= Class for making edits to Wikipedia via OAuth, using a user's credentials
 class WikiEdits
@@ -121,6 +122,7 @@ class WikiEdits
     tokens = get_tokens(current_user, token_type)
     return tokens unless tokens['action_token']
     data[token_name] = tokens.action_token
+    wait_for_edit_slot(current_user, tokens) if data[:action] == 'edit'
 
     # Make the request
     response = tokens.access_token.post(@wiki.api_url, data)
@@ -137,11 +139,10 @@ class WikiEdits
   def get_tokens(current_user, type = 'csrf')
     return { status: 'no current user' } unless current_user
 
-    # Request a CSRF or other token for the user
+    # Request a CSRF or other token for the user, together with the user's rights,
+    # which set how fast WikiEditThrottle lets their edits through.
     @access_token = oauth_access_token(current_user)
-    get_token = @access_token.get(
-      "#{@wiki.api_url}?action=query&meta=tokens&format=json&type=#{type}"
-    )
+    get_token = @access_token.get("#{@wiki.api_url}?#{token_query(type)}")
 
     # Handle 5XX response for when MediaWiki API is down
     handle_mediawiki_server_errors(get_token) { return { status: 'failed' } }
@@ -152,7 +153,20 @@ class WikiEdits
     handle_token_response_errors(token_response) { |err| return { status: 'failed', error: err } }
 
     OpenStruct.new(action_token: token_response['query']['tokens']["#{type}token"],
-                   access_token: @access_token)
+                   access_token: @access_token,
+                   rights: token_response.dig('query', 'userinfo', 'rights') || [])
+  end
+
+  def token_query(type)
+    URI.encode_www_form(action: 'query', meta: 'tokens|userinfo', uiprop: 'rights',
+                        format: 'json', type:)
+  end
+
+  # MediaWiki's stricter edit rate limit applies to users without the
+  # autoconfirmed right, which both the autoconfirmed and confirmed groups have.
+  def wait_for_edit_slot(current_user, tokens)
+    WikiEditThrottle.wait_for_turn(user: current_user, wiki: @wiki,
+                                   autoconfirmed: tokens.rights.include?('autoconfirmed'))
   end
 
   def oauth_consumer
