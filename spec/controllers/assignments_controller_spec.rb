@@ -69,8 +69,29 @@ describe AssignmentsController, type: :request do
                            flags: { available_article: true })
       end
 
+      let(:unclaim_params) do
+        { id: assignment.id, course_slug: course.slug, assignment_id: assignment.id,
+          user_id: user.id, format: :json }
+      end
+
       before do
         create(:courses_user, course:, user:)
+        allow_any_instance_of(WikiCourseEdits).to receive(:remove_assignment)
+        allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+        allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
+      end
+
+      it 'removes the student from the talk page before unassigning them' do
+        expect_any_instance_of(WikiCourseEdits).to receive(:remove_assignment) do |_, assignment:|
+          expect(assignment.user_id).to eq(user.id)
+        end
+        delete "/assignments/#{assignment.id}", params: unclaim_params
+      end
+
+      it 'syncs the course page and assignment talk pages on the wiki' do
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+        delete "/assignments/#{assignment.id}", params: unclaim_params
       end
 
       context 'when the assignment_id is provided' do
@@ -509,8 +530,19 @@ describe AssignmentsController, type: :request do
       { course_id: course.id, id: assignment.id, user_id: user.id, format: :json }
     end
 
+    before do
+      allow_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+      allow_any_instance_of(WikiCourseEdits).to receive(:update_course)
+    end
+
     context 'when the claim succeeds' do
       before { create(:courses_user, course:, user:) }
+
+      it 'syncs the course page and assignment talk pages on the wiki' do
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_assignments)
+        expect_any_instance_of(WikiCourseEdits).to receive(:update_course)
+        put "/assignments/#{assignment.id}/claim", params: request_params
+      end
 
       it 'renders a 200 and the assignment belongs to the user' do
         put "/assignments/#{assignment.id}/claim", params: request_params
