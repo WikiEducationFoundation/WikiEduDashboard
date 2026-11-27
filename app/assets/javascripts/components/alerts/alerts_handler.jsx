@@ -61,6 +61,8 @@ const AlertsHandler = ({ alertLabel, noAlertsLabel, adminAlert }) => {
               onChange={sortSelect}
               options={options}
               styles={sortSelectStyles}
+              menuPosition="fixed"
+              menuPortalTarget={document.body}
             />
           </div>
         </div>
