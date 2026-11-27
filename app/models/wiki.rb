@@ -267,10 +267,18 @@ class Wiki < ApplicationRecord
 
   def ensure_wiki_exists
     return if errors.any? # Skip this check if the wiki had a validation error.
-    site_info = WikiApi.new(self).meta(:siteinfo)
-    raise InvalidWikiError, domain if site_info.nil?
-    servername = site_info.data.dig('general', 'servername')
+    servername = fetch_servername
+    raise InvalidWikiError, domain if servername.nil?
     raise InvalidWikiError, domain unless base_url == "https://#{servername}"
+  end
+
+  # Returns nil if siteinfo can't be read (e.g. a domain that redirects
+  # to its Incubator page, which serves HTML instead of API JSON).
+  def fetch_servername
+    site_info = WikiApi.new(self).meta(:siteinfo)
+    site_info&.data&.dig('general', 'servername')
+  rescue StandardError
+    nil
   end
 
   class InvalidWikiError < StandardError
