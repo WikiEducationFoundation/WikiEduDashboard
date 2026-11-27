@@ -27,6 +27,7 @@ describe 'Copying Available Articles from another course', :js, type: :feature d
     login_as(instructor, scope: :user)
     stub_oauth_edit
     stub_raw_action
+    stub_current_page_content
     stub_info_query
   end
 

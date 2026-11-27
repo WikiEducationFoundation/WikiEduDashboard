@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/current_page_content"
 require_dependency "#{Rails.root}/lib/wiki_edits"
 
 class AddSandboxTemplate
@@ -10,8 +10,7 @@ class AddSandboxTemplate
     @sandbox = sandbox
     @sandbox_template = sandbox_template
     @wiki_editor = WikiEdits.new(home_wiki)
-    wiki_api = WikiApi.new(home_wiki)
-    @initial_page_content = wiki_api.get_page_content(@sandbox)
+    @initial_page_content = CurrentPageContent.fetch(home_wiki, @sandbox)
     add_template
   end
 

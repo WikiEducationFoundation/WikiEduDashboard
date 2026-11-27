@@ -333,6 +333,7 @@ describe 'the course page', type: :feature, js: true do
     it 'allows instructor to remove an available article' do
       stub_info_query
       stub_raw_action
+      stub_current_page_content
       Assignment.destroy_all
       login_as(admin)
       stub_oauth_edit

@@ -175,7 +175,7 @@ describe WikiCourseEdits do
     it 'posts to the userpage of the enrolling student and their sandbox' do
       expect(AddSandboxTemplate).to receive(:new)
       expect_any_instance_of(WikiEdits).to receive(:add_to_page_top).twice
-      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return('')
+      allow(CurrentPageContent).to receive(:fetch).and_return('')
       described_class.new(action: :enroll_in_course,
                           course:,
                           current_user: user,
@@ -185,7 +185,7 @@ describe WikiCourseEdits do
     it 'does not repost templates that are already present' do
       expect(AddSandboxTemplate).to receive(:new)
       expect_any_instance_of(WikiEdits).not_to receive(:add_to_page_top)
-      allow_any_instance_of(WikiApi).to receive(:get_page_content)
+      allow(CurrentPageContent).to receive(:fetch)
         .and_return(user_page_content,
                     talk_template)
       described_class.new(action: :enroll_in_course,
@@ -238,7 +238,7 @@ describe WikiCourseEdits do
   describe '#disenroll_from_course' do
     it 'respects the enrollment_edits_enabled edit_settings flag' do
       course.update(flags: { 'edit_settings' => { 'enrollment_edits_enabled' => false } })
-      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(
+      allow(CurrentPageContent).to receive(:fetch).and_return(
         user_page_content,
         user_page_talk_content
       )
@@ -249,8 +249,8 @@ describe WikiCourseEdits do
                           disenrolling_user:)
     end
 
-    it 'does nothing if get_page_content returns nil' do
-      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(nil)
+    it 'does nothing if the page content is nil' do
+      allow(CurrentPageContent).to receive(:fetch).and_return(nil)
       expect_any_instance_of(WikiEdits).not_to receive(:post_whole_page)
       described_class.new(action: :disenroll_from_course,
                           course:,
@@ -259,7 +259,7 @@ describe WikiCourseEdits do
     end
 
     it 'does nothing if page content does not include templates' do
-      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(
+      allow(CurrentPageContent).to receive(:fetch).and_return(
         user_page_content_without_enrollment,
         user_talk_page_content_without_enrollment
       )
@@ -271,7 +271,7 @@ describe WikiCourseEdits do
     end
 
     it 'removes enrollment template from user page if it exists' do
-      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(
+      allow(CurrentPageContent).to receive(:fetch).and_return(
         user_page_content,
         user_talk_page_content_without_enrollment
       )
@@ -287,7 +287,7 @@ describe WikiCourseEdits do
     end
 
     it 'removes enrollment template from user talk page if it exists' do
-      allow_any_instance_of(WikiApi).to receive(:get_page_content).and_return(
+      allow(CurrentPageContent).to receive(:fetch).and_return(
         user_page_content_without_enrollment,
         user_page_talk_content
       )
@@ -311,6 +311,7 @@ describe WikiCourseEdits do
     before do
       stub_wiki_validation
       stub_raw_action
+      stub_current_page_content
       create(:courses_user, user:, course:)
       create(:courses_user, user: instructor, course:,
                             role: CoursesUsers::Roles::INSTRUCTOR_ROLE)

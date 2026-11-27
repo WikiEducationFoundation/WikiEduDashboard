@@ -84,6 +84,7 @@ describe 'Student users', type: :feature, js: true do
       login_as(user, scope: :user)
       stub_oauth_edit
       stub_raw_action
+      stub_current_page_content
 
       # click enroll button, enter passcode in alert popup to enroll
       visit "/courses/#{Course.first.slug}"
@@ -132,6 +133,7 @@ describe 'Student users', type: :feature, js: true do
       end
       stub_oauth_edit
       stub_raw_action
+      stub_current_page_content
       click_link 'Join'
       expect(page).to have_content 'successfully joined'
       click_link 'Students'
@@ -170,6 +172,7 @@ describe 'Student users', type: :feature, js: true do
       login_as(user, scope: :user)
       stub_oauth_edit
       stub_raw_action
+      stub_current_page_content
 
       visit "/courses/#{Course.first.slug}?enroll=passcode"
       expect(page).to have_content User.last.username
@@ -196,6 +199,7 @@ describe 'Student users', type: :feature, js: true do
       )
       stub_oauth_edit
       stub_raw_action
+      stub_current_page_content
       logout
       visit "/courses/#{Course.first.slug}?enroll=passcode"
       find(:link, 'Log in with Wikipedia', match: :first).click
@@ -222,6 +226,7 @@ describe 'Student users', type: :feature, js: true do
       allow_any_instance_of(WikiApi).to receive(:get_user_info).and_return(nil)
       stub_oauth_edit
       stub_raw_action
+      stub_current_page_content
       logout
       visit "/courses/#{Course.first.slug}?enroll=passcode"
       find(:link, 'Log in with Wikipedia', match: :first).click

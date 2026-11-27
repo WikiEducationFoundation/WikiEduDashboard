@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require_dependency "#{Rails.root}/lib/wiki_api"
+require_dependency "#{Rails.root}/lib/current_page_content"
 require_dependency "#{Rails.root}/lib/wiki_output_templates"
 #= Class for generating wikitext for updating assignment details on talk pages
 class WikiAssignmentOutput
@@ -31,7 +32,7 @@ class WikiAssignmentOutput
     # If a course changed state so that it has no on-wiki course page, don't post.
     return nil if @course_page.nil?
 
-    initial_page_content = WikiApi.new(@wiki).get_page_content(@talk_title)
+    initial_page_content = CurrentPageContent.fetch(@wiki, @talk_title)
     # This indicates an API failure, which may happen because of rate-limiting.
     # A nonexistent page will return empty string instead of nil.
     return nil if initial_page_content.nil?
