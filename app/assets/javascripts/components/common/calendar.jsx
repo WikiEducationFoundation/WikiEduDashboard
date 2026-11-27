@@ -28,8 +28,8 @@ const Calendar = ({
   const inrange = useCallback(
     (day) => {
       if (course.start === undefined) { return false; }
-      const start = new Date(course.start);
-      const end = new Date(course.end);
+      const start = toDate(course.start);
+      const end = toDate(course.end);
       return start <= day && day <= end;
     },
     [course.start, course.end]
