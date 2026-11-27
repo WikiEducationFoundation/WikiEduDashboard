@@ -238,8 +238,10 @@ describe TimesliceManager do
     end
 
     context 'when the timeslice does not exist' do
-      it 'logs the error' do
-        allow(Sentry).to receive(:capture_exception)
+      it 'logs the error and returns nil' do
+        # In production capture_exception returns the event, which must not leak out
+        # as the start time (PEONY-3F8, PEONY-3F7).
+        allow(Sentry).to receive(:capture_exception).and_return(instance_double(Sentry::ErrorEvent))
         expect(subject).to eq(nil)
         expect(Sentry).to have_received(:capture_exception)
       end
