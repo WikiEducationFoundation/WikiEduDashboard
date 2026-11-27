@@ -61,18 +61,43 @@ describe 'Article Viewer authorship highlighting, read by a screen reader',
     spoken = screen_reader_say_all.map(&:strip)
     # Say All carries on past the article into the legend and footer.
     article = spoken.take(spoken.index('matters.') + 1)
-    expect(article).to eq(['The', 'compound', 'Edited by Ragesoss', 'is', 'highly', 'toxic',
+    expect(article).to eq(['The', 'compound', 'Added by Ragesoss', 'is', 'highly', 'toxic',
                            'to', 'fish.',
-                           'Edited by Ragesoss', 'Researchers', 'found', 'that', 'the',
+                           'Added by Ragesoss', 'Researchers', 'found', 'that', 'the',
                            'effect', 'persists.',
-                           'Water', 'Edited by Ragesoss', 'quality', 'matters.'])
+                           'Water', 'Added by Ragesoss', 'quality', 'matters.'])
   end
 
   it 'names the student on entering a run, not on each word, when reading word by word' do
     open_highlighted_article
     move_screen_reader_to('.parsed-article p')
-    words = Array.new(6) { screen_reader_next_word.map(&:strip) }
-    expect(words).to eq([['The'], ['compound'], ['Edited by Ragesoss', 'is'], ['highly'],
-                         ['toxic'], ['to']])
+    words = Array.new(8) { screen_reader_next_word.map(&:strip) }
+    expect(words).to eq([['The'], ['compound'], ['Added'], ['by'], ['Ragesoss'], ['is'],
+                         ['highly'], ['toxic']])
+  end
+
+  # The legend button scrolls to a paragraph with the student's text, but moves
+  # focus to their highlighted run within it rather than the whole paragraph.
+  def press_legend_button
+    # Orca only follows focus here after real input, which this caret move provides.
+    move_screen_reader_to('.parsed-article p')
+    page.execute_script("document.querySelector('button.article-viewer-legend-button').focus()")
+    sleep 1
+    screen_reader_speech_during { system('xdotool', 'key', 'Return', exception: true) }
+      .map(&:strip)
+  end
+
+  it "announces the student's highlighted run, not its paragraph, from the legend button" do
+    open_highlighted_article
+    spoken = press_legend_button
+    expect(spoken).to include('Added by Ragesoss')
+    expect(spoken.join(' ')).not_to include('The compound')
+  end
+
+  it "continues reading from the start of the student's run after the legend button" do
+    open_highlighted_article
+    press_legend_button
+    words = Array.new(4) { screen_reader_next_word.map(&:strip) }
+    expect(words).to eq([['Added'], ['by'], ['Ragesoss'], ['is']])
   end
 end

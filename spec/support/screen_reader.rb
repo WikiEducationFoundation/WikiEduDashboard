@@ -57,6 +57,13 @@ module ScreenReaderHelpers
     screen_reader_speech_since(offset)
   end
 
+  # Runs the block (a click, a key press) and returns what Orca said in response.
+  def screen_reader_speech_during
+    offset = File.size(orca_log)
+    yield
+    screen_reader_speech_since(offset)
+  end
+
   # Runs one of Orca's D-Bus commands and returns what Orca said in response.
   def screen_reader_command(orca_module, command, until_logged: nil, limit: 10)
     offset = File.size(orca_log)

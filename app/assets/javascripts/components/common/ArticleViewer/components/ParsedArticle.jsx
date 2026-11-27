@@ -61,7 +61,7 @@ const processAuthorshipHtml = (html) => {
 
     groups.forEach((group) => {
       const editorName = group[0].getAttribute('title');
-      const editedByText = I18n.t('articles.edited_by', { author: editorName });
+      const addedByText = I18n.t('articles.added_by', { author: editorName });
 
       const parent = group[0].parentNode;
       const firstSpan = group[0];
@@ -76,10 +76,19 @@ const processAuthorshipHtml = (html) => {
         current = current.nextSibling;
       }
 
+      // A visually hidden label opens the run for screen readers. It's plain
+      // text rather than an aria-label, since a labelled wrapper needs a role
+      // and screen readers announce the role ("group") along with the label.
+      // The editor's name becomes a hover tooltip only while the pointer is
+      // over the run (see showRunTooltip), so screen readers don't read it too.
       const wrapper = doc.createElement('span');
-      wrapper.setAttribute('role', 'group');
-      wrapper.setAttribute('aria-label', editedByText);
-      wrapper.setAttribute('title', editorName);
+      wrapper.className = 'authorship-run';
+      wrapper.setAttribute('data-editor', editorName);
+      const label = doc.createElement('span');
+      label.className = 'authorship-run__label';
+      // The leading space keeps the label from running into the previous word.
+      label.textContent = ` ${addedByText}`;
+      wrapper.appendChild(label);
 
       parent.insertBefore(wrapper, firstSpan);
       nodesToWrap.forEach((node) => {
@@ -95,6 +104,19 @@ const processAuthorshipHtml = (html) => {
     console.error('Failed to parse or process authorship HTML:', error);
     return html;
   }
+};
+
+// Authorship runs carry the editor's name in data-editor rather than a title,
+// because screen readers read a title aloud after the run's label. Adding the
+// title only while the pointer is over the run keeps the native tooltip.
+const showRunTooltip = (event) => {
+  const run = event.target.closest?.('.authorship-run');
+  if (run && !run.hasAttribute('title')) run.setAttribute('title', run.dataset.editor);
+};
+
+const hideRunTooltip = (event) => {
+  const run = event.target.closest?.('.authorship-run');
+  if (run && !run.contains(event.relatedTarget)) run.removeAttribute('title');
 };
 
 export const ParsedArticle = ({ html, onInnerHTMLClick, onInnerHTMLKeyDown }) => {
@@ -117,6 +139,12 @@ export const ParsedArticle = ({ html, onInnerHTMLClick, onInnerHTMLKeyDown }) =>
       className="parsed-article"
       onClick={onInnerHTMLClick}
       onKeyDown={onInnerHTMLKeyDown}
+      // The tooltip handlers have no keyboard counterpart because the runs
+      // aren't focusable; screen readers get the name from the run's label.
+      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+      onMouseOver={showRunTooltip}
+      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+      onMouseOut={hideRunTooltip}
       dangerouslySetInnerHTML={{ __html: processedHTML }}
     />
   );
